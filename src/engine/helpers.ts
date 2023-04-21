@@ -4,7 +4,7 @@ import { constants } from "../constants";
 import { StaticMap } from "../context/GameStateContext";
 
 export const loadMap = async (mapUrl: string) => {
-  const data = await fetch(mapUrl);
+  const data = await fetch(`${constants.BASE_URL}/${mapUrl}`);
   const json: StaticMap = await data.json();
 
   return json;

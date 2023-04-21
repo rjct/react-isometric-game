@@ -19,7 +19,7 @@ const hero = createHero();
 export const GameMap = {
   debug: false,
 
-  mapUrl: "./maps/map_1.json",
+  mapUrl: "maps/map_1.json",
 
   mapSize: {
     width: 0,

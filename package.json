@@ -5,7 +5,7 @@
   "license": "ISC",
   "homepage": "https://reject.in.ua/react-isometric-game/",
   "scripts": {
-    "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"CHOKIDAR_USEPOLLING=true craco start\"",
+    "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"NODE_ENV=development CHOKIDAR_USEPOLLING=true craco start\"",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"

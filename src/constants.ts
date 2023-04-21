@@ -2,6 +2,10 @@ const tileSize = { width: 72, height: 36 };
 const MAGIC_NUMBER = 1.415;
 
 export const constants = {
+  BASE_URL:
+    process.env.NODE_ENV === "development"
+      ? "http://localhost:3000/react-isometric-game"
+      : "https://reject.in.ua/react-isometric-game",
   FPS: 24,
   SCROLL_SPEED: 300,
   SCROLL_EDGE_WIDTH: 50,
