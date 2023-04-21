@@ -1,0 +1,17 @@
+@import "../_variables";
+
+.shared-unit-action-idle() {
+  &.action-idle .char {
+    animation: action-idle @animation-length steps(@animation-steps--idle);
+    animation-iteration-count: 1;
+  }
+
+  @keyframes action-idle {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--idle));
+    }
+  }
+}

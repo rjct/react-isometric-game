@@ -1,0 +1,5 @@
+/node_modules
+/build
+/src/index.css
+/src/index.css.map
+*.psd

@@ -1,0 +1,68 @@
+.inventory-modal {
+  position: absolute;
+  left: 0;
+  top: 0;
+  right: 0;
+  bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  backdrop-filter: blur(30px);
+  z-index: 999999;
+
+  .inventory {
+    position: relative;
+    overflow: hidden;
+    width: 80%;
+    height: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: 2fr 1fr 1fr;
+    grid-column-gap: 15px;
+    grid-row-gap: 15px;
+    background-color: #000000;
+    background-image: radial-gradient(#11581e, #041607);
+    padding: 10px 15px 15px 15px;
+    border-radius: 10px;
+    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+    border: solid 1px rgba(0, 255, 0, 0.4);
+    color: @text-color;
+
+    > fieldset:not(.controls) {
+      border: solid 1px limegreen;
+    }
+
+    .backpack {
+      grid-area: 1 / 1 / 5 / 2;
+    }
+
+    .left-hand {
+      grid-area: 3 / 2 / 4 / 3;
+    }
+
+    .right-hand {
+      grid-area: 3 / 3 / 4 / 4;
+    }
+
+    .hero-overview {
+      grid-area: 1 / 2 / 2 / 3;
+    }
+
+    .hero-info {
+      grid-area: 1 / 3 / 3 / 4;
+    }
+
+    .armor {
+      grid-area: 2 / 2 / 3 / 3;
+    }
+
+    .controls {
+      grid-area: 4 / 2 / 5 / 4;
+      padding: 10px;
+      display: flex;
+      justify-content: flex-end;
+    }
+  }
+}

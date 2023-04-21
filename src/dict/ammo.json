@@ -1,0 +1,12 @@
+{
+  "pistol": {
+    "id": "pistol",
+    "className": ["pistol-ammo"],
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 4, "height": 8 }
+    },
+    "speed": 20,
+    "damage": 20
+  }
+}

@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.shared-unit-action-walk() {
+  &.action-walk .char {
+    animation: action-walk @animation-length steps(@animation-steps--walk) infinite;
+  }
+
+  @keyframes action-walk {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--walk));
+    }
+  }
+}

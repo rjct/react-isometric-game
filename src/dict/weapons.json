@@ -1,0 +1,23 @@
+{
+  "pistol": {
+    "title": "Pistol",
+    "className": ["pistol"],
+    "ammoType": "pistolAmmo",
+    "ammoCapacity": 8,
+    "ammoConsumptionPerShoot": 1,
+    "range": 8
+  },
+
+  "grenade": {
+    "id": "grenade",
+    "speed": 20,
+    "gravity": 200,
+
+    "className": ["grenade"],
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 4, "height": 8 }
+    },
+    "position": { "x": 0, "y": 0 }
+  }
+}

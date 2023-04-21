@@ -1,0 +1,31 @@
+.mini-map {
+  background-color: #000000;
+  background-image: radial-gradient(#11581e, #041607);
+  position: relative;
+  overflow: hidden;
+  flex-shrink: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+
+  &.centered-map {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .mini-map-wrapper {
+    overflow: hidden;
+    position: relative;
+
+    canvas {
+      position: absolute;
+      left: 0;
+      top: 0;
+      transform-origin: top left;
+      transform: rotateX(60deg) rotateZ(45deg);
+      border: solid 1px rgba(255, 255, 255, 0.6);
+    }
+  }
+}

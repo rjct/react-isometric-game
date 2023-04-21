@@ -1,0 +1,17 @@
+@import "../_variables";
+
+.shared-unit-action-dead() {
+  &.action-dead .char {
+    animation: action-dead @animation-length steps(@animation-steps--dead);
+    animation-iteration-count: 1;
+  }
+
+  @keyframes action-dead {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--dead));
+    }
+  }
+}

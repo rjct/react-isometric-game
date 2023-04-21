@@ -1,0 +1,38 @@
+.ammo {
+  &.pistol-ammo {
+    position: absolute;
+    background-color: #000000;
+    z-index: 1;
+    transform-origin: left top;
+    border-radius: 0 0 50% 50%;
+
+    &:before {
+      content: "";
+      position: absolute;
+      background-image: url("/assets/weapons/pistol/muzzle.png");
+      background-position-y: -600px;
+      animation: action-pistol-muzzle 0.07s steps(5) 1;
+      width: 200px;
+      height: 200px;
+      rotate: 90deg;
+      margin-left: -123px;
+      left: 0;
+      top: 0;
+      zoom: 0.3;
+      visibility: hidden;
+    }
+  }
+}
+
+@keyframes action-pistol-muzzle {
+  0% {
+    background-position-x: 0;
+    visibility: visible;
+    transform: translateX(-50%);
+  }
+  100% {
+    background-position-x: -960px;
+    visibility: hidden;
+    transform: translateX(-100%);
+  }
+}

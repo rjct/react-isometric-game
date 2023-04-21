@@ -1,0 +1,47 @@
+{
+  "hero": {
+    "id": "hero",
+    "selectable": true,
+    "className": "hero",
+    "speed": {
+      "walk": 1.4,
+      "run": 3.5
+    },
+    "coolDownTime": 5,
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 200, "height": 200 }
+    },
+    "actionPoints": {
+      "current": 6,
+      "max": 8
+    },
+    "healthPoints": {
+      "current": 100,
+      "max": 100
+    }
+  },
+
+  "ghoul": {
+    "id": "ghoul",
+    "selectable": true,
+    "className": "ghoul",
+    "speed": {
+      "walk": 0.4,
+      "run": 0.7
+    },
+    "coolDownTime": 5,
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 200, "height": 200 }
+    },
+    "actionPoints": {
+      "current": 6,
+      "max": 8
+    },
+    "healthPoints": {
+      "current": 50,
+      "max": 100
+    }
+  }
+}

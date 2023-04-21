@@ -1,0 +1,72 @@
+{
+  "size": {
+    "width": 30,
+    "height": 30
+  },
+  "terrain": {
+    "className": "earth",
+    "rows": 6,
+    "columns": 8
+  },
+  "heroStartPosition": {
+    "x": 14,
+    "y": 9
+  },
+  "enemies2": [],
+  "enemies": [
+    { "id": "ghoul", "position": { "x": 10, "y": 10 } },
+
+    { "id": "ghoul", "position": { "x": 3, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 4, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 5, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 6, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 7, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 8, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 9, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 10, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 11, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 12, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 13, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 14, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 15, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 16, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 17, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 18, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 19, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 20, "y": 27 } },
+    { "id": "ghoul", "position": { "x": 21, "y": 27 } }
+  ],
+  "buildings": [
+    {
+      "id": "buick_l",
+      "position": { "x": 6, "y": 1 }
+    },
+    {
+      "id": "buick_r",
+      "position": { "x": 3, "y": 3 }
+    },
+    {
+      "id": "buick_t",
+      "position": { "x": 1, "y": 6 }
+    },
+    {
+      "id": "buick_t",
+      "position": { "x": 25, "y": 25 }
+    },
+    {
+      "id": "buick_t",
+      "position": { "x": 10, "y": 20 }
+    }
+  ],
+  "exitPoints": [
+    {
+      "map": "/maps/map_2.json",
+      "area": {
+        "x1": 0,
+        "y1": 0,
+        "x2": 10,
+        "y2": 1
+      }
+    }
+  ]
+}

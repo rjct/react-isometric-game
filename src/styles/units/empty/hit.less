@@ -1,0 +1,17 @@
+@import "../_variables";
+
+.shared-unit-action-hit() {
+  &.action-hit .char {
+    animation: action-hit @animation-length steps(@animation-steps--hit);
+    animation-iteration-count: 1;
+  }
+
+  @keyframes action-hit {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--hit));
+    }
+  }
+}

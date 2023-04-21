@@ -1,0 +1,32 @@
+.top-wrapper {
+  background: #000000;
+  display: flex;
+  font-family: monospace;
+  font-size: 1em;
+  gap: 10px;
+  padding: 10px;
+
+  .block {
+    display: flex;
+    flex: 1;
+    padding: 5px 10px 0 0;
+    border-top: 1px solid;
+    background-image: linear-gradient(to bottom, #19ff81, rgba(0, 0, 0, 0));
+    background-repeat: no-repeat;
+    background-size: 1px 5vh;
+    background-position: right;
+    color: @text-color;
+
+    .title {
+      flex: 1;
+    }
+
+    .value {
+      display: flex;
+    }
+
+    &.top {
+      flex: 3;
+    }
+  }
+}

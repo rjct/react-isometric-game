@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.shared-unit-action-run() {
+  &.action-run .char {
+    animation: action-run @animation-length steps(@animation-steps--run) infinite;
+  }
+
+  @keyframes action-run {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--run));
+    }
+  }
+}

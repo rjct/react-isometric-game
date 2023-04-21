@@ -1,0 +1,49 @@
+import { GameUI } from "../../context/GameUIContext";
+import { constants } from "../../constants";
+
+export type ScrollMapOnScreenEdgesUIReducerAction = {
+  type: "scrollMapOnScreenEdges";
+  deltaTime: number;
+};
+
+export const scrollMapOnScreenEdges = (state: GameUI, action: ScrollMapOnScreenEdgesUIReducerAction) => {
+  const shift = (action.deltaTime || 0) * constants.SCROLL_SPEED;
+  const currentScroll = { ...state.scroll };
+
+  const x = state.mousePosition.browser.x;
+  const y = state.mousePosition.browser.y + state.viewport.y1;
+
+  const edge = constants.SCROLL_EDGE_WIDTH;
+
+  state.scrollDirection = "none";
+
+  if (x === Infinity || y === Infinity) return state;
+
+  switch (true) {
+    // left
+    case x <= edge:
+      state.setScroll({ ...currentScroll, ...{ x: state.scroll.x - shift } });
+      state.scrollDirection = "left";
+      break;
+
+    // top
+    case y <= edge:
+      state.setScroll({ ...currentScroll, ...{ y: state.scroll.y - shift } });
+      state.scrollDirection = "top";
+      break;
+
+    // right
+    case x > state.rect.width - edge:
+      state.setScroll({ ...currentScroll, ...{ x: state.scroll.x + shift } });
+      state.scrollDirection = "right";
+      break;
+
+    // bottom
+    case y > state.rect.height - edge:
+      state.setScroll({ ...currentScroll, ...{ y: state.scroll.y + shift } });
+      state.scrollDirection = "bottom";
+      break;
+  }
+
+  return { ...state };
+};

@@ -1,0 +1,44 @@
+@import "../helpers/tiles-generator";
+@import "earth";
+@import "vault";
+
+.terrain {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: left top;
+
+  .terrain-tile {
+    position: absolute;
+    background-repeat: no-repeat;
+    font-size: 0;
+
+    &.exit-point {
+      filter: grayscale(1) sepia(100%) hue-rotate(90deg);
+    }
+  }
+
+  .terrain-earth();
+  .terrain-vault();
+}
+
+.fow,
+.path-visualization {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  transform-origin: left top;
+  transform: rotateX(60deg) rotateZ(45deg);
+
+  z-index: 99;
+  pointer-events: none;
+}
+
+.path-visualization {
+  z-index: 1;
+}
