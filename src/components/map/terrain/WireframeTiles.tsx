@@ -31,7 +31,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
           key={`${x}:${y}`}
           tile={wireframeItem}
           isActive={wireframeItem.isActive}
-          isOccupied={gameState.isCellOccupied(x, y)}
+          isOccupied={gameState.debug ? gameState.isCellOccupied(x, y) : false}
           value={wireframeItem.value}
           direction={wireframeItem.direction}
           style={wireframeItem.style}
@@ -48,7 +48,6 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
 
   React.useEffect(() => {
     if (hero.isUsingHands()) return;
-
     highlightHeroPath();
   }, [debouncedMousePosition]);
 
