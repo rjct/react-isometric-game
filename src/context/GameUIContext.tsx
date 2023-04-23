@@ -11,6 +11,7 @@ const gameUIContext = {
     browser: { x: Infinity, y: Infinity },
     isOutOfGrid: true,
   },
+  // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   setScroll: (position: Coordinates) => null,
   scrollDirection: "none" as "none" | "left" | "top" | "right" | "bottom",
   isScrolling: function () {

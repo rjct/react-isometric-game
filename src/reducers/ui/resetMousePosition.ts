@@ -4,6 +4,7 @@ export type ResetMousePositionUIReducerAction = {
   type: "resetMousePosition";
 };
 
+// eslint-disable-next-line  @typescript-eslint/no-unused-vars
 export function resetMousePosition(state: GameUI, action: ResetMousePositionUIReducerAction): GameUI {
   return {
     ...state,
