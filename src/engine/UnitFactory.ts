@@ -178,7 +178,7 @@ export class Unit {
       this.action = "hit";
 
       window.setTimeout(() => {
-        this.action = "none";
+        if (!this.isDead) this.action = "none";
       }, constants.unit_css_animation_length);
     }
   }
