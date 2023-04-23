@@ -6,7 +6,7 @@
   "homepage": "https://reject.in.ua/react-isometric-game/",
   "scripts": {
     "start": "concurrently --kill-others \"less-watch-compiler --config less-watcher.config.json\" \"NODE_ENV=development CHOKIDAR_USEPOLLING=true craco start\"",
-    "build": "react-scripts build",
+    "build": "react-scripts build && less-watch-compiler --config less-prod.config.json --run-once",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
