@@ -4,7 +4,7 @@ import { Unit } from "./UnitFactory";
 import { Ammo, AmmoType } from "./AmmoFactory";
 import { getDistanceBetweenGridPoints } from "./helpers";
 
-export type WeaponType = "pistol";
+export type WeaponType = keyof typeof weapons;
 
 export class Weapon {
   public readonly title: string;

@@ -47,7 +47,7 @@ export function ControlPanel() {
             action={"useLeftHand"}
             selected={hero.currentSelectedAction === "useLeftHand"}
             onChange={handleCurrentHeroActionChange}
-            weapon={hero.hands.left!}
+            weapon={hero.inventory.leftHand!}
           />
         </Button>
 
@@ -60,7 +60,7 @@ export function ControlPanel() {
             action={"useRightHand"}
             selected={hero.currentSelectedAction === "useRightHand"}
             onChange={handleCurrentHeroActionChange}
-            weapon={hero.hands.right!}
+            weapon={hero.inventory.rightHand!}
           />
         </Button>
 

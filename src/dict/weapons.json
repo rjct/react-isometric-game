@@ -8,16 +8,12 @@
     "range": 8
   },
 
-  "grenade": {
-    "id": "grenade",
-    "speed": 20,
-    "gravity": 200,
-
-    "className": ["grenade"],
-    "size": {
-      "grid": { "width": 1, "height": 1 },
-      "screen": { "width": 4, "height": 8 }
-    },
-    "position": { "x": 0, "y": 0 }
+  "smg": {
+    "title": "Submachine Gun",
+    "className": ["smg"],
+    "ammoType": "pistolAmmo",
+    "ammoCapacity": 30,
+    "ammoConsumptionPerShoot": 3,
+    "range": 10
   }
 }

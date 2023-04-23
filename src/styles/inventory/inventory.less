@@ -32,29 +32,43 @@
 
     > fieldset:not(.controls) {
       border: solid 1px limegreen;
+      display: flex;
     }
 
-    .backpack {
+    @import "inventory-item";
+
+    .backpack-wrapper {
       grid-area: 1 / 1 / 5 / 2;
+
+      .backpack {
+        flex: 1;
+        overflow: auto;
+      }
     }
 
-    .left-hand {
+    .left-hand-wrapper {
+      display: flex;
       grid-area: 3 / 2 / 4 / 3;
     }
 
-    .right-hand {
+    .right-hand-wrapper {
+      display: flex;
       grid-area: 3 / 3 / 4 / 4;
     }
 
-    .hero-overview {
+      .hand {
+        flex: 1;
+      }
+
+    .hero-overview-wrapper {
       grid-area: 1 / 2 / 2 / 3;
     }
 
-    .hero-info {
+    .hero-info-wrapper {
       grid-area: 1 / 3 / 3 / 4;
     }
 
-    .armor {
+    .armor-wrapper {
       grid-area: 2 / 2 / 3 / 3;
     }
 

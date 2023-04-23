@@ -13,6 +13,7 @@ import {
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "./detectFiredAmmoHitsTarget";
 import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHeroOnExitPoints";
 import { toggleDebug, ToggleDebugReducerAction } from "./toggleDebug";
+import { transferItem, TransferItemReducerAction } from "./transferItem";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -25,7 +26,8 @@ export type GameReducerAction =
   | HighlightTargetWireframeCellReducerAction
   | SetCurrentUnitActionReducerAction
   | DetectFiredAmmoHitsTargetAction
-  | DetectHeroOnExitPointsAction;
+  | DetectHeroOnExitPointsAction
+  | TransferItemReducerAction;
 
 export function reducer(state: typeof GameMap, action: GameReducerAction): typeof GameMap {
   switch (action.type) {
@@ -61,6 +63,9 @@ export function reducer(state: typeof GameMap, action: GameReducerAction): typeo
 
     case "detectHeroOnExitPoints":
       return detectHeroOnExitPoints(state, action as DetectHeroOnExitPointsAction);
+
+    case "transferItem":
+      return transferItem(state, action as TransferItemReducerAction);
 
     default:
       throw new Error();

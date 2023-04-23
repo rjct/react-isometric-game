@@ -42,9 +42,10 @@ export class Unit {
   public path: Coordinates[] = [];
   public pathQueue: UnitPathQueue;
 
-  public hands = {
-    left: null as Weapon | null,
-    right: null as Weapon | null,
+  public inventory = {
+    backpack: [] as Weapon[],
+    leftHand: null as Weapon | null,
+    rightHand: null as Weapon | null,
   };
 
   public firedAmmoQueue: Ammo[] = [];
@@ -120,7 +121,48 @@ export class Unit {
   public getCurrentWeapon() {
     if (!this.isUsingHands()) return null;
 
-    return this.currentSelectedAction === "useLeftHand" ? this.hands.left : this.hands.right;
+    return this.currentSelectedAction === "useLeftHand" ? this.inventory.leftHand : this.inventory.rightHand;
+  }
+
+  public getBackpackItems() {
+    return this.inventory.backpack;
+  }
+
+  public putItemToInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
+    if (inventoryType === "backpack") {
+      this.inventory.backpack.push(item);
+    } else {
+      this.inventory[inventoryType] = item;
+    }
+  }
+
+  public isAllowedToPutItemInInventory(inventoryType: keyof Unit["inventory"]) {
+    if (inventoryType === "backpack") return true;
+
+    return this.inventory[inventoryType] === null;
+  }
+
+  public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
+    const itemOnInventory =
+      this.inventory.backpack.find((backpackItem) => backpackItem.id === item.id) ||
+      this.inventory.leftHand ||
+      this.inventory.rightHand;
+
+    if (itemOnInventory) {
+      if (inventoryType === "backpack") {
+        const index = this.inventory.backpack.findIndex((item) => item.id === itemOnInventory.id);
+        this.inventory.backpack.splice(index, 1);
+      } else {
+        this.inventory[inventoryType] = null;
+      }
+    }
+  }
+
+  public getInventoryItemById(itemId: string) {
+    const leftHand = [this.inventory.leftHand];
+    const rightHand = [this.inventory.rightHand];
+
+    return [...this.inventory.backpack, ...leftHand, ...rightHand].filter(Boolean).find((item) => item?.id === itemId);
   }
 
   public takeDamage(ammo: Ammo) {

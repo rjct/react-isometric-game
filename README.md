@@ -70,8 +70,10 @@ ___
     - [x] Center map while hero is moving
   - ### Inventory
     - [x] Modal 
-    - [ ] Drag&drop items from/to backpack 
+    - [x] Drag&drop items from/to backpack 
     - [ ] Hero summary
+    - [ ] Items details
+    - [ ] Group similar items
 
 - ### Sound
   - [ ] Basic support using Web Audio API 
