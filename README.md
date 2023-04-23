@@ -1,5 +1,5 @@
 # React-isometric-game
-View the online demo at: [https://reject.in.ua/react-isometric-game](https://reject.in.ua/react-isometric-game)
+View the online demo at: [https://rjct.github.io/react-isometric-game](https://rjct.github.io/react-isometric-game)
 
 ### About
 ___
