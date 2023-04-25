@@ -9,8 +9,10 @@ import { toggleInventory, ToggleInventoryUIReducerAction } from "./toggleInvento
 import { detectKeyPress, DetectKeyPressUIReducerAction } from "./detectKeyPress";
 import { processKeyPress, ProcessKeyPressUIReducerAction } from "./processKeyPress";
 import { setScene, SetSceneUIReducerAction } from "./setScene";
+import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHero";
 
 export type UIReducerAction =
+  | CenterMapOnHeroUIReducerAction
   | ScrollMapUIReducerAction
   | ScrollMapOnScreenEdgesUIReducerAction
   | DetectKeyPressUIReducerAction
@@ -24,6 +26,9 @@ export type UIReducerAction =
 
 export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
   switch (action.type) {
+    case "centerMapOnHero":
+      return centerMapOnHero(state, action as CenterMapOnHeroUIReducerAction);
+
     case "scrollMap":
       return scrollMap(state, action as ScrollMapUIReducerAction);
 

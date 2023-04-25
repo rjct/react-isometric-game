@@ -5,17 +5,6 @@ export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();
   const hero = gameState.units[gameState.heroId];
 
-  const centerMapOnHero = () => {
-    const unitCoordinates = gameState.gridToScreenSpace(hero.position);
-
-    const viewport = uiState.viewport;
-
-    uiState.setScroll({
-      x: unitCoordinates.x - (viewport.x2 - viewport.x1) / 2,
-      y: unitCoordinates.y - (viewport.y2 - viewport.y1) / 2,
-    });
-  };
-
   const highlightHeroPath = () => {
     if (!hero || hero.isMoving() || uiState.isScrolling()) return;
 
@@ -80,5 +69,5 @@ export function useHero() {
     }
   };
 
-  return { hero, centerMapOnHero, highlightHeroPath, highlightTargetWireframeCell, doHeroAction };
+  return { hero, highlightHeroPath, highlightTargetWireframeCell, doHeroAction };
 }

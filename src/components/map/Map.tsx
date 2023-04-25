@@ -14,7 +14,7 @@ export const Map = React.forwardRef((props, setScrollRef) => {
 
   const mapRef = React.useRef<HTMLDivElement>(null);
 
-  const { hero, doHeroAction, centerMapOnHero } = useHero();
+  const { hero, doHeroAction } = useHero();
 
   const handleClick = () => {
     doHeroAction();
@@ -93,13 +93,14 @@ export const Map = React.forwardRef((props, setScrollRef) => {
   };
 
   React.useEffect(() => {
+    if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0) return;
+
     if (mapRef.current) {
       uiDispatch({ type: "scrollMap", scroll: getCurrentScroll() });
       uiDispatch({ type: "setMapRect", rect: getCurrentRect() });
       uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
       uiDispatch({ type: "resetMousePosition" });
-
-      centerMapOnHero();
+      uiDispatch({ type: "centerMapOnHero", unitCoordinates: gameState.gridToScreenSpace(hero.position) });
     }
   }, [gameState.mapSize]);
 

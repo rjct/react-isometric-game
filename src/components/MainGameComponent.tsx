@@ -14,6 +14,8 @@ import { useAnimationFrame } from "../hooks/useAnimationFrame";
 import { Debug } from "./Debug";
 import { loadMap, randomInt } from "../engine/helpers";
 import { GameOver } from "./GameOver";
+import { usePreloadAssets } from "../hooks/usePreloadAssets";
+import { Loading } from "./Loading";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -23,6 +25,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   const [gameState, gameDispatch] = React.useReducer(reducer, gameContext);
 
   const setScrollRef = React.useRef(() => null);
+
+  const { preloadAssets, loadingState } = usePreloadAssets();
 
   uiState.setScroll = setScrollRef.current;
 
@@ -68,7 +72,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     }
   };
 
-  useAnimationFrame(mainLoop, true);
+  useAnimationFrame(mainLoop, !loadingState.loading);
 
   React.useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
@@ -92,12 +96,17 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     loadMap(gameState.mapUrl).then((map) => gameDispatch({ type: "switchMap", map }));
   }, [gameState.mapUrl]);
 
+  React.useEffect(() => {
+    preloadAssets();
+  }, []);
+
   return (
     <div className="app-wrapper">
       <GameUiDispatchContext.Provider value={uiDispatch}>
         <GameUIContext.Provider value={uiState}>
           <GameDispatchContext.Provider value={gameDispatch}>
             <GameStateContext.Provider value={gameState}>
+              {loadingState.loading ? <Loading {...loadingState} /> : null}
               <GameOver />
               <Top />
               <Debug />

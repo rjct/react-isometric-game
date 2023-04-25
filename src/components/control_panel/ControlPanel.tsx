@@ -9,9 +9,13 @@ import { useGameState } from "../../hooks/useGameState";
 import { Button } from "../ui/Button";
 
 export function ControlPanel() {
-  const { hero, centerMapOnHero } = useHero();
+  const { hero } = useHero();
 
-  const { gameDispatch, uiDispatch } = useGameState();
+  const { gameDispatch, uiDispatch, gameState } = useGameState();
+
+  const centerMapOnHero = () => {
+    uiDispatch({ type: "centerMapOnHero", unitCoordinates: gameState.gridToScreenSpace(hero.position) });
+  };
 
   const handleCurrentHeroActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (hero.isMoving()) return;
