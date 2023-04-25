@@ -1,7 +1,7 @@
 @import "../_variables";
 
 .shared-unit-action-idle() {
-  &.action-idle .char {
+  &[data-action="idle"] .char {
     animation: action-idle @animation-length steps(@animation-steps--idle);
     animation-iteration-count: 1;
   }

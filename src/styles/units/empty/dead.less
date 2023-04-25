@@ -1,7 +1,7 @@
 @import "../_variables";
 
 .shared-unit-action-dead() {
-  &.action-dead .char {
+  &[data-action="dead"] .char {
     animation: action-dead @animation-length steps(@animation-steps--dead);
     animation-iteration-count: 1;
   }

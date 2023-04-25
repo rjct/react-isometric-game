@@ -1,7 +1,7 @@
 @import "../_variables";
 
 .shared-unit-action-hit() {
-  &.action-hit .char {
+  &[data-action="hit"] .char {
     animation: action-hit @animation-length steps(@animation-steps--hit);
     animation-iteration-count: 1;
   }

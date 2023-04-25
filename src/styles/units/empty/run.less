@@ -1,7 +1,7 @@
 @import "../_variables";
 
 .shared-unit-action-run() {
-  &.action-run .char {
+  &[data-action="run"] .char {
     animation: action-run @animation-length steps(@animation-steps--run) infinite;
   }
 

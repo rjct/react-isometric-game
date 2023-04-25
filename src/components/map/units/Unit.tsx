@@ -25,12 +25,13 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
     <>
       <Ammo unit={props.unit}></Ammo>
       <div
-        className={`${props.unit.className} rotate-${props.direction || props.unit.direction} action-${
-          props.action || props.unit.action
-        } ${atGunpoint() && !props.unit.isDead ? "at-gunpoint" : ""}`}
+        data-direction={props.direction || props.unit.direction}
+        data-action={props.action || props.unit.action}
+        data-weapon={props.unit.getCurrentWeapon()?.className}
+        data-at-gunpoint={atGunpoint() && !props.unit.isDead ? true : null}
+        className={`${props.unit.className}`}
         style={{
-          left: screenPosition.x,
-          top: screenPosition.y,
+          transform: `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
           zIndex: zIndex,
         }}
       >

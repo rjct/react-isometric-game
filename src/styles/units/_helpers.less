@@ -1,17 +1,17 @@
 .unit-rotation(@unit-height) {
-  &.rotate-top .char {
+  &[data-direction="top"] .char {
     background-position: 0 calc(@unit-height * 0);
   }
 
-  &.rotate-right .char {
+  &[data-direction="right"] .char {
     background-position: 0 calc(@unit-height * -1);
   }
 
-  &.rotate-bottom .char {
+  &[data-direction="bottom"] .char {
     background-position: 0 calc(@unit-height * -2);
   }
 
-  &.rotate-left .char {
+  &[data-direction="left"] .char {
     background-position: 0 calc(@unit-height * -3);
   }
 }
@@ -21,19 +21,26 @@
 .createUnit(@unit-type) {
   &.@{unit-type} {
     each(@unit-actions, {
-      &.action-none {
+      &[data-action="none"] {
         .char {
           @bg: %('/assets/units/%a/idle/empty.webp', @unit-type);
           background-image: url(@bg);
         }
       }
 
-      &.action-@{value} {
+      &[data-action="@{value}"] {
         .char {
           @action-bg: %('/assets/units/%a/%s/empty.webp', @unit-type, @value);
           background-image: url(@action-bg);
         }
       }
+
+      &[data-action="@{value}"][data-weapon="pistol"] {
+          .char {
+            @action-bg: %('/assets/units/%a/%s/pistol.webp', @unit-type, @value);
+            background-image: url(@action-bg);
+          }
+        }
     });
   }
 }
