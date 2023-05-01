@@ -55,6 +55,8 @@ export class Unit {
   private readonly coolDownTime: number;
   private coolDownTimer = 0;
 
+  public enemyDetectionRange: number;
+
   constructor(props: {
     unitType: keyof typeof unitTypes;
     position: Coordinates;
@@ -71,6 +73,7 @@ export class Unit {
     this.coolDownTime = ref.coolDownTime;
     this.direction = props.direction || "left";
     this.action = props.action || "none";
+    this.enemyDetectionRange = ref.enemyDetectionRange;
 
     this.actionPoints = { ...ref.actionPoints };
     this.healthPoints = { ...ref.healthPoints };

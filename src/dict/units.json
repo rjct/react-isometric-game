@@ -19,7 +19,8 @@
     "healthPoints": {
       "current": 100,
       "max": 100
-    }
+    },
+    "enemyDetectionRange": 0.75
   },
 
   "ghoul": {
@@ -42,6 +43,7 @@
     "healthPoints": {
       "current": 50,
       "max": 100
-    }
+    },
+    "enemyDetectionRange": 2
   }
 }
