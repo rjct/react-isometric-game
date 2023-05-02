@@ -1,12 +1,12 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type DetectFiredAmmoHitsTargetAction = {
   type: "detectFiredAmmoHitsTarget";
   unit: Unit;
 };
 
-export function detectFiredAmmoHitsTarget(state: typeof GameMap, action: DetectFiredAmmoHitsTargetAction) {
+export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmmoHitsTargetAction) {
   if (!action.unit) return state;
 
   const ammo = [...action.unit.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];

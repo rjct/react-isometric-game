@@ -1,6 +1,6 @@
 import React from "react";
 import { Unit } from "../../../engine/UnitFactory";
-import { getUnitZIndex } from "../../../engine/helpers";
+import { getEntityZIndex } from "../../../engine/helpers";
 import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 
@@ -17,11 +17,12 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
   };
 
   React.useEffect(() => {
-    setZIndex(getUnitZIndex(props.unit));
+    setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
   }, [JSON.stringify(props.unit.position)]);
 
-  return gameState.isEntityInViewport(props.unit, uiState.viewport) && gameState.isEntityVisible(props.unit) ? (
+  return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
+    gameState.isEntityVisible(props.unit) ? (
     <>
       <Ammo unit={props.unit}></Ammo>
       <div

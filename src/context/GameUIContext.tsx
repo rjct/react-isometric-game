@@ -17,7 +17,7 @@ const gameUIContext = {
   isScrolling: function () {
     return this.scrollDirection !== "none";
   },
-  scene: "game" as "game" | "inventory" | "game-over",
+  scene: "game" as "editor" | "game" | "inventory" | "game-over",
   isPaused() {
     return this.scene !== "game";
   },

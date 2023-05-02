@@ -6,7 +6,7 @@ export function useHero() {
   const hero = gameState.units[gameState.heroId];
 
   const highlightHeroPath = () => {
-    if (!hero || hero.isMoving() || uiState.isScrolling()) return;
+    if (!hero || hero.isMoving() || uiState.isScrolling() || uiState.scene !== "game") return;
 
     gameState.clearHighlightWireframePath();
 
@@ -22,7 +22,7 @@ export function useHero() {
   };
 
   const highlightTargetWireframeCell = () => {
-    if (!hero || hero.isMoving() || uiState.isScrolling()) return;
+    if (!hero || hero.isMoving() || uiState.isScrolling() || uiState.scene !== "game") return;
 
     gameState.clearHighlightWireframePath();
 
@@ -36,7 +36,7 @@ export function useHero() {
   };
 
   const doHeroAction = () => {
-    if (uiState.mousePosition.isOutOfGrid) return;
+    if (uiState.mousePosition.isOutOfGrid || uiState.scene !== "game") return;
 
     const targetPosition = { ...uiState.mousePosition.grid };
 

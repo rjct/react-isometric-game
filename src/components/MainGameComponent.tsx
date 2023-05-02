@@ -16,6 +16,7 @@ import { loadMap, randomInt } from "../engine/helpers";
 import { GameOver } from "./GameOver";
 import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
+import { Editor } from "./editor/Editor";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -32,7 +33,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
   const mainLoop = (deltaTime: number) => {
     if (gameState.units[gameState.heroId].isDead) {
-      gameState.getAliveEnemiesArray().forEach((unit) => unit.setAction("none"));
+      gameState.getAliveEnemiesArray().forEach((unit) => unit.stop());
       uiDispatch({ type: "setScene", scene: "game-over" });
 
       return;
@@ -68,6 +69,12 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
       case "inventory":
         //console.log("Inv scene");
+        break;
+
+      case "editor":
+        gameState.getAllAliveUnitsArray().forEach((unit) => {
+          unit.stop();
+        });
         break;
     }
   };
@@ -110,7 +117,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <GameOver />
               <Top />
               <Debug />
-              <Map ref={setScrollRef} />
+              <div className={"center"}>
+                <Map ref={setScrollRef} />
+                <Editor />
+              </div>
               <ControlPanel />
 
               <Inventory />

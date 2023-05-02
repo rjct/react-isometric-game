@@ -39,7 +39,10 @@ export const TerrainTiles = React.memo(function TerrainTiles() {
   return (
     <div
       className={["terrain", gameState.terrain.className].join(" ")}
-      style={{ width: mapWidth * tileWidth, height: mapHeight * tileHeight }}
+      style={{
+        width: mapWidth * tileWidth + (uiState.scene === "editor" ? constants.editor.width : 0),
+        height: mapHeight * tileHeight,
+      }}
     >
       {tiles}
     </div>

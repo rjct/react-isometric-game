@@ -4,7 +4,7 @@ import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 
 export const Top = React.memo(function Top() {
-  const { gameState, gameDispatch } = useGameState();
+  const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();
   const { hero } = useHero();
 
   return (
@@ -20,6 +20,18 @@ export const Top = React.memo(function Top() {
             checked={gameState.debug}
             onChange={(e) => {
               gameDispatch({ type: "toggleDebug", debugEnabled: e.target.checked });
+            }}
+          />
+        </div>
+
+        <div className={"value"}>
+          <label htmlFor={"editor"}>Editor</label>
+          <input
+            id={"editor"}
+            type="checkbox"
+            checked={uiState.scene === "editor"}
+            onChange={(e) => {
+              uiDispatch({ type: "setScene", scene: e.target.checked ? "editor" : "game" });
             }}
           />
         </div>

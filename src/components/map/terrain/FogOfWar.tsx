@@ -6,8 +6,8 @@ import { useGameState } from "../../../hooks/useGameState";
 export function FogOfWar() {
   const canvasRef = React.createRef<HTMLCanvasElement>();
 
-  const { gameState } = useGameState();
-  const { renderFogOfWar } = useFogOfWar({ canvasRef });
+  const { gameState, uiState } = useGameState();
+  const { renderFogOfWar, clearFogOfWar } = useFogOfWar({ canvasRef });
 
   const tileWidth = constants.tileSize.width;
 
@@ -18,8 +18,13 @@ export function FogOfWar() {
   const mapHeight = gameState.mapSize.height;
 
   React.useEffect(() => {
+    if (uiState.scene === "editor") {
+      clearFogOfWar();
+      return;
+    }
+
     renderFogOfWar();
-  }, [JSON.stringify(gameState.fogOfWarMatrix)]);
+  }, [JSON.stringify(gameState.fogOfWarMatrix), uiState.scene]);
 
   return (
     <div

@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type HighlightUnitPathReducerAction = {
   type: "highlightUnitPath";
@@ -7,7 +7,7 @@ export type HighlightUnitPathReducerAction = {
   path: Array<Array<number>>;
 };
 
-export function highlightUnitPath(state: typeof GameMap, action: HighlightUnitPathReducerAction) {
+export function highlightUnitPath(state: GameMap, action: HighlightUnitPathReducerAction) {
   const path = action.path || [[]];
 
   if (path.length > 1) {

@@ -5,7 +5,7 @@ export type ToggleDebugReducerAction = {
   debugEnabled: boolean;
 };
 
-export function toggleDebug(state: typeof GameMap, action: ToggleDebugReducerAction) {
+export function toggleDebug(state: GameMap, action: ToggleDebugReducerAction) {
   return {
     ...state,
     ...{ debug: action.debugEnabled },

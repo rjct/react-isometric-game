@@ -1,11 +1,11 @@
 {
   "hero": {
-    "id": "hero",
+    "type": "hero",
     "selectable": true,
     "className": "hero",
     "speed": {
-      "walk": 1.4,
-      "run": 3.5
+      "walk": 0.6,
+      "run": 1.4
     },
     "coolDownTime": 5,
     "size": {
@@ -24,12 +24,12 @@
   },
 
   "ghoul": {
-    "id": "ghoul",
+    "type": "ghoul",
     "selectable": true,
     "className": "ghoul",
     "speed": {
-      "walk": 0.4,
-      "run": 0.7
+      "walk": 0.2,
+      "run": 0.4
     },
     "coolDownTime": 5,
     "size": {

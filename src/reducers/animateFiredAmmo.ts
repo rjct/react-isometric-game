@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type AnimateFiredAmmoAction = {
   type: "animateFiredAmmo";
@@ -7,7 +7,7 @@ export type AnimateFiredAmmoAction = {
   deltaTime: number;
 };
 
-export function animateFiredAmmo(state: typeof GameMap, action: AnimateFiredAmmoAction): typeof GameMap {
+export function animateFiredAmmo(state: GameMap, action: AnimateFiredAmmoAction): GameMap {
   const { firedAmmoQueue } = action.unit;
 
   if (firedAmmoQueue.length === 0) return state;

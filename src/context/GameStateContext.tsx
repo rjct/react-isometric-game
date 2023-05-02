@@ -1,5 +1,5 @@
 import React from "react";
-import { GameMap } from "../engine/GameMap";
+import { GameMap, gameMap } from "../engine/GameMap";
 import { BuildingTypes } from "../engine/BuildingFactory";
 import unitTypes from "../dict/units.json";
 
@@ -12,14 +12,16 @@ export type StaticMap = {
   };
   heroStartPosition: Coordinates;
   buildings: {
-    id: keyof BuildingTypes;
+    type: keyof BuildingTypes;
     position: Coordinates;
+    direction: Direction;
+    variant: number;
   }[];
   enemies: {
-    id: keyof typeof unitTypes;
+    type: keyof typeof unitTypes;
     position: Coordinates;
   }[];
   exitPoints: ExitPoint[];
 };
 
-export const GameStateContext = React.createContext<typeof GameMap>(GameMap);
+export const GameStateContext = React.createContext<GameMap>(gameMap);

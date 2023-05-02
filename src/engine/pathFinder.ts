@@ -1,7 +1,7 @@
 import pathfinding from "pathfinding";
 import { GameMap } from "./GameMap";
 
-export function pathFinder(matrix: (typeof GameMap)["matrix"], fromPos: Coordinates, toPos: Coordinates) {
+export function pathFinder(matrix: GameMap["matrix"], fromPos: Coordinates, toPos: Coordinates) {
   const grid = new pathfinding.Grid([...matrix]);
   const finder = new pathfinding.BestFirstFinder({
     diagonalMovement: pathfinding.DiagonalMovement.Never,

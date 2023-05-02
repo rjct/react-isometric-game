@@ -1,6 +1,6 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
 import { pathFinder } from "../engine/pathFinder";
+import { GameMap } from "../engine/GameMap";
 
 export type AnimateUnitMoveReducerAction = {
   type: "animateUnitMove";
@@ -8,7 +8,7 @@ export type AnimateUnitMoveReducerAction = {
   deltaTime: number;
 };
 
-export function animateUnitMove(state: typeof GameMap, action: AnimateUnitMoveReducerAction) {
+export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAction) {
   const unit = action.unit;
 
   if (unit) {

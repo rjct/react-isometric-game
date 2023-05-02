@@ -2,7 +2,6 @@ import { moveUnit, MoveUnitReducerAction } from "./moveUnit";
 import { animateUnitMove, AnimateUnitMoveReducerAction } from "./animateUnitMove";
 import { highlightUnitPath, HighlightUnitPathReducerAction } from "./highlightUnitPath";
 import { switchMap, SwitchMapReducerAction } from "./switchMap";
-import { GameMap } from "../engine/GameMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "./animateFiredAmmo";
 import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "./cleanupFiredAmmo";
 import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "./setCurrentUnitAction";
@@ -14,6 +13,11 @@ import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "./de
 import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHeroOnExitPoints";
 import { toggleDebug, ToggleDebugReducerAction } from "./toggleDebug";
 import { transferItem, TransferItemReducerAction } from "./transferItem";
+import { GameMap } from "../engine/GameMap";
+import { setSelectedEntity, SetSelectedEntityReducerAction } from "./setSelectedEntity";
+import { clearSelectedEntity, ClearSelectedEntityReducerAction } from "./clearSelectedEntity";
+import { setEntityDirection, SetEntityDirectionReducerAction } from "./setEntityDirection";
+import { setEntityVariant, SetEntityVariantReducerAction } from "./setEntityVariant";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -27,9 +31,13 @@ export type GameReducerAction =
   | SetCurrentUnitActionReducerAction
   | DetectFiredAmmoHitsTargetAction
   | DetectHeroOnExitPointsAction
-  | TransferItemReducerAction;
+  | TransferItemReducerAction
+  | SetSelectedEntityReducerAction
+  | ClearSelectedEntityReducerAction
+  | SetEntityDirectionReducerAction
+  | SetEntityVariantReducerAction;
 
-export function reducer(state: typeof GameMap, action: GameReducerAction): typeof GameMap {
+export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
     case "toggleDebug":
       return toggleDebug(state, action as ToggleDebugReducerAction);
@@ -66,6 +74,18 @@ export function reducer(state: typeof GameMap, action: GameReducerAction): typeo
 
     case "transferItem":
       return transferItem(state, action as TransferItemReducerAction);
+
+    case "setSelectedEntity":
+      return setSelectedEntity(state, action as SetSelectedEntityReducerAction);
+
+    case "clearSelectedEntity":
+      return clearSelectedEntity(state, action as ClearSelectedEntityReducerAction);
+
+    case "setEntityDirection":
+      return setEntityDirection(state, action as SetEntityDirectionReducerAction);
+
+    case "setEntityVariant":
+      return setEntityVariant(state, action as SetEntityVariantReducerAction);
 
     default:
       throw new Error();

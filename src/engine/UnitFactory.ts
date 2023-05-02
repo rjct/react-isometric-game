@@ -18,7 +18,7 @@ export class Unit {
     run: number;
   };
 
-  public direction: "left" | "top" | "right" | "bottom";
+  public direction: Direction;
   public action: "none" | "idle" | "walk" | "run" | "hit" | "dead";
 
   public actionPoints: {
@@ -186,7 +186,7 @@ export class Unit {
     }
   }
 
-  public roam(gameState: typeof GameMap) {
+  public roam(gameState: GameMap) {
     if (this.coolDownTimer > 0 || this.isMoving()) return;
     const getRandomPosition = (): Coordinates => {
       return { x: randomInt(0, gameState.mapSize.width - 1), y: randomInt(0, gameState.mapSize.height - 1) };
@@ -220,6 +220,11 @@ export class Unit {
     if (this.isMoving()) return;
 
     this.coolDownTimer = Math.max(0, this.coolDownTimer - deltaTime);
+  }
+
+  public stop() {
+    this.setAction("none");
+    this.clearPath();
   }
 }
 

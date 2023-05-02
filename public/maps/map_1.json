@@ -14,48 +14,82 @@
   },
   "enemies2": [],
   "enemies": [
-    { "id": "ghoul", "position": { "x": 10, "y": 10 } },
+    { "type": "ghoul", "position": { "x": 10, "y": 10 } },
 
-    { "id": "ghoul", "position": { "x": 3, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 4, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 5, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 6, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 7, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 8, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 9, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 10, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 11, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 12, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 13, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 14, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 15, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 16, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 17, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 18, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 19, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 20, "y": 27 } },
-    { "id": "ghoul", "position": { "x": 21, "y": 27 } }
+    { "type": "ghoul", "position": { "x": 3, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 4, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 5, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 6, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 7, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 9, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 10, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 11, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 12, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 13, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 14, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 15, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 16, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 17, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 18, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 19, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 20, "y": 27 } },
+    { "type": "ghoul", "position": { "x": 21, "y": 27 } }
   ],
   "buildings": [
     {
-      "id": "buick_l",
-      "position": { "x": 6, "y": 1 }
+      "type": "buick",
+      "position": { "x": 6, "y": 1 },
+      "direction": "left",
+      "variant": 1
     },
     {
-      "id": "buick_r",
-      "position": { "x": 3, "y": 3 }
+      "type": "buick",
+      "position": { "x": 3, "y": 3 },
+      "direction": "right",
+      "variant": 2
     },
     {
-      "id": "buick_t",
-      "position": { "x": 1, "y": 6 }
+      "type": "buick",
+      "position": { "x": 1, "y": 6 },
+      "direction": "top",
+      "variant": 3
     },
     {
-      "id": "buick_t",
-      "position": { "x": 25, "y": 25 }
+      "type": "buick",
+      "position": { "x": 25, "y": 25 },
+      "direction": "top",
+      "variant": 4
     },
     {
-      "id": "buick_t",
-      "position": { "x": 10, "y": 20 }
+      "type": "buick",
+      "position": { "x": 10, "y": 20 },
+      "direction": "bottom",
+      "variant": 5
+    },
+    {
+      "type": "vault_wall",
+      "position": { "x": 17, "y": 17 },
+      "direction": "right",
+      "variant": 0
+    },
+    {
+      "type": "vault_wall",
+      "position": { "x": 18, "y": 17 },
+      "direction": "bottom",
+      "variant": 6
+    },
+    {
+      "type": "vault_wall",
+      "position": { "x": 19, "y": 17 },
+      "direction": "bottom",
+      "variant": 4
+    },
+    {
+      "type": "vault_wall",
+      "position": { "x": 20, "y": 17 },
+      "direction": "bottom",
+      "variant": 5
     }
   ],
   "exitPoints": [

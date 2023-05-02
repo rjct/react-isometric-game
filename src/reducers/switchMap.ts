@@ -1,23 +1,30 @@
-import { GameMap } from "../engine/GameMap";
 import { StaticMap } from "../context/GameStateContext";
-import { Building, BuildingType } from "../engine/BuildingFactory";
+import { Building } from "../engine/BuildingFactory";
 import { createMatrix } from "../engine/helpers";
 import { Unit, UnitTypes } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";
   map: StaticMap;
 };
 
-export function switchMap(state: typeof GameMap, action: SwitchMapReducerAction) {
+export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   const heroId = state.heroId;
 
-  const buildings: BuildingType[] = action.map.buildings.map((building) => {
-    return new Building(building.id, building.position);
+  const buildings: Building[] = action.map.buildings.map((building) => {
+    const { type, position, direction, variant } = building;
+
+    return new Building({
+      buildingType: type,
+      position,
+      direction,
+      variant,
+    });
   });
 
   const enemies: UnitTypes = action.map.enemies.reduce((result, enemy) => {
-    const unit = new Unit({ unitType: enemy.id, position: enemy.position });
+    const unit = new Unit({ unitType: enemy.type, position: enemy.position });
 
     return { ...result, [unit.id]: unit };
   }, {});

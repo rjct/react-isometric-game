@@ -1,5 +1,5 @@
 import React from "react";
-import { Building } from "./Building";
+import { BuildingComponent } from "./Building";
 import { useGameState } from "../../../hooks/useGameState";
 
 export const Buildings = React.memo(function Buildings() {
@@ -8,7 +8,7 @@ export const Buildings = React.memo(function Buildings() {
   return (
     <>
       {gameState.buildings.map((building) => (
-        <Building key={building.id} building={building} />
+        <BuildingComponent key={building.id} building={building} />
       ))}
     </>
   );

@@ -1,12 +1,12 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type CleanupFiredAmmoAction = {
   type: "cleanupFiredAmmo";
   unit: Unit;
 };
 
-export function cleanupFiredAmmo(state: typeof GameMap, action: CleanupFiredAmmoAction): typeof GameMap {
+export function cleanupFiredAmmo(state: GameMap, action: CleanupFiredAmmoAction): GameMap {
   if (!action.unit) return state;
 
   const { id } = action.unit;

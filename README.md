@@ -74,6 +74,12 @@ ___
     - [ ] Hero summary
     - [ ] Items details
     - [ ] Group similar items
+    
+- ### Editor
+  - [ ] Objects library
+  - [x] Buildings editing
+  - [ ] Units editing
+  - [ ] Terrain editing
 
 - ### Sound
   - [ ] Basic support using Web Audio API 

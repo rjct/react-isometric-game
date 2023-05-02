@@ -1,0 +1,35 @@
+.building-rotation(@width, @height, @variants) {
+  each(range(@variants), {
+  	&[data-variant="@{value}"] {
+		background-position-y: -@height * @value;
+	}
+  });
+
+  &[data-direction="top"] {
+    background-position-x: @width * 0;
+  }
+
+  &[data-direction="left"] {
+    background-position-x: @width * -1;
+  }
+
+  &[data-direction="right"] {
+    background-position-x: @width * -2;
+  }
+
+  &[data-direction="bottom"] {
+    background-position-x: @width * -3;
+  }
+}
+
+.building-shift(@vertical, @horizontal) {
+  &[data-direction="top"],
+  &[data-direction="bottom"] {
+    transform: translateX(@vertical);
+  }
+
+  &[data-direction="left"],
+  &[data-direction="right"] {
+    transform: translateX(@horizontal);
+  }
+}

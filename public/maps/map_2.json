@@ -14,8 +14,10 @@
   },
   "buildings": [
     {
-      "id": "buick_t",
-      "position": { "x": 2, "y": 6 }
+      "type": "buick",
+      "position": { "x": 2, "y": 6 },
+      "direction": "top",
+      "variant": 2
     }
   ],
   "enemies": [],

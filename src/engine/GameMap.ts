@@ -1,5 +1,5 @@
 import { getWireframeTilePathDirection, randomInt } from "./helpers";
-import { BuildingType } from "./BuildingFactory";
+import { Building } from "./BuildingFactory";
 import { Unit, UnitTypes } from "./UnitFactory";
 import { constants } from "../constants";
 import React from "react";
@@ -10,13 +10,15 @@ import { createHero } from "./createHero";
 
 interface GameMapProps {
   mapSize: Size;
-  buildings: BuildingType[];
+  buildings: Building[];
   units: UnitTypes;
 }
 
 const hero = createHero();
 
-export const GameMap = {
+export type GameMap = typeof gameMap;
+
+export const gameMap = {
   debug: false,
 
   mapUrl: "maps/map_1.json",
@@ -40,6 +42,8 @@ export const GameMap = {
   wireframe: [] as Array<Array<TileProps>>,
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
+
+  selectedEntity: null as unknown as Building,
 
   highlightWireframeCell(x: number, y: number) {
     this.wireframe[y][x].isActive = true;
@@ -92,7 +96,7 @@ export const GameMap = {
   },
 
   occupyCell(coordinates: Coordinates) {
-    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = 1;
+    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] += 1;
   },
 
   deOccupyCell(coordinates: Coordinates) {
@@ -124,7 +128,7 @@ export const GameMap = {
     return this.fogOfWarMatrix[Math.floor(y)][Math.floor(x)] > 0;
   },
 
-  isEntityVisible(entity: BuildingType | Unit) {
+  isEntityVisible(entity: Building | Unit) {
     const radius = constants.FOG_OF_WAR_RADIUS;
     const { x, y } = entity.position;
     const { width, height } = entity.size.grid;
@@ -241,7 +245,7 @@ export const GameMap = {
     return wireframe;
   },
 
-  setGridMatrixOccupancy(items: Array<Unit | BuildingType>, matrix: Array<Array<number>>) {
+  setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
     items.forEach((item) => {
       const x = item.position.x;
       const y = item.position.y;
@@ -251,7 +255,7 @@ export const GameMap = {
 
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + height; yy++) {
-          matrix[yy][xx] = 1;
+          matrix[yy][xx] += occupancy;
         }
       }
     });
@@ -373,5 +377,9 @@ export const GameMap = {
         Math.round(unit.position.x) === Math.round(coordinates.x) &&
         Math.round(unit.position.y) === Math.round(coordinates.y)
     );
+  },
+
+  getEntityById(id: string) {
+    return this.buildings.find((building) => building.id === id);
   },
 };

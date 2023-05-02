@@ -1,34 +1,22 @@
 {
-  "buick_t": {
-    "id": "buick_t",
-    "className": "building cars buick buick-t",
+  "buick": {
+    "type": "buick",
+    "className": "buick",
     "size": {
       "grid": { "width": 2, "height": 4 },
       "screen": { "width": 190, "height": 115 }
-    }
+    },
+    "directions": ["left", "right", "top", "bottom"],
+    "variants": 8
   },
-  "buick_l": {
-    "id": "buick_l",
-    "className": "building cars buick buick-l",
+  "vault_wall": {
+    "type": "vault_wall",
+    "className": "vault-wall",
     "size": {
-      "grid": { "width": 4, "height": 2 },
-      "screen": { "width": 190, "height": 115 }
-    }
-  },
-  "buick_b": {
-    "id": "buick_b",
-    "className": "building cars buick buick-b",
-    "size": {
-      "grid": { "width": 2, "height": 4 },
-      "screen": { "width": 190, "height": 115 }
-    }
-  },
-  "buick_r": {
-    "id": "buick_r",
-    "className": "building cars buick buick-r",
-    "size": {
-      "grid": { "width": 4, "height": 2 },
-      "screen": { "width": 190, "height": 115 }
-    }
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 50, "height": 120 }
+    },
+    "directions": ["left", "right", "top", "bottom"],
+    "variants": 7
   }
 }

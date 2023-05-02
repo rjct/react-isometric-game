@@ -1,5 +1,5 @@
 import { Unit } from "./UnitFactory";
-import { BuildingType } from "./BuildingFactory";
+import { Building } from "./BuildingFactory";
 import { constants } from "../constants";
 import { StaticMap } from "../context/GameStateContext";
 
@@ -92,7 +92,7 @@ export function getHumanReadableDirection(angle: number): Unit["direction"] {
   return "right";
 }
 
-export function getUnitZIndex(unit: Unit | BuildingType) {
+export function getEntityZIndex(unit: Unit | Building) {
   const { position, size } = unit;
 
   const x = Math.ceil(position.x + size.grid.width);

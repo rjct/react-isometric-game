@@ -1,5 +1,12 @@
-const tileSize = { width: 72, height: 36 };
-const MAGIC_NUMBER = 1.415;
+const tileSize = {
+  width: 72,
+  height: 36,
+};
+
+const wireframeTileSize = {
+  width: tileSize.width * Math.cos((45 * Math.PI) / 180),
+  height: tileSize.height * Math.sin((45 * Math.PI) / 180) * 2,
+};
 
 export const constants = {
   BASE_URL: "/react-isometric-game",
@@ -14,10 +21,7 @@ export const constants = {
     ZOOM: 0.1,
   },
   tileSize,
-  wireframeTileSize: {
-    width: tileSize.width * (MAGIC_NUMBER / 2),
-    height: tileSize.height * MAGIC_NUMBER,
-  },
+  wireframeTileSize,
 
   tile: {
     CLASS_ACTIVE: "active",
@@ -25,4 +29,8 @@ export const constants = {
   },
 
   unit_css_animation_length: 1000, // ms
+
+  editor: {
+    width: 300,
+  },
 };

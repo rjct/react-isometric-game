@@ -6,4 +6,8 @@ import { MainGameComponent } from "./components/MainGameComponent";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 
-root.render(<MainGameComponent />);
+root.render(
+  <React.StrictMode>
+    <MainGameComponent />
+  </React.StrictMode>
+);

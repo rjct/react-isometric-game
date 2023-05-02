@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
+import { GameMap } from "../engine/GameMap";
 
 export interface SetCurrentUnitActionReducerAction {
   type: "setCurrentUnitAction";
@@ -7,7 +7,7 @@ export interface SetCurrentUnitActionReducerAction {
   selectedAction: Unit["currentSelectedAction"];
 }
 
-export function setCurrentUnitAction(state: typeof GameMap, action: SetCurrentUnitActionReducerAction) {
+export function setCurrentUnitAction(state: GameMap, action: SetCurrentUnitActionReducerAction) {
   action.unit.currentSelectedAction = action.selectedAction;
 
   return { ...state };

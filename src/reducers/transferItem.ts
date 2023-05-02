@@ -1,6 +1,6 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
 import { Weapon } from "../engine/WeaponFactory";
+import { GameMap } from "../engine/GameMap";
 
 export type TransferItemReducerAction = {
   type: "transferItem";
@@ -9,7 +9,7 @@ export type TransferItemReducerAction = {
   to: { unit: Unit; inventoryType: keyof Unit["inventory"] };
 };
 
-export function transferItem(state: typeof GameMap, action: TransferItemReducerAction): typeof GameMap {
+export function transferItem(state: GameMap, action: TransferItemReducerAction): GameMap {
   const item = action.item;
   const from = action.from;
   const to = action.to;

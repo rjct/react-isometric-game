@@ -10,7 +10,7 @@ import { FogOfWar } from "./terrain/FogOfWar";
 import { PathVisualization } from "./terrain/PathVisualization";
 
 export const Map = React.forwardRef((props, setScrollRef) => {
-  const { gameState, uiState, uiDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
   const mapRef = React.useRef<HTMLDivElement>(null);
 
@@ -18,6 +18,10 @@ export const Map = React.forwardRef((props, setScrollRef) => {
 
   const handleClick = () => {
     doHeroAction();
+  };
+
+  const handleMouseDown = () => {
+    gameDispatch({ type: "clearSelectedEntity" });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -50,7 +54,7 @@ export const Map = React.forwardRef((props, setScrollRef) => {
 
     uiDispatch({ type: "setMousePosition", mousePosition });
 
-    if (!hero.isMoving()) {
+    if (!hero.isMoving() && uiState.scene === "game") {
       hero.setDirection(
         Math.atan2(mousePosition.grid.y - hero.position.y, mousePosition.grid.x - hero.position.x) * (180 / Math.PI)
       );
@@ -123,11 +127,13 @@ export const Map = React.forwardRef((props, setScrollRef) => {
         ref={mapRef}
         className="map-wrapper"
         onClick={handleClick}
+        onMouseDown={handleMouseDown}
         onMouseMove={handleMouseMove}
         onMouseOut={handleMouseOut}
         onScroll={handleScroll}
         data-scrolling-active={uiState.isScrolling()}
         data-scrolling-direction={uiState.scrollDirection}
+        data-editing-active={uiState.scene === "editor"}
       >
         <FogOfWar />
         <PathVisualization />

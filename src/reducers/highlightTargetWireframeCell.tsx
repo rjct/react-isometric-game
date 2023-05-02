@@ -1,10 +1,10 @@
-import { GameMap } from "../engine/GameMap";
 import { Unit } from "../engine/UnitFactory";
 import { getDistanceBetweenGridPoints } from "../engine/helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import React from "react";
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
+import { GameMap } from "../engine/GameMap";
 
 export type HighlightTargetWireframeCellReducerAction = {
   type: "highlightTargetWireframeCell";
@@ -12,7 +12,7 @@ export type HighlightTargetWireframeCellReducerAction = {
   targetPosition: Coordinates;
 };
 
-export function highlightTargetWireframeCell(state: typeof GameMap, action: HighlightTargetWireframeCellReducerAction) {
+export function highlightTargetWireframeCell(state: GameMap, action: HighlightTargetWireframeCellReducerAction) {
   const weapon = action.unit.getCurrentWeapon();
 
   if (!weapon) return state;

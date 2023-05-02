@@ -9,7 +9,7 @@ export type MoveUnitReducerAction = {
   moveAction: Extract<Unit["action"], "walk" | "run">;
 };
 
-export function moveUnit(state: typeof GameMap, action: MoveUnitReducerAction): typeof GameMap {
+export function moveUnit(state: GameMap, action: MoveUnitReducerAction): GameMap {
   const unit = action.unit;
 
   if (unit) {
