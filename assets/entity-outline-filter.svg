@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg">
+    <filter id="entity-outline-filter">
+        <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="2"/>
+        <feFlood flood-color="black"/>
+        <feComposite in2="expanded" operator="in"/>
+        <feComposite in="SourceGraphic"/>
+    </filter>
+</svg>

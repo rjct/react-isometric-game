@@ -29,6 +29,7 @@ export function ExportButton() {
       exitPoints: gameState.getExitPoints(),
     };
 
+    // eslint-disable-next-line
     console.log(JSON.stringify(result));
   };
 

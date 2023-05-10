@@ -3,16 +3,7 @@
   pointer-events: none;
 
   &[data-selected="true"] {
-    //filter: drop-shadow(0px 0px 1px white) drop-shadow(0px 0px 1px white) drop-shadow(0px 0px 1px white) drop-shadow(0px 0px 1px white);
-    filter: url('data:image/svg+xml,\
-    <svg xmlns="http://www.w3.org/2000/svg">\
-      <filter id="outline">\
-        <feMorphology in="SourceAlpha" result="expanded" operator="dilate" radius="2"/>\
-        <feFlood flood-color="black"/>\
-        <feComposite in2="expanded" operator="in"/>\
-        <feComposite in="SourceGraphic"/>\
-      </filter>\
-    </svg>#outline');
+    filter: url("/assets/entity-outline-filter.svg#entity-outline-filter");
   }
 }
 
