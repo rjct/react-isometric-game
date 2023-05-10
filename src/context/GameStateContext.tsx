@@ -6,9 +6,9 @@ import unitTypes from "../dict/units.json";
 export type StaticMap = {
   size: Size;
   terrain: {
-    className: "earth";
-    rows: 1;
-    columns: 1;
+    className: "earth" | "vault";
+    rows: number;
+    columns: number;
   };
   heroStartPosition: Coordinates;
   buildings: {

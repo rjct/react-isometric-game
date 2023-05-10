@@ -56,6 +56,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   newState.matrix = newState.setGridMatrixOccupancy(buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(Object.values(newState.units), newState.matrix);
 
+  newState.exitPoints = action.map.exitPoints;
   action.map.exitPoints.forEach((exitPoint) => {
     newState.setWireframeMatrixExitPoints(exitPoint);
   });

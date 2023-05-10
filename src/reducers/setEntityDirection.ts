@@ -10,7 +10,9 @@ export function setEntityDirection(state: GameMap, action: SetEntityDirectionRed
   const entity = state.getEntityById(action.entityId);
 
   if (entity) {
+    state.setGridMatrixOccupancy([entity], state.matrix, -1);
     entity.setDirection(action.direction);
+    state.setGridMatrixOccupancy([entity], state.matrix, 1);
 
     return { ...state };
   }

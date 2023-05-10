@@ -1,11 +1,10 @@
 import { radToDeg } from "./helpers";
 import ammo from "../dict/ammo.json";
-import { nanoid } from "nanoid";
 
 export type AmmoType = "pistol";
 
 export class Ammo {
-  public readonly id = nanoid();
+  public readonly id = crypto.randomUUID();
   public readonly className = ["ammo"];
   public readonly size: {
     grid: Size;

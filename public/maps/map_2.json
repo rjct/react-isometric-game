@@ -4,9 +4,9 @@
     "height": 100
   },
   "terrain": {
-    "className": "vault",
-    "rows": 4,
-    "columns": 4
+    "className": "earth",
+    "rows": 6,
+    "columns": 8
   },
   "heroStartPosition": {
     "x": 30,

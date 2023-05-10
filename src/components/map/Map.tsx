@@ -8,6 +8,7 @@ import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { FogOfWar } from "./terrain/FogOfWar";
 import { PathVisualization } from "./terrain/PathVisualization";
+import { Building } from "../../engine/BuildingFactory";
 
 export const Map = React.forwardRef((props, setScrollRef) => {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
@@ -72,6 +73,39 @@ export const Map = React.forwardRef((props, setScrollRef) => {
     }
   };
 
+  const handleDragOver = function (e: React.DragEvent) {
+    if (uiState.scene !== "editor") return;
+
+    e.preventDefault();
+    e.dataTransfer.dropEffect = "copy";
+  };
+
+  const handleDrop = (e: React.DragEvent) => {
+    if (uiState.scene !== "editor") return;
+
+    e.preventDefault();
+
+    const screen = {
+      x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + uiState.scroll.x),
+      y: Math.round(e.clientY - uiState.rect.top) + uiState.scroll.y,
+    };
+    const grid = gameState.screenSpaceToGridSpace(screen);
+
+    if (grid.x < 0 || grid.x > gameState.mapSize.width || grid.y < 0 || grid.y > gameState.mapSize.height) return;
+
+    const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
+    const direction = e.dataTransfer.getData("add/entity/direction") as Building["direction"];
+    const variant = Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"];
+
+    gameDispatch({
+      type: "addEntity",
+      entity,
+      position: { x: Math.floor(grid.x), y: Math.floor(grid.y) },
+      direction,
+      variant,
+    });
+  };
+
   //
   const getCurrentScroll = (): GameUI["scroll"] => {
     return {
@@ -131,6 +165,8 @@ export const Map = React.forwardRef((props, setScrollRef) => {
         onMouseMove={handleMouseMove}
         onMouseOut={handleMouseOut}
         onScroll={handleScroll}
+        onDragOver={handleDragOver}
+        onDrop={handleDrop}
         data-scrolling-active={uiState.isScrolling()}
         data-scrolling-direction={uiState.scrollDirection}
         data-editing-active={uiState.scene === "editor"}

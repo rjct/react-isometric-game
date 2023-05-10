@@ -82,7 +82,7 @@ export const MiniMap = React.memo(function MiniMap() {
         y: size.grid.height,
       });
 
-      ctx.fillStyle = gameState.isEntityVisible(building) ? "limegreen" : "rgba(50, 205, 50, 0.4)";
+      ctx.fillStyle = `rgba(50, 205, 50, ${gameState.isEntityVisible(building) ? 0.4 : 0.05})`;
       ctx.beginPath();
       ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
 

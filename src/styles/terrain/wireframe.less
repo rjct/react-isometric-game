@@ -58,7 +58,7 @@
       }
 
       &:after {
-        content: '';
+        content: "";
         background: center url("/assets/terrain/target.svg") no-repeat;
         background-size: cover;
         left: -20%;
@@ -70,16 +70,9 @@
       }
     }
 
-    //&:hover {
-    //  background-color: rgba(255, 255, 255, 0.75);
-    //}
-
     &.occupied {
-      box-shadow: 5px 4px 10px 0 rgba(0, 0, 0, 0.5) inset;
+      box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5) inset;
+      border: dashed 1px yellow;
     }
-
-    //&.active {
-    //  background-color: limegreen;
-    //}
   }
 }

@@ -17,6 +17,7 @@ import { GameOver } from "./GameOver";
 import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
 import { Editor } from "./editor/Editor";
+import { EditorLibrary } from "./editor/EditorLibrary";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -123,6 +124,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               </div>
               <ControlPanel />
 
+              <EditorLibrary />
               <Inventory />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>

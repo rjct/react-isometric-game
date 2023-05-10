@@ -28,7 +28,7 @@ export function useFogOfWar(props: { canvasRef: React.RefObject<HTMLCanvasElemen
       const ctx = props.canvasRef.current.getContext("2d");
       if (!ctx) return;
 
-      const hideFill = "rgba( 0, 0, 0, .7 )";
+      const hideFill = "rgba( 0, 0, 0, .85 )";
       const r2 = wireframeTileWidth * constants.FOG_OF_WAR_RADIUS + wireframeTileWidth * 2;
       const r1 = r2 / 3;
 

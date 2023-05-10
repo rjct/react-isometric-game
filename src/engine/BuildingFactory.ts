@@ -1,9 +1,22 @@
-import { nanoid } from "nanoid";
 import buildings from "../dict/buildings.json";
 
 type BuildingSize = {
   grid: Size;
   screen: Size;
+};
+
+export type BuildingType = keyof typeof buildings;
+
+export interface DictBuilding {
+  type: keyof typeof buildings;
+  className: string;
+  size: BuildingSize;
+  directions: Direction[];
+  variants: number;
+}
+
+export type DictBuildings = {
+  [buildingType in BuildingType]: DictBuilding;
 };
 
 export class Building {
@@ -13,31 +26,22 @@ export class Building {
 
   position = { x: 0, y: 0 };
   direction: Direction = "top";
+  public readonly variants;
   variant = 0;
 
   size = {
     grid: { width: 1, height: 1 },
     screen: { width: 0, height: 0 },
   };
-  private readonly ref: {
-    type: keyof typeof buildings;
-    className: string;
-    size: BuildingSize;
-    directions: Direction[];
-    variants: number;
-  };
-  constructor(props: {
-    buildingType: keyof typeof buildings;
-    position: Coordinates;
-    direction: Direction;
-    variant: number;
-  }) {
+  private readonly ref: DictBuilding;
+  constructor(props: { buildingType: BuildingType; position: Coordinates; direction: Direction; variant: number }) {
     this.ref = { ...buildings[props.buildingType] } as typeof this.ref;
 
-    this.id = nanoid();
+    this.id = crypto.randomUUID();
     this.type = props.buildingType;
     this.className = ["building", this.ref.className].join(" ");
     this.direction = props.direction;
+    this.variants = this.ref.variants;
     this.variant = props.variant;
     this.position = props.position;
     this.size = this.getSizeByPositionAndDirection(this.ref.size);

@@ -11,7 +11,7 @@ import { Button } from "../ui/Button";
 export function ControlPanel() {
   const { hero } = useHero();
 
-  const { gameDispatch, uiDispatch, gameState } = useGameState();
+  const { gameDispatch, uiDispatch, gameState, uiState } = useGameState();
 
   const centerMapOnHero = () => {
     uiDispatch({ type: "centerMapOnHero", unitCoordinates: gameState.gridToScreenSpace(hero.position) });
@@ -29,7 +29,7 @@ export function ControlPanel() {
     uiDispatch({ type: "toggleInventory" });
   };
 
-  return (
+  return uiState.scene === "game" ? (
     <div className={"control-panel"}>
       <MiniMap />
 
@@ -89,5 +89,5 @@ export function ControlPanel() {
         </Button>
       </div>
     </div>
-  );
+  ) : null;
 }

@@ -4,8 +4,8 @@
     "selectable": true,
     "className": "hero",
     "speed": {
-      "walk": 0.6,
-      "run": 1.4
+      "walk": 1,
+      "run": 3.5
     },
     "coolDownTime": 5,
     "size": {
@@ -28,8 +28,8 @@
     "selectable": true,
     "className": "ghoul",
     "speed": {
-      "walk": 0.2,
-      "run": 0.4
+      "walk": 0.4,
+      "run": 0.8
     },
     "coolDownTime": 5,
     "size": {

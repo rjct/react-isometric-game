@@ -1,7 +1,7 @@
 import React from "react";
 import { useGameState } from "../../hooks/useGameState";
 
-export function EntityDirection() {
+export function EntityDirectionSelector() {
   const { gameState, gameDispatch } = useGameState();
 
   const [selectedDirection, setSelectedDirection] = React.useState<Direction>("top");
@@ -30,3 +30,7 @@ export function EntityDirection() {
     </select>
   );
 }
+
+EntityDirectionSelector.Selector = function () {
+  //
+};

@@ -1,4 +1,3 @@
-import { nanoid } from "nanoid";
 import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
 import { Weapon } from "./WeaponFactory";
@@ -10,6 +9,7 @@ import { GameMap } from "./GameMap";
 export type UnitTypes = { [unitId: string]: Unit };
 
 export class Unit {
+  public readonly type;
   public readonly id;
   public readonly className;
 
@@ -65,7 +65,8 @@ export class Unit {
   }) {
     const ref = unitTypes[props.unitType];
 
-    this.id = nanoid();
+    this.id = crypto.randomUUID();
+    this.type = props.unitType;
     this.size = ref.size;
     this.className = ["unit", ref.className].join(" ");
     this.size = ref.size;
@@ -85,6 +86,13 @@ export class Unit {
 
   setPosition(position: Unit["position"]) {
     this.position = position;
+  }
+
+  getRoundedPosition() {
+    return {
+      x: Math.round(this.position.x),
+      y: Math.round(this.position.y),
+    };
   }
 
   public setPath(path: number[][]) {

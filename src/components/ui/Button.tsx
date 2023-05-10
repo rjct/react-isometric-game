@@ -12,7 +12,7 @@ export function Button(props: {
     <div
       title={props.title}
       className={[
-        ...["ui-button", props.disabled ? "disabled" : null, props.active ? "active" : null],
+        ...["ui-button", "vertical", props.disabled ? "disabled" : null, props.active ? "active" : null],
         ...(props.className || []),
       ]
         .filter(Boolean)

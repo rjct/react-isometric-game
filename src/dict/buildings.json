@@ -6,7 +6,7 @@
       "grid": { "width": 2, "height": 4 },
       "screen": { "width": 190, "height": 115 }
     },
-    "directions": ["left", "right", "top", "bottom"],
+    "directions": ["top", "right", "bottom","left"],
     "variants": 8
   },
   "vault_wall": {
@@ -16,7 +16,57 @@
       "grid": { "width": 1, "height": 1 },
       "screen": { "width": 50, "height": 120 }
     },
-    "directions": ["left", "right", "top", "bottom"],
+    "directions": ["top", "right", "bottom","left"],
     "variants": 7
+  },
+  "vault_bed": {
+    "type": "vault_bed",
+    "className": "vault-bed",
+    "size": {
+      "grid": { "width": 2, "height": 2 },
+      "screen": { "width": 150, "height": 85 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 2
+  },
+  "vault_chair": {
+    "type": "vault_chair",
+    "className": "vault-chair",
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 66, "height": 80 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 2
+  },
+  "vault_computer_1": {
+    "type": "vault_computer_1",
+    "className": "vault-computer-1",
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 74, "height": 126 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 1
+  },
+  "vault_computer_2": {
+    "type": "vault_computer_2",
+    "className": "vault-computer-2",
+    "size": {
+      "grid": { "width": 1, "height": 1 },
+      "screen": { "width": 94, "height": 126 }
+    },
+    "directions": ["right", "bottom"],
+    "variants": 5
+  },
+  "vault_table": {
+    "type": "vault_table",
+    "className": "vault-table",
+    "size": {
+      "grid": { "width": 1, "height": 2 },
+      "screen": { "width": 113, "height": 93 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 3
   }
 }

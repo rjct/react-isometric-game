@@ -1,5 +1,4 @@
 import weapons from "../dict/weapons.json";
-import { nanoid } from "nanoid";
 import { Unit } from "./UnitFactory";
 import { Ammo, AmmoType } from "./AmmoFactory";
 import { getDistanceBetweenGridPoints } from "./helpers";
@@ -8,7 +7,7 @@ export type WeaponType = keyof typeof weapons;
 
 export class Weapon {
   public readonly title: string;
-  public readonly id = nanoid();
+  public readonly id = crypto.randomUUID();
   public readonly className: string[] = [];
 
   public size = {

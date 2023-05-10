@@ -18,6 +18,8 @@ import { setSelectedEntity, SetSelectedEntityReducerAction } from "./setSelected
 import { clearSelectedEntity, ClearSelectedEntityReducerAction } from "./clearSelectedEntity";
 import { setEntityDirection, SetEntityDirectionReducerAction } from "./setEntityDirection";
 import { setEntityVariant, SetEntityVariantReducerAction } from "./setEntityVariant";
+import { deleteSelectedEntity, DeleteSelectedEntityReducerAction } from "./deleteSelectedEntity";
+import { addEntity, AddEntityReducerAction } from "./addEntity";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -32,9 +34,11 @@ export type GameReducerAction =
   | DetectFiredAmmoHitsTargetAction
   | DetectHeroOnExitPointsAction
   | TransferItemReducerAction
+  | AddEntityReducerAction
   | SetSelectedEntityReducerAction
   | ClearSelectedEntityReducerAction
   | SetEntityDirectionReducerAction
+  | DeleteSelectedEntityReducerAction
   | SetEntityVariantReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
@@ -75,6 +79,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "transferItem":
       return transferItem(state, action as TransferItemReducerAction);
 
+    case "addEntity":
+      return addEntity(state, action as AddEntityReducerAction);
+
     case "setSelectedEntity":
       return setSelectedEntity(state, action as SetSelectedEntityReducerAction);
 
@@ -83,6 +90,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setEntityDirection":
       return setEntityDirection(state, action as SetEntityDirectionReducerAction);
+
+    case "deleteSelectedEntity":
+      return deleteSelectedEntity(state, action as DeleteSelectedEntityReducerAction);
 
     case "setEntityVariant":
       return setEntityVariant(state, action as SetEntityVariantReducerAction);

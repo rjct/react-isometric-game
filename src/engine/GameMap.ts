@@ -10,6 +10,7 @@ import { createHero } from "./createHero";
 
 interface GameMapProps {
   mapSize: Size;
+  terrain: StaticMap["terrain"];
   buildings: Building[];
   units: UnitTypes;
 }
@@ -28,10 +29,10 @@ export const gameMap = {
     height: 0,
   } as GameMapProps["mapSize"],
   terrain: {
-    className: "",
+    className: "earth",
     rows: 1,
     columns: 1,
-  },
+  } as GameMapProps["terrain"],
   buildings: [] as GameMapProps["buildings"],
   heroId: hero.id,
   units: {
@@ -44,6 +45,8 @@ export const gameMap = {
   fogOfWarMatrix: [] as Array<Array<number>>,
 
   selectedEntity: null as unknown as Building,
+
+  exitPoints: [] as StaticMap["exitPoints"],
 
   highlightWireframeCell(x: number, y: number) {
     this.wireframe[y][x].isActive = true;
@@ -255,7 +258,9 @@ export const gameMap = {
 
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + height; yy++) {
-          matrix[yy][xx] += occupancy;
+          if (xx < this.mapSize.width && yy < this.mapSize.height) {
+            matrix[yy][xx] += occupancy;
+          }
         }
       }
     });
@@ -269,6 +274,10 @@ export const gameMap = {
         this.tiles[y][x].exitPoint = exitPoint.map;
       }
     }
+  },
+
+  getExitPoints() {
+    return this.exitPoints;
   },
 
   isUnitIsInExitPoint(unit: Unit) {
@@ -296,14 +305,14 @@ export const gameMap = {
     viewport: GameUI["viewport"]
   ) {
     const screenPosition = this.gridToScreenSpace(entity.position);
-    const x = screenPosition.x; //entity.position.screen.x;
-    const y = screenPosition.y; //entity.position.screen.y;
+    const x = screenPosition.x;
+    const y = screenPosition.y;
 
     const entityWidth = entity.size.screen.width;
     const entityHeight = entity.size.screen.height;
 
-    const tileWidth = constants.tileSize.width;
-    const tileHeight = constants.tileSize.height;
+    const tileWidth = constants.wireframeTileSize.width;
+    const tileHeight = constants.wireframeTileSize.height;
 
     const cache = constants.OFFSCREEN_TILE_CACHE;
 
@@ -381,5 +390,14 @@ export const gameMap = {
 
   getEntityById(id: string) {
     return this.buildings.find((building) => building.id === id);
+  },
+
+  deleteEntity(id: string) {
+    const index = this.buildings.findIndex((entity) => entity.id === id);
+
+    if (index === -1) return;
+
+    this.setGridMatrixOccupancy([this.buildings[index]], this.matrix, -1);
+    this.buildings.splice(index, 1);
   },
 };
