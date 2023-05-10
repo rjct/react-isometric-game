@@ -23,6 +23,7 @@ export function addEntity(state: GameMap, action: AddEntityReducerAction): GameM
     ...state,
     ...{
       matrix: state.setGridMatrixOccupancy([building], state.matrix),
+      selectedEntity: building,
     },
   };
 }
