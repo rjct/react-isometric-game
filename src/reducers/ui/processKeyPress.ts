@@ -1,12 +1,13 @@
 import { GameUI } from "../../context/GameUIContext";
+import { GameMap } from "../../engine/GameMap";
 
 export interface ProcessKeyPressUIReducerAction {
   type: "processKeyPress";
-  scene: GameUI["scene"];
+  gameState: GameMap;
 }
 
 export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerAction): GameUI {
-  switch (action.scene) {
+  switch (state.scene) {
     case "game":
       if (state.keys["KeyI"]) {
         return {
@@ -40,6 +41,19 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
           ...{
             scene: "game",
             keys: { ...state.keys, ...{ Escape: false } },
+          },
+        };
+      }
+      break;
+
+    case "editor":
+      if (state.keys["Backspace"]) {
+        action.gameState.deleteSelectedEntity();
+
+        return {
+          ...state,
+          ...{
+            keys: { ...state.keys, ...{ Backspace: false } },
           },
         };
       }

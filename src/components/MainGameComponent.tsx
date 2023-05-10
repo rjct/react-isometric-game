@@ -40,7 +40,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
       return;
     }
 
-    uiDispatch({ type: "processKeyPress", scene: uiState.scene });
+    uiDispatch({ type: "processKeyPress", gameState });
 
     switch (uiState.scene) {
       case "game":

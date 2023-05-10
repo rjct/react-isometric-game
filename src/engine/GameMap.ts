@@ -400,4 +400,17 @@ export const gameMap = {
     this.setGridMatrixOccupancy([this.buildings[index]], this.matrix, -1);
     this.buildings.splice(index, 1);
   },
+
+  deleteSelectedEntity() {
+    if (!this.selectedEntity) return false;
+
+    const confirmDelete = confirm(`Are you sure to delete "${this.selectedEntity.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    this.deleteEntity(this.selectedEntity.id);
+    this.selectedEntity = null as unknown as Building;
+
+    return true;
+  },
 };

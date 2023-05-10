@@ -1,18 +1,15 @@
 import { GameMap } from "../engine/GameMap";
-import { Building } from "../engine/BuildingFactory";
 
 export interface DeleteSelectedEntityReducerAction {
   type: "deleteSelectedEntity";
   entityId: string;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function deleteSelectedEntity(state: GameMap, action: DeleteSelectedEntityReducerAction): GameMap {
-  const confirmDelete = confirm(`Are you sure to delete "${action.entityId}"?`);
+  if (state.deleteSelectedEntity()) {
+    return { ...state };
+  }
 
-  if (!confirmDelete) return state;
-
-  state.selectedEntity = null as unknown as Building;
-  state.deleteEntity(action.entityId);
-
-  return { ...state };
+  return state;
 }
