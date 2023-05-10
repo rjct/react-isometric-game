@@ -47,7 +47,15 @@ export function EditorLibraryItem(props: { item: DictBuilding }) {
         />
       </div>
       <div className="prev-direction">
-        <a>
+        <a
+          onClick={() => {
+            const index = props.item.directions.findIndex((d) => d === direction);
+
+            const i = index - 1 < 0 ? props.item.directions.length - 1 : index - 1;
+
+            setDirection(props.item.directions[i]);
+          }}
+        >
           <FontAwesomeIcon icon={faRotateLeft} />
         </a>
       </div>
