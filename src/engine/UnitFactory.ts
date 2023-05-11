@@ -208,13 +208,21 @@ export class Unit {
       }
     }
 
-    this.setPath(pathFinder(gameState.matrix, this.position, newPosition));
+    const path = pathFinder(gameState.matrix, this.position, newPosition);
 
-    const roamActions = ["walk", "run"] as Extract<Unit["action"], "walk" | "run">[];
-    const randomRoamAction = roamActions[randomInt(0, roamActions.length - 1)];
+    if (path.length > 1) {
+      this.setPath(path);
 
-    this.setAction(randomRoamAction);
-    this.coolDownTimer = this.coolDownTime;
+      const roamActions = ["walk", "run"] as Extract<Unit["action"], "walk" | "run">[];
+      const randomRoamAction = roamActions[randomInt(0, roamActions.length - 1)];
+
+      this.setAction(randomRoamAction);
+      this.coolDownTimer = this.coolDownTime;
+
+      return;
+    }
+
+    this.coolDownTimer = 0;
   }
 
   idle() {

@@ -99,15 +99,17 @@ export const gameMap = {
   },
 
   occupyCell(coordinates: Coordinates) {
-    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] += 1;
+    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)]++;
   },
 
   deOccupyCell(coordinates: Coordinates) {
-    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = 0;
+    const value = this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)];
+
+    this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = Math.max(0, value - 1);
   },
 
   isCellOccupied(x: number, y: number) {
-    return this.matrix[Math.floor(y)][Math.floor(x)] > 0;
+    return this.matrix[Math.round(y)][Math.round(x)] > 0;
   },
 
   setVisitedCell(coordinates: Coordinates) {

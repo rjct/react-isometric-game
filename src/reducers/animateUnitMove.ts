@@ -33,14 +33,28 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
 
         if (unitPath.length === 0) {
           const prevPath = unit.pathQueue.points;
+
           prevPath.pop();
 
-          unit.setPath(unit.convertCoordinatesToPathArray(prevPath));
+          if (prevPath.length > 1 && state.isCellOccupied(prevPath[1].x, prevPath[1].y)) {
+            while (prevPath.length > 1 && state.isCellOccupied(prevPath[1].x, prevPath[1].y)) {
+              prevPath.pop();
+            }
+          }
+
+          if (prevPath.length > 1) {
+            unit.setPath(unit.convertCoordinatesToPathArray(prevPath));
+          } else {
+            unit.clearPath();
+            unit.pathQueue.points = [];
+            unit.pathQueue.atEnd = true;
+            unit.pathQueue.currentPos = unit.position;
+          }
         }
       }
-    }
 
-    state.occupyCell(unit.position);
+      state.occupyCell(unit.position);
+    }
 
     if (unit.pathQueue.points.length > 1) {
       unit.setDirection(
