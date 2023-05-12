@@ -4,9 +4,15 @@
     "height": 100
   },
   "terrain": {
-    "className": "earth",
-    "rows": 6,
-    "columns": 8
+    "area": [
+      {
+        "source": {
+          "url": "earth",
+          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
+        },
+        "target": { "x1": 0, "y1": 0, "x2": 99, "y2": 99 }
+      }
+    ]
   },
   "heroStartPosition": {
     "x": 30,

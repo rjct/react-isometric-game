@@ -18,6 +18,11 @@ interface TileProps {
     screen: Size;
   };
   className: string;
+  sprite?: {
+    url: string;
+    x: number;
+    y: number;
+  };
   direction:
     | "east-start"
     | "west-start"
@@ -59,3 +64,13 @@ interface ExitPoint {
 }
 
 type Direction = "left" | "top" | "right" | "bottom";
+
+interface MediaFiles {
+  [url: string]: AssetFile;
+}
+
+interface AssetFile {
+  value: string;
+  size: number;
+  img: HTMLImageElement;
+}

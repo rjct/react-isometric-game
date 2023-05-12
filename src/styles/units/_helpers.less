@@ -23,21 +23,21 @@
     each(@unit-actions, {
       &[data-action="none"] {
         .char {
-          @bg: %('/assets/units/%a/idle/empty.webp', @unit-type);
+          @bg: %('/public/assets/units/%a/idle/empty.webp', @unit-type);
           background-image: url(@bg);
         }
       }
 
       &[data-action="@{value}"] {
         .char {
-          @action-bg: %('/assets/units/%a/%s/empty.webp', @unit-type, @value);
+          @action-bg: %('/public/assets/units/%a/%s/empty.webp', @unit-type, @value);
           background-image: url(@action-bg);
         }
       }
 
       &[data-action="@{value}"][data-weapon="pistol"] {
           .char {
-            @action-bg: %('/assets/units/%a/%s/pistol.webp', @unit-type, @value);
+            @action-bg: %('/public/assets/units/%a/%s/pistol.webp', @unit-type, @value);
             background-image: url(@action-bg);
           }
         }

@@ -7,6 +7,7 @@ import { GameMap } from "../engine/GameMap";
 export type SwitchMapReducerAction = {
   type: "switchMap";
   map: StaticMap;
+  mediaFiles: MediaFiles;
 };
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
@@ -32,6 +33,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   const newState = {
     ...state,
     ...{
+      mediaFiles: action.mediaFiles,
       mapSize: action.map.size,
       terrain: action.map.terrain,
       matrix: createMatrix(action.map.size),

@@ -6,35 +6,48 @@ export function usePreloadAssets() {
   const [totalMediaFilesLoaded, setTotalMediaFilesLoaded] = React.useState(0);
   const [loading, setLoading] = React.useState(true);
 
-  const loadImage = (image: { value: string; size: number }) => {
+  const loadImage = (image: { value: string; size: number }): Promise<HTMLImageElement> => {
     return new Promise((resolve, reject) => {
       const loadImg = new Image();
       loadImg.src = image.value;
 
-      loadImg.onload = () => resolve(image);
+      loadImg.onload = () => resolve(loadImg);
 
       loadImg.onerror = (err) => reject(err);
     });
   };
 
-  const preloadAssets = async () => {
-    fetch(`${constants.BASE_URL}/media-assets-manifest.json`).then(async (data) => {
-      const json = await data.json();
+  const preloadAssets = async (): Promise<MediaFiles> => {
+    return new Promise((resolve) => {
+      let mediaFiles: MediaFiles;
 
-      const mediaFiles: { [origPath: string]: { value: string; size: number } } = Object.keys(json).reduce(
-        (obj, key) => {
+      fetch(`${constants.BASE_URL}/media-assets-manifest.json`).then(async (data) => {
+        const json = await data.json();
+
+        mediaFiles = Object.keys(json).reduce((obj, key) => {
           return { ...obj, [key]: json[key] };
-        },
-        {}
-      );
+        }, {});
 
-      const mediaFilesUrls = Object.values(mediaFiles);
+        const mediaFilesUrls = Object.keys(mediaFiles);
 
-      setTotalMediaFiles(mediaFilesUrls.length);
+        setTotalMediaFiles(mediaFilesUrls.length);
 
-      Promise.all(
-        mediaFilesUrls.map((image) => loadImage(image).then(() => setTotalMediaFilesLoaded((prev) => prev + 1)))
-      ).finally(() => setLoading(false));
+        Promise.all(
+          mediaFilesUrls.map((url) => {
+            const image = mediaFiles[url];
+
+            return loadImage(image).then((imageElement) => {
+              setTotalMediaFilesLoaded((prev) => prev + 1);
+
+              mediaFiles[url].img = imageElement;
+            });
+          })
+        ).finally(() => {
+          setLoading(false);
+
+          return resolve(mediaFiles);
+        });
+      });
     });
   };
 

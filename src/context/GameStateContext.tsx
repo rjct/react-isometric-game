@@ -3,12 +3,25 @@ import { GameMap, gameMap } from "../engine/GameMap";
 import { BuildingTypes } from "../engine/BuildingFactory";
 import unitTypes from "../dict/units.json";
 
+type StaticMapTerrainType = "earth" | "vault";
+type StaticMapTerrainAreaCoordinates = { x1: number; y1: number; x2: number; y2: number };
+
 export type StaticMap = {
   size: Size;
   terrain: {
-    className: "earth" | "vault";
-    rows: number;
-    columns: number;
+    area: {
+      source: {
+        url: StaticMapTerrainType;
+        position: StaticMapTerrainAreaCoordinates;
+      };
+      target: StaticMapTerrainAreaCoordinates;
+    }[];
+    single: {
+      [coordinates: string]: {
+        url: StaticMapTerrainType;
+        position: Coordinates;
+      };
+    };
   };
   heroStartPosition: Coordinates;
   buildings: {

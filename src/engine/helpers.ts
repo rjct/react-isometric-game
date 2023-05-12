@@ -199,3 +199,7 @@ export function getWireframeTilePathDirection(
 
   return null;
 }
+
+export function composeSpriteUrl(spriteFileName: string) {
+  return constants.SPRITE_URL.replace("%SPRITE_FILE_NAME%", spriteFileName);
+}

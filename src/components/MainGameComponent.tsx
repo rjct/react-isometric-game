@@ -101,12 +101,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   }, []);
 
   React.useEffect(() => {
-    loadMap(gameState.mapUrl).then((map) => gameDispatch({ type: "switchMap", map }));
+    preloadAssets().then((mediaFiles) => {
+      loadMap(gameState.mapUrl).then((map) => gameDispatch({ type: "switchMap", map, mediaFiles }));
+    });
   }, [gameState.mapUrl]);
-
-  React.useEffect(() => {
-    preloadAssets();
-  }, []);
 
   return (
     <div className="app-wrapper">

@@ -1,4 +1,4 @@
-import { getWireframeTilePathDirection, randomInt } from "./helpers";
+import { composeSpriteUrl, getWireframeTilePathDirection, randomInt } from "./helpers";
 import { Building } from "./BuildingFactory";
 import { Unit, UnitTypes } from "./UnitFactory";
 import { constants } from "../constants";
@@ -28,11 +28,9 @@ export const gameMap = {
     width: 0,
     height: 0,
   } as GameMapProps["mapSize"],
-  terrain: {
-    className: "earth",
-    rows: 1,
-    columns: 1,
-  } as GameMapProps["terrain"],
+  terrain: {} as GameMapProps["terrain"],
+  terrainSpritesDict: new Map() as Map<string, { url: string; x: number; y: number }>,
+
   buildings: [] as GameMapProps["buildings"],
   heroId: hero.id,
   units: {
@@ -43,6 +41,7 @@ export const gameMap = {
   wireframe: [] as Array<Array<TileProps>>,
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
+  mediaFiles: {} as MediaFiles,
 
   selectedEntity: null as unknown as Building,
 
@@ -157,16 +156,42 @@ export const gameMap = {
     return false;
   },
 
+  composeTileSpritesMap(map: StaticMap) {
+    this.terrainSpritesDict = new Map();
+
+    for (let y = 0; y < map.size.width; y++) {
+      for (let x = 0; x < map.size.height; x++) {
+        this.terrainSpritesDict.set(`${x}:${y}`, { url: "", x: 0, y: 0 });
+      }
+    }
+
+    map.terrain.area.forEach((area) => {
+      for (let x = area.target.x1; x < area.target.x2; x++) {
+        for (let y = area.target.y1; y < area.target.y2; y++) {
+          const key = `${x}:${y}`;
+
+          const url = composeSpriteUrl(area.source.url);
+
+          this.terrainSpritesDict.set(key, {
+            url,
+            x: randomInt(area.source.position.x1, area.source.position.x2),
+            y: randomInt(area.source.position.y1, area.source.position.y2),
+          });
+        }
+      }
+    });
+  },
+
   createTiles(map: StaticMap) {
     const tiles: Array<Array<TileProps>> = [];
+
+    this.composeTileSpritesMap(map);
 
     for (let y = 0; y < map.size.width; y++) {
       if (!tiles[y]) tiles[y] = [];
 
       for (let x = 0; x < map.size.height; x++) {
         const key = `${x}:${y}`;
-        const className = `terrain-tile terrain-${map.terrain.className}`;
-        const subClassName = `${className}-${randomInt(1, map.terrain.columns)}-${randomInt(1, map.terrain.rows)}`;
 
         tiles[y][x] = {
           id: key,
@@ -186,10 +211,11 @@ export const gameMap = {
               height: constants.tileSize.height,
             },
           },
-          className: `${className} ${subClassName}`,
+          className: ``,
           direction: null,
           value: "",
           style: null,
+          sprite: this.terrainSpritesDict.get(`${x}:${y}`),
         };
       }
     }

@@ -10,6 +10,7 @@ const wireframeTileSize = {
 
 export const constants = {
   BASE_URL: "/react-isometric-game",
+  SPRITE_URL: "public/assets/terrain/%SPRITE_FILE_NAME%.webp",
   FPS: 24,
   SCROLL_SPEED: 300,
   SCROLL_EDGE_WIDTH: 50,
