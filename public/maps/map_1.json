@@ -7,7 +7,7 @@
           "url": "earth",
           "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
         },
-        "target": { "x1": 0, "y1": 0, "x2": 9, "y2": 12 }
+        "target": { "x1": 0, "y1": 0, "x2": 10, "y2": 12 }
       },
       {
         "source": {
@@ -42,14 +42,14 @@
           "url": "vault",
           "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 }
         },
-        "target": { "x1": 10, "y1": 0, "x2": 27, "y2": 12 }
+        "target": { "x1": 10, "y1": 1, "x2": 29, "y2": 12 }
       },
       {
         "source": {
           "url": "vault",
           "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 }
         },
-        "target": { "x1": 10, "y1": 12, "x2": 29, "y2": 27 }
+        "target": { "x1": 10, "y1": 12, "x2": 29, "y2": 29 }
       },
       {
         "source": {
@@ -323,5 +323,5 @@
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
   ],
-  "exitPoints": [{ "map": "/maps/map_2.json", "area": { "x1": 0, "y1": 0, "x2": 9, "y2": 1 } }]
+  "exitPoints": [{ "map": "/maps/map_2.json", "area": { "x1": 0, "y1": 0, "x2": 5, "y2": 1 } }]
 }

@@ -9,7 +9,6 @@ export const Tile = memo(function Tile(props: {
   value?: TileProps["value"];
   direction?: TileProps["direction"];
   style?: TileProps["style"];
-  exitPoint?: TileProps["exitPoint"];
 }) {
   const [tile, setTile] = React.useState(props.tile);
   const [active, setActive] = React.useState(props.isActive);
@@ -17,8 +16,6 @@ export const Tile = memo(function Tile(props: {
   const [value, setValue] = React.useState("" as TileProps["value"]);
   const [direction, setDirection] = React.useState(props.direction);
   const [style, setStyle] = React.useState(props.style);
-
-  const exitPoint = props.exitPoint || null;
 
   React.useEffect(() => {
     setTile(props.tile);
@@ -58,7 +55,6 @@ export const Tile = memo(function Tile(props: {
         occupied ? constants.tile.CLASS_OCCUPIED : "",
         direction ? `direction-${direction}` : "",
         style ? style : "",
-        exitPoint ? "exit-point" : "",
       ]
         .filter(Boolean)
         .join(" ")}
