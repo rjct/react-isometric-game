@@ -14,7 +14,7 @@ export function usePathVisualization(props: { canvasRef: React.RefObject<HTMLCan
 
     const distance = Math.sqrt(a * a + b * b);
 
-    return distance < unit1.enemyDetectionRange + unit2.enemyDetectionRange;
+    return distance < unit1.enemyDetectionRange + 0.5;
   };
 
   const renderPathVisualization = () => {
@@ -29,17 +29,6 @@ export function usePathVisualization(props: { canvasRef: React.RefObject<HTMLCan
       const wireframeTileHeight = constants.wireframeTileSize.height;
 
       ctx.clearRect(0, 0, mapWidth * wireframeTileWidth, mapHeight * wireframeTileHeight);
-
-      ctx.beginPath();
-      ctx.strokeStyle = "red";
-      ctx.arc(
-        hero.position.x * wireframeTileWidth + wireframeTileWidth / 2,
-        hero.position.y * wireframeTileHeight + wireframeTileHeight / 2,
-        hero.enemyDetectionRange * wireframeTileHeight,
-        0,
-        2 * Math.PI
-      );
-      ctx.stroke();
 
       gameState
         .getAllAliveUnitsArray()
