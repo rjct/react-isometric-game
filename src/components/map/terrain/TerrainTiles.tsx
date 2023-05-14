@@ -15,8 +15,6 @@ export const TerrainTiles = React.memo(function TerrainTiles() {
   const mapHeight = gameState.mapSize.height;
 
   const clear = () => {
-    if (!ctx) return;
-
     ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
   };
 
@@ -62,6 +60,8 @@ export const TerrainTiles = React.memo(function TerrainTiles() {
   };
 
   React.useEffect(() => {
+    if (!ctx) return;
+
     clear();
     renderTerrainTiles();
     renderExitPoints();
