@@ -346,9 +346,9 @@ export const gameMap = {
 
     return (
       x + tileWidth * cache >= viewport.x1 &&
-      x + entityWidth - tileWidth * cache <= viewport.x2 &&
+      x - entityWidth - tileWidth * cache <= viewport.x2 &&
       y + tileHeight * cache >= viewport.y1 &&
-      y + entityHeight - tileHeight * cache <= viewport.y2
+      y - entityHeight - tileHeight * cache <= viewport.y2
     );
   },
 
