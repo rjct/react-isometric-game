@@ -1,12 +1,12 @@
 import React from "react";
 import { WireframeTiles } from "./WireframeTiles";
-import { TerrainTiles } from "./TerrainTiles";
+import { TerrainAreas } from "./TerrainAreas";
 
 export const Terrain = React.memo(function Terrain() {
   return (
     <>
       <WireframeTiles />
-      <TerrainTiles />
+      <TerrainAreas />
     </>
   );
 });

@@ -48,7 +48,15 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
 
     case "editor":
       if (state.keys["Backspace"]) {
-        action.gameState.deleteSelectedEntity();
+        switch (state.editorMode) {
+          case "building":
+            action.gameState.deleteSelectedBuilding();
+            break;
+
+          case "terrain":
+            action.gameState.deleteSelectedTerrainArea();
+            break;
+        }
 
         return {
           ...state,

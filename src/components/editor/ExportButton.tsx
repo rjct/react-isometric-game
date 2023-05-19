@@ -2,6 +2,8 @@ import { StaticMap } from "../../context/GameStateContext";
 import React from "react";
 import { useGameState } from "../../hooks/useGameState";
 import { useHero } from "../../hooks/useHero";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
 
 export function ExportButton() {
   const { gameState } = useGameState();
@@ -10,7 +12,9 @@ export function ExportButton() {
   const handleClick = () => {
     const result: StaticMap = {
       size: { ...gameState.mapSize },
-      terrain: { ...gameState.terrain },
+      terrain: gameState.terrain.map((terrainArea) => {
+        return terrainArea.getJSON();
+      }),
       heroStartPosition: { ...hero.getRoundedPosition() },
       enemies: gameState.getAliveEnemiesArray().map((enemy) => {
         return {
@@ -26,7 +30,6 @@ export function ExportButton() {
           variant: building.variant,
         };
       }),
-      exitPoints: gameState.getExitPoints(),
     };
 
     // eslint-disable-next-line
@@ -35,6 +38,7 @@ export function ExportButton() {
 
   return (
     <button className={"ui-button"} onClick={handleClick}>
+      <FontAwesomeIcon icon={faCode} fixedWidth />
       <label>Get map JSON</label>
     </button>
   );

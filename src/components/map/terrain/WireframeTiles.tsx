@@ -57,7 +57,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     }
   }, [uiState.mousePosition]);
 
-  return (
+  return uiState.scene === "game" ? (
     <>
       <div
         className={"wireframe"}
@@ -70,5 +70,5 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
         {wireframe}
       </div>
     </>
-  );
+  ) : null;
 });

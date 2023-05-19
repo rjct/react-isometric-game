@@ -32,7 +32,7 @@ export const constants = {
   unit_css_animation_length: 1000, // ms
 
   editor: {
-    width: 300,
-    height: 200,
+    propsEditor: { width: 300 },
+    entitiesLibrary: { height: 200 },
   },
 };

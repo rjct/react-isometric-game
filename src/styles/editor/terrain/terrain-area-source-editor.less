@@ -1,0 +1,43 @@
+.terrain-area-source-editor {
+  position: relative;
+  //overflow: hidden;
+  user-select: none;
+  margin: 10px;
+
+  .clip-mask {
+    position: absolute;
+    border: dashed 1px #ffffff;
+    box-sizing: border-box;
+    //box-shadow: 0 0 0 100vmax rgba(0, 0, 0, 0.5);
+    cursor: grab;
+    transition: all 0.05s linear;
+    user-select: none;
+
+    .clip-mask-resize {
+      position: absolute;
+      right: -5px;
+      bottom: -5px;
+      width: 10px;
+      height: 10px;
+      background-color: #ffffff;
+
+      cursor: move;
+      transition: all 0.05s linear;
+    }
+
+    &[data-dragging="true"] {
+      cursor: grabbing;
+      border-color: rgba(0, 255, 0);
+
+      .clip-mask-resize {
+        background-color: rgba(0, 255, 0);
+      }
+    }
+  }
+
+  img {
+    width: 100%;
+    -webkit-user-drag: none;
+    user-select: none;
+  }
+}

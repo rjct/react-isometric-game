@@ -16,7 +16,7 @@ export function BuildingComponent(props: { building: Building }) {
     if (uiState.scene !== "editor") return;
 
     setDraggableBuilding(props.building);
-    gameDispatch({ type: "setSelectedEntity", entity: props.building });
+    gameDispatch({ type: "setSelectedBuilding", entity: props.building });
 
     e.stopPropagation();
   };
@@ -53,7 +53,7 @@ export function BuildingComponent(props: { building: Building }) {
       }}
       data-direction={props.building.direction}
       data-variant={props.building.variant}
-      data-selected={props.building.id === gameState.selectedEntity?.id ? true : null}
+      data-selected={props.building.id === gameState.selectedBuilding?.id ? true : null}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     ></div>

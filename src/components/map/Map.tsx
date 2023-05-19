@@ -9,6 +9,7 @@ import { useGameState } from "../../hooks/useGameState";
 import { FogOfWar } from "./terrain/FogOfWar";
 import { PathVisualization } from "./terrain/PathVisualization";
 import { Building } from "../../engine/BuildingFactory";
+import { TerrainEditor } from "../editor/terrain/TerrainEditor";
 
 export const Map = React.forwardRef((props, setScrollRef) => {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
@@ -22,7 +23,8 @@ export const Map = React.forwardRef((props, setScrollRef) => {
   };
 
   const handleMouseDown = () => {
-    gameDispatch({ type: "clearSelectedEntity" });
+    gameDispatch({ type: "clearSelectedBuilding" });
+    gameDispatch({ type: "clearSelectedTerrainArea" });
   };
 
   const handleMouseMove = (e: React.MouseEvent) => {
@@ -98,7 +100,7 @@ export const Map = React.forwardRef((props, setScrollRef) => {
     const variant = Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"];
 
     gameDispatch({
-      type: "addEntity",
+      type: "addBuilding",
       entity,
       position: { x: Math.floor(grid.x), y: Math.floor(grid.y) },
       direction,
@@ -170,9 +172,11 @@ export const Map = React.forwardRef((props, setScrollRef) => {
         data-scrolling-active={uiState.isScrolling()}
         data-scrolling-direction={uiState.scrollDirection}
         data-editing-active={uiState.scene === "editor"}
+        data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
       >
         <FogOfWar />
         <PathVisualization />
+        <TerrainEditor />
         <Terrain />
         <Buildings />
         <Units />

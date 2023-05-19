@@ -1,4 +1,7 @@
-@text-color: #19ff81;
+@import "variables";
+@import "UI/ui-button";
+@import "UI/ui-radio";
+@import "UI/ui-tabs";
 
 body {
   margin: 0;
@@ -33,54 +36,6 @@ body {
 
   > div {
     flex: 0 1;
-  }
-}
-
-.ui-button {
-  display: flex;
-  align-content: center;
-  justify-content: center;
-  flex: 0 1;
-  gap: 10px;
-  background: #3a3842;
-  box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.2), -10px -10px 20px 5px rgba(77, 71, 100, 0.4),
-    -1px -1px 4px 2px rgba(77, 71, 100, 0.4);
-  border: solid 1px #000000;
-  border-radius: 5px;
-  color: #ffffff;
-  cursor: pointer;
-  transition: all linear 0.3s;
-  padding: 10px 15px;
-
-  &.vertical {
-    flex-direction: column;
-  }
-
-  > *:not(svg) {
-    cursor: pointer;
-  }
-
-  &:hover:not(.disabled),
-  &:hover:not(:disabled) {
-    border-color: rgba(0, 255, 0, 0.5);
-  }
-
-  &:active:not(.disabled),
-  &:active:not(:disabled),
-  &.active {
-    color: @text-color;
-    border-color: rgba(0, 255, 0, 0.5);
-    background-color: rgba(0, 255, 0, 0.1);
-  }
-
-  &.disabled,
-  &:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-
-    > * {
-      cursor: not-allowed;
-    }
   }
 }
 

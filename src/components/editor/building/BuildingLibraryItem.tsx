@@ -1,10 +1,10 @@
-import { DictBuilding } from "../../engine/BuildingFactory";
+import { DictBuilding } from "../../../engine/BuildingFactory";
 import React from "react";
-import { EntityVariantSlider } from "./EntityVariantSlider";
+import { BuildingVariantSlider } from "./BuildingVariantSlider";
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-export function EditorLibraryItem(props: { item: DictBuilding }) {
+export function BuildingLibraryItem(props: { item: DictBuilding }) {
   const [direction, setDirection] = React.useState(props.item.directions[0]);
   const [variant, setVariant] = React.useState(0);
 
@@ -41,7 +41,7 @@ export function EditorLibraryItem(props: { item: DictBuilding }) {
         }}
         draggable={true}
       >
-        <EntityVariantSlider
+        <BuildingVariantSlider
           entity={{ ...props.item, ...{ variant: 0 } }}
           onChange={(variant) => setVariant(variant)}
         />

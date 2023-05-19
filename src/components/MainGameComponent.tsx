@@ -16,8 +16,8 @@ import { loadMap, randomInt } from "../engine/helpers";
 import { GameOver } from "./GameOver";
 import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
-import { Editor } from "./editor/Editor";
-import { EditorLibrary } from "./editor/EditorLibrary";
+import { EditorSidebar } from "./editor/EditorSidebar";
+import { EntitiesLibrary } from "./editor/EntitiesLibrary";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -118,11 +118,11 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <Debug />
               <div className={"center"}>
                 <Map ref={setScrollRef} />
-                <Editor />
+                <EditorSidebar />
               </div>
               <ControlPanel />
 
-              <EditorLibrary />
+              <EntitiesLibrary />
               <Inventory />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>

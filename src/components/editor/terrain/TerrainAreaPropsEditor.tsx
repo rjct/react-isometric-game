@@ -1,0 +1,55 @@
+import { useGameState } from "../../../hooks/useGameState";
+import { TerrainAreaTypeSelector } from "./TerrainAreaTypeSelector";
+import { TableRow } from "../TableRow";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
+import React from "react";
+import { TerrainAreaSourcePositionEditor } from "./TerrainAreaSourcePositionEditor";
+import { TerrainAreaPositionEditor } from "./TerrainAreaPositionEditor";
+import { TerrainAreaExitUrlEditor } from "./TerrainAreaExitUrlEditor";
+import { NothingSelectedText } from "../NothingSelectedText";
+
+export function TerrainAreaPropsEditor() {
+  const { gameState, gameDispatch, uiState } = useGameState();
+
+  return uiState.editorMode === "terrain" ? (
+    gameState.selectedTerrainArea ? (
+      <>
+        <div className={"editor-props-wrapper"}>
+          <table>
+            <tbody>
+              <TableRow label={"ID"}>{gameState.selectedTerrainArea?.id}</TableRow>
+              <TableRow label={"Type"}>
+                <TerrainAreaTypeSelector />
+              </TableRow>
+              <TableRow label={"Position"}>
+                <TerrainAreaPositionEditor />
+              </TableRow>
+              <TableRow label={"Source"}>
+                <TerrainAreaSourcePositionEditor />
+              </TableRow>
+              <TableRow label={"Exit to map"}>
+                <TerrainAreaExitUrlEditor />
+              </TableRow>
+            </tbody>
+          </table>
+        </div>
+
+        <div className={"editor-controls"}>
+          <button
+            className={"ui-button ui-button-red"}
+            disabled={!gameState.selectedTerrainArea}
+            onClick={() => {
+              gameDispatch({ type: "deleteSelectedTerrainArea", entityId: gameState.selectedTerrainArea?.id });
+            }}
+          >
+            <FontAwesomeIcon icon={faTrash} />
+            <label>Delete</label>
+          </button>
+        </div>
+      </>
+    ) : (
+      <NothingSelectedText />
+    )
+  ) : null;
+}

@@ -1,5 +1,15 @@
 import React from "react";
 
+import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
+import { faTreeCity } from "@fortawesome/free-solid-svg-icons/faTreeCity";
+import { faPerson } from "@fortawesome/free-solid-svg-icons/faPerson";
+
+export const EditorModes = {
+  terrain: { text: "Terrain", icon: faLayerGroup },
+  building: { text: "Building", icon: faTreeCity },
+  unit: { text: "Unit", icon: faPerson },
+};
+
 const gameUIContext = {
   keys: {} as { [code: KeyboardEvent["code"]]: boolean },
   scroll: { x: 0, y: 0 },
@@ -18,6 +28,7 @@ const gameUIContext = {
     return this.scrollDirection !== "none";
   },
   scene: "game" as "editor" | "game" | "inventory" | "game-over",
+  editorMode: "terrain" as keyof typeof EditorModes,
   isPaused() {
     return this.scene !== "game";
   },

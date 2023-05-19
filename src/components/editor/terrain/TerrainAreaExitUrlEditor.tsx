@@ -1,0 +1,38 @@
+import React from "react";
+import { useGameState } from "../../../hooks/useGameState";
+import { TerrainArea } from "../../../engine/TerrainAreaFactory";
+
+export function TerrainAreaExitUrlEditor() {
+  const { gameState, gameDispatch } = useGameState();
+  const [exitUrl, setExitUrl] = React.useState(null as unknown as TerrainArea["exitUrl"]);
+
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    e.stopPropagation();
+  };
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const value = e.target.value.trim();
+    const exitUrl: TerrainArea["exitUrl"] = value === "" ? null : value;
+
+    setExitUrl(exitUrl);
+    gameDispatch({
+      type: "setTerrainAreaExitUrl",
+      entityId: gameState.selectedTerrainArea.id,
+      exitUrl,
+    });
+  };
+
+  React.useEffect(() => {
+    setExitUrl(gameState.selectedTerrainArea?.exitUrl);
+  }, [gameState.selectedTerrainArea?.exitUrl]);
+
+  return (
+    <input
+      type={"url"}
+      defaultValue={exitUrl || ""}
+      onKeyDown={handleKeyDown}
+      onChange={handleChange}
+      onBlur={handleChange}
+    />
+  );
+}

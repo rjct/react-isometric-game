@@ -10,6 +10,7 @@ import { detectKeyPress, DetectKeyPressUIReducerAction } from "./detectKeyPress"
 import { processKeyPress, ProcessKeyPressUIReducerAction } from "./processKeyPress";
 import { setScene, SetSceneUIReducerAction } from "./setScene";
 import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHero";
+import { setEditorMode, SetEditorModeUIReducerAction } from "./setEditorMode";
 
 export type UIReducerAction =
   | CenterMapOnHeroUIReducerAction
@@ -22,7 +23,8 @@ export type UIReducerAction =
   | SetMousePositionUIReducerAction
   | ResetMousePositionUIReducerAction
   | ToggleInventoryUIReducerAction
-  | SetSceneUIReducerAction;
+  | SetSceneUIReducerAction
+  | SetEditorModeUIReducerAction;
 
 export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
   switch (action.type) {
@@ -58,5 +60,8 @@ export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
 
     case "setScene":
       return setScene(state, action as SetSceneUIReducerAction);
+
+    case "setEditorMode":
+      return setEditorMode(state, action as SetEditorModeUIReducerAction);
   }
 }

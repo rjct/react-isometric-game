@@ -1,7 +1,7 @@
 import React from "react";
-import { Building, DictBuilding } from "../../engine/BuildingFactory";
+import { Building, DictBuilding } from "../../../engine/BuildingFactory";
 
-export function EntityVariantSlider(props: {
+export function BuildingVariantSlider(props: {
   entity?: Building | (DictBuilding & { variant: number });
   onChange: (variant: Building["variant"]) => void;
 }) {

@@ -3,6 +3,7 @@ import { Building } from "../engine/BuildingFactory";
 import { createMatrix } from "../engine/helpers";
 import { Unit, UnitTypes } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
+import { TerrainArea } from "../engine/TerrainAreaFactory";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";
@@ -30,12 +31,16 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     return { ...result, [unit.id]: unit };
   }, {});
 
+  const terrain: TerrainArea[] = action.map.terrain.map((terrainArea) => {
+    return new TerrainArea(terrainArea);
+  });
+
   const newState = {
     ...state,
     ...{
       mediaFiles: action.mediaFiles,
       mapSize: action.map.size,
-      terrain: action.map.terrain,
+      terrain: terrain, //action.map.terrain,
       matrix: createMatrix(action.map.size),
       fogOfWarMatrix: createMatrix(action.map.size),
       units: {
@@ -46,7 +51,6 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     },
   };
 
-  newState.tiles = newState.createTiles(action.map);
   newState.wireframe = newState.createWireframe(action.map.size);
 
   newState.units[heroId].setAction("none");
@@ -57,11 +61,6 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.matrix = newState.setGridMatrixOccupancy(buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(Object.values(newState.units), newState.matrix);
-
-  newState.exitPoints = action.map.exitPoints;
-  action.map.exitPoints.forEach((exitPoint) => {
-    newState.setWireframeMatrixExitPoints(exitPoint);
-  });
 
   return newState;
 }

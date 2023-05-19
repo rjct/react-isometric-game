@@ -14,12 +14,30 @@ import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHe
 import { toggleDebug, ToggleDebugReducerAction } from "./toggleDebug";
 import { transferItem, TransferItemReducerAction } from "./transferItem";
 import { GameMap } from "../engine/GameMap";
-import { setSelectedEntity, SetSelectedEntityReducerAction } from "./setSelectedEntity";
-import { clearSelectedEntity, ClearSelectedEntityReducerAction } from "./clearSelectedEntity";
-import { setEntityDirection, SetEntityDirectionReducerAction } from "./setEntityDirection";
-import { setEntityVariant, SetEntityVariantReducerAction } from "./setEntityVariant";
-import { deleteSelectedEntity, DeleteSelectedEntityReducerAction } from "./deleteSelectedEntity";
-import { addEntity, AddEntityReducerAction } from "./addEntity";
+import { setSelectedBuilding, SetSelectedBuildingReducerAction } from "./editor/building/setSelectedBuilding";
+import { clearSelectedBuilding, ClearSelectedBuildingReducerAction } from "./editor/building/clearSelectedBuilding";
+import { setBuildingDirection, SetBuildingDirectionReducerAction } from "./editor/building/setBuildingDirection";
+import { setBuildingVariant, SetBuildingVariantReducerAction } from "./editor/building/setBuildingVariant";
+import { deleteSelectedBuilding, DeleteSelectedBuildingReducerAction } from "./editor/building/deleteSelectedBuilding";
+import { addBuilding, AddBuildingReducerAction } from "./editor/building/addBuilding";
+import { setSelectedTerrainArea, SetSelectedTerrainAreaReducerAction } from "./editor/terrain/setSelectedTerrainArea";
+import {
+  clearSelectedTerrainArea,
+  ClearSelectedTerrainAreaReducerAction,
+} from "./editor/terrain/clearSelectedTerrainArea";
+import { setTerrainAreaType, SetTerrainAreaTypeReducerAction } from "./editor/terrain/setTerrainAreaType";
+import { setTerrainAreaPosition, SetTerrainAreaPositionReducerAction } from "./editor/terrain/SetTerrainAreaPosition";
+import { setTerrainAreaSize, SetTerrainAreaSizeReducerAction } from "./editor/terrain/SetTerrainAreaSize";
+import {
+  setTerrainAreaSourcePosition,
+  SetTerrainAreaSourcePositionReducerAction,
+} from "./editor/terrain/setTerrainAreaSourcePosition";
+import {
+  deleteSelectedTerrainArea,
+  DeleteSelectedTerrainAreaReducerAction,
+} from "./editor/terrain/deleteSelectedTerrainArea";
+import { setTerrainAreaExitUrl, SetTerrainAreaExitUrlReducerAction } from "./editor/terrain/setTerrainAreaExitUrl";
+import { addTerrainArea, AddTerrainAreaReducerAction } from "./editor/terrain/addTerrainArea";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -34,12 +52,23 @@ export type GameReducerAction =
   | DetectFiredAmmoHitsTargetAction
   | DetectHeroOnExitPointsAction
   | TransferItemReducerAction
-  | AddEntityReducerAction
-  | SetSelectedEntityReducerAction
-  | ClearSelectedEntityReducerAction
-  | SetEntityDirectionReducerAction
-  | DeleteSelectedEntityReducerAction
-  | SetEntityVariantReducerAction;
+  //
+  | AddBuildingReducerAction
+  | SetSelectedBuildingReducerAction
+  | ClearSelectedBuildingReducerAction
+  | SetBuildingDirectionReducerAction
+  | DeleteSelectedBuildingReducerAction
+  | SetBuildingVariantReducerAction
+  //
+  | AddTerrainAreaReducerAction
+  | SetSelectedTerrainAreaReducerAction
+  | ClearSelectedTerrainAreaReducerAction
+  | SetTerrainAreaTypeReducerAction
+  | SetTerrainAreaPositionReducerAction
+  | SetTerrainAreaSizeReducerAction
+  | SetTerrainAreaSourcePositionReducerAction
+  | SetTerrainAreaExitUrlReducerAction
+  | DeleteSelectedTerrainAreaReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
@@ -79,23 +108,52 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "transferItem":
       return transferItem(state, action as TransferItemReducerAction);
 
-    case "addEntity":
-      return addEntity(state, action as AddEntityReducerAction);
+    // EDITOR: BUILDING
+    case "addBuilding":
+      return addBuilding(state, action as AddBuildingReducerAction);
 
-    case "setSelectedEntity":
-      return setSelectedEntity(state, action as SetSelectedEntityReducerAction);
+    case "setSelectedBuilding":
+      return setSelectedBuilding(state, action as SetSelectedBuildingReducerAction);
 
-    case "clearSelectedEntity":
-      return clearSelectedEntity(state, action as ClearSelectedEntityReducerAction);
+    case "clearSelectedBuilding":
+      return clearSelectedBuilding(state, action as ClearSelectedBuildingReducerAction);
 
-    case "setEntityDirection":
-      return setEntityDirection(state, action as SetEntityDirectionReducerAction);
+    case "setBuildingDirection":
+      return setBuildingDirection(state, action as SetBuildingDirectionReducerAction);
 
-    case "deleteSelectedEntity":
-      return deleteSelectedEntity(state, action as DeleteSelectedEntityReducerAction);
+    case "deleteSelectedBuilding":
+      return deleteSelectedBuilding(state, action as DeleteSelectedBuildingReducerAction);
 
-    case "setEntityVariant":
-      return setEntityVariant(state, action as SetEntityVariantReducerAction);
+    case "setBuildingVariant":
+      return setBuildingVariant(state, action as SetBuildingVariantReducerAction);
+
+    // EDITOR: TERRAIN
+    case "addTerrainArea":
+      return addTerrainArea(state, action as AddTerrainAreaReducerAction);
+
+    case "setSelectedTerrainArea":
+      return setSelectedTerrainArea(state, action as SetSelectedTerrainAreaReducerAction);
+
+    case "clearSelectedTerrainArea":
+      return clearSelectedTerrainArea(state, action as ClearSelectedTerrainAreaReducerAction);
+
+    case "setTerrainAreaType":
+      return setTerrainAreaType(state, action as SetTerrainAreaTypeReducerAction);
+
+    case "setTerrainAreaPosition":
+      return setTerrainAreaPosition(state, action as SetTerrainAreaPositionReducerAction);
+
+    case "setTerrainAreaSize":
+      return setTerrainAreaSize(state, action as SetTerrainAreaSizeReducerAction);
+
+    case "setTerrainAreaSourcePosition":
+      return setTerrainAreaSourcePosition(state, action as SetTerrainAreaSourcePositionReducerAction);
+
+    case "setTerrainAreaExitUrl":
+      return setTerrainAreaExitUrl(state, action as SetTerrainAreaExitUrlReducerAction);
+
+    case "deleteSelectedTerrainArea":
+      return deleteSelectedTerrainArea(state, action as DeleteSelectedTerrainAreaReducerAction);
 
     default:
       throw new Error();

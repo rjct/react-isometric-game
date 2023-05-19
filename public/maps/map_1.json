@@ -1,78 +1,49 @@
 {
   "size": { "width": 30, "height": 30 },
-  "terrain": {
-    "area": [
-      {
-        "source": {
-          "url": "earth",
-          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
-        },
-        "target": { "x1": 0, "y1": 0, "x2": 10, "y2": 12 }
-      },
-      {
-        "source": {
-          "url": "earth",
-          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
-        },
-        "target": { "x1": 0, "y1": 16, "x2": 10, "y2": 30 }
-      },
-      {
-        "source": {
-          "url": "earth",
-          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
-        },
-        "target": { "x1": 0, "y1": 12, "x2": 3, "y2": 16 }
-      },
-      {
-        "source": {
-          "url": "earth",
-          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
-        },
-        "target": { "x1": 0, "y1": 29, "x2": 30, "y2": 30 }
-      },
-      {
-        "source": {
-          "url": "earth",
-          "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 }
-        },
-        "target": { "x1": 28, "y1": 0, "x2": 30, "y2": 30 }
-      },
-      {
-        "source": {
-          "url": "vault",
-          "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 }
-        },
-        "target": { "x1": 10, "y1": 1, "x2": 29, "y2": 12 }
-      },
-      {
-        "source": {
-          "url": "vault",
-          "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 }
-        },
-        "target": { "x1": 10, "y1": 12, "x2": 29, "y2": 29 }
-      },
-      {
-        "source": {
-          "url": "vault",
-          "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 }
-        },
-        "target": { "x1": 3, "y1": 12, "x2": 10, "y2": 16 }
-      }
-    ],
-    "single": {
-      "16:13": {
-        "url": "earth",
-        "x": 2,
-        "y": 4
-      }
+  "terrain": [
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 0, "x2": 10, "y2": 1 },
+      "exitUrl": "/maps/map_2.json"
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 1, "x2": 10, "y2": 12 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 16, "x2": 10, "y2": 29 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 12, "x2": 3, "y2": 16 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 29, "x2": 28, "y2": 30 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 28, "y1": 0, "x2": 30, "y2": 30 }
+    },
+    {
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 } },
+      "target": { "x1": 10, "y1": 0, "x2": 28, "y2": 12 }
+    },
+    {
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
+      "target": { "x1": 10, "y1": 12, "x2": 28, "y2": 29 }
+    },
+    {
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
+      "target": { "x1": 3, "y1": 12, "x2": 10, "y2": 16 }
     }
-  },
+  ],
   "heroStartPosition": { "x": 13, "y": 13 },
   "enemies": [
-    { "type": "ghoul", "position": { "x": 18, "y": 21 } },
-    { "type": "ghoul", "position": { "x": 24, "y": 13 } },
-    { "type": "ghoul", "position": { "x": 22, "y": 14 } },
-    { "type": "ghoul", "position": { "x": 3, "y": 16 } }
+    { "type": "ghoul", "position": { "x": 18, "y": 16 } },
+    { "type": "ghoul", "position": { "x": 13, "y": 15 } },
+    { "type": "ghoul", "position": { "x": 1, "y": 8 } }
   ],
   "buildings": [
     { "type": "buick", "position": { "x": 5, "y": 6 }, "direction": "left", "variant": 1 },
@@ -322,6 +293,5 @@
     { "type": "vault_chair", "position": { "x": 19, "y": 2 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
-  ],
-  "exitPoints": [{ "map": "/maps/map_2.json", "area": { "x1": 0, "y1": 0, "x2": 5, "y2": 1 } }]
+  ]
 }

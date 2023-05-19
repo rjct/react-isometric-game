@@ -1,0 +1,51 @@
+.ui-tabs {
+  display: flex;
+  flex-direction: column;
+
+  .ui-tabs-nav {
+    display: flex;
+    flex: 1;
+    flex-direction: row;
+    justify-content: stretch;
+    column-gap: @padding;
+
+    > .ui-button {
+      flex: 1;
+      border-radius: (@border-radius * 2) !important;
+      border-bottom-color: @tab-bg-color;
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+
+      &.ui-button.active {
+        z-index: 2;
+        border-color: @tab-border-color;
+        border-bottom-color: @tab-bg-color;
+        background-color: @tab-bg-color;
+      }
+    }
+  }
+
+  .ui-tab-content {
+    display: flex;
+    flex-direction: column;
+    margin-top: -1px;
+    padding: @padding @padding @padding @padding;
+    border: solid 1px @tab-border-color;
+    background-color: @tab-bg-color;
+    border-radius: 0 0 (@border-radius * 2) (@border-radius * 2);
+    z-index: 1;
+    gap: @padding;
+
+    .toolbar {
+      display: flex;
+
+      > .ui-button {
+        flex: 1;
+      }
+    }
+
+    > .ui-button {
+      flex: 1;
+    }
+  }
+}

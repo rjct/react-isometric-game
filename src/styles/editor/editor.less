@@ -1,23 +1,35 @@
 .editor {
   position: absolute;
-  right: 0;
+  right: @padding;
+  margin-top: @padding;
+  margin-bottom: @padding;
   display: flex;
 
-  gap: 10px;
+  gap: @padding;
+  padding: (@padding / 2) @padding;
   flex-direction: column;
-  box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
-  background-color: rgba(0, 0, 0, 0.75);
-  backdrop-filter: blur(30px);
+
   z-index: 1;
-  padding: 10px;
   box-sizing: border-box;
   color: @text-color;
 
-  .entity-props-editor {
+  .entity-props-editor,
+  .editor-toolbar {
     display: flex;
     flex-direction: column;
     flex: 1;
     gap: 10px;
+    padding: @padding;
+
+    box-shadow: 0 0 20px 5px rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(30px);
+    border: solid 1px @tab-border-color;
+    border-radius: 10px;
+  }
+
+  .editor-props-wrapper {
+    flex: 1;
   }
 
   .editor-controls {
@@ -39,8 +51,11 @@
       width: 99%;
     }
 
-    select {
+    select,
+    input[type="text"],
+    input[type="url"] {
       width: 100%;
+      box-sizing: border-box;
     }
   }
 }
@@ -183,3 +198,14 @@
     }
   }
 }
+
+.nothing-selected-text {
+  padding: @padding;
+  font-style: italic;
+  text-align: center;
+  font-size: small;
+  color: darken(@text-color, 20%);
+}
+
+@import url("building/building.less");
+@import url("terrain/terrain.less");

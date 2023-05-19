@@ -35,11 +35,15 @@ export function ControlPanel() {
 
       <div className={"hero-controls"}>
         <Button title={"Center map (C)"} className={["control-center-map"]} onClick={centerMapOnHero}>
-          <FontAwesomeIcon icon={faArrowsToDot} size={"2xl"} />
+          <label>
+            <FontAwesomeIcon icon={faArrowsToDot} size={"2xl"} />
+          </label>
         </Button>
 
         <Button title={"Inventory (I)"} className={["control-inventory"]} onClick={handleInventoryButtonClick}>
-          <FontAwesomeIcon icon={faSuitcaseRolling} size={"2xl"} />
+          <label>
+            <FontAwesomeIcon icon={faSuitcaseRolling} size={"2xl"} />
+          </label>
         </Button>
 
         <Button

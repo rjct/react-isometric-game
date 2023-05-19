@@ -1,0 +1,47 @@
+.ui-radio {
+  display: flex;
+  flex: 4;
+  align-items: stretch;
+
+  &.walk {
+    flex: 1;
+  }
+
+  input {
+    display: none;
+
+    & ~ .label {
+      display: flex;
+      align-items: center;
+      align-content: center;
+      justify-content: center;
+      flex-direction: column;
+      flex: 1;
+
+      .weapon-title {
+      }
+
+      .weapon-pic {
+        margin: 10px 0;
+        width: 100%;
+        height: 100%;
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
+        opacity: 0.5;
+        filter: grayscale(1) brightness(200) contrast(0) sepia(100%) hue-rotate(55deg) saturate(0);
+        transition: all 0.3s linear;
+      }
+
+      .weapon-ap-consumption {
+        //
+      }
+    }
+
+    &:checked ~ .label {
+      .weapon-pic {
+        filter: grayscale(1) sepia(60%) hue-rotate(75deg) saturate(5) brightness(1.2) contrast(1.2);
+      }
+    }
+  }
+}

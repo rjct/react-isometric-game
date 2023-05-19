@@ -1,15 +1,15 @@
-import { GameMap } from "../engine/GameMap";
-import { Building, DictBuilding } from "../engine/BuildingFactory";
+import { GameMap } from "../../../engine/GameMap";
+import { Building, DictBuilding } from "../../../engine/BuildingFactory";
 
-export interface AddEntityReducerAction {
-  type: "addEntity";
+export interface AddBuildingReducerAction {
+  type: "addBuilding";
   entity: DictBuilding;
   position: Coordinates;
   direction: Building["direction"];
   variant: Building["variant"];
 }
 
-export function addEntity(state: GameMap, action: AddEntityReducerAction): GameMap {
+export function addBuilding(state: GameMap, action: AddBuildingReducerAction): GameMap {
   const building = new Building({
     buildingType: action.entity.type,
     position: action.position,
@@ -23,7 +23,7 @@ export function addEntity(state: GameMap, action: AddEntityReducerAction): GameM
     ...state,
     ...{
       matrix: state.setGridMatrixOccupancy([building], state.matrix),
-      selectedEntity: building,
+      selectedBuilding: building,
     },
   };
 }

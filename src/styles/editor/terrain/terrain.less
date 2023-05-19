@@ -1,0 +1,81 @@
+.terrain-editor {
+  z-index: 1 !important;
+  pointer-events: auto !important;
+  overflow: visible;
+
+  .area {
+    transition: all 0.1s linear;
+
+    text {
+      color: #ffffff;
+      font: bold 20px sans-serif;
+      fill: #ffffff;
+    }
+
+    .area-rect {
+      outline: solid 1px rgba(255, 255, 255, 0.75);
+      fill: rgba(255, 255, 255, 0);
+      cursor: grab;
+      transition: fill 0.1s linear, outline 0.1s linear;
+    }
+
+    .area-resizer {
+      fill: #ffffff;
+      opacity: 0;
+      cursor: move;
+      transition: fill 0.1s linear;
+    }
+
+    &:hover {
+      .area-rect {
+        fill: rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    &[data-selected="true"] {
+      .area-rect {
+        outline-width: medium;
+        fill: rgba(255, 255, 255, 0.1);
+      }
+
+      .area-resizer {
+        opacity: 1;
+      }
+    }
+
+    &[data-dragging="true"] {
+      transform: translate3d(-10px, -10px, 0);
+
+      .area-rect {
+        cursor: grabbing;
+        outline-color: rgba(0, 255, 0);
+        fill: rgba(255, 255, 255, 0);
+      }
+
+      .area-resizer {
+        fill: rgba(0, 255, 0);
+      }
+    }
+  }
+
+  &[data-editing-mode] {
+    .area:not([data-selected="true"]) {
+      pointer-events: none;
+    }
+  }
+
+  &[data-editing-mode="move"] {
+    cursor: grabbing;
+  }
+
+  &[data-editing-mode="resize"] {
+    cursor: move;
+
+    .area-rect {
+      cursor: move !important;
+    }
+  }
+}
+
+@import "terrain-area-source-editor";
+@import "terrain-area-position-editor";

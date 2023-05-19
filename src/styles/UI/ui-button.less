@@ -1,0 +1,94 @@
+.ui-button {
+  display: flex;
+  align-content: center;
+  justify-content: center;
+  flex: 0 1;
+  background: @button-bg-color;
+  box-shadow: 10px 10px 20px 5px rgba(0, 0, 0, 0.2), -10px -10px 20px 5px rgba(77, 71, 100, 0.4),
+    -1px -1px 4px 2px rgba(77, 71, 100, 0.4);
+  border: solid 1px @button-border-color;
+  border-radius: 5px;
+  color: #ffffff;
+  cursor: pointer;
+  transition: all linear 0.3s;
+  padding: @padding;
+
+  label {
+    text-align: center;
+  }
+
+  > svg {
+    padding: 0 @padding;
+  }
+
+  &.vertical {
+    flex-direction: column;
+  }
+
+  > *:not(svg) {
+    cursor: pointer;
+  }
+
+  &.ui-button-green {
+    border-color: @button-border-color--green;
+    background-color: @button-bg-color--green;
+
+    &:hover:not(.disabled),
+    &:hover:not(:disabled) {
+      color: #ffffff !important;
+      border-color: lighten(@button-border-color--green, 10%);
+      background-color: lighten(@button-bg-color--green, 10%);
+    }
+
+    &:active:not(.disabled),
+    &:active:not(:disabled),
+    &.active {
+      color: #ffffff !important;
+      border-color: lighten(@button-border-color--green, 10%);
+      background-color: lighten(@button-bg-color--green, 20%);
+    }
+  }
+
+  &.ui-button-red {
+    border-color: @button-border-color--red;
+    background-color: @button-bg-color--red;
+
+    &:hover:not(.disabled),
+    &:hover:not(:disabled) {
+      color: #ffffff !important;
+      border-color: lighten(@button-border-color--red, 10%);
+      background-color: lighten(@button-bg-color--red, 10%);
+    }
+
+    &:active:not(.disabled),
+    &:active:not(:disabled),
+    &.active {
+      color: #ffffff !important;
+      border-color: lighten(@button-border-color--red, 10%);
+      background-color: lighten(@button-bg-color--red, 20%);
+    }
+  }
+
+  &:hover:not(.disabled),
+  &:hover:not(:disabled) {
+    border-color: @button-border-color--active;
+  }
+
+  &:active:not(.disabled),
+  &:active:not(:disabled),
+  &.active {
+    color: @text-color;
+    border-color: @button-border-color--active;
+    background-color: @button-bg-color--active;
+  }
+
+  &.disabled,
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+
+    > * {
+      cursor: not-allowed;
+    }
+  }
+}

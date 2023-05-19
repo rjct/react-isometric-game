@@ -19,9 +19,10 @@ Then run `npm start` to start development server or `npm run build` to create pr
 ___
 - ### Map
   - ### Tiles layer
-    - [x] Progressive rendering
+    - [x] <s>Progressive rendering</s>
+    - [x] Canvas-based
     - [x] Visual support of map-exits
-    - [ ] Multiple or custom tile background (e.g. grass/road over default background)
+    - [x] Multiple or custom tile background (e.g. grass/road over default background)
 
   - ### Wireframe layer
     - [x] Progressive rendering
@@ -76,10 +77,10 @@ ___
     - [ ] Group similar items
     
 - ### Editor
-  - [ ] Objects library
+  - [x] Objects library
   - [x] Buildings editing
   - [ ] Units editing
-  - [ ] Terrain editing
+  - [x] Terrain editing
 
 - ### Sound
   - [ ] Basic support using Web Audio API 

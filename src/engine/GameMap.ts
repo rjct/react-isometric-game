@@ -1,16 +1,16 @@
-import { composeSpriteUrl, getWireframeTilePathDirection, randomInt } from "./helpers";
+import { getWireframeTilePathDirection } from "./helpers";
 import { Building } from "./BuildingFactory";
 import { Unit, UnitTypes } from "./UnitFactory";
 import { constants } from "../constants";
 import React from "react";
 import { Tile } from "../components/map/terrain/Tile";
 import { GameUI } from "../context/GameUIContext";
-import { StaticMap } from "../context/GameStateContext";
 import { createHero } from "./createHero";
+import { TerrainArea } from "./TerrainAreaFactory";
 
 interface GameMapProps {
   mapSize: Size;
-  terrain: StaticMap["terrain"];
+  terrain: TerrainArea[];
   buildings: Building[];
   units: UnitTypes;
 }
@@ -28,8 +28,7 @@ export const gameMap = {
     width: 0,
     height: 0,
   } as GameMapProps["mapSize"],
-  terrain: {} as GameMapProps["terrain"],
-  terrainSpritesDict: new Map() as Map<string, { url: string; x: number; y: number }>,
+  terrain: [] as GameMapProps["terrain"],
 
   buildings: [] as GameMapProps["buildings"],
   heroId: hero.id,
@@ -37,15 +36,13 @@ export const gameMap = {
     [hero.id]: hero,
   } as GameMapProps["units"],
 
-  tiles: [] as Array<Array<TileProps>>,
   wireframe: [] as Array<Array<TileProps>>,
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
   mediaFiles: {} as MediaFiles,
 
-  selectedEntity: null as unknown as Building,
-
-  exitPoints: [] as StaticMap["exitPoints"],
+  selectedBuilding: null as unknown as Building,
+  selectedTerrainArea: null as unknown as TerrainArea,
 
   highlightWireframeCell(x: number, y: number) {
     this.wireframe[y][x].isActive = true;
@@ -156,73 +153,6 @@ export const gameMap = {
     return false;
   },
 
-  composeTileSpritesMap(map: StaticMap) {
-    this.terrainSpritesDict = new Map();
-
-    for (let y = 0; y < map.size.width; y++) {
-      for (let x = 0; x < map.size.height; x++) {
-        this.terrainSpritesDict.set(`${x}:${y}`, { url: "", x: 0, y: 0 });
-      }
-    }
-
-    map.terrain.area.forEach((area) => {
-      for (let x = area.target.x1; x < area.target.x2; x++) {
-        for (let y = area.target.y1; y < area.target.y2; y++) {
-          const key = `${x}:${y}`;
-
-          const url = composeSpriteUrl(area.source.url);
-
-          this.terrainSpritesDict.set(key, {
-            url,
-            x: randomInt(area.source.position.x1, area.source.position.x2),
-            y: randomInt(area.source.position.y1, area.source.position.y2),
-          });
-        }
-      }
-    });
-  },
-
-  createTiles(map: StaticMap) {
-    const tiles: Array<Array<TileProps>> = [];
-
-    this.composeTileSpritesMap(map);
-
-    for (let y = 0; y < map.size.width; y++) {
-      if (!tiles[y]) tiles[y] = [];
-
-      for (let x = 0; x < map.size.height; x++) {
-        const key = `${x}:${y}`;
-
-        tiles[y][x] = {
-          id: key,
-          isActive: false,
-          isOccupied: false,
-          position: {
-            grid: { x, y },
-            screen: this.gridToScreenSpace({ x, y }),
-          },
-          size: {
-            grid: {
-              width: 1,
-              height: 1,
-            },
-            screen: {
-              width: constants.tileSize.width,
-              height: constants.tileSize.height,
-            },
-          },
-          className: ``,
-          direction: null,
-          value: "",
-          style: null,
-          sprite: this.terrainSpritesDict.get(`${x}:${y}`),
-        };
-      }
-    }
-
-    return tiles;
-  },
-
   createWireframe(mapSize: Size) {
     const wireframe: Array<Array<TileProps & { node: React.ReactElement }>> = [];
 
@@ -296,29 +226,21 @@ export const gameMap = {
     return matrix;
   },
 
-  setWireframeMatrixExitPoints(exitPoint: ExitPoint) {
-    for (let x = exitPoint.area.x1; x <= exitPoint.area.x2; x++) {
-      for (let y = exitPoint.area.y1; y <= exitPoint.area.y2; y++) {
-        this.tiles[y][x].exitPoint = exitPoint.map;
-      }
-    }
-  },
-
-  getExitPoints() {
-    return this.exitPoints;
-  },
-
   isUnitIsInExitPoint(unit: Unit) {
-    if (this.tiles.length == 0) return false;
-
     const { position } = unit;
-    const tile = this.getTileByCoordinates(position);
+    const terrainArea = this.getTerrainAreaByCoordinates(position);
 
-    return !!tile.exitPoint;
+    return !!terrainArea.exitUrl;
   },
 
-  getTileByCoordinates(coordinates: Coordinates) {
-    return this.tiles[Math.round(coordinates.y)][Math.round(coordinates.x)];
+  getTerrainAreaByCoordinates(coordinates: Coordinates): TerrainArea {
+    const { x, y } = coordinates;
+
+    return this.terrain.find((terrainArea) => {
+      const { x1, y1, x2, y2 } = terrainArea.target;
+
+      return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+    })!;
   },
 
   isTileInViewport(tile: TileProps, viewport: GameUI["viewport"]) {
@@ -416,11 +338,11 @@ export const gameMap = {
     );
   },
 
-  getEntityById(id: string) {
+  getBuildingById(id: string) {
     return this.buildings.find((building) => building.id === id);
   },
 
-  deleteEntity(id: string) {
+  deleteBuilding(id: string) {
     const index = this.buildings.findIndex((entity) => entity.id === id);
 
     if (index === -1) return;
@@ -429,15 +351,40 @@ export const gameMap = {
     this.buildings.splice(index, 1);
   },
 
-  deleteSelectedEntity() {
-    if (!this.selectedEntity) return false;
+  deleteSelectedBuilding() {
+    if (!this.selectedBuilding) return false;
 
-    const confirmDelete = confirm(`Are you sure to delete "${this.selectedEntity.id}"?`);
+    const confirmDelete = confirm(`Are you sure to delete building #"${this.selectedBuilding.id}"?`);
 
     if (!confirmDelete) return false;
 
-    this.deleteEntity(this.selectedEntity.id);
-    this.selectedEntity = null as unknown as Building;
+    this.deleteBuilding(this.selectedBuilding.id);
+    this.selectedBuilding = null as unknown as Building;
+
+    return true;
+  },
+
+  getTerrainAreaById(id: string) {
+    return this.terrain.find((terrainArea) => terrainArea.id === id);
+  },
+
+  deleteTerrainArea(id: string) {
+    const index = this.terrain.findIndex((entity) => entity.id === id);
+
+    if (index === -1) return;
+
+    this.terrain.splice(index, 1);
+  },
+
+  deleteSelectedTerrainArea() {
+    if (!this.selectedTerrainArea) return false;
+
+    const confirmDelete = confirm(`Are you sure to delete terrain area #"${this.selectedTerrainArea.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    this.deleteTerrainArea(this.selectedTerrainArea.id);
+    this.selectedTerrainArea = null as unknown as TerrainArea;
 
     return true;
   },
