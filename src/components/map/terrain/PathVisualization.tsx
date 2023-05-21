@@ -6,7 +6,7 @@ import { usePathVisualization } from "../../../hooks/usePathVisualization";
 export function PathVisualization() {
   const canvasRef = React.createRef<HTMLCanvasElement>();
 
-  const { gameState } = useGameState();
+  const { gameState, uiState } = useGameState();
   const { renderPathVisualization } = usePathVisualization({ canvasRef });
 
   const tileWidth = constants.tileSize.width;
@@ -21,7 +21,7 @@ export function PathVisualization() {
     renderPathVisualization();
   }, [JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position))]);
 
-  return gameState.debug ? (
+  return gameState.debug && uiState.scene === "game" ? (
     <div
       className={"path-visualization"}
       style={{

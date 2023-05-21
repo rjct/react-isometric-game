@@ -57,18 +57,16 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     }
   }, [uiState.mousePosition]);
 
-  return uiState.scene === "game" ? (
-    <>
-      <div
-        className={"wireframe"}
-        style={{
-          width: mapWidth * wireframeTileWidth,
-          height: mapHeight * wireframeTileHeight,
-          left: (mapWidth * tileWidth) / 2,
-        }}
-      >
-        {wireframe}
-      </div>
-    </>
-  ) : null;
+  return (
+    <div
+      className={"wireframe"}
+      style={{
+        width: mapWidth * wireframeTileWidth,
+        height: mapHeight * wireframeTileHeight,
+        left: (mapWidth * tileWidth) / 2,
+      }}
+    >
+      {wireframe}
+    </div>
+  );
 });

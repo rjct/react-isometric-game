@@ -33,7 +33,13 @@ export const Top = React.memo(function Top() {
             type="checkbox"
             checked={uiState.scene === "editor"}
             onChange={(e) => {
-              uiDispatch({ type: "setScene", scene: e.target.checked ? "editor" : "game" });
+              const scene = e.target.checked ? "editor" : "game";
+
+              if (scene === "editor") {
+                gameState.clearHighlightWireframePath();
+              }
+
+              uiDispatch({ type: "setScene", scene });
             }}
           />
         </div>
