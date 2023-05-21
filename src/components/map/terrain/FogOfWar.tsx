@@ -7,7 +7,7 @@ export function FogOfWar() {
   const canvasRef = React.createRef<HTMLCanvasElement>();
 
   const { gameState, uiState } = useGameState();
-  const { renderFogOfWar, clearFogOfWar } = useFogOfWar({ canvasRef });
+  const { renderFogOfWar } = useFogOfWar({ canvasRef });
 
   const tileWidth = constants.tileSize.width;
 
@@ -18,15 +18,12 @@ export function FogOfWar() {
   const mapHeight = gameState.mapSize.height;
 
   React.useEffect(() => {
-    if (uiState.scene === "editor") {
-      clearFogOfWar();
-      return;
-    }
+    if (uiState.scene === "editor") return;
 
     renderFogOfWar();
   }, [JSON.stringify(gameState.fogOfWarMatrix), uiState.scene]);
 
-  return (
+  return uiState.scene === "editor" ? null : (
     <div
       className={"fow"}
       style={{
