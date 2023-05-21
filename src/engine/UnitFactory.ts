@@ -31,6 +31,8 @@ export class Unit {
     max: number;
   };
 
+  public damagePoints = 0;
+
   public isDead: boolean;
 
   public position = { x: 0, y: 0 };
@@ -177,6 +179,7 @@ export class Unit {
   }
 
   public takeDamage(ammo: Ammo) {
+    this.damagePoints = -ammo.damage;
     this.healthPoints.current = Math.max(0, this.healthPoints.current - ammo.damage);
 
     this.clearPath();
@@ -189,6 +192,7 @@ export class Unit {
       this.action = "hit";
 
       window.setTimeout(() => {
+        this.damagePoints = 0;
         if (!this.isDead) this.action = "none";
       }, constants.unit_css_animation_length);
     }

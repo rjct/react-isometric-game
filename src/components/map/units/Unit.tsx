@@ -37,6 +37,7 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
         }}
       >
         <div className="char"></div>
+        <div className="damage-points">{props.unit.action === "hit" ? props.unit.damagePoints : ""}</div>
         {selected ? <div className="sel"></div> : null}
         {gameState.debug && !props.unit.isDead ? (
           <div className={"health"}>
