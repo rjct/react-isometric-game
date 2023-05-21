@@ -30,6 +30,7 @@ export function TerrainAreaExitUrlEditor() {
     <input
       type={"url"}
       defaultValue={exitUrl || ""}
+      placeholder={"/maps/___.json"}
       onKeyDown={handleKeyDown}
       onChange={handleChange}
       onBlur={handleChange}

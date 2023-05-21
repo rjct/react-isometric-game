@@ -53,7 +53,8 @@ export function BuildingComponent(props: { building: Building }) {
       }}
       data-direction={props.building.direction}
       data-variant={props.building.variant}
-      data-selected={props.building.id === gameState.selectedBuilding?.id ? true : null}
+      data-selected={props.building.id === gameState.selectedBuilding?.id || null}
+      data-dragging={props.building.id === draggableBuilding?.id || null}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
     ></div>

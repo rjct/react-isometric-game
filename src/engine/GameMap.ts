@@ -239,7 +239,7 @@ export const gameMap = {
     return this.terrain.find((terrainArea) => {
       const { x1, y1, x2, y2 } = terrainArea.target;
 
-      return x >= x1 && x <= x2 && y >= y1 && y <= y2;
+      return x >= x1 && x < x2 && y >= y1 && y < y2;
     })!;
   },
 
