@@ -1,6 +1,6 @@
 import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
-import { TerrainAreaPositionEntityEditor } from "./TerrainAreaPositionEntityEditor";
+import { PositionEntityEditor } from "../PositionEntityEditor";
 
 export function TerrainAreaPositionEditor() {
   const { gameState, gameDispatch } = useGameState();
@@ -29,7 +29,7 @@ export function TerrainAreaPositionEditor() {
 
   return coordinates && size ? (
     <div className={"terrain-area-coordinates-editor"}>
-      <TerrainAreaPositionEntityEditor
+      <PositionEntityEditor
         value={coordinates.x}
         label={"x"}
         min={0}
@@ -44,7 +44,7 @@ export function TerrainAreaPositionEditor() {
         }}
       />
 
-      <TerrainAreaPositionEntityEditor
+      <PositionEntityEditor
         value={coordinates.y}
         label={"y"}
         min={0}
@@ -59,7 +59,7 @@ export function TerrainAreaPositionEditor() {
         }}
       />
 
-      <TerrainAreaPositionEntityEditor
+      <PositionEntityEditor
         value={size.width}
         label={"width"}
         min={1}
@@ -77,7 +77,7 @@ export function TerrainAreaPositionEditor() {
         }}
       />
 
-      <TerrainAreaPositionEntityEditor
+      <PositionEntityEditor
         value={size.height}
         label={"height"}
         min={1}

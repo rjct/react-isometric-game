@@ -1,6 +1,6 @@
 import React from "react";
 
-export function TerrainAreaPositionEntityEditor(props: {
+export function PositionEntityEditor(props: {
   label: string;
   min: number;
   max: number;
@@ -30,6 +30,7 @@ export function TerrainAreaPositionEntityEditor(props: {
         <input
           type="number"
           min={props.min}
+          max={props.max}
           value={value}
           disabled={props.disabled}
           onKeyDown={handleKeyDown}

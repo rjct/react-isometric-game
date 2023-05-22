@@ -1,0 +1,21 @@
+import { GameMap } from "../../../engine/GameMap";
+
+export interface SetBuildingPositionReducerAction {
+  type: "setBuildingPosition";
+  entityId: string;
+  coordinates: Coordinates;
+}
+
+export function setBuildingPosition(state: GameMap, action: SetBuildingPositionReducerAction): GameMap {
+  const entity = state.getBuildingById(action.entityId);
+
+  if (entity) {
+    state.setGridMatrixOccupancy([entity], state.matrix, -1);
+    entity.setPosition(action.coordinates);
+    state.setGridMatrixOccupancy([entity], state.matrix, 1);
+
+    return { ...state };
+  }
+
+  return state;
+}

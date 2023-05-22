@@ -62,6 +62,10 @@ export class Building {
     this.variant = variant;
   }
 
+  public setPosition(coordinates: Coordinates) {
+    this.position = coordinates;
+  }
+
   public getAvailableDirections() {
     return this.ref.directions;
   }

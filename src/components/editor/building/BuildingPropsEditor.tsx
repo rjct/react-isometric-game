@@ -6,6 +6,7 @@ import { BuildingVariantSlider } from "./BuildingVariantSlider";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NothingSelectedText } from "../NothingSelectedText";
+import { BuildingPositionEditor } from "./BuildingPositionEditor";
 
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
@@ -19,7 +20,7 @@ export function BuildingPropsEditor() {
               <TableRow label={"ID"}>{gameState.selectedBuilding?.id}</TableRow>
               <TableRow label={"Type"}>{gameState.selectedBuilding?.type}</TableRow>
               <TableRow label={"Position"}>
-                <>{JSON.stringify(gameState.selectedBuilding?.position)}</>
+                <BuildingPositionEditor />
               </TableRow>
               <TableRow label={"Direction"}>
                 <BuildingDirectionSelector />

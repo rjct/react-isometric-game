@@ -38,6 +38,7 @@ import {
 } from "./editor/terrain/deleteSelectedTerrainArea";
 import { setTerrainAreaExitUrl, SetTerrainAreaExitUrlReducerAction } from "./editor/terrain/setTerrainAreaExitUrl";
 import { addTerrainArea, AddTerrainAreaReducerAction } from "./editor/terrain/addTerrainArea";
+import { setBuildingPosition, SetBuildingPositionReducerAction } from "./editor/building/setBuildingPosition";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -59,6 +60,7 @@ export type GameReducerAction =
   | SetBuildingDirectionReducerAction
   | DeleteSelectedBuildingReducerAction
   | SetBuildingVariantReducerAction
+  | SetBuildingPositionReducerAction
   //
   | AddTerrainAreaReducerAction
   | SetSelectedTerrainAreaReducerAction
@@ -126,6 +128,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setBuildingVariant":
       return setBuildingVariant(state, action as SetBuildingVariantReducerAction);
+
+    case "setBuildingPosition":
+      return setBuildingPosition(state, action as SetBuildingPositionReducerAction);
 
     // EDITOR: TERRAIN
     case "addTerrainArea":

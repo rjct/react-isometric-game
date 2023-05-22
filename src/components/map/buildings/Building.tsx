@@ -32,6 +32,10 @@ export function BuildingComponent(props: { building: Building }) {
   }, [uiState.viewport]);
 
   React.useEffect(() => {
+    setPosition(gameState.gridToScreenSpace(props.building.position));
+  }, [props.building.position]);
+
+  React.useEffect(() => {
     if (uiState.scene !== "editor" || !draggableBuilding || uiState.mousePosition.isOutOfGrid) return;
 
     gameState.setGridMatrixOccupancy([props.building], gameState.matrix, -1);
