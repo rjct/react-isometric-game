@@ -116,26 +116,6 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
       onMouseUp={handleMouseUp}
       data-editing-mode={workingArea.mode}
     >
-      <pattern
-        id="pattern-checkers"
-        x="0"
-        y="0"
-        width={wireframeTileWidth}
-        height={wireframeTileHeight}
-        patternUnits="userSpaceOnUse"
-      >
-        <line x1="0" y1="0" x2={wireframeTileWidth} y2={0} stroke="rgba(255,255,255,0.5)" />
-        <line x1="0" y1="0" x2={0} y2={wireframeTileHeight} stroke="rgba(255,255,255,0.5)" />
-      </pattern>
-
-      <rect
-        x="0"
-        y="0"
-        width={mapWidth * wireframeTileWidth}
-        height={mapHeight * wireframeTileHeight}
-        fill="url(#pattern-checkers)"
-      ></rect>
-
       {gameState.terrain.map((terrainArea) => {
         return (
           <TerrainAreaEditor

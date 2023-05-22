@@ -69,11 +69,38 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
     });
   };
 
+  const renderLines = () => {
+    if (uiState.scene !== "editor") return;
+
+    const drawLine = (from: Coordinates, to: Coordinates) => {
+      ctx.beginPath();
+      ctx.moveTo(from.x + tileWidth / 2 + 0.5, from.y);
+      ctx.lineTo(to.x + tileWidth / 2 + 0.5, to.y + 0.5);
+      ctx.fillStyle = "rgba(255,255,255, 0.5)";
+      ctx.fill();
+    };
+
+    for (let column = 0; column <= gameState.mapSize.width; column++) {
+      drawLine(
+        gameState.gridToScreenSpace({ x: column, y: 0 }),
+        gameState.gridToScreenSpace({ x: column, y: gameState.mapSize.height })
+      );
+    }
+
+    for (let row = 0; row <= gameState.mapSize.height; row++) {
+      drawLine(
+        gameState.gridToScreenSpace({ x: 0, y: row }),
+        gameState.gridToScreenSpace({ x: gameState.mapSize.width, y: row })
+      );
+    }
+  };
+
   React.useEffect(() => {
     if (!ctx) return;
 
     clear();
     renderTerrainTiles();
+    renderLines();
   }, [
     gameState.mapSize,
     gameState.mapUrl,

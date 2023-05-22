@@ -40,7 +40,7 @@ export function BuildingPropsEditor() {
 
         <div className={"editor-controls"}>
           <button
-            className={"ui-button"}
+            className={"ui-button ui-button-red"}
             disabled={!gameState.selectedBuilding}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedBuilding", entityId: gameState.selectedBuilding?.id });
