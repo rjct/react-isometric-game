@@ -63,7 +63,7 @@ export function TerrainAreaPositionEditor() {
         value={size.width}
         label={"width"}
         min={1}
-        max={100}
+        max={gameState.mapSize.width - gameState.selectedTerrainArea.target.x1}
         disabled={!gameState.selectedTerrainArea}
         onChange={(value) => {
           gameDispatch({
@@ -81,7 +81,7 @@ export function TerrainAreaPositionEditor() {
         value={size.height}
         label={"height"}
         min={1}
-        max={100}
+        max={gameState.mapSize.height - gameState.selectedTerrainArea.target.y1}
         disabled={!gameState.selectedTerrainArea}
         onChange={(value) => {
           gameDispatch({
