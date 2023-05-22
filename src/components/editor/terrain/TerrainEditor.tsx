@@ -36,8 +36,14 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
           type: "setTerrainAreaPosition",
           entityId: workingArea.area.id,
           coordinates: {
-            x: Math.max(0, workingArea.initialAreaPosition.x1 - diffX),
-            y: Math.max(0, workingArea.initialAreaPosition.y1 - diffY),
+            x: Math.min(
+              gameState.mapSize.width - (workingArea.area.target.x2 - workingArea.area.target.x1),
+              Math.max(0, workingArea.initialAreaPosition.x1 - diffX)
+            ),
+            y: Math.min(
+              gameState.mapSize.height - (workingArea.area.target.y2 - workingArea.area.target.y1),
+              Math.max(0, workingArea.initialAreaPosition.y1 - diffY)
+            ),
           },
         });
 

@@ -33,7 +33,7 @@ export function TerrainAreaPositionEditor() {
         value={coordinates.x}
         label={"x"}
         min={0}
-        max={100}
+        max={gameState.mapSize.width - size.width}
         disabled={!gameState.selectedTerrainArea}
         onChange={(value) => {
           gameDispatch({
@@ -48,7 +48,7 @@ export function TerrainAreaPositionEditor() {
         value={coordinates.y}
         label={"y"}
         min={0}
-        max={100}
+        max={gameState.mapSize.height - size.height}
         disabled={!gameState.selectedTerrainArea}
         onChange={(value) => {
           gameDispatch({
