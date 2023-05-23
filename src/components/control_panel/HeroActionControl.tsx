@@ -1,12 +1,12 @@
 import React from "react";
 import { Unit } from "../../engine/UnitFactory";
-import { Weapon } from "../../engine/WeaponFactory";
+import { Firearm } from "../../engine/weapon/FirearmFactory";
 
 export function HeroActionControl(props: {
   action: Unit["currentSelectedAction"];
   selected: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  weapon?: Weapon;
+  weapon?: Firearm;
   title?: string;
   text?: React.ReactElement;
 }) {

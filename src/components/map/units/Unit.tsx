@@ -24,7 +24,7 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (
     <>
-      <Ammo unit={props.unit}></Ammo>
+      <Ammo weapon={props.unit.getCurrentWeapon()}></Ammo>
       <div
         data-direction={props.direction || props.unit.direction}
         data-action={props.action || props.unit.action}

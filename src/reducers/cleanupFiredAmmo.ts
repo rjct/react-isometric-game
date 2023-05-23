@@ -1,19 +1,19 @@
-import { Unit } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
+import { Firearm } from "../engine/weapon/FirearmFactory";
 
 export type CleanupFiredAmmoAction = {
   type: "cleanupFiredAmmo";
-  unit: Unit;
+  weapon: null | Firearm;
 };
 
 export function cleanupFiredAmmo(state: GameMap, action: CleanupFiredAmmoAction): GameMap {
-  if (!action.unit) return state;
+  if (!action.weapon) return state;
 
-  const { id } = action.unit;
+  const { firedAmmoQueue } = action.weapon;
 
-  if (action.unit.firedAmmoQueue.length == 0) return state;
+  if (firedAmmoQueue.length == 0) return state;
 
-  state.units[id].firedAmmoQueue = [...action.unit.firedAmmoQueue.filter((ammo) => !ammo.isTargetReached)];
+  action.weapon.firedAmmoQueue = [...firedAmmoQueue.filter((ammo) => !ammo.isTargetReached)];
 
   return { ...state };
 }

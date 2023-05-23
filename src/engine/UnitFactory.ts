@@ -1,6 +1,6 @@
 import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
-import { Weapon } from "./WeaponFactory";
+import { Firearm } from "./weapon/FirearmFactory";
 import { Ammo } from "./AmmoFactory";
 import { constants } from "../constants";
 import { pathFinder } from "./pathFinder";
@@ -45,12 +45,10 @@ export class Unit {
   public pathQueue: UnitPathQueue;
 
   public inventory = {
-    backpack: [] as Weapon[],
-    leftHand: null as Weapon | null,
-    rightHand: null as Weapon | null,
+    backpack: [] as Firearm[],
+    leftHand: null as Firearm | null,
+    rightHand: null as Firearm | null,
   };
-
-  public firedAmmoQueue: Ammo[] = [];
 
   public currentSelectedAction: "walk" | "run" | "useLeftHand" | "useRightHand" = "walk";
 
@@ -141,7 +139,7 @@ export class Unit {
     return this.inventory.backpack;
   }
 
-  public putItemToInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
+  public putItemToInventory(item: Firearm, inventoryType: keyof Unit["inventory"]) {
     if (inventoryType === "backpack") {
       this.inventory.backpack.push(item);
     } else {
@@ -155,7 +153,7 @@ export class Unit {
     return this.inventory[inventoryType] === null;
   }
 
-  public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
+  public removeItemFromInventory(item: Firearm, inventoryType: keyof Unit["inventory"]) {
     const itemOnInventory =
       this.inventory.backpack.find((backpackItem) => backpackItem.id === item.id) ||
       this.inventory.leftHand ||

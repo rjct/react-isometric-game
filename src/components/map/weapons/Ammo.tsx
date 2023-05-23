@@ -1,14 +1,14 @@
 import React from "react";
-import { Unit } from "../../../engine/UnitFactory";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
+import { Firearm } from "../../../engine/weapon/FirearmFactory";
 
-export const Ammo = React.memo(function Ammo(props: { unit: Unit }) {
+export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) {
   const { gameState } = useGameState();
 
-  return (
+  return props.weapon ? (
     <>
-      {props.unit.firedAmmoQueue
+      {props.weapon.firedAmmoQueue
         .filter((ammo) => !ammo.isTargetReached)
         .map((ammo) => {
           const position = gameState.gridToScreenSpace(ammo.position);
@@ -28,5 +28,5 @@ export const Ammo = React.memo(function Ammo(props: { unit: Unit }) {
           );
         })}
     </>
-  );
+  ) : null;
 });

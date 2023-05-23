@@ -1,15 +1,15 @@
-import { Unit } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
+import { Firearm } from "../engine/weapon/FirearmFactory";
 
 export type DetectFiredAmmoHitsTargetAction = {
   type: "detectFiredAmmoHitsTarget";
-  unit: Unit;
+  weapon: null | Firearm;
 };
 
 export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmmoHitsTargetAction) {
-  if (!action.unit) return state;
+  if (!action.weapon) return state;
 
-  const ammo = [...action.unit.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];
+  const ammo = [...action.weapon.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];
 
   ammo.forEach((singleAmmo) => {
     const unitAtTargetPosition = state.getUnitByCoordinates(singleAmmo.position);

@@ -1,12 +1,12 @@
 import { Unit } from "./UnitFactory";
-import { Weapon } from "./WeaponFactory";
+import { Firearm } from "./weapon/FirearmFactory";
 import { Ammo } from "./AmmoFactory";
 
 export function createHero() {
   const hero = new Unit({ unitType: "hero", position: { x: 0, y: 0 } });
 
   //
-  const pistol = new Weapon("pistol");
+  const pistol = new Firearm("pistol");
 
   pistol.ammoCurrent = Array.from({ length: 100 }, () => new Ammo("pistol"));
   pistol.assignUnit(hero);
@@ -15,7 +15,7 @@ export function createHero() {
   hero.putItemToInventory(pistol, "leftHand");
 
   //
-  const smg = new Weapon("smg");
+  const smg = new Firearm("smg");
   smg.ammoCurrent = Array.from({ length: 100 }, () => new Ammo("pistol"));
   smg.assignUnit(hero);
 

@@ -48,13 +48,15 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
 
         // Update
-
         gameState.getAllAliveUnitsArray().forEach((unit) => {
           gameDispatch({ type: "animateUnitMove", unit, deltaTime });
-          gameDispatch({ type: "animateFiredAmmo", unit, deltaTime });
-          gameDispatch({ type: "detectFiredAmmoHitsTarget", unit });
-          gameDispatch({ type: "cleanupFiredAmmo", unit });
           gameDispatch({ type: "detectHeroOnExitPoints", unit });
+
+          const weapon = unit.getCurrentWeapon();
+
+          gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
+          gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
+          gameDispatch({ type: "cleanupFiredAmmo", weapon });
         });
 
         gameState.getAliveEnemiesArray().forEach((unit) => {

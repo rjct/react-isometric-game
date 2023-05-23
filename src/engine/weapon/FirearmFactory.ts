@@ -1,20 +1,11 @@
-import weapons from "../dict/weapons.json";
-import { Unit } from "./UnitFactory";
-import { Ammo, AmmoType } from "./AmmoFactory";
-import { getDistanceBetweenGridPoints } from "./helpers";
+import weapons from "../../dict/weapons.json";
+import { Ammo, AmmoType } from "../AmmoFactory";
+import { getDistanceBetweenGridPoints } from "../helpers";
+import { Weapon } from "./WeaponFactory";
 
 export type WeaponType = keyof typeof weapons;
 
-export class Weapon {
-  public readonly title: string;
-  public readonly id = crypto.randomUUID();
-  public readonly className: string[] = [];
-
-  public size = {
-    grid: { width: 1, height: 1 },
-    screen: { width: 0, height: 0 },
-  };
-
+export class Firearm extends Weapon {
   ammoCurrent: Ammo[];
 
   readonly ammoType: AmmoType;
@@ -22,13 +13,11 @@ export class Weapon {
   readonly ammoConsumptionPerShoot: number;
   readonly range: number;
 
-  private unit: Unit | null = null;
+  firedAmmoQueue: Ammo[] = [];
 
   constructor(weaponType: WeaponType) {
+    super(weaponType);
     const ref = weapons[weaponType];
-
-    this.title = ref.title;
-    this.className = [...this.className, ...ref.className];
 
     this.ammoType = ref.ammoType as AmmoType;
     this.ammoCurrent = [];
@@ -49,7 +38,7 @@ export class Weapon {
 
       ammo.shot(unit.position, targetPosition);
 
-      unit.firedAmmoQueue.push(ammo);
+      this.firedAmmoQueue.push(ammo);
 
       count++;
 
@@ -59,13 +48,5 @@ export class Weapon {
     if (Math.floor(getDistanceBetweenGridPoints(unit.position, targetPosition)) <= this.range) {
       fireInterval = window.setInterval(doFire, 250);
     }
-  }
-
-  assignUnit(unit: Unit) {
-    this.unit = unit;
-  }
-
-  unassignUnit() {
-    this.unit = null;
   }
 }

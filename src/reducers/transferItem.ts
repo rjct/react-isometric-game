@@ -1,10 +1,10 @@
 import { Unit } from "../engine/UnitFactory";
-import { Weapon } from "../engine/WeaponFactory";
+import { Firearm } from "../engine/weapon/FirearmFactory";
 import { GameMap } from "../engine/GameMap";
 
 export type TransferItemReducerAction = {
   type: "transferItem";
-  item: Weapon;
+  item: Firearm;
   from: { unit: Unit; inventoryType: keyof Unit["inventory"] };
   to: { unit: Unit; inventoryType: keyof Unit["inventory"] };
 };
