@@ -26,7 +26,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
     if (prevPoint) {
       state.deOccupyCell(prevPoint);
 
-      if (unit.path.length > 1 && state.isCellOccupied(unit.path[1].x, unit.path[1].y)) {
+      if (unit.path.length > 1 && state.isCellOccupied(unit.path[1])) {
         const unitPath = pathFinder(state.matrix, unit.path[0], unit.pathQueue.destinationPos);
 
         unit.setPath(unitPath);
@@ -36,8 +36,8 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
 
           prevPath.pop();
 
-          if (prevPath.length > 1 && state.isCellOccupied(prevPath[1].x, prevPath[1].y)) {
-            while (prevPath.length > 1 && state.isCellOccupied(prevPath[1].x, prevPath[1].y)) {
+          if (prevPath.length > 1 && state.isCellOccupied(prevPath[1])) {
+            while (prevPath.length > 1 && state.isCellOccupied(prevPath[1])) {
               prevPath.pop();
             }
           }

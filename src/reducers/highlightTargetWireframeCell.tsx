@@ -17,16 +17,14 @@ export function highlightTargetWireframeCell(state: GameMap, action: HighlightTa
 
   if (!weapon) return state;
 
-  const { x, y } = action.targetPosition;
-
-  state.highlightWireframeCell(x, y);
+  state.highlightWireframeCell(action.targetPosition);
 
   const distance = Math.floor(getDistanceBetweenGridPoints(action.unit.position, action.targetPosition));
   const isAttackAllowed = distance <= weapon.range;
   const value = (isAttackAllowed ? " " : <FontAwesomeIcon icon={faXmark} size={"lg"} />) as TileProps["value"];
 
-  state.setWireframeCellValue(x, y, value);
-  state.setHighlightWireframeCellStyle(x, y, isAttackAllowed ? "target" : "error");
+  state.setWireframeCellValue(action.targetPosition, value);
+  state.setHighlightWireframeCellStyle(action.targetPosition, isAttackAllowed ? "target" : "error");
 
   return { ...state };
 }

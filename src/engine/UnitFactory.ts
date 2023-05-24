@@ -203,8 +203,8 @@ export class Unit {
 
     let newPosition = getRandomPosition();
 
-    if (gameState.isCellOccupied(newPosition.x, newPosition.y)) {
-      while (gameState.isCellOccupied(newPosition.x, newPosition.y)) {
+    if (gameState.isCellOccupied(newPosition)) {
+      while (gameState.isCellOccupied(newPosition)) {
         newPosition = getRandomPosition();
       }
     }

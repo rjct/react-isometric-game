@@ -58,9 +58,11 @@ interface Size {
   height: number;
 }
 
-interface ExitPoint {
-  area: { x1: number; y1: number; x2: number; y2: number };
-  map: string;
+interface AreaCoordinates {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
 }
 
 type Direction = "left" | "top" | "right" | "bottom";

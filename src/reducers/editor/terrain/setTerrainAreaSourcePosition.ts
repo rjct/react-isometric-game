@@ -1,10 +1,9 @@
 import { GameMap } from "../../../engine/GameMap";
-import { TerrainAreaCoordinates } from "../../../engine/TerrainAreaFactory";
 
 export interface SetTerrainAreaSourcePositionReducerAction {
   type: "setTerrainAreaSourcePosition";
   entityId: string;
-  coordinates: TerrainAreaCoordinates;
+  coordinates: AreaCoordinates;
 }
 
 export function setTerrainAreaSourcePosition(

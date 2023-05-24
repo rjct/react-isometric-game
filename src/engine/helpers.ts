@@ -20,17 +20,6 @@ export function helperRotatePoint(point: Coordinates, angle: number) {
   };
 }
 
-export type RectVertexCoordinates = {
-  x: number;
-  y: number;
-};
-export type RotatedRectCoordinates = {
-  tl: RectVertexCoordinates;
-  tr: RectVertexCoordinates;
-  bl: RectVertexCoordinates;
-  br: RectVertexCoordinates;
-};
-
 /**
  * @param {number} angleInDegrees is the amount of direction in radians
  * @param {number} ox X of the origin (center of direction)

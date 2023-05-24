@@ -15,12 +15,11 @@ export enum TerrainAreaTypes {
 }
 
 export type TerrainAreaType = keyof typeof TerrainAreaTypes;
-export type TerrainAreaCoordinates = { x1: number; y1: number; x2: number; y2: number };
 
 export class TerrainArea {
   readonly id = crypto.randomUUID();
-  source: { type: TerrainAreaType; position: TerrainAreaCoordinates };
-  target: TerrainAreaCoordinates;
+  source: { type: TerrainAreaType; position: AreaCoordinates };
+  target: AreaCoordinates;
   exitUrl: string | null;
 
   tiles: Map<string, TerrainTile> = new Map();
@@ -86,7 +85,7 @@ export class TerrainArea {
     this.composeTiles();
   }
 
-  resizeTo(size: { width: number; height: number }) {
+  resizeTo(size: Size) {
     this.target.x2 = this.target.x1 + Math.max(1, size.width);
     this.target.y2 = this.target.y1 + Math.max(1, size.height);
 
@@ -94,7 +93,7 @@ export class TerrainArea {
     this.composeTiles();
   }
 
-  setSourcePosition(coordinates: TerrainAreaCoordinates) {
+  setSourcePosition(coordinates: AreaCoordinates) {
     this.source.position = { ...coordinates };
 
     this.composeRandomBackgrounds();

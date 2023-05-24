@@ -44,54 +44,53 @@ export const gameMap = {
   selectedBuilding: null as unknown as Building,
   selectedTerrainArea: null as unknown as TerrainArea,
 
-  highlightWireframeCell(x: number, y: number) {
-    this.wireframe[y][x].isActive = true;
+  highlightWireframeCell(coordinates: Coordinates) {
+    this.wireframe[coordinates.y][coordinates.x].isActive = true;
   },
 
-  setHighlightedWireframeCellDirection(x: number, y: number, direction: TileProps["direction"]) {
-    this.wireframe[y][x].direction = direction;
+  setHighlightedWireframeCellDirection(coordinates: Coordinates, direction: TileProps["direction"]) {
+    this.wireframe[coordinates.y][coordinates.x].direction = direction;
   },
 
-  setWireframeCellValue(x: number, y: number, value: TileProps["value"]) {
-    this.wireframe[y][x].value = value;
+  setWireframeCellValue(coordinates: Coordinates, value: TileProps["value"]) {
+    this.wireframe[coordinates.y][coordinates.x].value = value;
   },
 
-  clearWireframeCell(x: number, y: number) {
-    this.wireframe[y][x].isActive = false;
-    this.wireframe[y][x].value = "";
-    this.wireframe[y][x].direction = null;
-    this.wireframe[y][x].style = null;
+  clearWireframeCell(coordinates: Coordinates) {
+    this.wireframe[coordinates.y][coordinates.x].isActive = false;
+    this.wireframe[coordinates.y][coordinates.x].value = "";
+    this.wireframe[coordinates.y][coordinates.x].direction = null;
+    this.wireframe[coordinates.y][coordinates.x].style = null;
   },
 
   highlightWireframePath(path: number[][]) {
     if (path.length === 0) return;
 
     path.forEach((pathPoint, index) => {
-      this.highlightWireframeCell(pathPoint[0], pathPoint[1]);
+      this.highlightWireframeCell({ x: pathPoint[0], y: pathPoint[1] });
       this.setHighlightedWireframeCellDirection(
-        pathPoint[0],
-        pathPoint[1],
+        { x: pathPoint[0], y: pathPoint[1] },
         getWireframeTilePathDirection(path[index - 1], pathPoint, path[index + 1])
       );
     });
 
     const lastPathPoint = path[path.length - 1];
 
-    this.setWireframeCellValue(lastPathPoint[0], lastPathPoint[1], String(path.length - 1));
+    this.setWireframeCellValue({ x: lastPathPoint[0], y: lastPathPoint[1] }, String(path.length - 1));
   },
 
   clearHighlightWireframePath() {
     this.wireframe.forEach((column) => {
       column.forEach((tile) => {
-        this.clearWireframeCell(tile.position.grid.x, tile.position.grid.y);
+        this.clearWireframeCell(tile.position.grid);
       });
     });
 
     this.wireframe = [...this.wireframe];
   },
 
-  setHighlightWireframeCellStyle(x: number, y: number, style: TileProps["style"]) {
-    this.wireframe[y][x].style = style;
+  setHighlightWireframeCellStyle(coordinates: Coordinates, style: TileProps["style"]) {
+    this.wireframe[coordinates.y][coordinates.x].style = style;
   },
 
   occupyCell(coordinates: Coordinates) {
@@ -104,8 +103,8 @@ export const gameMap = {
     this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = Math.max(0, value - 1);
   },
 
-  isCellOccupied(x: number, y: number) {
-    return this.matrix[Math.round(y)][Math.round(x)] > 0;
+  isCellOccupied(coordinates: Coordinates) {
+    return this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] > 0;
   },
 
   setVisitedCell(coordinates: Coordinates) {

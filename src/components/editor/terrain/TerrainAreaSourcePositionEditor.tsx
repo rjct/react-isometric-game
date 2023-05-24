@@ -2,10 +2,10 @@ import { useGameState } from "../../../hooks/useGameState";
 import { composeSpriteUrl } from "../../../engine/helpers";
 import { constants } from "../../../constants";
 import React from "react";
-import { TerrainArea, TerrainAreaCoordinates } from "../../../engine/TerrainAreaFactory";
+import { TerrainArea } from "../../../engine/TerrainAreaFactory";
 
 interface ClipMask {
-  position: TerrainAreaCoordinates;
+  position: AreaCoordinates;
   size: Size;
   cellSize: Size;
 }

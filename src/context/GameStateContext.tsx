@@ -2,14 +2,14 @@ import React from "react";
 import { GameMap, gameMap } from "../engine/GameMap";
 import { BuildingTypes } from "../engine/BuildingFactory";
 import unitTypes from "../dict/units.json";
-import { TerrainAreaCoordinates, TerrainAreaType } from "../engine/TerrainAreaFactory";
+import { TerrainAreaType } from "../engine/TerrainAreaFactory";
 
 export interface StaticMapTerrainArea {
   source: {
     type: TerrainAreaType;
-    position: TerrainAreaCoordinates;
+    position: AreaCoordinates;
   };
-  target: TerrainAreaCoordinates;
+  target: AreaCoordinates;
   exitUrl: string | null;
 }
 
