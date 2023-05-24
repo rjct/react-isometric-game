@@ -1,9 +1,9 @@
 import { GameMap } from "../engine/GameMap";
-import { Firearm } from "../engine/weapon/FirearmFactory";
+import { Weapon } from "../engine/weapon/WeaponFactory";
 
 export type CleanupFiredAmmoAction = {
   type: "cleanupFiredAmmo";
-  weapon: null | Firearm;
+  weapon: null | Weapon;
 };
 
 export function cleanupFiredAmmo(state: GameMap, action: CleanupFiredAmmoAction): GameMap {

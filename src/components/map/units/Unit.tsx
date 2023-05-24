@@ -3,6 +3,7 @@ import { Unit } from "../../../engine/UnitFactory";
 import { getEntityZIndex } from "../../../engine/helpers";
 import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
+import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 
 export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]; action?: Unit["action"] }) {
   const { gameState, uiState } = useGameState();
@@ -16,6 +17,16 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
     return gameState.wireframe[Math.round(props.unit.position.y)][Math.round(props.unit.position.x)].style === "target";
   };
 
+  const renderAmmo = () => {
+    const weapon = props.unit.getCurrentWeapon();
+
+    if (weapon && weapon instanceof Firearm) {
+      return <Ammo weapon={weapon}></Ammo>;
+    }
+
+    return null;
+  };
+
   React.useEffect(() => {
     setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
@@ -24,7 +35,7 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (
     <>
-      <Ammo weapon={props.unit.getCurrentWeapon()}></Ammo>
+      {renderAmmo()}
       <div
         data-direction={props.direction || props.unit.direction}
         data-action={props.action || props.unit.action}

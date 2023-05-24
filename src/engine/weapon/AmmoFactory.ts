@@ -1,7 +1,9 @@
-import { radToDeg } from "./helpers";
-import ammo from "../dict/ammo.json";
+import { radToDeg } from "../helpers";
+import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
+import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
 
-export type AmmoType = "pistol";
+export type AmmoType = FirearmAmmoType | MeleePunchType;
+export type AmmoRef = FirearmAmmoRef | MeleePunchRef;
 
 export class Ammo {
   public readonly id = crypto.randomUUID();
@@ -22,14 +24,12 @@ export class Ammo {
   angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
 
   isTargetReached = false;
-  constructor(ammoType: AmmoType) {
-    const ref = ammo[ammoType];
+  constructor(ammoRef: AmmoRef) {
+    this.className = [...this.className, ...ammoRef.className];
+    this.size = ammoRef.size;
 
-    this.className = [...this.className, ...ref.className];
-    this.size = ref.size;
-
-    this.speed = ref.speed;
-    this.damage = ref.damage;
+    this.speed = ammoRef.speed;
+    this.damage = ammoRef.damage;
   }
 
   updatePosition(deltaTime: number) {

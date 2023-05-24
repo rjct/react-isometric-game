@@ -50,9 +50,10 @@ export type GameReducerAction =
   | HighlightUnitPathReducerAction
   | HighlightTargetWireframeCellReducerAction
   | SetCurrentUnitActionReducerAction
-  | DetectFiredAmmoHitsTargetAction
   | DetectHeroOnExitPointsAction
   | TransferItemReducerAction
+  //
+  | DetectFiredAmmoHitsTargetAction
   //
   | AddBuildingReducerAction
   | SetSelectedBuildingReducerAction
@@ -101,14 +102,15 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "highlightTargetWireframeCell":
       return highlightTargetWireframeCell(state, action as HighlightTargetWireframeCellReducerAction);
 
-    case "detectFiredAmmoHitsTarget":
-      return detectFiredAmmoHitsTarget(state, action as DetectFiredAmmoHitsTargetAction);
-
     case "detectHeroOnExitPoints":
       return detectHeroOnExitPoints(state, action as DetectHeroOnExitPointsAction);
 
     case "transferItem":
       return transferItem(state, action as TransferItemReducerAction);
+
+    // WEAPON
+    case "detectFiredAmmoHitsTarget":
+      return detectFiredAmmoHitsTarget(state, action as DetectFiredAmmoHitsTargetAction);
 
     // EDITOR: BUILDING
     case "addBuilding":

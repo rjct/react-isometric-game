@@ -60,11 +60,11 @@ export function useHero() {
         break;
 
       case "useLeftHand":
-        hero.inventory.leftHand?.fire(targetPosition);
+        hero.inventory.leftHand?.use(targetPosition);
         break;
 
       case "useRightHand":
-        hero.inventory.rightHand?.fire(targetPosition);
+        hero.inventory.rightHand?.use(targetPosition);
         break;
     }
   };

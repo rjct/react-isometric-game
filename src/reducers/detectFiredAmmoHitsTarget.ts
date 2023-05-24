@@ -1,9 +1,9 @@
 import { GameMap } from "../engine/GameMap";
-import { Firearm } from "../engine/weapon/FirearmFactory";
+import { Weapon } from "../engine/weapon/WeaponFactory";
 
 export type DetectFiredAmmoHitsTargetAction = {
   type: "detectFiredAmmoHitsTarget";
-  weapon: null | Firearm;
+  weapon: null | Weapon;
 };
 
 export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmmoHitsTargetAction) {
@@ -15,7 +15,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmm
     const unitAtTargetPosition = state.getUnitByCoordinates(singleAmmo.position);
 
     if (unitAtTargetPosition) {
-      unitAtTargetPosition.takeDamage(singleAmmo);
+      unitAtTargetPosition.takeDamage(singleAmmo.damage);
     }
   });
 

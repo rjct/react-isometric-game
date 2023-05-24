@@ -36,13 +36,13 @@ export function ControlPanel() {
       <div className={"hero-controls"}>
         <Button title={"Center map (C)"} className={["control-center-map"]} onClick={centerMapOnHero}>
           <label>
-            <FontAwesomeIcon icon={faArrowsToDot} size={"2xl"} />
+            <FontAwesomeIcon icon={faArrowsToDot} size={"lg"} />
           </label>
         </Button>
 
         <Button title={"Inventory (I)"} className={["control-inventory"]} onClick={handleInventoryButtonClick}>
           <label>
-            <FontAwesomeIcon icon={faSuitcaseRolling} size={"2xl"} />
+            <FontAwesomeIcon icon={faSuitcaseRolling} size={"lg"} />
           </label>
         </Button>
 
@@ -78,7 +78,7 @@ export function ControlPanel() {
             selected={hero.currentSelectedAction === "walk"}
             onChange={handleCurrentHeroActionChange}
             title={"Walk"}
-            text={<FontAwesomeIcon icon={faPersonWalking} size={"2xl"} />}
+            text={<FontAwesomeIcon icon={faPersonWalking} size={"lg"} />}
           />
         </Button>
 
@@ -88,7 +88,7 @@ export function ControlPanel() {
             selected={hero.currentSelectedAction === "run"}
             onChange={handleCurrentHeroActionChange}
             title={"Run"}
-            text={<FontAwesomeIcon icon={faPersonRunning} size={"2xl"} />}
+            text={<FontAwesomeIcon icon={faPersonRunning} size={"lg"} />}
           />
         </Button>
       </div>

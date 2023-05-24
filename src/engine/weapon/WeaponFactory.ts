@@ -1,29 +1,37 @@
-import weapons from "../../dict/weapons.json";
 import { Unit } from "../UnitFactory";
+import { FirearmRef, FirearmType, FirearmUnitAction } from "./firearm/FirearmFactory";
+import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeWeaponFactory";
+import { MeleePunch } from "./melee/meleePunchFactory";
 
-export type WeaponType = keyof typeof weapons;
+export type WeaponType = FirearmType | MeleeWeaponType;
+export type WeaponRef = FirearmRef | MeleeWeaponRef;
+export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
 
 export class Weapon {
   public readonly title: string;
   public readonly id = crypto.randomUUID();
   public readonly className: string[] = [];
+  readonly range: number;
 
   public size = {
     grid: { width: 1, height: 1 },
     screen: { width: 0, height: 0 },
   };
 
-  readonly range: number;
-
   public unit: Unit | null = null;
+  public readonly unitAction: WeaponUnitAction;
+  public firedAmmoQueue: MeleePunch[] = [];
 
-  constructor(weaponType: WeaponType) {
-    const ref = weapons[weaponType];
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  use(targetPosition: Coordinates) {
+    throw new Error("Method not implemented.");
+  }
 
-    this.title = ref.title;
-    this.className = [...this.className, ...ref.className];
-
-    this.range = ref.range;
+  constructor(weaponRef: WeaponRef) {
+    this.title = weaponRef.title;
+    this.className = [...this.className, ...weaponRef.className];
+    this.range = weaponRef.range;
+    this.unitAction = weaponRef.unitAction as unknown as WeaponUnitAction;
   }
 
   assignUnit(unit: Unit) {

@@ -1,15 +1,32 @@
 import React from "react";
 import { Unit } from "../../engine/UnitFactory";
-import { Firearm } from "../../engine/weapon/FirearmFactory";
+import { Weapon } from "../../engine/weapon/WeaponFactory";
+import { Firearm } from "../../engine/weapon/firearm/FirearmFactory";
 
 export function HeroActionControl(props: {
   action: Unit["currentSelectedAction"];
   selected: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  weapon?: Firearm;
+  weapon?: Weapon;
   title?: string;
   text?: React.ReactElement;
 }) {
+  const weaponTitle = () => {
+    if (!props.weapon) return "";
+
+    return props.weapon.title;
+  };
+
+  const WeaponAmmoInfo = () => {
+    if (!props.weapon) return "";
+
+    if (props.weapon instanceof Firearm) {
+      return `(${props.weapon.ammoCurrent.length}/${props.weapon.ammoCapacity})`;
+    }
+
+    return "";
+  };
+
   return (
     <label className="current-hero-action" htmlFor={props.action} title={props.title}>
       <input
@@ -26,7 +43,7 @@ export function HeroActionControl(props: {
         {props.weapon ? (
           <>
             <div className={"weapon-title"}>
-              {props.weapon.title} ({props.weapon.ammoCurrent.length}/{props.weapon.ammoCapacity})
+              {weaponTitle()} {WeaponAmmoInfo()}
             </div>
             <div className={`weapon-pic ${props.weapon.className}`}></div>
             <div className={"weapon-ap-consumption"}>AP 3</div>

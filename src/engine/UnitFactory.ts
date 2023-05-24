@@ -1,10 +1,9 @@
 import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
-import { Firearm } from "./weapon/FirearmFactory";
-import { Ammo } from "./AmmoFactory";
 import { constants } from "../constants";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
+import { Weapon, WeaponUnitAction } from "./weapon/WeaponFactory";
 
 export type UnitTypes = { [unitId: string]: Unit };
 
@@ -19,7 +18,7 @@ export class Unit {
   };
 
   public direction: Direction;
-  public action: "none" | "idle" | "walk" | "run" | "hit" | "dead";
+  public action: "none" | "idle" | "walk" | "run" | "hit" | "dead" | "punch" | WeaponUnitAction;
 
   public actionPoints: {
     current: number;
@@ -45,9 +44,9 @@ export class Unit {
   public pathQueue: UnitPathQueue;
 
   public inventory = {
-    backpack: [] as Firearm[],
-    leftHand: null as Firearm | null,
-    rightHand: null as Firearm | null,
+    backpack: [] as Array<Weapon>,
+    leftHand: null as Weapon | null,
+    rightHand: null as Weapon | null,
   };
 
   public currentSelectedAction: "walk" | "run" | "useLeftHand" | "useRightHand" = "walk";
@@ -139,7 +138,7 @@ export class Unit {
     return this.inventory.backpack;
   }
 
-  public putItemToInventory(item: Firearm, inventoryType: keyof Unit["inventory"]) {
+  public putItemToInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
     if (inventoryType === "backpack") {
       this.inventory.backpack.push(item);
     } else {
@@ -153,7 +152,7 @@ export class Unit {
     return this.inventory[inventoryType] === null;
   }
 
-  public removeItemFromInventory(item: Firearm, inventoryType: keyof Unit["inventory"]) {
+  public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
     const itemOnInventory =
       this.inventory.backpack.find((backpackItem) => backpackItem.id === item.id) ||
       this.inventory.leftHand ||
@@ -176,9 +175,9 @@ export class Unit {
     return [...this.inventory.backpack, ...leftHand, ...rightHand].filter(Boolean).find((item) => item?.id === itemId);
   }
 
-  public takeDamage(ammo: Ammo) {
-    this.damagePoints = -ammo.damage;
-    this.healthPoints.current = Math.max(0, this.healthPoints.current - ammo.damage);
+  public takeDamage(damage: number) {
+    this.damagePoints = -damage;
+    this.healthPoints.current = Math.max(0, this.healthPoints.current - damage);
 
     this.clearPath();
     this.coolDownTimer = this.coolDownTime;

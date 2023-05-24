@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.shared-unit-action-punch() {
+  &[data-action="punch"] .char {
+    animation: action-punch @animation-length steps(@animation-steps--punch) infinite;
+  }
+
+  @keyframes action-punch {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-width * (@animation-steps--punch));
+    }
+  }
+}

@@ -1,9 +1,11 @@
-import weapons from "../../dict/weapons.json";
+import weapons from "../../../dict/weapons.json";
 import { Ammo, AmmoType } from "../AmmoFactory";
-import { getDistanceBetweenGridPoints } from "../helpers";
-import { Weapon } from "./WeaponFactory";
+import { getDistanceBetweenGridPoints } from "../../helpers";
+import { Weapon } from "../WeaponFactory";
 
-export type WeaponType = keyof typeof weapons;
+export type FirearmType = keyof typeof weapons.firearm;
+export type FirearmRef = (typeof weapons.firearm)[FirearmType];
+export type FirearmUnitAction = Pick<(typeof weapons.firearm)[FirearmType], "unitAction">;
 
 export class Firearm extends Weapon {
   ammoCurrent: Ammo[];
@@ -11,22 +13,19 @@ export class Firearm extends Weapon {
   readonly ammoType: AmmoType;
   readonly ammoCapacity: number;
   readonly ammoConsumptionPerShoot: number;
-  readonly range: number;
 
-  firedAmmoQueue: Ammo[] = [];
+  constructor(weaponType: FirearmType) {
+    const ref = weapons.firearm[weaponType];
 
-  constructor(weaponType: WeaponType) {
-    super(weaponType);
-    const ref = weapons[weaponType];
+    super(ref);
 
     this.ammoType = ref.ammoType as AmmoType;
     this.ammoCurrent = [];
     this.ammoCapacity = ref.ammoCapacity;
     this.ammoConsumptionPerShoot = ref.ammoConsumptionPerShoot;
-    this.range = ref.range;
   }
 
-  fire(targetPosition: Coordinates) {
+  use(targetPosition: Coordinates) {
     if (this.ammoCurrent.length === 0 || !this.unit) return;
 
     const unit = this.unit;

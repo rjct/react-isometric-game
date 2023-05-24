@@ -1,7 +1,7 @@
 import React from "react";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
-import { Firearm } from "../../../engine/weapon/FirearmFactory";
+import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 
 export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) {
   const { gameState } = useGameState();

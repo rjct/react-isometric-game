@@ -1,9 +1,9 @@
 import { GameMap } from "../engine/GameMap";
-import { Firearm } from "../engine/weapon/FirearmFactory";
+import { Weapon } from "../engine/weapon/WeaponFactory";
 
 export type AnimateFiredAmmoAction = {
   type: "animateFiredAmmo";
-  weapon: null | Firearm;
+  weapon: null | Weapon;
   deltaTime: number;
 };
 

@@ -1,19 +1,39 @@
 {
-  "pistol": {
-    "title": "Pistol",
-    "className": ["pistol"],
-    "ammoType": "pistolAmmo",
-    "ammoCapacity": 8,
-    "ammoConsumptionPerShoot": 1,
-    "range": 8
+  "melee": {
+    "punch": {
+      "title": "Punch",
+      "className": ["punch"],
+      "unitAction": "punch",
+      "damage": 1,
+      "range": 1
+    },
+    "knife": {
+      "title": "Knife",
+      "className": ["knife"],
+      "unitAction": "punch-knife",
+      "damage": 2,
+      "range": 1
+    }
   },
+  "firearm": {
+    "pistol": {
+      "title": "Pistol",
+      "className": ["pistol"],
+      "ammoType": "pistolAmmo",
+      "unitAction": "shooting-pistol",
+      "ammoCapacity": 8,
+      "ammoConsumptionPerShoot": 1,
+      "range": 8
+    },
 
-  "smg": {
-    "title": "Submachine Gun",
-    "className": ["smg"],
-    "ammoType": "pistolAmmo",
-    "ammoCapacity": 30,
-    "ammoConsumptionPerShoot": 3,
-    "range": 10
+    "smg": {
+      "title": "Submachine Gun",
+      "className": ["smg"],
+      "ammoType": "pistolAmmo",
+      "unitAction": "shooting-smg",
+      "ammoCapacity": 30,
+      "ammoConsumptionPerShoot": 3,
+      "range": 10
+    }
   }
 }

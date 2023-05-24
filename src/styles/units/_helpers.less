@@ -16,7 +16,7 @@
   }
 }
 
-@unit-actions: idle, walk, run, hit, dead;
+@unit-actions: idle, walk, run, hit, dead, punch;
 
 .createUnit(@unit-type) {
   &.@{unit-type} {
@@ -50,6 +50,7 @@
 @import "empty/run";
 @import "empty/hit";
 @import "empty/dead";
+@import "empty/punch";
 
 .sharedUnitActions() {
   .shared-unit-action-idle();
@@ -57,4 +58,5 @@
   .shared-unit-action-run();
   .shared-unit-action-hit();
   .shared-unit-action-dead();
+  .shared-unit-action-punch();
 }
