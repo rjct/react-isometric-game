@@ -7,7 +7,7 @@ import { constants } from "../../constants";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { FogOfWar } from "./terrain/FogOfWar";
-import { PathVisualization } from "./terrain/PathVisualization";
+import { DebugVisualization } from "./terrain/DebugVisualization";
 import { Building } from "../../engine/BuildingFactory";
 import { TerrainEditor } from "../editor/terrain/TerrainEditor";
 
@@ -175,7 +175,7 @@ export const Map = React.forwardRef((props, setScrollRef) => {
         data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
       >
         <FogOfWar />
-        <PathVisualization />
+        <DebugVisualization />
         <TerrainEditor />
         <Terrain />
         <Buildings />

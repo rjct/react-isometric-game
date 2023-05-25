@@ -1,5 +1,4 @@
 import { Unit } from "../engine/UnitFactory";
-import { getDistanceBetweenGridPoints } from "../engine/helpers";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 import React from "react";
@@ -19,8 +18,7 @@ export function highlightTargetWireframeCell(state: GameMap, action: HighlightTa
 
   state.highlightWireframeCell(action.targetPosition);
 
-  const distance = Math.floor(getDistanceBetweenGridPoints(action.unit.position, action.targetPosition));
-  const isAttackAllowed = distance <= weapon.range;
+  const isAttackAllowed = weapon.isReadyToUse();
   const value = (isAttackAllowed ? " " : <FontAwesomeIcon icon={faXmark} size={"lg"} />) as TileProps["value"];
 
   state.setWireframeCellValue(action.targetPosition, value);

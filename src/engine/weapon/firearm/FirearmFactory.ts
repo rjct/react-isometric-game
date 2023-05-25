@@ -2,6 +2,7 @@ import weapons from "../../../dict/weapons.json";
 import { Ammo, AmmoType } from "../AmmoFactory";
 import { getDistanceBetweenGridPoints } from "../../helpers";
 import { Weapon } from "../WeaponFactory";
+import { GameMap } from "../../GameMap";
 
 export type FirearmType = keyof typeof weapons.firearm;
 export type FirearmRef = (typeof weapons.firearm)[FirearmType];
@@ -14,10 +15,10 @@ export class Firearm extends Weapon {
   readonly ammoCapacity: number;
   readonly ammoConsumptionPerShoot: number;
 
-  constructor(weaponType: FirearmType) {
+  constructor(weaponType: FirearmType, gameMap: GameMap) {
     const ref = weapons.firearm[weaponType];
 
-    super(ref);
+    super(ref, gameMap);
 
     this.ammoType = ref.ammoType as AmmoType;
     this.ammoCurrent = [];
@@ -26,7 +27,7 @@ export class Firearm extends Weapon {
   }
 
   use(targetPosition: Coordinates) {
-    if (this.ammoCurrent.length === 0 || !this.unit) return;
+    if (this.ammoCurrent.length === 0 || !this.unit || !this.isReadyToUse()) return;
 
     const unit = this.unit;
     let count = 0;

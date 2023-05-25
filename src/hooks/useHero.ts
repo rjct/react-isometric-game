@@ -1,5 +1,6 @@
 import { pathFinder } from "../engine/pathFinder";
 import { useGameState } from "./useGameState";
+import { Unit } from "../engine/UnitFactory";
 
 export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();
@@ -27,6 +28,12 @@ export function useHero() {
     gameState.clearHighlightWireframePath();
 
     if (!hero.isUsingHands() || uiState.mousePosition.isOutOfGrid) return;
+
+    const weapon = hero.getCurrentWeapon();
+
+    if (weapon) {
+      weapon.aimAt(uiState.mousePosition.grid);
+    }
 
     gameDispatch({
       type: "highlightTargetWireframeCell",
@@ -69,5 +76,10 @@ export function useHero() {
     }
   };
 
-  return { hero, highlightHeroPath, highlightTargetWireframeCell, doHeroAction };
+  return {
+    hero: hero || new Unit({ unitType: "hero", position: { x: 0, y: 0 } }),
+    highlightHeroPath,
+    highlightTargetWireframeCell,
+    doHeroAction,
+  };
 }

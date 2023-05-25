@@ -18,6 +18,7 @@ import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
 import { EditorSidebar } from "./editor/EditorSidebar";
 import { EntitiesLibrary } from "./editor/EntitiesLibrary";
+import { useHero } from "../hooks/useHero";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -25,6 +26,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
   const gameContext = React.useContext(GameStateContext);
   const [gameState, gameDispatch] = React.useReducer(reducer, gameContext);
+  const { hero } = useHero();
 
   const setScrollRef = React.useRef(() => null);
 
@@ -33,7 +35,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   uiState.setScroll = setScrollRef.current;
 
   const mainLoop = (deltaTime: number) => {
-    if (gameState.units[gameState.heroId].isDead) {
+    if (hero.isDead) {
       gameState.getAliveEnemiesArray().forEach((unit) => unit.stop());
       uiDispatch({ type: "setScene", scene: "game-over" });
 

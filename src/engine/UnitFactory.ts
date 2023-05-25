@@ -34,7 +34,7 @@ export class Unit {
 
   public isDead: boolean;
 
-  public position = { x: 0, y: 0 };
+  public position: Coordinates = { x: 0, y: 0 };
   public readonly size = {
     grid: { width: 0, height: 0 },
     screen: { width: 0, height: 0 },
@@ -168,11 +168,15 @@ export class Unit {
     }
   }
 
-  public getInventoryItemById(itemId: string) {
-    const leftHand = [this.inventory.leftHand];
-    const rightHand = [this.inventory.rightHand];
+  public getInventoryItems() {
+    const leftHand = this.inventory.leftHand ? [this.inventory.leftHand] : [];
+    const rightHand = this.inventory.rightHand ? [this.inventory.rightHand] : [];
 
-    return [...this.inventory.backpack, ...leftHand, ...rightHand].filter(Boolean).find((item) => item?.id === itemId);
+    return [...this.inventory.backpack, ...leftHand, ...rightHand];
+  }
+
+  public getInventoryItemById(itemId: string) {
+    return this.getInventoryItems().find((item) => item?.id === itemId);
   }
 
   public takeDamage(damage: number) {

@@ -4,6 +4,7 @@ import { createMatrix } from "../engine/helpers";
 import { Unit, UnitTypes } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
 import { TerrainArea } from "../engine/TerrainAreaFactory";
+import { createHero } from "../engine/createHero";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";
@@ -12,8 +13,6 @@ export type SwitchMapReducerAction = {
 };
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
-  const heroId = state.heroId;
-
   const buildings: Building[] = action.map.buildings.map((building) => {
     const { type, position, direction, variant } = building;
 
@@ -43,15 +42,23 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       terrain: terrain, //action.map.terrain,
       matrix: createMatrix(action.map.size),
       fogOfWarMatrix: createMatrix(action.map.size),
-      units: {
-        ...{ [state.units[heroId].id]: state.units[heroId] },
-        ...enemies,
-      },
+      units: enemies,
       buildings,
     },
   };
 
   newState.wireframe = newState.createWireframe(action.map.size);
+
+  if (state.heroId === "") {
+    const hero = createHero(newState);
+
+    newState.heroId = hero.id;
+    newState.units[hero.id] = hero;
+  } else {
+    newState.units[state.heroId] = state.units[state.heroId];
+  }
+
+  const heroId = newState.heroId;
 
   newState.units[heroId].setAction("none");
   newState.units[heroId].clearPath();
@@ -61,6 +68,13 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.matrix = newState.setGridMatrixOccupancy(buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(Object.values(newState.units), newState.matrix);
+
+  Object.values(newState.units).forEach((unit) => {
+    unit.getInventoryItems().forEach((item) => {
+      newState.weapon[item.id] = item;
+      item.updateReferenceToGameMap(newState);
+    });
+  });
 
   return newState;
 }

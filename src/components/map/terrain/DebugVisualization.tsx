@@ -1,13 +1,13 @@
 import React from "react";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
-import { usePathVisualization } from "../../../hooks/usePathVisualization";
+import { useDebugVisualization } from "../../../hooks/debug/useDebugVisualization";
 
-export function PathVisualization() {
+export function DebugVisualization() {
   const canvasRef = React.createRef<HTMLCanvasElement>();
 
   const { gameState, uiState } = useGameState();
-  const { renderPathVisualization } = usePathVisualization({ canvasRef });
+  const { renderDebugVisualization } = useDebugVisualization({ canvasRef });
 
   const tileWidth = constants.tileSize.width;
 
@@ -18,8 +18,12 @@ export function PathVisualization() {
   const mapHeight = gameState.mapSize.height;
 
   React.useEffect(() => {
-    renderPathVisualization();
-  }, [JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position))]);
+    renderDebugVisualization();
+  }, [
+    //
+    JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position)),
+    uiState.mousePosition.grid,
+  ]);
 
   return gameState.debug && uiState.scene === "game" ? (
     <div

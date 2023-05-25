@@ -5,17 +5,16 @@ import { constants } from "../constants";
 import React from "react";
 import { Tile } from "../components/map/terrain/Tile";
 import { GameUI } from "../context/GameUIContext";
-import { createHero } from "./createHero";
 import { TerrainArea } from "./TerrainAreaFactory";
+import { WeaponTypes } from "./weapon/WeaponFactory";
 
 interface GameMapProps {
   mapSize: Size;
   terrain: TerrainArea[];
   buildings: Building[];
   units: UnitTypes;
+  weapon: WeaponTypes;
 }
-
-const hero = createHero();
 
 export type GameMap = typeof gameMap;
 
@@ -31,10 +30,9 @@ export const gameMap = {
   terrain: [] as GameMapProps["terrain"],
 
   buildings: [] as GameMapProps["buildings"],
-  heroId: hero.id,
-  units: {
-    [hero.id]: hero,
-  } as GameMapProps["units"],
+  heroId: "",
+  units: {} as GameMapProps["units"],
+  weapon: {} as GameMapProps["weapon"],
 
   wireframe: [] as Array<Array<TileProps>>,
   matrix: [] as Array<Array<number>>,
@@ -386,5 +384,13 @@ export const gameMap = {
     this.selectedTerrainArea = null as unknown as TerrainArea;
 
     return true;
+  },
+
+  Ray: class {
+    constructor(public superThis: typeof gameMap) {}
+
+    a() {
+      return this.superThis;
+    }
   },
 };

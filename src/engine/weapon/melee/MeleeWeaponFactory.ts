@@ -2,6 +2,7 @@ import weapons from "../../../dict/weapons.json";
 import { Weapon } from "../WeaponFactory";
 import { MeleePunch } from "./meleePunchFactory";
 import { getDistanceBetweenGridPoints } from "../../helpers";
+import { GameMap } from "../../GameMap";
 
 export type MeleeWeaponType = keyof typeof weapons.melee;
 export type MeleeWeaponRef = (typeof weapons.melee)[MeleeWeaponType];
@@ -10,16 +11,16 @@ export type MeleeUnitAction = Pick<(typeof weapons.melee)[MeleeWeaponType], "uni
 export class MeleeWeapon extends Weapon {
   private readonly damage: number;
 
-  constructor(weaponType: MeleeWeaponType) {
+  constructor(weaponType: MeleeWeaponType, gameMap: GameMap) {
     const ref = weapons.melee[weaponType];
 
-    super(ref);
+    super(ref, gameMap);
 
     this.damage = ref.damage;
   }
 
   use(targetPosition: Coordinates) {
-    if (!this.unit) return;
+    if (!this.unit || !this.isReadyToUse()) return;
 
     const unit = this.unit;
 

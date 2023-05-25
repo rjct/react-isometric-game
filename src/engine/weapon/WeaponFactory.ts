@@ -2,12 +2,18 @@ import { Unit } from "../UnitFactory";
 import { FirearmRef, FirearmType, FirearmUnitAction } from "./firearm/FirearmFactory";
 import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeWeaponFactory";
 import { MeleePunch } from "./melee/meleePunchFactory";
+import { getDistanceBetweenGridPoints } from "../helpers";
+import { GameMap } from "../GameMap";
+import { Ray } from "../Ray";
 
 export type WeaponType = FirearmType | MeleeWeaponType;
+export type WeaponTypes = { [weaponId: string]: Weapon };
 export type WeaponRef = FirearmRef | MeleeWeaponRef;
 export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
 
 export class Weapon {
+  private gameMap: GameMap;
+
   public readonly title: string;
   public readonly id = crypto.randomUUID();
   public readonly className: string[] = [];
@@ -22,12 +28,17 @@ export class Weapon {
   public readonly unitAction: WeaponUnitAction;
   public firedAmmoQueue: MeleePunch[] = [];
 
+  private targetPosition: null | Coordinates = null;
+  public ray: null | Ray = null;
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: Coordinates) {
     throw new Error("Method not implemented.");
   }
 
-  constructor(weaponRef: WeaponRef) {
+  constructor(weaponRef: WeaponRef, gameMap: GameMap) {
+    this.gameMap = gameMap;
+
     this.title = weaponRef.title;
     this.className = [...this.className, ...weaponRef.className];
     this.range = weaponRef.range;
@@ -38,7 +49,44 @@ export class Weapon {
     this.unit = unit;
   }
 
-  unassignUnit() {
+  unAssignUnit() {
     this.unit = null;
+  }
+
+  updateReferenceToGameMap(gameMap: GameMap) {
+    this.gameMap = gameMap;
+  }
+
+  aimAt(position: Coordinates) {
+    this.targetPosition = position;
+    if (this.unit) {
+      this.ray = new Ray(this.unit.position, this.targetPosition);
+    }
+  }
+
+  stopAiming() {
+    this.targetPosition = null;
+    this.ray = null;
+  }
+
+  isAimed() {
+    return !!this.targetPosition;
+  }
+
+  getDistanceToTarget() {
+    if (this.targetPosition && this.unit) {
+      return Math.floor(getDistanceBetweenGridPoints(this.unit.position, this.targetPosition));
+    }
+
+    return Infinity;
+  }
+
+  isReadyToUse() {
+    if (!this.unit || !this.targetPosition) return false;
+
+    const distanceToTarget = this.getDistanceToTarget();
+    const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(this.gameMap);
+
+    return distanceToTarget <= this.range && distanceToTarget === distanceToRayEnd;
   }
 }
