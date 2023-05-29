@@ -6,7 +6,7 @@ export type ScrollMapOnScreenEdgesUIReducerAction = {
   deltaTime: number;
 };
 
-export const scrollMapOnScreenEdges = (state: GameUI, action: ScrollMapOnScreenEdgesUIReducerAction) => {
+export const scrollMapOnScreenEdges = (state: GameUI, action: ScrollMapOnScreenEdgesUIReducerAction): GameUI => {
   const shift = (action.deltaTime || 0) * constants.SCROLL_SPEED;
   const currentScroll = { ...state.scroll };
 
@@ -24,26 +24,30 @@ export const scrollMapOnScreenEdges = (state: GameUI, action: ScrollMapOnScreenE
     case x <= edge:
       state.setScroll({ ...currentScroll, ...{ x: state.scroll.x - shift } });
       state.scrollDirection = "left";
-      break;
+
+      return { ...state };
 
     // top
     case y <= edge:
       state.setScroll({ ...currentScroll, ...{ y: state.scroll.y - shift } });
       state.scrollDirection = "top";
-      break;
+
+      return { ...state };
 
     // right
     case x > state.rect.width - edge:
       state.setScroll({ ...currentScroll, ...{ x: state.scroll.x + shift } });
       state.scrollDirection = "right";
-      break;
+
+      return { ...state };
 
     // bottom
     case y > state.rect.height - edge:
       state.setScroll({ ...currentScroll, ...{ y: state.scroll.y + shift } });
       state.scrollDirection = "bottom";
-      break;
+
+      return { ...state };
   }
 
-  return { ...state };
+  return state;
 };
