@@ -6,6 +6,7 @@ export interface CastShadowsReducerAction {
   //canvasRef: React.RefObject<HTMLCanvasElement>;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function castShadows(state: GameMap, action: CastShadowsReducerAction) {
   //const { updateAll } = useShadows({ canvasRef: action.canvasRef });
 

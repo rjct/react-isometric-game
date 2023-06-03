@@ -22,7 +22,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     setMousePosition(getWorldMousePosition(e));
   };
 
-  const handleClick = (e: React.MouseEvent) => {
+  const handleClick = () => {
     doHeroAction(mousePosition);
   };
 
