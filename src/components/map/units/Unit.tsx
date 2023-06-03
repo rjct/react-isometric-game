@@ -5,17 +5,15 @@ import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 
-export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]; action?: Unit["action"] }) {
+export const UnitComponent = React.memo(function UnitComponennt(props: {
+  unit: Unit;
+  direction?: Unit["direction"];
+  action?: Unit["action"];
+}) {
   const { gameState, uiState } = useGameState();
-
-  const selected = props.unit.id === gameState.heroId;
 
   const [zIndex, setZIndex] = React.useState(0);
   const [screenPosition, setScreenPosition] = React.useState({ x: 0, y: 0 });
-
-  const atGunpoint = () => {
-    return gameState.wireframe[Math.round(props.unit.position.y)][Math.round(props.unit.position.x)].style === "target";
-  };
 
   const renderAmmo = () => {
     const weapon = props.unit.getCurrentWeapon();
@@ -40,8 +38,7 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
         data-direction={props.direction || props.unit.direction}
         data-action={props.action || props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
-        data-at-gunpoint={atGunpoint() && !props.unit.isDead ? true : null}
-        className={`${props.unit.className}`}
+        className={props.unit.className}
         style={{
           transform: `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
           zIndex: zIndex,
@@ -49,8 +46,7 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
       >
         <div className="char"></div>
         <div className="damage-points">{props.unit.action === "hit" ? props.unit.damagePoints : ""}</div>
-        {selected ? <div className="sel"></div> : null}
-        {gameState.debug && !props.unit.isDead ? (
+        {gameState.debug.enabled && !props.unit.isDead ? (
           <div className={"health"}>
             <div style={{ width: `${(props.unit.healthPoints.current * 100) / props.unit.healthPoints.max}%` }}></div>
           </div>
@@ -58,4 +54,4 @@ export function UnitComponent(props: { unit: Unit; direction?: Unit["direction"]
       </div>
     </>
   ) : null;
-}
+});

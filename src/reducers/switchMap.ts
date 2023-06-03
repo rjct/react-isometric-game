@@ -47,8 +47,6 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     },
   };
 
-  newState.wireframe = newState.createWireframe(action.map.size);
-
   if (state.heroId === "") {
     const hero = createHero(newState);
 

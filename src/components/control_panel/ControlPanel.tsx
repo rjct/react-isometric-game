@@ -8,7 +8,7 @@ import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { Button } from "../ui/Button";
 
-export function ControlPanel() {
+export const ControlPanel = React.memo(function ControlPanel() {
   const { hero } = useHero();
 
   const { gameDispatch, uiDispatch, gameState, uiState } = useGameState();
@@ -94,4 +94,4 @@ export function ControlPanel() {
       </div>
     </div>
   ) : null;
-}
+});

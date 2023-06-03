@@ -2,6 +2,7 @@ import React from "react";
 
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
+import { Switch } from "../ui/Switch";
 
 export const Top = React.memo(function Top() {
   const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();
@@ -15,11 +16,9 @@ export const Top = React.memo(function Top() {
         </div>
 
         <div className={"value"}>
-          <label htmlFor={"debug"}>Debug</label>
-          <input
-            id={"debug"}
-            type="checkbox"
-            checked={gameState.debug}
+          <Switch
+            title={"Debug"}
+            checked={gameState.debug.enabled}
             onChange={(e) => {
               gameDispatch({ type: "toggleDebug", debugEnabled: e.target.checked });
             }}
@@ -27,17 +26,11 @@ export const Top = React.memo(function Top() {
         </div>
 
         <div className={"value"}>
-          <label htmlFor={"editor"}>Editor</label>
-          <input
-            id={"editor"}
-            type="checkbox"
+          <Switch
+            title={"Editor"}
             checked={uiState.scene === "editor"}
             onChange={(e) => {
               const scene = e.target.checked ? "editor" : "game";
-
-              if (scene === "editor") {
-                gameState.clearHighlightWireframePath();
-              }
 
               uiDispatch({ type: "setScene", scene });
             }}
@@ -49,13 +42,6 @@ export const Top = React.memo(function Top() {
         <div className={"title"}>HP</div>
         <div className={"value"}>
           {hero.healthPoints.current} / {hero.healthPoints.max}
-        </div>
-      </div>
-
-      <div className={"block ap"} title="Action points">
-        <div className={"title"}>AP</div>
-        <div className={"value"}>
-          {hero.actionPoints.current} / {hero.actionPoints.max}
         </div>
       </div>
     </div>

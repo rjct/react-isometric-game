@@ -1,28 +1,44 @@
 import React from "react";
-import { useHero } from "../hooks/useHero";
-import { useGameState } from "../hooks/useGameState";
+import { useHero } from "../../hooks/useHero";
+import { useGameState } from "../../hooks/useGameState";
+import { GameMap } from "../../engine/GameMap";
+import { Switch } from "../ui/Switch";
 
-export function Debug() {
-  const { gameState, uiState } = useGameState();
+export const DebugInfo = React.memo(function DebugInfo() {
+  const { gameState, gameDispatch, uiState } = useGameState();
 
   const { hero } = useHero();
 
   const screenPosition = gameState.gridToScreenSpace(hero.position);
 
-  return gameState.debug ? (
+  return gameState.debug.enabled ? (
     <div
       className={"debug"}
       style={{
         top: uiState.rect.top,
       }}
     >
+      <div>
+        {Object.entries(gameState.debug.featureEnabled).map(([key, value]) => {
+          return (
+            <Switch
+              key={key}
+              title={key}
+              checked={value}
+              onChange={(e) => {
+                gameDispatch({
+                  type: "toggleDebugFeature",
+                  featureName: key as keyof GameMap["debug"]["featureEnabled"],
+                  featureEnabled: e.target.checked,
+                });
+              }}
+            />
+          );
+        })}
+      </div>
+
       <table>
         <tbody>
-          <tr>
-            <th>Mouse:</th>
-            <td>{JSON.stringify(uiState.mousePosition)}</td>
-          </tr>
-
           <tr>
             <th>Rect:</th>
             <td>{JSON.stringify(uiState.rect)}</td>
@@ -56,4 +72,4 @@ export function Debug() {
       {JSON.stringify(uiState.keys)}
     </div>
   ) : null;
-}
+});

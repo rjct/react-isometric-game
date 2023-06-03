@@ -1,6 +1,6 @@
-import { Unit } from "../engine/UnitFactory";
-import { pathFinder } from "../engine/pathFinder";
-import { GameMap } from "../engine/GameMap";
+import { Unit } from "../../../engine/UnitFactory";
+import { pathFinder } from "../../../engine/pathFinder";
+import { GameMap } from "../../../engine/GameMap";
 
 export type AnimateUnitMoveReducerAction = {
   type: "animateUnitMove";

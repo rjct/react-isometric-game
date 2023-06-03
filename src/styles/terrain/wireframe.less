@@ -1,4 +1,5 @@
-[data-scrolling-active="true"] {
+[data-scrolling-active="true"],
+[data-editing-active="true"] {
   .wireframe {
     pointer-events: none;
   }
@@ -6,7 +7,7 @@
 
 .wireframe {
   cursor: crosshair;
-  pointer-events: none;
+  //pointer-events: none;
 
   position: absolute;
   top: 0;
@@ -16,63 +17,4 @@
   transform-origin: left top;
   transform: rotateX(60deg) rotateZ(45deg);
   z-index: 1;
-
-  .wireframe-tile {
-    position: absolute;
-    z-index: 1;
-    //background-color: rgba(255,255,255,0.5);
-    //border: solid 1px #ffffff;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-    color: #fff;
-    font-size: 14px;
-
-    @import "wireframe-path-highlight";
-
-    > div {
-      font-size: 2em;
-      transform: rotateX(0deg) rotateZ(-45deg);
-      background-color: @wireframe-path-color;
-      border-radius: 50%;
-      font-weight: bold;
-      pointer-events: none;
-      position: absolute;
-      width: 100%;
-      z-index: 3;
-      height: 100%;
-      line-height: 1.85em;
-      color: #000000;
-      letter-spacing: -0.1em;
-    }
-
-    &.error > div {
-      background-color: @wireframe-path-color-warn;
-    }
-
-    &.target {
-      & > div {
-        background-color: transparent;
-        border: none;
-      }
-
-      &:after {
-        content: "";
-        background: center url("/public/assets/terrain/target.svg") no-repeat;
-        background-size: cover;
-        left: -20%;
-        right: -20%;
-        top: -20%;
-        bottom: -20%;
-        position: absolute;
-        pointer-events: none;
-      }
-    }
-
-    &.occupied {
-      box-shadow: 5px 5px 10px 0 rgba(0, 0, 0, 0.5) inset;
-      border: dashed 1px yellow;
-    }
-  }
 }

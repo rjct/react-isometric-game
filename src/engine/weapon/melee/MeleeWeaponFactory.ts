@@ -1,7 +1,6 @@
 import weapons from "../../../dict/weapons.json";
 import { Weapon } from "../WeaponFactory";
 import { MeleePunch } from "./meleePunchFactory";
-import { getDistanceBetweenGridPoints } from "../../helpers";
 import { GameMap } from "../../GameMap";
 
 export type MeleeWeaponType = keyof typeof weapons.melee;
@@ -20,11 +19,11 @@ export class MeleeWeapon extends Weapon {
   }
 
   use(targetPosition: Coordinates) {
-    if (!this.unit || !this.isReadyToUse()) return;
+    if (!this.unit) return;
 
     const unit = this.unit;
 
-    if (Math.floor(getDistanceBetweenGridPoints(unit.position, targetPosition)) <= this.range) {
+    if (this.isReadyToUse()) {
       const punch = new MeleePunch("punch");
 
       this.firedAmmoQueue.push(punch);
@@ -33,17 +32,17 @@ export class MeleeWeapon extends Weapon {
 
       setTimeout(() => {
         punch.shot(unit.position, targetPosition);
-      }, 400);
+      }, this.animationDuration.attack);
 
       setTimeout(() => {
         unit.setAction("none");
-      }, 1000);
+      }, this.animationDuration.attackCompleted);
     } else {
       unit.setAction("idle");
 
       setTimeout(() => {
         unit.setAction("none");
-      }, 1000);
+      }, this.animationDuration.attackNotAllowed);
     }
   }
 }

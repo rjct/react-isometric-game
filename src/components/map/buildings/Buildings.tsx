@@ -5,7 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 export const Buildings = React.memo(function Buildings() {
   const { gameState, uiState } = useGameState();
 
-  return uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "building") ? (
+  return uiState.scene === "game" ? (
     <>
       {gameState.buildings.map((building) => (
         <BuildingComponent key={building.id} building={building} />

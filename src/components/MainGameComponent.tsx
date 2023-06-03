@@ -1,7 +1,7 @@
 import React from "react";
 import { GameDispatchContext } from "../context/GameDispachContext";
 import { GameStateContext } from "../context/GameStateContext";
-import { Map } from "./map/Map";
+import { Map, MapForwardedRefs } from "./map/Map";
 
 import { Top } from "./top/Top";
 import { reducer } from "../reducers/_reducers";
@@ -11,14 +11,13 @@ import { UIReducer } from "../reducers/ui/_reducers";
 import { GameUiDispatchContext } from "../context/GameUIDispatchContext";
 import { Inventory } from "./inventory/Inventory";
 import { useAnimationFrame } from "../hooks/useAnimationFrame";
-import { Debug } from "./Debug";
+import { DebugInfo } from "./debug/DebugInfo";
 import { loadMap, randomInt } from "../engine/helpers";
 import { GameOver } from "./GameOver";
 import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
 import { EditorSidebar } from "./editor/EditorSidebar";
 import { EntitiesLibrary } from "./editor/EntitiesLibrary";
-import { useHero } from "../hooks/useHero";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -26,16 +25,15 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
   const gameContext = React.useContext(GameStateContext);
   const [gameState, gameDispatch] = React.useReducer(reducer, gameContext);
-  const { hero } = useHero();
 
-  const setScrollRef = React.useRef(() => null);
+  const setScrollRef = React.useRef<MapForwardedRefs>({} as unknown as MapForwardedRefs);
 
   const { preloadAssets, loadingState } = usePreloadAssets();
 
-  uiState.setScroll = setScrollRef.current;
+  uiState.setScroll = setScrollRef.current.setScroll;
 
   const mainLoop = (deltaTime: number) => {
-    if (hero.isDead) {
+    if (gameState.units[gameState.heroId]?.isDead) {
       gameState.getAliveEnemiesArray().forEach((unit) => unit.stop());
       uiDispatch({ type: "setScene", scene: "game-over" });
 
@@ -48,6 +46,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
       case "game":
         // User Input
         uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
+
+        gameDispatch({ type: "castShadows", deltaTime });
 
         // Update
         gameState.getAllAliveUnitsArray().forEach((unit) => {
@@ -119,7 +119,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               {loadingState.loading ? <Loading {...loadingState} /> : null}
               <GameOver />
               <Top />
-              <Debug />
+              <DebugInfo />
               <div className={"center"}>
                 <Map ref={setScrollRef} />
                 <EditorSidebar />

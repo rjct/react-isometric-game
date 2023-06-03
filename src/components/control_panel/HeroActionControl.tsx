@@ -3,7 +3,7 @@ import { Unit } from "../../engine/UnitFactory";
 import { Weapon } from "../../engine/weapon/WeaponFactory";
 import { Firearm } from "../../engine/weapon/firearm/FirearmFactory";
 
-export function HeroActionControl(props: {
+export const HeroActionControl = React.memo(function HeroActionControl(props: {
   action: Unit["currentSelectedAction"];
   selected: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -54,4 +54,4 @@ export function HeroActionControl(props: {
       </div>
     </label>
   );
-}
+});

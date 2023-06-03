@@ -1,72 +1,44 @@
 import React from "react";
-import { constants } from "../../../constants";
-import { Tile } from "./Tile";
 import { useGameState } from "../../../hooks/useGameState";
-import { useDebounce } from "../../../hooks/useDebounce";
 import { useHero } from "../../../hooks/useHero";
+import { Canvas } from "../../_shared/Canvas";
+import { useHeroVisualization } from "../../../hooks/useHeroVisualization";
+import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePosition";
 
 export const WireframeTiles = React.memo(function WireframeTiles() {
-  const { gameState, uiState } = useGameState();
-  const { hero, highlightHeroPath, highlightTargetWireframeCell } = useHero();
-  const [viewport, setViewport] = React.useState(uiState.viewport);
+  //return <></>;
+  const { gameState } = useGameState();
+  const { doHeroAction } = useHero();
 
-  const debouncedMousePosition = useDebounce(uiState.mousePosition, 500);
+  const canvasRef = React.createRef<HTMLCanvasElement>();
 
-  const mapWidth = gameState.mapSize.width;
-  const mapHeight = gameState.mapSize.height;
-  const tileWidth = constants.tileSize.width;
-  const wireframeTileWidth = constants.wireframeTileSize.width;
-  const wireframeTileHeight = constants.wireframeTileSize.height;
+  const { renderTarget } = useHeroVisualization({ canvasRef });
 
-  const wireframe: Array<Array<React.ReactElement>> = [];
+  const { getWorldMousePosition } = useMousePosition();
 
-  for (let y = 0; y < gameState.matrix.length; y++) {
-    if (!wireframe[y]) wireframe[y] = [];
+  const [mousePosition, setMousePosition] = React.useState(null as unknown as WorldMousePosition);
 
-    for (let x = 0; x < gameState.matrix[y].length; x++) {
-      const wireframeItem = gameState.wireframe[y][x];
+  const handleMouseMove = (e: React.MouseEvent) => {
+    setMousePosition(getWorldMousePosition(e));
+  };
 
-      wireframe[y][x] = gameState.isTileInViewportIsometric(wireframeItem, viewport) ? (
-        <Tile
-          key={`${x}:${y}`}
-          tile={wireframeItem}
-          isActive={wireframeItem.isActive}
-          isOccupied={gameState.debug ? gameState.isCellOccupied({ x, y }) : false}
-          value={wireframeItem.value}
-          direction={wireframeItem.direction}
-          style={wireframeItem.style}
-        />
-      ) : (
-        (null as unknown as React.ReactElement)
-      );
-    }
-  }
+  const handleClick = (e: React.MouseEvent) => {
+    doHeroAction(mousePosition);
+  };
 
   React.useEffect(() => {
-    setViewport(uiState.viewport);
-  }, [uiState.viewport]);
+    if (!mousePosition) return;
 
-  React.useEffect(() => {
-    if (hero.isUsingHands()) return;
-    highlightHeroPath();
-  }, [debouncedMousePosition]);
-
-  React.useEffect(() => {
-    if (hero.isUsingHands()) {
-      highlightTargetWireframeCell();
-    }
-  }, [uiState.mousePosition]);
+    renderTarget(mousePosition);
+  }, [mousePosition, JSON.stringify(gameState.matrix)]);
 
   return (
-    <div
+    <Canvas
       className={"wireframe"}
-      style={{
-        width: mapWidth * wireframeTileWidth,
-        height: mapHeight * wireframeTileHeight,
-        left: (mapWidth * tileWidth) / 2,
-      }}
-    >
-      {wireframe}
-    </div>
+      size={gameState.mapSize}
+      ref={canvasRef}
+      handleMouseMove={handleMouseMove}
+      handleClick={handleClick}
+    />
   );
 });

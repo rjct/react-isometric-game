@@ -1,12 +1,10 @@
-import { getWireframeTilePathDirection } from "./helpers";
 import { Building } from "./BuildingFactory";
 import { Unit, UnitTypes } from "./UnitFactory";
 import { constants } from "../constants";
-import React from "react";
-import { Tile } from "../components/map/terrain/Tile";
 import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponTypes } from "./weapon/WeaponFactory";
+import { pathFinder } from "./pathFinder";
 
 interface GameMapProps {
   mapSize: Size;
@@ -19,7 +17,17 @@ interface GameMapProps {
 export type GameMap = typeof gameMap;
 
 export const gameMap = {
-  debug: false,
+  debug: {
+    enabled: false,
+    featureEnabled: {
+      fogOfWar: true,
+      wireframe: true,
+      occupiedCells: false,
+      unitPath: false,
+      enemyDetectionRange: false,
+      shadows: false,
+    },
+  },
 
   mapUrl: "maps/map_1.json",
 
@@ -34,7 +42,6 @@ export const gameMap = {
   units: {} as GameMapProps["units"],
   weapon: {} as GameMapProps["weapon"],
 
-  wireframe: [] as Array<Array<TileProps>>,
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
   mediaFiles: {} as MediaFiles,
@@ -42,53 +49,8 @@ export const gameMap = {
   selectedBuilding: null as unknown as Building,
   selectedTerrainArea: null as unknown as TerrainArea,
 
-  highlightWireframeCell(coordinates: Coordinates) {
-    this.wireframe[coordinates.y][coordinates.x].isActive = true;
-  },
-
-  setHighlightedWireframeCellDirection(coordinates: Coordinates, direction: TileProps["direction"]) {
-    this.wireframe[coordinates.y][coordinates.x].direction = direction;
-  },
-
-  setWireframeCellValue(coordinates: Coordinates, value: TileProps["value"]) {
-    this.wireframe[coordinates.y][coordinates.x].value = value;
-  },
-
-  clearWireframeCell(coordinates: Coordinates) {
-    this.wireframe[coordinates.y][coordinates.x].isActive = false;
-    this.wireframe[coordinates.y][coordinates.x].value = "";
-    this.wireframe[coordinates.y][coordinates.x].direction = null;
-    this.wireframe[coordinates.y][coordinates.x].style = null;
-  },
-
-  highlightWireframePath(path: number[][]) {
-    if (path.length === 0) return;
-
-    path.forEach((pathPoint, index) => {
-      this.highlightWireframeCell({ x: pathPoint[0], y: pathPoint[1] });
-      this.setHighlightedWireframeCellDirection(
-        { x: pathPoint[0], y: pathPoint[1] },
-        getWireframeTilePathDirection(path[index - 1], pathPoint, path[index + 1])
-      );
-    });
-
-    const lastPathPoint = path[path.length - 1];
-
-    this.setWireframeCellValue({ x: lastPathPoint[0], y: lastPathPoint[1] }, String(path.length - 1));
-  },
-
-  clearHighlightWireframePath() {
-    this.wireframe.forEach((column) => {
-      column.forEach((tile) => {
-        this.clearWireframeCell(tile.position.grid);
-      });
-    });
-
-    this.wireframe = [...this.wireframe];
-  },
-
-  setHighlightWireframeCellStyle(coordinates: Coordinates, style: TileProps["style"]) {
-    this.wireframe[coordinates.y][coordinates.x].style = style;
+  getHero() {
+    return this.units[this.heroId];
   },
 
   occupyCell(coordinates: Coordinates) {
@@ -150,66 +112,10 @@ export const gameMap = {
     return false;
   },
 
-  createWireframe(mapSize: Size) {
-    const wireframe: Array<Array<TileProps & { node: React.ReactElement }>> = [];
-
-    for (let y = 0; y < mapSize.width; y++) {
-      if (!wireframe[y]) wireframe[y] = [];
-
-      for (let x = 0; x < mapSize.height; x++) {
-        const key = `${x}:${y}`;
-
-        const wireframeTileProps: TileProps = {
-          id: key,
-          isActive: false,
-          isOccupied: false,
-          position: {
-            grid: { x, y },
-            screen: {
-              x: x * constants.wireframeTileSize.width,
-              y: y * constants.wireframeTileSize.height,
-            },
-          },
-          size: {
-            grid: {
-              width: 1,
-              height: 1,
-            },
-            screen: {
-              width: constants.wireframeTileSize.width,
-              height: constants.wireframeTileSize.height,
-            },
-          },
-          className: `wireframe-tile`,
-          direction: null,
-          value: "",
-          style: null,
-        };
-
-        wireframe[y][x] = {
-          ...wireframeTileProps,
-          ...{
-            node: React.createElement(Tile, {
-              tile: wireframeTileProps,
-              isActive: false,
-              isOccupied: false,
-              value: wireframeTileProps.value,
-            }),
-          },
-        };
-      }
-    }
-
-    return wireframe;
-  },
-
   setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
     items.forEach((item) => {
-      const x = item.position.x;
-      const y = item.position.y;
-
-      const width = item.size.grid.width;
-      const height = item.size.grid.height;
+      const { x, y } = item.position;
+      const { width, height } = item.size.grid;
 
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + height; yy++) {
@@ -240,10 +146,6 @@ export const gameMap = {
     })!;
   },
 
-  isTileInViewport(tile: TileProps, viewport: GameUI["viewport"]) {
-    return this.isEntityInViewport({ position: tile.position.grid, size: tile.size }, viewport);
-  },
-
   isEntityInViewport(
     entity: {
       position: Coordinates;
@@ -271,26 +173,7 @@ export const gameMap = {
     );
   },
 
-  isTileInViewportIsometric(tile: TileProps, viewport: GameUI["viewport"]) {
-    const a = Math.round(
-      (this.mapSize.width * constants.tileSize.width) / 2 -
-        (tile.position.grid.y * constants.tileSize.width) / 2 +
-        (tile.position.grid.x * constants.tileSize.width) / 2
-    );
-
-    const b = Math.round(
-      (tile.position.grid.y * constants.tileSize.height) / 2 + (tile.position.grid.x * constants.tileSize.height) / 2
-    );
-
-    return (
-      a + constants.wireframeTileSize.width * constants.OFFSCREEN_TILE_CACHE >= viewport.x1 &&
-      a <= viewport.x2 &&
-      b + constants.wireframeTileSize.height * constants.OFFSCREEN_TILE_CACHE >= viewport.y1 &&
-      b <= viewport.y2
-    );
-  },
-
-  screenSpaceToGridSpace(screenPos: Coordinates) {
+  screenSpaceToGridSpace(screenPos: Coordinates): Coordinates {
     const mapWidth = this.mapSize.width;
     const mapHeight = this.mapSize.height;
     const tileWidth = constants.tileSize.width;
@@ -333,6 +216,21 @@ export const gameMap = {
         Math.round(unit.position.x) === Math.round(coordinates.x) &&
         Math.round(unit.position.y) === Math.round(coordinates.y)
     );
+  },
+
+  calcUnitPath(unit: Unit, destinationPosition: Coordinates) {
+    const unitPath = pathFinder(this.matrix, unit.position, {
+      x: Math.min(this.mapSize.width - 1, destinationPosition.x),
+      y: Math.min(this.mapSize.height - 1, destinationPosition.y),
+    });
+
+    if (unitPath.length > 0) {
+      if (unit.position.x !== unitPath[0][0] || unit.position.y !== unitPath[0][1]) {
+        unitPath.splice(0, 1, [unit.position.x, unit.position.y]);
+      }
+    }
+
+    return unitPath;
   },
 
   getBuildingById(id: string) {
@@ -384,13 +282,5 @@ export const gameMap = {
     this.selectedTerrainArea = null as unknown as TerrainArea;
 
     return true;
-  },
-
-  Ray: class {
-    constructor(public superThis: typeof gameMap) {}
-
-    a() {
-      return this.superThis;
-    }
   },
 };

@@ -1,17 +1,13 @@
-import { moveUnit, MoveUnitReducerAction } from "./moveUnit";
-import { animateUnitMove, AnimateUnitMoveReducerAction } from "./animateUnitMove";
-import { highlightUnitPath, HighlightUnitPathReducerAction } from "./highlightUnitPath";
+import { moveUnit, MoveUnitReducerAction } from "./game/unit/moveUnit";
+import { animateUnitMove, AnimateUnitMoveReducerAction } from "./game/unit/animateUnitMove";
 import { switchMap, SwitchMapReducerAction } from "./switchMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "./animateFiredAmmo";
 import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "./cleanupFiredAmmo";
-import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "./setCurrentUnitAction";
-import {
-  highlightTargetWireframeCell,
-  HighlightTargetWireframeCellReducerAction,
-} from "./highlightTargetWireframeCell";
+import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "./game/unit/setCurrentUnitAction";
+
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "./detectFiredAmmoHitsTarget";
 import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHeroOnExitPoints";
-import { toggleDebug, ToggleDebugReducerAction } from "./toggleDebug";
+import { toggleDebug, ToggleDebugReducerAction } from "./game/debug/toggleDebug";
 import { transferItem, TransferItemReducerAction } from "./transferItem";
 import { GameMap } from "../engine/GameMap";
 import { setSelectedBuilding, SetSelectedBuildingReducerAction } from "./editor/building/setSelectedBuilding";
@@ -39,16 +35,21 @@ import {
 import { setTerrainAreaExitUrl, SetTerrainAreaExitUrlReducerAction } from "./editor/terrain/setTerrainAreaExitUrl";
 import { addTerrainArea, AddTerrainAreaReducerAction } from "./editor/terrain/addTerrainArea";
 import { setBuildingPosition, SetBuildingPositionReducerAction } from "./editor/building/setBuildingPosition";
+import { castShadows, CastShadowsReducerAction } from "./castShadows";
+import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "./game/debug/toggleDebugFeature";
+import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "./game/unit/useEntityInUnitHand";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
+  | ToggleDebugFeatureReducerAction
+  //
   | SwitchMapReducerAction
   | MoveUnitReducerAction
   | AnimateUnitMoveReducerAction
+  | UseEntityInUnitHandReducerAction
+  //
   | AnimateFiredAmmoAction
   | CleanupFiredAmmoAction
-  | HighlightUnitPathReducerAction
-  | HighlightTargetWireframeCellReducerAction
   | SetCurrentUnitActionReducerAction
   | DetectHeroOnExitPointsAction
   | TransferItemReducerAction
@@ -71,25 +72,34 @@ export type GameReducerAction =
   | SetTerrainAreaSizeReducerAction
   | SetTerrainAreaSourcePositionReducerAction
   | SetTerrainAreaExitUrlReducerAction
-  | DeleteSelectedTerrainAreaReducerAction;
+  | DeleteSelectedTerrainAreaReducerAction
+  //
+  | CastShadowsReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
     case "toggleDebug":
       return toggleDebug(state, action as ToggleDebugReducerAction);
 
+    case "toggleDebugFeature":
+      return toggleDebugFeature(state, action as ToggleDebugFeatureReducerAction);
+
+    //
     case "switchMap":
       return switchMap(state, action as SwitchMapReducerAction);
 
+    //
+
+    //
     case "moveUnit":
       return moveUnit(state, action as MoveUnitReducerAction);
 
     case "animateUnitMove":
       return animateUnitMove(state, action as AnimateUnitMoveReducerAction);
 
-    case "highlightUnitPath":
-      return highlightUnitPath(state, action as HighlightUnitPathReducerAction);
-
+    case "useEntityInUnitHand":
+      return useEntityInUnitHand(state, action as UseEntityInUnitHandReducerAction);
+    //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);
 
@@ -98,9 +108,6 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setCurrentUnitAction":
       return setCurrentUnitAction(state, action as SetCurrentUnitActionReducerAction);
-
-    case "highlightTargetWireframeCell":
-      return highlightTargetWireframeCell(state, action as HighlightTargetWireframeCellReducerAction);
 
     case "detectHeroOnExitPoints":
       return detectHeroOnExitPoints(state, action as DetectHeroOnExitPointsAction);
@@ -162,6 +169,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "deleteSelectedTerrainArea":
       return deleteSelectedTerrainArea(state, action as DeleteSelectedTerrainAreaReducerAction);
 
+    //
+    case "castShadows":
+      return castShadows(state, action as CastShadowsReducerAction);
     default:
       throw new Error();
   }

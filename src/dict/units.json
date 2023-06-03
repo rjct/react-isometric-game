@@ -20,7 +20,11 @@
       "current": 100,
       "max": 100
     },
-    "enemyDetectionRange": 0.75
+    "enemyDetectionRange": 0.75,
+    "animationDuration": {
+      "hit": 400,
+      "notAllowed": 1000
+    }
   },
 
   "ghoul": {
@@ -44,6 +48,10 @@
       "current": 50,
       "max": 100
     },
-    "enemyDetectionRange": 2
+    "enemyDetectionRange": 2,
+    "animationDuration": {
+      "hit": 400,
+      "notAllowed": 1000
+    }
   }
 }

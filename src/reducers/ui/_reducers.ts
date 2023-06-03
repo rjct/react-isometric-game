@@ -2,15 +2,15 @@ import { GameUI } from "../../context/GameUIContext";
 import { scrollMap, ScrollMapUIReducerAction } from "./scrollMap";
 import { setMapRect, SetMapRectUIReducerAction } from "./setMapRect";
 import { setViewport, SetViewportUIReducerAction } from "./setViewport";
-import { setMousePosition, SetMousePositionUIReducerAction } from "./setMousePosition";
 import { scrollMapOnScreenEdges, ScrollMapOnScreenEdgesUIReducerAction } from "./scrollMapOnScreenEdges";
-import { resetMousePosition, ResetMousePositionUIReducerAction } from "./resetMousePosition";
 import { toggleInventory, ToggleInventoryUIReducerAction } from "./toggleInventory";
 import { detectKeyPress, DetectKeyPressUIReducerAction } from "./detectKeyPress";
 import { processKeyPress, ProcessKeyPressUIReducerAction } from "./processKeyPress";
 import { setScene, SetSceneUIReducerAction } from "./setScene";
 import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHero";
 import { setEditorMode, SetEditorModeUIReducerAction } from "./setEditorMode";
+import { resetMousePosition, ResetMousePositionUIReducerAction } from "./resetMousePosition";
+import { setMousePosition, SetMousePositionUIReducerAction } from "./setMousePosition";
 
 export type UIReducerAction =
   | CenterMapOnHeroUIReducerAction

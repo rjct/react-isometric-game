@@ -1,15 +1,15 @@
 import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
-import { constants } from "../constants";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
 import { Weapon, WeaponUnitAction } from "./weapon/WeaponFactory";
+import { GameObjectFactory } from "./GameObjectFactory";
 
 export type UnitTypes = { [unitId: string]: Unit };
 
-export class Unit {
+export class Unit extends GameObjectFactory {
   public readonly type;
-  public readonly id;
+
   public readonly className;
 
   public readonly speed: {
@@ -17,13 +17,18 @@ export class Unit {
     run: number;
   };
 
-  public direction: Direction;
-  public action: "none" | "idle" | "walk" | "run" | "hit" | "dead" | "punch" | WeaponUnitAction;
-
-  public actionPoints: {
-    current: number;
-    max: number;
-  };
+  public action:
+    | "none"
+    | "idle"
+    | "walk"
+    | "run"
+    | "hit"
+    | "dead"
+    | "punch"
+    | "fall"
+    | "standup"
+    | "die"
+    | WeaponUnitAction;
 
   public healthPoints: {
     current: number;
@@ -33,12 +38,6 @@ export class Unit {
   public damagePoints = 0;
 
   public isDead: boolean;
-
-  public position: Coordinates = { x: 0, y: 0 };
-  public readonly size = {
-    grid: { width: 0, height: 0 },
-    screen: { width: 0, height: 0 },
-  };
 
   public path: Coordinates[] = [];
   public pathQueue: UnitPathQueue;
@@ -56,6 +55,11 @@ export class Unit {
 
   public enemyDetectionRange: number;
 
+  public readonly animationDuration: {
+    hit: number;
+    notAllowed: number;
+  };
+
   constructor(props: {
     unitType: keyof typeof unitTypes;
     position: Coordinates;
@@ -64,22 +68,21 @@ export class Unit {
   }) {
     const ref = unitTypes[props.unitType];
 
-    this.id = crypto.randomUUID();
+    super({ size: ref.size, position: props.position, direction: props.direction || "left" });
+
     this.type = props.unitType;
-    this.size = ref.size;
+
     this.className = ["unit", ref.className].join(" ");
-    this.size = ref.size;
     this.speed = ref.speed;
     this.coolDownTime = ref.coolDownTime;
-    this.direction = props.direction || "left";
+    this.animationDuration = ref.animationDuration;
+
     this.action = props.action || "none";
     this.enemyDetectionRange = ref.enemyDetectionRange;
 
-    this.actionPoints = { ...ref.actionPoints };
     this.healthPoints = { ...ref.healthPoints };
     this.isDead = false;
 
-    this.position = props.position;
     this.pathQueue = new UnitPathQueue();
   }
 
@@ -195,7 +198,7 @@ export class Unit {
       window.setTimeout(() => {
         this.damagePoints = 0;
         if (!this.isDead) this.action = "none";
-      }, constants.unit_css_animation_length);
+      }, this.animationDuration.hit);
     }
   }
 

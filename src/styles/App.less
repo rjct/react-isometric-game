@@ -2,6 +2,7 @@
 @import "UI/ui-button";
 @import "UI/ui-radio";
 @import "UI/ui-tabs";
+@import "UI/ui-switch";
 
 body {
   margin: 0;
@@ -68,8 +69,9 @@ body {
 .debug {
   position: absolute;
   z-index: 2;
-  pointer-events: none;
+  //pointer-events: none;
   font-size: 0.6em;
+  user-select: none;
   color: @text-color;
   margin: 5px;
   background-color: rgba(0, 0, 0, 0.25);

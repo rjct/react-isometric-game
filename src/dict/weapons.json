@@ -5,14 +5,24 @@
       "className": ["punch"],
       "unitAction": "punch",
       "damage": 1,
-      "range": 1
+      "range": 1,
+      "animationDuration": {
+        "attack": 400,
+        "attackCompleted": 1000,
+        "attackNotAllowed": 1000
+      }
     },
     "knife": {
       "title": "Knife",
       "className": ["knife"],
       "unitAction": "punch-knife",
       "damage": 2,
-      "range": 1
+      "range": 1,
+      "animationDuration": {
+        "attack": 400,
+        "attackCompleted": 1000,
+        "attackNotAllowed": 1000
+      }
     }
   },
   "firearm": {
@@ -23,7 +33,12 @@
       "unitAction": "shooting-pistol",
       "ammoCapacity": 8,
       "ammoConsumptionPerShoot": 1,
-      "range": 8
+      "range": 8,
+      "animationDuration": {
+        "attack": 400,
+        "attackCompleted": 1000,
+        "attackNotAllowed": 1000
+      }
     },
 
     "smg": {
@@ -33,7 +48,12 @@
       "unitAction": "shooting-smg",
       "ammoCapacity": 30,
       "ammoConsumptionPerShoot": 3,
-      "range": 10
+      "range": 10,
+      "animationDuration": {
+        "attack": 400,
+        "attackCompleted": 1000,
+        "attackNotAllowed": 1000
+      }
     }
   }
 }

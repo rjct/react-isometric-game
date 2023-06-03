@@ -1,51 +1,17 @@
-import { pathFinder } from "../engine/pathFinder";
 import { useGameState } from "./useGameState";
 import { Unit } from "../engine/UnitFactory";
+
+import { WorldMousePosition } from "./useMousePosition";
 
 export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();
   const hero = gameState.units[gameState.heroId];
 
-  const highlightHeroPath = () => {
-    if (!hero || hero.isMoving() || uiState.isScrolling() || uiState.scene !== "game") return;
+  const doHeroAction = (mousePosition: WorldMousePosition) => {
+    if (mousePosition.isOutOfGrid || uiState.scene !== "game") return;
 
-    gameState.clearHighlightWireframePath();
-
-    if (hero.isUsingHands() || uiState.mousePosition.isOutOfGrid) return;
-
-    const unitPath = pathFinder(gameState.matrix, hero.position, uiState.mousePosition.grid);
-
-    gameDispatch({
-      type: "highlightUnitPath",
-      unit: hero,
-      path: unitPath,
-    });
-  };
-
-  const highlightTargetWireframeCell = () => {
-    if (!hero || hero.isMoving() || uiState.isScrolling() || uiState.scene !== "game") return;
-
-    gameState.clearHighlightWireframePath();
-
-    if (!hero.isUsingHands() || uiState.mousePosition.isOutOfGrid) return;
-
+    const targetPosition = { ...mousePosition.grid };
     const weapon = hero.getCurrentWeapon();
-
-    if (weapon) {
-      weapon.aimAt(uiState.mousePosition.grid);
-    }
-
-    gameDispatch({
-      type: "highlightTargetWireframeCell",
-      unit: hero,
-      targetPosition: uiState.mousePosition.grid,
-    });
-  };
-
-  const doHeroAction = () => {
-    if (uiState.mousePosition.isOutOfGrid || uiState.scene !== "game") return;
-
-    const targetPosition = { ...uiState.mousePosition.grid };
 
     switch (hero.currentSelectedAction) {
       case "walk":
@@ -67,19 +33,29 @@ export function useHero() {
         break;
 
       case "useLeftHand":
-        hero.inventory.leftHand?.use(targetPosition);
+        gameDispatch({ type: "useEntityInUnitHand", unit: hero, hand: "leftHand", targetPosition });
+
+        if (weapon) {
+          window.setTimeout(() => {
+            gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
+          }, weapon.animationDuration.attackCompleted);
+        }
         break;
 
       case "useRightHand":
-        hero.inventory.rightHand?.use(targetPosition);
+        gameDispatch({ type: "useEntityInUnitHand", unit: hero, hand: "rightHand", targetPosition });
+
+        if (weapon) {
+          window.setTimeout(() => {
+            gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
+          }, weapon.animationDuration.attackCompleted);
+        }
         break;
     }
   };
 
   return {
     hero: hero || new Unit({ unitType: "hero", position: { x: 0, y: 0 } }),
-    highlightHeroPath,
-    highlightTargetWireframeCell,
     doHeroAction,
   };
 }

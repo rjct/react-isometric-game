@@ -31,6 +31,12 @@ export class Weapon {
   private targetPosition: null | Coordinates = null;
   public ray: null | Ray = null;
 
+  public readonly animationDuration: {
+    attack: number;
+    attackCompleted: number;
+    attackNotAllowed: number;
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: Coordinates) {
     throw new Error("Method not implemented.");
@@ -43,6 +49,8 @@ export class Weapon {
     this.className = [...this.className, ...weaponRef.className];
     this.range = weaponRef.range;
     this.unitAction = weaponRef.unitAction as unknown as WeaponUnitAction;
+
+    this.animationDuration = weaponRef.animationDuration;
   }
 
   assignUnit(unit: Unit) {

@@ -10,16 +10,6 @@ export const loadMap = async (mapUrl: string) => {
   return json;
 };
 
-export function helperRotatePoint(point: Coordinates, angle: number) {
-  const s = Math.sin(angle);
-  const c = Math.cos(angle);
-
-  return {
-    x: point.x * c - point.y * s,
-    y: point.x * s + point.y * c,
-  };
-}
-
 /**
  * @param {number} angleInDegrees is the amount of direction in radians
  * @param {number} ox X of the origin (center of direction)
@@ -94,13 +84,6 @@ export function createMatrix(mapSize: Size): Array<Array<number>> {
   return [...Array(mapSize.width)].map(() => Array(mapSize.height).fill(0));
 }
 
-export function cartesianToIsometric(coordinates: Coordinates) {
-  return {
-    x: ((coordinates.x - coordinates.y) * constants.wireframeTileSize.width) / 2,
-    y: ((coordinates.x + coordinates.y) * constants.wireframeTileSize.height) / 2,
-  };
-}
-
 export function getDistanceBetweenGridPoints(startPosition: Coordinates, targetPosition: Coordinates) {
   const displacementX = targetPosition.x - startPosition.x;
   const displacementY = targetPosition.y - startPosition.y;
@@ -110,83 +93,6 @@ export function getDistanceBetweenGridPoints(startPosition: Coordinates, targetP
 
 export function radToDeg(radians: number) {
   return radians * (180 / Math.PI);
-}
-
-export function getWireframeTilePathDirection(
-  prevCell: number[],
-  currentCell: number[],
-  nextCell: number[]
-): TileProps["direction"] {
-  if (!prevCell && !nextCell) return null;
-
-  const [currentX, currentY] = currentCell;
-
-  if (!prevCell) {
-    switch (true) {
-      case currentX < nextCell[0] && currentY === nextCell[1]:
-        return "east-start";
-
-      case currentX > nextCell[0] && currentY === nextCell[1]:
-        return "west-start";
-
-      case currentX === nextCell[0] && currentY > nextCell[1]:
-        return "north-start";
-
-      case currentX === nextCell[0] && currentY < nextCell[1]:
-        return "south-start";
-    }
-  }
-
-  if (!nextCell) {
-    switch (true) {
-      case currentX > prevCell[0] && currentY === prevCell[1]:
-        return "east-finish";
-
-      case currentX < prevCell[0] && currentY === prevCell[1]:
-        return "west-finish";
-
-      case currentX === prevCell[0] && currentY < prevCell[1]:
-        return "north-finish";
-
-      case currentX === prevCell[0] && currentY > prevCell[1]:
-        return "south-finish";
-    }
-  }
-
-  const [prevX, prevY] = prevCell;
-  const [nextX, nextY] = nextCell;
-
-  switch (true) {
-    case currentX === prevX && currentX === nextX && currentY < prevY && currentY > nextY:
-      return "north";
-
-    case currentX === prevX && currentX === nextX && currentY > prevY && currentY < nextY:
-      return "south";
-
-    case currentX > prevX && currentX < nextX && currentY === prevY && currentY === nextY:
-      return "east";
-
-    case currentX < prevX && currentX > nextX && currentY === prevY && currentY === nextY:
-      return "west";
-
-    case currentX === prevX && currentX < nextX && currentY < prevY && currentY === nextY:
-    case currentX < prevX && currentX === nextX && currentY === prevY && currentY < nextY:
-      return "north-east";
-
-    case currentX > prevX && currentX === nextX && currentY === prevY && currentY > nextY:
-    case currentX === prevX && currentX > nextX && currentY > prevY && currentY === nextY:
-      return "north-west";
-
-    case currentX > prevX && currentX === nextX && currentY === prevY && currentY < nextY:
-    case currentX === prevX && currentX > nextX && currentY < prevY && currentY === nextY:
-      return "south-east";
-
-    case currentX === prevX && currentX < nextX && currentY > prevY && currentY === nextY:
-    case currentX < prevX && currentX === nextX && currentY === prevY && currentY > nextY:
-      return "south-west";
-  }
-
-  return null;
 }
 
 export function composeSpriteUrl(spriteFileName: string) {

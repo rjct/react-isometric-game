@@ -2,7 +2,7 @@ import React from "react";
 import { UnitComponent } from "./Unit";
 import { useGameState } from "../../../hooks/useGameState";
 
-export function Units() {
+export const Units = React.memo(function Units() {
   const { gameState, uiState } = useGameState();
 
   return uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "unit") ? (
@@ -12,4 +12,4 @@ export function Units() {
       ))}
     </>
   ) : null;
-}
+});

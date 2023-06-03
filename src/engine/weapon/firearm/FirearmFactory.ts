@@ -1,6 +1,5 @@
 import weapons from "../../../dict/weapons.json";
 import { Ammo, AmmoType } from "../AmmoFactory";
-import { getDistanceBetweenGridPoints } from "../../helpers";
 import { Weapon } from "../WeaponFactory";
 import { GameMap } from "../../GameMap";
 
@@ -27,7 +26,7 @@ export class Firearm extends Weapon {
   }
 
   use(targetPosition: Coordinates) {
-    if (this.ammoCurrent.length === 0 || !this.unit || !this.isReadyToUse()) return;
+    if (!this.unit) return;
 
     const unit = this.unit;
     let count = 0;
@@ -42,11 +41,23 @@ export class Firearm extends Weapon {
 
       count++;
 
-      if (count === this.ammoConsumptionPerShoot) clearInterval(fireInterval);
+      if (count === this.ammoConsumptionPerShoot) {
+        clearInterval(fireInterval);
+
+        setTimeout(() => {
+          unit.setAction("none");
+        }, this.animationDuration.attackCompleted);
+      }
     };
 
-    if (Math.floor(getDistanceBetweenGridPoints(unit.position, targetPosition)) <= this.range) {
+    if (this.isReadyToUse() && this.ammoCurrent.length > 0) {
       fireInterval = window.setInterval(doFire, 250);
+    } else {
+      unit.setAction("idle");
+
+      setTimeout(() => {
+        unit.setAction("none");
+      }, this.animationDuration.attackNotAllowed);
     }
   }
 }

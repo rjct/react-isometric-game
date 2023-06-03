@@ -3,9 +3,12 @@ import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { TerrainAreaEditor } from "./TerrainAreaEditor";
 import { TerrainArea } from "../../../engine/TerrainAreaFactory";
+import { useMousePosition } from "../../../hooks/useMousePosition";
 
 export const TerrainEditor = React.memo(function TerrainEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
+
+  const { getWorldMousePosition } = useMousePosition();
 
   const [workingArea, setWorkingArea] = React.useState({
     mode: null as unknown as "move" | "resize",
@@ -24,11 +27,13 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   const mapWidth = gameState.mapSize.width;
   const mapHeight = gameState.mapSize.height;
 
-  const handleMouseMove = () => {
-    if (!workingArea.mode || uiState.mousePosition.isOutOfGrid) return;
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (!workingArea.mode) return;
 
-    const diffX = workingArea.initialMousePosition.x - uiState.mousePosition.grid.x;
-    const diffY = workingArea.initialMousePosition.y - uiState.mousePosition.grid.y;
+    const mousePosition = getWorldMousePosition(e);
+
+    const diffX = workingArea.initialMousePosition.x - mousePosition.grid.x;
+    const diffY = workingArea.initialMousePosition.y - mousePosition.grid.y;
 
     switch (workingArea.mode) {
       case "move":
@@ -78,9 +83,11 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   const handleAreaRectMouseDown = (e: React.MouseEvent, area: TerrainArea) => {
     gameDispatch({ type: "setSelectedTerrainArea", entity: area });
 
+    const mousePosition = getWorldMousePosition(e);
+
     setWorkingArea({
       mode: "move",
-      initialMousePosition: { ...uiState.mousePosition.grid },
+      initialMousePosition: { ...mousePosition.grid },
       initialAreaPosition: { ...area.target },
       area,
     });
@@ -91,9 +98,11 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   const handleAreaResizerMouseDown = (e: React.MouseEvent, area: TerrainArea) => {
     gameDispatch({ type: "setSelectedTerrainArea", entity: area });
 
+    const mousePosition = getWorldMousePosition(e);
+
     setWorkingArea({
       mode: "resize",
-      initialMousePosition: { ...uiState.mousePosition.grid },
+      initialMousePosition: { ...mousePosition.grid },
       initialAreaPosition: { ...area.target },
       area,
     });

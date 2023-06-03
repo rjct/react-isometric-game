@@ -4,10 +4,10 @@ import { GameMap } from "./GameMap";
 export class Ray {
   private readonly from: Coordinates;
   private readonly to: Coordinates;
-  private vector: Coordinates[] = [];
+  public vector: Coordinates[] = [];
   constructor(from: Coordinates, to: Coordinates) {
-    this.from = from;
-    this.to = to;
+    this.from = { x: Math.floor(from.x), y: Math.floor(from.y) };
+    this.to = { x: Math.floor(to.x), y: Math.floor(to.y) };
 
     this.cast();
   }
@@ -23,6 +23,16 @@ export class Ray {
   getRayEndPosition(gameMap: GameMap): Coordinates {
     const targetPosition = { ...this.to };
 
+    // for (let i = 0; i < this.vector.length; i++) {
+    //   const cell = this.vector[i];
+    //
+    //   if (gameMap.isCellOccupied(cell)) {
+    //     targetPosition.x = Math.round(cell.x);
+    //     targetPosition.y = Math.round(cell.y);
+    //
+    //     break;
+    //   }
+    // }
     this.vector.forEach((cell) => {
       if (gameMap.isCellOccupied(cell)) {
         targetPosition.x = Math.round(cell.x);

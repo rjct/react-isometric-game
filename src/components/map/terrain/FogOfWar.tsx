@@ -1,7 +1,7 @@
 import React from "react";
-import { constants } from "../../../constants";
 import { useFogOfWar } from "../../../hooks/useFogOfWar";
 import { useGameState } from "../../../hooks/useGameState";
+import { Canvas } from "../../_shared/Canvas";
 
 export function FogOfWar() {
   const canvasRef = React.createRef<HTMLCanvasElement>();
@@ -9,34 +9,13 @@ export function FogOfWar() {
   const { gameState, uiState } = useGameState();
   const { renderFogOfWar } = useFogOfWar({ canvasRef });
 
-  const tileWidth = constants.tileSize.width;
-
-  const wireframeTileWidth = constants.wireframeTileSize.width;
-  const wireframeTileHeight = constants.wireframeTileSize.height;
-
-  const mapWidth = gameState.mapSize.width;
-  const mapHeight = gameState.mapSize.height;
-
   React.useEffect(() => {
     if (uiState.scene === "editor") return;
 
     renderFogOfWar();
-  }, [JSON.stringify(gameState.fogOfWarMatrix), uiState.scene]);
+  }, [JSON.stringify(gameState.fogOfWarMatrix), uiState.scene, gameState.debug.featureEnabled.fogOfWar]);
 
-  return uiState.scene === "editor" ? null : (
-    <div
-      className={"fow"}
-      style={{
-        width: mapWidth * wireframeTileWidth,
-        height: mapHeight * wireframeTileHeight,
-        left: (mapWidth * tileWidth) / 2,
-      }}
-    >
-      <canvas
-        ref={canvasRef}
-        width={`${mapWidth * wireframeTileWidth}`}
-        height={`${mapHeight * wireframeTileHeight}`}
-      ></canvas>
-    </div>
+  return uiState.scene === "editor" || !gameState.debug.featureEnabled.fogOfWar ? null : (
+    <Canvas size={gameState.mapSize} className={"fow"} ref={canvasRef} />
   );
 }

@@ -5,18 +5,21 @@
 
 [data-editing-active] .building {
   pointer-events: auto;
+  transition: filter 0.1s linear;
 
   &:hover {
-    filter: drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
+    filter: brightness(1.2);
+    //filter: drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
   }
 
   &[data-selected="true"] {
     //filter: url("/public/assets/entity-outline-filter.svg#entity-outline-filter");
-    filter: drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81);
+    filter: brightness(1.2) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
   }
 
   &[data-dragging="true"] {
-    filter: drop-shadow(0px 0px 1px red) drop-shadow(0px 0px 1px red) drop-shadow(0px 0px 1px red);
+    filter: brightness(1.2) drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81)
+      drop-shadow(0px 0px 1px #19ff81);
   }
 }
 

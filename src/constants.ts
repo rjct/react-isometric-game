@@ -24,13 +24,6 @@ export const constants = {
   tileSize,
   wireframeTileSize,
 
-  tile: {
-    CLASS_ACTIVE: "active",
-    CLASS_OCCUPIED: "occupied",
-  },
-
-  unit_css_animation_length: 1000, // ms
-
   editor: {
     propsEditor: { width: 300 },
     entitiesLibrary: { height: 200 },

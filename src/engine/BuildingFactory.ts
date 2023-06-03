@@ -1,4 +1,5 @@
 import buildings from "../dict/buildings.json";
+import { GameObjectFactory } from "./GameObjectFactory";
 
 type BuildingSize = {
   grid: Size;
@@ -19,43 +20,46 @@ export type DictBuildings = {
   [buildingType in BuildingType]: DictBuilding;
 };
 
-export class Building {
+export class Building extends GameObjectFactory {
   public readonly type;
-  public readonly id;
+
   public readonly className;
 
-  position = { x: 0, y: 0 };
-  direction: Direction = "top";
   public readonly variants;
   variant = 0;
 
-  size = {
-    grid: { width: 1, height: 1 },
-    screen: { width: 0, height: 0 },
-  };
   private readonly ref: DictBuilding;
-  constructor(props: { buildingType: BuildingType; position: Coordinates; direction: Direction; variant: number }) {
-    this.ref = { ...buildings[props.buildingType] } as typeof this.ref;
 
-    this.id = crypto.randomUUID();
+  constructor(props: { buildingType: BuildingType; position: Coordinates; direction: Direction; variant: number }) {
+    const ref = { ...buildings[props.buildingType] } as DictBuilding;
+    const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
+
+    super({ size, position: props.position, direction: props.direction });
+
+    this.ref = ref;
+
     this.type = props.buildingType;
     this.className = ["building", this.ref.className].join(" ");
-    this.direction = props.direction;
+
     this.variants = this.ref.variants;
     this.variant = props.variant;
-    this.position = props.position;
-    this.size = this.getSizeByPositionAndDirection(this.ref.size);
   }
 
-  private getSizeByPositionAndDirection(size: BuildingSize) {
-    return ["left", "right"].includes(this.direction)
-      ? { ...size, ...{ grid: { width: size.grid.height, height: size.grid.width } } }
+  private static getSizeByPositionAndDirection(size: BuildingSize, direction: Direction) {
+    return ["left", "right"].includes(direction)
+      ? {
+          ...size,
+          ...{
+            grid: { width: size.grid.height, height: size.grid.width },
+            //screen: { width: size.screen.height, height: size.screen.width },
+          },
+        }
       : size;
   }
 
   public setDirection(direction: Direction) {
     this.direction = direction;
-    this.size = this.getSizeByPositionAndDirection(this.ref.size);
+    this.size = Building.getSizeByPositionAndDirection(this.ref.size, direction);
   }
 
   public setVariant(variant: number) {

@@ -11,22 +11,13 @@
   bottom: 0;
   transform-origin: left top;
 
-  .terrain-tile {
-    position: absolute;
-    background-repeat: no-repeat;
-    font-size: 0;
-
-    &.exit-point {
-      filter: grayscale(1) sepia(100%) hue-rotate(90deg);
-    }
-  }
-
   .terrain-earth();
   .terrain-vault();
 }
 
 .fow,
-.path-visualization,
+.shadows,
+.debug-visualization,
 .terrain-editor {
   position: absolute;
   top: 0;
@@ -41,12 +32,17 @@
 }
 
 :not([data-editing-active="true"]) .fow {
-  z-index: 9999999;
+  z-index: 9999998;
   canvas {
     box-shadow: 0 0 50px 25px #000000 inset, 0 0 0 100px #000000;
   }
 }
 
-.path-visualization {
+.shadows {
+  z-index: 1;
+  filter: blur(50px);
+}
+
+.debug-visualization {
   z-index: 1;
 }

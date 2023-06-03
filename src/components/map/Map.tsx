@@ -1,5 +1,4 @@
 import React from "react";
-import { Terrain } from "./terrain/Terrain";
 import { Buildings } from "./buildings/Buildings";
 import { Units } from "./units/Units";
 import { GameUI } from "../../context/GameUIContext";
@@ -7,65 +6,28 @@ import { constants } from "../../constants";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { FogOfWar } from "./terrain/FogOfWar";
-import { DebugVisualization } from "./terrain/DebugVisualization";
+import { DebugVisualization } from "../debug/DebugVisualization";
 import { Building } from "../../engine/BuildingFactory";
+import { WireframeTiles } from "./terrain/WireframeTiles";
+import { TerrainAreas } from "./terrain/TerrainAreas";
 import { TerrainEditor } from "../editor/terrain/TerrainEditor";
+import { Shadows } from "./terrain/Shadows";
+import { BuildingEditor } from "../editor/building/BuildingEditor";
 
-export const Map = React.forwardRef((props, setScrollRef) => {
+export type MapForwardedRefs = {
+  setScroll: (position: Coordinates) => null;
+};
+
+export const Map = React.forwardRef((props, forwardedRefs) => {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
   const mapRef = React.useRef<HTMLDivElement>(null);
 
-  const { hero, doHeroAction } = useHero();
-
-  const handleClick = () => {
-    doHeroAction();
-  };
+  const { hero } = useHero();
 
   const handleMouseDown = () => {
     gameDispatch({ type: "clearSelectedBuilding" });
     gameDispatch({ type: "clearSelectedTerrainArea" });
-  };
-
-  const handleMouseMove = (e: React.MouseEvent) => {
-    const { rect, scroll } = uiState;
-
-    const browser = {
-      x: Math.round(e.clientX + scroll.x) - scroll.x,
-      y: Math.round(e.clientY - rect.top) - scroll.y,
-    };
-
-    const screen = {
-      x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + scroll.x),
-      y: Math.round(e.clientY - rect.top) + scroll.y,
-    };
-    const grid = gameState.screenSpaceToGridSpace(screen);
-
-    const mousePosition = {
-      grid: {
-        x: Math.floor(grid.x),
-        y: Math.floor(grid.y),
-      },
-      screen: screen,
-      browser: browser,
-      isOutOfGrid:
-        Math.floor(grid.x) < 0 ||
-        Math.floor(grid.x) > gameState.mapSize.width - 1 ||
-        Math.floor(grid.y) < 0 ||
-        Math.floor(grid.y) > gameState.mapSize.height - 1,
-    };
-
-    uiDispatch({ type: "setMousePosition", mousePosition });
-
-    if (!hero.isMoving() && uiState.scene === "game") {
-      hero.setDirection(
-        Math.atan2(mousePosition.grid.y - hero.position.y, mousePosition.grid.x - hero.position.x) * (180 / Math.PI)
-      );
-    }
-  };
-
-  const handleMouseOut = () => {
-    uiDispatch({ type: "resetMousePosition" });
   };
 
   const handleScroll = () => {
@@ -145,13 +107,15 @@ export const Map = React.forwardRef((props, setScrollRef) => {
   }, [gameState.mapSize]);
 
   React.useImperativeHandle(
-    setScrollRef,
+    forwardedRefs,
     () => {
-      return (position: Coordinates) => {
-        if (mapRef.current) {
-          mapRef.current.scrollLeft = position.x;
-          mapRef.current.scrollTop = position.y;
-        }
+      return {
+        setScroll: (position: Coordinates) => {
+          if (mapRef.current) {
+            mapRef.current.scrollLeft = position.x;
+            mapRef.current.scrollTop = position.y;
+          }
+        },
       };
     },
     []
@@ -162,10 +126,7 @@ export const Map = React.forwardRef((props, setScrollRef) => {
       <div
         ref={mapRef}
         className="map-wrapper"
-        onClick={handleClick}
         onMouseDown={handleMouseDown}
-        onMouseMove={handleMouseMove}
-        onMouseOut={handleMouseOut}
         onScroll={handleScroll}
         onDragOver={handleDragOver}
         onDrop={handleDrop}
@@ -175,9 +136,14 @@ export const Map = React.forwardRef((props, setScrollRef) => {
         data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
       >
         <FogOfWar />
+        <Shadows />
         <DebugVisualization />
+        <WireframeTiles />
+
+        <BuildingEditor />
         <TerrainEditor />
-        <Terrain />
+        <TerrainAreas />
+
         <Buildings />
         <Units />
       </div>
