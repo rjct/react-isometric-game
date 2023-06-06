@@ -295,9 +295,15 @@
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
   ],
   "lights": [
-    { "position": { "x": 22, "y": 6 }, "color": "#ffffff", "radius": 6 },
-    { "position": { "x": 14, "y": 5 }, "color": "#ffffff", "radius": 4 },
+    { "position": { "x": 22, "y": 6 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 14, "y": 9 }, "color": "#ffffff", "radius": 20 },
     { "position": { "x": 26, "y": 22 }, "color": "#ffffff", "radius": 6 },
-    { "position": { "x": 22, "y": 25 }, "color": "#ffffff", "radius": 2 }
+    { "position": { "x": 22, "y": 25 }, "color": "#ffffff", "radius": 2 },
+    { "position": { "x": 19, "y": 10 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 14, "y": 19 }, "color": "#ffffff", "radius": 6 },
+    { "position": { "x": 16, "y": 24 }, "color": "#ffffff", "radius": 3 },
+    { "position": { "x": 15, "y": 15 }, "color": "#ffffff", "radius": 6 },
+    { "position": { "x": 1, "y": 14 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 14, "y": 3 }, "color": "#ffffff", "radius": 6 }
   ]
 }

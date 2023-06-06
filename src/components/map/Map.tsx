@@ -11,10 +11,9 @@ import { Building } from "../../engine/BuildingFactory";
 import { WireframeTiles } from "./terrain/WireframeTiles";
 import { TerrainAreas } from "./terrain/TerrainAreas";
 import { TerrainEditor } from "../editor/terrain/TerrainEditor";
-import { Shadows } from "./terrain/Shadows";
+import { LightsAndShadows } from "./terrain/LightsAndShadows";
 import { BuildingEditor } from "../editor/building/BuildingEditor";
 import { LightEditor } from "../editor/light/LightEditor";
-import { Lights } from "./terrain/Lights";
 
 export type MapForwardedRefs = {
   setScroll: (position: Coordinates) => null;
@@ -139,8 +138,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
         data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
       >
         <FogOfWar />
-        <Lights />
-        <Shadows />
+        <LightsAndShadows />
         <DebugVisualization />
         <WireframeTiles />
 

@@ -1,5 +1,5 @@
 import { constants } from "../constants";
-import { Ray } from "../hooks/useShadows";
+import { LightRay } from "./LightRayFactory";
 
 export type GameObjectWall = {
   x: number;
@@ -78,31 +78,34 @@ export class GameObjectFactory {
     };
   }
 
-  public rayDist(ray: Ray, wall: GameObjectWall) {
-    let u;
-    const rWCross = ray.nx * wall.ny - ray.ny * wall.nx;
+  public rayDist(lightRay: LightRay, wall: GameObjectWall) {
+    const rWCross = lightRay.nx * wall.ny - lightRay.ny * wall.nx;
 
     if (!rWCross) {
       return Infinity;
     }
 
-    const x = ray.x - wall.x; // vector from ray to wall start
-    const y = ray.y - wall.y;
-    u = (ray.nx * y - ray.ny * x) / rWCross; // unit distance along normal of wall
+    const x = lightRay.x - wall.x; // vector from ray to wall start
+    const y = lightRay.y - wall.y;
+
+    let u = (lightRay.nx * y - lightRay.ny * x) / rWCross; // unit distance along normal of wall
+
     // does the ray hit the wall segment
     if (u < 0 || u > wall.len) {
       return Infinity;
-    } /// no
+    }
+    // no
     // as we use the wall normal and ray normal the unit distance is the same as the
     u = (wall.nx * y - wall.ny * x) / rWCross;
+
     return u < 0 ? Infinity : u; // if behind ray return Infinity else the dist
   }
 
-  rayDist2Polygon(ray: Ray) {
+  rayDist2Polygon(lightRay: LightRay) {
     let u, lineU;
 
     for (let i = 0; i < this.walls.length; i++) {
-      lineU = this.rayDist(ray, this.walls[i]);
+      lineU = this.rayDist(lightRay, this.walls[i]);
 
       if (!u) {
         // If it's the first hit, assign it to `u`

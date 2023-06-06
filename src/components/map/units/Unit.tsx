@@ -26,7 +26,7 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
   };
 
   React.useEffect(() => {
-    if (gameState.debug.featureEnabled.lights) {
+    if (gameState.debug.featureEnabled.unitShadow) {
       props.unit.calcShadows(gameState.lights);
     } else {
       props.unit.clearShadows();
@@ -34,7 +34,7 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
 
     setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
-  }, [JSON.stringify(gameState.lights), JSON.stringify(props.unit.position), gameState.debug.featureEnabled.lights]);
+  }, [gameState.lights, JSON.stringify(props.unit.position), gameState.debug.featureEnabled.unitShadow]);
 
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (
