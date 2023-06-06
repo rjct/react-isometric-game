@@ -13,6 +13,12 @@ export interface StaticMapTerrainArea {
   exitUrl: string | null;
 }
 
+export interface StaticMapLight {
+  position: Coordinates;
+  color: string;
+  radius: number;
+}
+
 export interface StaticMap {
   size: Size;
   terrain: Array<StaticMapTerrainArea>;
@@ -27,6 +33,7 @@ export interface StaticMap {
     type: keyof typeof unitTypes;
     position: Coordinates;
   }[];
+  lights: StaticMapLight[];
 }
 
 export const GameStateContext = React.createContext<GameMap>(gameMap);

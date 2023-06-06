@@ -30,6 +30,13 @@ export function ExportButton() {
           variant: building.variant,
         };
       }),
+      lights: gameState.lights.map((light) => {
+        return {
+          position: light.position,
+          color: light.color,
+          radius: light.radius,
+        };
+      }),
     };
 
     // eslint-disable-next-line

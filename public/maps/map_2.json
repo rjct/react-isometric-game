@@ -41,5 +41,9 @@
     { "type": "vault_wall", "position": { "x": 49, "y": 36 }, "direction": "top", "variant": 4 },
     { "type": "vault_wall", "position": { "x": 48, "y": 36 }, "direction": "top", "variant": 4 },
     { "type": "vault_wall", "position": { "x": 47, "y": 36 }, "direction": "top", "variant": 4 }
+  ],
+  "lights": [
+    { "position": { "x": 50, "y": 42 }, "color": "#ffffff", "radius": 6 },
+    { "position": { "x": 58, "y": 52 }, "color": "#ffffff", "radius": 6 }
   ]
 }

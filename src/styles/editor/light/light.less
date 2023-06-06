@@ -1,0 +1,29 @@
+[data-editing-active] {
+  .lights {
+    pointer-events: auto;
+
+    .light {
+      position: absolute;
+      border-radius: 50%;
+      transform: skew(15deg, 15deg) rotate(30deg) translate3d(-50px, -15px, 0px);
+      filter: drop-shadow(15px 7px 10px rgba(0, 0, 0, 0.5));
+
+      transition: filter 0.1s linear, transform 0.1s linear;
+
+      &:hover {
+        filter: brightness(1.2) drop-shadow(15px 7px 10px rgba(0, 0, 0, 0.5));
+        //filter: drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 1px #000);
+      }
+
+      &[data-selected="true"] {
+        transform: skew(15deg, 15deg) rotate(30deg) translate3d(-60px, -17px, 0px);
+        filter: brightness(1.2) drop-shadow(25px 10px 15px black);
+      }
+
+      &[data-dragging="true"] {
+        transform: skew(15deg, 15deg) rotate(30deg) translate3d(-60px, -17px, 0px);
+        filter: brightness(1.2) drop-shadow(25px 10px 15px black);
+      }
+    }
+  }
+}

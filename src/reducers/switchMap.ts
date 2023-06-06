@@ -5,6 +5,7 @@ import { Unit, UnitTypes } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
 import { TerrainArea } from "../engine/TerrainAreaFactory";
 import { createHero } from "../engine/createHero";
+import { Light } from "../engine/LightFactory";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";
@@ -34,6 +35,10 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     return new TerrainArea(terrainArea);
   });
 
+  const lights = (action.map.lights || []).map((light) => {
+    return new Light(light);
+  });
+
   const newState = {
     ...state,
     ...{
@@ -44,6 +49,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       fogOfWarMatrix: createMatrix(action.map.size),
       units: enemies,
       buildings,
+      lights,
     },
   };
 

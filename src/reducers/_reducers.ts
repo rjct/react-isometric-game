@@ -38,6 +38,12 @@ import { setBuildingPosition, SetBuildingPositionReducerAction } from "./editor/
 import { castShadows, CastShadowsReducerAction } from "./castShadows";
 import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "./game/debug/toggleDebugFeature";
 import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "./game/unit/useEntityInUnitHand";
+import { addLight, AddLightReducerAction } from "./editor/light/addLight";
+import { setSelectedLight, SetSelectedLightReducerAction } from "./editor/light/setSelectedLight";
+import { clearSelectedLight, ClearSelectedLightReducerAction } from "./editor/light/clearSelectedLight";
+import { setLightPosition, SetLightPositionReducerAction } from "./editor/light/setLightPosition";
+import { deleteSelectedLight, DeleteSelectedLightReducerAction } from "./editor/light/deleteSelectedLight";
+import { setLightRadius, SetLightRadiusReducerAction } from "./editor/light/setLightRadius";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -73,6 +79,13 @@ export type GameReducerAction =
   | SetTerrainAreaSourcePositionReducerAction
   | SetTerrainAreaExitUrlReducerAction
   | DeleteSelectedTerrainAreaReducerAction
+  //
+  | AddLightReducerAction
+  | SetSelectedLightReducerAction
+  | ClearSelectedLightReducerAction
+  | SetLightPositionReducerAction
+  | SetLightRadiusReducerAction
+  | DeleteSelectedLightReducerAction
   //
   | CastShadowsReducerAction;
 
@@ -168,6 +181,25 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "deleteSelectedTerrainArea":
       return deleteSelectedTerrainArea(state, action as DeleteSelectedTerrainAreaReducerAction);
+
+    // EDITOR: LIGHT
+    case "addLight":
+      return addLight(state, action as AddLightReducerAction);
+
+    case "setSelectedLight":
+      return setSelectedLight(state, action as SetSelectedLightReducerAction);
+
+    case "clearSelectedLight":
+      return clearSelectedLight(state, action as ClearSelectedLightReducerAction);
+
+    case "setLightPosition":
+      return setLightPosition(state, action as SetLightPositionReducerAction);
+
+    case "setLightRadius":
+      return setLightRadius(state, action as SetLightRadiusReducerAction);
+
+    case "deleteSelectedLight":
+      return deleteSelectedLight(state, action as DeleteSelectedLightReducerAction);
 
     //
     case "castShadows":

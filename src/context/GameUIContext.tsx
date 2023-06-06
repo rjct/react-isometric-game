@@ -3,11 +3,13 @@ import React from "react";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
 import { faTreeCity } from "@fortawesome/free-solid-svg-icons/faTreeCity";
 import { faPerson } from "@fortawesome/free-solid-svg-icons/faPerson";
+import { faLightbulb } from "@fortawesome/free-solid-svg-icons/faLightbulb";
 
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup },
   building: { text: "Building", icon: faTreeCity },
   unit: { text: "Unit", icon: faPerson },
+  light: { text: "Light", icon: faLightbulb },
 };
 
 const gameUIContext = {

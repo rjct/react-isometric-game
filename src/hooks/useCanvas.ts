@@ -19,12 +19,14 @@ export function useCanvas() {
     ctx: CanvasRenderingContext2D,
     position: Coordinates,
     color = "#ffffff",
+    fillStyle?: CanvasGradient,
     lineWidth = 1,
     radius = wireframeTileWidth / 2
   ) => {
     ctx.beginPath();
     ctx.strokeStyle = color;
     ctx.lineWidth = lineWidth;
+    if (fillStyle) ctx.fillStyle = fillStyle;
     ctx.arc(
       position.x * wireframeTileWidth + wireframeTileWidth / 2,
       position.y * wireframeTileHeight + wireframeTileHeight / 2,

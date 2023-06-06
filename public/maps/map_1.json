@@ -39,11 +39,11 @@
       "target": { "x1": 3, "y1": 12, "x2": 10, "y2": 16 }
     }
   ],
-  "heroStartPosition": { "x": 13, "y": 13 },
+  "heroStartPosition": { "x": 19, "y": 6 },
   "enemies": [
-    { "type": "ghoul", "position": { "x": 18, "y": 16 } },
-    { "type": "ghoul", "position": { "x": 13, "y": 15 } },
-    { "type": "ghoul", "position": { "x": 1, "y": 8 } }
+    { "type": "ghoul", "position": { "x": 19, "y": 18 } },
+    { "type": "ghoul", "position": { "x": 19, "y": 7 } },
+    { "type": "ghoul", "position": { "x": 4, "y": 21 } }
   ],
   "buildings": [
     { "type": "buick", "position": { "x": 5, "y": 6 }, "direction": "left", "variant": 1 },
@@ -293,5 +293,11 @@
     { "type": "vault_chair", "position": { "x": 19, "y": 2 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
+  ],
+  "lights": [
+    { "position": { "x": 22, "y": 6 }, "color": "#ffffff", "radius": 6 },
+    { "position": { "x": 14, "y": 5 }, "color": "#ffffff", "radius": 4 },
+    { "position": { "x": 26, "y": 22 }, "color": "#ffffff", "radius": 6 },
+    { "position": { "x": 22, "y": 25 }, "color": "#ffffff", "radius": 2 }
   ]
 }

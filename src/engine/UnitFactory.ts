@@ -1,9 +1,15 @@
-import { getHumanReadableDirection, randomInt } from "./helpers";
+import {
+  getAngleBetweenTwoGridPoints,
+  getDistanceBetweenGridPoints,
+  getHumanReadableDirection,
+  randomInt,
+} from "./helpers";
 import unitTypes from "../dict/units.json";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
 import { Weapon, WeaponUnitAction } from "./weapon/WeaponFactory";
 import { GameObjectFactory } from "./GameObjectFactory";
+import { Light } from "./LightFactory";
 
 export type UnitTypes = { [unitId: string]: Unit };
 
@@ -59,6 +65,12 @@ export class Unit extends GameObjectFactory {
     hit: number;
     notAllowed: number;
   };
+
+  public shadows: Array<{
+    opacity: number;
+    width: number;
+    angle: number;
+  }> = [];
 
   constructor(props: {
     unitType: keyof typeof unitTypes;
@@ -249,6 +261,28 @@ export class Unit extends GameObjectFactory {
   public stop() {
     this.setAction("none");
     this.clearPath();
+  }
+
+  public calcShadows(lights: Light[]) {
+    this.shadows = lights.reduce((shadows: Unit["shadows"], light) => {
+      const distance = getDistanceBetweenGridPoints(light.position, this.position);
+
+      if (distance > 0) {
+        const angle = getAngleBetweenTwoGridPoints(light.position, this.position);
+
+        shadows.push({
+          opacity: 1 - distance / light.radius, //distance / 20,
+          width: 1 + distance / 5,
+          angle: 180 + (angle.deg - 45),
+        });
+      }
+
+      return shadows;
+    }, []);
+  }
+
+  public clearShadows() {
+    this.shadows = [];
   }
 }
 

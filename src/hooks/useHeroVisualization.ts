@@ -45,7 +45,7 @@ export function useHeroVisualization(props: { canvasRef: React.RefObject<HTMLCan
           }
       }
 
-      drawCircle(ctx, { x: x, y }, color, 3);
+      drawCircle(ctx, { x: x, y }, color, undefined, 3);
     }
 
     // gameDispatch({

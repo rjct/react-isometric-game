@@ -13,6 +13,8 @@ import { TerrainAreas } from "./terrain/TerrainAreas";
 import { TerrainEditor } from "../editor/terrain/TerrainEditor";
 import { Shadows } from "./terrain/Shadows";
 import { BuildingEditor } from "../editor/building/BuildingEditor";
+import { LightEditor } from "../editor/light/LightEditor";
+import { Lights } from "./terrain/Lights";
 
 export type MapForwardedRefs = {
   setScroll: (position: Coordinates) => null;
@@ -28,6 +30,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
   const handleMouseDown = () => {
     gameDispatch({ type: "clearSelectedBuilding" });
     gameDispatch({ type: "clearSelectedTerrainArea" });
+    gameDispatch({ type: "clearSelectedLight" });
   };
 
   const handleScroll = () => {
@@ -136,12 +139,14 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
         data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
       >
         <FogOfWar />
+        <Lights />
         <Shadows />
         <DebugVisualization />
         <WireframeTiles />
 
         <BuildingEditor />
         <TerrainEditor />
+        <LightEditor />
         <TerrainAreas />
 
         <Buildings />

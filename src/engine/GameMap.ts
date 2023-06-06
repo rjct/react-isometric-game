@@ -5,12 +5,14 @@ import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponTypes } from "./weapon/WeaponFactory";
 import { pathFinder } from "./pathFinder";
+import { Light } from "./LightFactory";
 
 interface GameMapProps {
   mapSize: Size;
   terrain: TerrainArea[];
   buildings: Building[];
   units: UnitTypes;
+  lights: Light[];
   weapon: WeaponTypes;
 }
 
@@ -26,6 +28,7 @@ export const gameMap = {
       unitPath: false,
       enemyDetectionRange: false,
       shadows: false,
+      lights: true,
     },
   },
 
@@ -40,6 +43,7 @@ export const gameMap = {
   buildings: [] as GameMapProps["buildings"],
   heroId: "",
   units: {} as GameMapProps["units"],
+  lights: [] as GameMapProps["lights"],
   weapon: {} as GameMapProps["weapon"],
 
   matrix: [] as Array<Array<number>>,
@@ -48,6 +52,7 @@ export const gameMap = {
 
   selectedBuilding: null as unknown as Building,
   selectedTerrainArea: null as unknown as TerrainArea,
+  selectedLight: null as unknown as Light,
 
   getHero() {
     return this.units[this.heroId];
@@ -263,14 +268,6 @@ export const gameMap = {
     return this.terrain.find((terrainArea) => terrainArea.id === id);
   },
 
-  deleteTerrainArea(id: string) {
-    const index = this.terrain.findIndex((entity) => entity.id === id);
-
-    if (index === -1) return;
-
-    this.terrain.splice(index, 1);
-  },
-
   deleteSelectedTerrainArea() {
     if (!this.selectedTerrainArea) return false;
 
@@ -278,9 +275,34 @@ export const gameMap = {
 
     if (!confirmDelete) return false;
 
-    this.deleteTerrainArea(this.selectedTerrainArea.id);
+    this.deleteEntity("terrain", this.selectedTerrainArea.id);
     this.selectedTerrainArea = null as unknown as TerrainArea;
 
     return true;
+  },
+
+  getLightById(id: string) {
+    return this.lights.find((light) => light.id === id);
+  },
+
+  deleteSelectedLight() {
+    if (!this.selectedLight) return false;
+
+    const confirmDelete = confirm(`Are you sure to delete light #"${this.selectedLight.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    this.deleteEntity("lights", this.selectedLight.id);
+    this.selectedLight = null as unknown as Light;
+
+    return true;
+  },
+
+  deleteEntity(entityType: "terrain" | "lights", id: string) {
+    const index = this[entityType].findIndex((entity) => entity.id === id);
+
+    if (index === -1) return;
+
+    this[entityType].splice(index, 1);
   },
 };

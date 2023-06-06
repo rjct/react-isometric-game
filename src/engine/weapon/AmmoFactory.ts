@@ -1,4 +1,4 @@
-import { radToDeg } from "../helpers";
+import { getAngleBetweenTwoGridPoints } from "../helpers";
 import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
 import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
 
@@ -72,17 +72,6 @@ export class Ammo {
     this.position = { ...initialCoordinates };
     this.targetPosition = { ...targetCoordinates };
 
-    const distance = {
-      x: targetCoordinates.x - this.position.x,
-      y: targetCoordinates.y - this.position.y,
-    };
-
-    const angle: number = Math.atan2(distance.y, distance.x);
-    const angleInDeg = radToDeg(angle);
-
-    this.angle = {
-      rad: angle,
-      deg: angleInDeg,
-    };
+    this.angle = getAngleBetweenTwoGridPoints(initialCoordinates, targetCoordinates);
   }
 }

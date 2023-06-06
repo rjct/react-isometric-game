@@ -26,14 +26,45 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
   };
 
   React.useEffect(() => {
+    if (gameState.debug.featureEnabled.lights) {
+      props.unit.calcShadows(gameState.lights);
+    } else {
+      props.unit.clearShadows();
+    }
+
     setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
-  }, [JSON.stringify(props.unit.position)]);
+  }, [JSON.stringify(gameState.lights), JSON.stringify(props.unit.position), gameState.debug.featureEnabled.lights]);
 
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (
     <>
       {renderAmmo()}
+
+      {props.unit.shadows.map((shadow, index) => {
+        {
+          return shadow.opacity > 0 ? (
+            <div
+              key={index}
+              data-direction={props.direction || props.unit.direction}
+              data-action={props.action || props.unit.action}
+              data-weapon={props.unit.getCurrentWeapon()?.className}
+              className={`${props.unit.className} unit-shadow`}
+              style={{
+                transform: [
+                  `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
+                  `rotateZ(${shadow.angle}deg)`,
+                  `scaleY(${shadow.width})`,
+                ].join(""),
+                zIndex: zIndex,
+                opacity: shadow.opacity,
+              }}
+            >
+              <div className="char"></div>
+            </div>
+          ) : null;
+        }
+      })}
       <div
         data-direction={props.direction || props.unit.direction}
         data-action={props.action || props.unit.action}

@@ -5,6 +5,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TerrainAreaAddNewButton } from "./terrain/TerrainAreaAddNewButton";
 import { TerrainAreaPropsEditor } from "./terrain/TerrainAreaPropsEditor";
 import { BuildingPropsEditor } from "./building/BuildingPropsEditor";
+import { LightAddNewButton } from "./light/LightAddNewButton";
+import { LightPropsEditor } from "./light/LightPropsEditor";
 
 export function EditorModeSelector() {
   const { gameDispatch, uiState, uiDispatch } = useGameState();
@@ -18,6 +20,7 @@ export function EditorModeSelector() {
 
     gameDispatch({ type: "clearSelectedTerrainArea" });
     gameDispatch({ type: "clearSelectedBuilding" });
+    gameDispatch({ type: "clearSelectedLight" });
 
     uiDispatch({ type: "setEditorMode", editorMode });
   };
@@ -66,6 +69,15 @@ export function EditorModeSelector() {
       ) : null}
 
       {uiState.editorMode === "unit" ? <div className={"ui-tab-content"}>todo</div> : null}
+
+      {uiState.editorMode === "light" ? (
+        <div className={"ui-tab-content"}>
+          <div className={"toolbar"}>
+            <LightAddNewButton />
+          </div>
+          <LightPropsEditor />
+        </div>
+      ) : null}
     </div>
   ) : null;
 }

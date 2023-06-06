@@ -91,8 +91,27 @@ export function getDistanceBetweenGridPoints(startPosition: Coordinates, targetP
   return Math.sqrt(Math.pow(displacementX, 2) + Math.pow(displacementY, 2));
 }
 
+export function getAngleBetweenTwoGridPoints(startPosition: Coordinates, targetPosition: Coordinates) {
+  const distance = {
+    x: targetPosition.x - startPosition.x,
+    y: targetPosition.y - startPosition.y,
+  };
+
+  const rad: number = Math.atan2(distance.y, distance.x);
+  const deg = radToDeg(rad);
+
+  return {
+    rad,
+    deg,
+  };
+}
+
 export function radToDeg(radians: number) {
   return radians * (180 / Math.PI);
+}
+
+export function degToRad(degrees: number) {
+  return degrees * (Math.PI / 180);
 }
 
 export function composeSpriteUrl(spriteFileName: string) {
