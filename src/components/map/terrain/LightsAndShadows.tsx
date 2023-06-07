@@ -11,7 +11,15 @@ export const LightsAndShadows = React.memo(() => {
 
   const { clearCanvas } = useCanvas();
 
-  React.useEffect(() => {
+  const callAllUnitsShadows = () => {
+    if (gameState.debug.featureEnabled.unitShadow) {
+      gameState.getAllAliveUnitsArray().forEach((unit) => {
+        unit.calcShadows(gameState);
+      });
+    }
+  };
+
+  React.useLayoutEffect(() => {
     const ctx = canvasRef.current.getContext("2d")!;
 
     clearCanvas(ctx);
@@ -47,7 +55,7 @@ export const LightsAndShadows = React.memo(() => {
           ray.setDirection(angle);
 
           ray.len = radius;
-          ray.cast(gameState.buildings);
+          ray.cast(gameState.buildings); // FIXME: Migrate to workers
           ray.pathEnd(ctx);
           ray.draw(ctx);
         }
@@ -57,6 +65,8 @@ export const LightsAndShadows = React.memo(() => {
 
       ctx.fill();
     }
+
+    callAllUnitsShadows();
   }, [
     JSON.stringify(gameState.lights),
     gameState.debug.featureEnabled.light,
@@ -64,11 +74,7 @@ export const LightsAndShadows = React.memo(() => {
   ]);
 
   React.useEffect(() => {
-    if (gameState.debug.featureEnabled.unitShadow) {
-      gameState.getAllAliveUnitsArray().forEach((unit) => {
-        unit.calcShadows(gameState);
-      });
-    }
+    callAllUnitsShadows();
   }, [JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position))]);
 
   return <Canvas size={gameState.mapSize} className={"shadows"} ref={canvasRef} />;
