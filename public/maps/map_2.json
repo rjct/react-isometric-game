@@ -43,7 +43,9 @@
     { "type": "vault_wall", "position": { "x": 47, "y": 36 }, "direction": "top", "variant": 4 }
   ],
   "lights": [
-    { "position": { "x": 50, "y": 42 }, "color": "#ffffff", "radius": 20 },
-    { "position": { "x": 58, "y": 52 }, "color": "#ffffff", "radius": 20 }
+    { "position": { "x": 50, "y": 42 }, "color": "#FF0000", "radius": 20 },
+    { "position": { "x": 58, "y": 52 }, "color": "#000000", "radius": 20 },
+    { "position": { "x": 54, "y": 38 }, "color": "#00FF00", "radius": 14 },
+    { "position": { "x": 64, "y": 46 }, "color": "#0000FF", "radius": 16 }
   ]
 }

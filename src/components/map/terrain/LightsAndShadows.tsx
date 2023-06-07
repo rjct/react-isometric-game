@@ -48,22 +48,21 @@ export const LightsAndShadows = React.memo(() => {
         ray.y = light.position.y * constants.wireframeTileSize.height;
 
         ctx.setTransform(1, 0, 0, 1, ray.x, ray.y);
-        ctx.beginPath();
-        ctx.globalCompositeOperation = "destination-out";
 
         for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.LIGHT_RENDER_PASSES)) {
           ray.setDirection(angle);
 
+          ctx.globalCompositeOperation = "destination-out";
           ray.len = radius;
           ray.cast(gameState.buildings); // FIXME: Migrate to workers
           ray.pathEnd(ctx);
+
+          ray.draw(ctx);
+
+          ctx.globalCompositeOperation = "source-atop";
           ray.draw(ctx);
         }
-
-        ctx.closePath();
       });
-
-      ctx.fill();
     }
 
     callAllUnitsShadows();

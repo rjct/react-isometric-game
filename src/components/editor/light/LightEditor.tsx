@@ -97,8 +97,7 @@ export const LightEditor = React.memo(function LightEditor() {
               top: position.y + height / 2,
               width,
               height,
-              background: `radial-gradient(circle at 30% 30%, ${light.color}, rgba(0,0,0,0.5))`,
-              // backgroundColor: light.color,
+              background: `radial-gradient(circle at 30% 30%, ${light.getColor()}, rgba(0,0,0,0.5))`,
             }}
             key={light.id}
             data-selected={light.id === gameState.selectedLight?.id}

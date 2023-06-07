@@ -33,7 +33,7 @@ export function ExportButton() {
       lights: gameState.lights.map((light) => {
         return {
           position: light.position,
-          color: light.color,
+          color: light.getColor(),
           radius: light.radius,
         };
       }),

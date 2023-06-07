@@ -17,7 +17,7 @@ export class LightRay {
     this.y = light.position.y * constants.wireframeTileSize.height;
     this.angle = 0;
     this.len = light.radius * constants.wireframeTileSize.width;
-    this.color = light.color;
+    this.color = light.getColor();
 
     this.setDirection(0);
   }

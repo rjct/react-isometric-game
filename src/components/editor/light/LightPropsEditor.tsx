@@ -5,6 +5,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import React from "react";
 import { NothingSelectedText } from "../NothingSelectedText";
 import { LightRadiusEditor } from "./LightRadiusEditor";
+import { LightColorEditor } from "./LightColorEditor";
 
 export function LightPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -21,6 +22,14 @@ export function LightPropsEditor() {
                   entity={gameState.selectedLight}
                   onChange={(radius) => {
                     gameDispatch({ type: "setLightRadius", entityId: gameState.selectedLight.id, radius });
+                  }}
+                />
+              </TableRow>
+              <TableRow label={"Color"}>
+                <LightColorEditor
+                  entity={gameState.selectedLight}
+                  onChange={(color) => {
+                    gameDispatch({ type: "setLightColor", entityId: gameState.selectedLight.id, color });
                   }}
                 />
               </TableRow>

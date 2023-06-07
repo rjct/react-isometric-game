@@ -44,6 +44,7 @@ import { clearSelectedLight, ClearSelectedLightReducerAction } from "./editor/li
 import { setLightPosition, SetLightPositionReducerAction } from "./editor/light/setLightPosition";
 import { deleteSelectedLight, DeleteSelectedLightReducerAction } from "./editor/light/deleteSelectedLight";
 import { setLightRadius, SetLightRadiusReducerAction } from "./editor/light/setLightRadius";
+import { setLightColor, SetLightColorReducerAction } from "./editor/light/setLightColor";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -85,6 +86,7 @@ export type GameReducerAction =
   | ClearSelectedLightReducerAction
   | SetLightPositionReducerAction
   | SetLightRadiusReducerAction
+  | SetLightColorReducerAction
   | DeleteSelectedLightReducerAction
   //
   | CastShadowsReducerAction;
@@ -197,6 +199,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setLightRadius":
       return setLightRadius(state, action as SetLightRadiusReducerAction);
+
+    case "setLightColor":
+      return setLightColor(state, action as SetLightColorReducerAction);
 
     case "deleteSelectedLight":
       return deleteSelectedLight(state, action as DeleteSelectedLightReducerAction);

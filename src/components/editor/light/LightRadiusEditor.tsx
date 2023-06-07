@@ -1,19 +1,18 @@
 import React from "react";
 import { Light } from "../../../engine/LightFactory";
+import { useDebounce } from "use-debounce";
 
-export function LightRadiusEditor(props: { entity?: Light; onChange: (radius: Light["radius"]) => void }) {
-  const [selectedRadius, setSelectedRadius] = React.useState<number>(0);
+export function LightRadiusEditor(props: { entity: Light; onChange: (radius: Light["radius"]) => void }) {
+  const [selectedRadius, setSelectedRadius] = React.useState<number>(props.entity.radius);
+  const [value] = useDebounce(selectedRadius, 100);
 
   const handleRadiusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const radius = Number(e.target.value);
-
-    setSelectedRadius(radius);
-    props.onChange(radius);
+    setSelectedRadius(Number(e.target.value));
   };
 
   React.useEffect(() => {
-    setSelectedRadius(props.entity?.radius || 0);
-  }, [props.entity?.radius]);
+    props.onChange(value);
+  }, [value]);
 
   return (
     <div className={"entity-variant-slider-wrapper"}>
