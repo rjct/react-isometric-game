@@ -16,6 +16,7 @@ export const constants = {
   SCROLL_EDGE_WIDTH: 50,
   OFFSCREEN_TILE_CACHE: 4,
   FOG_OF_WAR_RADIUS: 5,
+  LIGHT_RENDER_PASSES: 2,
   miniMap: {
     width: 400,
     height: 200,

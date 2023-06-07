@@ -4,26 +4,20 @@ import { Unit } from "./UnitFactory";
 import { Building } from "./BuildingFactory";
 
 export class LightRay {
-  ctx: CanvasRenderingContext2D;
-  light: Light;
   x: number;
   y: number;
   private angle: number;
   len: number;
   nx = 0;
   ny = 0;
-  gradient: CanvasGradient;
-  constructor(ctx: CanvasRenderingContext2D, light: Light) {
-    this.ctx = ctx;
-    this.light = light;
+  color: string;
+
+  constructor(light: Light) {
     this.x = light.position.x * constants.wireframeTileSize.width;
     this.y = light.position.y * constants.wireframeTileSize.height;
     this.angle = 0;
     this.len = light.radius * constants.wireframeTileSize.width;
-
-    this.gradient = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
-    this.gradient.addColorStop(0, light.color);
-    this.gradient.addColorStop(1, "transparent");
+    this.color = light.color;
 
     this.setDirection(0);
   }
@@ -33,18 +27,22 @@ export class LightRay {
     this.ny = Math.sin(dir);
   }
 
-  pathEnd() {
-    this.ctx.lineTo(this.nx * this.len, this.ny * this.len);
+  pathEnd(ctx: CanvasRenderingContext2D) {
+    ctx.lineTo(this.nx * this.len, this.ny * this.len);
   }
 
-  draw() {
-    this.ctx.strokeStyle = this.gradient;
-    this.ctx.lineWidth = 1;
-    this.ctx.setTransform(1, 0, 0, 1, this.x, this.y);
-    this.ctx.beginPath();
-    this.ctx.moveTo(0, 0);
-    this.ctx.lineTo(this.nx * this.len, this.ny * this.len);
-    this.ctx.stroke();
+  draw(ctx: CanvasRenderingContext2D) {
+    const gradient = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
+    gradient.addColorStop(0, this.color);
+    gradient.addColorStop(1, "transparent");
+
+    ctx.strokeStyle = gradient;
+    ctx.lineWidth = 1;
+    ctx.setTransform(1, 0, 0, 1, this.x, this.y);
+    ctx.beginPath();
+    ctx.moveTo(0, 0);
+    ctx.lineTo(this.nx * this.len, this.ny * this.len);
+    ctx.stroke();
   }
 
   cast(objects: Array<Unit | Building>) {

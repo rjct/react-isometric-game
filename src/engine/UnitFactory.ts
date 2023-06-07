@@ -1,15 +1,10 @@
-import {
-  getAngleBetweenTwoGridPoints,
-  getDistanceBetweenGridPoints,
-  getHumanReadableDirection,
-  randomInt,
-} from "./helpers";
+import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
 import { Weapon, WeaponUnitAction } from "./weapon/WeaponFactory";
 import { GameObjectFactory } from "./GameObjectFactory";
-import { Light } from "./LightFactory";
+import { ObstacleRay } from "./ObstacleRayFactory";
 
 export type UnitTypes = { [unitId: string]: Unit };
 
@@ -67,6 +62,8 @@ export class Unit extends GameObjectFactory {
   };
 
   public shadows: Array<{
+    blocked: boolean;
+    obstacleRay: ObstacleRay;
     opacity: number;
     width: number;
     angle: number;
@@ -263,19 +260,21 @@ export class Unit extends GameObjectFactory {
     this.clearPath();
   }
 
-  public calcShadows(lights: Light[]) {
-    this.shadows = lights.reduce((shadows: Unit["shadows"], light) => {
-      const distance = getDistanceBetweenGridPoints(light.position, this.position);
+  public calcShadows(gameState: GameMap) {
+    this.shadows = gameState.lights.reduce((shadows: Unit["shadows"], light) => {
+      const obstacleRay = new ObstacleRay(light.position, this.position, true);
 
-      if (distance > 0) {
-        const angle = getAngleBetweenTwoGridPoints(light.position, this.position);
+      const distance = obstacleRay.getDistance(true);
+      const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
+      const angle = obstacleRay.getAngle();
 
-        shadows.push({
-          opacity: 1 - distance / light.radius, //distance / 20,
-          width: 1 + distance / 5,
-          angle: 180 + (angle.deg - 45),
-        });
-      }
+      shadows.push({
+        blocked: distance > light.radius || distance - 1 > distanceToRayEnd,
+        obstacleRay,
+        opacity: 1 - distance / light.radius,
+        width: 0.1 + distance / 5,
+        angle: angle.deg + 135,
+      });
 
       return shadows;
     }, []);

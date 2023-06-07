@@ -42,6 +42,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       renderUnitPath();
       renderEnemyDetectionRange();
       renderTargetVector();
+      renderShadowVectors();
     }
   };
 
@@ -176,6 +177,36 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     //       }
     //     }
     //   });
+  };
+
+  const renderShadowVectors = () => {
+    const ctx = getCtx();
+
+    if (!ctx || !gameState.debug.featureEnabled.unitShadowVectors) return;
+
+    ctx.setLineDash([0, 0]);
+
+    gameState.getAllAliveUnitsArray().forEach((unit) => {
+      unit.calcShadows(gameState);
+
+      unit.shadows.forEach((shadow) => {
+        const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
+
+        const x2 = shadow.obstacleRay.to.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y2 = shadow.obstacleRay.to.y * wireframeTileHeight + wireframeTileHeight / 2;
+
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
+
+        ctx.lineWidth = shadow.blocked ? 1 : 2;
+        ctx.strokeStyle = `rgba(255, 224, 125, ${shadow.blocked ? 0.5 : 1})`;
+
+        ctx.stroke();
+        ctx.closePath();
+      });
+    });
   };
 
   return { renderDebugVisualization };

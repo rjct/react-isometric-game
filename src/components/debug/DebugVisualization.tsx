@@ -14,11 +14,9 @@ export function DebugVisualization() {
   }, [
     //
     JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position)),
+    JSON.stringify(gameState.lights),
     JSON.stringify(gameState.matrix),
-
     JSON.stringify(gameState.debug),
-    //gameState.units[gameState.heroId]?.getCurrentWeapon()?.isReadyToUse(),
-    // uiState.mousePosition.grid,
   ]);
 
   return gameState.debug.enabled && (uiState.scene === "game" || uiState.scene === "editor") ? (

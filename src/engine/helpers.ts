@@ -107,7 +107,9 @@ export function getAngleBetweenTwoGridPoints(startPosition: Coordinates, targetP
 }
 
 export function radToDeg(radians: number) {
-  return radians * (180 / Math.PI);
+  let degree = radians * (180 / Math.PI);
+  if (degree < 0) degree = 180 + (180 - Math.abs(degree));
+  return degree;
 }
 
 export function degToRad(degrees: number) {

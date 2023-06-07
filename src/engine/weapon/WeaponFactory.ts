@@ -4,7 +4,7 @@ import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeW
 import { MeleePunch } from "./melee/meleePunchFactory";
 import { getDistanceBetweenGridPoints } from "../helpers";
 import { GameMap } from "../GameMap";
-import { Ray } from "../Ray";
+import { ObstacleRay } from "../ObstacleRayFactory";
 
 export type WeaponType = FirearmType | MeleeWeaponType;
 export type WeaponTypes = { [weaponId: string]: Weapon };
@@ -29,7 +29,7 @@ export class Weapon {
   public firedAmmoQueue: MeleePunch[] = [];
 
   private targetPosition: null | Coordinates = null;
-  public ray: null | Ray = null;
+  public ray: null | ObstacleRay = null;
 
   public readonly animationDuration: {
     attack: number;
@@ -68,7 +68,7 @@ export class Weapon {
   aimAt(position: Coordinates) {
     this.targetPosition = position;
     if (this.unit) {
-      this.ray = new Ray(this.unit.position, this.targetPosition);
+      this.ray = new ObstacleRay(this.unit.position, this.targetPosition);
     }
   }
 

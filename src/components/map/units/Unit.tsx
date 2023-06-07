@@ -27,7 +27,7 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
 
   React.useEffect(() => {
     if (gameState.debug.featureEnabled.unitShadow) {
-      props.unit.calcShadows(gameState.lights);
+      props.unit.calcShadows(gameState);
     } else {
       props.unit.clearShadows();
     }
@@ -43,7 +43,7 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
 
       {props.unit.shadows.map((shadow, index) => {
         {
-          return shadow.opacity > 0 ? (
+          return !shadow.blocked && shadow.opacity > 0 ? (
             <div
               key={index}
               data-direction={props.direction || props.unit.direction}
@@ -53,6 +53,7 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
               style={{
                 transform: [
                   `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
+                  `rotateX(60deg)`,
                   `rotateZ(${shadow.angle}deg)`,
                   `scaleY(${shadow.width})`,
                 ].join(""),
