@@ -12,18 +12,30 @@
 
       &:hover {
         filter: brightness(1.2) drop-shadow(15px 7px 10px rgba(0, 0, 0, 0.5));
-        //filter: drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 1px #000) drop-shadow(0px 0px 1px #000);
       }
 
       &[data-selected="true"] {
-        transform: skew(15deg, 15deg) rotate(30deg) translate3d(-60px, -17px, 0px);
-        filter: brightness(1.2) drop-shadow(25px 10px 15px black);
+        animation: selected-light (@animation-length / 2);
+        animation-iteration-count: infinite;
+        animation-direction: alternate;
       }
 
       &[data-dragging="true"] {
+        animation: none;
         transform: skew(15deg, 15deg) rotate(30deg) translate3d(-60px, -17px, 0px);
         filter: brightness(1.2) drop-shadow(25px 10px 15px black);
       }
     }
+  }
+}
+
+@keyframes selected-light {
+  0% {
+    transform: skew(15deg, 15deg) rotate(30deg) translate3d(-50px, -15px, 0px);
+    filter: brightness(1.2) drop-shadow(25px 10px 15px rgba(0, 0, 0, 0.5));
+  }
+  100% {
+    transform: skew(15deg, 15deg) rotate(30deg) translate3d(-60px, -17px, 0px);
+    filter: brightness(1.2) drop-shadow(25px 10px 15px rgba(0, 0, 0, 0.75));
   }
 }
