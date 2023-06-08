@@ -4,14 +4,20 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons/faSquarePlus";
 import { useGameState } from "../../../hooks/useGameState";
 import { StaticMapLight } from "../../../context/GameStateContext";
 import { constants } from "../../../constants";
+import { randomInt } from "../../../engine/helpers";
 
 export function LightAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const handleClick = () => {
+    const center = {
+      x: Math.round(gameState.mapSize.width / 2),
+      y: Math.round(gameState.mapSize.height / 2),
+    };
+
     const light: StaticMapLight = {
       position: {
-        x: Math.round(gameState.mapSize.width / 2),
-        y: Math.round(gameState.mapSize.height / 2),
+        x: randomInt(center.x - 5, center.x + 5),
+        y: randomInt(center.y - 5, center.y + 5),
       },
       color: "#ffffff",
       radius: 6,

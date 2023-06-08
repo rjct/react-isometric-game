@@ -5,7 +5,7 @@ import { useCanvas } from "../../../hooks/useCanvas";
 import { constants } from "../../../constants";
 
 export const LightsAndShadows = React.memo(() => {
-  const { gameState } = useGameState();
+  const { gameState, uiState } = useGameState();
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
 
@@ -60,18 +60,23 @@ export const LightsAndShadows = React.memo(() => {
 
     clearCanvas(ctx);
 
-    renderLightsAndShadows(ctx);
-    callAllUnitsShadows();
+    if (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "light")) {
+      renderLightsAndShadows(ctx);
+      callAllUnitsShadows();
+    }
   }, [
-    JSON.stringify(gameState.lights),
+    gameState.mapSize,
+    uiState.scene === "editor" ? gameState.getLightsHash() : false,
     gameState.debug.featureEnabled.light,
     gameState.debug.featureEnabled.shadow,
     gameState.debug.featureEnabled.unitShadow,
+    uiState.scene,
+    uiState.editorMode,
   ]);
 
   React.useEffect(() => {
     callAllUnitsShadows();
-  }, [JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position))]);
+  }, [gameState.getAllAliveUnitsHash()]);
 
   return <Canvas size={gameState.mapSize} className={"shadows"} ref={canvasRef} />;
 });

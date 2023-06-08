@@ -5,7 +5,7 @@ import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 
-export const UnitComponent = React.memo(function UnitComponennt(props: {
+export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
   direction?: Unit["direction"];
   action?: Unit["action"];
@@ -34,7 +34,11 @@ export const UnitComponent = React.memo(function UnitComponennt(props: {
 
     setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
-  }, [gameState.lights, JSON.stringify(props.unit.position), gameState.debug.featureEnabled.unitShadow]);
+  }, [
+    uiState.scene === "editor" ? gameState.getLightsHash() : false,
+    gameState.getAllAliveUnitsHash(),
+    gameState.debug.featureEnabled.unitShadow,
+  ]);
 
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (

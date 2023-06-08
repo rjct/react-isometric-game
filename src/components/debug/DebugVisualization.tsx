@@ -13,10 +13,14 @@ export function DebugVisualization() {
     renderDebugVisualization();
   }, [
     //
-    JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.position)),
-    JSON.stringify(gameState.lights),
-    JSON.stringify(gameState.matrix),
-    JSON.stringify(gameState.debug),
+    gameState.debug.enabled
+      ? [
+          gameState.getAllAliveUnitsHash(),
+          gameState.getLightsHash(),
+          gameState.getMatrixHash(),
+          JSON.stringify(gameState.debug),
+        ]
+      : false,
   ]);
 
   return gameState.debug.enabled && (uiState.scene === "game" || uiState.scene === "editor") ? (

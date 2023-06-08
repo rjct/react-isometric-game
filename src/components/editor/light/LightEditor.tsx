@@ -10,11 +10,12 @@ export const LightEditor = React.memo(function LightEditor() {
   const { getWorldMousePosition } = useMousePosition();
 
   const [workingEntity, setWorkingEntity] = React.useState({
-    mode: null as unknown as "move",
     initialMousePosition: null as unknown as Coordinates,
     initialEntityPosition: null as unknown as Coordinates,
     entity: null as unknown as Light,
   });
+
+  const [selectedEntityPosition, setSelectedEntityPosition] = React.useState(null as unknown as Coordinates);
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
@@ -25,35 +26,35 @@ export const LightEditor = React.memo(function LightEditor() {
   const tileWidth = constants.tileSize.width;
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!workingEntity.mode) return;
+    if (!workingEntity.entity) return;
 
     const mousePosition = getWorldMousePosition(e);
 
     const diffX = workingEntity.initialMousePosition.x - mousePosition.grid.x;
     const diffY = workingEntity.initialMousePosition.y - mousePosition.grid.y;
 
-    switch (workingEntity.mode) {
-      case "move":
-        gameDispatch({
-          type: "setLightPosition",
-          entityId: workingEntity.entity.id,
-          coordinates: {
-            x: Math.min(gameState.mapSize.width, Math.max(0, workingEntity.initialEntityPosition.x - diffX)),
-            y: Math.min(gameState.mapSize.height, Math.max(0, workingEntity.initialEntityPosition.y - diffY)),
-          },
-        });
-
-        break;
-    }
+    setSelectedEntityPosition({
+      x: Math.min(gameState.mapSize.width, Math.max(0, workingEntity.initialEntityPosition.x - diffX)),
+      y: Math.min(gameState.mapSize.height, Math.max(0, workingEntity.initialEntityPosition.y - diffY)),
+    });
   };
 
   const handleMouseUp = () => {
+    if (!workingEntity.entity) return;
+
+    gameDispatch({
+      type: "setLightPosition",
+      entityId: workingEntity.entity.id,
+      coordinates: selectedEntityPosition,
+    });
+
     setWorkingEntity({
-      mode: null as unknown as "move",
       initialMousePosition: null as unknown as Coordinates,
       initialEntityPosition: null as unknown as Coordinates,
       entity: null as unknown as Light,
     });
+
+    setSelectedEntityPosition(null as unknown as Coordinates);
   };
 
   const handleEntityMouseDown = (e: React.MouseEvent, entity: Light) => {
@@ -62,11 +63,12 @@ export const LightEditor = React.memo(function LightEditor() {
     const mousePosition = getWorldMousePosition(e);
 
     setWorkingEntity({
-      mode: "move",
       initialMousePosition: { ...mousePosition.grid },
       initialEntityPosition: { ...entity.position },
       entity,
     });
+
+    setSelectedEntityPosition(entity.position);
 
     e.stopPropagation();
   };
@@ -81,10 +83,12 @@ export const LightEditor = React.memo(function LightEditor() {
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      data-editing-mode={workingEntity.mode}
     >
       {gameState.lights.map((light) => {
-        const position = { x: light.position.x * wireframeTileWidth, y: light.position.y * wireframeTileHeight }; //gameState.gridToScreenSpace(light.position);
+        const position = gameState.convertToIsometricCoordinates(
+          workingEntity.entity?.id === light.id ? selectedEntityPosition : light.position,
+          true
+        );
         const width = wireframeTileWidth;
         const height = wireframeTileHeight;
 
@@ -94,8 +98,8 @@ export const LightEditor = React.memo(function LightEditor() {
             className={light.className}
             id={light.id}
             style={{
-              left: position.x + width / 2,
-              top: position.y + height / 2,
+              left: position.x,
+              top: position.y,
               width,
               height,
               background: `radial-gradient(circle at 30% 30%, ${light.getColor()}, rgba(0,0,0,0.5))`,

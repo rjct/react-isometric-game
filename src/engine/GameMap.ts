@@ -209,6 +209,23 @@ export const gameMap = {
     return { x, y };
   },
 
+  convertToIsometricCoordinates(gridPos: Coordinates, centerOnCell = false): Coordinates {
+    const shiftX = centerOnCell ? constants.wireframeTileSize.width / 2 : 0;
+    const shiftY = centerOnCell ? constants.wireframeTileSize.height / 2 : 0;
+
+    return {
+      x: gridPos.x * constants.wireframeTileSize.width + shiftX,
+      y: gridPos.y * constants.wireframeTileSize.height + shiftY,
+    };
+  },
+
+  convertToIsometricSize(size: Size): Size {
+    return {
+      width: size.width * constants.wireframeTileSize.width,
+      height: size.height * constants.wireframeTileSize.height,
+    };
+  },
+
   getAllAliveUnitsArray() {
     return Object.values(this.units).filter((unit) => !unit.isDead);
   },
@@ -306,5 +323,24 @@ export const gameMap = {
     if (index === -1) return;
 
     this[entityType].splice(index, 1);
+  },
+
+  // HASH methods
+  getMatrixHash() {
+    return this.matrix.map((column) => column.join("")).join("");
+  },
+
+  getFogOfWarMatrixHash() {
+    return this.fogOfWarMatrix.map((column) => column.join("")).join("");
+  },
+
+  getAllAliveUnitsHash() {
+    return this.getAllAliveUnitsArray()
+      .map((unit) => unit.getHash())
+      .join("|");
+  },
+
+  getLightsHash() {
+    return this.lights.map((light) => light.getHash()).join("|");
   },
 };

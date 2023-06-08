@@ -118,4 +118,8 @@ export class GameObjectFactory {
 
     return !u || u < 0 ? Infinity : u; // if behind ray return Infinity else the dist
   }
+
+  getHash() {
+    return `${this.position.x}:${this.position.y}:${this.direction}`;
+  }
 }

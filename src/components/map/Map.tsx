@@ -57,7 +57,14 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
     };
     const grid = gameState.screenSpaceToGridSpace(screen);
 
-    if (grid.x < 0 || grid.x > gameState.mapSize.width || grid.y < 0 || grid.y > gameState.mapSize.height) return;
+    if (
+      grid.x < 0 ||
+      grid.x > gameState.mapSize.width ||
+      grid.y < 0 ||
+      grid.y > gameState.mapSize.height ||
+      e.dataTransfer.getData("add/entity") === ""
+    )
+      return;
 
     const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
     const direction = e.dataTransfer.getData("add/entity/direction") as Building["direction"];

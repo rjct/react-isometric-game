@@ -70,4 +70,8 @@ export class Light {
       ray.setLen(radius);
     });
   }
+
+  getHash() {
+    return `${this.position.x}:${this.position.y}:${this.radius}:${this.getColor()}`;
+  }
 }

@@ -105,11 +105,7 @@ export const MiniMap = React.memo(function MiniMap() {
   React.useEffect(() => {
     renderMiniMap();
     centerMap();
-  }, [
-    JSON.stringify(gameState.fogOfWarMatrix),
-    JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.path)),
-    JSON.stringify(gameState.getAllAliveUnitsArray().map((unit) => unit.id)),
-  ]);
+  }, [gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash()]);
 
   return (
     <div

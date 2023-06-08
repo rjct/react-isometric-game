@@ -30,7 +30,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     if (!mousePosition) return;
 
     renderTarget(mousePosition);
-  }, [mousePosition, JSON.stringify(gameState.matrix)]);
+  }, [mousePosition, gameState.getMatrixHash()]);
 
   return (
     <Canvas
