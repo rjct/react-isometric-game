@@ -69,7 +69,7 @@ body {
 .debug {
   position: absolute;
   z-index: 2;
-  //pointer-events: none;
+  pointer-events: none;
   font-size: 0.6em;
   user-select: none;
   color: @text-color;
@@ -82,6 +82,16 @@ body {
   th {
     text-align: left;
   }
+}
+
+.debug-features {
+  position: absolute;
+  z-index: 2;
+  left: @padding;
+  margin-bottom: @padding;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
 }
 
 .center {

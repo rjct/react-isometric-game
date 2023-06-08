@@ -18,6 +18,7 @@ import { usePreloadAssets } from "../hooks/usePreloadAssets";
 import { Loading } from "./Loading";
 import { EditorSidebar } from "./editor/EditorSidebar";
 import { EntitiesLibrary } from "./editor/EntitiesLibrary";
+import { DebugFeaturesSwitches } from "./debug/DebugFeaturesSwitches";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -119,7 +120,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               {loadingState.loading ? <Loading {...loadingState} /> : null}
               <GameOver />
               <Top />
+
               <DebugInfo />
+              <DebugFeaturesSwitches />
+
               <div className={"center"}>
                 <Map ref={setScrollRef} />
                 <EditorSidebar />

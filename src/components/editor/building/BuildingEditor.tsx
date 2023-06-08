@@ -17,9 +17,6 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
     entity: null as unknown as Building,
   });
 
-  const wireframeTileWidth = constants.wireframeTileSize.width;
-  const wireframeTileHeight = constants.wireframeTileSize.height;
-
   const mapWidth = gameState.mapSize.width;
   const mapHeight = gameState.mapSize.height;
 
@@ -80,8 +77,8 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
     <div
       className="building-editor"
       style={{
-        width: mapWidth * wireframeTileWidth,
-        height: mapHeight * wireframeTileHeight,
+        width: mapWidth * constants.tileSize.width,
+        height: mapHeight * constants.tileSize.height,
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
