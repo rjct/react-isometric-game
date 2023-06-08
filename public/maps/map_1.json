@@ -295,15 +295,16 @@
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
   ],
   "lights": [
-    { "position": { "x": 22, "y": 6 }, "color": "#000000", "radius": 20 },
-    { "position": { "x": 14, "y": 9 }, "color": "#000000", "radius": 20 },
-    { "position": { "x": 26, "y": 22 }, "color": "#000000", "radius": 6 },
+    { "position": { "x": 21, "y": 1 }, "color": "#54b9f8", "radius": 10 },
+    { "position": { "x": 11, "y": 7 }, "color": "#54b9f8", "radius": 10 },
+    { "position": { "x": 23, "y": 19 }, "color": "#54b9f8", "radius": 10 },
     { "position": { "x": 22, "y": 25 }, "color": "#000000", "radius": 2 },
-    { "position": { "x": 19, "y": 10 }, "color": "#000000", "radius": 20 },
-    { "position": { "x": 14, "y": 19 }, "color": "#000000", "radius": 6 },
+    { "position": { "x": 25, "y": 1 }, "color": "#54b9f8", "radius": 10 },
+    { "position": { "x": 12, "y": 20 }, "color": "#000000", "radius": 6 },
     { "position": { "x": 16, "y": 24 }, "color": "#000000", "radius": 3 },
-    { "position": { "x": 15, "y": 15 }, "color": "#000000", "radius": 6 },
+    { "position": { "x": 11, "y": 13 }, "color": "#54b9f8", "radius": 6 },
     { "position": { "x": 1, "y": 14 }, "color": "#FF0000", "radius": 20 },
-    { "position": { "x": 14, "y": 3 }, "color": "#000000", "radius": 6 }
+    { "position": { "x": 11, "y": 4 }, "color": "#54b9f8", "radius": 10 },
+    { "position": { "x": 11, "y": 2 }, "color": "#54b9f8", "radius": 6 }
   ]
 }
