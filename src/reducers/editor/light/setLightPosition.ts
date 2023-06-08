@@ -10,7 +10,9 @@ export function setLightPosition(state: GameMap, action: SetLightPositionReducer
   const light = state.getLightById(action.entityId);
 
   if (light) {
-    light.position = action.coordinates;
+    light.setPosition(action.coordinates);
+    light.setRadius(light.radius);
+    light.castRays(state.buildings);
 
     return { ...state };
   }

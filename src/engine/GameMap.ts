@@ -28,6 +28,7 @@ export const gameMap = {
       unitPath: false,
       enemyDetectionRange: false,
       light: true,
+      shadow: true,
       unitShadow: true,
       unitShadowVectors: false,
     },

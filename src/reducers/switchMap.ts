@@ -35,8 +35,12 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     return new TerrainArea(terrainArea);
   });
 
-  const lights = (action.map.lights || []).map((light) => {
-    return new Light(light);
+  const lights = (action.map.lights || []).map((staticMapLight) => {
+    const light = new Light(staticMapLight);
+
+    light.castRays(buildings);
+
+    return light;
   });
 
   const newState = {

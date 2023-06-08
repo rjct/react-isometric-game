@@ -23,7 +23,7 @@
       "target": { "x1": 0, "y1": 0, "x2": 100, "y2": 47 }
     }
   ],
-  "heroStartPosition": { "x": 58, "y": 42 },
+  "heroStartPosition": { "x": 49, "y": 45 },
   "enemies": [],
   "buildings": [
     { "type": "buick", "position": { "x": 2, "y": 6 }, "direction": "top", "variant": 2 },

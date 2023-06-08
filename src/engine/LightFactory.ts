@@ -1,5 +1,7 @@
 import { StaticMapLight } from "../context/GameStateContext";
 import { LightRay } from "./LightRayFactory";
+import { constants } from "../constants";
+import { Building } from "./BuildingFactory";
 
 export class Light {
   public readonly id = crypto.randomUUID();
@@ -7,7 +9,7 @@ export class Light {
   public position: Coordinates;
   private color = "#ffffff";
   public radius = 6;
-  public readonly ray: LightRay;
+  public rays: LightRay[] = [];
 
   constructor(props: StaticMapLight) {
     this.position = props.position;
@@ -20,15 +22,52 @@ export class Light {
       this.radius = props.radius;
     }
 
-    this.ray = new LightRay(this);
+    this.createRays();
   }
 
   setColor(color: string) {
     this.color = color;
-    this.ray.color = color;
+
+    this.rays.forEach((ray) => {
+      ray.setColor(color);
+    });
   }
 
   getColor() {
     return this.color;
+  }
+
+  createRays() {
+    const rays: Array<LightRay> = [];
+
+    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.light.RENDER_PASSES)) {
+      const ray = new LightRay(this);
+
+      ray.setDirection(angle);
+
+      rays.push(ray);
+    }
+
+    this.rays = rays;
+  }
+
+  castRays(objects: Array<Building>) {
+    this.rays.forEach((ray) => ray.cast(objects));
+  }
+
+  setPosition(position: Coordinates) {
+    this.position = position;
+
+    this.rays.forEach((ray) => {
+      ray.setPosition(position);
+    });
+  }
+
+  setRadius(radius: number) {
+    this.radius = radius;
+
+    this.rays.forEach((ray) => {
+      ray.setLen(radius);
+    });
   }
 }

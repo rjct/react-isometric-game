@@ -90,6 +90,7 @@ export const LightEditor = React.memo(function LightEditor() {
 
         return (
           <div
+            draggable={false}
             className={light.className}
             id={light.id}
             style={{

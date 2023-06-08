@@ -10,7 +10,8 @@ export function setLightRadius(state: GameMap, action: SetLightRadiusReducerActi
   const light = state.getLightById(action.entityId);
 
   if (light) {
-    light.radius = action.radius;
+    light.setRadius(action.radius);
+    light.castRays(state.buildings);
 
     return { ...state };
   }

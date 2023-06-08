@@ -1,24 +1,19 @@
 import { Light } from "./LightFactory";
 import { constants } from "../constants";
-import { Unit } from "./UnitFactory";
 import { Building } from "./BuildingFactory";
 
 export class LightRay {
-  x: number;
-  y: number;
-  private angle: number;
-  len: number;
+  x = 0;
+  y = 0;
+  len = 0;
   nx = 0;
   ny = 0;
-  color: string;
+  color = "";
 
   constructor(light: Light) {
-    this.x = light.position.x * constants.wireframeTileSize.width;
-    this.y = light.position.y * constants.wireframeTileSize.height;
-    this.angle = 0;
-    this.len = light.radius * constants.wireframeTileSize.width;
-    this.color = light.getColor();
-
+    this.setPosition(light.position);
+    this.setLen(light.radius);
+    this.setColor(light.getColor());
     this.setDirection(0);
   }
 
@@ -27,25 +22,46 @@ export class LightRay {
     this.ny = Math.sin(dir);
   }
 
+  setPosition(position: Coordinates) {
+    this.x = position.x * constants.wireframeTileSize.width;
+    this.y = position.y * constants.wireframeTileSize.height;
+  }
+
+  setLen(lightRadius: number) {
+    this.len = lightRadius * constants.wireframeTileSize.width;
+  }
+
+  setColor(color: string) {
+    this.color = color;
+  }
+
   pathEnd(ctx: CanvasRenderingContext2D) {
     ctx.lineTo(this.nx * this.len, this.ny * this.len);
   }
 
-  draw(ctx: CanvasRenderingContext2D) {
-    const gradient = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
-    gradient.addColorStop(0, this.color);
-    gradient.addColorStop(1, "transparent");
+  draw(ctx: CanvasRenderingContext2D, useGradient = true) {
+    let fill: CanvasGradient | string = this.color;
 
-    ctx.strokeStyle = gradient;
+    if (useGradient) {
+      fill = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
+      fill.addColorStop(0, `${this.color}FF`);
+      fill.addColorStop(0.5, `${this.color}80`);
+      fill.addColorStop(1, `${this.color}00`);
+    }
+
+    ctx.globalAlpha = constants.light.LIGHTS_ALPHA;
+    ctx.strokeStyle = fill;
     ctx.lineWidth = 1;
     ctx.setTransform(1, 0, 0, 1, this.x, this.y);
     ctx.beginPath();
     ctx.moveTo(0, 0);
     ctx.lineTo(this.nx * this.len, this.ny * this.len);
+    ctx.closePath();
     ctx.stroke();
+    ctx.globalAlpha = constants.light.SHADOWS_ALPHA;
   }
 
-  cast(objects: Array<Unit | Building>) {
+  cast(objects: Array<Building>) {
     let minDist = this.len;
     let i = objects.length;
 

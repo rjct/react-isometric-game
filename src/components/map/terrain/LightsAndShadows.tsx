@@ -19,56 +19,53 @@ export const LightsAndShadows = React.memo(() => {
     }
   };
 
+  const renderLightsAndShadows = (ctx: CanvasRenderingContext2D) => {
+    if (gameState.debug.featureEnabled.light || gameState.debug.featureEnabled.shadow) {
+      ctx.globalCompositeOperation = "source-over";
+
+      if (gameState.debug.featureEnabled.shadow) {
+        ctx.globalAlpha = constants.light.SHADOWS_ALPHA;
+        ctx.fillStyle = constants.light.SHADOWS_COLOR;
+        ctx.fillRect(
+          0,
+          0,
+          gameState.mapSize.width * constants.wireframeTileSize.width,
+          gameState.mapSize.height * constants.wireframeTileSize.height
+        );
+      }
+
+      ctx.lineWidth = 0;
+
+      gameState.lights.forEach((light) => {
+        light.rays.forEach((ray) => {
+          ray.pathEnd(ctx);
+
+          if (gameState.debug.featureEnabled.shadow) {
+            ctx.globalCompositeOperation = "destination-out";
+
+            ray.draw(ctx, false);
+          }
+
+          if (gameState.debug.featureEnabled.light) {
+            ctx.globalCompositeOperation = "xor"; //"source-atop";
+            ray.draw(ctx);
+          }
+        });
+      });
+    }
+  };
+
   React.useLayoutEffect(() => {
     const ctx = canvasRef.current.getContext("2d")!;
 
     clearCanvas(ctx);
 
-    if (gameState.debug.featureEnabled.light) {
-      const hideFill = "rgba(0,13,35,0.85)";
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = hideFill;
-      ctx.fillRect(
-        0,
-        0,
-        gameState.mapSize.width * constants.wireframeTileSize.width,
-        gameState.mapSize.height * constants.wireframeTileSize.height
-      );
-
-      ctx.lineWidth = 0;
-      ctx.globalAlpha = 0.9;
-
-      gameState.lights.forEach((light) => {
-        const { ray } = light;
-        const radius = light.radius * constants.wireframeTileSize.width;
-
-        ctx.setTransform(1, 0, 0, 1, 0, 0);
-
-        ray.x = light.position.x * constants.wireframeTileSize.width;
-        ray.y = light.position.y * constants.wireframeTileSize.height;
-
-        ctx.setTransform(1, 0, 0, 1, ray.x, ray.y);
-
-        for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.LIGHT_RENDER_PASSES)) {
-          ray.setDirection(angle);
-
-          ctx.globalCompositeOperation = "destination-out";
-          ray.len = radius;
-          ray.cast(gameState.buildings); // FIXME: Migrate to workers
-          ray.pathEnd(ctx);
-
-          ray.draw(ctx);
-
-          ctx.globalCompositeOperation = "source-atop";
-          ray.draw(ctx);
-        }
-      });
-    }
-
+    renderLightsAndShadows(ctx);
     callAllUnitsShadows();
   }, [
     JSON.stringify(gameState.lights),
     gameState.debug.featureEnabled.light,
+    gameState.debug.featureEnabled.shadow,
     gameState.debug.featureEnabled.unitShadow,
   ]);
 

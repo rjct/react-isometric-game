@@ -3,7 +3,7 @@ import { Light } from "../../../engine/LightFactory";
 import { useDebounce } from "use-debounce";
 
 export function LightColorEditor(props: { entity: Light; onChange: (color: Light["color"]) => void }) {
-  const [selectedColor, setSelectedColor] = React.useState<string>(props.entity.getColor());
+  const [selectedColor, setSelectedColor] = React.useState<string>("");
   const [value] = useDebounce(selectedColor, 100);
 
   const handleColorChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -11,8 +11,14 @@ export function LightColorEditor(props: { entity: Light; onChange: (color: Light
   };
 
   React.useEffect(() => {
+    if (selectedColor === "") return;
+
     props.onChange(selectedColor);
   }, [value]);
+
+  React.useEffect(() => {
+    setSelectedColor(props.entity.getColor());
+  }, [props.entity.getColor()]);
 
   return (
     <div className={"entity-variant-slider-wrapper"}>
