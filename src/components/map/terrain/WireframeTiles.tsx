@@ -7,7 +7,7 @@ import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePos
 
 export const WireframeTiles = React.memo(function WireframeTiles() {
   //return <></>;
-  const { gameState } = useGameState();
+  const { gameState, uiState } = useGameState();
   const { doHeroAction } = useHero();
 
   const canvasRef = React.createRef<HTMLCanvasElement>();
@@ -32,7 +32,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     renderTarget(mousePosition);
   }, [mousePosition, gameState.getMatrixHash()]);
 
-  return (
+  return uiState.scene === "game" ? (
     <Canvas
       className={"wireframe"}
       size={gameState.mapSize}
@@ -40,5 +40,5 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
       handleMouseMove={handleMouseMove}
       handleClick={handleClick}
     />
-  );
+  ) : null;
 });

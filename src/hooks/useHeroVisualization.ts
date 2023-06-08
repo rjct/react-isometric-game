@@ -11,7 +11,7 @@ export function useHeroVisualization(props: { canvasRef: React.RefObject<HTMLCan
   const { clearCanvas, drawCircle } = useCanvas();
 
   const renderTarget = (mousePosition: WorldMousePosition) => {
-    if (!hero || /*hero.isMoving() ||*/ uiState.isScrolling() || uiState.scene !== "game") return;
+    if (!hero || /*hero.isMoving() ||*/ uiState.isScrolling()) return;
 
     if (/*!hero.isUsingHands() ||*/ mousePosition.isOutOfGrid) return;
 
@@ -47,12 +47,6 @@ export function useHeroVisualization(props: { canvasRef: React.RefObject<HTMLCan
 
       drawCircle(ctx, { x: x, y }, color, undefined, 3);
     }
-
-    // gameDispatch({
-    //   type: "highlightTargetWireframeCell",
-    //   unit: hero,
-    //   targetPosition: uiState.mousePosition.grid,
-    // });
   };
 
   return { renderTarget };

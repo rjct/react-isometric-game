@@ -9,6 +9,16 @@ export function ExportButton() {
   const { gameState } = useGameState();
   const { hero } = useHero();
 
+  const text = {
+    getJson: "Get map JSON",
+    done: "See console",
+  };
+
+  const [buttonState, setButtonState] = React.useState({
+    disabled: false,
+    text: text.getJson,
+  });
+
   const handleClick = () => {
     const result: StaticMap = {
       size: { ...gameState.mapSize },
@@ -41,12 +51,22 @@ export function ExportButton() {
 
     // eslint-disable-next-line
     console.log(JSON.stringify(result));
+
+    setButtonState({ disabled: true, text: text.done });
+
+    window.setTimeout(() => {
+      setButtonState({ disabled: false, text: text.getJson });
+    }, 1000);
   };
 
   return (
-    <button className={"ui-button"} onClick={handleClick}>
+    <button
+      className={["ui-button", buttonState.disabled ? "ui-button-green" : ""].join(" ")}
+      disabled={buttonState.disabled}
+      onClick={handleClick}
+    >
       <FontAwesomeIcon icon={faCode} fixedWidth />
-      <label>Get map JSON</label>
+      <label>{buttonState.text}</label>
     </button>
   );
 }
