@@ -2,6 +2,7 @@ import { Building } from "../../../engine/BuildingFactory";
 import React from "react";
 import { getEntityZIndex } from "../../../engine/helpers";
 import { useGameState } from "../../../hooks/useGameState";
+import { useHero } from "../../../hooks/useHero";
 
 export const BuildingComponent = React.memo(function Building(props: {
   building: Building;
@@ -14,6 +15,7 @@ export const BuildingComponent = React.memo(function Building(props: {
 
   const [viewport, setViewport] = React.useState(uiState.viewport);
   const position = gameState.gridToScreenSpace(props.building.position);
+  const { getHeroMaskImage } = useHero();
 
   React.useEffect(() => {
     setViewport(uiState.viewport);
@@ -28,6 +30,7 @@ export const BuildingComponent = React.memo(function Building(props: {
         left: position.x,
         top: position.y,
         zIndex: getEntityZIndex(props.building),
+        WebkitMaskImage: getHeroMaskImage(props.building),
       }}
       data-direction={props.building.direction}
       data-variant={props.building.variant}

@@ -71,8 +71,8 @@ export function getHumanReadableDirection(angle: number): Unit["direction"] {
   return "right";
 }
 
-export function getEntityZIndex(unit: Unit | Building) {
-  const { position, size } = unit;
+export function getEntityZIndex(entity: Unit | Building) {
+  const { position, size } = entity;
 
   const x = Math.ceil(position.x + size.grid.width);
   const y = Math.ceil(position.y + size.grid.height / 2);
