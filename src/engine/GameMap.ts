@@ -334,6 +334,24 @@ export const gameMap = {
     return this.fogOfWarMatrix.map((column) => column.join("")).join("");
   },
 
+  getTerrainHash() {
+    return this.terrain
+      .map((terrainArea) => {
+        return [
+          `${terrainArea.source.type}`,
+          `${terrainArea.source.position.x1}`,
+          `${terrainArea.source.position.y1}`,
+          `${terrainArea.source.position.x2}`,
+          `${terrainArea.source.position.y2}`,
+          `${terrainArea.target.x1}`,
+          `${terrainArea.target.y1}`,
+          `${terrainArea.target.x2}`,
+          `${terrainArea.target.y2}`,
+        ].join(":");
+      })
+      .join("|");
+  },
+
   getAllAliveUnitsHash() {
     return this.getAllAliveUnitsArray()
       .map((unit) => unit.getHash())

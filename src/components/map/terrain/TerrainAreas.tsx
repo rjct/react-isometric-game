@@ -77,7 +77,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   }, [
     gameState.mapSize,
     gameState.mapUrl,
-    JSON.stringify(gameState.terrain),
+    gameState.getTerrainHash(),
     //
     uiState.scene,
   ]);
