@@ -2,10 +2,10 @@ import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "./he
 import { GameMap } from "./GameMap";
 
 export class ObstacleRay {
-  public readonly from: Coordinates;
-  public readonly to: Coordinates;
-  public vector: Coordinates[] = [];
-  constructor(from: Coordinates, to: Coordinates, precision = false) {
+  public readonly from: GridCoordinates;
+  public readonly to: GridCoordinates;
+  public vector: GridCoordinates[] = [];
+  constructor(from: GridCoordinates, to: GridCoordinates, precision = false) {
     this.from = precision ? { ...from } : { x: Math.floor(from.x), y: Math.floor(from.y) };
     this.to = precision ? { ...to } : { x: Math.floor(to.x), y: Math.floor(to.y) };
 
@@ -28,7 +28,7 @@ export class ObstacleRay {
     return getAngleBetweenTwoGridPoints(this.from, this.to);
   }
 
-  getRayEndPosition(gameMap: GameMap): Coordinates {
+  getRayEndPosition(gameMap: GameMap): GridCoordinates {
     const targetPosition = { ...this.to };
 
     this.vector.forEach((cell) => {
@@ -42,7 +42,7 @@ export class ObstacleRay {
   }
 
   private cast() {
-    const result: Coordinates[] = [];
+    const result: GridCoordinates[] = [];
 
     let x1 = Math.floor(this.from.x);
     let y1 = Math.floor(this.from.y);

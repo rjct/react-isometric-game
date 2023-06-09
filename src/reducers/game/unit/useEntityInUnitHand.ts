@@ -5,7 +5,7 @@ export interface UseEntityInUnitHandReducerAction {
   type: "useEntityInUnitHand";
   unit: Unit;
   hand: Exclude<keyof Unit["inventory"], "backpack">;
-  targetPosition: Coordinates;
+  targetPosition: GridCoordinates;
 }
 
 export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandReducerAction) {

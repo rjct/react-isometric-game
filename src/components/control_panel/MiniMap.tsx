@@ -30,7 +30,7 @@ export const MiniMap = React.memo(function MiniMap() {
 
   const { hero } = useHero();
 
-  const getCoordinates = (coordinates: Coordinates) => {
+  const getCoordinates = (coordinates: GridCoordinates) => {
     return {
       x: coordinates.x * wireframeTileWidth * miniMapZoom,
       y: coordinates.y * wireframeTileHeight * miniMapZoom,

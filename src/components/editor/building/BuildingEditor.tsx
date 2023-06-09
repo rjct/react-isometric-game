@@ -12,8 +12,8 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
 
   const [workingEntity, setWorkingEntity] = React.useState({
     mode: null as unknown as "move",
-    initialMousePosition: null as unknown as Coordinates,
-    initialEntityPosition: null as unknown as Coordinates,
+    initialMousePosition: null as unknown as GridCoordinates,
+    initialEntityPosition: null as unknown as GridCoordinates,
     entity: null as unknown as Building,
   });
 
@@ -52,8 +52,8 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
   const handleMouseUp = () => {
     setWorkingEntity({
       mode: null as unknown as "move",
-      initialMousePosition: null as unknown as Coordinates,
-      initialEntityPosition: null as unknown as Coordinates,
+      initialMousePosition: null as unknown as GridCoordinates,
+      initialEntityPosition: null as unknown as GridCoordinates,
       entity: null as unknown as Building,
     });
   };

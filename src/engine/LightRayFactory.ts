@@ -22,7 +22,7 @@ export class LightRay {
     this.ny = Math.sin(dir);
   }
 
-  setPosition(position: Coordinates) {
+  setPosition(position: GridCoordinates) {
     this.x = position.x * constants.wireframeTileSize.width;
     this.y = position.y * constants.wireframeTileSize.height;
   }

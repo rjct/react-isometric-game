@@ -24,7 +24,7 @@ const gameUIContext = {
     isOutOfGrid: true,
   },
   // eslint-disable-next-line  @typescript-eslint/no-unused-vars
-  setScroll: (position: Coordinates) => null,
+  setScroll: (position: ScreenCoordinates) => null,
   scrollDirection: "none" as "none" | "left" | "top" | "right" | "bottom",
   isScrolling: function () {
     return this.scrollDirection !== "none";

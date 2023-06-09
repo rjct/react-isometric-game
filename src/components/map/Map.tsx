@@ -16,7 +16,7 @@ import { BuildingEditor } from "../editor/building/BuildingEditor";
 import { LightEditor } from "../editor/light/LightEditor";
 
 export type MapForwardedRefs = {
-  setScroll: (position: Coordinates) => null;
+  setScroll: (position: ScreenCoordinates) => null;
 };
 
 export const Map = React.forwardRef((props, forwardedRefs) => {
@@ -119,7 +119,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
     forwardedRefs,
     () => {
       return {
-        setScroll: (position: Coordinates) => {
+        setScroll: (position: ScreenCoordinates) => {
           if (mapRef.current) {
             mapRef.current.scrollLeft = position.x;
             mapRef.current.scrollTop = position.y;

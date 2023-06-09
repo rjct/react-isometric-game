@@ -10,8 +10,8 @@ interface TileProps {
   isActive: boolean;
   isOccupied: boolean;
   position: {
-    grid: Coordinates;
-    screen: Coordinates;
+    grid: GridCoordinates;
+    screen: ScreenCoordinates;
   };
   size: {
     grid: Size;
@@ -48,7 +48,12 @@ interface TileProps {
   exitPoint?: string;
 }
 
-interface Coordinates {
+interface GridCoordinates {
+  x: number;
+  y: number;
+}
+
+interface ScreenCoordinates {
   x: number;
   y: number;
 }

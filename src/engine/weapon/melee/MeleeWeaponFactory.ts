@@ -18,7 +18,7 @@ export class MeleeWeapon extends Weapon {
     this.damage = ref.damage;
   }
 
-  use(targetPosition: Coordinates) {
+  use(targetPosition: GridCoordinates) {
     if (!this.unit) return;
 
     const unit = this.unit;

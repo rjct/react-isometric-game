@@ -5,7 +5,7 @@ import { PositionEntityEditor } from "../PositionEntityEditor";
 export function BuildingPositionEditor() {
   const { gameState, gameDispatch } = useGameState();
 
-  const [coordinates, setCoordinates] = React.useState(null as unknown as Coordinates);
+  const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
 
   React.useEffect(() => {
     if (gameState.selectedBuilding) {

@@ -12,7 +12,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
 
   const [workingArea, setWorkingArea] = React.useState({
     mode: null as unknown as "move" | "resize",
-    initialMousePosition: null as unknown as Coordinates,
+    initialMousePosition: null as unknown as GridCoordinates,
     initialAreaPosition: null as unknown as TerrainArea["target"],
     area: null as unknown as TerrainArea,
   });
@@ -72,7 +72,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   const handleMouseUp = () => {
     setWorkingArea({
       mode: null as unknown as "move" | "resize",
-      initialMousePosition: null as unknown as Coordinates,
+      initialMousePosition: null as unknown as GridCoordinates,
       initialAreaPosition: null as unknown as TerrainArea["target"],
       area: null as unknown as TerrainArea,
     });

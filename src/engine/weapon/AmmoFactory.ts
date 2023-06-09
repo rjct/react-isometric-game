@@ -17,9 +17,9 @@ export class Ammo {
 
   readonly damage: number;
 
-  startPosition: Coordinates = { x: Infinity, y: Infinity };
-  position: Coordinates = { x: Infinity, y: Infinity };
-  targetPosition: Coordinates = { x: Infinity, y: Infinity };
+  startPosition: GridCoordinates = { x: Infinity, y: Infinity };
+  position: GridCoordinates = { x: Infinity, y: Infinity };
+  targetPosition: GridCoordinates = { x: Infinity, y: Infinity };
 
   angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
 
@@ -67,7 +67,7 @@ export class Ammo {
     }
   }
 
-  shot(initialCoordinates: Coordinates, targetCoordinates: Coordinates) {
+  shot(initialCoordinates: GridCoordinates, targetCoordinates: GridCoordinates) {
     this.startPosition = { ...initialCoordinates };
     this.position = { ...initialCoordinates };
     this.targetPosition = { ...targetCoordinates };

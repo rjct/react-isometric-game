@@ -84,14 +84,14 @@ export function createMatrix(mapSize: Size): Array<Array<number>> {
   return [...Array(mapSize.width)].map(() => Array(mapSize.height).fill(0));
 }
 
-export function getDistanceBetweenGridPoints(startPosition: Coordinates, targetPosition: Coordinates) {
+export function getDistanceBetweenGridPoints(startPosition: GridCoordinates, targetPosition: GridCoordinates) {
   const displacementX = targetPosition.x - startPosition.x;
   const displacementY = targetPosition.y - startPosition.y;
 
   return Math.sqrt(Math.pow(displacementX, 2) + Math.pow(displacementY, 2));
 }
 
-export function getAngleBetweenTwoGridPoints(startPosition: Coordinates, targetPosition: Coordinates) {
+export function getAngleBetweenTwoGridPoints(startPosition: GridCoordinates, targetPosition: GridCoordinates) {
   const distance = {
     x: targetPosition.x - startPosition.x,
     y: targetPosition.y - startPosition.y,

@@ -30,7 +30,7 @@ export class Building extends GameObjectFactory {
 
   private readonly ref: DictBuilding;
 
-  constructor(props: { buildingType: BuildingType; position: Coordinates; direction: Direction; variant: number }) {
+  constructor(props: { buildingType: BuildingType; position: GridCoordinates; direction: Direction; variant: number }) {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
 
@@ -66,7 +66,7 @@ export class Building extends GameObjectFactory {
     this.variant = variant;
   }
 
-  public setPosition(coordinates: Coordinates) {
+  public setPosition(coordinates: GridCoordinates) {
     this.position = coordinates;
   }
 

@@ -17,7 +17,7 @@ export function useCanvas() {
 
   const drawCircle = (
     ctx: CanvasRenderingContext2D,
-    position: Coordinates,
+    position: GridCoordinates,
     color = "#ffffff",
     fillStyle?: CanvasGradient,
     lineWidth = 1,
@@ -39,7 +39,7 @@ export function useCanvas() {
 
   const drawFillRect = (
     ctx: CanvasRenderingContext2D,
-    position: Coordinates,
+    position: GridCoordinates,
     color = "#ffffff",
     lineWidth = 1,
     size = { width: wireframeTileWidth, height: wireframeTileHeight } as Size
@@ -53,7 +53,7 @@ export function useCanvas() {
 
   const drawRect = (
     ctx: CanvasRenderingContext2D,
-    position: Coordinates,
+    position: GridCoordinates,
     color = "#ffffff",
     lineWidth = 1,
     size = { width: wireframeTileWidth, height: wireframeTileHeight } as Size
@@ -67,8 +67,8 @@ export function useCanvas() {
 
   const drawLine = (
     ctx: CanvasRenderingContext2D,
-    from: Coordinates,
-    to: Coordinates,
+    from: GridCoordinates,
+    to: GridCoordinates,
     color = "rgba(255,255,255, 0.5)"
   ) => {
     ctx.beginPath();

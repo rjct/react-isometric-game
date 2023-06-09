@@ -60,21 +60,21 @@ export const gameMap = {
     return this.units[this.heroId];
   },
 
-  occupyCell(coordinates: Coordinates) {
+  occupyCell(coordinates: GridCoordinates) {
     this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)]++;
   },
 
-  deOccupyCell(coordinates: Coordinates) {
+  deOccupyCell(coordinates: GridCoordinates) {
     const value = this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)];
 
     this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = Math.max(0, value - 1);
   },
 
-  isCellOccupied(coordinates: Coordinates) {
+  isCellOccupied(coordinates: GridCoordinates) {
     return this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] > 0;
   },
 
-  setVisitedCell(coordinates: Coordinates) {
+  setVisitedCell(coordinates: GridCoordinates) {
     const radius = constants.FOG_OF_WAR_RADIUS;
 
     for (let i = coordinates.x - radius; i <= coordinates.x + radius; i++) {
@@ -143,7 +143,7 @@ export const gameMap = {
     return !!terrainArea.exitUrl;
   },
 
-  getTerrainAreaByCoordinates(coordinates: Coordinates): TerrainArea {
+  getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {
     const { x, y } = coordinates;
 
     return this.terrain.find((terrainArea) => {
@@ -155,7 +155,7 @@ export const gameMap = {
 
   isEntityInViewport(
     entity: {
-      position: Coordinates;
+      position: GridCoordinates;
       size: TileProps["size"];
     },
     viewport: GameUI["viewport"]
@@ -180,7 +180,7 @@ export const gameMap = {
     );
   },
 
-  screenSpaceToGridSpace(screenPos: Coordinates): Coordinates {
+  screenSpaceToGridSpace(screenPos: GridCoordinates): ScreenCoordinates {
     const mapWidth = this.mapSize.width;
     const mapHeight = this.mapSize.height;
     const tileWidth = constants.tileSize.width;
@@ -194,7 +194,7 @@ export const gameMap = {
     return { x, y };
   },
 
-  gridToScreenSpace(gridPos: Coordinates) {
+  gridToScreenSpace(gridPos: GridCoordinates): ScreenCoordinates {
     const mapWidth = this.mapSize.width;
 
     const tileWidth = constants.tileSize.width;
@@ -209,7 +209,7 @@ export const gameMap = {
     return { x, y };
   },
 
-  convertToIsometricCoordinates(gridPos: Coordinates, centerOnCell = false): Coordinates {
+  convertToIsometricCoordinates(gridPos: GridCoordinates, centerOnCell = false): ScreenCoordinates {
     const shiftX = centerOnCell ? constants.wireframeTileSize.width / 2 : 0;
     const shiftY = centerOnCell ? constants.wireframeTileSize.height / 2 : 0;
 
@@ -234,7 +234,7 @@ export const gameMap = {
     return this.getAllAliveUnitsArray().filter((unit) => unit.id !== this.heroId);
   },
 
-  getUnitByCoordinates(coordinates: Coordinates): Unit | undefined {
+  getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
     return Object.values(this.units).find(
       (unit) =>
         Math.round(unit.position.x) === Math.round(coordinates.x) &&
@@ -242,7 +242,7 @@ export const gameMap = {
     );
   },
 
-  calcUnitPath(unit: Unit, destinationPosition: Coordinates) {
+  calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
     const unitPath = pathFinder(this.matrix, unit.position, {
       x: Math.min(this.mapSize.width - 1, destinationPosition.x),
       y: Math.min(this.mapSize.height - 1, destinationPosition.y),

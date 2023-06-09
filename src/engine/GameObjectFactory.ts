@@ -20,7 +20,7 @@ export class GameObjectFactory {
 
   private readonly walls: GameObjectWall[] = [];
 
-  constructor(props: { size: { grid: Size; screen: Size }; position: Coordinates; direction: Direction }) {
+  constructor(props: { size: { grid: Size; screen: Size }; position: GridCoordinates; direction: Direction }) {
     this.id = crypto.randomUUID();
 
     this.size = props.size;

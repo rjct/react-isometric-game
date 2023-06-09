@@ -3,7 +3,7 @@ import { GameMap } from "../../../engine/GameMap";
 export interface SetLightPositionReducerAction {
   type: "setLightPosition";
   entityId: string;
-  coordinates: Coordinates;
+  coordinates: GridCoordinates;
 }
 
 export function setLightPosition(state: GameMap, action: SetLightPositionReducerAction): GameMap {

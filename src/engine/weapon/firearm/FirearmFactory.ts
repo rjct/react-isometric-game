@@ -25,7 +25,7 @@ export class Firearm extends Weapon {
     this.ammoConsumptionPerShoot = ref.ammoConsumptionPerShoot;
   }
 
-  use(targetPosition: Coordinates) {
+  use(targetPosition: GridCoordinates) {
     if (!this.unit) return;
 
     const unit = this.unit;

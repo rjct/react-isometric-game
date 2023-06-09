@@ -23,7 +23,7 @@ export function TerrainAreaSourcePositionEditor() {
   const [clipMask, setClipMask] = React.useState<ClipMask>({ ...emptyClipMask });
   const [clipMaskState, setClipMaskState] = React.useState({
     mode: null as unknown as "move" | "resize",
-    initialMousePosition: null as unknown as Coordinates,
+    initialMousePosition: null as unknown as GridCoordinates,
     initialMaskPosition: null as unknown as TerrainArea["source"]["position"],
   });
 

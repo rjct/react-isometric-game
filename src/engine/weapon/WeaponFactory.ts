@@ -28,7 +28,7 @@ export class Weapon {
   public readonly unitAction: WeaponUnitAction;
   public firedAmmoQueue: MeleePunch[] = [];
 
-  private targetPosition: null | Coordinates = null;
+  private targetPosition: null | GridCoordinates = null;
   public ray: null | ObstacleRay = null;
 
   public readonly animationDuration: {
@@ -38,7 +38,7 @@ export class Weapon {
   };
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  use(targetPosition: Coordinates) {
+  use(targetPosition: GridCoordinates) {
     throw new Error("Method not implemented.");
   }
 
@@ -65,7 +65,7 @@ export class Weapon {
     this.gameMap = gameMap;
   }
 
-  aimAt(position: Coordinates) {
+  aimAt(position: GridCoordinates) {
     this.targetPosition = position;
     if (this.unit) {
       this.ray = new ObstacleRay(this.unit.position, this.targetPosition);

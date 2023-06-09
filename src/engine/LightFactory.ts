@@ -6,7 +6,7 @@ import { Building } from "./BuildingFactory";
 export class Light {
   public readonly id = crypto.randomUUID();
   public readonly className = "light";
-  public position: Coordinates;
+  public position: GridCoordinates;
   private color = "#ffffff";
   public radius = 6;
   public rays: LightRay[] = [];
@@ -55,7 +55,7 @@ export class Light {
     this.rays.forEach((ray) => ray.cast(objects));
   }
 
-  setPosition(position: Coordinates) {
+  setPosition(position: GridCoordinates) {
     this.position = position;
 
     this.rays.forEach((ray) => {

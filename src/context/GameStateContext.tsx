@@ -14,7 +14,7 @@ export interface StaticMapTerrainArea {
 }
 
 export interface StaticMapLight {
-  position: Coordinates;
+  position: GridCoordinates;
   color: string;
   radius: number;
 }
@@ -22,16 +22,16 @@ export interface StaticMapLight {
 export interface StaticMap {
   size: Size;
   terrain: Array<StaticMapTerrainArea>;
-  heroStartPosition: Coordinates;
+  heroStartPosition: GridCoordinates;
   buildings: {
     type: keyof BuildingTypes;
-    position: Coordinates;
+    position: GridCoordinates;
     direction: Direction;
     variant: number;
   }[];
   enemies: {
     type: keyof typeof unitTypes;
-    position: Coordinates;
+    position: GridCoordinates;
   }[];
   lights: StaticMapLight[];
 }

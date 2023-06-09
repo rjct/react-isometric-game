@@ -3,7 +3,7 @@ import { GameMap } from "../../../engine/GameMap";
 export interface SetBuildingPositionReducerAction {
   type: "setBuildingPosition";
   entityId: string;
-  coordinates: Coordinates;
+  coordinates: GridCoordinates;
 }
 
 export function setBuildingPosition(state: GameMap, action: SetBuildingPositionReducerAction): GameMap {

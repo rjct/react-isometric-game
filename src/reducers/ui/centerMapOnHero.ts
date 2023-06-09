@@ -2,7 +2,7 @@ import { GameUI } from "../../context/GameUIContext";
 
 export type CenterMapOnHeroUIReducerAction = {
   type: "centerMapOnHero";
-  unitCoordinates: Coordinates;
+  unitCoordinates: GridCoordinates;
 };
 
 export function centerMapOnHero(state: GameUI, action: CenterMapOnHeroUIReducerAction): GameUI {

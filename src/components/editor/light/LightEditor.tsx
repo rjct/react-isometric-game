@@ -10,12 +10,12 @@ export const LightEditor = React.memo(function LightEditor() {
   const { getWorldMousePosition } = useMousePosition();
 
   const [workingEntity, setWorkingEntity] = React.useState({
-    initialMousePosition: null as unknown as Coordinates,
-    initialEntityPosition: null as unknown as Coordinates,
+    initialMousePosition: null as unknown as GridCoordinates,
+    initialEntityPosition: null as unknown as GridCoordinates,
     entity: null as unknown as Light,
   });
 
-  const [selectedEntityPosition, setSelectedEntityPosition] = React.useState(null as unknown as Coordinates);
+  const [selectedEntityPosition, setSelectedEntityPosition] = React.useState(null as unknown as GridCoordinates);
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
@@ -49,12 +49,12 @@ export const LightEditor = React.memo(function LightEditor() {
     });
 
     setWorkingEntity({
-      initialMousePosition: null as unknown as Coordinates,
-      initialEntityPosition: null as unknown as Coordinates,
+      initialMousePosition: null as unknown as GridCoordinates,
+      initialEntityPosition: null as unknown as GridCoordinates,
       entity: null as unknown as Light,
     });
 
-    setSelectedEntityPosition(null as unknown as Coordinates);
+    setSelectedEntityPosition(null as unknown as GridCoordinates);
   };
 
   const handleEntityMouseDown = (e: React.MouseEvent, entity: Light) => {

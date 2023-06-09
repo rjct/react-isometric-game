@@ -23,7 +23,7 @@ export class TerrainArea {
   exitUrl: string | null;
 
   tiles: Map<string, TerrainTile> = new Map();
-  backgrounds: Coordinates[][] = [];
+  backgrounds: GridCoordinates[][] = [];
 
   constructor(terrainArea: StaticMapTerrainArea) {
     this.source = terrainArea.source;
@@ -73,7 +73,7 @@ export class TerrainArea {
     }
   }
 
-  moveTo(coordinates: Coordinates) {
+  moveTo(coordinates: GridCoordinates) {
     const shiftX = this.target.x1 - coordinates.x;
     const shiftY = this.target.y1 - coordinates.y;
 
@@ -100,7 +100,7 @@ export class TerrainArea {
     this.composeTiles();
   }
 
-  getScreenCoordinates(): Coordinates {
+  getScreenCoordinates(): ScreenCoordinates {
     return {
       x: this.target.x1 * constants.wireframeTileSize.width,
       y: this.target.y1 * constants.wireframeTileSize.height,

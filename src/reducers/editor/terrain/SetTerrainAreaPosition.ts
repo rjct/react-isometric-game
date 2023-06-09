@@ -3,7 +3,7 @@ import { GameMap } from "../../../engine/GameMap";
 export interface SetTerrainAreaPositionReducerAction {
   type: "setTerrainAreaPosition";
   entityId: string;
-  coordinates: Coordinates;
+  coordinates: GridCoordinates;
 }
 
 export function setTerrainAreaPosition(state: GameMap, action: SetTerrainAreaPositionReducerAction): GameMap {

@@ -40,7 +40,7 @@ export class Unit extends GameObjectFactory {
 
   public isDead: boolean;
 
-  public path: Coordinates[] = [];
+  public path: GridCoordinates[] = [];
   public pathQueue: UnitPathQueue;
 
   public inventory = {
@@ -71,7 +71,7 @@ export class Unit extends GameObjectFactory {
 
   constructor(props: {
     unitType: keyof typeof unitTypes;
-    position: Coordinates;
+    position: GridCoordinates;
     action?: Unit["action"];
     direction?: Unit["direction"];
   }) {
@@ -110,13 +110,13 @@ export class Unit extends GameObjectFactory {
     this.path = this.convertPathToCoordinatesArray(path);
   }
 
-  public convertPathToCoordinatesArray(path: number[][]): Coordinates[] {
+  public convertPathToCoordinatesArray(path: number[][]): GridCoordinates[] {
     return path.map((iter) => {
       return { x: iter[0], y: iter[1] };
     });
   }
 
-  public convertCoordinatesToPathArray(coordinates: Coordinates[]) {
+  public convertCoordinatesToPathArray(coordinates: GridCoordinates[]) {
     return coordinates.map((iter) => [iter.x, iter.y]);
   }
 
@@ -213,7 +213,7 @@ export class Unit extends GameObjectFactory {
 
   public roam(gameState: GameMap) {
     if (this.coolDownTimer > 0 || this.isMoving()) return;
-    const getRandomPosition = (): Coordinates => {
+    const getRandomPosition = (): GridCoordinates => {
       return { x: randomInt(0, gameState.mapSize.width - 1), y: randomInt(0, gameState.mapSize.height - 1) };
     };
 
@@ -286,9 +286,9 @@ export class Unit extends GameObjectFactory {
 }
 
 class UnitPathQueue {
-  points: Coordinates[];
-  currentPos: Coordinates;
-  destinationPos: Coordinates;
+  points: GridCoordinates[];
+  currentPos: GridCoordinates;
+  destinationPos: GridCoordinates;
   distAlong: number;
   totalDistMoved: number;
   atEnd: boolean;

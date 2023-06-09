@@ -4,7 +4,7 @@ import { Building, DictBuilding } from "../../../engine/BuildingFactory";
 export interface AddBuildingReducerAction {
   type: "addBuilding";
   entity: DictBuilding;
-  position: Coordinates;
+  position: GridCoordinates;
   direction: Building["direction"];
   variant: Building["variant"];
 }
