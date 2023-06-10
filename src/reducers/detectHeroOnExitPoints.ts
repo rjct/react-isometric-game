@@ -7,7 +7,7 @@ export type DetectHeroOnExitPointsAction = {
 };
 
 export function detectHeroOnExitPoints(state: GameMap, action: DetectHeroOnExitPointsAction): GameMap {
-  if (action.unit.id === state.heroId && state.isUnitIsInExitPoint(action.unit)) {
+  if (action.unit && state.isUnitIsInExitPoint(action.unit)) {
     const mapUrl = state.getTerrainAreaByCoordinates(action.unit.position).exitUrl!;
 
     return { ...state, ...{ mapUrl } };

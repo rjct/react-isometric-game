@@ -35,7 +35,6 @@ import {
 import { setTerrainAreaExitUrl, SetTerrainAreaExitUrlReducerAction } from "./editor/terrain/setTerrainAreaExitUrl";
 import { addTerrainArea, AddTerrainAreaReducerAction } from "./editor/terrain/addTerrainArea";
 import { setBuildingPosition, SetBuildingPositionReducerAction } from "./editor/building/setBuildingPosition";
-import { castShadows, CastShadowsReducerAction } from "./castShadows";
 import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "./game/debug/toggleDebugFeature";
 import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "./game/unit/useEntityInUnitHand";
 import { addLight, AddLightReducerAction } from "./editor/light/addLight";
@@ -87,9 +86,7 @@ export type GameReducerAction =
   | SetLightPositionReducerAction
   | SetLightRadiusReducerAction
   | SetLightColorReducerAction
-  | DeleteSelectedLightReducerAction
-  //
-  | CastShadowsReducerAction;
+  | DeleteSelectedLightReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
@@ -205,10 +202,6 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "deleteSelectedLight":
       return deleteSelectedLight(state, action as DeleteSelectedLightReducerAction);
-
-    //
-    case "castShadows":
-      return castShadows(state, action as CastShadowsReducerAction);
     default:
       throw new Error();
   }

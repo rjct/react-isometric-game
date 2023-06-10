@@ -48,12 +48,11 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         // User Input
         uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
 
-        gameDispatch({ type: "castShadows", deltaTime });
-
         // Update
+        gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
+
         gameState.getAllAliveUnitsArray().forEach((unit) => {
           gameDispatch({ type: "animateUnitMove", unit, deltaTime });
-          gameDispatch({ type: "detectHeroOnExitPoints", unit });
 
           const weapon = unit.getCurrentWeapon();
 
