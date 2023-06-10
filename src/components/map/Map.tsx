@@ -14,6 +14,7 @@ import { TerrainEditor } from "../editor/terrain/TerrainEditor";
 import { LightsAndShadows } from "./terrain/LightsAndShadows";
 import { BuildingEditor } from "../editor/building/BuildingEditor";
 import { LightEditor } from "../editor/light/LightEditor";
+import { floor } from "../../engine/helpers";
 
 export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
@@ -73,7 +74,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
     gameDispatch({
       type: "addBuilding",
       entity,
-      position: { x: Math.floor(grid.x), y: Math.floor(grid.y) },
+      position: { x: floor(grid.x), y: floor(grid.y) },
       direction,
       variant,
     });

@@ -20,6 +20,7 @@ export function LightPropsEditor() {
               <TableRow label={"Radius"}>
                 <LightRadiusEditor
                   entity={gameState.selectedLight}
+                  max={Math.max(gameState.mapSize.width, gameState.mapSize.height) * 2}
                   onChange={(radius) => {
                     gameDispatch({ type: "setLightRadius", entityId: gameState.selectedLight.id, radius });
                   }}

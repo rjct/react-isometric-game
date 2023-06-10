@@ -49,7 +49,7 @@ export function rotateRect(angleInDegrees: number, ox: number, oy: number, x: nu
 }
 
 export function randomInt(min: number, max: number) {
-  return Math.floor(Math.random() * (max - min + 1)) + min;
+  return floor(Math.random() * (max - min + 1)) + min;
 }
 
 export function getHumanReadableDirection(angle: number): Unit["direction"] {
@@ -118,4 +118,8 @@ export function degToRad(degrees: number) {
 
 export function composeSpriteUrl(spriteFileName: string) {
   return constants.SPRITE_URL.replace("%SPRITE_FILE_NAME%", spriteFileName);
+}
+
+export function floor(num: number) {
+  return num | 0;
 }

@@ -2,7 +2,7 @@ import { Unit } from "../UnitFactory";
 import { FirearmRef, FirearmType, FirearmUnitAction } from "./firearm/FirearmFactory";
 import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeWeaponFactory";
 import { MeleePunch } from "./melee/meleePunchFactory";
-import { getDistanceBetweenGridPoints } from "../helpers";
+import { floor, getDistanceBetweenGridPoints } from "../helpers";
 import { GameMap } from "../GameMap";
 import { ObstacleRay } from "../ObstacleRayFactory";
 
@@ -83,7 +83,7 @@ export class Weapon {
 
   getDistanceToTarget() {
     if (this.targetPosition && this.unit) {
-      return Math.floor(getDistanceBetweenGridPoints(this.unit.position, this.targetPosition));
+      return floor(getDistanceBetweenGridPoints(this.unit.position, this.targetPosition));
     }
 
     return Infinity;

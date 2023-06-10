@@ -6,6 +6,7 @@ import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponTypes } from "./weapon/WeaponFactory";
 import { pathFinder } from "./pathFinder";
 import { Light } from "./LightFactory";
+import { floor } from "./helpers";
 
 interface GameMapProps {
   mapSize: Size;
@@ -92,7 +93,7 @@ export const gameMap = {
   },
 
   isCellVisited(x: number, y: number) {
-    return this.fogOfWarMatrix[Math.floor(y)][Math.floor(x)] > 0;
+    return this.fogOfWarMatrix[floor(y)][floor(x)] > 0;
   },
 
   isEntityVisible(entity: Building | Unit) {

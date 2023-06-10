@@ -1,4 +1,4 @@
-import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "./helpers";
+import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "./helpers";
 import { GameMap } from "./GameMap";
 
 export class ObstacleRay {
@@ -6,8 +6,8 @@ export class ObstacleRay {
   public readonly to: GridCoordinates;
   public vector: GridCoordinates[] = [];
   constructor(from: GridCoordinates, to: GridCoordinates, precision = false) {
-    this.from = precision ? { ...from } : { x: Math.floor(from.x), y: Math.floor(from.y) };
-    this.to = precision ? { ...to } : { x: Math.floor(to.x), y: Math.floor(to.y) };
+    this.from = precision ? { ...from } : { x: floor(from.x), y: floor(from.y) };
+    this.to = precision ? { ...to } : { x: floor(to.x), y: floor(to.y) };
 
     this.cast();
   }
@@ -15,13 +15,13 @@ export class ObstacleRay {
   getDistance(precision = false) {
     const distance = getDistanceBetweenGridPoints(this.from, this.to);
 
-    return precision ? distance : Math.floor(distance);
+    return precision ? distance : floor(distance);
   }
 
   getDistanceToRayEndPosition(gameMap: GameMap, precision = false) {
     const distance = getDistanceBetweenGridPoints(this.from, this.getRayEndPosition(gameMap));
 
-    return precision ? distance : Math.floor(distance);
+    return precision ? distance : floor(distance);
   }
 
   getAngle() {
@@ -44,10 +44,10 @@ export class ObstacleRay {
   private cast() {
     const result: GridCoordinates[] = [];
 
-    let x1 = Math.floor(this.from.x);
-    let y1 = Math.floor(this.from.y);
-    const x2 = Math.floor(this.to.x);
-    const y2 = Math.floor(this.to.y);
+    let x1 = floor(this.from.x);
+    let y1 = floor(this.from.y);
+    const x2 = floor(this.to.x);
+    const y2 = floor(this.to.y);
 
     const dx = Math.abs(x2 - x1);
     const dy = Math.abs(y2 - y1);

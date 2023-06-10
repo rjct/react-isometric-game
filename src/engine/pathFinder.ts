@@ -1,5 +1,6 @@
 import pathfinding from "pathfinding";
 import { GameMap } from "./GameMap";
+import { floor } from "./helpers";
 
 export function pathFinder(matrix: GameMap["matrix"], fromPos: GridCoordinates, toPos: GridCoordinates) {
   const grid = new pathfinding.Grid([...matrix]);
@@ -9,5 +10,5 @@ export function pathFinder(matrix: GameMap["matrix"], fromPos: GridCoordinates, 
     weight: 1,
   });
 
-  return finder.findPath(Math.floor(fromPos.x), Math.floor(fromPos.y), Math.floor(toPos.x), Math.floor(toPos.y), grid);
+  return finder.findPath(floor(fromPos.x), floor(fromPos.y), floor(toPos.x), floor(toPos.y), grid);
 }

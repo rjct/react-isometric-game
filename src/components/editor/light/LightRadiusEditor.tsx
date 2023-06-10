@@ -2,7 +2,7 @@ import React from "react";
 import { Light } from "../../../engine/LightFactory";
 import { useDebounce } from "use-debounce";
 
-export function LightRadiusEditor(props: { entity: Light; onChange: (radius: Light["radius"]) => void }) {
+export function LightRadiusEditor(props: { entity: Light; max: number; onChange: (radius: Light["radius"]) => void }) {
   const [selectedRadius, setSelectedRadius] = React.useState<number>(-1);
   const [value] = useDebounce(selectedRadius, 100);
 
@@ -27,7 +27,7 @@ export function LightRadiusEditor(props: { entity: Light; onChange: (radius: Lig
           disabled={!props.entity}
           type={"range"}
           min={0}
-          max={20}
+          max={props.max}
           step={1}
           onChange={handleRadiusChange}
           value={selectedRadius || 0}
