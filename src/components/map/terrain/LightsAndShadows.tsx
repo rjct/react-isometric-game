@@ -3,14 +3,11 @@ import { useGameState } from "../../../hooks/useGameState";
 import { Canvas } from "../../_shared/Canvas";
 import { useCanvas } from "../../../hooks/useCanvas";
 import { constants } from "../../../constants";
-import { useHash } from "../../../hooks/useHash";
 
 export const LightsAndShadows = React.memo(() => {
   const { gameState, uiState } = useGameState();
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
-
-  const { allAliveUnitsHash } = useHash();
 
   const { clearCanvas } = useCanvas();
 
@@ -80,7 +77,7 @@ export const LightsAndShadows = React.memo(() => {
 
   React.useEffect(() => {
     callAllUnitsShadows();
-  }, [allAliveUnitsHash]);
+  }, [gameState.getAllAliveUnitsHash()]);
 
   return <Canvas size={gameState.mapSize} className={"shadows"} ref={canvasRef} />;
 });

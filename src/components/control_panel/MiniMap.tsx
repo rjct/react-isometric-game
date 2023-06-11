@@ -3,11 +3,9 @@ import { constants } from "../../constants";
 import { rotateRect } from "../../engine/helpers";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
-import { useHash } from "../../hooks/useHash";
 
 export const MiniMap = React.memo(function MiniMap() {
   const { gameState } = useGameState();
-  const { fogOfWarMatrixHash, allAliveUnitsHash } = useHash();
 
   const miniMapContainerRef = React.createRef<HTMLDivElement>();
   const miniMapCanvasRef = React.createRef<HTMLCanvasElement>();
@@ -71,20 +69,18 @@ export const MiniMap = React.memo(function MiniMap() {
       });
 
     // buildings
-    gameState.buildings
-      .filter((building) => gameState.isEntityVisible(building))
-      .forEach((building) => {
-        const { position, size } = building;
+    gameState.buildings.forEach((building) => {
+      const { position, size } = building;
 
-        const coordinates = getCoordinates(position);
-        const dimensions = getCoordinates({
-          x: size.grid.width,
-          y: size.grid.height,
-        });
-
-        ctx.fillStyle = "green";
-        ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
+      const coordinates = getCoordinates(position);
+      const dimensions = getCoordinates({
+        x: size.grid.width,
+        y: size.grid.height,
       });
+
+      ctx.fillStyle = `rgba(50, 205, 50, ${gameState.isEntityVisible(building) ? 0.4 : 0.05})`;
+      ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
+    });
   };
 
   const centerMap = () => {
@@ -102,7 +98,7 @@ export const MiniMap = React.memo(function MiniMap() {
   React.useEffect(() => {
     renderMiniMap();
     centerMap();
-  }, [fogOfWarMatrixHash, allAliveUnitsHash]);
+  }, [gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash()]);
 
   return (
     <div
