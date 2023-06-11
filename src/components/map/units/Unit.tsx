@@ -4,6 +4,7 @@ import { getEntityZIndex } from "../../../engine/helpers";
 import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
+import { Fade } from "../../Fade";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -47,27 +48,29 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
       {props.unit.shadows.map((shadow, index) => {
         {
-          return !shadow.blocked && shadow.opacity > 0 ? (
-            <div
-              key={index}
-              data-direction={props.direction || props.unit.direction}
-              data-action={props.action || props.unit.action}
-              data-weapon={props.unit.getCurrentWeapon()?.className}
-              className={`${props.unit.className} unit-shadow`}
-              style={{
-                transform: [
-                  `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
-                  `rotateX(60deg)`,
-                  `rotateZ(${shadow.angle}deg)`,
-                  `scaleY(${shadow.width})`,
-                ].join(""),
-                zIndex: zIndex,
-                opacity: shadow.opacity,
-              }}
-            >
-              <div className="char"></div>
-            </div>
-          ) : null;
+          return (
+            <Fade show={!shadow.blocked || shadow.opacity <= 0}>
+              <div
+                key={index}
+                data-direction={props.direction || props.unit.direction}
+                data-action={props.action || props.unit.action}
+                data-weapon={props.unit.getCurrentWeapon()?.className}
+                className={`${props.unit.className} unit-shadow`}
+                style={{
+                  transform: [
+                    `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
+                    `rotateX(60deg)`,
+                    `rotateZ(${shadow.angle}deg)`,
+                    `scaleY(${shadow.width})`,
+                  ].join(""),
+                  zIndex: zIndex,
+                  opacity: shadow.opacity,
+                }}
+              >
+                <div className="char"></div>
+              </div>
+            </Fade>
+          );
         }
       })}
       <div
