@@ -40,7 +40,7 @@ export class Light {
   createRays() {
     const rays: Array<LightRay> = [];
 
-    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.light.RENDER_PASSES)) {
+    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.LIGHT_RENDER_PASSES)) {
       const ray = new LightRay(this);
 
       ray.setDirection(angle);

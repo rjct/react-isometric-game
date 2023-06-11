@@ -2,18 +2,19 @@ import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { BuildingDirectionSelector } from "./BuildingDirectionSelector";
 import { TableRow } from "../TableRow";
-import { BuildingVariantSlider } from "./BuildingVariantSlider";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NothingSelectedText } from "../NothingSelectedText";
 import { BuildingPositionEditor } from "./BuildingPositionEditor";
+import { InputRange } from "../_shared/InputRange";
 
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
 
   return uiState.editorMode === "building" ? (
     gameState.selectedBuilding ? (
-      <>
+      <fieldset>
+        <legend>Building</legend>
         <div className={"editor-props-wrapper"}>
           <table>
             <tbody>
@@ -27,8 +28,11 @@ export function BuildingPropsEditor() {
               </TableRow>
 
               <TableRow label={"Variant"}>
-                <BuildingVariantSlider
-                  entity={gameState.selectedBuilding}
+                <InputRange
+                  initialValue={gameState.selectedBuilding.variant}
+                  valueSuffix={""}
+                  min={0}
+                  max={[...Array(gameState.selectedBuilding.variants).keys()].length - 1}
                   onChange={(variant: number) => {
                     gameDispatch({ type: "setBuildingVariant", entityId: gameState.selectedBuilding.id, variant });
                   }}
@@ -50,7 +54,7 @@ export function BuildingPropsEditor() {
             <label>Delete</label>
           </button>
         </div>
-      </>
+      </fieldset>
     ) : (
       <NothingSelectedText />
     )

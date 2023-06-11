@@ -35,6 +35,8 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     return new TerrainArea(terrainArea);
   });
 
+  const shadows = action.map.shadows;
+
   const lights = (action.map.lights || []).map((staticMapLight) => {
     const light = new Light(staticMapLight);
 
@@ -53,6 +55,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       fogOfWarMatrix: createMatrix(action.map.size),
       units: enemies,
       buildings,
+      shadows,
       lights,
     },
   };

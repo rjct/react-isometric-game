@@ -14,7 +14,8 @@ export function TerrainAreaPropsEditor() {
 
   return uiState.editorMode === "terrain" ? (
     gameState.selectedTerrainArea ? (
-      <>
+      <fieldset>
+        <legend>Terrain area</legend>
         <div className={"editor-props-wrapper"}>
           <table>
             <tbody>
@@ -47,7 +48,7 @@ export function TerrainAreaPropsEditor() {
             <label>Delete</label>
           </button>
         </div>
-      </>
+      </fieldset>
     ) : (
       <NothingSelectedText />
     )

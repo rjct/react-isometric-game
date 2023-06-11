@@ -1,8 +1,8 @@
 import { DictBuilding } from "../../../engine/BuildingFactory";
 import React from "react";
-import { BuildingVariantSlider } from "./BuildingVariantSlider";
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { InputRange } from "../_shared/InputRange";
 
 export function BuildingLibraryItem(props: { item: DictBuilding }) {
   const [direction, setDirection] = React.useState(props.item.directions[0]);
@@ -41,8 +41,11 @@ export function BuildingLibraryItem(props: { item: DictBuilding }) {
         }}
         draggable={true}
       >
-        <BuildingVariantSlider
-          entity={{ ...props.item, ...{ variant: 0 } }}
+        <InputRange
+          initialValue={0}
+          valueSuffix={""}
+          min={0}
+          max={[...Array(props.item.variants).keys()].length - 1}
           onChange={(variant) => setVariant(variant)}
         />
       </div>

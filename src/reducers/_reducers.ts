@@ -44,6 +44,8 @@ import { setLightPosition, SetLightPositionReducerAction } from "./editor/light/
 import { deleteSelectedLight, DeleteSelectedLightReducerAction } from "./editor/light/deleteSelectedLight";
 import { setLightRadius, SetLightRadiusReducerAction } from "./editor/light/setLightRadius";
 import { setLightColor, SetLightColorReducerAction } from "./editor/light/setLightColor";
+import { setShadowsOpacity, SetShadowsOpacityReducerAction } from "./editor/light/setShadowsOpacity";
+import { setShadowsColor, SetShadowsColorReducerAction } from "./editor/light/setShadowsColor";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -80,6 +82,8 @@ export type GameReducerAction =
   | SetTerrainAreaExitUrlReducerAction
   | DeleteSelectedTerrainAreaReducerAction
   //
+  | SetShadowsOpacityReducerAction
+  | SetShadowsColorReducerAction
   | AddLightReducerAction
   | SetSelectedLightReducerAction
   | ClearSelectedLightReducerAction
@@ -182,6 +186,12 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return deleteSelectedTerrainArea(state, action as DeleteSelectedTerrainAreaReducerAction);
 
     // EDITOR: LIGHT
+    case "setShadowsOpacity":
+      return setShadowsOpacity(state, action as SetShadowsOpacityReducerAction);
+
+    case "setShadowsColor":
+      return setShadowsColor(state, action as SetShadowsColorReducerAction);
+
     case "addLight":
       return addLight(state, action as AddLightReducerAction);
 

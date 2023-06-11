@@ -33,6 +33,10 @@ export interface StaticMap {
     type: keyof typeof unitTypes;
     position: GridCoordinates;
   }[];
+  shadows: {
+    color: string;
+    opacity: number;
+  };
   lights: StaticMapLight[];
 }
 

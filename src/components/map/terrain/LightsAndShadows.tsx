@@ -24,8 +24,8 @@ export const LightsAndShadows = React.memo(() => {
       ctx.globalCompositeOperation = "source-over";
 
       if (gameState.debug.featureEnabled.shadow) {
-        ctx.globalAlpha = constants.light.SHADOWS_ALPHA;
-        ctx.fillStyle = constants.light.SHADOWS_COLOR;
+        ctx.globalAlpha = gameState.shadows.opacity;
+        ctx.fillStyle = gameState.shadows.color;
         ctx.fillRect(
           0,
           0,
@@ -67,6 +67,7 @@ export const LightsAndShadows = React.memo(() => {
   }, [
     gameState.mapSize,
     uiState.scene === "editor" ? gameState.getLightsHash() : false,
+    gameState.shadows,
     gameState.debug.featureEnabled.light,
     gameState.debug.featureEnabled.shadow,
     gameState.debug.featureEnabled.unitShadow,

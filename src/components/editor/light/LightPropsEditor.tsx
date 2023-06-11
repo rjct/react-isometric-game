@@ -4,31 +4,36 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import React from "react";
 import { NothingSelectedText } from "../NothingSelectedText";
-import { LightRadiusEditor } from "./LightRadiusEditor";
-import { LightColorEditor } from "./LightColorEditor";
+import { InputColor } from "../_shared/InputColor";
+import { InputRange } from "../_shared/InputRange";
 
 export function LightPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
 
   return uiState.editorMode === "light" ? (
     gameState.selectedLight ? (
-      <>
+      <fieldset>
+        <legend>
+          <div>Light</div>
+        </legend>
         <div className={"editor-props-wrapper"}>
           <table>
             <tbody>
               <TableRow label={"ID"}>{gameState.selectedLight?.id}</TableRow>
               <TableRow label={"Radius"}>
-                <LightRadiusEditor
-                  entity={gameState.selectedLight}
-                  max={Math.max(gameState.mapSize.width, gameState.mapSize.height) * 2}
+                <InputRange
+                  initialValue={gameState.selectedLight.radius}
+                  valueSuffix={""}
+                  min={0}
+                  max={Math.max(gameState.mapSize.width, gameState.mapSize.height)}
                   onChange={(radius) => {
                     gameDispatch({ type: "setLightRadius", entityId: gameState.selectedLight.id, radius });
                   }}
                 />
               </TableRow>
               <TableRow label={"Color"}>
-                <LightColorEditor
-                  entity={gameState.selectedLight}
+                <InputColor
+                  initialValue={gameState.selectedLight.getColor()}
                   onChange={(color) => {
                     gameDispatch({ type: "setLightColor", entityId: gameState.selectedLight.id, color });
                   }}
@@ -50,7 +55,7 @@ export function LightPropsEditor() {
             <label>Delete</label>
           </button>
         </div>
-      </>
+      </fieldset>
     ) : (
       <NothingSelectedText />
     )

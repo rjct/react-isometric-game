@@ -35,6 +35,11 @@ export const gameMap = {
     },
   },
 
+  shadows: {
+    color: "",
+    opacity: 0,
+  },
+
   mapUrl: "maps/map_1.json",
 
   mapSize: {

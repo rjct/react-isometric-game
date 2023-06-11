@@ -7,6 +7,7 @@ import { TerrainAreaPropsEditor } from "./terrain/TerrainAreaPropsEditor";
 import { BuildingPropsEditor } from "./building/BuildingPropsEditor";
 import { LightAddNewButton } from "./light/LightAddNewButton";
 import { LightPropsEditor } from "./light/LightPropsEditor";
+import { ShadowsPropsEditor } from "./light/ShadowsPropsEditor";
 
 export function EditorModeSelector() {
   const { gameDispatch, uiState, uiDispatch } = useGameState();
@@ -55,10 +56,10 @@ export function EditorModeSelector() {
 
       {uiState.editorMode === "terrain" ? (
         <div className={"ui-tab-content"}>
+          <TerrainAreaPropsEditor />
           <div className={"toolbar"}>
             <TerrainAreaAddNewButton />
           </div>
-          <TerrainAreaPropsEditor />
         </div>
       ) : null}
 
@@ -72,10 +73,11 @@ export function EditorModeSelector() {
 
       {uiState.editorMode === "light" ? (
         <div className={"ui-tab-content"}>
+          <ShadowsPropsEditor />
+          <LightPropsEditor />
           <div className={"toolbar"}>
             <LightAddNewButton />
           </div>
-          <LightPropsEditor />
         </div>
       ) : null}
     </div>

@@ -16,12 +16,7 @@ export const constants = {
   SCROLL_EDGE_WIDTH: 50,
   OFFSCREEN_TILE_CACHE: 4,
   FOG_OF_WAR_RADIUS: 5,
-  light: {
-    RENDER_PASSES: 2,
-    SHADOWS_COLOR: "rgba(0, 13, 35, 0.85)",
-    SHADOWS_ALPHA: 0.8,
-    LIGHTS_ALPHA: 0.3,
-  },
+  LIGHT_RENDER_PASSES: 2,
   miniMap: {
     width: 400,
     height: 200,

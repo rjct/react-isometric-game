@@ -49,9 +49,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
       {props.unit.shadows.map((shadow, index) => {
         {
           return (
-            <Fade show={!shadow.blocked || shadow.opacity <= 0}>
+            <Fade key={index} show={!shadow.blocked || shadow.opacity <= 0}>
               <div
-                key={index}
                 data-direction={props.direction || props.unit.direction}
                 data-action={props.action || props.unit.action}
                 data-weapon={props.unit.getCurrentWeapon()?.className}

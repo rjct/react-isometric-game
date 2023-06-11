@@ -49,7 +49,6 @@ export class LightRay {
       fill.addColorStop(1, `${this.color}00`);
     }
 
-    ctx.globalAlpha = constants.light.LIGHTS_ALPHA;
     ctx.strokeStyle = fill;
     ctx.lineWidth = 1;
     ctx.setTransform(1, 0, 0, 1, this.x, this.y);
@@ -58,7 +57,6 @@ export class LightRay {
     ctx.lineTo(this.nx * this.len, this.ny * this.len);
     ctx.closePath();
     ctx.stroke();
-    ctx.globalAlpha = constants.light.SHADOWS_ALPHA;
   }
 
   cast(objects: Array<Building>) {

@@ -40,6 +40,7 @@ export function ExportButton() {
           variant: building.variant,
         };
       }),
+      shadows: gameState.shadows,
       lights: gameState.lights.map((light) => {
         return {
           position: light.position,
