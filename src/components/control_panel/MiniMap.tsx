@@ -55,9 +55,7 @@ export const MiniMap = React.memo(function MiniMap() {
     const { x, y } = getCoordinates(hero.position);
 
     ctx.fillStyle = "white";
-    ctx.beginPath();
     ctx.fillRect(x, y, wireframeTileWidth * miniMapZoom, wireframeTileHeight * miniMapZoom);
-    ctx.stroke();
 
     // enemies pins
     ctx.fillStyle = "red";
@@ -67,9 +65,7 @@ export const MiniMap = React.memo(function MiniMap() {
       .forEach((unit) => {
         const { x, y } = getCoordinates(unit.position);
 
-        ctx.beginPath();
         ctx.fillRect(x, y, wireframeTileWidth * miniMapZoom, wireframeTileHeight * miniMapZoom);
-        ctx.stroke();
       });
 
     // buildings
@@ -83,10 +79,7 @@ export const MiniMap = React.memo(function MiniMap() {
       });
 
       ctx.fillStyle = `rgba(50, 205, 50, ${gameState.isEntityVisible(building) ? 0.4 : 0.05})`;
-      ctx.beginPath();
       ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
-
-      ctx.fill();
     });
   };
 
