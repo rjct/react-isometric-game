@@ -5,6 +5,7 @@ import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 import { Fade } from "../../Fade";
+import { useHash } from "../../../hooks/useHash";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -12,6 +13,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   action?: Unit["action"];
 }) {
   const { gameState, uiState } = useGameState();
+  const { allAliveUnitsHash, lightsHash } = useHash();
 
   const [zIndex, setZIndex] = React.useState(0);
   const [screenPosition, setScreenPosition] = React.useState({ x: 0, y: 0 });
@@ -35,11 +37,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
     setZIndex(getEntityZIndex(props.unit));
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
-  }, [
-    uiState.scene === "editor" ? gameState.getLightsHash() : false,
-    gameState.getAllAliveUnitsHash(),
-    gameState.debug.featureEnabled.unitShadow,
-  ]);
+  }, [uiState.scene === "editor" ? lightsHash : false, allAliveUnitsHash, gameState.debug.featureEnabled.unitShadow]);
 
   return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
     gameState.isEntityVisible(props.unit) ? (
