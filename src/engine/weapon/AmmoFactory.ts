@@ -1,4 +1,4 @@
-import { getAngleBetweenTwoGridPoints } from "../helpers";
+import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "../helpers";
 import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
 import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
 
@@ -21,6 +21,8 @@ export class Ammo {
   position: GridCoordinates = { x: Infinity, y: Infinity };
   targetPosition: GridCoordinates = { x: Infinity, y: Infinity };
 
+  shotDistance: number;
+
   angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
 
   isTargetReached = false;
@@ -30,6 +32,8 @@ export class Ammo {
 
     this.speed = ammoRef.speed;
     this.damage = ammoRef.damage;
+
+    this.shotDistance = 0;
   }
 
   updatePosition(deltaTime: number) {
@@ -42,25 +46,9 @@ export class Ammo {
     this.position.x += x;
     this.position.y += y;
 
-    this.isTargetReached = false;
+    const currentDistance = getDistanceBetweenGridPoints(this.position, this.targetPosition);
 
-    switch (true) {
-      case angle.deg < 0:
-        this.isTargetReached = this.position.y < this.targetPosition.y;
-        break;
-
-      case angle.deg === 0:
-        this.isTargetReached = this.position.x > this.targetPosition.x;
-        break;
-
-      case angle.deg <= 90:
-        this.isTargetReached = this.position.y > this.targetPosition.y;
-        break;
-
-      case angle.deg <= 180:
-        this.isTargetReached = this.position.x < this.targetPosition.x;
-        break;
-    }
+    this.isTargetReached = currentDistance <= 0 || currentDistance >= this.shotDistance;
 
     if (this.isTargetReached) {
       this.position = this.targetPosition;
@@ -73,5 +61,6 @@ export class Ammo {
     this.targetPosition = { ...targetCoordinates };
 
     this.angle = getAngleBetweenTwoGridPoints(initialCoordinates, targetCoordinates);
+    this.shotDistance = getDistanceBetweenGridPoints(initialCoordinates, targetCoordinates);
   }
 }
