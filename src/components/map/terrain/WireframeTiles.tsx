@@ -6,7 +6,6 @@ import { useHeroVisualization } from "../../../hooks/useHeroVisualization";
 import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePosition";
 
 export const WireframeTiles = React.memo(function WireframeTiles() {
-  //return <></>;
   const { gameState, uiState } = useGameState();
   const { doHeroAction } = useHero();
 
