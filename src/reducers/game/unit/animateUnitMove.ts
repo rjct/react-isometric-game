@@ -1,6 +1,7 @@
 import { Unit } from "../../../engine/UnitFactory";
 import { pathFinder } from "../../../engine/pathFinder";
 import { GameMap } from "../../../engine/GameMap";
+import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "../../../engine/helpers";
 
 export type AnimateUnitMoveReducerAction = {
   type: "animateUnitMove";
@@ -56,11 +57,8 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
       state.occupyCell(unit.position);
     }
 
-    if (unit.pathQueue.points.length > 1) {
-      unit.setDirection(
-        Math.atan2(unit.pathQueue.currentPos.y - unitPosition.y, unit.pathQueue.currentPos.x - unitPosition.x) *
-          (180 / Math.PI)
-      );
+    if (unit.pathQueue.points.length > 1 && getDistanceBetweenGridPoints(unit.pathQueue.currentPos, unitPosition) > 0) {
+      unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition).deg);
     }
 
     unit.setPosition(unit.pathQueue.currentPos);

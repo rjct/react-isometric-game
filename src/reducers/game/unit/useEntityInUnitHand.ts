@@ -1,5 +1,6 @@
 import { Unit } from "../../../engine/UnitFactory";
 import { GameMap } from "../../../engine/GameMap";
+import { getAngleBetweenTwoGridPoints } from "../../../engine/helpers";
 
 export interface UseEntityInUnitHandReducerAction {
   type: "useEntityInUnitHand";
@@ -9,10 +10,7 @@ export interface UseEntityInUnitHandReducerAction {
 }
 
 export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandReducerAction) {
-  action.unit.setDirection(
-    Math.atan2(action.targetPosition.y - action.unit.position.y, action.targetPosition.x - action.unit.position.x) *
-      (180 / Math.PI)
-  );
+  action.unit.setDirection(getAngleBetweenTwoGridPoints(action.targetPosition, action.unit.position).deg);
 
   const weapon = action.unit.getCurrentWeapon();
 

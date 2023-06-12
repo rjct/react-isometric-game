@@ -54,21 +54,19 @@ export function randomInt(min: number, max: number) {
 
 export function getHumanReadableDirection(angle: number): Unit["direction"] {
   switch (true) {
-    case angle >= 135:
-    case angle <= -135:
+    case angle > 315 || angle < 45:
       return "left";
 
-    case angle > -45 && angle < 45:
+    case angle >= 45 && angle <= 135:
+      return "top";
+
+    case angle >= 135 && angle <= 225:
       return "right";
 
-    case angle > 45 && angle < 135:
+    case angle >= 225 && angle <= 315:
+    default:
       return "bottom";
-
-    case angle > -135 && angle < -45:
-      return "top";
   }
-
-  return "right";
 }
 
 export function getEntityZIndex(entity: Unit | Building) {

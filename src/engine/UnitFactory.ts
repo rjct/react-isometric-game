@@ -315,7 +315,6 @@ class UnitPathQueue {
           deltaTime -= len - this.distAlong;
           this.totalDistMoved += len - this.distAlong;
           this.distAlong = 0;
-          this.moveAlong(deltaTime);
 
           return lastPoint;
         }

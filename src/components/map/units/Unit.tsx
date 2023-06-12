@@ -6,11 +6,7 @@ import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 import { Fade } from "../../Fade";
 
-export const UnitComponent = React.memo(function UnitComponent(props: {
-  unit: Unit;
-  direction?: Unit["direction"];
-  action?: Unit["action"];
-}) {
+export const UnitComponent = React.memo(function UnitComponent(props: { unit: Unit }) {
   const { gameState, uiState } = useGameState();
 
   const [zIndex, setZIndex] = React.useState(0);
@@ -45,14 +41,13 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     gameState.isEntityVisible(props.unit) ? (
     <>
       {renderAmmo()}
-
       {props.unit.shadows.map((shadow, index) => {
         {
           return (
             <Fade key={index} show={!shadow.blocked || shadow.opacity <= 0}>
               <div
-                data-direction={props.direction || props.unit.direction}
-                data-action={props.action || props.unit.action}
+                data-direction={props.unit.direction}
+                data-action={props.unit.action}
                 data-weapon={props.unit.getCurrentWeapon()?.className}
                 className={`${props.unit.className} unit-shadow`}
                 style={{
@@ -73,8 +68,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }
       })}
       <div
-        data-direction={props.direction || props.unit.direction}
-        data-action={props.action || props.unit.action}
+        data-direction={props.unit.direction}
+        data-action={props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
         className={props.unit.className}
         style={{
