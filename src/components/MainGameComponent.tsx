@@ -84,7 +84,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     }
   };
 
-  useAnimationFrame(mainLoop, !loadingState.loading);
+  useAnimationFrame(mainLoop, !loadingState.loading && !uiState.isScrolling());
 
   React.useEffect(() => {
     const keyDownHandler = (e: KeyboardEvent) => {
