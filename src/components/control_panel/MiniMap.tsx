@@ -3,7 +3,6 @@ import { constants } from "../../constants";
 import { rotateRect } from "../../engine/helpers";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
-import { Building } from "../../engine/BuildingFactory";
 
 export const MiniMap = React.memo(function MiniMap() {
   const { gameState } = useGameState();
@@ -28,8 +27,6 @@ export const MiniMap = React.memo(function MiniMap() {
   const canvasHeight = gameState.mapSize.height * wireframeTileHeight * miniMapZoom;
 
   const rotatedMapCoordinates = rotateRect(45, miniMapWidth / 2, 0, miniMapWidth / 2, 0, canvasWidth, canvasHeight);
-
-  const [buildings, setBuildings] = React.useState<Building[]>([]);
 
   const { hero } = useHero();
 
@@ -72,18 +69,20 @@ export const MiniMap = React.memo(function MiniMap() {
       });
 
     // buildings
-    buildings.forEach((building) => {
-      const { position, size } = building;
+    ctx.fillStyle = "green";
+    gameState.buildings
+      .filter((building) => gameState.isEntityVisible(building))
+      .forEach((building) => {
+        const { position, size } = building;
 
-      const coordinates = getCoordinates(position);
-      const dimensions = getCoordinates({
-        x: size.grid.width,
-        y: size.grid.height,
+        const coordinates = getCoordinates(position);
+        const dimensions = getCoordinates({
+          x: size.grid.width,
+          y: size.grid.height,
+        });
+
+        ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
       });
-
-      ctx.fillStyle = "green";
-      ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
-    });
   };
 
   const centerMap = () => {
@@ -99,13 +98,9 @@ export const MiniMap = React.memo(function MiniMap() {
   };
 
   React.useEffect(() => {
-    setBuildings(gameState.buildings.filter((building) => gameState.isEntityVisible(building)));
-  }, [gameState.mapSize]);
-
-  React.useEffect(() => {
     renderMiniMap();
     centerMap();
-  }, [buildings, gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash()]);
+  }, [gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash()]);
 
   return (
     <div
