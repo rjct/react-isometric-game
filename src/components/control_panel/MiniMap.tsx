@@ -69,18 +69,20 @@ export const MiniMap = React.memo(function MiniMap() {
       });
 
     // buildings
-    gameState.buildings.forEach((building) => {
-      const { position, size } = building;
+    gameState.buildings
+      .filter((building) => gameState.isEntityVisible(building))
+      .forEach((building) => {
+        const { position, size } = building;
 
-      const coordinates = getCoordinates(position);
-      const dimensions = getCoordinates({
-        x: size.grid.width,
-        y: size.grid.height,
+        const coordinates = getCoordinates(position);
+        const dimensions = getCoordinates({
+          x: size.grid.width,
+          y: size.grid.height,
+        });
+
+        ctx.fillStyle = "green";
+        ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
       });
-
-      ctx.fillStyle = `rgba(50, 205, 50, ${gameState.isEntityVisible(building) ? 0.4 : 0.05})`;
-      ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
-    });
   };
 
   const centerMap = () => {
