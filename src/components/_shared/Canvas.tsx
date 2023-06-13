@@ -8,6 +8,7 @@ export const Canvas = React.forwardRef(
       size: Size;
       handleMouseMove?: (e: React.MouseEvent) => void;
       handleClick?: (e: React.MouseEvent) => void;
+      handleRightClick?: (e: React.MouseEvent) => void;
     },
     ref: React.ForwardedRef<HTMLCanvasElement>
   ) => {
@@ -26,6 +27,7 @@ export const Canvas = React.forwardRef(
         }}
         onMouseMove={props.handleMouseMove}
         onClick={props.handleClick}
+        onContextMenu={props.handleRightClick}
       >
         <canvas
           ref={ref}

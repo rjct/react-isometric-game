@@ -4,9 +4,10 @@ import { useHero } from "../../../hooks/useHero";
 import { Canvas } from "../../_shared/Canvas";
 import { useHeroVisualization } from "../../../hooks/useHeroVisualization";
 import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePosition";
+import { Unit } from "../../../engine/UnitFactory";
 
 export const WireframeTiles = React.memo(function WireframeTiles() {
-  const { gameState, uiState } = useGameState();
+  const { gameState, gameDispatch, uiState } = useGameState();
   const { doHeroAction } = useHero();
 
   const canvasRef = React.createRef<HTMLCanvasElement>();
@@ -25,6 +26,19 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
     doHeroAction(mousePosition);
   };
 
+  const handleRightClick = (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    const hero = gameState.getHero();
+    const userActions: Array<Unit["currentSelectedAction"]> = ["walk", "run", "useLeftHand", "useRightHand"];
+
+    const currentActionIndex = userActions.indexOf(hero.currentSelectedAction);
+    const nextActionIndex = currentActionIndex + 1 >= userActions.length ? 0 : currentActionIndex + 1;
+    const nextAction = userActions[nextActionIndex];
+
+    gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: nextAction });
+  };
+
   React.useEffect(() => {
     if (!mousePosition) return;
 
@@ -38,6 +52,7 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
       ref={canvasRef}
       handleMouseMove={handleMouseMove}
       handleClick={handleClick}
+      handleRightClick={handleRightClick}
     />
   ) : null;
 });

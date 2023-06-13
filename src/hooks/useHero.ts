@@ -11,7 +11,7 @@ export function useHero() {
   const hero = gameState.units[gameState.heroId];
 
   const doHeroAction = (mousePosition: WorldMousePosition) => {
-    if (mousePosition.isOutOfGrid || uiState.scene !== "game") return;
+    if (!mousePosition || mousePosition.isOutOfGrid || uiState.scene !== "game") return;
 
     const targetPosition = { ...mousePosition.grid };
     const weapon = hero.getCurrentWeapon();
