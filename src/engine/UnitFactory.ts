@@ -51,8 +51,8 @@ export class Unit extends GameObjectFactory {
 
   public currentSelectedAction: "walk" | "run" | "useLeftHand" | "useRightHand" = "walk";
 
-  private readonly coolDownTime: number;
-  private coolDownTimer = 0;
+  public readonly coolDownTime: number;
+  public coolDownTimer = 0;
 
   public enemyDetectionRange: number;
 

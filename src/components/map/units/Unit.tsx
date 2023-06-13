@@ -5,6 +5,9 @@ import { Ammo } from "../weapons/Ammo";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
 import { Fade } from "../../Fade";
+import { UnitCooldownTimer } from "./UnitCooldownTimer";
+import { UnitHealth } from "./UnitHealth";
+import { UnitDamagePoints } from "./UnitDamagePoints";
 
 export const UnitComponent = React.memo(function UnitComponent(props: { unit: Unit }) {
   const { gameState, uiState } = useGameState();
@@ -78,12 +81,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: { unit: Un
         }}
       >
         <div className="char"></div>
-        <div className="damage-points">{props.unit.action === "hit" ? props.unit.damagePoints : ""}</div>
-        {gameState.debug.enabled && !props.unit.isDead ? (
-          <div className={"health"}>
-            <div style={{ width: `${(props.unit.healthPoints.current * 100) / props.unit.healthPoints.max}%` }}></div>
-          </div>
-        ) : null}
+        <UnitDamagePoints unit={props.unit} />
+        <UnitCooldownTimer unit={props.unit} />
+        <UnitHealth unit={props.unit} />
       </div>
     </>
   ) : null;
