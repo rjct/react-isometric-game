@@ -27,8 +27,57 @@
       "target": { "x1": 0, "y1": 0, "x2": 100, "y2": 47 }
     }
   ],
-  "heroStartPosition": { "x": 56, "y": 44 },
-  "enemies": [{ "type": "ghoul", "position": { "x": 49, "y": 38 } }],
+  "hero": {
+    "position": { "x": 56, "y": 44 },
+    "inventory": {
+      "backpack": [
+        {
+          "class": "Firearm",
+          "type": "smg",
+          "ammo": {
+            "class": "FirearmAmmo",
+            "type": "pistol",
+            "quantity": 50
+          }
+        }
+      ],
+      "leftHand": {
+        "class": "Firearm",
+        "type": "pistol",
+        "ammo": {
+          "class": "FirearmAmmo",
+          "type": "pistol",
+          "quantity": 100
+        }
+      },
+      "rightHand": {
+        "class": "MeleeWeapon",
+        "type": "punch"
+      }
+    }
+  },
+  "enemies": [
+    {
+      "type": "ghoul",
+      "position": { "x": 49, "y": 38 },
+      "inventory": {
+        "backpack": [],
+        "leftHand": {
+          "class": "MeleeWeapon",
+          "type": "punch"
+        },
+        "rightHand": {
+          "class": "Firearm",
+          "type": "pistol",
+          "ammo": {
+            "class": "FirearmAmmo",
+            "type": "pistol",
+            "quantity": 100
+          }
+        }
+      }
+    }
+  ],
   "buildings": [
     { "type": "buick", "position": { "x": 2, "y": 6 }, "direction": "top", "variant": 2 },
     { "type": "vault_table", "position": { "x": 59, "y": 45 }, "direction": "top", "variant": 0 },

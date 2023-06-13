@@ -39,10 +39,47 @@
       "target": { "x1": 3, "y1": 12, "x2": 10, "y2": 16 }
     }
   ],
-  "heroStartPosition": { "x": 19, "y": 6 },
+  "hero": {
+    "position": { "x": 19, "y": 6 },
+    "inventory": {
+      "backpack": [
+        {
+          "class": "Firearm",
+          "type": "smg",
+          "ammo": {
+            "class": "FirearmAmmo",
+            "type": "pistol",
+            "quantity": 50
+          }
+        }
+      ],
+      "leftHand": {
+        "class": "Firearm",
+        "type": "pistol",
+        "ammo": {
+          "class": "FirearmAmmo",
+          "type": "pistol",
+          "quantity": 100
+        }
+      },
+      "rightHand": {
+        "class": "MeleeWeapon",
+        "type": "punch"
+      }
+    }
+  },
   "enemies": [
     { "type": "ghoul", "position": { "x": 19, "y": 18 } },
-    { "type": "ghoul", "position": { "x": 19, "y": 7 } },
+    {
+      "type": "ghoul",
+      "position": { "x": 19, "y": 7 },
+      "inventory": {
+        "leftHand": {
+          "class": "MeleeWeapon",
+          "type": "punch"
+        }
+      }
+    },
     { "type": "ghoul", "position": { "x": 4, "y": 21 } }
   ],
   "buildings": [

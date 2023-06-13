@@ -1,7 +1,9 @@
 import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "../helpers";
 import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
 import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
+import ammo from "../../dict/ammo.json";
 
+export type AmmoClass = keyof typeof ammo;
 export type AmmoType = FirearmAmmoType | MeleePunchType;
 export type AmmoRef = FirearmAmmoRef | MeleePunchRef;
 

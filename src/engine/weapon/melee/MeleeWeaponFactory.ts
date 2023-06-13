@@ -3,15 +3,15 @@ import { Weapon } from "../WeaponFactory";
 import { MeleePunch } from "./meleePunchFactory";
 import { GameMap } from "../../GameMap";
 
-export type MeleeWeaponType = keyof typeof weapons.melee;
-export type MeleeWeaponRef = (typeof weapons.melee)[MeleeWeaponType];
-export type MeleeUnitAction = Pick<(typeof weapons.melee)[MeleeWeaponType], "unitAction">;
+export type MeleeWeaponType = keyof typeof weapons.MeleeWeapon;
+export type MeleeWeaponRef = (typeof weapons.MeleeWeapon)[MeleeWeaponType];
+export type MeleeUnitAction = Pick<(typeof weapons.MeleeWeapon)[MeleeWeaponType], "unitAction">;
 
 export class MeleeWeapon extends Weapon {
   private readonly damage: number;
 
   constructor(weaponType: MeleeWeaponType, gameMap: GameMap) {
-    const ref = weapons.melee[weaponType];
+    const ref = weapons.MeleeWeapon[weaponType];
 
     super(ref, gameMap);
 

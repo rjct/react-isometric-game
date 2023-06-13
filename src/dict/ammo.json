@@ -1,5 +1,5 @@
 {
-  "firearm": {
+  "FirearmAmmo": {
     "pistol": {
       "id": "pistol",
       "className": [
@@ -19,7 +19,7 @@
       "damage": 20
     }
   },
-  "melee": {
+  "MeleeWeapon": {
     "punch": {
       "id": "punch",
       "className": [

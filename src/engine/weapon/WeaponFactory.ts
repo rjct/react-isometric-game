@@ -5,7 +5,9 @@ import { MeleePunch } from "./melee/meleePunchFactory";
 import { floor, getDistanceBetweenGridPoints } from "../helpers";
 import { GameMap } from "../GameMap";
 import { ObstacleRay } from "../ObstacleRayFactory";
+import weapons from "../../dict/weapons.json";
 
+export type WeaponClass = keyof typeof weapons;
 export type WeaponType = FirearmType | MeleeWeaponType;
 export type WeaponTypes = { [weaponId: string]: Weapon };
 export type WeaponRef = FirearmRef | MeleeWeaponRef;

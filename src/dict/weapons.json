@@ -1,5 +1,5 @@
 {
-  "melee": {
+  "MeleeWeapon": {
     "punch": {
       "title": "Punch",
       "className": ["punch"],
@@ -25,7 +25,7 @@
       }
     }
   },
-  "firearm": {
+  "Firearm": {
     "pistol": {
       "title": "Pistol",
       "className": ["pistol"],

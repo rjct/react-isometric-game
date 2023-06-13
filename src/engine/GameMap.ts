@@ -3,10 +3,15 @@ import { Unit, UnitTypes } from "./UnitFactory";
 import { constants } from "../constants";
 import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
-import { WeaponTypes } from "./weapon/WeaponFactory";
+import { WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
 import { pathFinder } from "./pathFinder";
 import { Light } from "./LightFactory";
 import { floor } from "./helpers";
+import { MeleeWeapon } from "./weapon/melee/MeleeWeaponFactory";
+import { Firearm } from "./weapon/firearm/FirearmFactory";
+import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
+import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
+import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 
 interface GameMapProps {
   mapSize: Size;
@@ -366,5 +371,27 @@ export const gameMap = {
 
   getLightsHash() {
     return this.lights.map((light) => light.getHash()).join("|");
+  },
+
+  createWeaponByClassName(weaponClass: WeaponClass, weaponType: WeaponType) {
+    const weaponDict = {
+      MeleeWeapon,
+      Firearm,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return new weaponDict[weaponClass](weaponType, this);
+  },
+
+  createAmmoByClassName(ammoClass: AmmoClass, ammoType: AmmoType) {
+    const weaponDict = {
+      MeleePunch,
+      FirearmAmmo,
+    };
+
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return new weaponDict[ammoClass](ammoType, this);
   },
 };

@@ -25,7 +25,7 @@ export function ExportButton() {
       terrain: gameState.terrain.map((terrainArea) => {
         return terrainArea.getJSON();
       }),
-      heroStartPosition: { ...hero.getRoundedPosition() },
+      hero: { position: hero.getRoundedPosition() },
       enemies: gameState.getAliveEnemiesArray().map((enemy) => {
         return {
           type: enemy.type,

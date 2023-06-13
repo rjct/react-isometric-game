@@ -3,9 +3,9 @@ import { Ammo, AmmoType } from "../AmmoFactory";
 import { Weapon } from "../WeaponFactory";
 import { GameMap } from "../../GameMap";
 
-export type FirearmType = keyof typeof weapons.firearm;
-export type FirearmRef = (typeof weapons.firearm)[FirearmType];
-export type FirearmUnitAction = Pick<(typeof weapons.firearm)[FirearmType], "unitAction">;
+export type FirearmType = keyof typeof weapons.Firearm;
+export type FirearmRef = (typeof weapons.Firearm)[FirearmType];
+export type FirearmUnitAction = Pick<(typeof weapons.Firearm)[FirearmType], "unitAction">;
 
 export class Firearm extends Weapon {
   ammoCurrent: Ammo[];
@@ -15,7 +15,7 @@ export class Firearm extends Weapon {
   readonly ammoConsumptionPerShoot: number;
 
   constructor(weaponType: FirearmType, gameMap: GameMap) {
-    const ref = weapons.firearm[weaponType];
+    const ref = weapons.Firearm[weaponType];
 
     super(ref, gameMap);
 
