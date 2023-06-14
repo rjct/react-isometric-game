@@ -36,22 +36,33 @@ export const LightsAndShadows = React.memo(() => {
 
       ctx.lineWidth = 0;
 
-      gameState.lights.forEach((light) => {
-        light.rays.forEach((ray) => {
-          ray.pathEnd(ctx);
-
-          if (gameState.debug.featureEnabled.shadow) {
-            ctx.globalCompositeOperation = "destination-out";
-
-            ray.draw(ctx, false);
-          }
-
-          if (gameState.debug.featureEnabled.light) {
-            ctx.globalCompositeOperation = "xor"; //"source-atop";
-            ray.draw(ctx);
-          }
+      if (gameState.debug.featureEnabled.light && gameState.debug.featureEnabled.shadow) {
+        gameState.lights.forEach((light) => {
+          light.rays.forEach((ray) => {
+            ray.pathEnd(ctx);
+          });
         });
-      });
+      }
+
+      if (gameState.debug.featureEnabled.shadow) {
+        ctx.globalCompositeOperation = "destination-out";
+
+        gameState.lights.forEach((light) => {
+          light.rays.forEach((ray) => {
+            ray.draw(ctx, false);
+          });
+        });
+      }
+
+      if (gameState.debug.featureEnabled.light) {
+        ctx.globalCompositeOperation = "xor"; //"source-atop";
+
+        gameState.lights.forEach((light) => {
+          light.rays.forEach((ray) => {
+            ray.draw(ctx);
+          });
+        });
+      }
     }
   };
 
