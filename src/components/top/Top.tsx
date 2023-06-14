@@ -11,10 +11,6 @@ export const Top = React.memo(function Top() {
   return (
     <div className={"top-wrapper"}>
       <div className={"block top"}>
-        <div className={"title"}>
-          {gameState.mapUrl} ({gameState.mapSize.width}x{gameState.mapSize.height})
-        </div>
-
         <div className={"value"}>
           <Switch
             title={"Debug"}

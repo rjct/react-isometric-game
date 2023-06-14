@@ -46,11 +46,13 @@ import { setLightRadius, SetLightRadiusReducerAction } from "./editor/light/setL
 import { setLightColor, SetLightColorReducerAction } from "./editor/light/setLightColor";
 import { setShadowsOpacity, SetShadowsOpacityReducerAction } from "./editor/light/setShadowsOpacity";
 import { setShadowsColor, SetShadowsColorReducerAction } from "./editor/light/setShadowsColor";
+import { loadMap, LoadMapReducerAction } from "./loadMap";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
   | ToggleDebugFeatureReducerAction
   //
+  | LoadMapReducerAction
   | SwitchMapReducerAction
   | MoveUnitReducerAction
   | AnimateUnitMoveReducerAction
@@ -101,6 +103,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return toggleDebugFeature(state, action as ToggleDebugFeatureReducerAction);
 
     //
+    case "loadMap":
+      return loadMap(state, action as LoadMapReducerAction);
+
     case "switchMap":
       return switchMap(state, action as SwitchMapReducerAction);
 

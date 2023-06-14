@@ -1,6 +1,8 @@
 import React from "react";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
+import { DebugMapSwitcher } from "./DebugMapSwitcher";
+import { DebugMapInfo } from "./DebugMapInfo";
 
 export const DebugInfo = React.memo(function DebugInfo() {
   const { gameState, uiState } = useGameState();
@@ -18,6 +20,13 @@ export const DebugInfo = React.memo(function DebugInfo() {
     >
       <table>
         <tbody>
+          <tr>
+            <th>Map:</th>
+            <td>
+              <DebugMapSwitcher /> <DebugMapInfo />
+            </td>
+          </tr>
+
           <tr>
             <th>Rect:</th>
             <td>{JSON.stringify(uiState.rect)}</td>

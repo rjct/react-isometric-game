@@ -4,7 +4,7 @@
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
       "target": { "x1": 0, "y1": 0, "x2": 10, "y2": 1 },
-      "exitUrl": "/maps/map_2.json"
+      "exitUrl": "/maps/map_test.json"
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },

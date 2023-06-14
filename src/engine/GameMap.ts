@@ -45,7 +45,7 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: "maps/map_1.json",
+  mapUrl: "maps/map_vault.json",
 
   mapSize: {
     width: 0,

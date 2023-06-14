@@ -20,7 +20,7 @@
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
       "target": { "x1": 49, "y1": 47, "x2": 51, "y2": 49 },
-      "exitUrl": "/maps/map_1.json"
+      "exitUrl": "/maps/map_vault.json"
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },

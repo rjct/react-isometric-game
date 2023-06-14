@@ -40,6 +40,10 @@ export const WireframeTiles = React.memo(function WireframeTiles() {
   };
 
   React.useEffect(() => {
+    setMousePosition(null as unknown as WorldMousePosition);
+  }, [gameState.mapUrl]);
+
+  React.useEffect(() => {
     if (!mousePosition) return;
 
     renderTarget(mousePosition);

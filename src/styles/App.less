@@ -107,7 +107,7 @@ fieldset {
 .debug {
   position: absolute;
   z-index: 2;
-  pointer-events: none;
+  //pointer-events: none;
   font-size: 0.6em;
   user-select: none;
   color: @text-color;
@@ -119,6 +119,16 @@ fieldset {
 
   th {
     text-align: left;
+  }
+
+  label {
+    background-color: @text-color;
+    color: darken(@text-color);
+    border-radius: @padding;
+    padding: 0 (@padding / 2);
+    margin-left: (@padding / 2);
+    margin-right: @padding;
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
   }
 }
 
