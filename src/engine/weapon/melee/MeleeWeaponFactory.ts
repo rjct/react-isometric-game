@@ -13,7 +13,7 @@ export class MeleeWeapon extends Weapon {
   constructor(weaponType: MeleeWeaponType, gameMap: GameMap) {
     const ref = weapons.MeleeWeapon[weaponType];
 
-    super(ref, gameMap);
+    super(weaponType, ref, gameMap);
 
     this.damage = ref.damage;
   }

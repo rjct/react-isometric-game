@@ -2,9 +2,12 @@ import { getHumanReadableDirection, randomInt } from "./helpers";
 import unitTypes from "../dict/units.json";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
-import { Weapon, WeaponUnitAction } from "./weapon/WeaponFactory";
+import { Weapon, WeaponClass, WeaponUnitAction } from "./weapon/WeaponFactory";
 import { GameObjectFactory } from "./GameObjectFactory";
 import { ObstacleRay } from "./ObstacleRayFactory";
+import { StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
+import { Firearm } from "./weapon/firearm/FirearmFactory";
+import { AmmoClass } from "./weapon/AmmoFactory";
 
 export type UnitTypes = { [unitId: string]: Unit };
 
@@ -282,6 +285,55 @@ export class Unit extends GameObjectFactory {
 
   public clearShadows() {
     this.shadows = [];
+  }
+
+  public getJSON(omitUnitType = false) {
+    const conventInventoryItemToJson = (item: Weapon): StaticMapWeapon => {
+      const weaponJson: StaticMapWeapon = {
+        class: item.constructor.name as WeaponClass,
+        type: item.type,
+      };
+
+      if (item instanceof Firearm && item.ammoCurrent.length > 0) {
+        weaponJson.ammo = {
+          class: item.ammoCurrent[0].constructor.name as AmmoClass,
+          type: item.ammoCurrent[0].type,
+          quantity: item.ammoCurrent.length,
+        };
+      }
+
+      return weaponJson;
+    };
+
+    const json: StaticMapUnit = {
+      type: this.type,
+      position: this.getRoundedPosition(),
+    };
+
+    if (this.getInventoryItems().length > 0) {
+      json.inventory = {} as StaticMapUnit["inventory"];
+
+      if (this.inventory.backpack) {
+        json.inventory = {
+          ...json.inventory,
+          ...{ backpack: this.inventory.backpack.map((backpackItem) => conventInventoryItemToJson(backpackItem)) },
+        };
+      }
+
+      if (this.inventory.leftHand) {
+        json.inventory = { ...json.inventory, ...{ leftHand: conventInventoryItemToJson(this.inventory.leftHand!) } };
+      }
+
+      if (this.inventory.rightHand) {
+        json.inventory = { ...json.inventory, ...{ rightHand: conventInventoryItemToJson(this.inventory.rightHand!) } };
+      }
+    }
+
+    if (omitUnitType) {
+      delete json.type;
+    }
+
+    return json;
   }
 }
 

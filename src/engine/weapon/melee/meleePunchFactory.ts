@@ -8,6 +8,6 @@ export class MeleePunch extends Ammo {
   constructor(type: MeleePunchType) {
     const ref = ammo.MeleeWeapon[type];
 
-    super(ref);
+    super(type, ref);
   }
 }

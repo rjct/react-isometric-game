@@ -14,6 +14,7 @@ export type WeaponRef = FirearmRef | MeleeWeaponRef;
 export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
 
 export class Weapon {
+  public readonly type: WeaponType;
   private gameMap: GameMap;
 
   public readonly title: string;
@@ -44,7 +45,8 @@ export class Weapon {
     throw new Error("Method not implemented.");
   }
 
-  constructor(weaponRef: WeaponRef, gameMap: GameMap) {
+  constructor(weaponType: WeaponType, weaponRef: WeaponRef, gameMap: GameMap) {
+    this.type = weaponType;
     this.gameMap = gameMap;
 
     this.title = weaponRef.title;

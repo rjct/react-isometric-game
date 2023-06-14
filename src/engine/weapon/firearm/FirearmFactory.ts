@@ -17,7 +17,7 @@ export class Firearm extends Weapon {
   constructor(weaponType: FirearmType, gameMap: GameMap) {
     const ref = weapons.Firearm[weaponType];
 
-    super(ref, gameMap);
+    super(weaponType, ref, gameMap);
 
     this.ammoType = ref.ammoType as AmmoType;
     this.ammoCurrent = [];

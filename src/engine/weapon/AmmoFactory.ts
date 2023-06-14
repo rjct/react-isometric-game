@@ -8,6 +8,7 @@ export type AmmoType = FirearmAmmoType | MeleePunchType;
 export type AmmoRef = FirearmAmmoRef | MeleePunchRef;
 
 export class Ammo {
+  public readonly type: AmmoType;
   public readonly id = crypto.randomUUID();
   public readonly className = ["ammo"];
   public readonly size: {
@@ -28,7 +29,8 @@ export class Ammo {
   angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
 
   isTargetReached = false;
-  constructor(ammoRef: AmmoRef) {
+  constructor(ammoType: AmmoType, ammoRef: AmmoRef) {
+    this.type = ammoType;
     this.className = [...this.className, ...ammoRef.className];
     this.size = ammoRef.size;
 

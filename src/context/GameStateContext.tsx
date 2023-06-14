@@ -29,7 +29,7 @@ export interface StaticMapLight {
 }
 
 export interface StaticMapUnit {
-  type: keyof typeof unitTypes;
+  type?: keyof typeof unitTypes;
   position: GridCoordinates;
   inventory?: {
     backpack?: StaticMapWeapon[];

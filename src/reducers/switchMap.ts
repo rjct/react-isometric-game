@@ -91,7 +91,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   };
 
   newState.units = action.map.enemies.reduce((result, enemy) => {
-    const unit = new Unit({ unitType: enemy.type, position: enemy.position });
+    const unit = new Unit({ unitType: enemy.type!, position: enemy.position });
 
     createUnitInventory(enemy.inventory, unit, newState);
 

@@ -8,6 +8,6 @@ export class FirearmAmmo extends Ammo {
   constructor(ammoType: FirearmAmmoType) {
     const ref = ammo.FirearmAmmo[ammoType];
 
-    super(ref);
+    super(ammoType, ref);
   }
 }
