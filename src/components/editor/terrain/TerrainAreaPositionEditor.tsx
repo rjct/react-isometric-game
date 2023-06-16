@@ -1,6 +1,6 @@
 import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
-import { PositionEntityEditor } from "../PositionEntityEditor";
+import { PositionEntityEditor } from "../_shared/PositionEntityEditor";
 
 export function TerrainAreaPositionEditor() {
   const { gameState, gameDispatch } = useGameState();

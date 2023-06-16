@@ -1,13 +1,13 @@
 import { useGameState } from "../../../hooks/useGameState";
 import { TerrainAreaTypeSelector } from "./TerrainAreaTypeSelector";
-import { TableRow } from "../TableRow";
+import { TableRow } from "../_shared/TableRow";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import React from "react";
 import { TerrainAreaSourcePositionEditor } from "./TerrainAreaSourcePositionEditor";
 import { TerrainAreaPositionEditor } from "./TerrainAreaPositionEditor";
 import { TerrainAreaExitUrlEditor } from "./TerrainAreaExitUrlEditor";
-import { NothingSelectedText } from "../NothingSelectedText";
+import { NothingSelectedText } from "../_shared/NothingSelectedText";
 
 export function TerrainAreaPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

@@ -107,6 +107,10 @@ export const LightEditor = React.memo(function LightEditor() {
             key={light.id}
             data-selected={light.id === gameState.selectedLight?.id}
             data-dragging={light.id === workingEntity.entity?.id}
+            onDragStart={(e) => {
+              e.preventDefault();
+              e.stopPropagation();
+            }}
             onMouseDown={(e: React.MouseEvent) => handleEntityMouseDown(e, light)}
           ></div>
         );

@@ -2,18 +2,18 @@ import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { PositionEntityEditor } from "../_shared/PositionEntityEditor";
 
-export function BuildingPositionEditor() {
+export function LightPositionEditor() {
   const { gameState, gameDispatch } = useGameState();
 
   const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
 
   React.useEffect(() => {
-    if (gameState.selectedBuilding) {
-      setCoordinates(gameState.selectedBuilding.position);
+    if (gameState.selectedLight) {
+      setCoordinates(gameState.selectedLight.position);
     } else {
       setCoordinates({ x: 0, y: 0 });
     }
-  }, [JSON.stringify(gameState.selectedBuilding)]);
+  }, [JSON.stringify(gameState.selectedLight)]);
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>
@@ -21,13 +21,13 @@ export function BuildingPositionEditor() {
         value={coordinates.x}
         label={"x"}
         min={0}
-        max={gameState.mapSize.width - gameState.selectedBuilding.size.grid.width}
-        disabled={!gameState.selectedBuilding}
+        max={gameState.mapSize.width - 1}
+        disabled={!gameState.selectedLight}
         onChange={(value) => {
           gameDispatch({
-            type: "setBuildingPosition",
-            entityId: gameState.selectedBuilding.id,
-            coordinates: { x: value, y: gameState.selectedBuilding.position.y },
+            type: "setLightPosition",
+            entityId: gameState.selectedLight.id,
+            coordinates: { x: value, y: gameState.selectedLight.position.y },
           });
         }}
       />
@@ -36,13 +36,13 @@ export function BuildingPositionEditor() {
         value={coordinates.y}
         label={"y"}
         min={0}
-        max={gameState.mapSize.height - gameState.selectedBuilding.size.grid.height}
-        disabled={!gameState.selectedBuilding}
+        max={gameState.mapSize.height - 1}
+        disabled={!gameState.selectedLight}
         onChange={(value) => {
           gameDispatch({
-            type: "setBuildingPosition",
-            entityId: gameState.selectedBuilding.id,
-            coordinates: { x: gameState.selectedBuilding.position.x, y: value },
+            type: "setLightPosition",
+            entityId: gameState.selectedLight.id,
+            coordinates: { x: gameState.selectedLight.position.x, y: value },
           });
         }}
       />

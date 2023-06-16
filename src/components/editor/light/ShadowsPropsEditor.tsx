@@ -1,5 +1,5 @@
 import { useGameState } from "../../../hooks/useGameState";
-import { TableRow } from "../TableRow";
+import { TableRow } from "../_shared/TableRow";
 import React from "react";
 import { InputColor } from "../_shared/InputColor";
 import { InputRange } from "../_shared/InputRange";

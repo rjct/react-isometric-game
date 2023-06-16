@@ -1,10 +1,10 @@
 import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { BuildingDirectionSelector } from "./BuildingDirectionSelector";
-import { TableRow } from "../TableRow";
+import { TableRow } from "../_shared/TableRow";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NothingSelectedText } from "../NothingSelectedText";
+import { NothingSelectedText } from "../_shared/NothingSelectedText";
 import { BuildingPositionEditor } from "./BuildingPositionEditor";
 import { InputRange } from "../_shared/InputRange";
 
