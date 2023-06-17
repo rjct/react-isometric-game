@@ -1,3 +1,7 @@
+export type GameFeatureSections = keyof typeof constants.featureEnabled;
+export type GameSettingsFeature = keyof typeof constants.featureEnabled.settings;
+export type GameDebugFeature = keyof typeof constants.featureEnabled.debug;
+
 const tileSize = {
   width: 72,
   height: 36,
@@ -28,5 +32,22 @@ export const constants = {
   editor: {
     propsEditor: { width: 300 },
     entitiesLibrary: { height: 200 },
+  },
+
+  featureEnabled: {
+    settings: {
+      fogOfWar: true,
+      light: true,
+      shadow: true,
+      unitShadow: true,
+    },
+
+    debug: {
+      wireframe: true,
+      occupiedCells: false,
+      unitPath: false,
+      enemyDetectionRange: false,
+      unitShadowVectors: false,
+    },
   },
 };

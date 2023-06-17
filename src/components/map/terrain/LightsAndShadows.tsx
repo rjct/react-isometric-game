@@ -12,7 +12,7 @@ export const LightsAndShadows = React.memo(() => {
   const { clearCanvas } = useCanvas();
 
   const callAllUnitsShadows = () => {
-    if (gameState.debug.featureEnabled.unitShadow) {
+    if (gameState.settings.featureEnabled.unitShadow) {
       gameState.getAllAliveUnitsArray().forEach((unit) => {
         unit.calcShadows(gameState);
       });
@@ -20,10 +20,10 @@ export const LightsAndShadows = React.memo(() => {
   };
 
   const renderLightsAndShadows = (ctx: CanvasRenderingContext2D) => {
-    if (gameState.debug.featureEnabled.light || gameState.debug.featureEnabled.shadow) {
+    if (gameState.settings.featureEnabled.light || gameState.settings.featureEnabled.shadow) {
       ctx.globalCompositeOperation = "source-over";
 
-      if (gameState.debug.featureEnabled.shadow) {
+      if (gameState.settings.featureEnabled.shadow) {
         ctx.globalAlpha = gameState.shadows.opacity;
         ctx.fillStyle = gameState.shadows.color;
         ctx.fillRect(
@@ -36,7 +36,7 @@ export const LightsAndShadows = React.memo(() => {
 
       ctx.lineWidth = 0;
 
-      if (gameState.debug.featureEnabled.light && gameState.debug.featureEnabled.shadow) {
+      if (gameState.settings.featureEnabled.light && gameState.settings.featureEnabled.shadow) {
         gameState.lights.forEach((light) => {
           light.rays.forEach((ray) => {
             ray.pathEnd(ctx);
@@ -44,7 +44,7 @@ export const LightsAndShadows = React.memo(() => {
         });
       }
 
-      if (gameState.debug.featureEnabled.shadow) {
+      if (gameState.settings.featureEnabled.shadow) {
         ctx.globalCompositeOperation = "destination-out";
 
         gameState.lights.forEach((light) => {
@@ -54,7 +54,7 @@ export const LightsAndShadows = React.memo(() => {
         });
       }
 
-      if (gameState.debug.featureEnabled.light) {
+      if (gameState.settings.featureEnabled.light) {
         ctx.globalCompositeOperation = "xor"; //"source-atop";
 
         gameState.lights.forEach((light) => {
@@ -79,9 +79,9 @@ export const LightsAndShadows = React.memo(() => {
     gameState.mapSize,
     uiState.scene === "editor" ? gameState.getLightsHash() : false,
     gameState.shadows,
-    gameState.debug.featureEnabled.light,
-    gameState.debug.featureEnabled.shadow,
-    gameState.debug.featureEnabled.unitShadow,
+    gameState.settings.featureEnabled.light,
+    gameState.settings.featureEnabled.shadow,
+    gameState.settings.featureEnabled.unitShadow,
     uiState.scene,
     uiState.editorMode,
   ]);

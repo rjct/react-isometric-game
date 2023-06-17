@@ -13,9 +13,9 @@ export function FogOfWar() {
     if (uiState.scene === "editor") return;
 
     renderFogOfWar();
-  }, [gameState.getFogOfWarMatrixHash(), uiState.scene, gameState.debug.featureEnabled.fogOfWar]);
+  }, [gameState.getFogOfWarMatrixHash(), uiState.scene, gameState.settings.featureEnabled.fogOfWar]);
 
-  return uiState.scene === "editor" || !gameState.debug.featureEnabled.fogOfWar ? null : (
+  return uiState.scene === "editor" || !gameState.settings.featureEnabled.fogOfWar ? null : (
     <Canvas size={gameState.mapSize} className={"fow"} ref={canvasRef} />
   );
 }

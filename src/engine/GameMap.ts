@@ -1,6 +1,6 @@
 import { Building } from "./BuildingFactory";
 import { Unit, UnitTypes } from "./UnitFactory";
-import { constants } from "../constants";
+import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "../constants";
 import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
@@ -12,6 +12,7 @@ import { Firearm } from "./weapon/firearm/FirearmFactory";
 import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
 import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
 import { MeleePunch } from "./weapon/melee/meleePunchFactory";
+import { getUrlParamValue } from "../hooks/useUrl";
 
 interface GameMapProps {
   mapSize: Size;
@@ -24,19 +25,36 @@ interface GameMapProps {
 
 export type GameMap = typeof gameMap;
 
+const isFeatureEnabled = (sectionName: GameFeatureSections, featureName: GameSettingsFeature | GameDebugFeature) => {
+  const urlValue = getUrlParamValue(featureName);
+
+  if (urlValue === null) {
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    return constants.featureEnabled[sectionName][featureName];
+  }
+
+  return urlValue;
+};
+
 export const gameMap = {
+  settings: {
+    featureEnabled: {
+      fogOfWar: isFeatureEnabled("settings", "fogOfWar"),
+      light: isFeatureEnabled("settings", "light"),
+      shadow: isFeatureEnabled("settings", "shadow"),
+      unitShadow: isFeatureEnabled("settings", "unitShadow"),
+    },
+  },
+
   debug: {
     enabled: false,
     featureEnabled: {
-      fogOfWar: true,
-      wireframe: true,
-      occupiedCells: false,
-      unitPath: false,
-      enemyDetectionRange: false,
-      light: true,
-      shadow: true,
-      unitShadow: true,
-      unitShadowVectors: false,
+      wireframe: isFeatureEnabled("debug", "wireframe"),
+      occupiedCells: isFeatureEnabled("debug", "occupiedCells"),
+      unitPath: isFeatureEnabled("debug", "unitPath"),
+      enemyDetectionRange: isFeatureEnabled("debug", "enemyDetectionRange"),
+      unitShadowVectors: isFeatureEnabled("debug", "unitShadowVectors"),
     },
   },
 

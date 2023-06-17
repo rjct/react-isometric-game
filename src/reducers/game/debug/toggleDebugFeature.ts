@@ -1,8 +1,9 @@
 import { GameMap } from "../../../engine/GameMap";
+import { GameDebugFeature } from "../../../constants";
 
 export type ToggleDebugFeatureReducerAction = {
   type: "toggleDebugFeature";
-  featureName: keyof GameMap["debug"]["featureEnabled"];
+  featureName: GameDebugFeature;
   featureEnabled: boolean;
 };
 

@@ -2,7 +2,7 @@ import React from "react";
 import { useGameState } from "../../hooks/useGameState";
 import { Switch } from "../ui/Switch";
 import { GameMap } from "../../engine/GameMap";
-import { constants } from "../../constants";
+import { constants, GameSettingsFeature } from "../../constants";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -17,6 +17,23 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
             : 0,
       }}
     >
+      {Object.entries(gameState.settings.featureEnabled).map(([key, value]) => {
+        return (
+          <Switch
+            key={key}
+            title={key}
+            checked={value}
+            onChange={(e) => {
+              gameDispatch({
+                type: "toggleFeature",
+                featureName: key as GameSettingsFeature,
+                featureEnabled: e.target.checked,
+              });
+            }}
+          />
+        );
+      })}
+      <hr />
       {Object.entries(gameState.debug.featureEnabled).map(([key, value]) => {
         return (
           <Switch

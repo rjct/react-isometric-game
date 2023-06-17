@@ -19,6 +19,7 @@ import { Loading } from "./Loading";
 import { EditorSidebar } from "./editor/EditorSidebar";
 import { EntitiesLibrary } from "./editor/EntitiesLibrary";
 import { DebugFeaturesSwitches } from "./debug/DebugFeaturesSwitches";
+import { useUrl } from "../hooks/useUrl";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -30,6 +31,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   const setScrollRef = React.useRef<MapForwardedRefs>({} as unknown as MapForwardedRefs);
 
   const { preloadAssets, loadingState } = usePreloadAssets();
+  const { updateUrlWithFeaturesEnabled } = useUrl();
 
   uiState.setScroll = setScrollRef.current.setScroll;
 
@@ -109,6 +111,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
       loadMap(gameState.mapUrl).then((map) => gameDispatch({ type: "switchMap", map, mediaFiles }));
     });
   }, [gameState.mapUrl]);
+
+  React.useEffect(() => {
+    updateUrlWithFeaturesEnabled(gameState);
+  }, [JSON.stringify(gameState.settings.featureEnabled), JSON.stringify(gameState.debug.featureEnabled)]);
 
   return (
     <div className="app-wrapper">
