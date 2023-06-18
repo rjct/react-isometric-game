@@ -125,27 +125,16 @@ export const gameMap = {
   },
 
   isEntityVisible(entity: Building | Unit) {
-    const radius = constants.FOG_OF_WAR_RADIUS;
     const { x, y } = entity.position;
     const { width, height } = entity.size.grid;
 
-    for (let y1 = Math.max(0, y - radius); y1 < Math.min(this.mapSize.height, y + radius); y1++) {
-      for (let x1 = Math.max(0, x - radius); x1 < x + radius; x1++) {
-        for (let y2 = y1; y2 < y1 + height + 1; y2++) {
-          for (let x2 = x1; x2 < x1 + width + 1; x2++) {
-            if (
-              this.fogOfWarMatrix[Math.min(this.mapSize.height - 1, Math.round(y2))][
-                Math.min(this.mapSize.width - 1, Math.round(x2))
-              ] > 0
-            ) {
-              return true;
-            }
-          }
-        }
-      }
-    }
+    const x1 = Math.max(0, Math.min(this.mapSize.width - 1, x - 1));
+    const x2 = Math.min(this.mapSize.width - 1, x1 + width);
 
-    return false;
+    const y1 = Math.max(0, Math.min(this.mapSize.height - 1, y - 1));
+    const y2 = Math.min(this.mapSize.height - 1, y1 + height);
+
+    return this.isCellVisited(x1, y1) || this.isCellVisited(x2, y2);
   },
 
   setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {

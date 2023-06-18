@@ -1,6 +1,5 @@
 import { Building } from "../../../engine/BuildingFactory";
 import React from "react";
-import { getEntityZIndex } from "../../../engine/helpers";
 import { useGameState } from "../../../hooks/useGameState";
 import { useHero } from "../../../hooks/useHero";
 
@@ -11,17 +10,12 @@ export const BuildingComponent = React.memo(function Building(props: {
   onMouseDown?: (e: React.MouseEvent, entity: Building) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
 }) {
-  const { gameState, uiState } = useGameState();
+  const { gameState } = useGameState();
 
-  const [viewport, setViewport] = React.useState(uiState.viewport);
-  const position = gameState.gridToScreenSpace(props.building.position);
+  const position = React.useMemo(() => gameState.gridToScreenSpace(props.building.position), [props.building.position]);
   const { getHeroMaskImage } = useHero();
 
-  React.useEffect(() => {
-    setViewport(uiState.viewport);
-  }, [uiState.viewport]);
-
-  return gameState.isEntityInViewport(props.building, viewport) ? (
+  return (
     <div
       draggable={false}
       className={props.building.className}
@@ -29,7 +23,7 @@ export const BuildingComponent = React.memo(function Building(props: {
       style={{
         left: position.x,
         top: position.y,
-        zIndex: getEntityZIndex(props.building),
+        zIndex: props.building.zIndex,
         WebkitMaskImage: getHeroMaskImage(props.building),
       }}
       data-direction={props.building.direction}
@@ -43,5 +37,5 @@ export const BuildingComponent = React.memo(function Building(props: {
       }}
       onMouseUp={props.onMouseUp}
     ></div>
-  ) : null;
+  );
 });
