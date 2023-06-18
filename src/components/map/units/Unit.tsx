@@ -36,7 +36,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: { unit: Un
     setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
   }, [
     uiState.scene === "editor" ? gameState.getLightsHash() : false,
-    gameState.getAllAliveUnitsHash(),
+    props.unit.getHash(),
     gameState.settings.featureEnabled.unitShadow,
   ]);
 
