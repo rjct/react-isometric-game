@@ -72,7 +72,7 @@ export class Unit extends GameObjectFactory {
     angle: number;
   }> = [];
 
-  public atGunpoint: boolean = false;
+  public atGunpoint = false;
 
   constructor(props: {
     unitType: keyof typeof unitTypes;
