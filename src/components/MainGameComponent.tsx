@@ -45,6 +45,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
     uiDispatch({ type: "processKeyPress", gameState });
 
+    const heroWeapon = gameState.units[gameState.heroId]?.getCurrentWeapon();
+
     switch (uiState.scene) {
       case "game":
         // User Input
@@ -64,6 +66,13 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         });
 
         gameState.getAliveEnemiesArray().forEach((unit) => {
+          unit.setAtGunpoint(
+            !!heroWeapon &&
+              heroWeapon.isReadyToUse() &&
+              heroWeapon.getAimCoordinates()?.x === unit.getRoundedPosition().x &&
+              heroWeapon.getAimCoordinates()?.y === unit.getRoundedPosition().y
+          );
+
           const randomActions = ["roam", "idle"];
           const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 

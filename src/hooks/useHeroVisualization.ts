@@ -35,6 +35,7 @@ export function useHeroVisualization(props: { canvasRef: React.RefObject<HTMLCan
 
             if (!weapon.isReadyToUse()) {
               color = "red";
+              weapon.stopAiming();
             }
           }
           break;

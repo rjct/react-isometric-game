@@ -72,6 +72,8 @@ export class Unit extends GameObjectFactory {
     angle: number;
   }> = [];
 
+  public atGunpoint: boolean = false;
+
   constructor(props: {
     unitType: keyof typeof unitTypes;
     position: GridCoordinates;
@@ -285,6 +287,10 @@ export class Unit extends GameObjectFactory {
 
   public clearShadows() {
     this.shadows = [];
+  }
+
+  public setAtGunpoint(state: boolean) {
+    this.atGunpoint = state;
   }
 
   public getJSON(omitUnitType = false) {

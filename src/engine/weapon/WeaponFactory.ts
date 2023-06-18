@@ -85,6 +85,10 @@ export class Weapon {
     return !!this.targetPosition;
   }
 
+  getAimCoordinates() {
+    return this.targetPosition;
+  }
+
   getDistanceToTarget() {
     if (this.targetPosition && this.unit) {
       return floor(getDistanceBetweenGridPoints(this.unit.position, this.targetPosition));

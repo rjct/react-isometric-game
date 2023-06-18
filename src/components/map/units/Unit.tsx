@@ -74,6 +74,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: { unit: Un
         data-direction={props.unit.direction}
         data-action={props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
+        data-at-gunpoint={!props.unit.isDead && props.unit.atGunpoint}
         className={props.unit.className}
         style={{
           transform: `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
