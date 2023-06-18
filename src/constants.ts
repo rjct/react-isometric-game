@@ -19,7 +19,8 @@ export const constants = {
   SCROLL_SPEED: 300,
   SCROLL_EDGE_WIDTH: 50,
   OFFSCREEN_TILE_CACHE: 4,
-  FOG_OF_WAR_RADIUS: 5,
+  FOG_OF_WAR_RADIUS: 10,
+  FOG_OF_WAR_OPACITY: 0.85,
   LIGHT_RENDER_PASSES: 2,
   miniMap: {
     width: 400,
