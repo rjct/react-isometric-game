@@ -11,7 +11,6 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
   const { getWorldMousePosition } = useMousePosition();
 
   const [workingEntity, setWorkingEntity] = React.useState({
-    mode: null as unknown as "move",
     initialMousePosition: null as unknown as GridCoordinates,
     initialEntityPosition: null as unknown as GridCoordinates,
     entity: null as unknown as Building,
@@ -21,37 +20,31 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
   const mapHeight = gameState.mapSize.height;
 
   const handleMouseMove = (e: React.MouseEvent) => {
-    if (!workingEntity.mode) return;
+    if (!workingEntity.entity) return;
 
     const mousePosition = getWorldMousePosition(e);
 
     const diffX = workingEntity.initialMousePosition.x - mousePosition.grid.x;
     const diffY = workingEntity.initialMousePosition.y - mousePosition.grid.y;
 
-    switch (workingEntity.mode) {
-      case "move":
-        gameDispatch({
-          type: "setBuildingPosition",
-          entityId: workingEntity.entity.id,
-          coordinates: {
-            x: Math.min(
-              gameState.mapSize.width - workingEntity.entity.size.grid.width,
-              Math.max(0, workingEntity.initialEntityPosition.x - diffX)
-            ),
-            y: Math.min(
-              gameState.mapSize.height - workingEntity.entity.size.grid.width,
-              Math.max(0, workingEntity.initialEntityPosition.y - diffY)
-            ),
-          },
-        });
-
-        break;
-    }
+    gameDispatch({
+      type: "setBuildingPosition",
+      entityId: workingEntity.entity.id,
+      coordinates: {
+        x: Math.min(
+          gameState.mapSize.width - workingEntity.entity.size.grid.width,
+          Math.max(0, workingEntity.initialEntityPosition.x - diffX)
+        ),
+        y: Math.min(
+          gameState.mapSize.height - workingEntity.entity.size.grid.width,
+          Math.max(0, workingEntity.initialEntityPosition.y - diffY)
+        ),
+      },
+    });
   };
 
   const handleMouseUp = () => {
     setWorkingEntity({
-      mode: null as unknown as "move",
       initialMousePosition: null as unknown as GridCoordinates,
       initialEntityPosition: null as unknown as GridCoordinates,
       entity: null as unknown as Building,
@@ -64,7 +57,6 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
     const mousePosition = getWorldMousePosition(e);
 
     setWorkingEntity({
-      mode: "move",
       initialMousePosition: { ...mousePosition.grid },
       initialEntityPosition: { ...entity.position },
       entity,
@@ -82,7 +74,6 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
       }}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
-      data-editing-mode={workingEntity.mode}
     >
       {gameState.buildings.map((building) => {
         return (

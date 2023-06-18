@@ -36,6 +36,10 @@ export const BuildingComponent = React.memo(function Building(props: {
         }
       }}
       onMouseUp={props.onMouseUp}
+      onDragStart={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
     ></div>
   );
 });
