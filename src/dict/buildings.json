@@ -1,5 +1,6 @@
 {
   "buick": {
+    "class": "vehicle",
     "type": "buick",
     "className": "buick",
     "size": {
@@ -10,6 +11,7 @@
     "variants": 8
   },
   "vault_wall": {
+    "class": "wall",
     "type": "vault_wall",
     "className": "vault-wall",
     "size": {
@@ -20,6 +22,7 @@
     "variants": 7
   },
   "vault_bed": {
+    "class": "furniture",
     "type": "vault_bed",
     "className": "vault-bed",
     "size": {
@@ -30,6 +33,7 @@
     "variants": 2
   },
   "vault_chair": {
+    "class": "furniture",
     "type": "vault_chair",
     "className": "vault-chair",
     "size": {
@@ -40,6 +44,7 @@
     "variants": 2
   },
   "vault_computer_1": {
+    "class": "furniture",
     "type": "vault_computer_1",
     "className": "vault-computer-1",
     "size": {
@@ -50,6 +55,7 @@
     "variants": 1
   },
   "vault_computer_2": {
+    "class": "furniture",
     "type": "vault_computer_2",
     "className": "vault-computer-2",
     "size": {
@@ -60,6 +66,7 @@
     "variants": 5
   },
   "vault_table": {
+    "class": "furniture",
     "type": "vault_table",
     "className": "vault-table",
     "size": {

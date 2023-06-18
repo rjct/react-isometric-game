@@ -3,6 +3,7 @@ import { constants } from "../../constants";
 import { rotateRect } from "../../engine/helpers";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
+import { BuildingClass } from "../../engine/BuildingFactory";
 
 export const MiniMap = React.memo(function MiniMap() {
   const { gameState } = useGameState();
@@ -69,9 +70,17 @@ export const MiniMap = React.memo(function MiniMap() {
       });
 
     // buildings
-    ctx.fillStyle = "green";
+    const buildingColors: { [key: string]: string } = {
+      wall: "mediumseagreen",
+      vehicle: "green",
+    };
+
     gameState.buildings
-      .filter((building) => gameState.isEntityVisible(building))
+      .filter(
+        (building) =>
+          (["wall", "vehicle"] as BuildingClass[]).includes(building.class) &&
+          (!gameState.settings.featureEnabled.fogOfWar || gameState.isEntityVisible(building))
+      )
       .forEach((building) => {
         const { position, size } = building;
 
@@ -80,6 +89,9 @@ export const MiniMap = React.memo(function MiniMap() {
           x: size.grid.width,
           y: size.grid.height,
         });
+
+        const buildingClass = building.class as string;
+        ctx.fillStyle = buildingColors[buildingClass];
 
         ctx.fillRect(coordinates.x, coordinates.y, dimensions.x, dimensions.y);
       });
@@ -99,8 +111,11 @@ export const MiniMap = React.memo(function MiniMap() {
 
   React.useEffect(() => {
     renderMiniMap();
+  }, [gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash(), gameState.settings.featureEnabled.fogOfWar]);
+
+  React.useEffect(() => {
     centerMap();
-  }, [gameState.getFogOfWarMatrixHash(), gameState.getAllAliveUnitsHash()]);
+  }, [hero.getHash()]);
 
   return (
     <div

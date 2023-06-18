@@ -9,7 +9,10 @@ type BuildingSize = {
 
 export type BuildingType = keyof typeof buildings;
 
+export type BuildingClass = "wall" | "vehicle" | "furniture";
+
 export interface DictBuilding {
+  class: BuildingClass;
   type: keyof typeof buildings;
   className: string;
   size: BuildingSize;
@@ -22,6 +25,7 @@ export type DictBuildings = {
 };
 
 export class Building extends GameObjectFactory {
+  public readonly class;
   public readonly type;
 
   public readonly className;
@@ -39,6 +43,7 @@ export class Building extends GameObjectFactory {
 
     this.ref = ref;
 
+    this.class = ref.class;
     this.type = props.buildingType;
     this.className = ["building", this.ref.className].join(" ");
     this.zIndex = getEntityZIndex(this);
