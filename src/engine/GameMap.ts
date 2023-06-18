@@ -6,13 +6,13 @@ import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
 import { pathFinder } from "./pathFinder";
 import { Light } from "./LightFactory";
-import { floor } from "./helpers";
 import { MeleeWeapon } from "./weapon/melee/MeleeWeaponFactory";
 import { Firearm } from "./weapon/firearm/FirearmFactory";
 import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
 import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
 import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 import { getUrlParamValue } from "../hooks/useUrl";
+import { floor } from "./helpers";
 
 interface GameMapProps {
   mapSize: Size;
@@ -108,8 +108,8 @@ export const gameMap = {
 
     for (let i = coordinates.x - radius; i <= coordinates.x + radius; i++) {
       for (let n = coordinates.y - radius; n <= coordinates.y + radius; n++) {
-        const x = Math.max(0, Math.round(n));
-        const y = Math.max(0, Math.round(i));
+        const x = Math.max(0, Math.floor(n));
+        const y = Math.max(0, Math.floor(i));
 
         if ((i - coordinates.x) * (i - coordinates.x) + (n - coordinates.y) * (n - coordinates.y) <= radius * radius) {
           if (x < this.mapSize.width && y < this.mapSize.height) {
@@ -128,13 +128,16 @@ export const gameMap = {
     const { x, y } = entity.position;
     const { width, height } = entity.size.grid;
 
-    const x1 = Math.max(0, Math.min(this.mapSize.width - 1, x - 1));
-    const x2 = Math.min(this.mapSize.width - 1, x1 + width);
+    const x1 = x;
+    const x2 = x1 + width;
 
-    const y1 = Math.max(0, Math.min(this.mapSize.height - 1, y - 1));
-    const y2 = Math.min(this.mapSize.height - 1, y1 + height);
+    const y1 = y;
+    const y2 = y1 + height;
 
-    return this.isCellVisited(x1, y1) || this.isCellVisited(x2, y2);
+    return (
+      this.isCellVisited(x1, y1) ||
+      this.isCellVisited(Math.min(this.mapSize.width - 1, x2), Math.min(this.mapSize.height - 1, y2))
+    );
   },
 
   setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {

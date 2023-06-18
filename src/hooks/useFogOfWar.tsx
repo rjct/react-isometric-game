@@ -28,28 +28,29 @@ export function useFogOfWar(props: { canvasRef: React.RefObject<HTMLCanvasElemen
       const ctx = props.canvasRef.current.getContext("2d");
       if (!ctx) return;
 
-      const hideFill = "rgba( 0, 0, 0, .85 )";
-      const r2 = wireframeTileWidth * constants.FOG_OF_WAR_RADIUS + wireframeTileWidth * 2;
+      clearFogOfWar();
+
+      const hideFill = `rgba( 0, 0, 0, ${constants.FOG_OF_WAR_OPACITY})`;
+      const r2 = wireframeTileWidth * 1.3;
       const r1 = r2 / 3;
 
       ctx.globalCompositeOperation = "source-over";
-      clearFogOfWar();
       ctx.fillStyle = hideFill;
       ctx.fillRect(0, 0, mapWidth * wireframeTileWidth, mapHeight * wireframeTileHeight);
 
+      ctx.globalCompositeOperation = "destination-out";
+
       for (let y = 0; y < gameState.fogOfWarMatrix.length; y++) {
         for (let x = 0; x < gameState.fogOfWarMatrix[y].length; x++) {
-          const x2 = x * tileWidth + tileWidth;
-          const y2 = y * tileHeight + tileHeight;
-
           if (gameState.isCellVisited(x, y)) {
+            const x2 = x * tileWidth + tileWidth / 2;
+            const y2 = y * tileHeight + tileHeight / 2;
+
             const radGrd = ctx.createRadialGradient(x2, y2, r1, x2, y2, r2);
             radGrd.addColorStop(0, "rgba( 0, 0, 0,  1 )");
             radGrd.addColorStop(0.8, "rgba( 0, 0, 0, .1 )");
             radGrd.addColorStop(1, "rgba( 0, 0, 0,  0 )");
 
-            ctx.globalCompositeOperation = "destination-out";
-            ctx.fillStyle = "#ffffff";
             ctx.fillStyle = radGrd;
 
             ctx.fillRect(x2 - r2, y2 - r2, r2 * 2, r2 * 2);
