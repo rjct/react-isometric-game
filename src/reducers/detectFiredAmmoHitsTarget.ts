@@ -16,6 +16,10 @@ export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmm
 
     if (unitAtTargetPosition) {
       unitAtTargetPosition.takeDamage(singleAmmo.damage);
+
+      if (unitAtTargetPosition.isDead) {
+        state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());
+      }
     }
   });
 

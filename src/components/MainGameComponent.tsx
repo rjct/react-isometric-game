@@ -66,6 +66,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         });
 
         gameState.getAliveEnemiesArray().forEach((unit) => {
+          // Mark enemy unit at gunpoint
           unit.setAtGunpoint(
             !!heroWeapon &&
               heroWeapon.isReadyToUse() &&
@@ -73,6 +74,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               heroWeapon.getAimCoordinates()?.y === unit.getRoundedPosition().y
           );
 
+          // Enemy unit perform random actions
           const randomActions = ["roam", "idle"];
           const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 
