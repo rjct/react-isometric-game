@@ -11,9 +11,43 @@
 
   pointer-events: none;
 
+  .unit-shadow-fade {
+    pointer-events: none;
+    position: absolute;
+    left: 0;
+    top: -15px;
+
+    &.fadeIn {
+      opacity: 1;
+    }
+
+    &.fadeOut {
+      opacity: 0;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  }
+
   &.unit-shadow {
+    margin: 0;
     pointer-events: none !important;
-    transform-origin: center calc(100% - @unit-height / 7);
+    transform-origin: center bottom; //center calc(100% - @unit-height / 7);
     filter: contrast(0) sepia(100%) saturate(0) brightness(0) blur(7px);
   }
 

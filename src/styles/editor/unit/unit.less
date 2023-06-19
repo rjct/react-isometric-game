@@ -2,15 +2,15 @@
   .unit {
     transition: filter 0.1s linear;
 
-    &:hover {
+    &:hover > .char {
       filter: brightness(1.2);
     }
 
-    &[data-selected="true"] {
+    &[data-selected="true"] > .char {
       filter: brightness(1.2) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
     }
 
-    &[data-dragging="true"] {
+    &[data-dragging="true"] > .char {
       filter: brightness(1.2) drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81)
         drop-shadow(0px 0px 1px #19ff81);
     }

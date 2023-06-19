@@ -15,7 +15,7 @@ export const Fade = (props: { show: boolean; children: React.ReactNode }) => {
 
   return render ? (
     <div
-      className={["fade", props.show ? "fadeIn" : "fadeOut"].join(" ")}
+      className={["unit-shadow-fade", props.show ? "fadeIn" : "fadeOut"].join(" ")}
       style={{
         animation: `${props.show ? "fadeIn" : "fadeOut"} 0.25s`,
       }}
