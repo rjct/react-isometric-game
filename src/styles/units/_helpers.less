@@ -1,18 +1,18 @@
-.unit-rotation(@unit-height) {
+.unit-rotation(@unit-sprite-height) {
   &[data-direction="top"] .char {
-    background-position: 0 calc(@unit-height * 0);
+    background-position: 0 calc(@unit-sprite-height * 0);
   }
 
   &[data-direction="right"] .char {
-    background-position: 0 calc(@unit-height * -1);
+    background-position: 0 calc(@unit-sprite-height * -1);
   }
 
   &[data-direction="bottom"] .char {
-    background-position: 0 calc(@unit-height * -2);
+    background-position: 0 calc(@unit-sprite-height * -2);
   }
 
   &[data-direction="left"] .char {
-    background-position: 0 calc(@unit-height * -3);
+    background-position: 0 calc(@unit-sprite-height * -3);
   }
 }
 

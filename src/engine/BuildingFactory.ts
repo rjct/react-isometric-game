@@ -1,6 +1,5 @@
 import buildings from "../dict/buildings.json";
 import { GameObjectFactory } from "./GameObjectFactory";
-import { getEntityZIndex } from "./helpers";
 
 type BuildingSize = {
   grid: Size;
@@ -29,7 +28,6 @@ export class Building extends GameObjectFactory {
   public readonly type;
 
   public readonly className;
-  public zIndex: number;
   public readonly variants;
   variant = 0;
 
@@ -46,7 +44,6 @@ export class Building extends GameObjectFactory {
     this.class = ref.class;
     this.type = props.buildingType;
     this.className = ["building", this.ref.className].join(" ");
-    this.zIndex = getEntityZIndex(this);
 
     this.variants = this.ref.variants;
     this.variant = props.variant;
@@ -71,11 +68,6 @@ export class Building extends GameObjectFactory {
 
   public setVariant(variant: number) {
     this.variant = variant;
-  }
-
-  public setPosition(coordinates: GridCoordinates) {
-    this.position = coordinates;
-    this.zIndex = getEntityZIndex(this);
   }
 
   public getAvailableDirections() {

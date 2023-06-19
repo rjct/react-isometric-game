@@ -19,6 +19,7 @@ export function BuildingPropsEditor() {
           <table>
             <tbody>
               <TableRow label={"ID"}>{gameState.selectedBuilding?.id}</TableRow>
+              <TableRow label={"Class"}>{gameState.selectedBuilding?.class}</TableRow>
               <TableRow label={"Type"}>{gameState.selectedBuilding?.type}</TableRow>
               <TableRow label={"Position"}>
                 <BuildingPositionEditor />

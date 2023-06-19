@@ -9,7 +9,13 @@ import { UnitCooldownTimer } from "./UnitCooldownTimer";
 import { UnitHealth } from "./UnitHealth";
 import { UnitDamagePoints } from "./UnitDamagePoints";
 
-export const UnitComponent = React.memo(function UnitComponent(props: { unit: Unit }) {
+export const UnitComponent = React.memo(function UnitComponent(props: {
+  unit: Unit;
+  selected?: boolean;
+  dragging?: boolean;
+  onMouseDown?: (e: React.MouseEvent, entity: Unit) => void;
+  onMouseUp?: (e: React.MouseEvent) => void;
+}) {
   const { gameState, uiState } = useGameState();
 
   const [zIndex, setZIndex] = React.useState(0);
@@ -75,6 +81,18 @@ export const UnitComponent = React.memo(function UnitComponent(props: { unit: Un
         data-action={props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
         data-at-gunpoint={!props.unit.isDead && props.unit.atGunpoint}
+        data-selected={props.selected || null}
+        data-dragging={props.dragging || null}
+        onMouseDown={(e: React.MouseEvent) => {
+          if (props.onMouseDown) {
+            props.onMouseDown(e, props.unit);
+          }
+        }}
+        onMouseUp={props.onMouseUp}
+        onDragStart={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
         className={props.unit.className}
         style={{
           transform: `translate(${screenPosition.x}px, ${screenPosition.y}px)`,

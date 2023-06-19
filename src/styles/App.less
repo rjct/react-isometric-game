@@ -16,16 +16,20 @@ body {
 }
 
 fieldset {
-  border: solid 1px @tab-border-color;
+  border: none;
+  border-top: solid 1px @tab-border-color;
   margin: 0;
-  border-radius: @border-radius;
+  color: darken(@text-color, 20%);
 
   legend {
     padding: 0 @padding;
+    color: @text-color;
   }
 }
 
 .fade {
+  pointer-events: none;
+
   &.fadeIn {
     opacity: 1;
   }

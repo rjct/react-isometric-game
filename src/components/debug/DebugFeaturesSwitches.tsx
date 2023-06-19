@@ -12,7 +12,8 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
       className={"debug-features"}
       style={{
         bottom:
-          uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "building")
+          uiState.scene === "game" ||
+          (uiState.scene === "editor" && (uiState.editorMode === "building" || uiState.editorMode === "unit"))
             ? constants.editor.entitiesLibrary.height
             : 0,
       }}

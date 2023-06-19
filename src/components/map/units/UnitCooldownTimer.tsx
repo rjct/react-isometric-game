@@ -3,10 +3,9 @@ import { Unit } from "../../../engine/UnitFactory";
 import { useGameState } from "../../../hooks/useGameState";
 
 export function UnitCooldownTimer(props: { unit: Unit }) {
-  const { gameState, uiState } = useGameState();
+  const { gameState } = useGameState();
 
-  if (!gameState.debug.enabled || uiState.scene !== "game" || props.unit.id === gameState.heroId || props.unit.isDead)
-    return null;
+  if (!gameState.debug.enabled || props.unit.id === gameState.heroId || props.unit.isDead) return null;
 
   return (
     <div

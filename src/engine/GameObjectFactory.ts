@@ -1,5 +1,6 @@
 import { constants } from "../constants";
 import { LightRay } from "./LightRayFactory";
+import { getEntityZIndex } from "./helpers";
 
 export type GameObjectWall = {
   x: number;
@@ -16,6 +17,7 @@ export class GameObjectFactory {
 
   public size = { grid: { width: 0, height: 0 }, screen: { width: 0, height: 0 } };
   public position = { x: 0, y: 0 };
+  public zIndex: number;
   public direction: Direction = "top";
 
   private readonly walls: GameObjectWall[] = [];
@@ -25,6 +27,7 @@ export class GameObjectFactory {
 
     this.size = props.size;
     this.position = props.position;
+    this.zIndex = getEntityZIndex(this);
     this.direction = props.direction;
 
     this.walls = [
@@ -53,6 +56,18 @@ export class GameObjectFactory {
         y2: 0,
       }),
     ];
+  }
+
+  setPosition(position: GridCoordinates) {
+    this.position = position;
+    this.zIndex = getEntityZIndex(this);
+  }
+
+  getRoundedPosition(): GridCoordinates {
+    return {
+      x: Math.round(this.position.x),
+      y: Math.round(this.position.y),
+    };
   }
 
   private createWall(area: AreaCoordinates): GameObjectWall {

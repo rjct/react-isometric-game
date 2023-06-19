@@ -99,7 +99,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   }, {});
 
   if (state.heroId === "") {
-    const hero = new Unit({ unitType: "hero", position: action.map.hero.position });
+    const hero = new Unit({ unitType: "vault13_male", position: action.map.hero.position });
 
     newState.heroId = hero.id;
     newState.units[hero.id] = hero;

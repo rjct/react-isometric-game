@@ -1,5 +1,5 @@
 import { getHumanReadableDirection, randomInt } from "./helpers";
-import unitTypes from "../dict/units.json";
+import units from "../dict/units.json";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
 import { Weapon, WeaponClass, WeaponUnitAction } from "./weapon/WeaponFactory";
@@ -9,7 +9,36 @@ import { StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
 import { Firearm } from "./weapon/firearm/FirearmFactory";
 import { AmmoClass } from "./weapon/AmmoFactory";
 
+export type UnitType = keyof typeof units;
+
 export type UnitTypes = { [unitId: string]: Unit };
+
+export interface DictUnit {
+  type: UnitType;
+  className: string;
+  speed: {
+    walk: number;
+    run: number;
+  };
+  coolDownTime: number;
+  size: {
+    grid: { width: number; height: number };
+    screen: { width: number; height: number };
+  };
+  healthPoints: {
+    current: number;
+    max: number;
+  };
+  enemyDetectionRange: number;
+  animationDuration: {
+    hit: number;
+    notAllowed: number;
+  };
+}
+
+export type DictUnits = {
+  [unitType in UnitType]: Unit;
+};
 
 export class Unit extends GameObjectFactory {
   public readonly type;
@@ -75,12 +104,12 @@ export class Unit extends GameObjectFactory {
   public atGunpoint = false;
 
   constructor(props: {
-    unitType: keyof typeof unitTypes;
+    unitType: UnitType;
     position: GridCoordinates;
     action?: Unit["action"];
     direction?: Unit["direction"];
   }) {
-    const ref = unitTypes[props.unitType];
+    const ref = units[props.unitType] as DictUnit;
 
     super({ size: ref.size, position: props.position, direction: props.direction || "left" });
 
@@ -98,17 +127,6 @@ export class Unit extends GameObjectFactory {
     this.isDead = false;
 
     this.pathQueue = new UnitPathQueue();
-  }
-
-  setPosition(position: Unit["position"]) {
-    this.position = position;
-  }
-
-  getRoundedPosition() {
-    return {
-      x: Math.round(this.position.x),
-      y: Math.round(this.position.y),
-    };
   }
 
   public setPath(path: number[][]) {

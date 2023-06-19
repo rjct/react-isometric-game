@@ -6,22 +6,24 @@
   width: @unit-width;
   height: @unit-height;
 
-  margin-left: (@unit-width / -2 + 38px);
-  margin-top: (@unit-height / -2 - 13px);
+  margin-left: 17px;
+  margin-top: -57px;
 
   pointer-events: none;
 
   &.unit-shadow {
-    transform-origin: center 68%;
+    pointer-events: none !important;
+    transform-origin: center calc(100% - @unit-height / 7);
     filter: contrast(0) sepia(100%) saturate(0) brightness(0) blur(7px);
   }
 
   .char {
+    pointer-events: none;
     position: absolute;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
+    left: calc(50% - @unit-sprite-width / 2);
+    top: calc(50% - @unit-sprite-height / 2);
+    width: @unit-sprite-width;
+    height: @unit-sprite-height;
     background-repeat: no-repeat;
     z-index: 2;
 
@@ -30,11 +32,11 @@
 
   .health {
     position: absolute;
-    top: 50px;
+    top: 0;
+    left: 0;
     background-color: rgba(255, 0, 0, 0.5);
-    width: 50px;
+    width: 100%;
     height: 5px;
-    left: calc(50% - 25px);
     border-radius: 5px;
     overflow: hidden;
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
@@ -48,8 +50,8 @@
 
   .cooldown {
     position: absolute;
-    top: 46.5px;
-    left: calc(50% - 40px);
+    top: -3.5px;
+    left: -15px;
 
     width: 10px;
     height: 10px;
@@ -62,7 +64,7 @@
     position: absolute;
     width: 50px;
     left: calc(50% - 25px);
-    top: 30%;
+    top: 0%;
     color: #ffffff;
     filter: drop-shadow(0px 4px 6px black);
     background: rgba(255, 0, 0, 0.5);
@@ -74,9 +76,9 @@
     opacity: 1;
   }
 
-  .unit-rotation(@unit-height);
+  .unit-rotation(@unit-sprite-height);
 
-  .createUnit(hero);
+  .createUnit(vault13-male);
   .createUnit(ghoul);
 
   .sharedUnitActions();
@@ -89,7 +91,7 @@
 
   &[data-action="hit"] {
     .damage-points {
-      top: 0;
+      top: -20%;
       opacity: 0;
     }
   }

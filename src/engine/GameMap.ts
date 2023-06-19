@@ -82,6 +82,7 @@ export const gameMap = {
   mediaFiles: {} as MediaFiles,
 
   selectedBuilding: null as unknown as Building,
+  selectedUnit: null as unknown as Unit,
   selectedTerrainArea: null as unknown as TerrainArea,
   selectedLight: null as unknown as Light,
 
@@ -142,7 +143,7 @@ export const gameMap = {
 
   setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
     items.forEach((item) => {
-      const { x, y } = item.position;
+      const { x, y } = item.getRoundedPosition();
       const { width, height } = item.size.grid;
 
       for (let xx = x; xx < x + width; xx++) {
@@ -300,6 +301,30 @@ export const gameMap = {
 
     this.deleteBuilding(this.selectedBuilding.id);
     this.selectedBuilding = null as unknown as Building;
+
+    return true;
+  },
+
+  getUnitById(id: string) {
+    return this.units[id];
+  },
+
+  deleteUnit(id: string) {
+    const unit = this.getUnitById(id);
+
+    this.setGridMatrixOccupancy([unit], this.matrix, -1);
+    delete this.units[id];
+  },
+
+  deleteSelectedUnit() {
+    if (!this.selectedUnit) return false;
+
+    const confirmDelete = confirm(`Are you sure to delete unit #"${this.selectedUnit.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    this.deleteUnit(this.selectedUnit.id);
+    this.selectedUnit = null as unknown as Unit;
 
     return true;
   },

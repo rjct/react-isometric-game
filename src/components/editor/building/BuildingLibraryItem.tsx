@@ -9,6 +9,7 @@ export function BuildingLibraryItem(props: { item: DictBuilding }) {
   const [variant, setVariant] = React.useState(0);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
+    e.dataTransfer.setData("add/entity/type", "building");
     e.dataTransfer.setData("add/entity", JSON.stringify(props.item));
     e.dataTransfer.setData("add/entity/direction", direction);
     e.dataTransfer.setData("add/entity/variant", String(variant));

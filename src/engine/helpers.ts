@@ -1,7 +1,7 @@
 import { Unit } from "./UnitFactory";
-import { Building } from "./BuildingFactory";
 import { constants } from "../constants";
 import { StaticMap } from "../context/GameStateContext";
+import { GameObjectFactory } from "./GameObjectFactory";
 
 export const loadMap = async (mapUrl: string) => {
   const data = await fetch(`${constants.BASE_URL}/${mapUrl}`);
@@ -69,7 +69,7 @@ export function getHumanReadableDirection(angle: number): Unit["direction"] {
   }
 }
 
-export function getEntityZIndex(entity: Unit | Building) {
+export function getEntityZIndex(entity: GameObjectFactory) {
   const { position, size } = entity;
 
   const x = Math.ceil(position.x + size.grid.width);

@@ -1,0 +1,42 @@
+[data-editor-mode="unit"] {
+  .unit {
+    transition: filter 0.1s linear;
+
+    &:hover {
+      filter: brightness(1.2);
+    }
+
+    &[data-selected="true"] {
+      filter: brightness(1.2) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
+    }
+
+    &[data-dragging="true"] {
+      filter: brightness(1.2) drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81)
+        drop-shadow(0px 0px 1px #19ff81);
+    }
+  }
+}
+
+.unit-preview {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  height: @unit-height + @padding;
+
+  .unit {
+    margin: 0;
+
+    .char {
+      animation: unit-preview 3s steps(4) infinite;
+    }
+  }
+}
+
+@keyframes unit-preview {
+  from {
+    background-position: 0 0;
+  }
+  to {
+    background-position: 0 (@unit-sprite-height * -4);
+  }
+}

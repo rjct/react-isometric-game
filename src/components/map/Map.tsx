@@ -7,7 +7,7 @@ import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { FogOfWar } from "./terrain/FogOfWar";
 import { DebugVisualization } from "../debug/DebugVisualization";
-import { Building } from "../../engine/BuildingFactory";
+import { Building, DictBuilding } from "../../engine/BuildingFactory";
 import { WireframeTiles } from "./terrain/WireframeTiles";
 import { TerrainAreas } from "./terrain/TerrainAreas";
 import { TerrainEditor } from "../editor/terrain/TerrainEditor";
@@ -15,6 +15,8 @@ import { LightsAndShadows } from "./terrain/LightsAndShadows";
 import { BuildingEditor } from "../editor/building/BuildingEditor";
 import { LightEditor } from "../editor/light/LightEditor";
 import { floor } from "../../engine/helpers";
+import { UnitEditor } from "../editor/unit/UnitEditor";
+import { DictUnit } from "../../engine/UnitFactory";
 
 export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
@@ -31,6 +33,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
     gameDispatch({ type: "clearSelectedBuilding" });
     gameDispatch({ type: "clearSelectedTerrainArea" });
     gameDispatch({ type: "clearSelectedLight" });
+    gameDispatch({ type: "clearSelectedUnit" });
   };
 
   const handleScroll = () => {
@@ -67,17 +70,28 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
     )
       return;
 
+    const type = e.dataTransfer.getData("add/entity/type") as "building" | "unit";
     const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
-    const direction = e.dataTransfer.getData("add/entity/direction") as Building["direction"];
-    const variant = Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"];
 
-    gameDispatch({
-      type: "addBuilding",
-      entity,
-      position: { x: floor(grid.x), y: floor(grid.y) },
-      direction,
-      variant,
-    });
+    switch (type) {
+      case "building":
+        gameDispatch({
+          type: "addBuilding",
+          buildingType: (entity as DictBuilding).type,
+          position: { x: floor(grid.x), y: floor(grid.y) },
+          direction: e.dataTransfer.getData("add/entity/direction") as Building["direction"],
+          variant: Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"],
+        });
+        break;
+
+      case "unit":
+        gameDispatch({
+          type: "addUnit",
+          unitType: (entity as DictUnit).type,
+          position: { x: floor(grid.x), y: floor(grid.y) },
+        });
+        break;
+    }
   };
 
   //
@@ -152,7 +166,9 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
 
         <BuildingEditor />
         <TerrainEditor />
+        <UnitEditor />
         <LightEditor />
+
         <TerrainAreas />
 
         <Buildings />

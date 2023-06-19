@@ -48,6 +48,11 @@ import { setShadowsOpacity, SetShadowsOpacityReducerAction } from "./editor/ligh
 import { setShadowsColor, SetShadowsColorReducerAction } from "./editor/light/setShadowsColor";
 import { loadMap, LoadMapReducerAction } from "./loadMap";
 import { toggleFeature, ToggleFeatureReducerAction } from "./game/debug/toggleFeature";
+import { addUnit, AddUnitReducerAction } from "./editor/unit/addUnit";
+import { setSelectedUnit, SetSelectedUnitReducerAction } from "./editor/unit/setSelectedUnit";
+import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "./editor/unit/clearSelectedUnit";
+import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "./editor/unit/deleteSelectedUnit";
+import { setUnitPosition, SetUnitPositionReducerAction } from "./editor/unit/setUnitPosition";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -75,6 +80,12 @@ export type GameReducerAction =
   | DeleteSelectedBuildingReducerAction
   | SetBuildingVariantReducerAction
   | SetBuildingPositionReducerAction
+  //
+  | AddUnitReducerAction
+  | SetSelectedUnitReducerAction
+  | ClearSelectedUnitReducerAction
+  | DeleteSelectedUnitReducerAction
+  | SetUnitPositionReducerAction
   //
   | AddTerrainAreaReducerAction
   | SetSelectedTerrainAreaReducerAction
@@ -166,6 +177,22 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setBuildingPosition":
       return setBuildingPosition(state, action as SetBuildingPositionReducerAction);
+
+    // EDITOR: UNIT
+    case "addUnit":
+      return addUnit(state, action as AddUnitReducerAction);
+
+    case "setSelectedUnit":
+      return setSelectedUnit(state, action as SetSelectedUnitReducerAction);
+
+    case "clearSelectedUnit":
+      return clearSelectedUnit(state, action as ClearSelectedUnitReducerAction);
+
+    case "deleteSelectedUnit":
+      return deleteSelectedUnit(state, action as DeleteSelectedUnitReducerAction);
+
+    case "setUnitPosition":
+      return setUnitPosition(state, action as SetUnitPositionReducerAction);
 
     // EDITOR: TERRAIN
     case "addTerrainArea":

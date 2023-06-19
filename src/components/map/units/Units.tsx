@@ -5,9 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 export const Units = React.memo(function Units() {
   const { gameState, uiState } = useGameState();
 
-  return uiState.scene === "game" ||
-    (uiState.scene === "editor" && uiState.editorMode === "unit") ||
-    uiState.editorMode === "light" ? (
+  return uiState.scene === "game" || uiState.editorMode === "light" ? (
     <>
       {Object.keys(gameState.units).map((unitId) => (
         <UnitComponent key={unitId} unit={gameState.units[unitId]} />

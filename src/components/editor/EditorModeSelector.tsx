@@ -8,6 +8,7 @@ import { BuildingPropsEditor } from "./building/BuildingPropsEditor";
 import { LightAddNewButton } from "./light/LightAddNewButton";
 import { LightPropsEditor } from "./light/LightPropsEditor";
 import { ShadowsPropsEditor } from "./light/ShadowsPropsEditor";
+import { UnitPropsEditor } from "./unit/UnitPropsEditor";
 
 export function EditorModeSelector() {
   const { gameDispatch, uiState, uiDispatch } = useGameState();
@@ -69,7 +70,11 @@ export function EditorModeSelector() {
         </div>
       ) : null}
 
-      {uiState.editorMode === "unit" ? <div className={"ui-tab-content"}>todo</div> : null}
+      {uiState.editorMode === "unit" ? (
+        <div className={"ui-tab-content"}>
+          <UnitPropsEditor />
+        </div>
+      ) : null}
 
       {uiState.editorMode === "light" ? (
         <div className={"ui-tab-content"}>

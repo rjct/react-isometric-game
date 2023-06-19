@@ -1,9 +1,9 @@
 import { GameMap } from "../../../engine/GameMap";
-import { Building, DictBuilding } from "../../../engine/BuildingFactory";
+import { Building } from "../../../engine/BuildingFactory";
 
 export interface AddBuildingReducerAction {
   type: "addBuilding";
-  entity: DictBuilding;
+  buildingType: Building["type"];
   position: GridCoordinates;
   direction: Building["direction"];
   variant: Building["variant"];
@@ -11,7 +11,7 @@ export interface AddBuildingReducerAction {
 
 export function addBuilding(state: GameMap, action: AddBuildingReducerAction): GameMap {
   const building = new Building({
-    buildingType: action.entity.type,
+    buildingType: action.buildingType,
     position: action.position,
     direction: action.direction,
     variant: action.variant,
