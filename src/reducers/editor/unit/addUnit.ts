@@ -13,6 +13,8 @@ export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
     position: action.position,
   });
 
+  unit.setPosition(action.position, state.mapSize);
+
   state.units[unit.id] = unit;
 
   return {

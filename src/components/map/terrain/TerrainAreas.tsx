@@ -1,6 +1,7 @@
 import React from "react";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
+import { gridToScreenSpace } from "../../../engine/helpers";
 
 export const TerrainAreas = React.memo(function TerrainAreas() {
   const { gameState, uiState } = useGameState();
@@ -23,7 +24,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
       for (let x = terrainArea.target.x1; x < terrainArea.target.x2; x++) {
         for (let y = terrainArea.target.y1; y < terrainArea.target.y2; y++) {
           const position = { x, y };
-          const screenPosition = gameState.gridToScreenSpace(position);
+          const screenPosition = gridToScreenSpace(position, gameState.mapSize);
           const terrainTile = terrainArea.tiles.get(`${x}:${y}`);
 
           if (terrainTile) {
@@ -52,10 +53,10 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
         const width = x2 - x1;
         const height = y2 - y1;
 
-        const tl = gameState.gridToScreenSpace({ x: x1, y: y1 });
-        const tr = gameState.gridToScreenSpace({ x: x1 + width, y: y1 });
-        const br = gameState.gridToScreenSpace({ x: x2, y: y2 });
-        const bl = gameState.gridToScreenSpace({ x: x1, y: y1 + height });
+        const tl = gridToScreenSpace({ x: x1, y: y1 }, gameState.mapSize);
+        const tr = gridToScreenSpace({ x: x1 + width, y: y1 }, gameState.mapSize);
+        const br = gridToScreenSpace({ x: x2, y: y2 }, gameState.mapSize);
+        const bl = gridToScreenSpace({ x: x1, y: y1 + height }, gameState.mapSize);
 
         ctx.beginPath();
         ctx.moveTo(tl.x + tileWidth / 2, tl.y);

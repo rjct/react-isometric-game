@@ -3,6 +3,8 @@ import React from "react";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 import { Switch } from "../ui/Switch";
+import { DebugMapSwitcher } from "../debug/DebugMapSwitcher";
+import { DebugMapInfo } from "../debug/DebugMapInfo";
 
 export const Top = React.memo(function Top() {
   const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();
@@ -11,7 +13,7 @@ export const Top = React.memo(function Top() {
   return (
     <div className={"top-wrapper"}>
       <div className={"block top"}>
-        <div className={"value"}>
+        <div className={"title"}>
           <Switch
             title={"Debug"}
             checked={gameState.debug.enabled}
@@ -19,6 +21,12 @@ export const Top = React.memo(function Top() {
               gameDispatch({ type: "toggleDebug", debugEnabled: e.target.checked });
             }}
           />
+          {gameState.debug.enabled ? (
+            <>
+              <DebugMapSwitcher />
+              <DebugMapInfo />
+            </>
+          ) : null}
         </div>
 
         <div className={"value"}>

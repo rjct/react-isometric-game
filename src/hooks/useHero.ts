@@ -3,7 +3,6 @@ import { Unit } from "../engine/UnitFactory";
 
 import { WorldMousePosition } from "./useMousePosition";
 import { constants } from "../constants";
-import { getEntityZIndex } from "../engine/helpers";
 import { Building } from "../engine/BuildingFactory";
 
 export function useHero() {
@@ -57,8 +56,8 @@ export function useHero() {
     }
   };
 
-  const getHeroScreenPosition = () => {
-    const pos = gameState.gridToScreenSpace(hero.position);
+  const getHeroScreenPosition = (): ScreenCoordinates => {
+    const pos = hero.screenPosition;
 
     return {
       x: pos.x + constants.tileSize.width / 2,
@@ -67,12 +66,12 @@ export function useHero() {
   };
 
   const getHeroMaskImage = (entity: Building) => {
-    if (entity.type !== "vault_wall" || getEntityZIndex(hero) > getEntityZIndex(entity)) {
+    if (entity.class !== "wall" || hero.zIndex > entity.zIndex || hero.zIndex < entity.zIndex - 5) {
       return "none";
     }
 
     const { x, y } = getHeroScreenPosition();
-    const entityPosition = gameState.gridToScreenSpace(entity.position);
+    const entityPosition = entity.screenPosition;
     const maskRadius = hero.size.screen.height / 4;
 
     return [

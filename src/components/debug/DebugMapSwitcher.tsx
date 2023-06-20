@@ -29,12 +29,17 @@ export function DebugMapSwitcher() {
   }, []);
 
   return (
-    <select value={mapUrl} onChange={handleMapUrlChange}>
-      {mapsList.map((mapFileName) => (
-        <option key={mapFileName} value={`/maps/${mapFileName}`}>
-          {mapFileName}
-        </option>
-      ))}
-    </select>
+    <>
+      <select value={mapUrl} onChange={handleMapUrlChange}>
+        {mapsList.map((mapFileName) => (
+          <option key={mapFileName} value={`/maps/${mapFileName}`}>
+            {mapFileName}
+          </option>
+        ))}
+      </select>
+      <span>
+        ({gameState.mapSize.width}x{gameState.mapSize.height})
+      </span>
+    </>
   );
 }

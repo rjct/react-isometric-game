@@ -2,6 +2,7 @@ import React from "react";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
 import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
+import { gridToScreenSpace } from "../../../engine/helpers";
 
 export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) {
   const { gameState } = useGameState();
@@ -11,7 +12,7 @@ export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) 
       {props.weapon.firedAmmoQueue
         .filter((ammo) => !ammo.isTargetReached)
         .map((ammo) => {
-          const position = gameState.gridToScreenSpace(ammo.position);
+          const position = gridToScreenSpace(ammo.position, gameState.mapSize);
 
           return (
             <div

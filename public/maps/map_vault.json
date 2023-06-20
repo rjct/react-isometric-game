@@ -43,29 +43,14 @@
     "position": { "x": 19, "y": 6 },
     "inventory": {
       "backpack": [
-        {
-          "class": "Firearm",
-          "type": "smg",
-          "ammo": {
-            "class": "FirearmAmmo",
-            "type": "pistol",
-            "quantity": 50
-          }
-        }
+        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
       ],
       "leftHand": {
         "class": "Firearm",
         "type": "pistol",
-        "ammo": {
-          "class": "FirearmAmmo",
-          "type": "pistol",
-          "quantity": 100
-        }
+        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
       },
-      "rightHand": {
-        "class": "MeleeWeapon",
-        "type": "punch"
-      }
+      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
     }
   },
   "enemies": [
@@ -73,14 +58,25 @@
     {
       "type": "ghoul",
       "position": { "x": 19, "y": 7 },
-      "inventory": {
-        "leftHand": {
-          "class": "MeleeWeapon",
-          "type": "punch"
-        }
-      }
+      "inventory": { "backpack": [], "leftHand": { "class": "MeleeWeapon", "type": "punch" } }
     },
-    { "type": "ghoul", "position": { "x": 4, "y": 21 } }
+    { "type": "ghoul", "position": { "x": 4, "y": 21 } },
+    { "type": "vault13_male", "position": { "x": 23, "y": 27 } },
+    { "type": "vault13_male", "position": { "x": 16, "y": 25 } },
+    { "type": "vault13_male", "position": { "x": 12, "y": 26 } },
+    { "type": "vault13_male", "position": { "x": 12, "y": 1 } },
+    { "type": "vault13_male", "position": { "x": 14, "y": 3 } },
+    { "type": "vault13_male", "position": { "x": 0, "y": 8 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 17 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 18 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 19 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 20 } },
+    { "type": "ghoul", "position": { "x": 8, "y": 21 } },
+    { "type": "vault13_male", "position": { "x": 0, "y": 9 } },
+    { "type": "vault13_male", "position": { "x": 0, "y": 7 } },
+    { "type": "vault13_male", "position": { "x": 0, "y": 6 } },
+    { "type": "vault13_male", "position": { "x": 0, "y": 5 } },
+    { "type": "vault13_male", "position": { "x": 26, "y": 1 } }
   ],
   "buildings": [
     { "type": "buick", "position": { "x": 5, "y": 6 }, "direction": "left", "variant": 1 },

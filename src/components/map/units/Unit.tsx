@@ -17,8 +17,6 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 }) {
   const { gameState, uiState } = useGameState();
 
-  const [screenPosition, setScreenPosition] = React.useState({ x: 0, y: 0 });
-
   const renderAmmo = () => {
     const weapon = props.unit.getCurrentWeapon();
 
@@ -35,16 +33,13 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     } else {
       props.unit.clearShadows();
     }
-
-    setScreenPosition(gameState.gridToScreenSpace(props.unit.position));
   }, [
     uiState.scene === "editor" ? gameState.getLightsHash() : false,
-    props.unit.getHash(),
+    gameState.settings.featureEnabled.unitShadow ? props.unit.getHash() : false,
     gameState.settings.featureEnabled.unitShadow,
   ]);
 
-  return (gameState.isEntityInViewport(props.unit, uiState.viewport) && uiState.scene === "editor") ||
-    gameState.isEntityVisible(props.unit) ? (
+  return uiState.scene === "editor" || (uiState.scene === "game" && gameState.isEntityVisible(props.unit)) ? (
     <>
       {renderAmmo()}
 
@@ -67,7 +62,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
         className={props.unit.className}
         style={{
-          transform: `translate(${screenPosition.x}px, ${screenPosition.y}px)`,
+          transform: `translate(${props.unit.screenPosition.x}px, ${props.unit.screenPosition.y}px)`,
           zIndex: props.unit.zIndex,
         }}
       >

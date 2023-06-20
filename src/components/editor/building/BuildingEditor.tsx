@@ -84,6 +84,7 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
             dragging={building.id === workingEntity.entity?.id}
             onMouseDown={handleEntityMouseDown}
             onMouseUp={handleMouseUp}
+            maskImage={"none"}
           />
         );
       })}

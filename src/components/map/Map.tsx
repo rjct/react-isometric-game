@@ -14,7 +14,7 @@ import { TerrainEditor } from "../editor/terrain/TerrainEditor";
 import { LightsAndShadows } from "./terrain/LightsAndShadows";
 import { BuildingEditor } from "../editor/building/BuildingEditor";
 import { LightEditor } from "../editor/light/LightEditor";
-import { floor } from "../../engine/helpers";
+import { floor, gridToScreenSpace } from "../../engine/helpers";
 import { UnitEditor } from "../editor/unit/UnitEditor";
 import { DictUnit } from "../../engine/UnitFactory";
 
@@ -126,7 +126,7 @@ export const Map = React.forwardRef((props, forwardedRefs) => {
       uiDispatch({ type: "setMapRect", rect: getCurrentRect() });
       uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
       uiDispatch({ type: "resetMousePosition" });
-      uiDispatch({ type: "centerMapOnHero", unitCoordinates: gameState.gridToScreenSpace(hero.position) });
+      uiDispatch({ type: "centerMapOnHero", unitCoordinates: gridToScreenSpace(hero.position, gameState.mapSize) });
     }
   }, [gameState.mapSize]);
 

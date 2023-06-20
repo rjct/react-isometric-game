@@ -11,7 +11,7 @@ export function setUnitPosition(state: GameMap, action: SetUnitPositionReducerAc
 
   if (entity) {
     state.setGridMatrixOccupancy([entity], state.matrix, -1);
-    entity.setPosition(action.coordinates);
+    entity.setPosition(action.coordinates, state.mapSize);
     state.setGridMatrixOccupancy([entity], state.matrix, 1);
 
     return { ...state };

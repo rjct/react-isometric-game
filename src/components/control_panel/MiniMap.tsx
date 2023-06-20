@@ -99,10 +99,8 @@ export const MiniMap = React.memo(function MiniMap() {
 
   const centerMap = () => {
     if (miniMapContainerRef.current) {
-      const unitCoordinates = gameState.gridToScreenSpace(hero.position);
-
-      const left = Math.round(unitCoordinates.x * miniMapZoom - miniMapWidth / 2);
-      const top = Math.round(unitCoordinates.y * miniMapZoom) - miniMapHeight / 2;
+      const left = Math.round(hero.screenPosition.x * miniMapZoom - miniMapWidth / 2);
+      const top = Math.round(hero.screenPosition.y * miniMapZoom) - miniMapHeight / 2;
 
       miniMapContainerRef.current.scrollLeft = left;
       miniMapContainerRef.current.scrollTop = top;

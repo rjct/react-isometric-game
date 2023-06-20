@@ -1,7 +1,5 @@
 import { Building } from "../../../engine/BuildingFactory";
-import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
-import { useHero } from "../../../hooks/useHero";
+import React, { CSSProperties } from "react";
 
 export const BuildingComponent = React.memo(function Building(props: {
   building: Building;
@@ -9,22 +7,18 @@ export const BuildingComponent = React.memo(function Building(props: {
   dragging?: boolean;
   onMouseDown?: (e: React.MouseEvent, entity: Building) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
+  maskImage: CSSProperties["WebkitMaskImage"];
 }) {
-  const { gameState } = useGameState();
-
-  const position = React.useMemo(() => gameState.gridToScreenSpace(props.building.position), [props.building.position]);
-  const { getHeroMaskImage } = useHero();
-
   return (
     <div
       draggable={false}
       className={props.building.className}
       id={props.building.id}
       style={{
-        left: position.x,
-        top: position.y,
+        left: props.building.screenPosition.x,
+        top: props.building.screenPosition.y,
         zIndex: props.building.zIndex,
-        WebkitMaskImage: getHeroMaskImage(props.building),
+        WebkitMaskImage: props.maskImage,
       }}
       data-direction={props.building.direction}
       data-variant={props.building.variant}

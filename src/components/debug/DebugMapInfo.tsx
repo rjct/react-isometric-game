@@ -11,17 +11,13 @@ export function DebugMapInfo() {
       TerrainAreas: gameState.terrain.length,
     }).map(([key, value]) => {
       return (
-        <span key={key}>
-          {key}
-          <label>{value}</label>
+        <span className={"debug-label"} key={key}>
+          <span className={"debug-label-title"}>{key}</span>
+          <label className={"debug-label-value"}>{value}</label>
         </span>
       );
     });
   };
 
-  return (
-    <>
-      {gameState.mapSize.width}x{gameState.mapSize.height} | {mapStat()}
-    </>
-  );
+  return <span>{mapStat()}</span>;
 }

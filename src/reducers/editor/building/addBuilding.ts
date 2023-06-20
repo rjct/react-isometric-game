@@ -17,6 +17,8 @@ export function addBuilding(state: GameMap, action: AddBuildingReducerAction): G
     variant: action.variant,
   });
 
+  building.setPosition(action.position, state.mapSize);
+
   state.buildings.push(building);
 
   return {

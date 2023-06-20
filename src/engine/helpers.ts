@@ -78,6 +78,21 @@ export function getEntityZIndex(entity: GameObjectFactory) {
   return x + y + 1;
 }
 
+export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size): ScreenCoordinates {
+  const mapWidth = mapSize.width;
+
+  const tileWidth = constants.tileSize.width;
+  const tileHeight = constants.tileSize.height;
+
+  const halfWidth = tileWidth / 2;
+  const halfHeight = tileHeight / 2;
+
+  const x = (gridPos.x - gridPos.y) * halfWidth + (mapWidth / 2 - 0.5) * tileWidth;
+  const y = (gridPos.x + gridPos.y) * halfHeight;
+
+  return { x, y };
+}
+
 export function createMatrix(mapSize: Size): Array<Array<number>> {
   return [...Array(mapSize.width)].map(() => Array(mapSize.height).fill(0));
 }

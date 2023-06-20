@@ -50,15 +50,19 @@ const createUnitInventory = (inventory: StaticMapUnit["inventory"], unit: Unit, 
 };
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
-  const buildings: Building[] = action.map.buildings.map((building) => {
-    const { type, position, direction, variant } = building;
+  const buildings: Building[] = action.map.buildings.map((staticMapBuilding) => {
+    const { type, position, direction, variant } = staticMapBuilding;
 
-    return new Building({
+    const building = new Building({
       buildingType: type,
       position,
       direction,
       variant,
     });
+
+    building.setPosition(position, action.map.size);
+
+    return building;
   });
 
   const terrain: TerrainArea[] = action.map.terrain.map((terrainArea) => {
@@ -92,6 +96,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.units = action.map.enemies.reduce((result, enemy) => {
     const unit = new Unit({ unitType: enemy.type!, position: enemy.position });
+    unit.setPosition(unit.position, newState.mapSize);
 
     createUnitInventory(enemy.inventory, unit, newState);
 
@@ -111,9 +116,8 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   const heroId = newState.heroId;
 
-  newState.units[heroId].setAction("none");
-  newState.units[heroId].clearPath();
-  newState.units[heroId].setPosition(action.map.hero.position);
+  newState.units[heroId].stop();
+  newState.units[heroId].setPosition(action.map.hero.position, newState.mapSize);
 
   newState.setVisitedCell(newState.units[newState.heroId].position);
 

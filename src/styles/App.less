@@ -81,7 +81,7 @@ fieldset {
 .debug {
   position: absolute;
   z-index: 2;
-  //pointer-events: none;
+  pointer-events: none;
   font-size: 0.6em;
   user-select: none;
   color: @text-color;
@@ -94,9 +94,18 @@ fieldset {
   th {
     text-align: left;
   }
+}
 
-  label {
-    background-color: @text-color;
+.debug-label {
+  font-size: small;
+  color: darken(@text-color, 15%);
+
+  .debug-label-title {
+    //
+  }
+
+  .debug-label-value {
+    background-color: darken(@text-color, 15%);
     color: darken(@text-color, 35%);
     border-radius: @padding;
     padding: 0 (@padding / 2);

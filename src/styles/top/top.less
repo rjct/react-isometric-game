@@ -18,11 +18,19 @@
     color: @text-color;
 
     .title {
+      display: flex;
+      align-items: center;
       flex: 1;
+      gap: @padding;
+
+      > span {
+        display: inline-flex;
+      }
     }
 
     .value {
       display: flex;
+      align-items: center;
     }
 
     &.top {

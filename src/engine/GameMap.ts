@@ -12,7 +12,7 @@ import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
 import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
 import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 import { getUrlParamValue } from "../hooks/useUrl";
-import { floor } from "./helpers";
+import { floor, gridToScreenSpace } from "./helpers";
 
 interface GameMapProps {
   mapSize: Size;
@@ -182,7 +182,7 @@ export const gameMap = {
     },
     viewport: GameUI["viewport"]
   ) {
-    const screenPosition = this.gridToScreenSpace(entity.position);
+    const screenPosition = gridToScreenSpace(entity.position, this.mapSize);
     const x = screenPosition.x;
     const y = screenPosition.y;
 
@@ -212,21 +212,6 @@ export const gameMap = {
 
     const x = 0.5 * ((screenPos.x - (mapWidth / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
     const y = 0.5 * (-(screenPos.x - (mapHeight / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
-
-    return { x, y };
-  },
-
-  gridToScreenSpace(gridPos: GridCoordinates): ScreenCoordinates {
-    const mapWidth = this.mapSize.width;
-
-    const tileWidth = constants.tileSize.width;
-    const tileHeight = constants.tileSize.height;
-
-    const halfWidth = tileWidth / 2;
-    const halfHeight = tileHeight / 2;
-
-    const x = (gridPos.x - gridPos.y) * halfWidth + (mapWidth / 2 - 0.5) * tileWidth;
-    const y = (gridPos.x + gridPos.y) * halfHeight;
 
     return { x, y };
   },

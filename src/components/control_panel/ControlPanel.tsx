@@ -11,10 +11,10 @@ import { Button } from "../ui/Button";
 export const ControlPanel = React.memo(function ControlPanel() {
   const { hero } = useHero();
 
-  const { gameDispatch, uiDispatch, gameState, uiState } = useGameState();
+  const { gameDispatch, uiDispatch, uiState } = useGameState();
 
   const centerMapOnHero = () => {
-    uiDispatch({ type: "centerMapOnHero", unitCoordinates: gameState.gridToScreenSpace(hero.position) });
+    uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition });
   };
 
   const handleCurrentHeroActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {

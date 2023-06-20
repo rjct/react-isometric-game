@@ -1,6 +1,6 @@
 import { constants } from "../constants";
 import { LightRay } from "./LightRayFactory";
-import { getEntityZIndex } from "./helpers";
+import { getEntityZIndex, gridToScreenSpace } from "./helpers";
 
 export type GameObjectWall = {
   x: number;
@@ -16,7 +16,8 @@ export class GameObjectFactory {
   public readonly id;
 
   public size = { grid: { width: 0, height: 0 }, screen: { width: 0, height: 0 } };
-  public position = { x: 0, y: 0 };
+  public position: GridCoordinates = { x: 0, y: 0 };
+  public screenPosition: ScreenCoordinates = { x: 0, y: 0 };
   public zIndex: number;
   public direction: Direction = "top";
 
@@ -58,8 +59,9 @@ export class GameObjectFactory {
     ];
   }
 
-  setPosition(position: GridCoordinates) {
+  setPosition(position: GridCoordinates, mapSize: Size) {
     this.position = position;
+    this.screenPosition = gridToScreenSpace(position, mapSize);
     this.zIndex = getEntityZIndex(this);
   }
 

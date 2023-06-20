@@ -1,15 +1,11 @@
 import React from "react";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
-import { DebugMapSwitcher } from "./DebugMapSwitcher";
-import { DebugMapInfo } from "./DebugMapInfo";
 
 export const DebugInfo = React.memo(function DebugInfo() {
   const { gameState, uiState } = useGameState();
 
   const { hero } = useHero();
-
-  const screenPosition = gameState.gridToScreenSpace(hero.position);
 
   return gameState.debug.enabled ? (
     <div
@@ -20,13 +16,6 @@ export const DebugInfo = React.memo(function DebugInfo() {
     >
       <table>
         <tbody>
-          <tr>
-            <th>Map:</th>
-            <td>
-              <DebugMapSwitcher /> <DebugMapInfo />
-            </td>
-          </tr>
-
           <tr>
             <th>Rect:</th>
             <td>{JSON.stringify(uiState.rect)}</td>
@@ -47,7 +36,7 @@ export const DebugInfo = React.memo(function DebugInfo() {
           <tr>
             <th>Hero position:</th>
             <td>
-              {JSON.stringify(hero.position)} / {JSON.stringify(screenPosition)}
+              {JSON.stringify(hero.position)} / {JSON.stringify(hero.screenPosition)}
             </td>
           </tr>
 

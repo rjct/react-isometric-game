@@ -61,7 +61,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
       unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition).deg);
     }
 
-    unit.setPosition(unit.pathQueue.currentPos);
+    unit.setPosition(unit.pathQueue.currentPos, state.mapSize);
 
     if (unit.id === state.heroId) {
       state.setVisitedCell(unit.pathQueue.currentPos);
