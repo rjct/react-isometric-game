@@ -11,7 +11,7 @@ export function ExportButton() {
 
   const text = {
     getJson: "Get map JSON",
-    done: "See console",
+    done: "Copied to clipboard",
   };
 
   const [buttonState, setButtonState] = React.useState({
@@ -48,11 +48,13 @@ export function ExportButton() {
     // eslint-disable-next-line
     console.log(JSON.stringify(result));
 
-    setButtonState({ disabled: true, text: text.done });
+    navigator.clipboard.writeText(JSON.stringify(result)).then(() => {
+      setButtonState({ disabled: true, text: text.done });
 
-    window.setTimeout(() => {
-      setButtonState({ disabled: false, text: text.getJson });
-    }, 1000);
+      window.setTimeout(() => {
+        setButtonState({ disabled: false, text: text.getJson });
+      }, 1000);
+    });
   };
 
   return (
