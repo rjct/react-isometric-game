@@ -62,7 +62,11 @@ export const MiniMap = React.memo(function MiniMap() {
     ctx.fillStyle = "red";
     gameState
       .getAllAliveUnitsArray()
-      .filter((unit) => unit.id !== gameState.heroId && gameState.isEntityVisible(unit))
+      .filter(
+        (unit) =>
+          (unit.id !== gameState.heroId && !gameState.settings.featureEnabled.fogOfWar) ||
+          gameState.isEntityVisible(unit)
+      )
       .forEach((unit) => {
         const { x, y } = getCoordinates(unit.position);
 

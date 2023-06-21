@@ -162,7 +162,7 @@ export const gameMap = {
     const { position } = unit;
     const terrainArea = this.getTerrainAreaByCoordinates(position);
 
-    return !!terrainArea.exitUrl;
+    return !!terrainArea?.exitUrl;
   },
 
   getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {

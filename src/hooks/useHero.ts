@@ -4,6 +4,7 @@ import { Unit } from "../engine/UnitFactory";
 import { WorldMousePosition } from "./useMousePosition";
 import { constants } from "../constants";
 import { Building } from "../engine/BuildingFactory";
+import { getDistanceBetweenGridPoints } from "../engine/helpers";
 
 export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();
@@ -66,7 +67,13 @@ export function useHero() {
   };
 
   const getHeroMaskImage = (entity: Building) => {
-    if (entity.class !== "wall" || hero.zIndex > entity.zIndex || hero.zIndex < entity.zIndex - 5) {
+    if (
+      entity.class !== "wall" ||
+      hero.zIndex > entity.zIndex ||
+      hero.zIndex < entity.zIndex - 5 ||
+      entity.position.y < hero.position.y ||
+      getDistanceBetweenGridPoints(hero.position, entity.position) > 4
+    ) {
       return "none";
     }
 
