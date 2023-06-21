@@ -61,21 +61,8 @@
       "inventory": { "backpack": [], "leftHand": { "class": "MeleeWeapon", "type": "punch" } }
     },
     { "type": "ghoul", "position": { "x": 4, "y": 21 } },
-    { "type": "vault13_male", "position": { "x": 23, "y": 27 } },
-    { "type": "vault13_male", "position": { "x": 16, "y": 25 } },
-    { "type": "vault13_male", "position": { "x": 12, "y": 26 } },
-    { "type": "vault13_male", "position": { "x": 12, "y": 1 } },
-    { "type": "vault13_male", "position": { "x": 14, "y": 3 } },
-    { "type": "vault13_male", "position": { "x": 0, "y": 8 } },
     { "type": "ghoul", "position": { "x": 8, "y": 17 } },
     { "type": "ghoul", "position": { "x": 8, "y": 18 } },
-    { "type": "ghoul", "position": { "x": 8, "y": 19 } },
-    { "type": "ghoul", "position": { "x": 8, "y": 20 } },
-    { "type": "ghoul", "position": { "x": 8, "y": 21 } },
-    { "type": "vault13_male", "position": { "x": 0, "y": 9 } },
-    { "type": "vault13_male", "position": { "x": 0, "y": 7 } },
-    { "type": "vault13_male", "position": { "x": 0, "y": 6 } },
-    { "type": "vault13_male", "position": { "x": 0, "y": 5 } },
     { "type": "vault13_male", "position": { "x": 26, "y": 1 } }
   ],
   "buildings": [
