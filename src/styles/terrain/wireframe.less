@@ -17,4 +17,50 @@
   transform-origin: left top;
   transform: rotateX(60deg) rotateZ(45deg);
   z-index: 1;
+
+  .wireframe-marker {
+    position: absolute;
+    border: solid 3px;
+    border-radius: 50%;
+
+    &.action--allowed {
+      color: limegreen;
+    }
+
+    &.perform-action--allowed {
+      animation: allowed 0.2s linear;
+    }
+
+    &.perform-action--not-allowed {
+      animation: not-allowed 0.2s linear;
+    }
+
+    &.action--not-allowed {
+      color: red;
+    }
+  }
+}
+
+@keyframes allowed {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(0.75);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes not-allowed {
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.25);
+  }
+  100% {
+    transform: scale(1);
+  }
 }
