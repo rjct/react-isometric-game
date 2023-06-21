@@ -55,9 +55,12 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         // Update
         gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
 
-        gameState.getAllAliveUnitsArray().forEach((unit) => {
-          gameDispatch({ type: "animateUnitMove", unit, deltaTime });
+        // eslint-disable-next-line no-case-declarations
+        const allAliveUnits = gameState.getAllAliveUnitsArray();
 
+        gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
+
+        allAliveUnits.forEach((unit) => {
           const weapon = unit.getCurrentWeapon();
 
           gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
@@ -75,12 +78,14 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
           );
 
           // Enemy unit perform random actions
-          const randomActions = ["roam", "idle"];
-          const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
+          if (!unit.isMoving()) {
+            const randomActions = ["roam", "idle"];
+            const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 
-          // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-          // @ts-ignore
-          unit[randomAction](gameState);
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
+            unit[randomAction](gameState);
+          }
           unit.cooldown(deltaTime);
         });
         break;

@@ -11,14 +11,6 @@ export const LightsAndShadows = React.memo(() => {
 
   const { clearCanvas } = useCanvas();
 
-  const callAllUnitsShadows = () => {
-    if (gameState.settings.featureEnabled.unitShadow) {
-      gameState.getAllAliveUnitsArray().forEach((unit) => {
-        unit.calcShadows(gameState);
-      });
-    }
-  };
-
   const renderLightsAndShadows = (ctx: CanvasRenderingContext2D) => {
     if (gameState.settings.featureEnabled.light || gameState.settings.featureEnabled.shadow) {
       ctx.globalCompositeOperation = "source-over";
@@ -73,7 +65,6 @@ export const LightsAndShadows = React.memo(() => {
 
     if (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "light")) {
       renderLightsAndShadows(ctx);
-      callAllUnitsShadows();
     }
   }, [
     gameState.mapSize,
@@ -85,10 +76,6 @@ export const LightsAndShadows = React.memo(() => {
     uiState.scene,
     uiState.editorMode,
   ]);
-
-  React.useEffect(() => {
-    callAllUnitsShadows();
-  }, [gameState.getAllAliveUnitsHash()]);
 
   return <Canvas size={gameState.mapSize} className={"shadows"} ref={canvasRef} />;
 });
