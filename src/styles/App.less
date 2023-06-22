@@ -10,7 +10,6 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
-  font-size: 1.2em;
   color: @text-color;
   overflow: hidden;
 }
@@ -80,12 +79,13 @@ fieldset {
 
 .debug {
   position: absolute;
+  top: 100%;
   z-index: 2;
   pointer-events: none;
   font-size: 0.6em;
   user-select: none;
   color: @text-color;
-  margin: 5px;
+  margin-top: @padding;
   background-color: rgba(0, 0, 0, 0.25);
   padding: 5px;
   border-radius: 5px;
@@ -99,6 +99,7 @@ fieldset {
 .debug-label {
   font-size: small;
   color: darken(@text-color, 15%);
+  white-space: nowrap;
 
   .debug-label-title {
     //
@@ -117,21 +118,38 @@ fieldset {
 
 .debug-features {
   position: absolute;
+  left: 0;
+  right: 0;
+  bottom: @control-panel-height;
+  overflow: auto;
   z-index: 2;
-  left: @padding;
-  margin-bottom: @padding;
   display: flex;
-  flex-direction: column;
-  gap: 10px;
+  gap: (@padding);
+  padding: @padding;
+  background-color: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(5px);
 
   hr {
     flex: 1;
+    flex-grow: 0;
     margin: 0;
     border-color: rgba(0, 255, 0, 0.4);
   }
 }
 
+[data-editing-active] {
+  .debug-features {
+    bottom: 0;
+  }
+}
+@media (max-height: 500px) and (orientation: landscape) {
+  .debug-features {
+    bottom: @control-panel-height-mobile;
+  }
+}
+
 .center {
+  position: relative;
   display: flex;
   flex: 1;
 }

@@ -59,7 +59,7 @@ export const UnitEditor = React.memo(function UnitEditor() {
     e.stopPropagation();
   };
 
-  return uiState.scene == "editor" && uiState.editorMode == "unit" ? (
+  return uiState.scene == "editor" && uiState.editorMode == "units" ? (
     <div
       className="building-editor"
       style={{

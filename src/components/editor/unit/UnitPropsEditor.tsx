@@ -10,7 +10,7 @@ import { UnitPreview } from "./UnitPreview";
 export function UnitPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
 
-  return uiState.editorMode === "unit" ? (
+  return uiState.editorMode === "units" ? (
     gameState.selectedUnit ? (
       <fieldset>
         <legend>Unit</legend>

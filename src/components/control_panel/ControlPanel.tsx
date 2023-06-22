@@ -1,5 +1,4 @@
 import React from "react";
-import { MiniMap } from "./MiniMap";
 import { Unit } from "../../engine/UnitFactory";
 import { HeroActionControl } from "./HeroActionControl";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -31,8 +30,6 @@ export const ControlPanel = React.memo(function ControlPanel() {
 
   return uiState.scene === "game" ? (
     <div className={"control-panel"}>
-      <MiniMap />
-
       <div className={"hero-controls"}>
         <Button title={"Center map (C)"} className={["control-center-map"]} onClick={centerMapOnHero}>
           <label>

@@ -8,12 +8,7 @@ export const DebugInfo = React.memo(function DebugInfo() {
   const { hero } = useHero();
 
   return gameState.debug.enabled ? (
-    <div
-      className={"debug"}
-      style={{
-        top: uiState.rect.top,
-      }}
-    >
+    <div className={"debug"}>
       <table>
         <tbody>
           <tr>
@@ -46,7 +41,6 @@ export const DebugInfo = React.memo(function DebugInfo() {
           </tr>
         </tbody>
       </table>
-      {JSON.stringify(uiState.keys)}
     </div>
   ) : null;
 });

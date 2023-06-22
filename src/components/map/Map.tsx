@@ -157,8 +157,6 @@ export const Map = React.memo(
           onDrop={handleDrop}
           data-scrolling-active={uiState.isScrolling() || null}
           data-scrolling-direction={uiState.scrollDirection}
-          data-editing-active={uiState.scene === "editor" || null}
-          data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
         >
           <FogOfWar />
           <LightsAndShadows />

@@ -7,9 +7,9 @@ import { faLightbulb } from "@fortawesome/free-solid-svg-icons/faLightbulb";
 
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup },
-  building: { text: "Building", icon: faTreeCity },
-  unit: { text: "Unit", icon: faPerson },
-  light: { text: "Light", icon: faLightbulb },
+  buildings: { text: "Building", icon: faTreeCity },
+  units: { text: "Unit", icon: faPerson },
+  lights: { text: "Light", icon: faLightbulb },
 };
 
 const gameUIContext = {

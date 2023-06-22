@@ -5,6 +5,7 @@ import { useGameState } from "../../hooks/useGameState";
 import { Switch } from "../ui/Switch";
 import { DebugMapSwitcher } from "../debug/DebugMapSwitcher";
 import { DebugMapInfo } from "../debug/DebugMapInfo";
+import { DebugInfo } from "../debug/DebugInfo";
 
 export const Top = React.memo(function Top() {
   const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();
@@ -48,6 +49,8 @@ export const Top = React.memo(function Top() {
           {hero.healthPoints.current} / {hero.healthPoints.max}
         </div>
       </div>
+
+      <DebugInfo />
     </div>
   );
 });

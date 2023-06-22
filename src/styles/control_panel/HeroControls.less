@@ -1,5 +1,4 @@
 .hero-controls {
-  width: 100%;
   display: grid;
   grid-template-columns: auto 1fr 1fr auto;
   grid-template-rows: repeat(2, 1fr);
@@ -73,16 +72,36 @@
           filter: grayscale(1) brightness(200) contrast(0) sepia(100%) hue-rotate(55deg) saturate(0);
           transition: all 0.3s linear;
         }
-
-        .weapon-ap-consumption {
-          //
-        }
       }
 
       &:checked ~ .label {
         .weapon-pic {
           opacity: 0.7;
           filter: grayscale(1) sepia(60%) hue-rotate(75deg) saturate(5) brightness(1.2) contrast(1.2);
+        }
+      }
+    }
+  }
+}
+
+@media (max-height: 500px) and (orientation: landscape) {
+  .hero-controls {
+    display: flex;
+    flex: 1;
+
+    .control-left-hand,
+    .control-right-hand {
+      flex: 2;
+    }
+
+    .current-hero-action {
+      input {
+        & ~ .label {
+          flex-direction: row-reverse;
+
+          .weapon-pic {
+            flex: 1;
+          }
         }
       }
     }

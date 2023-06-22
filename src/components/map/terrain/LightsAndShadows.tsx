@@ -63,7 +63,7 @@ export const LightsAndShadows = React.memo(() => {
 
     clearCanvas(ctx);
 
-    if (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "light")) {
+    if (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "lights")) {
       renderLightsAndShadows(ctx);
     }
   }, [

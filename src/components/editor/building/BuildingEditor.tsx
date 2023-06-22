@@ -65,7 +65,7 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
     e.stopPropagation();
   };
 
-  return uiState.scene == "editor" && uiState.editorMode == "building" ? (
+  return uiState.scene == "editor" && uiState.editorMode == "buildings" ? (
     <div
       className="building-editor"
       style={{

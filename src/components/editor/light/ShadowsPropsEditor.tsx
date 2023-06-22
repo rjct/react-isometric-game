@@ -7,7 +7,7 @@ import { InputRange } from "../_shared/InputRange";
 export function ShadowsPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
 
-  return uiState.editorMode === "light" ? (
+  return uiState.editorMode === "lights" ? (
     <div className={"editor-props-wrapper"}>
       <fieldset>
         <legend>Global shadows</legend>

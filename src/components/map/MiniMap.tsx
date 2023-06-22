@@ -1,0 +1,119 @@
+import React from "react";
+import { constants } from "../../constants";
+import { useHero } from "../../hooks/useHero";
+import { useGameState } from "../../hooks/useGameState";
+import { degToRad } from "../../engine/helpers";
+
+export const MiniMap = React.memo(function MiniMap() {
+  const { gameState, uiState } = useGameState();
+
+  if (uiState.scene !== "game") return null;
+
+  const miniMapContainerRef = React.createRef<HTMLDivElement>();
+  const miniMapCanvasRef = React.createRef<HTMLCanvasElement>();
+
+  const wireframeTileWidth = constants.wireframeTileSize.width;
+  const wireframeTileHeight = constants.wireframeTileSize.height;
+
+  const miniMapZoom = constants.miniMap.ZOOM;
+  const miniMapWidth = constants.miniMap.size.width;
+  const miniMapHeight = constants.miniMap.size.height;
+
+  const canvasWidth = miniMapWidth * wireframeTileWidth * miniMapZoom;
+  const canvasHeight = miniMapHeight * wireframeTileHeight * miniMapZoom;
+
+  const canvasMargin = (Math.sin(degToRad(45)) - 1 / 2) * canvasWidth;
+
+  const { hero } = useHero();
+
+  const getCoordinates = (coordinates: GridCoordinates) => {
+    return {
+      x: coordinates.x * wireframeTileWidth * miniMapZoom,
+      y: coordinates.y * wireframeTileHeight * miniMapZoom,
+    };
+  };
+
+  const renderMiniMap = () => {
+    if (!miniMapCanvasRef.current) return;
+
+    const ctx = miniMapCanvasRef.current.getContext("2d");
+
+    if (!ctx) return;
+
+    const buildingColors: { [key: string]: string } = {
+      wall: "mediumseagreen",
+      vehicle: "green",
+      furniture: "green",
+    };
+
+    // clear
+    ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+
+    // hero pin
+    const shiftX = miniMapWidth / 2 - hero.position.x;
+    const shiftY = miniMapHeight / 2 - hero.position.y;
+
+    ctx.fillStyle = "#ffffff";
+    ctx.arc(
+      canvasWidth / 2 + (wireframeTileWidth / 2) * miniMapZoom,
+      canvasHeight / 2 + (wireframeTileWidth / 2) * miniMapZoom,
+      (wireframeTileWidth / 2) * miniMapZoom,
+      0,
+      2 * Math.PI
+    );
+    ctx.fill();
+
+    gameState.getAliveEnemiesArray().forEach((enemy) => {
+      if (!gameState.settings.featureEnabled.fogOfWar || gameState.isEntityVisible(enemy)) {
+        const enemyCoordinates = getCoordinates({ x: enemy.position.x + shiftX, y: enemy.position.y + shiftY });
+
+        ctx.fillStyle = "red";
+        ctx.fillRect(
+          enemyCoordinates.x,
+          enemyCoordinates.y,
+          wireframeTileWidth * miniMapZoom,
+          wireframeTileHeight * miniMapZoom
+        );
+      }
+    });
+
+    gameState.buildings.forEach((building) => {
+      if (!gameState.settings.featureEnabled.fogOfWar || gameState.isEntityVisible(building)) {
+        const buildingClass = building.class as string;
+        const buildingCoordinates = getCoordinates({
+          x: building.position.x + shiftX,
+          y: building.position.y + shiftY,
+        });
+
+        ctx.fillStyle = buildingColors[buildingClass];
+
+        ctx.fillRect(
+          buildingCoordinates.x,
+          buildingCoordinates.y,
+          building.size.grid.width * wireframeTileWidth * miniMapZoom,
+          building.size.grid.height * wireframeTileHeight * miniMapZoom
+        );
+      }
+    });
+  };
+
+  React.useEffect(() => {
+    renderMiniMap();
+  }, [gameState.getAllAliveUnitsHash(), gameState.settings.featureEnabled.fogOfWar]);
+
+  return (
+    <div ref={miniMapContainerRef} className={`mini-map`}>
+      <canvas
+        ref={miniMapCanvasRef}
+        width={canvasWidth}
+        height={canvasHeight}
+        style={{
+          marginLeft: canvasMargin,
+          marginRight: canvasMargin,
+          marginTop: -canvasMargin / 2,
+          marginBottom: -canvasMargin / 2,
+        }}
+      ></canvas>
+    </div>
+  );
+});

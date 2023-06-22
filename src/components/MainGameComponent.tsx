@@ -11,7 +11,6 @@ import { UIReducer } from "../reducers/ui/_reducers";
 import { GameUiDispatchContext } from "../context/GameUIDispatchContext";
 import { Inventory } from "./inventory/Inventory";
 import { useAnimationFrame } from "../hooks/useAnimationFrame";
-import { DebugInfo } from "./debug/DebugInfo";
 import { loadMap, randomInt } from "../engine/helpers";
 import { GameOver } from "./GameOver";
 import { usePreloadAssets } from "../hooks/usePreloadAssets";
@@ -20,6 +19,7 @@ import { EditorSidebar } from "./editor/EditorSidebar";
 import { EntitiesLibrary } from "./editor/EntitiesLibrary";
 import { DebugFeaturesSwitches } from "./debug/DebugFeaturesSwitches";
 import { useUrl } from "../hooks/useUrl";
+import { MiniMap } from "./map/MiniMap";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -50,7 +50,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     switch (uiState.scene) {
       case "game":
         // User Input
-        uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
+        //uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
 
         // Update
         gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
@@ -133,7 +133,12 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   }, [JSON.stringify(gameState.settings.featureEnabled), JSON.stringify(gameState.debug.featureEnabled)]);
 
   return (
-    <div className="app-wrapper">
+    <div
+      className="app-wrapper"
+      data-debug-active={gameState.debug.enabled || null}
+      data-editing-active={uiState.scene === "editor" || null}
+      data-editor-mode={uiState.scene === "editor" ? uiState.editorMode : null}
+    >
       <GameUiDispatchContext.Provider value={uiDispatch}>
         <GameUIContext.Provider value={uiState}>
           <GameDispatchContext.Provider value={gameDispatch}>
@@ -142,10 +147,9 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <GameOver />
               <Top />
 
-              <DebugInfo />
-              <DebugFeaturesSwitches />
-
               <div className={"center"}>
+                <DebugFeaturesSwitches />
+                <MiniMap />
                 <Map ref={setScrollRef} />
                 <EditorSidebar />
               </div>

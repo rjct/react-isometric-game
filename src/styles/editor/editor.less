@@ -5,6 +5,8 @@
   margin-bottom: @padding;
   display: flex;
   font-size: 0.7em;
+  top: 0;
+  bottom: 0;
 
   gap: @padding;
   padding: (@padding / 2) @padding;
@@ -31,6 +33,10 @@
 
   .editor-props-wrapper {
     flex: 1;
+  }
+
+  .editor-toolbar {
+    flex-grow: 0;
   }
 
   .editor-controls {
@@ -61,6 +67,12 @@
   }
 }
 
+[data-debug-active] {
+  .editor {
+    margin-bottom: @padding * 5;
+  }
+}
+
 .editor-library {
   width: 100vw;
   display: flex;
@@ -82,7 +94,7 @@
     display: grid;
     grid-template-columns: auto 1fr auto;
     grid-template-rows: 1fr auto auto;
-    gap: 10px 0px;
+    gap: 10px 0;
     grid-template-areas:
       "prev-direction image next-direction"
       "prev-direction variant next-direction"
@@ -98,12 +110,11 @@
       margin: 0;
       justify-self: center;
       align-self: center;
-      zoom: 0.7;
       transform: translateY(20px);
       transition: transform 0.26s ease-in-out;
     }
     &:hover .image {
-      transform: translateY(0);
+      transform: translateY(0.6);
     }
 
     .variant {
@@ -174,7 +185,7 @@
       opacity: 0.75;
 
       .image {
-        zoom: 1;
+        transform: scale(0.7);
       }
 
       .variant,
@@ -184,6 +195,19 @@
         opacity: 0;
       }
     }
+  }
+}
+
+.editor-library-units {
+  .library-entity {
+    flex-shrink: 0;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 100px;
+    gap: 10px 0;
+    grid-template-areas:
+      "image"
+      "info";
   }
 }
 

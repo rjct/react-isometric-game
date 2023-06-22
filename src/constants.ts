@@ -23,8 +23,10 @@ export const constants = {
   FOG_OF_WAR_OPACITY: 0.85,
   LIGHT_RENDER_PASSES: 2,
   miniMap: {
-    width: 400,
-    height: 200,
+    size: {
+      width: 30,
+      height: 30,
+    },
     ZOOM: 0.1,
   },
   tileSize,
@@ -32,7 +34,7 @@ export const constants = {
 
   editor: {
     propsEditor: { width: 300 },
-    entitiesLibrary: { height: 200 },
+    entitiesLibrary: { height: "20vh" },
   },
 
   featureEnabled: {

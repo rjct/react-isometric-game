@@ -49,7 +49,7 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
     case "editor":
       if (state.keys["Backspace"]) {
         switch (state.editorMode) {
-          case "building":
+          case "buildings":
             action.gameState.deleteSelectedBuilding();
             break;
 

@@ -11,7 +11,7 @@ import { LightPositionEditor } from "./LightPositionEditor";
 export function LightPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
 
-  return uiState.editorMode === "light" ? (
+  return uiState.editorMode === "lights" ? (
     gameState.selectedLight ? (
       <fieldset>
         <legend>

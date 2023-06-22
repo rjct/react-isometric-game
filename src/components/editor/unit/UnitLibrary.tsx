@@ -6,7 +6,7 @@ import { DictUnits } from "../../../engine/UnitFactory";
 export function UnitLibrary() {
   const { uiState } = useGameState();
 
-  return uiState.editorMode === "unit" ? (
+  return uiState.editorMode === "units" ? (
     <>
       {Object.values(units as DictUnits).map((unit) => (
         <UnitLibraryItem key={unit.type} item={unit} />

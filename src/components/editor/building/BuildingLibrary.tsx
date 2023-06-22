@@ -6,7 +6,7 @@ import { useGameState } from "../../../hooks/useGameState";
 export function BuildingLibrary() {
   const { uiState } = useGameState();
 
-  return uiState.editorMode === "building" ? (
+  return uiState.editorMode === "buildings" ? (
     <>
       {Object.values(buildingTypes as DictBuildings).map((building) => (
         <BuildingLibraryItem key={building.type} item={building} />

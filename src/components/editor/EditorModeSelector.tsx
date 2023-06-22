@@ -64,19 +64,19 @@ export function EditorModeSelector() {
         </div>
       ) : null}
 
-      {uiState.editorMode === "building" ? (
+      {uiState.editorMode === "buildings" ? (
         <div className={"ui-tab-content"}>
           <BuildingPropsEditor />
         </div>
       ) : null}
 
-      {uiState.editorMode === "unit" ? (
+      {uiState.editorMode === "units" ? (
         <div className={"ui-tab-content"}>
           <UnitPropsEditor />
         </div>
       ) : null}
 
-      {uiState.editorMode === "light" ? (
+      {uiState.editorMode === "lights" ? (
         <div className={"ui-tab-content"}>
           <ShadowsPropsEditor />
           <LightPropsEditor />

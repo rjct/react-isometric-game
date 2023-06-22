@@ -11,7 +11,7 @@ import { InputRange } from "../_shared/InputRange";
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
 
-  return uiState.editorMode === "building" ? (
+  return uiState.editorMode === "buildings" ? (
     gameState.selectedBuilding ? (
       <fieldset>
         <legend>Building</legend>

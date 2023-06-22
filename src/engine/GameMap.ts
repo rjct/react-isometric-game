@@ -243,9 +243,7 @@ export const gameMap = {
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
     return Object.values(this.units).find(
-      (unit) =>
-        Math.round(unit.position.x) === Math.round(coordinates.x) &&
-        Math.round(unit.position.y) === Math.round(coordinates.y)
+      (unit) => floor(unit.position.x) === floor(coordinates.x) && floor(unit.position.y) === floor(coordinates.y)
     );
   },
 
@@ -266,6 +264,14 @@ export const gameMap = {
 
   getBuildingById(id: string) {
     return this.buildings.find((building) => building.id === id);
+  },
+
+  getBuildingByCoordinates(coordinates: GridCoordinates): Building | undefined {
+    return this.buildings.find(
+      (building) =>
+        Math.round(building.position.x) === Math.round(coordinates.x) &&
+        Math.round(building.position.y) === Math.round(coordinates.y)
+    );
   },
 
   deleteBuilding(id: string) {

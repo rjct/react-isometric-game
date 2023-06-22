@@ -1,5 +1,6 @@
 .top-wrapper {
-  z-index: 1;
+  position: relative;
+  z-index: 2;
   background: #000000;
   display: flex;
   gap: 10px;
@@ -21,7 +22,7 @@
       display: flex;
       align-items: center;
       flex: 1;
-      gap: @padding;
+      gap: (@padding * 2);
 
       > span {
         display: inline-flex;

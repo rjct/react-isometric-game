@@ -73,10 +73,6 @@ export class Building extends GameObjectFactory {
   public getAvailableDirections() {
     return this.ref.directions;
   }
-
-  public getAvailableVariants() {
-    return [...Array(this.ref.variants).keys()];
-  }
 }
 
 export type BuildingTypes = typeof buildings;

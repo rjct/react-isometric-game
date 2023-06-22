@@ -13,7 +13,6 @@ export function EditorSidebar() {
       style={{
         width: constants.editor.propsEditor.width,
         marginLeft: -constants.editor.propsEditor.width,
-        top: uiState.rect.top,
       }}
     >
       <EditorModeSelector />

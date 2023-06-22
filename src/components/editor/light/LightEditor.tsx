@@ -73,7 +73,7 @@ export const LightEditor = React.memo(function LightEditor() {
     e.stopPropagation();
   };
 
-  return uiState.scene == "editor" && uiState.editorMode == "light" ? (
+  return uiState.scene == "editor" && uiState.editorMode == "lights" ? (
     <div
       className="lights light-editor"
       style={{
