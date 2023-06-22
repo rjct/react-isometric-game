@@ -1,6 +1,6 @@
 import { constants } from "../constants";
 import { LightRay } from "./LightRayFactory";
-import { getEntityZIndex, gridToScreenSpace } from "./helpers";
+import { getEntityZIndex, gridToScreenSpace, randomUUID } from "./helpers";
 
 export type GameObjectWall = {
   x: number;
@@ -24,7 +24,7 @@ export class GameObjectFactory {
   private readonly walls: GameObjectWall[] = [];
 
   constructor(props: { size: { grid: Size; screen: Size }; position: GridCoordinates; direction: Direction }) {
-    this.id = crypto.randomUUID();
+    this.id = randomUUID();
 
     this.size = props.size;
     this.position = props.position;

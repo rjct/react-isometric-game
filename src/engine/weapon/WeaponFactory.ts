@@ -2,7 +2,7 @@ import { Unit } from "../UnitFactory";
 import { FirearmRef, FirearmType, FirearmUnitAction } from "./firearm/FirearmFactory";
 import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeWeaponFactory";
 import { MeleePunch } from "./melee/meleePunchFactory";
-import { floor, getDistanceBetweenGridPoints } from "../helpers";
+import { floor, getDistanceBetweenGridPoints, randomUUID } from "../helpers";
 import { GameMap } from "../GameMap";
 import { ObstacleRay } from "../ObstacleRayFactory";
 import weapons from "../../dict/weapons.json";
@@ -18,7 +18,7 @@ export class Weapon {
   private gameMap: GameMap;
 
   public readonly title: string;
-  public readonly id = crypto.randomUUID();
+  public readonly id = randomUUID();
   public readonly className: string[] = [];
   readonly range: number;
 

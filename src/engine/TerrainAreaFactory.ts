@@ -1,5 +1,5 @@
 import { StaticMapTerrainArea } from "../context/GameStateContext";
-import { composeSpriteUrl, randomInt } from "./helpers";
+import { composeSpriteUrl, randomInt, randomUUID } from "./helpers";
 import { constants } from "../constants";
 
 export interface TerrainTile {
@@ -17,7 +17,7 @@ export enum TerrainAreaTypes {
 export type TerrainAreaType = keyof typeof TerrainAreaTypes;
 
 export class TerrainArea {
-  readonly id = crypto.randomUUID();
+  readonly id = randomUUID();
   source: { type: TerrainAreaType; position: AreaCoordinates };
   target: AreaCoordinates;
   exitUrl: string | null;

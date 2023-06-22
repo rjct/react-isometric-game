@@ -136,3 +136,9 @@ export function composeSpriteUrl(spriteFileName: string) {
 export function floor(num: number) {
   return num | 0;
 }
+
+export function randomUUID() {
+  return window.crypto.randomUUID
+    ? window.crypto.randomUUID()
+    : Date.now().toString(36) + Math.random().toString(36).substring(2);
+}

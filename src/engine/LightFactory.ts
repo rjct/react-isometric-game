@@ -2,9 +2,10 @@ import { StaticMapLight } from "../context/GameStateContext";
 import { LightRay } from "./LightRayFactory";
 import { constants } from "../constants";
 import { Building } from "./BuildingFactory";
+import { randomUUID } from "./helpers";
 
 export class Light {
-  public readonly id = crypto.randomUUID();
+  public readonly id = randomUUID();
   public readonly className = "light";
   public position: GridCoordinates;
   private color = "#ffffff";

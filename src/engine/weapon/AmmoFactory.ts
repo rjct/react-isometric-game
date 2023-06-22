@@ -1,4 +1,4 @@
-import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "../helpers";
+import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "../helpers";
 import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
 import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
 import ammo from "../../dict/ammo.json";
@@ -9,7 +9,7 @@ export type AmmoRef = FirearmAmmoRef | MeleePunchRef;
 
 export class Ammo {
   public readonly type: AmmoType;
-  public readonly id = crypto.randomUUID();
+  public readonly id = randomUUID();
   public readonly className = ["ammo"];
   public readonly size: {
     grid: Size;
