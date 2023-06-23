@@ -39,9 +39,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     gameState.settings.featureEnabled.unitShadow,
   ]);
 
-  return uiState.scene === "editor" ||
-    !gameState.settings.featureEnabled.fogOfWar ||
-    (uiState.scene === "game" && gameState.isEntityVisible(props.unit)) ? (
+  return gameState.isEntityVisible(props.unit) ? (
     <>
       {renderAmmo()}
 

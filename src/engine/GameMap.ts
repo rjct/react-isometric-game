@@ -126,6 +126,8 @@ export const gameMap = {
   },
 
   isEntityVisible(entity: Building | Unit) {
+    if (!this.settings.featureEnabled.fogOfWar) return true;
+
     const { x, y } = entity.position;
     const { width, height } = entity.size.grid;
 

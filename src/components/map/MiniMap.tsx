@@ -63,8 +63,10 @@ export const MiniMap = React.memo(function MiniMap() {
     );
     ctx.fill();
 
-    gameState.getAliveEnemiesArray().forEach((enemy) => {
-      if (!gameState.settings.featureEnabled.fogOfWar || gameState.isEntityVisible(enemy)) {
+    gameState
+      .getAliveEnemiesArray()
+      .filter((enemy) => gameState.isEntityVisible(enemy))
+      .forEach((enemy) => {
         const enemyCoordinates = getCoordinates({ x: enemy.position.x + shiftX, y: enemy.position.y + shiftY });
 
         ctx.fillStyle = "red";
@@ -74,11 +76,11 @@ export const MiniMap = React.memo(function MiniMap() {
           wireframeTileWidth * miniMapZoom,
           wireframeTileHeight * miniMapZoom
         );
-      }
-    });
+      });
 
-    gameState.buildings.forEach((building) => {
-      if (!gameState.settings.featureEnabled.fogOfWar || gameState.isEntityVisible(building)) {
+    gameState.buildings
+      .filter((building) => gameState.isEntityVisible(building))
+      .forEach((building) => {
         const buildingClass = building.class as string;
         const buildingCoordinates = getCoordinates({
           x: building.position.x + shiftX,
@@ -93,8 +95,7 @@ export const MiniMap = React.memo(function MiniMap() {
           building.size.grid.width * wireframeTileWidth * miniMapZoom,
           building.size.grid.height * wireframeTileHeight * miniMapZoom
         );
-      }
-    });
+      });
   };
 
   React.useEffect(() => {
