@@ -4,7 +4,7 @@
     "className": "vault13-male",
     "speed": {
       "walk": 1,
-      "run": 3.5
+      "run": 2.5
     },
     "coolDownTime": 5,
     "size": {
@@ -15,7 +15,7 @@
       "current": 100,
       "max": 100
     },
-    "enemyDetectionRange": 0.75,
+    "enemyDetectionRange": 3,
     "animationDuration": {
       "hit": 400,
       "notAllowed": 1000
