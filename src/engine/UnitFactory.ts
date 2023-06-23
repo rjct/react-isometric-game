@@ -111,7 +111,12 @@ export class Unit extends GameObjectFactory {
   }) {
     const ref = units[props.unitType] as DictUnit;
 
-    super({ size: ref.size, position: props.position, direction: props.direction || "left" });
+    super({
+      size: ref.size,
+      position: props.position,
+      direction: props.direction || "left",
+      internalColor: "rgba(0,255,255,0.5)",
+    });
 
     this.type = props.unitType;
 

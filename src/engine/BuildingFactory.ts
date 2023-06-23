@@ -37,7 +37,7 @@ export class Building extends GameObjectFactory {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
 
-    super({ size, position: props.position, direction: props.direction });
+    super({ size, position: props.position, direction: props.direction, internalColor: "rgba(255,232,0,0.5)" });
 
     this.ref = ref;
 

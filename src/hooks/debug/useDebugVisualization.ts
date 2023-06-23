@@ -55,15 +55,13 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     if (!ctx || !gameState.debug.featureEnabled.occupiedCells) return;
 
-    ctx.setLineDash([5, 5]);
+    gameState.buildings.forEach((building) => {
+      drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
+    });
 
-    for (let y = 0; y < gameState.matrix.length; y++) {
-      for (let x = 0; x < gameState.matrix[y].length; x++) {
-        if (gameState.isCellOccupied({ x, y })) {
-          drawFillRect(ctx, { x, y }, "rgba(255,232,0,0.5)");
-        }
-      }
-    }
+    Object.values(gameState.units).forEach((unit) => {
+      drawFillRect(ctx, unit.getRoundedPosition(), unit.internalColor, 1, unit.size.grid);
+    });
   };
 
   const renderUnitPath = () => {

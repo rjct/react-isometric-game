@@ -14,6 +14,7 @@ export type GameObjectWall = {
 
 export class GameObjectFactory {
   public readonly id;
+  public readonly internalColor: string;
 
   public size = { grid: { width: 0, height: 0 }, screen: { width: 0, height: 0 } };
   public position: GridCoordinates = { x: 0, y: 0 };
@@ -23,8 +24,14 @@ export class GameObjectFactory {
 
   private readonly walls: GameObjectWall[] = [];
 
-  constructor(props: { size: { grid: Size; screen: Size }; position: GridCoordinates; direction: Direction }) {
+  constructor(props: {
+    size: { grid: Size; screen: Size };
+    position: GridCoordinates;
+    direction: Direction;
+    internalColor: string;
+  }) {
     this.id = randomUUID();
+    this.internalColor = props.internalColor;
 
     this.size = props.size;
     this.position = props.position;

@@ -42,12 +42,18 @@ export function useCanvas() {
     position: GridCoordinates,
     color = "#ffffff",
     lineWidth = 1,
-    size = { width: wireframeTileWidth, height: wireframeTileHeight } as Size
+    size = { width: 1, height: 1 } as Size
   ) => {
-    ctx.beginPath();
-    ctx.fillRect(position.x * wireframeTileWidth, position.y * wireframeTileHeight, size.width, size.height);
+    ctx.strokeStyle = color;
     ctx.fillStyle = color;
     ctx.lineWidth = lineWidth;
+    ctx.beginPath();
+    ctx.fillRect(
+      position.x * wireframeTileWidth,
+      position.y * wireframeTileHeight,
+      size.width * wireframeTileWidth,
+      size.height * wireframeTileHeight
+    );
     ctx.stroke();
   };
 
