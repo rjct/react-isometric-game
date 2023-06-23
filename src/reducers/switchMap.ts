@@ -97,7 +97,10 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   newState.units = action.map.enemies.reduce((result, enemy) => {
     const unit = new Unit({ unitType: enemy.type!, position: enemy.position });
     unit.setPosition(unit.position, newState.mapSize);
-    unit.calcShadows(newState);
+
+    if (newState.settings.featureEnabled.unitShadow) {
+      unit.calcShadows(newState);
+    }
 
     createUnitInventory(enemy.inventory, unit, newState);
 
@@ -119,7 +122,10 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.units[heroId].stop();
   newState.units[heroId].setPosition(action.map.hero.position, newState.mapSize);
-  newState.units[heroId].calcShadows(newState);
+
+  if (newState.settings.featureEnabled.unitShadow) {
+    newState.units[heroId].calcShadows(newState);
+  }
 
   newState.setVisitedCell(newState.units[newState.heroId].position);
 
