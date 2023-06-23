@@ -185,13 +185,12 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     if (!ctx || !gameState.debug.featureEnabled.unitShadowVectors) return;
 
     ctx.setLineDash([0, 0]);
+    ctx.strokeStyle = "#FFE07D";
 
     gameState
       .getAllAliveUnitsArray()
       .filter((unit) => gameState.isEntityVisible(unit))
       .forEach((unit) => {
-        unit.calcShadows(gameState);
-
         unit.shadows.forEach((shadow) => {
           const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
           const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
@@ -203,8 +202,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
           ctx.moveTo(x1, y1);
           ctx.lineTo(x2, y2);
 
-          ctx.lineWidth = shadow.blocked ? 1 : 2;
-          ctx.strokeStyle = `rgba(255, 224, 125, ${shadow.blocked ? 0.5 : 1})`;
+          ctx.lineWidth = shadow.blocked ? 0.5 : 2;
 
           ctx.stroke();
           ctx.closePath();

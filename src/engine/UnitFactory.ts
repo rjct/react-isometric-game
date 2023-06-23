@@ -1,4 +1,4 @@
-import { getHumanReadableDirection, randomInt } from "./helpers";
+import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "./helpers";
 import units from "../dict/units.json";
 import { pathFinder } from "./pathFinder";
 import { GameMap } from "./GameMap";
@@ -284,23 +284,26 @@ export class Unit extends GameObjectFactory {
   }
 
   public calcShadows(gameState: GameMap) {
-    this.shadows = gameState.lights.reduce((shadows: Unit["shadows"], light) => {
-      const obstacleRay = new ObstacleRay(light.position, this.position, true);
+    this.shadows = gameState.lights
+      .filter((light) => {
+        return light.radius >= getDistanceBetweenGridPoints(this.position, light.position);
+      })
+      .reduce((shadows: Unit["shadows"], light) => {
+        const distance = getDistanceBetweenGridPoints(this.position, light.position);
+        const obstacleRay = new ObstacleRay(light.position, this.position, true);
+        const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
+        const angle = obstacleRay.getAngle();
 
-      const distance = obstacleRay.getDistance(true);
-      const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
-      const angle = obstacleRay.getAngle();
+        shadows.push({
+          blocked: distance - 1 > distanceToRayEnd,
+          obstacleRay,
+          opacity: 1 - distance / light.radius,
+          width: 0.1 + distance / 5,
+          angle: angle.deg + 135,
+        });
 
-      shadows.push({
-        blocked: distance > light.radius || distance - 1 > distanceToRayEnd,
-        obstacleRay,
-        opacity: 1 - distance / light.radius,
-        width: 0.1 + distance / 5,
-        angle: angle.deg + 135,
-      });
-
-      return shadows;
-    }, []);
+        return shadows;
+      }, []);
   }
 
   public clearShadows() {
