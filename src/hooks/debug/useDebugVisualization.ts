@@ -7,7 +7,7 @@ import { useCanvas } from "../useCanvas";
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
   const { gameState } = useGameState();
   const { hero } = useHero();
-  const { clearCanvas, drawLine, drawFillRect } = useCanvas();
+  const { clearCanvas, drawRect, drawFillRect } = useCanvas();
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
@@ -41,12 +41,12 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     if (!ctx || !gameState.debug.featureEnabled.wireframe) return;
 
-    for (let column = 0; column <= gameState.mapSize.width; column++) {
-      drawLine(ctx, { x: column, y: 0 }, { x: column, y: gameState.mapSize.height });
-    }
+    ctx.setLineDash([0, 0]);
 
-    for (let row = 0; row <= gameState.mapSize.height; row++) {
-      drawLine(ctx, { x: 0, y: row }, { x: gameState.mapSize.width, y: row });
+    for (let column = 0; column <= gameState.mapSize.width; column++) {
+      for (let row = 0; row <= gameState.mapSize.height; row++) {
+        drawRect(ctx, { x: column, y: row }, "#ffffff", 0.5);
+      }
     }
   };
 
