@@ -283,6 +283,15 @@ export class Unit extends GameObjectFactory {
     this.clearPath();
   }
 
+  public isEnemyDetected(enemy: Unit) {
+    const a = Math.abs(this.position.x - enemy.position.x);
+    const b = Math.abs(this.position.y - enemy.position.y);
+
+    const distance = Math.sqrt(a * a + b * b);
+
+    return distance < this.enemyDetectionRange + 0.5;
+  }
+
   public calcShadows(gameState: GameMap) {
     this.shadows = gameState.lights
       .filter((light) => {

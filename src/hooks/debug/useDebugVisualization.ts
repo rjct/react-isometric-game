@@ -2,7 +2,6 @@ import React from "react";
 import { useGameState } from "../useGameState";
 import { constants } from "../../constants";
 import { useHero } from "../useHero";
-import { Unit } from "../../engine/UnitFactory";
 import { useCanvas } from "../useCanvas";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
@@ -12,15 +11,6 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
-
-  const isCirclesColliding = (unit1: Unit, unit2: Unit) => {
-    const a = Math.abs(unit1.position.x - unit2.position.x);
-    const b = Math.abs(unit1.position.y - unit2.position.y);
-
-    const distance = Math.sqrt(a * a + b * b);
-
-    return distance < unit1.enemyDetectionRange + 0.5;
-  };
 
   const getCtx = () => {
     if (props.canvasRef?.current) {
@@ -134,7 +124,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
         const { x, y } = unit.position;
 
         ctx.beginPath();
-        ctx.strokeStyle = isCirclesColliding(unit, hero) ? "red" : "#cccccc";
+        ctx.strokeStyle = unit.isEnemyDetected(hero) ? "red" : "#cccccc";
         ctx.arc(
           x * wireframeTileWidth + wireframeTileWidth / 2,
           y * wireframeTileHeight + wireframeTileHeight / 2,
