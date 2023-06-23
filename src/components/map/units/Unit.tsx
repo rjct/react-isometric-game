@@ -17,6 +17,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 }) {
   const { gameState, uiState } = useGameState();
 
+  const isUnitVisible =
+    gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport);
+
   const renderAmmo = () => {
     const weapon = props.unit.getCurrentWeapon();
 
@@ -28,6 +31,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   };
 
   React.useEffect(() => {
+    if (!isUnitVisible) return;
+
     if (gameState.settings.featureEnabled.unitShadow) {
       props.unit.calcShadows(gameState);
     } else {
@@ -39,7 +44,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     gameState.settings.featureEnabled.unitShadow,
   ]);
 
-  return gameState.isEntityVisible(props.unit) ? (
+  return isUnitVisible ? (
     <>
       {renderAmmo()}
 
@@ -70,7 +75,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         <UnitDamagePoints unit={props.unit} />
         <UnitCooldownTimer unit={props.unit} />
         <UnitHealth unit={props.unit} />
-        <UnitShadow unit={props.unit} />
+        <UnitShadow shadows={props.unit.shadows} />
       </div>
     </>
   ) : null;
