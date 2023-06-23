@@ -39,7 +39,6 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
       props.unit.clearShadows();
     }
   }, [
-    uiState.scene === "editor" ? gameState.getLightsHash() : false,
     gameState.settings.featureEnabled.unitShadow ? props.unit.getHash() : false,
     gameState.settings.featureEnabled.unitShadow,
   ]);
