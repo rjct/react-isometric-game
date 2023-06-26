@@ -1,6 +1,6 @@
-import { Light } from "./LightFactory";
 import { constants } from "../constants";
 import { Building } from "./BuildingFactory";
+import { Unit } from "./UnitFactory";
 
 export class LightRay {
   x = 0;
@@ -9,22 +9,25 @@ export class LightRay {
   nx = 0;
   ny = 0;
   color = "";
+  angle = 0;
+  collidedWithEntity: Building | Unit | null = null;
 
-  constructor(light: Light) {
-    this.setPosition(light.position);
-    this.setLen(light.radius);
-    this.setColor(light.getColor());
+  constructor(props: { position: GridCoordinates; radius: number; color: string }) {
+    this.setPosition(props.position);
+    this.setLen(props.radius);
+    this.setColor(props.color);
     this.setDirection(0);
   }
 
   setDirection(dir: number) {
+    this.angle = dir;
     this.nx = Math.cos(dir);
     this.ny = Math.sin(dir);
   }
 
   setPosition(position: GridCoordinates) {
-    this.x = position.x * constants.wireframeTileSize.width;
-    this.y = position.y * constants.wireframeTileSize.height;
+    this.x = position.x * constants.wireframeTileSize.width + constants.wireframeTileSize.width / 2;
+    this.y = position.y * constants.wireframeTileSize.height + constants.wireframeTileSize.height / 2;
   }
 
   setLen(lightRadius: number) {
@@ -39,8 +42,8 @@ export class LightRay {
     ctx.lineTo(this.nx * this.len, this.ny * this.len);
   }
 
-  draw(ctx: CanvasRenderingContext2D, useGradient = true) {
-    let fill: CanvasGradient | string = this.color;
+  draw(ctx: CanvasRenderingContext2D, useGradient = true, color = this.color) {
+    let fill: CanvasGradient | string = color;
 
     if (useGradient) {
       fill = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
@@ -59,15 +62,21 @@ export class LightRay {
     ctx.stroke();
   }
 
-  cast(objects: Array<Building>) {
+  cast(entities: Array<Building | Unit>) {
     let minDist = this.len;
-    let i = objects.length;
+    let collidedWithEntity = null;
+    this.collidedWithEntity = null;
 
-    while (i > 0) {
-      i -= 1;
-      minDist = Math.min(objects[i].rayDist2Polygon(this), minDist);
+    for (const entity of entities) {
+      const d = entity.rayDist2Polygon(this);
+
+      if (d.distance < minDist) {
+        minDist = d.distance;
+        collidedWithEntity = d.entity;
+      }
     }
 
     this.len = minDist;
+    this.collidedWithEntity = collidedWithEntity;
   }
 }

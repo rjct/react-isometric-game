@@ -20,31 +20,31 @@ export const useLightsAndShadows = (gameState: GameMap) => {
       ctx.lineWidth = 0;
 
       if (gameState.settings.featureEnabled.light && gameState.settings.featureEnabled.shadow) {
-        gameState.lights.forEach((light) => {
-          light.rays.forEach((ray) => {
+        for (const light of gameState.lights) {
+          for (const ray of light.rays) {
             ray.pathEnd(ctx);
-          });
-        });
+          }
+        }
       }
 
       if (gameState.settings.featureEnabled.shadow) {
         ctx.globalCompositeOperation = "destination-out";
 
-        gameState.lights.forEach((light) => {
-          light.rays.forEach((ray) => {
+        for (const light of gameState.lights) {
+          for (const ray of light.rays) {
             ray.draw(ctx, false);
-          });
-        });
+          }
+        }
       }
 
       if (gameState.settings.featureEnabled.light) {
         ctx.globalCompositeOperation = "xor"; //"source-atop";
 
-        gameState.lights.forEach((light) => {
-          light.rays.forEach((ray) => {
+        for (const light of gameState.lights) {
+          for (const ray of light.rays) {
             ray.draw(ctx);
-          });
-        });
+          }
+        }
       }
     }
   };

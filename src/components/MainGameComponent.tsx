@@ -36,8 +36,13 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   uiState.setScroll = setScrollRef.current.setScroll;
 
   const mainLoop = (deltaTime: number) => {
+    const allAliveEnemies = gameState.getAliveEnemiesArray();
+
     if (gameState.units[gameState.heroId]?.isDead) {
-      gameState.getAliveEnemiesArray().forEach((unit) => unit.stop());
+      for (const enemy of allAliveEnemies) {
+        enemy.stop();
+      }
+
       uiDispatch({ type: "setScene", scene: "game-over" });
 
       return;
@@ -46,6 +51,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     uiDispatch({ type: "processKeyPress", gameState });
 
     const heroWeapon = gameState.units[gameState.heroId]?.getCurrentWeapon();
+    const allAliveUnits = gameState.getAllAliveUnitsArray();
 
     switch (uiState.scene) {
       case "game":
@@ -54,40 +60,38 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
         // Update
         gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
-
-        // eslint-disable-next-line no-case-declarations
-        const allAliveUnits = gameState.getAllAliveUnitsArray();
-
         gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
 
-        allAliveUnits.forEach((unit) => {
+        for (const unit of allAliveUnits) {
           const weapon = unit.getCurrentWeapon();
 
           gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
           gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
           gameDispatch({ type: "cleanupFiredAmmo", weapon });
-        });
+          gameDispatch({ type: "recalculateUnitFieldOfView", unit });
+        }
 
-        gameState.getAliveEnemiesArray().forEach((unit) => {
+        for (const enemy of allAliveEnemies) {
           // Mark enemy unit at gunpoint
-          unit.setAtGunpoint(
+          enemy.setAtGunpoint(
             !!heroWeapon &&
               heroWeapon.isReadyToUse() &&
-              heroWeapon.getAimCoordinates()?.x === unit.getRoundedPosition().x &&
-              heroWeapon.getAimCoordinates()?.y === unit.getRoundedPosition().y
+              heroWeapon.getAimCoordinates()?.x === enemy.getRoundedPosition().x &&
+              heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y
           );
 
           // Enemy unit perform random actions
-          if (!unit.isMoving()) {
+          if (!enemy.isMoving()) {
             const randomActions = ["roam", "idle"];
             const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 
             // eslint-disable-next-line @typescript-eslint/ban-ts-comment
             // @ts-ignore
-            unit[randomAction](gameState);
+            enemy[randomAction](gameState);
           }
-          unit.cooldown(deltaTime);
-        });
+
+          enemy.cooldown(deltaTime);
+        }
         break;
 
       case "inventory":
@@ -95,9 +99,9 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         break;
 
       case "editor":
-        gameState.getAllAliveUnitsArray().forEach((unit) => {
+        for (const unit of allAliveUnits) {
           unit.stop();
-        });
+        }
         break;
     }
   };

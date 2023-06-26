@@ -21,6 +21,7 @@ export const constants = {
   OFFSCREEN_TILE_CACHE: 4,
   FOG_OF_WAR_RADIUS: 10,
   FOG_OF_WAR_OPACITY: 0.85,
+  UNIT_FIELD_OF_VIEW_RAYS: 30,
   LIGHT_RENDER_PASSES: 2,
   miniMap: {
     size: {
@@ -49,7 +50,7 @@ export const constants = {
       wireframe: true,
       occupiedCells: false,
       unitPath: false,
-      enemyDetectionRange: false,
+      unitFieldOfView: false,
       unitShadowVectors: false,
     },
   },

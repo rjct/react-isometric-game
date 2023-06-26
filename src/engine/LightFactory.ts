@@ -29,9 +29,9 @@ export class Light {
   setColor(color: string) {
     this.color = color;
 
-    this.rays.forEach((ray) => {
+    for (const ray of this.rays) {
       ray.setColor(color);
-    });
+    }
   }
 
   getColor() {
@@ -42,7 +42,7 @@ export class Light {
     const rays: Array<LightRay> = [];
 
     for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.LIGHT_RENDER_PASSES)) {
-      const ray = new LightRay(this);
+      const ray = new LightRay({ position: this.position, radius: this.radius, color: this.getColor() });
 
       ray.setDirection(angle);
 
@@ -53,23 +53,25 @@ export class Light {
   }
 
   castRays(objects: Array<Building>) {
-    this.rays.forEach((ray) => ray.cast(objects));
+    for (const ray of this.rays) {
+      ray.cast(objects);
+    }
   }
 
   setPosition(position: GridCoordinates) {
     this.position = position;
 
-    this.rays.forEach((ray) => {
+    for (const ray of this.rays) {
       ray.setPosition(position);
-    });
+    }
   }
 
   setRadius(radius: number) {
     this.radius = radius;
 
-    this.rays.forEach((ray) => {
+    for (const ray of this.rays) {
       ray.setLen(radius);
-    });
+    }
   }
 
   getHash() {

@@ -53,6 +53,7 @@ import { setSelectedUnit, SetSelectedUnitReducerAction } from "./editor/unit/set
 import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "./editor/unit/clearSelectedUnit";
 import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "./editor/unit/deleteSelectedUnit";
 import { setUnitPosition, SetUnitPositionReducerAction } from "./editor/unit/setUnitPosition";
+import { recalculateUnitFieldOfView, RecalculateUnitFieldOfViewReducerAction } from "./game/unit/recalcUnitFieldOfView";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -64,6 +65,7 @@ export type GameReducerAction =
   | MoveUnitReducerAction
   | AnimateUnitMoveReducerAction
   | UseEntityInUnitHandReducerAction
+  | RecalculateUnitFieldOfViewReducerAction
   //
   | AnimateFiredAmmoAction
   | CleanupFiredAmmoAction
@@ -136,6 +138,10 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "useEntityInUnitHand":
       return useEntityInUnitHand(state, action as UseEntityInUnitHandReducerAction);
+
+    case "recalculateUnitFieldOfView":
+      return recalculateUnitFieldOfView(state, action as RecalculateUnitFieldOfViewReducerAction);
+
     //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);

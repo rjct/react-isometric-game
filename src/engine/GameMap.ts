@@ -53,7 +53,7 @@ export const gameMap = {
       wireframe: isFeatureEnabled("debug", "wireframe"),
       occupiedCells: isFeatureEnabled("debug", "occupiedCells"),
       unitPath: isFeatureEnabled("debug", "unitPath"),
-      enemyDetectionRange: isFeatureEnabled("debug", "enemyDetectionRange"),
+      unitFieldOfView: isFeatureEnabled("debug", "unitFieldOfView"),
       unitShadowVectors: isFeatureEnabled("debug", "unitShadowVectors"),
     },
   },
@@ -202,6 +202,20 @@ export const gameMap = {
       y + tileHeight * cache >= viewport.y1 &&
       y - entityHeight - tileHeight * cache <= viewport.y2
     );
+  },
+
+  getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit>, radius: number) {
+    return entities.filter((entity) => {
+      const x1 = coordinates.x - radius;
+      const y1 = coordinates.y - radius;
+      const x2 = coordinates.x + radius;
+      const y2 = coordinates.y + radius;
+
+      const entityX = entity.position.x;
+      const entityY = entity.position.y;
+
+      return entityX >= x1 && entityX <= x2 && entityY >= y1 && entityY <= y2;
+    });
   },
 
   screenSpaceToGridSpace(screenPos: GridCoordinates): ScreenCoordinates {

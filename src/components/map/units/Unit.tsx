@@ -7,6 +7,7 @@ import { UnitCooldownTimer } from "./UnitCooldownTimer";
 import { UnitHealth } from "./UnitHealth";
 import { UnitDamagePoints } from "./UnitDamagePoints";
 import { UnitShadow } from "./UnitShadow";
+import { UnitEnemyInViewMark } from "./UnitEnemyInViewMark";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -71,6 +72,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
       >
         <div className="char"></div>
+        <UnitEnemyInViewMark unit={props.unit} />
         <UnitDamagePoints unit={props.unit} />
         <UnitCooldownTimer unit={props.unit} />
         <UnitHealth unit={props.unit} />

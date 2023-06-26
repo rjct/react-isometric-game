@@ -31,12 +31,12 @@ export class ObstacleRay {
   getRayEndPosition(gameMap: GameMap): GridCoordinates {
     const targetPosition = { ...this.to };
 
-    this.vector.forEach((cell) => {
+    for (const cell of this.vector) {
       if (gameMap.isCellOccupied(cell)) {
         targetPosition.x = Math.round(cell.x);
         targetPosition.y = Math.round(cell.y);
       }
-    });
+    }
 
     return targetPosition;
   }

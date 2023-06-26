@@ -1,12 +1,10 @@
 import React from "react";
 import { useGameState } from "../useGameState";
 import { constants } from "../../constants";
-import { useHero } from "../useHero";
 import { useCanvas } from "../useCanvas";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
-  const { gameState } = useGameState();
-  const { hero } = useHero();
+  const { gameState, uiState } = useGameState();
   const { clearCanvas, drawRect, drawFillRect } = useCanvas();
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
@@ -30,7 +28,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       renderWireframe();
       renderOccupiedCells();
       renderUnitPath();
-      renderEnemyDetectionRange();
+      renderUnitFieldOfView();
       renderTargetVector();
       renderShadowVectors();
     }
@@ -55,9 +53,9 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     if (!ctx || !gameState.debug.featureEnabled.occupiedCells) return;
 
-    gameState.buildings.forEach((building) => {
+    for (const building of gameState.buildings) {
       drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
-    });
+    }
 
     Object.values(gameState.units).forEach((unit) => {
       drawFillRect(ctx, unit.getRoundedPosition(), unit.internalColor, 1, unit.size.grid);
@@ -107,30 +105,30 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       });
   };
 
-  const renderEnemyDetectionRange = () => {
+  const renderUnitFieldOfView = () => {
     const ctx = getCtx();
 
-    if (!ctx || !gameState.debug.featureEnabled.enemyDetectionRange) return;
+    if (
+      !ctx ||
+      (uiState.scene === "game" && !gameState.debug.featureEnabled.unitFieldOfView) ||
+      (uiState.scene === "editor" &&
+        (uiState.editorMode !== "units" || !gameState.debug.featureEnabled.unitFieldOfView))
+    )
+      return;
 
-    ctx.setLineDash([5, 5]);
-    ctx.lineWidth = 3;
+    ctx.setLineDash([0, 0]);
 
     gameState
       .getAllAliveUnitsArray()
-      .filter((unit) => gameState.isEntityVisible(unit) && unit.id !== hero.id)
+      .filter((unit) => gameState.isEntityVisible(unit))
       .forEach((unit) => {
-        const { x, y } = unit.position;
-
-        ctx.beginPath();
-        ctx.strokeStyle = unit.isEnemyDetected(hero) ? "red" : "#cccccc";
-        ctx.arc(
-          x * wireframeTileWidth + wireframeTileWidth / 2,
-          y * wireframeTileHeight + wireframeTileHeight / 2,
-          unit.enemyDetectionRange * wireframeTileHeight,
-          0,
-          2 * Math.PI
-        );
-        ctx.stroke();
+        unit.fieldOfView.rays.forEach((ray) => {
+          ray.draw(
+            ctx,
+            false,
+            ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)"
+          );
+        });
       });
   };
 
@@ -174,6 +172,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     ctx.setLineDash([0, 0]);
     ctx.strokeStyle = "#FFE07D";
+    ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     gameState
       .getAllAliveUnitsArray()

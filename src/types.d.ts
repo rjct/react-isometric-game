@@ -81,3 +81,6 @@ interface AssetFile {
   size: number;
   img: HTMLImageElement;
 }
+
+type AngleInDegrees = number;
+type AngleInRadians = number;

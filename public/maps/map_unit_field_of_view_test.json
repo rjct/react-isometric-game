@@ -1,0 +1,30 @@
+{
+  "size": { "width": 20, "height": 20 },
+  "terrain": [
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 0, "x2": 20, "y2": 20 }
+    }
+  ],
+  "hero": {
+    "position": { "x": 5, "y": 9 },
+    "inventory": {
+      "backpack": [
+        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
+      ],
+      "leftHand": {
+        "class": "Firearm",
+        "type": "pistol",
+        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
+      },
+      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+    }
+  },
+  "enemies": [
+    { "type": "ghoul", "position": { "x": 17, "y": 7 } },
+    { "type": "vault13_male", "position": { "x": 15, "y": 6 } }
+  ],
+  "buildings": [{ "type": "buick", "position": { "x": 6, "y": 8 }, "direction": "right", "variant": 0 }],
+  "shadows": { "color": "#000d23", "opacity": 0.7 },
+  "lights": [{ "position": { "x": 1, "y": 1 }, "color": "#ffffff", "radius": 20 }]
+}

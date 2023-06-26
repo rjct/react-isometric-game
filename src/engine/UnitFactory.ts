@@ -8,6 +8,7 @@ import { ObstacleRay } from "./ObstacleRayFactory";
 import { StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
 import { Firearm } from "./weapon/firearm/FirearmFactory";
 import { AmmoClass } from "./weapon/AmmoFactory";
+import { UnitFieldOfViewFactory } from "./UnitFieldOfViewFactory";
 
 export type UnitType = keyof typeof units;
 
@@ -22,14 +23,17 @@ export interface DictUnit {
   };
   coolDownTime: number;
   size: {
-    grid: { width: number; height: number };
-    screen: { width: number; height: number };
+    grid: Size;
+    screen: Size;
   };
   healthPoints: {
     current: number;
     max: number;
   };
-  enemyDetectionRange: number;
+  fieldOfView: {
+    angle: AngleInDegrees; // Degrees
+    range: number;
+  };
   animationDuration: {
     hit: number;
     notAllowed: number;
@@ -37,13 +41,15 @@ export interface DictUnit {
 }
 
 export type DictUnits = {
-  [unitType in UnitType]: Unit;
+  [unitType in UnitType]: DictUnit;
 };
 
 export class Unit extends GameObjectFactory {
   public readonly type;
 
   public readonly className;
+
+  public angle = 0;
 
   public readonly speed: {
     walk: number;
@@ -86,8 +92,6 @@ export class Unit extends GameObjectFactory {
   public readonly coolDownTime: number;
   public coolDownTimer = 0;
 
-  public enemyDetectionRange: number;
-
   public readonly animationDuration: {
     hit: number;
     notAllowed: number;
@@ -102,6 +106,7 @@ export class Unit extends GameObjectFactory {
   }> = [];
 
   public atGunpoint = false;
+  public fieldOfView: UnitFieldOfViewFactory;
 
   constructor(props: {
     unitType: UnitType;
@@ -126,12 +131,16 @@ export class Unit extends GameObjectFactory {
     this.animationDuration = ref.animationDuration;
 
     this.action = props.action || "none";
-    this.enemyDetectionRange = ref.enemyDetectionRange;
 
     this.healthPoints = { ...ref.healthPoints };
     this.isDead = false;
 
     this.pathQueue = new UnitPathQueue();
+
+    this.fieldOfView = new UnitFieldOfViewFactory({
+      position: this.position,
+      fieldOfView: ref.fieldOfView,
+    });
   }
 
   public setPath(path: number[][]) {
@@ -153,7 +162,15 @@ export class Unit extends GameObjectFactory {
   }
 
   public setDirection(angle: number) {
+    this.angle = angle;
     this.direction = getHumanReadableDirection(angle);
+
+    this.fieldOfView.setDirection(angle);
+  }
+
+  public setPosition(position: GridCoordinates, mapSize: Size) {
+    super.setPosition(position, mapSize);
+    this.fieldOfView.setPosition(position);
   }
 
   public setAction(action: Unit["action"]) {
@@ -289,12 +306,9 @@ export class Unit extends GameObjectFactory {
   }
 
   public isEnemyDetected(enemy: Unit) {
-    const a = Math.abs(this.position.x - enemy.position.x);
-    const b = Math.abs(this.position.y - enemy.position.y);
-
-    const distance = Math.sqrt(a * a + b * b);
-
-    return distance < this.enemyDetectionRange + 0.5;
+    return this.fieldOfView.rays.find((ray) => {
+      return ray.collidedWithEntity?.id === enemy.id;
+    });
   }
 
   public calcShadows(gameState: GameMap) {

@@ -35,6 +35,7 @@ export const UnitEditor = React.memo(function UnitEditor() {
         y: Math.min(gameState.mapSize.height - 1, Math.max(0, workingEntity.initialEntityPosition.y - diffY)),
       },
     });
+    gameDispatch({ type: "recalculateUnitFieldOfView", unit: workingEntity.entity });
   };
 
   const handleMouseUp = () => {

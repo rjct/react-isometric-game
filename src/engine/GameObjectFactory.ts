@@ -2,16 +2,6 @@ import { constants } from "../constants";
 import { LightRay } from "./LightRayFactory";
 import { getEntityZIndex, gridToScreenSpace, randomUUID } from "./helpers";
 
-export type GameObjectWall = {
-  x: number;
-  y: number;
-  width: number;
-  height: number;
-  len: number;
-  nx: number;
-  ny: number;
-};
-
 export class GameObjectFactory {
   public readonly id;
   public readonly internalColor: string;
@@ -39,25 +29,25 @@ export class GameObjectFactory {
     this.direction = props.direction;
 
     this.walls = [
-      this.createWall({
+      new GameObjectWall(this.position, {
         x1: 0,
         y1: 0,
         x2: this.size.grid.width,
         y2: 0,
       }),
-      this.createWall({
+      new GameObjectWall(this.position, {
         x1: this.size.grid.width,
         y1: 0,
         x2: this.size.grid.width,
         y2: this.size.grid.height,
       }),
-      this.createWall({
+      new GameObjectWall(this.position, {
         x1: this.size.grid.width,
         y1: this.size.grid.height,
         x2: 0,
         y2: this.size.grid.height,
       }),
-      this.createWall({
+      new GameObjectWall(this.position, {
         x1: 0,
         y1: this.size.grid.height,
         x2: 0,
@@ -70,35 +60,16 @@ export class GameObjectFactory {
     this.position = position;
     this.screenPosition = gridToScreenSpace(position, mapSize);
     this.zIndex = getEntityZIndex(this);
+
+    for (const wall of this.walls) {
+      wall.setPosition(position);
+    }
   }
 
   getRoundedPosition(): GridCoordinates {
     return {
       x: Math.round(this.position.x),
       y: Math.round(this.position.y),
-    };
-  }
-
-  private createWall(area: AreaCoordinates): GameObjectWall {
-    const tileWidth = constants.wireframeTileSize.width;
-    const tileHeight = constants.wireframeTileSize.height;
-
-    const x = (this.position.x + area.x1) * tileWidth;
-    const y = (this.position.y + area.y1) * tileHeight;
-    const width = (area.x2 - area.x1) * tileWidth;
-    const height = (area.y2 - area.y1) * tileHeight;
-    const len = Math.hypot(width, height);
-    const nx = width / len;
-    const ny = height / len;
-
-    return {
-      x,
-      y,
-      width,
-      height,
-      len,
-      nx,
-      ny,
     };
   }
 
@@ -140,10 +111,41 @@ export class GameObjectFactory {
       }
     }
 
-    return !u || u < 0 ? Infinity : u; // if behind ray return Infinity else the dist
+    //return !u || u < 0 ? Infinity : u;
+    return !u || u < 0 ? { distance: Infinity, entity: null } : { distance: u, entity: this }; // if behind ray return Infinity else the dist
   }
 
   getHash() {
     return `${this.position.x}:${this.position.y}:${this.direction}`;
+  }
+}
+
+export class GameObjectWall {
+  private area: AreaCoordinates;
+  private position: GridCoordinates = { x: 0, y: 0 };
+  x = 0;
+  y = 0;
+  width: number;
+  height: number;
+  len: number;
+  nx: number;
+  ny: number;
+  constructor(position: GridCoordinates, area: AreaCoordinates) {
+    this.area = area;
+
+    this.setPosition(position);
+
+    this.width = (area.x2 - area.x1) * constants.wireframeTileSize.width;
+    this.height = (area.y2 - area.y1) * constants.wireframeTileSize.height;
+    this.len = Math.hypot(this.width, this.height);
+    this.nx = this.width / this.len;
+    this.ny = this.height / this.len;
+  }
+
+  setPosition(position: GridCoordinates) {
+    this.position = position;
+
+    this.x = (this.position.x + this.area.x1) * constants.wireframeTileSize.width;
+    this.y = (this.position.y + this.area.y1) * constants.wireframeTileSize.height;
   }
 }
