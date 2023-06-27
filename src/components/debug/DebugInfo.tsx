@@ -2,6 +2,9 @@ import React from "react";
 import { useHero } from "../../hooks/useHero";
 import { useGameState } from "../../hooks/useGameState";
 
+import { FPSMeter } from "./FPS";
+import { constants } from "../../constants";
+
 export const DebugInfo = React.memo(function DebugInfo() {
   const { gameState, uiState } = useGameState();
 
@@ -38,6 +41,13 @@ export const DebugInfo = React.memo(function DebugInfo() {
           <tr>
             <th>Scene:</th>
             <td>{JSON.stringify(uiState.scene)}</td>
+          </tr>
+
+          <tr>
+            <th>FPS:</th>
+            <td>
+              <FPSMeter height={14} systemFps={constants.FPS} />
+            </td>
           </tr>
         </tbody>
       </table>
