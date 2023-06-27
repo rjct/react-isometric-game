@@ -7,6 +7,11 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
   const { gameState, uiState } = useGameState();
   const { clearCanvas, drawRect, drawFillRect } = useCanvas();
 
+  const allAliveUnits = React.useMemo(
+    () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
+    [gameState.getAllAliveUnitsHash()]
+  );
+
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
 
@@ -57,9 +62,9 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
     }
 
-    Object.values(gameState.units).forEach((unit) => {
+    for (const unit of allAliveUnits) {
       drawFillRect(ctx, unit.getRoundedPosition(), unit.internalColor, 1, unit.size.grid);
-    });
+    }
   };
 
   const renderUnitPath = () => {
@@ -69,40 +74,37 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     ctx.setLineDash([15, 5]);
 
-    gameState
-      .getAllAliveUnitsArray()
-      .filter((unit) => gameState.isEntityVisible(unit))
-      .forEach((unit) => {
-        if (unit.path.length > 0) {
-          const x = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
-          const y = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
-          const color = unit.id === gameState.heroId ? "orange" : "limegreen";
+    for (const unit of allAliveUnits) {
+      if (unit.path.length > 0) {
+        const x = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const color = unit.id === gameState.heroId ? "orange" : "limegreen";
 
-          ctx.lineWidth = 3;
-          ctx.strokeStyle = color;
-          ctx.beginPath();
-          ctx.moveTo(x, y);
+        ctx.lineWidth = 3;
+        ctx.strokeStyle = color;
+        ctx.beginPath();
+        ctx.moveTo(x, y);
 
-          const path = unit.pathQueue.points.slice();
-          path.shift();
+        const path = unit.pathQueue.points.slice();
+        path.shift();
 
-          path.forEach((pathPoint) => {
-            ctx.lineTo(
-              pathPoint.x * wireframeTileWidth + wireframeTileWidth / 2,
-              pathPoint.y * wireframeTileHeight + wireframeTileHeight / 2
-            );
-          });
-
-          ctx.fillStyle = color;
-          ctx.fillRect(
-            unit.pathQueue.destinationPos.x * wireframeTileWidth + wireframeTileWidth / 2 - 10,
-            unit.pathQueue.destinationPos.y * wireframeTileHeight + wireframeTileHeight / 2 - 10,
-            20,
-            20
+        path.forEach((pathPoint) => {
+          ctx.lineTo(
+            pathPoint.x * wireframeTileWidth + wireframeTileWidth / 2,
+            pathPoint.y * wireframeTileHeight + wireframeTileHeight / 2
           );
-          ctx.stroke();
-        }
-      });
+        });
+
+        ctx.fillStyle = color;
+        ctx.fillRect(
+          unit.pathQueue.destinationPos.x * wireframeTileWidth + wireframeTileWidth / 2 - 10,
+          unit.pathQueue.destinationPos.y * wireframeTileHeight + wireframeTileHeight / 2 - 10,
+          20,
+          20
+        );
+        ctx.stroke();
+      }
+    }
   };
 
   const renderUnitFieldOfView = () => {
@@ -118,18 +120,15 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     ctx.setLineDash([0, 0]);
 
-    gameState
-      .getAllAliveUnitsArray()
-      .filter((unit) => gameState.isEntityVisible(unit))
-      .forEach((unit) => {
-        unit.fieldOfView.rays.forEach((ray) => {
-          ray.draw(
-            ctx,
-            false,
-            ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)"
-          );
-        });
-      });
+    for (const unit of allAliveUnits) {
+      for (const ray of unit.fieldOfView.rays) {
+        ray.draw(
+          ctx,
+          false,
+          ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)"
+        );
+      }
+    }
   };
 
   const renderTargetVector = () => {
@@ -174,27 +173,24 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     ctx.strokeStyle = "#FFE07D";
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
-    gameState
-      .getAllAliveUnitsArray()
-      .filter((unit) => gameState.isEntityVisible(unit))
-      .forEach((unit) => {
-        unit.shadows.forEach((shadow) => {
-          const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
-          const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
+    for (const unit of allAliveUnits) {
+      unit.shadows.forEach((shadow) => {
+        const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
 
-          const x2 = shadow.obstacleRay.to.x * wireframeTileWidth + wireframeTileWidth / 2;
-          const y2 = shadow.obstacleRay.to.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x2 = shadow.obstacleRay.to.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y2 = shadow.obstacleRay.to.y * wireframeTileHeight + wireframeTileHeight / 2;
 
-          ctx.beginPath();
-          ctx.moveTo(x1, y1);
-          ctx.lineTo(x2, y2);
+        ctx.beginPath();
+        ctx.moveTo(x1, y1);
+        ctx.lineTo(x2, y2);
 
-          ctx.lineWidth = shadow.blocked ? 0.5 : 2;
+        ctx.lineWidth = shadow.blocked ? 0.5 : 2;
 
-          ctx.stroke();
-          ctx.closePath();
-        });
+        ctx.stroke();
+        ctx.closePath();
       });
+    }
   };
 
   return { renderDebugVisualization };
