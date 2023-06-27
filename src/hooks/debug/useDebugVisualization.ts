@@ -88,12 +88,12 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
         const path = unit.pathQueue.points.slice();
         path.shift();
 
-        path.forEach((pathPoint) => {
+        for (const pathPoint of path) {
           ctx.lineTo(
             pathPoint.x * wireframeTileWidth + wireframeTileWidth / 2,
             pathPoint.y * wireframeTileHeight + wireframeTileHeight / 2
           );
-        });
+        }
 
         ctx.fillStyle = color;
         ctx.fillRect(
@@ -174,7 +174,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     for (const unit of allAliveUnits) {
-      unit.shadows.forEach((shadow) => {
+      for (const shadow of unit.shadows) {
         const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
         const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
 
@@ -189,7 +189,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
         ctx.stroke();
         ctx.closePath();
-      });
+      }
     }
   };
 
