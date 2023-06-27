@@ -3,7 +3,7 @@ import { useGameState } from "../../hooks/useGameState";
 
 import { constants } from "../../constants";
 
-export function DebugMapSwitcher() {
+export const DebugMapSwitcher = React.memo(() => {
   const { gameState, gameDispatch } = useGameState();
   const [mapsList, setMapsList] = React.useState<Array<string>>([]);
   const [mapUrl, setMapUrl] = React.useState(gameState.mapUrl);
@@ -32,7 +32,7 @@ export function DebugMapSwitcher() {
     <>
       <select value={mapUrl} onChange={handleMapUrlChange}>
         {mapsList.map((mapFileName) => (
-          <option key={mapFileName} value={`/maps/${mapFileName}`}>
+          <option key={mapFileName} value={`maps/${mapFileName}`}>
             {mapFileName}
           </option>
         ))}
@@ -42,4 +42,4 @@ export function DebugMapSwitcher() {
       </span>
     </>
   );
-}
+});
