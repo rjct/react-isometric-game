@@ -55,6 +55,7 @@ export const gameMap = {
       unitPath: isFeatureEnabled("debug", "unitPath"),
       unitFieldOfView: isFeatureEnabled("debug", "unitFieldOfView"),
       unitShadowVectors: isFeatureEnabled("debug", "unitShadowVectors"),
+      unitHealth: isFeatureEnabled("debug", "unitHealth"),
     },
   },
 

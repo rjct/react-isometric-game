@@ -5,7 +5,13 @@ import { useGameState } from "../../../hooks/useGameState";
 export function UnitCooldownTimer(props: { unit: Unit }) {
   const { gameState } = useGameState();
 
-  if (!gameState.debug.enabled || props.unit.id === gameState.heroId || props.unit.isDead) return null;
+  if (
+    !gameState.debug.enabled ||
+    !gameState.debug.featureEnabled.unitHealth ||
+    props.unit.id === gameState.heroId ||
+    props.unit.isDead
+  )
+    return null;
 
   return (
     <div
