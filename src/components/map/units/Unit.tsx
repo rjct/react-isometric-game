@@ -34,12 +34,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   React.useEffect(() => {
     if (!isUnitVisible) return;
 
-    if (gameState.settings.featureEnabled.unitShadow) {
-      props.unit.calcShadows(gameState);
-    } else {
-      props.unit.clearShadows();
-    }
+    props.unit.calcShadows(gameState);
   }, [
+    props.unit.isDead,
     gameState.settings.featureEnabled.unitShadow ? props.unit.getHash() : false,
     gameState.settings.featureEnabled.unitShadow,
   ]);

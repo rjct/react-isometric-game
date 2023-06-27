@@ -312,6 +312,12 @@ export class Unit extends GameObjectFactory {
   }
 
   public calcShadows(gameState: GameMap) {
+    if (this.isDead || !gameState.settings.featureEnabled.unitShadow) {
+      this.clearShadows();
+
+      return;
+    }
+
     this.shadows = gameState.lights
       .filter((light) => {
         return light.radius >= getDistanceBetweenGridPoints(this.position, light.position);
