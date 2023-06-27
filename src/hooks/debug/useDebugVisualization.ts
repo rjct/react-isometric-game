@@ -5,7 +5,7 @@ import { useCanvas } from "../useCanvas";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
   const { gameState, uiState } = useGameState();
-  const { clearCanvas, drawRect, drawFillRect } = useCanvas();
+  const { clearCanvas, drawFillRect } = useCanvas();
 
   const allAliveUnits = React.useMemo(
     () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
@@ -30,26 +30,11 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
       clearCanvas(ctx);
 
-      renderWireframe();
       renderOccupiedCells();
       renderUnitPath();
       renderUnitFieldOfView();
       renderTargetVector();
       renderShadowVectors();
-    }
-  };
-
-  const renderWireframe = () => {
-    const ctx = getCtx();
-
-    if (!ctx || !gameState.debug.featureEnabled.wireframe) return;
-
-    ctx.setLineDash([0, 0]);
-
-    for (let column = 0; column <= gameState.mapSize.width; column++) {
-      for (let row = 0; row <= gameState.mapSize.height; row++) {
-        drawRect(ctx, { x: column, y: row }, "#ffffff", 0.5);
-      }
     }
   };
 

@@ -14,6 +14,12 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const [mousePosition, setMousePosition] = React.useState(null as unknown as WorldMousePosition);
   const [markerPosition, setMarkerPosition] = React.useState({ x: 0, y: 0 } as GridCoordinates);
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
+
+  const wireframeCellsBackground = React.useMemo(() => {
+    return `repeating-linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px),
+            repeating-linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px)`;
+  }, [gameState.debug.enabled && gameState.debug.featureEnabled.wireframe]);
+
   const handleMouseMove = (e: React.MouseEvent) => {
     setMousePosition(getWorldMousePosition(e));
   };
@@ -77,28 +83,32 @@ export const Wireframe = React.memo(function WireframeTiles() {
     updateMarkerColor();
   }, [mousePosition?.grid.x, mousePosition?.grid.y]);
 
-  return uiState.scene === "game" ? (
+  return (
     <div
       className={"wireframe"}
       style={{
         width: gameState.mapSize.width * constants.wireframeTileSize.width,
         height: gameState.mapSize.height * constants.wireframeTileSize.height,
         left: (gameState.mapSize.width * constants.tileSize.width) / 2,
+        background:
+          gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : "none",
       }}
       onMouseMove={handleMouseMove}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      <WireframeMarker
-        coordinates={markerPosition}
-        className={markerClassName}
-        onAnimationComplete={() => {
-          const classes = [...markerClassName];
-          classes.pop();
+      {uiState.scene === "game" ? (
+        <WireframeMarker
+          coordinates={markerPosition}
+          className={markerClassName}
+          onAnimationComplete={() => {
+            const classes = [...markerClassName];
+            classes.pop();
 
-          setMarkerClassName(classes);
-        }}
-      />
+            setMarkerClassName(classes);
+          }}
+        />
+      ) : null}
     </div>
-  ) : null;
+  );
 });
