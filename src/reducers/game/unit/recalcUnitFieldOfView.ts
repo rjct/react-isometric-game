@@ -11,16 +11,19 @@ export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUn
 
   if (unit.isDead) {
     unit.fieldOfView.rays = [];
+
     return state;
   }
 
+  const buildings = state.buildings.filter((building) => state.isEntityVisible(building));
+
+  const allAliveUnits = state
+    .getAllAliveUnitsArray()
+    .filter((iter) => iter.id !== unit.id && state.isEntityVisible(iter));
+
   const entities = [
-    ...state.getEntitiesWithinRadius(unit.position, state.buildings, unit.fieldOfView.range),
-    ...state.getEntitiesWithinRadius(
-      unit.position,
-      state.getAllAliveUnitsArray().filter((iter) => iter.id !== unit.id),
-      unit.fieldOfView.range
-    ),
+    ...state.getEntitiesWithinRadius(unit.position, buildings, unit.fieldOfView.range),
+    ...state.getEntitiesWithinRadius(unit.position, allAliveUnits, unit.fieldOfView.range),
   ];
 
   unit.fieldOfView.castRays(entities);
