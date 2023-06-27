@@ -71,7 +71,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [gameState.mapUrl]);
 
   React.useEffect(() => {
-    if (!mousePosition) return;
+    if (!mousePosition || mousePosition.isOutOfGrid) return;
 
     setMarkerPosition(mousePosition.grid);
     updateMarkerColor();
