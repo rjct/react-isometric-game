@@ -138,7 +138,5 @@ export function floor(num: number) {
 }
 
 export function randomUUID() {
-  return window.crypto.randomUUID
-    ? window.crypto.randomUUID()
-    : Date.now().toString(36) + Math.random().toString(36).substring(2);
+  return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }

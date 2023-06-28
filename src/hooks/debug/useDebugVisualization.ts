@@ -2,6 +2,7 @@ import React from "react";
 import { useGameState } from "../useGameState";
 import { constants } from "../../constants";
 import { useCanvas } from "../useCanvas";
+import { LightRay } from "../../engine/LightRayFactory";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
   const { gameState, uiState } = useGameState();
@@ -107,11 +108,9 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     for (const unit of allAliveUnits) {
       for (const ray of unit.fieldOfView.rays) {
-        ray.draw(
-          ctx,
-          false,
-          ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)"
-        );
+        ray.setColor(ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)");
+
+        LightRay.draw(ctx, ray.getRayData(), false);
       }
     }
   };

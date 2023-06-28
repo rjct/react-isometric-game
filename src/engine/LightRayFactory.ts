@@ -2,6 +2,8 @@ import { constants } from "../constants";
 import { Building } from "./BuildingFactory";
 import { Unit } from "./UnitFactory";
 
+export type LightRayData = Pick<LightRay, "x" | "y" | "nx" | "ny" | "len" | "color">;
+
 export class LightRay {
   x = 0;
   y = 0;
@@ -38,26 +40,30 @@ export class LightRay {
     this.color = color;
   }
 
-  pathEnd(ctx: CanvasRenderingContext2D) {
-    ctx.lineTo(this.nx * this.len, this.ny * this.len);
+  static pathEnd(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, rayData: LightRayData) {
+    ctx.lineTo(rayData.nx * rayData.len, rayData.ny * rayData.len);
   }
 
-  draw(ctx: CanvasRenderingContext2D, useGradient = true, color = this.color) {
-    let fill: CanvasGradient | string = color;
+  static draw(
+    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
+    rayData: LightRayData,
+    useGradient: boolean
+  ) {
+    let fill: CanvasGradient | string = rayData.color;
 
     if (useGradient) {
-      fill = ctx.createRadialGradient(0, 0, this.len / 2, 0, 0, this.len);
-      fill.addColorStop(0, `${this.color}FF`);
-      fill.addColorStop(0.5, `${this.color}80`);
-      fill.addColorStop(1, `${this.color}00`);
+      fill = ctx.createRadialGradient(0, 0, rayData.len / 2, 0, 0, rayData.len);
+      fill.addColorStop(0, `${rayData.color}FF`);
+      fill.addColorStop(0.5, `${rayData.color}80`);
+      fill.addColorStop(1, `${rayData.color}00`);
     }
 
     ctx.strokeStyle = fill;
     ctx.lineWidth = 1;
-    ctx.setTransform(1, 0, 0, 1, this.x, this.y);
+    ctx.setTransform(1, 0, 0, 1, rayData.x, rayData.y);
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(this.nx * this.len, this.ny * this.len);
+    ctx.lineTo(rayData.nx * rayData.len, rayData.ny * rayData.len);
     ctx.closePath();
     ctx.stroke();
   }
@@ -78,5 +84,16 @@ export class LightRay {
 
     this.len = minDist;
     this.collidedWithEntity = collidedWithEntity;
+  }
+
+  getRayData(): LightRayData {
+    return {
+      x: this.x,
+      y: this.y,
+      nx: this.nx,
+      ny: this.ny,
+      len: this.len,
+      color: this.color,
+    };
   }
 }

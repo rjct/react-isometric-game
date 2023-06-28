@@ -2,7 +2,7 @@ import { Unit } from "../../../engine/UnitFactory";
 import React from "react";
 import { useGameState } from "../../../hooks/useGameState";
 
-export function UnitHealth(props: { unit: Unit }) {
+export const UnitHealth = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();
 
   if (!gameState.debug.enabled || !gameState.debug.featureEnabled.unitHealth || props.unit.isDead) return null;
@@ -12,4 +12,4 @@ export function UnitHealth(props: { unit: Unit }) {
       <div style={{ width: `${(props.unit.healthPoints.current * 100) / props.unit.healthPoints.max}%` }}></div>
     </div>
   );
-}
+});

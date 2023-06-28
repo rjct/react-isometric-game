@@ -109,6 +109,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   useAnimationFrame(mainLoop, !loadingState.loading && !uiState.isScrolling());
 
   React.useEffect(() => {
+    uiDispatch({ type: "setScene", scene: "loading" });
+
     const keyDownHandler = (e: KeyboardEvent) => {
       uiDispatch({ type: "detectKeyPress", keyCode: e.code, keyPressState: true });
     };
@@ -127,8 +129,13 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   }, []);
 
   React.useEffect(() => {
+    uiDispatch({ type: "setScene", scene: "loading" });
+
     preloadAssets().then((mediaFiles) => {
-      loadMap(gameState.mapUrl).then((map) => gameDispatch({ type: "switchMap", map, mediaFiles }));
+      loadMap(gameState.mapUrl).then((map) => {
+        gameDispatch({ type: "switchMap", map, mediaFiles });
+        uiDispatch({ type: "setScene", scene: "game" });
+      });
     });
   }, [gameState.mapUrl]);
 
@@ -147,10 +154,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         <GameUIContext.Provider value={uiState}>
           <GameDispatchContext.Provider value={gameDispatch}>
             <GameStateContext.Provider value={gameState}>
-              {loadingState.loading ? <Loading {...loadingState} /> : null}
+              <Loading assets={loadingState} />
+
               <GameOver />
               <Top />
-
               <div className={"center"}>
                 <DebugFeaturesSwitches />
                 <MiniMap />
@@ -158,7 +165,6 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                 <EditorSidebar />
               </div>
               <ControlPanel />
-
               <EntitiesLibrary />
               <Inventory />
             </GameStateContext.Provider>

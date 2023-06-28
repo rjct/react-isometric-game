@@ -29,10 +29,20 @@ const gameUIContext = {
   isScrolling: function () {
     return this.scrollDirection !== "none";
   },
-  scene: "game" as "editor" | "game" | "inventory" | "game-over",
+  scene: "game" as "editor" | "loading" | "game" | "inventory" | "game-over",
   editorMode: "terrain" as keyof typeof EditorModes,
   isPaused() {
     return this.scene !== "game";
+  },
+  offscreenCanvasRenderingProgress: {
+    fogOfWar: {
+      percent: 100,
+      complete: true,
+    } as Omit<OffscreenCanvasRenderingProgress, "data">,
+    lightsAndShadows: {
+      percent: 100,
+      complete: true,
+    } as Omit<OffscreenCanvasRenderingProgress, "data">,
   },
 };
 

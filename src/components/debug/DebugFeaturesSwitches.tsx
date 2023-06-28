@@ -6,7 +6,7 @@ import { GameSettingsFeature } from "../../constants";
 import { GameMap } from "../../engine/GameMap";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
-  const { gameState, gameDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
   return gameState.debug.enabled ? (
     <div className={"debug-features"}>
@@ -22,6 +22,34 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
                 featureName: key as GameSettingsFeature,
                 featureEnabled: e.target.checked,
               });
+
+              if (key === "light" || key === "shadow") {
+                uiDispatch({
+                  type: "updateOffscreenCanvasRenderingProgress",
+                  entity: "lightsAndShadows",
+                  progress: {
+                    ...uiState.offscreenCanvasRenderingProgress.lightsAndShadows,
+                    ...{
+                      percent: 0,
+                      complete: false,
+                    },
+                  },
+                });
+              }
+
+              if (key === "fogOfWar") {
+                uiDispatch({
+                  type: "updateOffscreenCanvasRenderingProgress",
+                  entity: "fogOfWar",
+                  progress: {
+                    ...uiState.offscreenCanvasRenderingProgress.lightsAndShadows,
+                    ...{
+                      percent: 0,
+                      complete: false,
+                    },
+                  },
+                });
+              }
             }}
           />
         );

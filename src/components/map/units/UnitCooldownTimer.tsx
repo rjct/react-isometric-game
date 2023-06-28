@@ -2,7 +2,7 @@ import React from "react";
 import { Unit } from "../../../engine/UnitFactory";
 import { useGameState } from "../../../hooks/useGameState";
 
-export function UnitCooldownTimer(props: { unit: Unit }) {
+export const UnitCooldownTimer = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();
 
   if (
@@ -23,4 +23,4 @@ export function UnitCooldownTimer(props: { unit: Unit }) {
       }}
     ></div>
   );
-}
+});

@@ -1,64 +1,31 @@
-import { constants } from "../constants";
+import { WogOfWarWorkerProps } from "../workers/fogOfWar.worker";
+import { GameMap } from "../engine/GameMap";
 import React from "react";
-import { useGameState } from "./useGameState";
+import { UIReducerAction } from "../reducers/ui/_reducers";
 
-export function useFogOfWar(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
-  const { gameState } = useGameState();
+const worker = new Worker(new URL("../workers/fogOfWar.worker.ts", import.meta.url));
 
-  const mapWidth = gameState.mapSize.width;
-  const mapHeight = gameState.mapSize.height;
+export function useFogOfWar(gameState: GameMap, uiDispatch: React.Dispatch<UIReducerAction>) {
+  const renderFogOfWar = (ctx: CanvasRenderingContext2D) => {
+    if (ctx) {
+      const workerProps: WogOfWarWorkerProps = {
+        mapSize: gameState.mapSize,
+        fogOfWarMatrix: gameState.fogOfWarMatrix,
+      };
 
-  const wireframeTileWidth = constants.wireframeTileSize.width;
-  const wireframeTileHeight = constants.wireframeTileSize.height;
+      worker.postMessage(workerProps);
 
-  const tileWidth = constants.wireframeTileSize.width;
-  const tileHeight = constants.wireframeTileSize.height;
+      worker.onmessage = (e) => {
+        const progress: OffscreenCanvasRenderingProgress = e.data;
 
-  const clearFogOfWar = () => {
-    if (props.canvasRef.current) {
-      const ctx = props.canvasRef.current.getContext("2d");
-      if (!ctx) return;
+        uiDispatch({ type: "updateOffscreenCanvasRenderingProgress", entity: "fogOfWar", progress });
 
-      ctx.clearRect(0, 0, mapWidth * wireframeTileWidth, mapHeight * wireframeTileHeight);
-    }
-  };
-
-  const renderFogOfWar = () => {
-    if (props.canvasRef.current) {
-      const ctx = props.canvasRef.current.getContext("2d");
-      if (!ctx) return;
-
-      clearFogOfWar();
-
-      const hideFill = `rgba( 0, 0, 0, ${constants.FOG_OF_WAR_OPACITY})`;
-      const r2 = wireframeTileWidth * 1.3;
-      const r1 = r2 / 3;
-
-      ctx.globalCompositeOperation = "source-over";
-      ctx.fillStyle = hideFill;
-      ctx.fillRect(0, 0, mapWidth * wireframeTileWidth, mapHeight * wireframeTileHeight);
-
-      ctx.globalCompositeOperation = "destination-out";
-
-      for (let y = 0; y < gameState.fogOfWarMatrix.length; y++) {
-        for (let x = 0; x < gameState.fogOfWarMatrix[y].length; x++) {
-          if (gameState.isCellVisited(x, y)) {
-            const x2 = x * tileWidth + tileWidth / 2;
-            const y2 = y * tileHeight + tileHeight / 2;
-
-            const radGrd = ctx.createRadialGradient(x2, y2, r1, x2, y2, r2);
-            radGrd.addColorStop(0, "rgba( 0, 0, 0,  1 )");
-            radGrd.addColorStop(0.8, "rgba( 0, 0, 0, .1 )");
-            radGrd.addColorStop(1, "rgba( 0, 0, 0,  0 )");
-
-            ctx.fillStyle = radGrd;
-
-            ctx.fillRect(x2 - r2, y2 - r2, r2 * 2, r2 * 2);
-          }
+        if (progress.complete && progress.data) {
+          ctx.putImageData(progress.data, 0, 0);
         }
-      }
+      };
     }
   };
 
-  return { renderFogOfWar, clearFogOfWar };
+  return { renderFogOfWar };
 }

@@ -49,6 +49,15 @@ export const DebugInfo = React.memo(function DebugInfo() {
               <FPSMeter height={14} systemFps={constants.FPS} />
             </td>
           </tr>
+
+          <tr>
+            <th>OffscreenCanvas:</th>
+            <td>
+              Fow: {uiState.offscreenCanvasRenderingProgress.fogOfWar.percent}%{" | "}
+              Lights and shadows:
+              {uiState.offscreenCanvasRenderingProgress.lightsAndShadows.percent}%
+            </td>
+          </tr>
         </tbody>
       </table>
     </div>

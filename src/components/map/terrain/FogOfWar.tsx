@@ -5,15 +5,17 @@ import { useFogOfWar } from "../../../hooks/useFogOfWar";
 import { Canvas } from "../../_shared/Canvas";
 
 export const FogOfWar = React.memo(() => {
-  const canvasRef = React.createRef<HTMLCanvasElement>();
+  const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
 
-  const { gameState, uiState } = useGameState();
-  const { renderFogOfWar } = useFogOfWar({ canvasRef });
+  const { gameState, uiState, uiDispatch } = useGameState();
+  const { renderFogOfWar } = useFogOfWar(gameState, uiDispatch);
 
   React.useLayoutEffect(() => {
-    if (gameState.mapSize.width === 0 || uiState.scene === "editor") return;
+    const ctx = canvasRef.current?.getContext("2d");
 
-    renderFogOfWar();
+    if (ctx) {
+      renderFogOfWar(ctx);
+    }
   }, [gameState.getFogOfWarMatrixHash(), uiState.scene, gameState.settings.featureEnabled.fogOfWar]);
 
   return gameState.mapSize.width === 0 ||

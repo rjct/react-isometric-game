@@ -1,51 +1,55 @@
-import { constants } from "../constants";
 import { GameMap } from "../engine/GameMap";
+import { LightRayData } from "../engine/LightRayFactory";
+import { LightsAndShadowsWorkerProps } from "../workers/lightsAndShadows.worker";
+import { GameUI } from "../context/GameUIContext";
+import React from "react";
+import { UIReducerAction } from "../reducers/ui/_reducers";
 
-export const useLightsAndShadows = (gameState: GameMap) => {
+const worker = new Worker(new URL("../workers/lightsAndShadows.worker.ts", import.meta.url));
+
+export const useLightsAndShadows = (
+  gameState: GameMap,
+  uiState: GameUI,
+  uiDispatch: React.Dispatch<UIReducerAction>
+) => {
   const renderLightsAndShadows = (ctx: CanvasRenderingContext2D) => {
-    if (gameState.settings.featureEnabled.light || gameState.settings.featureEnabled.shadow) {
-      ctx.globalCompositeOperation = "source-over";
+    const raysData = [] as Array<LightRayData>;
 
-      if (gameState.settings.featureEnabled.shadow) {
-        ctx.globalAlpha = gameState.shadows.opacity;
-        ctx.fillStyle = gameState.shadows.color;
-        ctx.fillRect(
-          0,
-          0,
-          gameState.mapSize.width * constants.wireframeTileSize.width,
-          gameState.mapSize.height * constants.wireframeTileSize.height
-        );
+    for (const light of gameState.lights) {
+      for (const ray of light.rays) {
+        raysData.push(ray.getRayData());
       }
+    }
 
-      ctx.lineWidth = 0;
+    const lightEnabled = gameState.settings.featureEnabled.light;
+    const shadowEnabled = gameState.settings.featureEnabled.shadow;
 
-      if (gameState.settings.featureEnabled.light && gameState.settings.featureEnabled.shadow) {
-        for (const light of gameState.lights) {
-          for (const ray of light.rays) {
-            ray.pathEnd(ctx);
-          }
+    if (ctx && raysData.length > 0) {
+      const workerProps: LightsAndShadowsWorkerProps = {
+        mapSize: gameState.mapSize,
+        featureEnabled: {
+          light:
+            lightEnabled &&
+            (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "lights")),
+          shadow:
+            shadowEnabled &&
+            (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "lights")),
+        },
+        shadows: gameState.shadows,
+        lightRaysData: raysData,
+      };
+
+      worker.postMessage(workerProps);
+
+      worker.onmessage = (e) => {
+        const progress: OffscreenCanvasRenderingProgress = e.data;
+
+        uiDispatch({ type: "updateOffscreenCanvasRenderingProgress", entity: "lightsAndShadows", progress });
+
+        if (progress.complete && progress.data) {
+          ctx.putImageData(progress.data, 0, 0);
         }
-      }
-
-      if (gameState.settings.featureEnabled.shadow) {
-        ctx.globalCompositeOperation = "destination-out";
-
-        for (const light of gameState.lights) {
-          for (const ray of light.rays) {
-            ray.draw(ctx, false);
-          }
-        }
-      }
-
-      if (gameState.settings.featureEnabled.light) {
-        ctx.globalCompositeOperation = "xor"; //"source-atop";
-
-        for (const light of gameState.lights) {
-          for (const ray of light.rays) {
-            ray.draw(ctx);
-          }
-        }
-      }
+      };
     }
   };
 
