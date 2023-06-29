@@ -35,10 +35,6 @@ const gameUIContext = {
     return this.scene !== "game";
   },
   offscreenCanvasRenderingProgress: {
-    fogOfWar: {
-      percent: 100,
-      complete: true,
-    } as Omit<OffscreenCanvasRenderingProgress, "data">,
     lightsAndShadows: {
       percent: 100,
       complete: true,

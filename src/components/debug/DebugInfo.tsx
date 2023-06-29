@@ -53,7 +53,6 @@ export const DebugInfo = React.memo(function DebugInfo() {
           <tr>
             <th>OffscreenCanvas:</th>
             <td>
-              Fow: {uiState.offscreenCanvasRenderingProgress.fogOfWar.percent}%{" | "}
               Lights and shadows:
               {uiState.offscreenCanvasRenderingProgress.lightsAndShadows.percent}%
             </td>

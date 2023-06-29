@@ -36,20 +36,6 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
                   },
                 });
               }
-
-              if (key === "fogOfWar") {
-                uiDispatch({
-                  type: "updateOffscreenCanvasRenderingProgress",
-                  entity: "fogOfWar",
-                  progress: {
-                    ...uiState.offscreenCanvasRenderingProgress.lightsAndShadows,
-                    ...{
-                      percent: 0,
-                      complete: false,
-                    },
-                  },
-                });
-              }
             }}
           />
         );

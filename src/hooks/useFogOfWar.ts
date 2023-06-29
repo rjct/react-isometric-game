@@ -1,29 +1,29 @@
-import { WogOfWarWorkerProps } from "../workers/fogOfWar.worker";
 import { GameMap } from "../engine/GameMap";
-import React from "react";
-import { UIReducerAction } from "../reducers/ui/_reducers";
+import { constants } from "../constants";
 
-const worker = new Worker(new URL("../workers/fogOfWar.worker.ts", import.meta.url));
+export function useFogOfWar(gameState: GameMap) {
+  const renderFogOfWar = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) => {
+    const hideFill = `rgba( 0, 0, 0, ${constants.FOG_OF_WAR_OPACITY})`;
+    const radius = 1;
 
-export function useFogOfWar(gameState: GameMap, uiDispatch: React.Dispatch<UIReducerAction>) {
-  const renderFogOfWar = (ctx: CanvasRenderingContext2D) => {
-    if (ctx) {
-      const workerProps: WogOfWarWorkerProps = {
-        mapSize: gameState.mapSize,
-        fogOfWarMatrix: gameState.fogOfWarMatrix,
-      };
+    ctx.clearRect(0, 0, gameState.mapSize.width, gameState.mapSize.height);
+    ctx.globalCompositeOperation = "source-over";
+    ctx.fillStyle = hideFill;
+    ctx.fillRect(0, 0, gameState.mapSize.width, gameState.mapSize.height);
 
-      worker.postMessage(workerProps);
+    ctx.globalCompositeOperation = "destination-out";
 
-      worker.onmessage = (e) => {
-        const progress: OffscreenCanvasRenderingProgress = e.data;
+    for (let y = 0; y < gameState.fogOfWarMatrix.length; y++) {
+      for (let x = 0; x < gameState.fogOfWarMatrix[y].length; x++) {
+        if (gameState.isCellVisited(x, y)) {
+          const x2 = x + 0.5;
+          const y2 = y + 0.5;
 
-        uiDispatch({ type: "updateOffscreenCanvasRenderingProgress", entity: "fogOfWar", progress });
+          ctx.fillStyle = "#000000";
 
-        if (progress.complete && progress.data) {
-          ctx.putImageData(progress.data, 0, 0);
+          ctx.fillRect(x2 - radius, y2 - radius, radius * 2, radius * 2);
         }
-      };
+      }
     }
   };
 
