@@ -15,6 +15,10 @@ export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUn
     return state;
   }
 
+  if (unit.fieldOfView.rays.length === 0) {
+    return state;
+  }
+
   const buildings = state.buildings.filter((building) => state.isEntityVisible(building));
 
   const allAliveUnits = state

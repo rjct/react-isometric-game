@@ -60,30 +60,6 @@ onmessage = function (e: MessageEvent<LightsAndShadowsWorkerProps>) {
     });
   }
 
-  // ctx.lineWidth = 0;
-  // if (featureEnabled.light || featureEnabled.shadow) {
-  //   for (const ray of lightRaysData) {
-  //     LightRay.pathEnd(ctx, ray);
-  //   }
-  // }
-
-  // if (featureEnabled.shadow) {
-  //   ctx.globalCompositeOperation = "destination-out";
-  //
-  //   ctx.lineWidth = 1;
-  //   for (const ray of lightRaysData) {
-  //     LightRay.draw(ctx, ray, false);
-  //   }
-  // }
-  //
-  // if (featureEnabled.light) {
-  //   ctx.globalCompositeOperation = "xor"; //"source-atop";
-  //
-  //   for (const ray of lightRaysData) {
-  //     LightRay.draw(ctx, ray, true);
-  //   }
-  // }
-
   postMessage({
     ...progress,
     ...{
