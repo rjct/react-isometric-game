@@ -15,8 +15,10 @@ export function setUnitDead(state: GameMap, action: SetUnitDeadReducerAction): G
 
     if (action.isDead) {
       state.deOccupyCell(entity.position);
+      entity.clearShadows();
     } else {
       state.occupyCell(entity.position);
+      entity.calcShadows(state);
     }
 
     return { ...state };
