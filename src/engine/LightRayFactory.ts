@@ -60,10 +60,10 @@ export class LightRay {
 
     ctx.strokeStyle = fill;
     ctx.lineWidth = 1;
-    ctx.setTransform(1, 0, 0, 1, rayData.x, rayData.y);
+    ctx.setTransform(1, 0, 0, 1, Math.round(rayData.x), Math.round(rayData.y));
     ctx.beginPath();
     ctx.moveTo(0, 0);
-    ctx.lineTo(rayData.nx * rayData.len, rayData.ny * rayData.len);
+    ctx.lineTo(Math.round(rayData.nx * rayData.len), Math.round(rayData.ny * rayData.len));
     ctx.closePath();
     ctx.stroke();
   }

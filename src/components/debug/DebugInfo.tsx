@@ -54,7 +54,8 @@ export const DebugInfo = React.memo(function DebugInfo() {
             <th>OffscreenCanvas:</th>
             <td>
               Lights and shadows:
-              {uiState.offscreenCanvasRenderingProgress.lightsAndShadows.percent}%
+              {uiState.offscreenCanvasRenderingProgress.lightsAndShadows.percent}% (
+              {uiState.offscreenCanvasRenderingProgress.lightsAndShadows.time}ms)
             </td>
           </tr>
         </tbody>

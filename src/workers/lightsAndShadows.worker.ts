@@ -15,6 +15,8 @@ export type LightsAndShadowsWorkerProps = {
 onmessage = function (e: MessageEvent<LightsAndShadowsWorkerProps>) {
   const { mapSize, featureEnabled, shadows, lightRaysData } = e.data;
 
+  const timeStart = performance.now();
+
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
 
@@ -27,6 +29,7 @@ onmessage = function (e: MessageEvent<LightsAndShadowsWorkerProps>) {
   const progress: OffscreenCanvasRenderingProgress = {
     percent: 0,
     complete: false,
+    time: 0,
   };
 
   let counter = 0;
@@ -56,6 +59,7 @@ onmessage = function (e: MessageEvent<LightsAndShadowsWorkerProps>) {
       ...progress,
       ...{
         percent: Math.round((counter++ / lightRaysData.length) * 100),
+        time: performance.now() - timeStart,
       },
     });
   }
@@ -65,6 +69,7 @@ onmessage = function (e: MessageEvent<LightsAndShadowsWorkerProps>) {
     ...{
       percent: 100,
       complete: true,
+      time: performance.now() - timeStart,
       data: ctx.getImageData(0, 0, mapWidth, mapHeight),
     },
   });

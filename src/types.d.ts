@@ -87,5 +87,6 @@ type AngleInRadians = number;
 type OffscreenCanvasRenderingProgress = {
   percent: number;
   complete: boolean;
+  time: number;
   data?: ImageData;
 };
