@@ -57,6 +57,8 @@
     { "type": "ghoul", "position": { "x": 19, "y": 18 } },
     {
       "type": "ghoul",
+      "isDead": true,
+      "direction": "bottom",
       "position": { "x": 19, "y": 7 },
       "inventory": { "backpack": [], "leftHand": { "class": "MeleeWeapon", "type": "punch" } }
     },

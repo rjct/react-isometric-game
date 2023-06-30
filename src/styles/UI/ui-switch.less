@@ -14,7 +14,7 @@
     height: @ui-switch-height;
     position: relative;
     vertical-align: middle;
-    transition: background 0.25s;
+    transition: background 0.25s, opacity 0.25s;
     flex-shrink: 0;
   }
 
@@ -47,6 +47,11 @@
 
   .toggle-checkbox:checked + .toggle-switch:before {
     left: @ui-switch-width - @ui-switch-height + 4;
+  }
+
+  .toggle-checkbox[disabled] + .toggle-switch {
+    opacity: 0.5;
+    cursor: default;
   }
 
   .toggle-checkbox {

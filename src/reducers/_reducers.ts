@@ -54,6 +54,8 @@ import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "./editor/unit
 import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "./editor/unit/deleteSelectedUnit";
 import { setUnitPosition, SetUnitPositionReducerAction } from "./editor/unit/setUnitPosition";
 import { recalculateUnitFieldOfView, RecalculateUnitFieldOfViewReducerAction } from "./game/unit/recalcUnitFieldOfView";
+import { setUnitDead, SetUnitDeadReducerAction } from "./editor/unit/setUnitDead";
+import { setUnitDirection, SetUnitDirectionReducerAction } from "./editor/unit/setUnitDirection";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -88,6 +90,8 @@ export type GameReducerAction =
   | ClearSelectedUnitReducerAction
   | DeleteSelectedUnitReducerAction
   | SetUnitPositionReducerAction
+  | SetUnitDeadReducerAction
+  | SetUnitDirectionReducerAction
   //
   | AddTerrainAreaReducerAction
   | SetSelectedTerrainAreaReducerAction
@@ -199,6 +203,12 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setUnitPosition":
       return setUnitPosition(state, action as SetUnitPositionReducerAction);
+
+    case "setUnitDead":
+      return setUnitDead(state, action as SetUnitDeadReducerAction);
+
+    case "setUnitDirection":
+      return setUnitDirection(state, action as SetUnitDirectionReducerAction);
 
     // EDITOR: TERRAIN
     case "addTerrainArea":

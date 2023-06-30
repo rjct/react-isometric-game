@@ -30,7 +30,3 @@ export function BuildingDirectionSelector() {
     </select>
   );
 }
-
-BuildingDirectionSelector.Selector = function () {
-  //
-};

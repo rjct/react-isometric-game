@@ -10,8 +10,6 @@ export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUn
   const { unit } = action;
 
   if (unit.isDead) {
-    unit.fieldOfView.rays = [];
-
     return state;
   }
 

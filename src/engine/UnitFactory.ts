@@ -16,6 +16,8 @@ export type UnitTypes = { [unitId: string]: Unit };
 
 export interface DictUnit {
   type: UnitType;
+  idDead?: boolean;
+  direction?: Direction;
   className: string;
   speed: {
     walk: number;
@@ -112,6 +114,7 @@ export class Unit extends GameObjectFactory {
     unitType: UnitType;
     position: GridCoordinates;
     action?: Unit["action"];
+    isDead?: boolean;
     direction?: Unit["direction"];
   }) {
     const ref = units[props.unitType] as DictUnit;
@@ -133,12 +136,14 @@ export class Unit extends GameObjectFactory {
     this.action = props.action || "none";
 
     this.healthPoints = { ...ref.healthPoints };
-    this.isDead = false;
+
+    this.isDead = props.isDead === true;
 
     this.pathQueue = new UnitPathQueue();
 
     this.fieldOfView = new UnitFieldOfViewFactory({
       position: this.position,
+      direction: this.direction,
       fieldOfView: ref.fieldOfView,
     });
   }
@@ -369,7 +374,12 @@ export class Unit extends GameObjectFactory {
     const json: StaticMapUnit = {
       type: this.type,
       position: this.getRoundedPosition(),
+      direction: this.direction,
     };
+
+    if (this.isDead) {
+      json.isDead = true;
+    }
 
     if (this.getInventoryItems().length > 0) {
       json.inventory = {} as StaticMapUnit["inventory"];

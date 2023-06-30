@@ -6,6 +6,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NothingSelectedText } from "../_shared/NothingSelectedText";
 import { UnitPositionEditor } from "./UnitPositionEditor";
 import { UnitPreview } from "./UnitPreview";
+import { UnitDeadEditor } from "./UnitDeadEditor";
+import { UnitDirectionSelector } from "./UnitDirectionSelector";
 
 export function UnitPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
@@ -21,6 +23,12 @@ export function UnitPropsEditor() {
             <tbody>
               <TableRow label={"ID"}>{gameState.selectedUnit?.id}</TableRow>
               <TableRow label={"Type"}>{gameState.selectedUnit?.type}</TableRow>
+              <TableRow label={"Dead"}>
+                <UnitDeadEditor />
+              </TableRow>
+              <TableRow label={"Direction"}>
+                <UnitDirectionSelector />
+              </TableRow>
               <TableRow label={"Position"}>
                 <UnitPositionEditor />
               </TableRow>

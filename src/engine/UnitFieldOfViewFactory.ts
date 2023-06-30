@@ -1,4 +1,4 @@
-import { degToRad } from "./helpers";
+import { degToRad, getDirectionInDegFromString } from "./helpers";
 import { LightRay } from "./LightRayFactory";
 import { Building } from "./BuildingFactory";
 import { DictUnit, Unit } from "./UnitFactory";
@@ -12,14 +12,14 @@ export class UnitFieldOfViewFactory {
   private readonly angle: AngleInRadians;
   private readonly angleStep: AngleInRadians;
 
-  constructor(props: { position: GridCoordinates; fieldOfView: DictUnit["fieldOfView"] }) {
+  constructor(props: { position: GridCoordinates; direction: Direction; fieldOfView: DictUnit["fieldOfView"] }) {
     this.position = props.position;
     this.range = props.fieldOfView.range;
     this.angle = degToRad(props.fieldOfView.angle);
     this.angleStep = degToRad(props.fieldOfView.angle / constants.UNIT_FIELD_OF_VIEW_RAYS);
 
     this.createRays();
-    this.setDirection(this.angle);
+    this.setDirection(getDirectionInDegFromString(props.direction));
   }
 
   createRays() {

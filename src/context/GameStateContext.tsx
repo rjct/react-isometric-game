@@ -31,6 +31,8 @@ export interface StaticMapLight {
 export interface StaticMapUnit {
   type?: keyof typeof unitTypes;
   position: GridCoordinates;
+  isDead?: boolean;
+  direction?: Direction;
   inventory?: {
     backpack?: StaticMapWeapon[];
     leftHand?: StaticMapWeapon;

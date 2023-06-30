@@ -69,6 +69,22 @@ export function getHumanReadableDirection(angle: number): Unit["direction"] {
   }
 }
 
+export function getDirectionInDegFromString(direction: Direction) {
+  switch (direction) {
+    case "top":
+      return 90;
+
+    case "right":
+      return 180;
+
+    case "bottom":
+      return 270;
+
+    case "left":
+      return 0;
+  }
+}
+
 export function getEntityZIndex(entity: GameObjectFactory) {
   const { position, size } = entity;
 
