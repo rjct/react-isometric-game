@@ -27,14 +27,7 @@ export function ExportButton() {
       }),
       hero: hero.getJSON(true),
       enemies: gameState.getAliveEnemiesArray().map((enemy) => enemy.getJSON()),
-      buildings: gameState.buildings.map((building) => {
-        return {
-          type: building.type,
-          position: { ...building.position },
-          direction: building.direction,
-          variant: building.variant,
-        };
-      }),
+      buildings: gameState.buildings.map((building) => building.getJSON()),
       shadows: gameState.shadows,
       lights: gameState.lights.map((light) => {
         return {

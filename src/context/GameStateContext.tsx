@@ -20,6 +20,7 @@ export interface StaticMapBuilding {
   position: GridCoordinates;
   direction: Direction;
   variant: number;
+  occupiesCell?: boolean;
 }
 
 export interface StaticMapLight {

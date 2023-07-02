@@ -45,7 +45,9 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     if (!ctx || !gameState.debug.featureEnabled.occupiedCells) return;
 
     for (const building of gameState.buildings) {
-      drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
+      if (building.occupiesCell) {
+        drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
+      }
     }
 
     for (const unit of allAliveUnits) {

@@ -51,13 +51,14 @@ const createUnitInventory = (inventory: StaticMapUnit["inventory"], unit: Unit, 
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   const buildings: Building[] = action.map.buildings.map((staticMapBuilding) => {
-    const { type, position, direction, variant } = staticMapBuilding;
+    const { type, position, direction, variant, occupiesCell } = staticMapBuilding;
 
     const building = new Building({
       buildingType: type,
       position,
       direction,
       variant,
+      occupiesCell: occupiesCell !== false,
     });
 
     building.setPosition(position, action.map.size);

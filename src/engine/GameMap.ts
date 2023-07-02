@@ -144,10 +144,12 @@ export const gameMap = {
     );
   },
 
-  setGridMatrixOccupancy(items: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
-    items.forEach((item) => {
-      const { x, y } = item.getRoundedPosition();
-      const { width, height } = item.size.grid;
+  setGridMatrixOccupancy(entities: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
+    for (const entity of entities) {
+      const { x, y } = entity.getRoundedPosition();
+      const { width, height } = entity.size.grid;
+
+      if (!entity.occupiesCell) continue;
 
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + height; yy++) {
@@ -156,7 +158,7 @@ export const gameMap = {
           }
         }
       }
-    });
+    }
 
     return matrix;
   },

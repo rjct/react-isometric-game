@@ -56,6 +56,10 @@ import { setUnitPosition, SetUnitPositionReducerAction } from "./editor/unit/set
 import { recalculateUnitFieldOfView, RecalculateUnitFieldOfViewReducerAction } from "./game/unit/recalcUnitFieldOfView";
 import { setUnitDead, SetUnitDeadReducerAction } from "./editor/unit/setUnitDead";
 import { setUnitDirection, SetUnitDirectionReducerAction } from "./editor/unit/setUnitDirection";
+import {
+  setBuildingOccupiesCell,
+  SetBuildingOccupiesCellReducerAction,
+} from "./editor/building/setBuildingOccupiesCell";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -84,6 +88,7 @@ export type GameReducerAction =
   | DeleteSelectedBuildingReducerAction
   | SetBuildingVariantReducerAction
   | SetBuildingPositionReducerAction
+  | SetBuildingOccupiesCellReducerAction
   //
   | AddUnitReducerAction
   | SetSelectedUnitReducerAction
@@ -187,6 +192,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setBuildingPosition":
       return setBuildingPosition(state, action as SetBuildingPositionReducerAction);
+
+    case "setBuildingOccupiesCell":
+      return setBuildingOccupiesCell(state, action as SetBuildingOccupiesCellReducerAction);
 
     // EDITOR: UNIT
     case "addUnit":

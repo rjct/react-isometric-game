@@ -11,6 +11,7 @@ export class GameObjectFactory {
   public screenPosition: ScreenCoordinates = { x: 0, y: 0 };
   public zIndex: number;
   public direction: Direction = "top";
+  public occupiesCell = true;
 
   private readonly walls: GameObjectWall[] = [];
 
@@ -19,6 +20,7 @@ export class GameObjectFactory {
     position: GridCoordinates;
     direction: Direction;
     internalColor: string;
+    occupiesCell?: boolean;
   }) {
     this.id = randomUUID();
     this.internalColor = props.internalColor;
@@ -27,6 +29,10 @@ export class GameObjectFactory {
     this.position = props.position;
     this.zIndex = getEntityZIndex(this);
     this.direction = props.direction;
+
+    if (props.occupiesCell === false) {
+      this.occupiesCell = false;
+    }
 
     this.walls = [
       new GameObjectWall(this.position, {

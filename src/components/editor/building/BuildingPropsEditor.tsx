@@ -7,6 +7,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { NothingSelectedText } from "../_shared/NothingSelectedText";
 import { BuildingPositionEditor } from "./BuildingPositionEditor";
 import { InputRange } from "../_shared/InputRange";
+import { BuildingOccupiesCellSwitch } from "./BuildingOccupiesCellSwitch";
 
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
@@ -21,6 +22,9 @@ export function BuildingPropsEditor() {
               <TableRow label={"ID"}>{gameState.selectedBuilding?.id}</TableRow>
               <TableRow label={"Class"}>{gameState.selectedBuilding?.class}</TableRow>
               <TableRow label={"Type"}>{gameState.selectedBuilding?.type}</TableRow>
+              <TableRow label={"Occupies cell"}>
+                <BuildingOccupiesCellSwitch />
+              </TableRow>
               <TableRow label={"Position"}>
                 <BuildingPositionEditor />
               </TableRow>

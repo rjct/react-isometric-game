@@ -2,7 +2,7 @@ import { Switch } from "../../ui/Switch";
 import React from "react";
 import { useGameState } from "../../../hooks/useGameState";
 
-export function UnitDeadEditor() {
+export function UnitDeadSwitch() {
   const { gameState, gameDispatch } = useGameState();
 
   if (!gameState.selectedUnit) {

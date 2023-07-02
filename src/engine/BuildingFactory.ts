@@ -1,5 +1,6 @@
 import buildings from "../dict/buildings.json";
 import { GameObjectFactory } from "./GameObjectFactory";
+import { StaticMapBuilding } from "../context/GameStateContext";
 
 type BuildingSize = {
   grid: Size;
@@ -33,7 +34,13 @@ export class Building extends GameObjectFactory {
 
   private readonly ref: DictBuilding;
 
-  constructor(props: { buildingType: BuildingType; position: GridCoordinates; direction: Direction; variant: number }) {
+  constructor(props: {
+    buildingType: BuildingType;
+    position: GridCoordinates;
+    direction: Direction;
+    variant: number;
+    occupiesCell: boolean;
+  }) {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
 
@@ -47,6 +54,8 @@ export class Building extends GameObjectFactory {
 
     this.variants = this.ref.variants;
     this.variant = props.variant;
+
+    this.occupiesCell = props.occupiesCell;
   }
 
   private static getSizeByPositionAndDirection(size: BuildingSize, direction: Direction) {
@@ -72,6 +81,21 @@ export class Building extends GameObjectFactory {
 
   public getAvailableDirections() {
     return this.ref.directions;
+  }
+
+  public getJSON() {
+    const json = {
+      type: this.type,
+      position: this.getRoundedPosition(),
+      direction: this.direction,
+      variant: this.variant,
+    } as StaticMapBuilding;
+
+    if (!this.occupiesCell) {
+      json.occupiesCell = false;
+    }
+
+    return json;
   }
 }
 
