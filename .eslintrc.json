@@ -19,6 +19,7 @@
     "rules": {
         "no-debugger": "warn",
         "no-console": "warn",
+        "no-case-declarations": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unused-vars": "warn"
     }

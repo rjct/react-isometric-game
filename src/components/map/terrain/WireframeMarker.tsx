@@ -2,7 +2,7 @@ import React from "react";
 import { constants } from "../../../constants";
 
 export const WireframeMarker = React.memo(
-  (props: { coordinates: GridCoordinates; className: string[]; onAnimationComplete: () => void }) => {
+  (props: { coordinates: GridCoordinates; className: string[]; value?: string; onAnimationComplete: () => void }) => {
     if (!props.coordinates) return null;
 
     return (
@@ -15,7 +15,9 @@ export const WireframeMarker = React.memo(
           height: constants.wireframeTileSize.height,
         }}
         onAnimationEnd={props.onAnimationComplete}
-      ></div>
+      >
+        {props.value ? <span>{props.value}</span> : null}
+      </div>
     );
   }
 );

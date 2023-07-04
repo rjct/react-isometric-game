@@ -1,6 +1,6 @@
 import { Unit } from "../../../engine/UnitFactory";
 import React from "react";
 
-export const UnitDamagePoints = React.memo((props: { unit: Unit }) => {
-  return <div className="damage-points">{props.unit.action === "hit" ? props.unit.damagePoints : ""}</div>;
+export const UnitDamagePoints = React.memo((props: { action: Unit["action"]; damagePoints: Unit["damagePoints"] }) => {
+  return <div className="damage-points">{props.action === "hit" ? props.damagePoints : ""}</div>;
 });

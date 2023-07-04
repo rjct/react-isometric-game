@@ -7,7 +7,7 @@ export const UnitCooldownTimer = React.memo((props: { unit: Unit }) => {
 
   if (
     !gameState.debug.enabled ||
-    !gameState.debug.featureEnabled.unitHealth ||
+    !gameState.debug.featureEnabled.unitInfo ||
     props.unit.id === gameState.heroId ||
     props.unit.isDead
   )

@@ -7,8 +7,22 @@ import { Hand } from "./Hand";
 export function Inventory() {
   const { uiState, uiDispatch } = useGameState();
 
+  const [scenesHistory, saveScenesHistory] = React.useState([uiState.scene]);
+
+  React.useEffect(() => {
+    const scenes = [...scenesHistory];
+
+    scenes.push(uiState.scene);
+
+    saveScenesHistory(scenes);
+
+    return () => {
+      saveScenesHistory([]);
+    };
+  }, [uiState.scene]);
+
   const handleCloseButtonClick = () => {
-    uiDispatch({ type: "toggleInventory" });
+    uiDispatch({ type: "setScene", scene: scenesHistory.at(-2)! });
   };
 
   return uiState.scene === "inventory" ? (

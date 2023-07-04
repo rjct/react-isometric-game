@@ -15,6 +15,14 @@
       "current": 100,
       "max": 100
     },
+    "actionPoints": {
+      "current": 10,
+      "max": 10,
+      "consumption": {
+        "walk": 1,
+        "run": 2
+      }
+    },
     "fieldOfView": {
       "angle": 120,
       "range": 10
@@ -40,6 +48,14 @@
     "healthPoints": {
       "current": 100,
       "max": 100
+    },
+    "actionPoints": {
+      "current": 10,
+      "max": 10,
+      "consumption": {
+        "walk": 1,
+        "run": 2
+      }
     },
     "fieldOfView": {
       "angle": 30,

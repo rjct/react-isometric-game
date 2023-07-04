@@ -14,7 +14,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const [mousePosition, setMousePosition] = React.useState(null as unknown as WorldMousePosition);
   const [markerPosition, setMarkerPosition] = React.useState({ x: 0, y: 0 } as GridCoordinates);
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
-
+  const [markerValue, setMarkerValue] = React.useState("");
   const wireframeCellsBackground = React.useMemo(() => {
     return `repeating-linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px),
             repeating-linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px)`;
@@ -30,7 +30,9 @@ export const Wireframe = React.memo(function WireframeTiles() {
       ...[markerClassName.includes("action--allowed") ? "perform-action--allowed" : "perform-action--not-allowed"],
     ]);
 
-    doHeroAction(mousePosition);
+    if (markerClassName.includes("action--allowed")) {
+      doHeroAction(mousePosition);
+    }
   };
 
   const handleRightClick = (e: React.MouseEvent) => {
@@ -48,6 +50,13 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const updateMarkerColor = () => {
     let className = "action--allowed";
 
+    if (uiState.scene === "combat" && gameState.combatQueue.currentUnitId !== hero.id) {
+      setMarkerClassName(["action--not-allowed"]);
+      setMarkerValue("");
+
+      return;
+    }
+
     switch (true) {
       case hero.isUsingHands():
         // eslint-disable-next-line no-case-declarations
@@ -56,17 +65,30 @@ export const Wireframe = React.memo(function WireframeTiles() {
         if (weapon) {
           weapon.aimAt(mousePosition.grid);
 
-          if (!weapon.isReadyToUse()) {
+          if (
+            !weapon.isReadyToUse() ||
+            (uiState.scene === "combat" && weapon.actionPointsConsumption > hero.actionPoints.current)
+          ) {
             className = "action--not-allowed";
             weapon.stopAiming();
           }
         }
+
+        setMarkerValue("");
         break;
 
       default:
-        if (gameState.calcUnitPath(hero, mousePosition.grid).length === 0) {
+        const unitPath = gameState.calcUnitPath(hero, mousePosition.grid);
+
+        if (
+          unitPath.length === 0 ||
+          (uiState.scene === "combat" &&
+            hero.actionPoints.current / hero.getCurrentActionPointsConsumption() < unitPath.length - 1)
+        ) {
           className = "action--not-allowed";
         }
+
+        setMarkerValue(uiState.scene === "combat" ? String(unitPath.length - 1) : "");
     }
 
     setMarkerClassName([className]);
@@ -97,10 +119,11 @@ export const Wireframe = React.memo(function WireframeTiles() {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {uiState.scene === "game" ? (
+      {uiState.scene === "game" || uiState.scene === "combat" ? (
         <WireframeMarker
           coordinates={markerPosition}
           className={markerClassName}
+          value={markerValue}
           onAnimationComplete={() => {
             const classes = [...markerClassName];
             classes.pop();

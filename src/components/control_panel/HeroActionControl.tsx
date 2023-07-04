@@ -46,6 +46,7 @@ export const HeroActionControl = React.memo(function HeroActionControl(props: {
               {weaponTitle()} {WeaponAmmoInfo()}
             </div>
             <div className={`weapon-pic ${props.weapon.className}`}></div>
+            <div className={"weapon-ap-consumption"}>AP: {props.weapon.actionPointsConsumption}</div>
           </>
         ) : null}
 

@@ -1,7 +1,6 @@
 import { constants } from "../constants";
 import { useGameState } from "./useGameState";
 import React from "react";
-import { floor } from "../engine/helpers";
 
 export interface WorldMousePosition {
   grid: { x: number; y: number };
@@ -23,22 +22,22 @@ export function useMousePosition() {
 
     const screen = {
       x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + scroll.x),
-      y: Math.round(e.clientY - rect.top) + scroll.y,
+      y: Math.round(e.clientY - rect.top) - constants.tileSize.height + scroll.y,
     };
     const grid = gameState.screenSpaceToGridSpace(screen);
 
     return {
       grid: {
-        x: floor(grid.x),
-        y: floor(grid.y),
+        x: Math.round(grid.x),
+        y: Math.round(grid.y),
       },
       screen: screen,
       browser: browser,
       isOutOfGrid:
-        floor(grid.x) < 0 ||
-        floor(grid.x) > gameState.mapSize.width - 1 ||
-        floor(grid.y) < 0 ||
-        floor(grid.y) > gameState.mapSize.height - 1,
+        Math.round(grid.x) < 0 ||
+        Math.round(grid.x) > gameState.mapSize.width - 1 ||
+        Math.round(grid.y) < 0 ||
+        Math.round(grid.y) > gameState.mapSize.height - 1,
     };
   };
 

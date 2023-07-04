@@ -3,7 +3,6 @@ import { scrollMap, ScrollMapUIReducerAction } from "./scrollMap";
 import { setMapRect, SetMapRectUIReducerAction } from "./setMapRect";
 import { setViewport, SetViewportUIReducerAction } from "./setViewport";
 import { scrollMapOnScreenEdges, ScrollMapOnScreenEdgesUIReducerAction } from "./scrollMapOnScreenEdges";
-import { toggleInventory, ToggleInventoryUIReducerAction } from "./toggleInventory";
 import { detectKeyPress, DetectKeyPressUIReducerAction } from "./detectKeyPress";
 import { processKeyPress, ProcessKeyPressUIReducerAction } from "./processKeyPress";
 import { setScene, SetSceneUIReducerAction } from "./setScene";
@@ -26,7 +25,6 @@ export type UIReducerAction =
   | SetViewportUIReducerAction
   | SetMousePositionUIReducerAction
   | ResetMousePositionUIReducerAction
-  | ToggleInventoryUIReducerAction
   | SetSceneUIReducerAction
   | SetEditorModeUIReducerAction
   | UpdateOffscreenCanvasRenderingProgressReducerAction;
@@ -59,9 +57,6 @@ export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
 
     case "resetMousePosition":
       return resetMousePosition(state, action as ResetMousePositionUIReducerAction);
-
-    case "toggleInventory":
-      return toggleInventory(state, action as ToggleInventoryUIReducerAction);
 
     case "setScene":
       return setScene(state, action as SetSceneUIReducerAction);

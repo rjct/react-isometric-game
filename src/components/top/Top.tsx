@@ -43,6 +43,13 @@ export const Top = React.memo(function Top() {
         </div>
       </div>
 
+      <div className={"block ap"} title="Action points">
+        <div className={"title"}>AP</div>
+        <div className={"value"}>
+          {hero.actionPoints.current} / {hero.actionPoints.max}
+        </div>
+      </div>
+
       <div className={"block hp"} title="Health points">
         <div className={"title"}>HP</div>
         <div className={"value"}>

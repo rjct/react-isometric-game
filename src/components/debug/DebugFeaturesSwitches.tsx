@@ -4,12 +4,25 @@ import { Switch } from "../ui/Switch";
 
 import { GameSettingsFeature } from "../../constants";
 import { GameMap } from "../../engine/GameMap";
+import { Button } from "../ui/Button";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
   return gameState.debug.enabled ? (
     <div className={"debug-features"}>
+      <Button
+        className={["control-end-combat"]}
+        onClick={() => {
+          uiDispatch({ type: "setScene", scene: "combat" });
+          gameDispatch({ type: "startCombat" });
+        }}
+      >
+        <label style={{ whiteSpace: "nowrap" }}>start combat</label>
+      </Button>
+
+      <hr />
+
       {Object.entries(gameState.settings.featureEnabled).map(([key, value]) => {
         return (
           <Switch

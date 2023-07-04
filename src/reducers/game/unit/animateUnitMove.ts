@@ -7,6 +7,7 @@ export type AnimateUnitMoveReducerAction = {
   type: "animateUnitMove";
   units: Array<Unit>;
   deltaTime: number;
+  consumeActionPoints?: boolean;
 };
 
 export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAction) {
@@ -25,6 +26,14 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
 
       if (prevPoint) {
         state.deOccupyCell(prevPoint);
+
+        if (action.consumeActionPoints) {
+          const currentSelectedAction = unit.currentSelectedAction;
+
+          if (currentSelectedAction === "walk" || currentSelectedAction === "run") {
+            unit.consumeActionPoints(unit.actionPoints.consumption[currentSelectedAction]);
+          }
+        }
 
         if (unit.path.length > 1 && state.isCellOccupied(unit.path[1])) {
           const unitPath = pathFinder(state.matrix, unit.path[0], unit.pathQueue.destinationPos);

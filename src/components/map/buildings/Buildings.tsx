@@ -17,5 +17,5 @@ export const Buildings = React.memo(function Buildings() {
     [uiState.viewport, hero.getHash()]
   );
 
-  return uiState.scene === "game" ? <>{buildings}</> : null;
+  return uiState.scene === "game" || uiState.scene === "combat" ? <>{buildings}</> : null;
 });

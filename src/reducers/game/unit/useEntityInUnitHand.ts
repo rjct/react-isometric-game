@@ -7,6 +7,7 @@ export interface UseEntityInUnitHandReducerAction {
   unit: Unit;
   hand: Exclude<keyof Unit["inventory"], "backpack">;
   targetPosition: GridCoordinates;
+  consumeActionPoints?: boolean;
 }
 
 export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandReducerAction) {
@@ -16,6 +17,10 @@ export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandR
 
   if (weapon) {
     action.unit.inventory[action.hand]?.use(action.targetPosition);
+
+    if (action.consumeActionPoints) {
+      action.unit.consumeActionPoints(weapon.actionPointsConsumption);
+    }
   }
 
   return { ...state };

@@ -31,7 +31,7 @@ export const DebugMapInfo = React.memo(() => {
             <FontAwesomeIcon icon={value.icon} />
           </span>
           <label className={"debug-label-value"}>
-            {visibleCount} / {count}
+            {visibleCount}/{count}
           </label>
         </span>
       );

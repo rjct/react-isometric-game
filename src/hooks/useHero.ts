@@ -5,13 +5,15 @@ import { WorldMousePosition } from "./useMousePosition";
 import { constants } from "../constants";
 import { Building } from "../engine/BuildingFactory";
 import { getDistanceBetweenGridPoints } from "../engine/helpers";
+import { GameScene } from "../context/GameUIContext";
 
 export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();
   const hero = gameState.units[gameState.heroId];
 
   const doHeroAction = (mousePosition: WorldMousePosition) => {
-    if (!mousePosition || mousePosition.isOutOfGrid || uiState.scene !== "game") return;
+    if (!mousePosition || mousePosition.isOutOfGrid || !(["game", "combat"] as GameScene[]).includes(uiState.scene))
+      return;
 
     const targetPosition = { ...mousePosition.grid };
     const weapon = hero.getCurrentWeapon();
@@ -36,7 +38,13 @@ export function useHero() {
         break;
 
       case "useLeftHand":
-        gameDispatch({ type: "useEntityInUnitHand", unit: hero, hand: "leftHand", targetPosition });
+        gameDispatch({
+          type: "useEntityInUnitHand",
+          unit: hero,
+          hand: "leftHand",
+          targetPosition,
+          consumeActionPoints: uiState.scene === "combat",
+        });
 
         if (weapon) {
           window.setTimeout(() => {
@@ -46,7 +54,13 @@ export function useHero() {
         break;
 
       case "useRightHand":
-        gameDispatch({ type: "useEntityInUnitHand", unit: hero, hand: "rightHand", targetPosition });
+        gameDispatch({
+          type: "useEntityInUnitHand",
+          unit: hero,
+          hand: "rightHand",
+          targetPosition,
+          consumeActionPoints: uiState.scene === "combat",
+        });
 
         if (weapon) {
           window.setTimeout(() => {

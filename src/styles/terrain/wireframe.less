@@ -23,6 +23,9 @@
     border: solid 3px;
     border-radius: 50%;
     box-sizing: border-box;
+    display: flex;
+    justify-content: center;
+    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
 
     &.action--allowed {
       color: limegreen;
@@ -37,7 +40,16 @@
     }
 
     &.action--not-allowed {
-      color: red;
+      color: #ff004d;
+    }
+
+    span {
+      display: flex;
+      align-items: center;
+      transform: rotateX(0deg) rotateZ(-45deg);
+      font-size: 24px;
+      font-family: Tahoma;
+      font-weight: bold;
     }
   }
 }

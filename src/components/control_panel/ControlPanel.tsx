@@ -10,7 +10,7 @@ import { Button } from "../ui/Button";
 export const ControlPanel = React.memo(function ControlPanel() {
   const { hero } = useHero();
 
-  const { gameDispatch, uiDispatch, uiState } = useGameState();
+  const { gameState, gameDispatch, uiDispatch, uiState } = useGameState();
 
   const centerMapOnHero = () => {
     uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition });
@@ -25,10 +25,10 @@ export const ControlPanel = React.memo(function ControlPanel() {
   };
 
   const handleInventoryButtonClick = () => {
-    uiDispatch({ type: "toggleInventory" });
+    uiDispatch({ type: "setScene", scene: "inventory" });
   };
 
-  return uiState.scene === "game" ? (
+  return uiState.scene === "game" || uiState.scene === "combat" ? (
     <div className={"control-panel"}>
       <div className={"hero-controls"}>
         <Button title={"Center map (C)"} className={["control-center-map"]} onClick={centerMapOnHero}>
@@ -87,6 +87,27 @@ export const ControlPanel = React.memo(function ControlPanel() {
             title={"Run"}
             text={<FontAwesomeIcon icon={faPersonRunning} size={"lg"} />}
           />
+        </Button>
+
+        <Button
+          className={["control-end-turn"]}
+          disabled={uiState.scene !== "combat" || gameState.combatQueue.currentUnitId !== hero.id}
+          onClick={() => {
+            gameDispatch({ type: "endTurn" });
+          }}
+        >
+          <label>End Turn</label>
+        </Button>
+
+        <Button
+          className={["control-end-combat"]}
+          disabled={uiState.scene !== "combat" || gameState.combatQueue.currentUnitId !== hero.id}
+          onClick={() => {
+            gameDispatch({ type: "endCombat" });
+            uiDispatch({ type: "setScene", scene: "game" });
+          }}
+        >
+          <label>End Combat</label>
         </Button>
       </div>
     </div>

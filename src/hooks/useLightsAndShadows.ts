@@ -1,7 +1,7 @@
 import { GameMap } from "../engine/GameMap";
 import { LightRayData } from "../engine/LightRayFactory";
 import { LightsAndShadowsWorkerProps } from "../workers/lightsAndShadows.worker";
-import { GameUI } from "../context/GameUIContext";
+import { GameScene, GameUI } from "../context/GameUIContext";
 import React from "react";
 import { UIReducerAction } from "../reducers/ui/_reducers";
 
@@ -23,17 +23,16 @@ export const useLightsAndShadows = (
 
     const lightEnabled = gameState.settings.featureEnabled.light;
     const shadowEnabled = gameState.settings.featureEnabled.shadow;
+    const isAllowed =
+      (["game", "combat", "editor", "inventory"] as GameScene[]).includes(uiState.scene) ||
+      (uiState.scene === "editor" && uiState.editorMode === "lights");
 
     if (ctx && raysData.length > 0) {
       const workerProps: LightsAndShadowsWorkerProps = {
         mapSize: gameState.mapSize,
         featureEnabled: {
-          light:
-            lightEnabled &&
-            (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "lights")),
-          shadow:
-            shadowEnabled &&
-            (uiState.scene === "game" || (uiState.scene === "editor" && uiState.editorMode === "lights")),
+          light: lightEnabled && isAllowed,
+          shadow: shadowEnabled && isAllowed,
         },
         shadows: gameState.shadows,
         lightRaysData: raysData,

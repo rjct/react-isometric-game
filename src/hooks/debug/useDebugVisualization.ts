@@ -100,7 +100,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     if (
       !ctx ||
-      (uiState.scene === "game" && !gameState.debug.featureEnabled.unitFieldOfView) ||
+      ((uiState.scene === "game" || uiState.scene === "combat") && !gameState.debug.featureEnabled.unitFieldOfView) ||
       (uiState.scene === "editor" &&
         (uiState.editorMode !== "units" || !gameState.debug.featureEnabled.unitFieldOfView))
     )

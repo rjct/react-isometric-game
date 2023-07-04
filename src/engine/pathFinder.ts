@@ -3,7 +3,7 @@ import { GameMap } from "./GameMap";
 
 export function pathFinder(matrix: GameMap["matrix"], fromPos: GridCoordinates, toPos: GridCoordinates) {
   const grid = new pathfinding.Grid(matrix);
-  const finder = new pathfinding.AStarFinder({
+  const finder = new pathfinding.BiBestFirstFinder({
     diagonalMovement: pathfinding.DiagonalMovement.Never,
     heuristic: pathfinding.Heuristic.chebyshev,
   });

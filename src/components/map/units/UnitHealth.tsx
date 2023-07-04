@@ -5,7 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 export const UnitHealth = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();
 
-  if (!gameState.debug.enabled || !gameState.debug.featureEnabled.unitHealth || props.unit.isDead) return null;
+  if (!gameState.debug.enabled || !gameState.debug.featureEnabled.unitInfo || props.unit.isDead) return null;
 
   return (
     <div className={"health"}>

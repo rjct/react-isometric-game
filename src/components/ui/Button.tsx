@@ -17,7 +17,11 @@ export function Button(props: {
       ]
         .filter(Boolean)
         .join(" ")}
-      onClick={props.onClick}
+      onClick={() => {
+        if (props.disabled) return;
+
+        props.onClick?.();
+      }}
     >
       {props.children}
     </div>

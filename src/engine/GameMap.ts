@@ -55,7 +55,7 @@ export const gameMap = {
       unitPath: isFeatureEnabled("debug", "unitPath"),
       unitFieldOfView: isFeatureEnabled("debug", "unitFieldOfView"),
       unitShadowVectors: isFeatureEnabled("debug", "unitShadowVectors"),
-      unitHealth: isFeatureEnabled("debug", "unitHealth"),
+      unitInfo: isFeatureEnabled("debug", "unitInfo"),
     },
   },
 
@@ -86,6 +86,11 @@ export const gameMap = {
   selectedUnit: null as unknown as Unit,
   selectedTerrainArea: null as unknown as TerrainArea,
   selectedLight: null as unknown as Light,
+
+  combatQueue: {
+    currentUnitId: null as unknown as string | null,
+    units: [] as Array<Unit>,
+  },
 
   getHero() {
     return this.units[this.heroId];
@@ -261,9 +266,11 @@ export const gameMap = {
   },
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
-    return Object.values(this.units).find(
-      (unit) => floor(unit.position.x) === floor(coordinates.x) && floor(unit.position.y) === floor(coordinates.y)
-    );
+    return Object.values(this.units).find((unit) => {
+      const unitPosition = unit.getRoundedPosition();
+
+      return unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y);
+    });
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {

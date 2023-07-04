@@ -40,6 +40,8 @@ export class Weapon {
     attackNotAllowed: number;
   };
 
+  public readonly actionPointsConsumption: number;
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates) {
     throw new Error("Method not implemented.");
@@ -55,6 +57,8 @@ export class Weapon {
     this.unitAction = weaponRef.unitAction as unknown as WeaponUnitAction;
 
     this.animationDuration = weaponRef.animationDuration;
+
+    this.actionPointsConsumption = weaponRef.actionPointsConsumption;
   }
 
   assignUnit(unit: Unit) {

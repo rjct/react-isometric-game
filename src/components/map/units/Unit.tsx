@@ -8,6 +8,7 @@ import { UnitHealth } from "./UnitHealth";
 import { UnitDamagePoints } from "./UnitDamagePoints";
 import { UnitShadow } from "./UnitShadow";
 import { UnitEnemyInViewMark } from "./UnitEnemyInViewMark";
+import { UnitActionPoints } from "./UnitActionPoints";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -49,7 +50,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         data-direction={props.unit.direction}
         data-action={props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
-        data-at-gunpoint={!props.unit.isDead && props.unit.atGunpoint}
+        data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
+        data-highlighed={
+          (!props.unit.isDead && props.unit.id !== gameState.heroId && uiState.scene === "combat") || null
+        }
         data-selected={props.selected || null}
         data-dragging={props.dragging || null}
         onMouseDown={(e: React.MouseEvent) => {
@@ -70,9 +74,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
       >
         <div className="char"></div>
         <UnitEnemyInViewMark unit={props.unit} />
-        <UnitDamagePoints unit={props.unit} />
+        <UnitDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
         <UnitCooldownTimer unit={props.unit} />
         <UnitHealth unit={props.unit} />
+        <UnitActionPoints unit={props.unit} />
         <UnitShadow shadows={props.unit.shadows} />
       </div>
     </>

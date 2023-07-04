@@ -60,6 +60,10 @@ import {
   setBuildingOccupiesCell,
   SetBuildingOccupiesCellReducerAction,
 } from "./editor/building/setBuildingOccupiesCell";
+import { stopUnits, StopUnitsActionReducerAction } from "./game/unit/stopUnits";
+import { startCombat, StartCombatReducerAction } from "./game/startCombat";
+import { EndTurnReducerAction, entTurn } from "./game/endTurn";
+import { endCombat, EndCombatReducerAction } from "./game/endCombat";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -78,6 +82,9 @@ export type GameReducerAction =
   | SetCurrentUnitActionReducerAction
   | DetectHeroOnExitPointsAction
   | TransferItemReducerAction
+  | StartCombatReducerAction
+  | EndCombatReducerAction
+  | EndTurnReducerAction
   //
   | DetectFiredAmmoHitsTargetAction
   //
@@ -97,6 +104,7 @@ export type GameReducerAction =
   | SetUnitPositionReducerAction
   | SetUnitDeadReducerAction
   | SetUnitDirectionReducerAction
+  | StopUnitsActionReducerAction
   //
   | AddTerrainAreaReducerAction
   | SetSelectedTerrainAreaReducerAction
@@ -151,6 +159,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "recalculateUnitFieldOfView":
       return recalculateUnitFieldOfView(state, action as RecalculateUnitFieldOfViewReducerAction);
 
+    case "stopUnits":
+      return stopUnits(state, action as StopUnitsActionReducerAction);
+
     //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);
@@ -166,6 +177,15 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "transferItem":
       return transferItem(state, action as TransferItemReducerAction);
+
+    case "startCombat":
+      return startCombat(state, action as StartCombatReducerAction);
+
+    case "endCombat":
+      return endCombat(state, action as EndCombatReducerAction);
+
+    case "endTurn":
+      return entTurn(state, action as EndTurnReducerAction);
 
     // WEAPON
     case "detectFiredAmmoHitsTarget":

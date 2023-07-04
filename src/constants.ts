@@ -52,7 +52,7 @@ export const constants = {
       unitPath: false,
       unitFieldOfView: false,
       unitShadowVectors: false,
-      unitHealth: false,
+      unitInfo: false,
     },
   },
 };

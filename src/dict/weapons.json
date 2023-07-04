@@ -6,6 +6,7 @@
       "unitAction": "punch",
       "damage": 1,
       "range": 1,
+      "actionPointsConsumption": 1,
       "animationDuration": {
         "attack": 400,
         "attackCompleted": 1000,
@@ -18,6 +19,7 @@
       "unitAction": "punch-knife",
       "damage": 2,
       "range": 1,
+      "actionPointsConsumption": 1,
       "animationDuration": {
         "attack": 400,
         "attackCompleted": 1000,
@@ -34,6 +36,7 @@
       "ammoCapacity": 8,
       "ammoConsumptionPerShoot": 1,
       "range": 8,
+      "actionPointsConsumption": 2,
       "animationDuration": {
         "attack": 400,
         "attackCompleted": 1000,
@@ -49,6 +52,7 @@
       "ammoCapacity": 30,
       "ammoConsumptionPerShoot": 3,
       "range": 10,
+      "actionPointsConsumption": 3,
       "animationDuration": {
         "attack": 400,
         "attackCompleted": 1000,

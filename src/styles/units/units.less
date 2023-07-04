@@ -64,14 +64,15 @@
     transition: filter 0.2s linear;
   }
 
-  .health {
+  .health,
+  .action-points {
     position: absolute;
     top: 0;
     left: 0;
     background-color: rgba(255, 0, 0, 0.5);
     width: 100%;
-    height: 5px;
-    border-radius: 5px;
+    height: 3px;
+    border-radius: 3px;
     overflow: hidden;
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
 
@@ -82,10 +83,15 @@
     }
   }
 
+  .action-points {
+    background-color: rgb(65, 140, 255);
+    top: -10px;
+  }
+
   .cooldown {
     position: absolute;
-    top: -3.5px;
-    left: -15px;
+    top: -10px;
+    left: -20px;
 
     width: 10px;
     height: 10px;
@@ -125,9 +131,15 @@
 
   .sharedUnitActions();
 
+  &[data-highlighed="true"] {
+    .char {
+      filter: drop-shadow(0px 0px 1px red) drop-shadow(0px 0px 2px red);
+    }
+  }
+
   &[data-at-gunpoint="true"] {
     .char {
-      filter: drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red);
+      filter: drop-shadow(0px 0px 5px red) drop-shadow(0px 0px 5px red) !important;
     }
   }
 

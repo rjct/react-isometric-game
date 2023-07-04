@@ -9,6 +9,7 @@ import { StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
 import { Firearm } from "./weapon/firearm/FirearmFactory";
 import { AmmoClass } from "./weapon/AmmoFactory";
 import { UnitFieldOfViewFactory } from "./UnitFieldOfViewFactory";
+import { Building } from "./BuildingFactory";
 
 export type UnitType = keyof typeof units;
 
@@ -31,6 +32,14 @@ export interface DictUnit {
   healthPoints: {
     current: number;
     max: number;
+  };
+  actionPoints: {
+    current: number;
+    max: number;
+    consumption: {
+      walk: number;
+      run: number;
+    };
   };
   fieldOfView: {
     angle: AngleInDegrees; // Degrees
@@ -74,6 +83,15 @@ export class Unit extends GameObjectFactory {
   public healthPoints: {
     current: number;
     max: number;
+  };
+
+  public actionPoints: {
+    current: number;
+    readonly max: number;
+    readonly consumption: {
+      walk: number;
+      run: number;
+    };
   };
 
   public damagePoints = 0;
@@ -136,6 +154,7 @@ export class Unit extends GameObjectFactory {
     this.action = props.action || "none";
 
     this.healthPoints = { ...ref.healthPoints };
+    this.actionPoints = { ...ref.actionPoints };
 
     this.isDead = props.isDead === true;
 
@@ -261,6 +280,34 @@ export class Unit extends GameObjectFactory {
     }
   }
 
+  public consumeActionPoints(actionPoints: number) {
+    this.actionPoints.current = Math.max(0, this.actionPoints.current - actionPoints);
+  }
+
+  public restoreActionPoints() {
+    this.actionPoints.current = this.actionPoints.max;
+  }
+
+  public getCurrentActionPointsConsumption() {
+    switch (this.currentSelectedAction) {
+      case "walk":
+        return this.actionPoints.consumption.walk;
+
+      case "run":
+        return this.actionPoints.consumption.run;
+
+      case "useLeftHand":
+      case "useRightHand":
+        const weapon = this.getCurrentWeapon();
+
+        if (weapon) {
+          return weapon.actionPointsConsumption;
+        }
+
+        return 0;
+    }
+  }
+
   public roam(gameState: GameMap) {
     if (this.coolDownTimer > 0 || this.isMoving()) return;
     const getRandomPosition = (): GridCoordinates => {
@@ -351,6 +398,10 @@ export class Unit extends GameObjectFactory {
 
   public setAtGunpoint(state: boolean) {
     this.atGunpoint = state;
+  }
+
+  public getDistanceToEntity(entity: Unit | Building) {
+    return getDistanceBetweenGridPoints(this.getRoundedPosition(), entity.getRoundedPosition());
   }
 
   public getJSON(omitUnitType = false) {
