@@ -10,11 +10,6 @@ export function endTurn(state: GameMap, action: EndTurnReducerAction): GameMap {
     units: state.combatQueue.units,
   };
 
-  const hero = state.getHero();
-
-  hero.stop();
-  hero.restoreActionPoints();
-
   return {
     ...state,
     ...{

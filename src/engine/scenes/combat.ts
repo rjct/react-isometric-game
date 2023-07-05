@@ -17,6 +17,8 @@ export function combatScene(this: GameContext, deltaTime: number) {
 
       if (hero.actionPoints.current === 0) {
         gameDispatch({ type: "endTurn" });
+        hero.stop();
+        hero.restoreActionPoints();
         break;
       }
 
@@ -66,6 +68,8 @@ export function combatScene(this: GameContext, deltaTime: number) {
       } else {
         if (enemy.path.length === 0) {
           const unitPath = gameState.calcUnitPath(enemy, hero.getRoundedPosition());
+
+          unitPath.pop();
 
           if (unitPath.length > 0) {
             enemy.setPath(unitPath);

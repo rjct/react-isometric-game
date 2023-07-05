@@ -93,6 +93,8 @@ export const ControlPanel = React.memo(function ControlPanel() {
           className={["control-end-turn"]}
           disabled={uiState.scene !== "combat" || gameState.combatQueue.currentUnitId !== hero.id}
           onClick={() => {
+            hero.stop();
+            hero.restoreActionPoints();
             gameDispatch({ type: "endTurn" });
           }}
         >
