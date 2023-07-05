@@ -17,8 +17,6 @@ export function combatScene(this: GameContext, deltaTime: number) {
 
       if (hero.actionPoints.current === 0) {
         gameDispatch({ type: "endTurn" });
-        hero.stop();
-        hero.restoreActionPoints();
         break;
       }
 

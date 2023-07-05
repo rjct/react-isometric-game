@@ -62,7 +62,7 @@ import {
 } from "./editor/building/setBuildingOccupiesCell";
 import { stopUnits, StopUnitsActionReducerAction } from "./game/unit/stopUnits";
 import { startCombat, StartCombatReducerAction } from "./game/startCombat";
-import { EndTurnReducerAction, entTurn } from "./game/endTurn";
+import { endTurn, EndTurnReducerAction } from "./game/endTurn";
 import { endCombat, EndCombatReducerAction } from "./game/endCombat";
 
 export type GameReducerAction =
@@ -185,7 +185,7 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return endCombat(state, action as EndCombatReducerAction);
 
     case "endTurn":
-      return entTurn(state, action as EndTurnReducerAction);
+      return endTurn(state, action as EndTurnReducerAction);
 
     // WEAPON
     case "detectFiredAmmoHitsTarget":
