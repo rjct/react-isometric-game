@@ -22,7 +22,7 @@ export function useMousePosition() {
 
     const screen = {
       x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + scroll.x),
-      y: Math.round(e.clientY - rect.top) - constants.tileSize.height + scroll.y,
+      y: Math.round(e.clientY - rect.top - constants.tileSize.height + constants.tileSize.height / 2 + scroll.y),
     };
     const grid = gameState.screenSpaceToGridSpace(screen);
 
