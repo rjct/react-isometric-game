@@ -169,6 +169,35 @@ fieldset {
   flex: 1;
 }
 
+[data-scene="combat"] {
+  .center {
+    &:after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      left: 0;
+      top:0;
+      right:0;
+      bottom:0;
+      z-index: 999999;
+      box-shadow: 0 0 50px -20px red inset;
+      animation: scene-combat 3s infinite;
+    }
+
+    @keyframes scene-combat {
+      0% {
+        box-shadow: 0 0 50px -20px red inset;
+      }
+      50% {
+        box-shadow: 0 0 70px -20px red inset;
+      }
+      100% {
+        box-shadow: 0 0 50px -20px red inset;
+      }
+    }
+  }
+}
+
 .map-wrapper {
   position: relative;
   display: block;
