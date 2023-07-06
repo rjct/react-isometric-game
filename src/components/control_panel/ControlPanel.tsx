@@ -45,12 +45,12 @@ export const ControlPanel = React.memo(function ControlPanel() {
 
         <Button
           className={["control-left-hand"]}
-          active={hero.currentSelectedAction === "useLeftHand"}
+          active={hero.currentSelectedAction === "leftHand"}
           disabled={hero.isMoving()}
         >
           <HeroActionControl
-            action={"useLeftHand"}
-            selected={hero.currentSelectedAction === "useLeftHand"}
+            action={"leftHand"}
+            selected={hero.currentSelectedAction === "leftHand"}
             onChange={handleCurrentHeroActionChange}
             weapon={hero.inventory.leftHand!}
           />
@@ -58,12 +58,12 @@ export const ControlPanel = React.memo(function ControlPanel() {
 
         <Button
           className={["control-right-hand"]}
-          active={hero.currentSelectedAction === "useRightHand"}
+          active={hero.currentSelectedAction === "rightHand"}
           disabled={hero.isMoving()}
         >
           <HeroActionControl
-            action={"useRightHand"}
-            selected={hero.currentSelectedAction === "useRightHand"}
+            action={"rightHand"}
+            selected={hero.currentSelectedAction === "rightHand"}
             onChange={handleCurrentHeroActionChange}
             weapon={hero.inventory.rightHand!}
           />

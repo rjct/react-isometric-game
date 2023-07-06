@@ -42,6 +42,8 @@ export class Weapon {
 
   public readonly actionPointsConsumption: number;
 
+  private isBusy: boolean;
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates) {
     throw new Error("Method not implemented.");
@@ -59,6 +61,7 @@ export class Weapon {
     this.animationDuration = weaponRef.animationDuration;
 
     this.actionPointsConsumption = weaponRef.actionPointsConsumption;
+    this.isBusy = false;
   }
 
   assignUnit(unit: Unit) {
@@ -102,11 +105,19 @@ export class Weapon {
   }
 
   isReadyToUse() {
-    if (!this.unit || !this.targetPosition) return false;
+    if (!this.unit || !this.targetPosition || this.busy()) return false;
 
     const distanceToTarget = this.getDistanceToTarget();
     const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(this.gameMap);
 
     return distanceToTarget <= this.range && distanceToTarget === distanceToRayEnd;
+  }
+
+  setBusy(isBusy: boolean) {
+    this.isBusy = isBusy;
+  }
+
+  busy() {
+    return this.isBusy;
   }
 }

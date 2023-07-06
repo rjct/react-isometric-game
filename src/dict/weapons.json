@@ -8,7 +8,7 @@
       "range": 1,
       "actionPointsConsumption": 1,
       "animationDuration": {
-        "attack": 400,
+        "attack": 300,
         "attackCompleted": 1000,
         "attackNotAllowed": 1000
       }

@@ -24,7 +24,7 @@ export const useLightsAndShadows = (
     const lightEnabled = gameState.settings.featureEnabled.light;
     const shadowEnabled = gameState.settings.featureEnabled.shadow;
     const isAllowed =
-      (["game", "combat", "editor", "inventory"] as GameScene[]).includes(uiState.scene) ||
+      (["game", "combat", "inventory"] as GameScene[]).includes(uiState.scene) ||
       (uiState.scene === "editor" && uiState.editorMode === "lights");
 
     if (ctx && raysData.length > 0) {

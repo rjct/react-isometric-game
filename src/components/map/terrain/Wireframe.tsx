@@ -38,7 +38,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const handleRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
 
-    const userActions: Array<Unit["currentSelectedAction"]> = ["walk", "run", "useLeftHand", "useRightHand"];
+    const userActions: Array<Unit["currentSelectedAction"]> = ["walk", "run", "leftHand", "rightHand"];
 
     const currentActionIndex = userActions.indexOf(hero.currentSelectedAction);
     const nextActionIndex = currentActionIndex + 1 >= userActions.length ? 0 : currentActionIndex + 1;

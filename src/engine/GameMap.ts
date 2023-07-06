@@ -4,7 +4,7 @@ import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature }
 import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
 import { WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
-import { pathFinder } from "./pathFinder";
+import { pathFinderAStar } from "./pathFinder";
 import { Light } from "./LightFactory";
 import { MeleeWeapon } from "./weapon/melee/MeleeWeaponFactory";
 import { Firearm } from "./weapon/firearm/FirearmFactory";
@@ -274,7 +274,7 @@ export const gameMap = {
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
-    const unitPath = pathFinder(this.matrix, unit.position, {
+    const unitPath = pathFinderAStar(this.matrix, unit.position, {
       x: Math.min(this.mapSize.width - 1, destinationPosition.x),
       y: Math.min(this.mapSize.height - 1, destinationPosition.y),
     });

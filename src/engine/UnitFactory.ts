@@ -1,6 +1,6 @@
 import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "./helpers";
 import units from "../dict/units.json";
-import { pathFinder } from "./pathFinder";
+import { pathFinderAStar } from "./pathFinder";
 import { GameMap } from "./GameMap";
 import { Weapon, WeaponClass, WeaponUnitAction } from "./weapon/WeaponFactory";
 import { GameObjectFactory } from "./GameObjectFactory";
@@ -107,7 +107,7 @@ export class Unit extends GameObjectFactory {
     rightHand: null as Weapon | null,
   };
 
-  public currentSelectedAction: "walk" | "run" | "useLeftHand" | "useRightHand" = "walk";
+  public currentSelectedAction: "walk" | "run" | "leftHand" | "rightHand" = "walk";
 
   public readonly coolDownTime: number;
   public coolDownTimer = 0;
@@ -182,6 +182,7 @@ export class Unit extends GameObjectFactory {
   }
 
   public clearPath() {
+    this.pathQueue.points = [];
     this.path = [];
   }
 
@@ -206,13 +207,28 @@ export class Unit extends GameObjectFactory {
   }
 
   public isUsingHands() {
-    return this.currentSelectedAction === "useLeftHand" || this.currentSelectedAction === "useRightHand";
+    return this.currentSelectedAction === "leftHand" || this.currentSelectedAction === "rightHand";
   }
 
   public getCurrentWeapon() {
     if (!this.isUsingHands()) return null;
 
-    return this.currentSelectedAction === "useLeftHand" ? this.inventory.leftHand : this.inventory.rightHand;
+    return this.currentSelectedAction === "leftHand" ? this.inventory.leftHand : this.inventory.rightHand;
+  }
+
+  public getFirstAvailableWeaponInHands(): {
+    hand: Exclude<keyof Unit["inventory"], "backpack">;
+    weapon: Weapon;
+  } | null {
+    if (this.inventory.leftHand instanceof Weapon) {
+      return { hand: "leftHand", weapon: this.inventory.leftHand };
+    }
+
+    if (this.inventory.rightHand instanceof Weapon) {
+      return { hand: "rightHand", weapon: this.inventory.rightHand };
+    }
+
+    return null;
   }
 
   public getBackpackItems() {
@@ -275,7 +291,7 @@ export class Unit extends GameObjectFactory {
 
       window.setTimeout(() => {
         this.damagePoints = 0;
-        if (!this.isDead) this.action = "none";
+        this.action = "none";
       }, this.animationDuration.hit);
     }
   }
@@ -296,8 +312,8 @@ export class Unit extends GameObjectFactory {
       case "run":
         return this.actionPoints.consumption.run;
 
-      case "useLeftHand":
-      case "useRightHand":
+      case "leftHand":
+      case "rightHand":
         const weapon = this.getCurrentWeapon();
 
         if (weapon) {
@@ -322,7 +338,7 @@ export class Unit extends GameObjectFactory {
       }
     }
 
-    const path = pathFinder(gameState.matrix, this.position, newPosition);
+    const path = pathFinderAStar(gameState.matrix, this.position, newPosition);
 
     if (path.length > 1) {
       this.setPath(path);

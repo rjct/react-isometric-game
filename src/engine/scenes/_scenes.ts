@@ -4,7 +4,7 @@ import { GameContext } from "../../hooks/useGameState";
 import { inventoryScene } from "./inventory";
 import { loadingScene } from "./loading";
 import { editorScene } from "./editor";
-import { combatScene } from "./combat";
+import { combatScene } from "./combat/combat";
 import { gameOverScene } from "./gameOver";
 
 type SceneRunnerFunc = (this: GameContext, deltaTime: number) => void;

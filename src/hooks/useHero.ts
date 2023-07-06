@@ -37,27 +37,12 @@ export function useHero() {
         });
         break;
 
-      case "useLeftHand":
+      case "leftHand":
+      case "rightHand":
         gameDispatch({
           type: "useEntityInUnitHand",
           unit: hero,
-          hand: "leftHand",
-          targetPosition,
-          consumeActionPoints: uiState.scene === "combat",
-        });
-
-        if (weapon) {
-          window.setTimeout(() => {
-            gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
-          }, weapon.animationDuration.attackCompleted);
-        }
-        break;
-
-      case "useRightHand":
-        gameDispatch({
-          type: "useEntityInUnitHand",
-          unit: hero,
-          hand: "rightHand",
+          hand: hero.currentSelectedAction,
           targetPosition,
           consumeActionPoints: uiState.scene === "combat",
         });

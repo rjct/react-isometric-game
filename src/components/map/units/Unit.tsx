@@ -52,7 +52,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         data-weapon={props.unit.getCurrentWeapon()?.className}
         data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
         data-highlighed={
-          (!props.unit.isDead && props.unit.id !== gameState.heroId && uiState.scene === "combat") || null
+          (!props.unit.isDead &&
+            uiState.scene === "combat" &&
+            !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
+          null
         }
         data-selected={props.selected || null}
         data-dragging={props.dragging || null}

@@ -7,7 +7,7 @@
     }
   ],
   "hero": {
-    "position": { "x": 4, "y": 9 },
+    "position": { "x": 7, "y": 7 },
     "direction": "left",
     "inventory": {
       "backpack": [
@@ -22,8 +22,27 @@
     }
   },
   "enemies": [
-    { "type": "ghoul", "position": { "x": 4, "y": 12 }, "direction": "right" },
-    { "type": "vault13_male", "position": { "x": 2, "y": 4 }, "direction": "bottom" }
+    {
+      "type": "ghoul",
+      "position": { "x": 8, "y": 12 },
+      "direction": "right",
+      "inventory": {
+        "backpack": [],
+        "leftHand": {
+          "class": "Firearm",
+          "type": "pistol",
+          "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
+        }
+      }
+    },
+    {
+      "type": "vault13_male",
+      "position": { "x": 2, "y": 2 },
+      "direction": "right",
+      "inventory": {
+        "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+      }
+    }
   ],
   "buildings": [{ "type": "buick", "position": { "x": 6, "y": 8 }, "direction": "right", "variant": 0 }],
   "shadows": { "color": "#000d23", "opacity": 0.7 },

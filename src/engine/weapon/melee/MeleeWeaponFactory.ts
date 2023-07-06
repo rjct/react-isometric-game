@@ -26,6 +26,7 @@ export class MeleeWeapon extends Weapon {
     if (this.isReadyToUse()) {
       const punch = new MeleePunch("punch");
 
+      this.setBusy(true);
       this.firedAmmoQueue.push(punch);
 
       unit.setAction(this.unitAction);
@@ -36,12 +37,15 @@ export class MeleeWeapon extends Weapon {
 
       setTimeout(() => {
         unit.setAction("none");
+        this.setBusy(false);
       }, this.animationDuration.attackCompleted);
     } else {
+      this.setBusy(true);
       unit.setAction("idle");
 
       setTimeout(() => {
         unit.setAction("none");
+        this.setBusy(false);
       }, this.animationDuration.attackNotAllowed);
     }
   }

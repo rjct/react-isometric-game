@@ -1,5 +1,5 @@
 import { Unit } from "../../../engine/UnitFactory";
-import { pathFinder } from "../../../engine/pathFinder";
+import { pathFinderAStar } from "../../../engine/pathFinder";
 import { GameMap } from "../../../engine/GameMap";
 import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "../../../engine/helpers";
 
@@ -36,7 +36,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
         }
 
         if (unit.path.length > 1 && state.isCellOccupied(unit.path[1])) {
-          const unitPath = pathFinder(state.matrix, unit.path[0], unit.pathQueue.destinationPos);
+          const unitPath = pathFinderAStar(state.matrix, unit.path[0], unit.pathQueue.destinationPos);
 
           unit.setPath(unitPath);
 

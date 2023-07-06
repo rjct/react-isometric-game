@@ -15,7 +15,7 @@ export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandR
 
   const weapon = action.unit.getCurrentWeapon();
 
-  if (weapon) {
+  if (weapon && weapon.isReadyToUse()) {
     action.unit.inventory[action.hand]?.use(action.targetPosition);
 
     if (action.consumeActionPoints) {

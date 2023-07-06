@@ -46,17 +46,20 @@ export class Firearm extends Weapon {
 
         setTimeout(() => {
           unit.setAction("none");
+          this.setBusy(false);
         }, this.animationDuration.attackCompleted);
       }
     };
 
     if (this.isReadyToUse() && this.ammoCurrent.length > 0) {
+      this.setBusy(true);
       fireInterval = window.setInterval(doFire, 250);
     } else {
       unit.setAction("idle");
 
       setTimeout(() => {
         unit.setAction("none");
+        this.setBusy(false);
       }, this.animationDuration.attackNotAllowed);
     }
   }
