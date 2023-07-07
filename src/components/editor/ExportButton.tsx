@@ -5,7 +5,7 @@ import { useHero } from "../../hooks/useHero";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
 
-export function ExportButton() {
+export const ExportButton = React.memo(function ExportButton() {
   const { gameState } = useGameState();
   const { hero } = useHero();
 
@@ -60,4 +60,4 @@ export function ExportButton() {
       <label>{buttonState.text}</label>
     </button>
   );
-}
+});

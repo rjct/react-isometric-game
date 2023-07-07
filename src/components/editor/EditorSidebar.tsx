@@ -4,7 +4,7 @@ import { constants } from "../../constants";
 import { EditorModeSelector } from "./EditorModeSelector";
 import { ExportButton } from "./ExportButton";
 
-export function EditorSidebar() {
+export const EditorSidebar = React.memo(function EditorSidebar() {
   const { uiState } = useGameState();
 
   return uiState.scene === "editor" ? (
@@ -22,4 +22,4 @@ export function EditorSidebar() {
       </div>
     </div>
   ) : null;
-}
+});

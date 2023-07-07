@@ -10,7 +10,7 @@ import { LightPropsEditor } from "./light/LightPropsEditor";
 import { ShadowsPropsEditor } from "./light/ShadowsPropsEditor";
 import { UnitPropsEditor } from "./unit/UnitPropsEditor";
 
-export function EditorModeSelector() {
+export const EditorModeSelector = React.memo(function EditorModeSelector() {
   const { gameDispatch, uiState, uiDispatch } = useGameState();
 
   const [editorMode, setEditorMode] = React.useState(uiState.editorMode);
@@ -87,4 +87,4 @@ export function EditorModeSelector() {
       ) : null}
     </div>
   ) : null;
-}
+});

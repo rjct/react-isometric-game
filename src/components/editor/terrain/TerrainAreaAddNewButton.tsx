@@ -5,7 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 import { StaticMapTerrainArea } from "../../../context/GameStateContext";
 import { constants } from "../../../constants";
 
-export function TerrainAreaAddNewButton() {
+export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const handleClick = () => {
     const target = {
@@ -43,4 +43,4 @@ export function TerrainAreaAddNewButton() {
       <label>Add new terrain area</label>
     </button>
   );
-}
+});
