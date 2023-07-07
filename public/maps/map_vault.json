@@ -24,15 +24,15 @@
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 28, "y1": 0, "x2": 30, "y2": 30 }
+      "target": { "x1": 29, "y1": 0, "x2": 30, "y2": 30 }
     },
     {
       "source": { "type": "vault", "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 } },
-      "target": { "x1": 10, "y1": 0, "x2": 28, "y2": 12 }
+      "target": { "x1": 10, "y1": 0, "x2": 29, "y2": 12 }
     },
     {
       "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
-      "target": { "x1": 10, "y1": 12, "x2": 28, "y2": 29 }
+      "target": { "x1": 10, "y1": 12, "x2": 29, "y2": 29 }
     },
     {
       "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
@@ -40,7 +40,8 @@
     }
   ],
   "hero": {
-    "position": { "x": 19, "y": 6 },
+    "position": { "x": 19, "y": 5 },
+    "direction": "bottom",
     "inventory": {
       "backpack": [
         { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
@@ -54,29 +55,21 @@
     }
   },
   "enemies": [
-    { "type": "ghoul", "position": { "x": 19, "y": 18 } },
-    {
-      "type": "ghoul",
-      "isDead": true,
-      "direction": "bottom",
-      "position": { "x": 19, "y": 7 },
-      "inventory": { "backpack": [], "leftHand": { "class": "MeleeWeapon", "type": "punch" } }
-    },
-    { "type": "ghoul", "position": { "x": 4, "y": 21 } },
-    { "type": "ghoul", "position": { "x": 8, "y": 17 } },
-    { "type": "ghoul", "position": { "x": 8, "y": 18 } },
-    { "type": "vault13_male", "position": { "x": 26, "y": 1 } }
+    { "type": "ghoul", "position": { "x": 8, "y": 17 }, "direction": "left" },
+    { "type": "ghoul", "position": { "x": 1, "y": 17 }, "direction": "bottom" },
+    { "type": "ghoul", "position": { "x": 27, "y": 14 }, "direction": "bottom" },
+    { "type": "ghoul", "position": { "x": 8, "y": 10 }, "direction": "right" },
+    { "type": "vault13_male", "position": { "x": 28, "y": 2 }, "direction": "top" }
   ],
   "buildings": [
-    { "type": "buick", "position": { "x": 5, "y": 6 }, "direction": "left", "variant": 1 },
-    { "type": "buick", "position": { "x": 5, "y": 3 }, "direction": "right", "variant": 2 },
+    { "type": "buick", "position": { "x": 4, "y": 6 }, "direction": "left", "variant": 1 },
+    { "type": "buick", "position": { "x": 4, "y": 3 }, "direction": "right", "variant": 2 },
     { "type": "buick", "position": { "x": 0, "y": 25 }, "direction": "bottom", "variant": 3 },
     { "type": "buick", "position": { "x": 3, "y": 25 }, "direction": "top", "variant": 4 },
     { "type": "buick", "position": { "x": 6, "y": 25 }, "direction": "bottom", "variant": 5 },
-    { "type": "vault_wall", "position": { "x": 9, "y": 16 }, "direction": "right", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 4, "y": 15 }, "direction": "bottom", "variant": 6 },
-    { "type": "vault_wall", "position": { "x": 5, "y": 15 }, "direction": "bottom", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 7, "y": 15 }, "direction": "bottom", "variant": 5 },
+    { "type": "vault_wall", "position": { "x": 4, "y": 16 }, "direction": "top", "variant": 6 },
+    { "type": "vault_wall", "position": { "x": 5, "y": 16 }, "direction": "top", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 7, "y": 16 }, "direction": "top", "variant": 5 },
     { "type": "vault_wall", "position": { "x": 29, "y": 1 }, "direction": "left", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 29, "y": 2 }, "direction": "left", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 29, "y": 3 }, "direction": "left", "variant": 0 },
@@ -164,26 +157,25 @@
     { "type": "vault_wall", "position": { "x": 9, "y": 9 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 9, "y": 10 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 9, "y": 25 }, "direction": "right", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 3, "y": 15 }, "direction": "bottom", "variant": 3 },
-    { "type": "vault_wall", "position": { "x": 8, "y": 15 }, "direction": "bottom", "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 3, "y": 16 }, "direction": "top", "variant": 3 },
+    { "type": "vault_wall", "position": { "x": 9, "y": 16 }, "direction": "top", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 9, "y": 18 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 18, "y": 20 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 6, "y": 15 }, "direction": "bottom", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 6, "y": 12 }, "direction": "top", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 4, "y": 12 }, "direction": "top", "variant": 6 },
+    { "type": "vault_wall", "position": { "x": 6, "y": 16 }, "direction": "top", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 6, "y": 11 }, "direction": "bottom", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 4, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 2, "y": 15 }, "direction": "right", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 27, "y": 17 }, "direction": "top", "variant": 5 },
-    { "type": "vault_wall", "position": { "x": 7, "y": 12 }, "direction": "top", "variant": 5 },
-    { "type": "vault_wall", "position": { "x": 3, "y": 12 }, "direction": "top", "variant": 3 },
-    { "type": "vault_wall", "position": { "x": 9, "y": 12 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 8, "y": 12 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 9, "y": 15 }, "direction": "bottom", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 5, "y": 12 }, "direction": "top", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 7, "y": 11 }, "direction": "bottom", "variant": 5 },
+    { "type": "vault_wall", "position": { "x": 3, "y": 11 }, "direction": "bottom", "variant": 3 },
+    { "type": "vault_wall", "position": { "x": 9, "y": 11 }, "direction": "bottom", "variant": 3 },
+    { "type": "vault_wall", "position": { "x": 8, "y": 11 }, "direction": "bottom", "variant": 3 },
+    { "type": "vault_wall", "position": { "x": 9, "y": 16 }, "direction": "right", "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 5, "y": 11 }, "direction": "bottom", "variant": 4 },
     { "type": "vault_wall", "position": { "x": 2, "y": 12 }, "direction": "right", "variant": 5 },
     { "type": "vault_wall", "position": { "x": 9, "y": 19 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 10, "y": 11 }, "direction": "bottom", "variant": 2 },
     { "type": "vault_wall", "position": { "x": 11, "y": 11 }, "direction": "bottom", "variant": 2 },
-    { "type": "vault_computer_1", "position": { "x": 18, "y": 1 }, "direction": "bottom", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 12, "y": 11 }, "direction": "bottom", "variant": 2 },
     { "type": "vault_wall", "position": { "x": 13, "y": 11 }, "direction": "bottom", "variant": 6 },
     {
@@ -210,7 +202,13 @@
     { "type": "vault_chair", "position": { "x": 11, "y": 5 }, "direction": "left", "variant": 0 },
     { "type": "vault_computer_1", "position": { "x": 10, "y": 3 }, "direction": "right", "variant": 0 },
     { "type": "vault_computer_1", "position": { "x": 10, "y": 8 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 10, "y": 10 }, "direction": "right", "variant": 4 },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 10, "y": 10 },
+      "direction": "right",
+      "variant": 4,
+      "occupiesCell": false
+    },
     { "type": "vault_table", "position": { "x": 14, "y": 5 }, "direction": "top", "variant": 1 },
     { "type": "vault_chair", "position": { "x": 15, "y": 5 }, "direction": "left", "variant": 1 },
     { "type": "vault_chair", "position": { "x": 13, "y": 4 }, "direction": "bottom", "variant": 1 },
@@ -218,17 +216,17 @@
     { "type": "vault_wall", "position": { "x": 11, "y": 17 }, "direction": "top", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 15, "y": 11 }, "direction": "bottom", "variant": 5 },
     { "type": "vault_wall", "position": { "x": 16, "y": 11 }, "direction": "bottom", "variant": 2 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 1 }, "direction": "left", "variant": 2 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 2 }, "direction": "left", "variant": 2 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "left", "variant": 2 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 10 }, "direction": "left", "variant": 2 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 9 }, "direction": "left", "variant": 6 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 8 }, "direction": "left", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 7 }, "direction": "left", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 6 }, "direction": "left", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 5 }, "direction": "left", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 4 }, "direction": "left", "variant": 4 },
-    { "type": "vault_wall", "position": { "x": 17, "y": 3 }, "direction": "left", "variant": 5 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 1 }, "direction": "right", "variant": 2 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 2 }, "direction": "right", "variant": 2 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "right", "variant": 2 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 10 }, "direction": "right", "variant": 2 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 9 }, "direction": "right", "variant": 6 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 8 }, "direction": "right", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 7 }, "direction": "right", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 6 }, "direction": "right", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 5 }, "direction": "right", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 4 }, "direction": "right", "variant": 4 },
+    { "type": "vault_wall", "position": { "x": 17, "y": 3 }, "direction": "right", "variant": 5 },
     {
       "type": "vault_computer_2",
       "position": { "x": 21, "y": 1 },
@@ -250,10 +248,34 @@
     { "type": "vault_wall", "position": { "x": 17, "y": 17 }, "direction": "top", "variant": 5 },
     { "type": "vault_wall", "position": { "x": 15, "y": 17 }, "direction": "top", "variant": 4 },
     { "type": "vault_wall", "position": { "x": 16, "y": 17 }, "direction": "top", "variant": 4 },
-    { "type": "vault_computer_2", "position": { "x": 10, "y": 21 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 10, "y": 24 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 10, "y": 27 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 14, "y": 21 }, "direction": "right", "variant": 0 },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 10, "y": 21 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 10, "y": 24 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 10, "y": 27 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 14, "y": 21 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
     { "type": "vault_wall", "position": { "x": 13, "y": 20 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 13, "y": 21 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 13, "y": 22 }, "direction": "right", "variant": 0 },
@@ -263,9 +285,27 @@
     { "type": "vault_wall", "position": { "x": 13, "y": 26 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 13, "y": 27 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 13, "y": 28 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 14, "y": 27 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 14, "y": 24 }, "direction": "right", "variant": 0 },
-    { "type": "vault_computer_2", "position": { "x": 10, "y": 18 }, "direction": "right", "variant": 0 },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 14, "y": 27 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 14, "y": 24 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_computer_2",
+      "position": { "x": 10, "y": 18 },
+      "direction": "right",
+      "variant": 0,
+      "occupiesCell": false
+    },
     { "type": "vault_wall", "position": { "x": 14, "y": 29 }, "direction": "top", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 15, "y": 29 }, "direction": "top", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 14, "y": 20 }, "direction": "top", "variant": 0 },
@@ -320,8 +360,14 @@
     { "type": "vault_chair", "position": { "x": 21, "y": 5 }, "direction": "bottom", "variant": 1 },
     { "type": "vault_chair", "position": { "x": 22, "y": 5 }, "direction": "left", "variant": 1 },
     { "type": "vault_chair", "position": { "x": 23, "y": 7 }, "direction": "top", "variant": 1 },
-    { "type": "vault_computer_1", "position": { "x": 17, "y": 10 }, "direction": "right", "variant": 0 },
-    { "type": "vault_table", "position": { "x": 19, "y": 23 }, "direction": "left", "variant": 2 },
+    { "type": "vault_computer_1", "position": { "x": 18, "y": 1 }, "direction": "bottom", "variant": 0 },
+    {
+      "type": "vault_table",
+      "position": { "x": 19, "y": 23 },
+      "direction": "left",
+      "variant": 2,
+      "occupiesCell": false
+    },
     { "type": "vault_wall", "position": { "x": 19, "y": 17 }, "direction": "top", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 21, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 22, "y": 11 }, "direction": "bottom", "variant": 5 },
@@ -341,10 +387,10 @@
       "variant": 3,
       "occupiesCell": false
     },
-    { "type": "vault_chair", "position": { "x": 18, "y": 2 }, "direction": "top", "variant": 0 },
     { "type": "vault_chair", "position": { "x": 19, "y": 2 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "bottom", "variant": 6 },
-    { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 }
+    { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 },
+    { "type": "vault_wall", "position": { "x": 8, "y": 16 }, "direction": "top", "variant": 3 }
   ],
   "shadows": { "color": "#000d4d", "opacity": 0.3 },
   "lights": [
