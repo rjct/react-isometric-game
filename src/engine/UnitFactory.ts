@@ -127,6 +127,7 @@ export class Unit extends GameObjectFactory {
 
   public atGunpoint = false;
   public fieldOfView: UnitFieldOfViewFactory;
+  public distanceToHero = Infinity;
 
   constructor(props: {
     unitType: UnitType;
@@ -193,9 +194,13 @@ export class Unit extends GameObjectFactory {
     this.fieldOfView.setDirection(angle);
   }
 
-  public setPosition(position: GridCoordinates, mapSize: Size) {
-    super.setPosition(position, mapSize);
+  public setPosition(position: GridCoordinates, gameState: GameMap) {
+    super.setPosition(position, gameState);
     this.fieldOfView.setPosition(position);
+
+    const hero = gameState.getHero();
+
+    this.distanceToHero = !hero ? Infinity : this.getDistanceToEntity(hero);
   }
 
   public setAction(action: Unit["action"]) {

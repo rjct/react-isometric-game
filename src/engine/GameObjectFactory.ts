@@ -1,6 +1,7 @@
 import { constants } from "../constants";
 import { LightRay } from "./LightRayFactory";
 import { getEntityZIndex, gridToScreenSpace, randomUUID } from "./helpers";
+import { GameMap } from "./GameMap";
 
 export class GameObjectFactory {
   public readonly id;
@@ -62,9 +63,9 @@ export class GameObjectFactory {
     ];
   }
 
-  setPosition(position: GridCoordinates, mapSize: Size) {
+  setPosition(position: GridCoordinates, gameState: GameMap) {
     this.position = position;
-    this.screenPosition = gridToScreenSpace(position, mapSize);
+    this.screenPosition = gridToScreenSpace(position, gameState.mapSize);
     this.zIndex = getEntityZIndex(this);
 
     for (const wall of this.walls) {

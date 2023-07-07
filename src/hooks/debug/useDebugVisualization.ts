@@ -109,6 +109,10 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     ctx.setLineDash([0, 0]);
 
     for (const unit of allAliveUnits) {
+      if (unit.distanceToHero > unit.fieldOfView.range) {
+        continue;
+      }
+
       for (const ray of unit.fieldOfView.rays) {
         ray.setColor(ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)");
 

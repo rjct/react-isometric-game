@@ -50,35 +50,11 @@ const createUnitInventory = (inventory: StaticMapUnit["inventory"], unit: Unit, 
 };
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
-  const buildings: Building[] = action.map.buildings.map((staticMapBuilding) => {
-    const { type, position, direction, variant, occupiesCell } = staticMapBuilding;
-
-    const building = new Building({
-      buildingType: type,
-      position,
-      direction,
-      variant,
-      occupiesCell: occupiesCell !== false,
-    });
-
-    building.setPosition(position, action.map.size);
-
-    return building;
-  });
-
   const terrain: TerrainArea[] = action.map.terrain.map((terrainArea) => {
     return new TerrainArea(terrainArea);
   });
 
   const shadows = action.map.shadows;
-
-  const lights = (action.map.lights || []).map((staticMapLight) => {
-    const light = new Light(staticMapLight);
-
-    light.castRays(buildings);
-
-    return light;
-  });
 
   const newState = {
     ...state,
@@ -89,11 +65,35 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       matrix: createMatrix(action.map.size),
       fogOfWarMatrix: createMatrix(action.map.size),
       units: {} as UnitTypes,
-      buildings,
+      buildings: [] as Building[],
       shadows,
-      lights,
+      lights: [] as Light[],
     },
   };
+
+  newState.buildings = action.map.buildings.map((staticMapBuilding) => {
+    const { type, position, direction, variant, occupiesCell } = staticMapBuilding;
+
+    const building = new Building({
+      buildingType: type,
+      position,
+      direction,
+      variant,
+      occupiesCell: occupiesCell !== false,
+    });
+
+    building.setPosition(position, newState);
+
+    return building;
+  });
+
+  newState.lights = (action.map.lights || []).map((staticMapLight) => {
+    const light = new Light(staticMapLight);
+
+    light.castRays(newState.buildings);
+
+    return light;
+  });
 
   newState.units = action.map.enemies.reduce((result, enemy) => {
     const unit = new Unit({
@@ -103,7 +103,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       action: enemy.isDead ? "dead" : "none",
       direction: enemy.direction,
     });
-    unit.setPosition(unit.position, newState.mapSize);
+    unit.setPosition(unit.position, newState);
 
     if (newState.settings.featureEnabled.unitShadow) {
       unit.calcShadows(newState);
@@ -128,7 +128,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   const heroId = newState.heroId;
 
   newState.units[heroId].stop();
-  newState.units[heroId].setPosition(action.map.hero.position, newState.mapSize);
+  newState.units[heroId].setPosition(action.map.hero.position, newState);
 
   if (newState.settings.featureEnabled.unitShadow) {
     newState.units[heroId].calcShadows(newState);
@@ -136,7 +136,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.setVisitedCell(newState.units[newState.heroId].position);
 
-  newState.matrix = newState.setGridMatrixOccupancy(buildings, newState.matrix);
+  newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);
 
   Object.values(newState.units).forEach((unit) => {
