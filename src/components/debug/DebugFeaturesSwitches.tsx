@@ -13,7 +13,7 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
     <div className={"debug-features"}>
       <Button
         className={["control-end-combat"]}
-        disabled={uiState.scene === "combat"}
+        disabled={uiState.scene !== "game"}
         onClick={() => {
           uiDispatch({ type: "setScene", scene: "combat" });
           gameDispatch({ type: "startCombat" });

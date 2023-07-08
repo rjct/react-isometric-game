@@ -20,7 +20,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   const { gameState, uiState } = useGameState();
 
   const isUnitVisible =
-    gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport);
+    uiState.scene === "editor" ||
+    (gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport));
 
   const renderAmmo = () => {
     const weapon = props.unit.getCurrentWeapon();
