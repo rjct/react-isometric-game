@@ -1,8 +1,9 @@
 import { GameMap } from "../engine/GameMap";
+import { mapsList } from "../maps_list";
 
 export type LoadMapReducerAction = {
   type: "loadMap";
-  mapUrl: string;
+  mapUrl: mapsList;
 };
 
 export function loadMap(state: GameMap, action: LoadMapReducerAction) {

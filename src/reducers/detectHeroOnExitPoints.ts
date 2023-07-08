@@ -1,5 +1,6 @@
 import { Unit } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
+import { mapsList } from "../maps_list";
 
 export type DetectHeroOnExitPointsAction = {
   type: "detectHeroOnExitPoints";
@@ -8,7 +9,7 @@ export type DetectHeroOnExitPointsAction = {
 
 export function detectHeroOnExitPoints(state: GameMap, action: DetectHeroOnExitPointsAction): GameMap {
   if (action.unit && state.isUnitIsInExitPoint(action.unit)) {
-    const mapUrl = state.getTerrainAreaByCoordinates(action.unit.position).exitUrl!;
+    const mapUrl = state.getTerrainAreaByCoordinates(action.unit.position).exitUrl! as mapsList;
 
     return { ...state, ...{ mapUrl } };
   }

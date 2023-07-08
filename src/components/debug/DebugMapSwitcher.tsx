@@ -1,15 +1,13 @@
 import React from "react";
 import { useGameState } from "../../hooks/useGameState";
-
-import { constants } from "../../constants";
+import { mapsList } from "../../maps_list";
 
 export const DebugMapSwitcher = React.memo(() => {
   const { gameState, gameDispatch } = useGameState();
-  const [mapsList, setMapsList] = React.useState<Array<string>>([]);
   const [mapUrl, setMapUrl] = React.useState(gameState.mapUrl);
 
   const handleMapUrlChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    setMapUrl(e.target.value);
+    setMapUrl(e.target.value as mapsList);
   };
 
   React.useEffect(() => {
@@ -20,20 +18,12 @@ export const DebugMapSwitcher = React.memo(() => {
     setMapUrl(gameState.mapUrl);
   }, [gameState.mapUrl]);
 
-  React.useEffect(() => {
-    fetch(`${constants.BASE_URL}/maps/_maps_list.json`).then(async (data) => {
-      const json = await data.json();
-
-      setMapsList(json);
-    });
-  }, []);
-
   return (
     <>
       <select value={mapUrl} onChange={handleMapUrlChange}>
-        {mapsList.map((mapFileName) => (
-          <option key={mapFileName} value={`maps/${mapFileName}`}>
-            {mapFileName}
+        {Object.entries(mapsList).map(([key, value]) => (
+          <option key={value} value={value}>
+            {key}
           </option>
         ))}
       </select>

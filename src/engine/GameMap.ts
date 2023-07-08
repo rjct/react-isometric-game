@@ -13,6 +13,7 @@ import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
 import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 import { getUrlParamValue } from "../hooks/useUrl";
 import { floor, gridToScreenSpace } from "./helpers";
+import { mapsList } from "../maps_list";
 
 interface GameMapProps {
   mapSize: Size;
@@ -64,7 +65,7 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: "maps/map_vault.json",
+  mapUrl: mapsList.test,
 
   mapSize: {
     width: 0,
