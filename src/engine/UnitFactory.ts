@@ -56,6 +56,7 @@ export type DictUnits = {
 };
 
 export class Unit extends GameObjectFactory {
+  public readonly isHero: boolean;
   public readonly type;
 
   public readonly className;
@@ -132,6 +133,7 @@ export class Unit extends GameObjectFactory {
   constructor(props: {
     unitType: UnitType;
     position: GridCoordinates;
+    isHero: boolean;
     action?: Unit["action"];
     isDead?: boolean;
     direction?: Unit["direction"];
@@ -145,6 +147,7 @@ export class Unit extends GameObjectFactory {
       internalColor: "rgba(0,255,255,0.5)",
     });
 
+    this.isHero = props.isHero;
     this.type = props.unitType;
 
     this.className = ["unit", ref.className].join(" ");

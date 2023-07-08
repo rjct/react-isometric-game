@@ -5,12 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 export const UnitCooldownTimer = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();
 
-  if (
-    !gameState.debug.enabled ||
-    !gameState.debug.featureEnabled.unitInfo ||
-    props.unit.id === gameState.heroId ||
-    props.unit.isDead
-  )
+  if (!gameState.debug.enabled || !gameState.debug.featureEnabled.unitInfo || props.unit.isHero || props.unit.isDead)
     return null;
 
   return (

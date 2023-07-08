@@ -39,7 +39,7 @@ export function UnitPropsEditor() {
         <div className={"editor-controls"}>
           <button
             className={"ui-button ui-button-red"}
-            disabled={!gameState.selectedUnit || gameState.selectedUnit.id === gameState.heroId}
+            disabled={!gameState.selectedUnit || gameState.selectedUnit.isHero}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedUnit", entityId: gameState.selectedUnit?.id });
             }}

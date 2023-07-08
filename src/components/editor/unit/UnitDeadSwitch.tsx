@@ -13,7 +13,7 @@ export function UnitDeadSwitch() {
     <Switch
       title={""}
       checked={gameState.selectedUnit.isDead}
-      disabled={gameState.selectedUnit.id === gameState.heroId}
+      disabled={gameState.selectedUnit.isHero}
       onChange={(e) => {
         gameDispatch({
           type: "setUnitDead",

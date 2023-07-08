@@ -66,7 +66,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       if (unit.path.length > 0) {
         const x = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
         const y = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
-        const color = unit.id === gameState.heroId ? "orange" : "limegreen";
+        const color = unit.isHero ? "orange" : "limegreen";
 
         ctx.lineWidth = 3;
         ctx.strokeStyle = color;

@@ -102,6 +102,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       isDead: enemy.isDead,
       action: enemy.isDead ? "dead" : "none",
       direction: enemy.direction,
+      isHero: false,
     });
     unit.setPosition(unit.position, newState);
 
@@ -119,6 +120,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       unitType: "vault13_male",
       position: action.map.hero.position,
       direction: action.map.hero.direction,
+      isHero: true,
     });
 
     newState.heroId = hero.id;

@@ -11,6 +11,7 @@ export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
   const unit = new Unit({
     unitType: action.unitType,
     position: action.position,
+    isHero: false,
   });
 
   unit.setPosition(action.position, state);

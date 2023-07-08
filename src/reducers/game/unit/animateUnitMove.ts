@@ -74,7 +74,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
 
       unit.setPosition(unit.pathQueue.currentPos, state);
 
-      if (unit.id === state.heroId) {
+      if (unit.isHero) {
         state.setVisitedCell(unit.pathQueue.currentPos);
       }
 

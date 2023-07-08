@@ -88,7 +88,7 @@ export function useHero() {
   };
 
   return {
-    hero: hero || new Unit({ unitType: "vault13_male", position: { x: 0, y: 0 } }),
+    hero: hero || new Unit({ unitType: "vault13_male", position: { x: 0, y: 0 }, isHero: true }),
     doHeroAction,
     getHeroScreenPosition,
     getHeroMaskImage,
