@@ -73,6 +73,7 @@ export class Building extends GameObjectFactory {
   public setDirection(direction: Direction) {
     this.direction = direction;
     this.size = Building.getSizeByPositionAndDirection(this.ref.size, direction);
+    this.createWalls();
   }
 
   public setVariant(variant: number) {

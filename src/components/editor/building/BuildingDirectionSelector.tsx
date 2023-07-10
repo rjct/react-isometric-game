@@ -12,6 +12,7 @@ export function BuildingDirectionSelector() {
 
     setSelectedDirection(direction);
     gameDispatch({ type: "setBuildingDirection", entityId: gameState.selectedBuilding.id, direction });
+    gameDispatch({ type: "recalculateLightsAndShadows" });
   };
 
   React.useEffect(() => {

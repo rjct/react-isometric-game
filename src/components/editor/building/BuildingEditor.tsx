@@ -41,6 +41,8 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
         ),
       },
     });
+
+    gameDispatch({ type: "recalculateLightsAndShadows" });
   };
 
   const handleMouseUp = () => {

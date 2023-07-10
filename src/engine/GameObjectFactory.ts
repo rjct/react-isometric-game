@@ -14,7 +14,7 @@ export class GameObjectFactory {
   public direction: Direction = "top";
   public occupiesCell = true;
 
-  private readonly walls: GameObjectWall[] = [];
+  private walls: GameObjectWall[] = [];
 
   constructor(props: {
     size: { grid: Size; screen: Size };
@@ -35,6 +35,10 @@ export class GameObjectFactory {
       this.occupiesCell = false;
     }
 
+    this.createWalls();
+  }
+
+  createWalls() {
     this.walls = [
       new GameObjectWall(this.position, {
         x1: 0,
@@ -68,9 +72,7 @@ export class GameObjectFactory {
     this.screenPosition = gridToScreenSpace(position, gameState.mapSize);
     this.zIndex = getEntityZIndex(this);
 
-    for (const wall of this.walls) {
-      wall.setPosition(position);
-    }
+    this.createWalls();
   }
 
   getRoundedPosition(): GridCoordinates {
@@ -123,7 +125,7 @@ export class GameObjectFactory {
   }
 
   getHash() {
-    return `${this.position.x}:${this.position.y}:${this.direction}`;
+    return `${this.position.x}:${this.position.y}:${this.direction}:${this.occupiesCell}`;
   }
 }
 

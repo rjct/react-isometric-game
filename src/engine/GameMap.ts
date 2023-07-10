@@ -426,6 +426,10 @@ export const gameMap = {
     return this.lights.map((light) => light.getHash()).join("|");
   },
 
+  getBuildingsHash() {
+    return this.buildings.map((building) => building.getHash()).join("|");
+  },
+
   createWeaponByClassName(weaponClass: WeaponClass, weaponType: WeaponType) {
     const weaponDict = {
       MeleeWeapon,

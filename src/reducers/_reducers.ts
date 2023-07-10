@@ -64,6 +64,10 @@ import { stopUnits, StopUnitsActionReducerAction } from "./game/unit/stopUnits";
 import { startCombat, StartCombatReducerAction } from "./game/startCombat";
 import { endTurn, EndTurnReducerAction } from "./game/endTurn";
 import { endCombat, EndCombatReducerAction } from "./game/endCombat";
+import {
+  recalculateLightsAndShadows,
+  RecalculateLightsAndShadowsReducerAction,
+} from "./light/recalculateLightsAndShadows";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -76,6 +80,7 @@ export type GameReducerAction =
   | AnimateUnitMoveReducerAction
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
+  | RecalculateLightsAndShadowsReducerAction
   //
   | AnimateFiredAmmoAction
   | CleanupFiredAmmoAction
@@ -158,6 +163,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "recalculateUnitFieldOfView":
       return recalculateUnitFieldOfView(state, action as RecalculateUnitFieldOfViewReducerAction);
+
+    case "recalculateLightsAndShadows":
+      return recalculateLightsAndShadows(state, action as RecalculateLightsAndShadowsReducerAction);
 
     case "stopUnits":
       return stopUnits(state, action as StopUnitsActionReducerAction);
