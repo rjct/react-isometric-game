@@ -41,7 +41,7 @@ export const FogOfWar = React.memo(() => {
       ></img>
       <canvas
         width={gameState.mapSize.width}
-        height={gameState.mapSize.width}
+        height={gameState.mapSize.height}
         ref={canvasRef}
         style={{ display: "none" }}
       />
