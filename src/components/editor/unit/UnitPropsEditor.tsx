@@ -8,12 +8,14 @@ import { UnitPositionEditor } from "./UnitPositionEditor";
 import { UnitPreview } from "./UnitPreview";
 import { UnitDeadSwitch } from "./UnitDeadSwitch";
 import { UnitDirectionSelector } from "./UnitDirectionSelector";
+import { UnitInventoryEditor } from "./inventory/UnitInventoryEditor";
+import { Unit } from "../../../engine/UnitFactory";
 
-export function UnitPropsEditor() {
-  const { gameState, uiState, gameDispatch } = useGameState();
+export const UnitPropsEditor = (props: { unit: Unit }) => {
+  const { uiState, gameDispatch } = useGameState();
 
   return uiState.editorMode === "units" ? (
-    gameState.selectedUnit ? (
+    props.unit ? (
       <fieldset>
         <legend>Unit</legend>
         <div className={"editor-props-wrapper"}>
@@ -21,8 +23,8 @@ export function UnitPropsEditor() {
 
           <table>
             <tbody>
-              <TableRow label={"ID"}>{gameState.selectedUnit?.id}</TableRow>
-              <TableRow label={"Type"}>{gameState.selectedUnit?.type}</TableRow>
+              <TableRow label={"ID"}>{props.unit.id}</TableRow>
+              <TableRow label={"Type"}>{props.unit.type}</TableRow>
               <TableRow label={"Dead"}>
                 <UnitDeadSwitch />
               </TableRow>
@@ -36,12 +38,14 @@ export function UnitPropsEditor() {
           </table>
         </div>
 
+        <UnitInventoryEditor inventory={props.unit.inventory} />
+
         <div className={"editor-controls"}>
           <button
             className={"ui-button ui-button-red"}
-            disabled={!gameState.selectedUnit || gameState.selectedUnit.isHero}
+            disabled={props.unit.isHero}
             onClick={() => {
-              gameDispatch({ type: "deleteSelectedUnit", entityId: gameState.selectedUnit?.id });
+              gameDispatch({ type: "deleteSelectedUnit", entityId: props.unit.id });
             }}
           >
             <FontAwesomeIcon icon={faTrash} />
@@ -53,4 +57,4 @@ export function UnitPropsEditor() {
       <NothingSelectedText />
     )
   ) : null;
-}
+};

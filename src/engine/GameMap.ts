@@ -3,7 +3,7 @@ import { Unit, UnitTypes } from "./UnitFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "../constants";
 import { GameUI } from "../context/GameUIContext";
 import { TerrainArea } from "./TerrainAreaFactory";
-import { WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
+import { Weapon, WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
 import { pathFinderAStar } from "./pathFinder";
 import { Light } from "./LightFactory";
 import { MeleeWeapon } from "./weapon/melee/MeleeWeaponFactory";
@@ -65,7 +65,7 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: mapsList.vault,
+  mapUrl: mapsList.fow_test,
 
   mapSize: {
     width: 0,
@@ -379,6 +379,24 @@ export const gameMap = {
     this.selectedLight = null as unknown as Light;
 
     return true;
+  },
+
+  deleteInventoryEntity(entity: Weapon) {
+    const confirmDelete = confirm(`Are you sure to delete entity #"${entity.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    if (entity.unit) {
+      const inventoryPlaceType = entity.unit.findInventoryEntityPlaceType(entity);
+
+      if (inventoryPlaceType) {
+        entity.unit.removeItemFromInventory(entity, inventoryPlaceType);
+      }
+
+      entity.unAssignUnit();
+    }
+
+    delete this.weapon[entity.id];
   },
 
   deleteEntity(entityType: "terrain" | "lights", id: string) {

@@ -18,12 +18,12 @@ export function useDragAndDropItem() {
     const fromInventoryType = e.dataTransfer.getData("inventory/type") as keyof Unit["inventory"];
     const itemId = e.dataTransfer.getData("inventory/item-id");
 
-    const item = hero.getInventoryItemById(itemId);
+    const entity = hero.getInventoryItemById(itemId);
 
-    if (item && hero.isAllowedToPutItemInInventory(toInventoryType)) {
+    if (entity && hero.isAllowedToPutItemInInventory(toInventoryType)) {
       gameDispatch({
-        type: "transferItem",
-        item,
+        type: "transferInventoryEntity",
+        entity,
         from: { unit: hero, inventoryType: fromInventoryType },
         to: { unit: hero, inventoryType: toInventoryType },
       });

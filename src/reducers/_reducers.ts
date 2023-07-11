@@ -8,7 +8,7 @@ import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "./game/
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "./detectFiredAmmoHitsTarget";
 import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHeroOnExitPoints";
 import { toggleDebug, ToggleDebugReducerAction } from "./game/debug/toggleDebug";
-import { transferItem, TransferItemReducerAction } from "./transferItem";
+import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "./transferInventoryEntity";
 import { GameMap } from "../engine/GameMap";
 import { setSelectedBuilding, SetSelectedBuildingReducerAction } from "./editor/building/setSelectedBuilding";
 import { clearSelectedBuilding, ClearSelectedBuildingReducerAction } from "./editor/building/clearSelectedBuilding";
@@ -68,6 +68,7 @@ import {
   recalculateLightsAndShadows,
   RecalculateLightsAndShadowsReducerAction,
 } from "./light/recalculateLightsAndShadows";
+import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "./deleteInventoryEntity";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -86,7 +87,8 @@ export type GameReducerAction =
   | CleanupFiredAmmoAction
   | SetCurrentUnitActionReducerAction
   | DetectHeroOnExitPointsAction
-  | TransferItemReducerAction
+  | TransferInventoryEntityReducerAction
+  | DeleteInventoryEntityReducerAction
   | StartCombatReducerAction
   | EndCombatReducerAction
   | EndTurnReducerAction
@@ -183,8 +185,11 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "detectHeroOnExitPoints":
       return detectHeroOnExitPoints(state, action as DetectHeroOnExitPointsAction);
 
-    case "transferItem":
-      return transferItem(state, action as TransferItemReducerAction);
+    case "transferInventoryEntity":
+      return transferInventoryEntity(state, action as TransferInventoryEntityReducerAction);
+
+    case "deleteInventoryEntity":
+      return deleteInventoryEntity(state, action as DeleteInventoryEntityReducerAction);
 
     case "startCombat":
       return startCombat(state, action as StartCombatReducerAction);

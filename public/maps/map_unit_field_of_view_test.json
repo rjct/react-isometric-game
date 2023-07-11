@@ -11,7 +11,8 @@
     "direction": "left",
     "inventory": {
       "backpack": [
-        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
+        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
+        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
       ],
       "leftHand": {
         "class": "Firearm",

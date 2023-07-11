@@ -257,6 +257,22 @@ export class Unit extends GameObjectFactory {
     return this.inventory[inventoryType] === null;
   }
 
+  public findInventoryEntityPlaceType(entity: Weapon): keyof Unit["inventory"] | null {
+    if (this.inventory.backpack.find((backpackItem) => backpackItem.id === entity.id)) {
+      return "backpack";
+    }
+
+    if (this.inventory.leftHand?.id === entity.id) {
+      return "leftHand";
+    }
+
+    if (this.inventory.rightHand?.id === entity.id) {
+      return "rightHand";
+    }
+
+    return null;
+  }
+
   public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
     const itemOnInventory =
       this.inventory.backpack.find((backpackItem) => backpackItem.id === item.id) ||

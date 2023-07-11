@@ -11,9 +11,11 @@ import { ShadowsPropsEditor } from "./light/ShadowsPropsEditor";
 import { UnitPropsEditor } from "./unit/UnitPropsEditor";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
-  const { gameDispatch, uiState, uiDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
   const [editorMode, setEditorMode] = React.useState(uiState.editorMode);
+
+  const selectedUnit = React.useMemo(() => gameState.selectedUnit, [gameState.selectedUnit]);
 
   const handleEditorModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const editorMode = e.target.value as GameUI["editorMode"];
@@ -22,7 +24,10 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
     gameDispatch({ type: "clearSelectedTerrainArea" });
     gameDispatch({ type: "clearSelectedBuilding" });
+    gameDispatch({ type: "clearSelectedUnit" });
     gameDispatch({ type: "clearSelectedLight" });
+
+    gameDispatch({ type: "stopUnits", units: gameState.getAllAliveUnitsArray() });
 
     uiDispatch({ type: "setEditorMode", editorMode });
   };
@@ -72,7 +77,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
       {uiState.editorMode === "units" ? (
         <div className={"ui-tab-content"}>
-          <UnitPropsEditor />
+          <UnitPropsEditor unit={selectedUnit} />
         </div>
       ) : null}
 
