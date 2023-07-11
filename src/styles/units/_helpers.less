@@ -23,24 +23,27 @@
     each(@unit-actions, {
       &[data-action="none"] {
         .char {
-          @bg: %('/public/assets/units/%a/idle/empty.webp', @unit-type);
-          background-image: url(@bg);
+          background-image: url(%('/public/assets/units/%a/idle/empty.webp', @unit-type));
+        }
+      }
+
+      &[data-action="none"][data-weapon="pistol"] {
+        .char {
+          background-image: url(%('/public/assets/units/%a/idle/pistol.webp', @unit-type)) !important;
         }
       }
 
       &[data-action="@{value}"] {
         .char {
-          @action-bg: %('/public/assets/units/%a/%s/empty.webp', @unit-type, @value);
-          background-image: url(@action-bg);
+          background-image: url(%('/public/assets/units/%a/%s/empty.webp', @unit-type, @value));
         }
       }
 
       &[data-action="@{value}"][data-weapon="pistol"] {
-          .char {
-            @action-bg: %('/public/assets/units/%a/%s/pistol.webp', @unit-type, @value);
-            background-image: url(@action-bg);
-          }
+        .char {
+          background-image: url(%('/public/assets/units/%a/%s/pistol.webp', @unit-type, @value)) !important;
         }
+      }
     });
   }
 }
