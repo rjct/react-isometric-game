@@ -6,6 +6,7 @@ import { Switch } from "../ui/Switch";
 import { DebugMapSwitcher } from "../debug/DebugMapSwitcher";
 import { DebugMapInfo } from "../debug/DebugMapInfo";
 import { DebugInfo } from "../debug/DebugInfo";
+import { HeroPoints } from "./HeroPoints";
 
 export const Top = React.memo(function Top() {
   const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();
@@ -13,7 +14,9 @@ export const Top = React.memo(function Top() {
 
   return (
     <div className={"top-wrapper"}>
-      <div className={"block top"}>
+      <fieldset className={"block top"}>
+        <legend>{gameState.mapUrl}</legend>
+        <legend className={"short"}>{gameState.mapUrl.split("/")[1].split(".")[0]}</legend>
         <div className={"title"}>
           <Switch
             title={"Debug"}
@@ -41,21 +44,23 @@ export const Top = React.memo(function Top() {
             }}
           />
         </div>
-      </div>
+      </fieldset>
 
-      <div className={"block ap"} title="Action points">
-        <div className={"title"}>AP</div>
-        <div className={"value"}>
-          {hero.actionPoints.current} / {hero.actionPoints.max}
-        </div>
-      </div>
+      <fieldset>
+        <legend>Action points</legend>
+        <legend className={"short"} title="Action points">
+          AP
+        </legend>
+        <HeroPoints points={hero.actionPoints} />
+      </fieldset>
 
-      <div className={"block hp"} title="Health points">
-        <div className={"title"}>HP</div>
-        <div className={"value"}>
-          {hero.healthPoints.current} / {hero.healthPoints.max}
-        </div>
-      </div>
+      <fieldset>
+        <legend>Health points</legend>
+        <legend className={"short"} title="Health points">
+          HP
+        </legend>
+        <HeroPoints points={hero.healthPoints} />
+      </fieldset>
 
       <DebugInfo />
     </div>
