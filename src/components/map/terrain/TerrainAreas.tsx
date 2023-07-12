@@ -2,6 +2,7 @@ import React from "react";
 import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
 import { gridToScreenSpace } from "../../../engine/helpers";
+import { MapLayer } from "../MapLayer";
 
 export const TerrainAreas = React.memo(function TerrainAreas() {
   const { gameState, uiState } = useGameState();
@@ -88,18 +89,17 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   }, []);
 
   return (
-    <div
+    <MapLayer
+      isometric={false}
+      additionalEditorSpace={uiState.scene === "editor"}
+      size={gameState.mapSize}
       className={"terrain"}
-      style={{
-        width: mapWidth * tileWidth + (uiState.scene === "editor" ? constants.editor.propsEditor.width : 0),
-        height: mapHeight * tileHeight,
-      }}
     >
       <canvas
         ref={canvasRef}
         width={`${mapWidth * tileWidth + (uiState.scene === "editor" ? constants.editor.propsEditor.width : 0)}`}
         height={`${mapHeight * tileHeight}`}
       ></canvas>
-    </div>
+    </MapLayer>
   );
 });

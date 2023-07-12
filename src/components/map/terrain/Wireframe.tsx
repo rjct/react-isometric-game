@@ -5,6 +5,7 @@ import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePos
 import { Unit } from "../../../engine/UnitFactory";
 import { constants } from "../../../constants";
 import { WireframeMarker } from "./WireframeMarker";
+import { MapLayer } from "../MapLayer";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -106,12 +107,10 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [mousePosition?.grid.x, mousePosition?.grid.y]);
 
   return (
-    <div
+    <MapLayer
+      size={gameState.mapSize}
       className={"wireframe"}
       style={{
-        width: gameState.mapSize.width * constants.wireframeTileSize.width,
-        height: gameState.mapSize.height * constants.wireframeTileSize.height,
-        left: (gameState.mapSize.width * constants.tileSize.width) / 2,
         background:
           gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : "none",
       }}
@@ -132,6 +131,6 @@ export const Wireframe = React.memo(function WireframeTiles() {
           }}
         />
       ) : null}
-    </div>
+    </MapLayer>
   );
 });

@@ -3,6 +3,7 @@ import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { useMousePosition } from "../../../hooks/useMousePosition";
 import { Light } from "../../../engine/LightFactory";
+import { MapLayer } from "../../map/MapLayer";
 
 export const LightEditor = React.memo(function LightEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -19,11 +20,6 @@ export const LightEditor = React.memo(function LightEditor() {
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
-
-  const mapWidth = gameState.mapSize.width;
-  const mapHeight = gameState.mapSize.height;
-
-  const tileWidth = constants.tileSize.width;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!workingEntity.entity) return;
@@ -74,13 +70,9 @@ export const LightEditor = React.memo(function LightEditor() {
   };
 
   return uiState.scene == "editor" && uiState.editorMode == "lights" ? (
-    <div
-      className="lights light-editor"
-      style={{
-        width: mapWidth * wireframeTileWidth,
-        height: mapHeight * wireframeTileHeight,
-        left: (mapWidth * tileWidth) / 2,
-      }}
+    <MapLayer
+      size={gameState.mapSize}
+      className={"lights light-editor"}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
@@ -115,6 +107,6 @@ export const LightEditor = React.memo(function LightEditor() {
           ></div>
         );
       })}
-    </div>
+    </MapLayer>
   ) : null;
 });

@@ -1,9 +1,9 @@
-import { constants } from "../../../constants";
 import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
 import { useMousePosition } from "../../../hooks/useMousePosition";
 import { Unit } from "../../../engine/UnitFactory";
 import { UnitComponent } from "../../map/units/Unit";
+import { MapLayer } from "../../map/MapLayer";
 
 export const UnitEditor = React.memo(function UnitEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -15,9 +15,6 @@ export const UnitEditor = React.memo(function UnitEditor() {
     initialEntityPosition: null as unknown as GridCoordinates,
     entity: null as unknown as Unit,
   });
-
-  const mapWidth = gameState.mapSize.width;
-  const mapHeight = gameState.mapSize.height;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!workingEntity.entity) return;
@@ -61,12 +58,10 @@ export const UnitEditor = React.memo(function UnitEditor() {
   };
 
   return uiState.scene == "editor" && uiState.editorMode == "units" ? (
-    <div
-      className="building-editor"
-      style={{
-        width: mapWidth * constants.tileSize.width,
-        height: mapHeight * constants.tileSize.height,
-      }}
+    <MapLayer
+      isometric={false}
+      size={gameState.mapSize}
+      className={"unit-editor"}
       onMouseMove={handleMouseMove}
       onMouseUp={handleMouseUp}
     >
@@ -82,6 +77,6 @@ export const UnitEditor = React.memo(function UnitEditor() {
           />
         );
       })}
-    </div>
+    </MapLayer>
   ) : null;
 });

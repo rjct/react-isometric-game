@@ -1,5 +1,6 @@
 import React from "react";
 import { constants } from "../../constants";
+import { MapLayer } from "../map/MapLayer";
 
 export const Canvas = React.forwardRef(
   (
@@ -12,29 +13,20 @@ export const Canvas = React.forwardRef(
     },
     ref: React.ForwardedRef<HTMLCanvasElement>
   ) => {
-    const wireframeTileWidth = constants.wireframeTileSize.width;
-    const wireframeTileHeight = constants.wireframeTileSize.height;
-
-    const tileWidth = constants.tileSize.width;
-
     return (
-      <div
+      <MapLayer
+        size={props.size}
         className={props.className}
-        style={{
-          width: props.size.width * wireframeTileWidth,
-          height: props.size.height * wireframeTileHeight,
-          left: (props.size.width * tileWidth) / 2,
-        }}
         onMouseMove={props.handleMouseMove}
         onClick={props.handleClick}
         onContextMenu={props.handleRightClick}
       >
         <canvas
           ref={ref}
-          width={props.size.width * wireframeTileWidth}
-          height={`${props.size.height * wireframeTileHeight}`}
+          width={props.size.width * constants.wireframeTileSize.width}
+          height={`${props.size.height * constants.wireframeTileSize.height}`}
         ></canvas>
-      </div>
+      </MapLayer>
     );
   }
 );

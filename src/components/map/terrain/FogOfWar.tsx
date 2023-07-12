@@ -3,6 +3,7 @@ import React from "react";
 import { useGameState } from "../../../hooks/useGameState";
 import { useFogOfWar } from "../../../hooks/useFogOfWar";
 import { constants } from "../../../constants";
+import { MapLayer } from "../MapLayer";
 
 export const FogOfWar = React.memo(() => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
@@ -25,12 +26,7 @@ export const FogOfWar = React.memo(() => {
   return gameState.mapSize.width === 0 ||
     uiState.scene === "editor" ||
     !gameState.settings.featureEnabled.fogOfWar ? null : (
-    <div
-      className={"fow"}
-      style={{
-        left: (gameState.mapSize.width * constants.tileSize.width) / 2,
-      }}
-    >
+    <MapLayer size={gameState.mapSize} className={"fow"}>
       <img
         alt={undefined}
         src={fowImageSrc}
@@ -45,6 +41,6 @@ export const FogOfWar = React.memo(() => {
         ref={canvasRef}
         style={{ display: "none" }}
       />
-    </div>
+    </MapLayer>
   );
 });
