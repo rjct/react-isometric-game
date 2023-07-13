@@ -84,6 +84,12 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
   React.useEffect(() => {
     uiDispatch({ type: "resetMousePosition" });
+
+    if (uiState.scene === "editor") {
+      gameState.getAllAliveUnitsArray().forEach((unit) => {
+        unit.stop();
+      });
+    }
   }, [uiState.scene]);
 
   React.useEffect(() => {
