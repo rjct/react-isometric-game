@@ -33,9 +33,6 @@ const gameUIContext = {
   },
   scene: "game" as GameScene,
   editorMode: "terrain" as keyof typeof EditorModes,
-  isPaused() {
-    return this.scene !== "game";
-  },
   offscreenCanvasRenderingProgress: {
     lightsAndShadows: {
       percent: 100,

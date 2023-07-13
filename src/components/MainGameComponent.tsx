@@ -45,11 +45,11 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         uiState,
         uiDispatch,
       },
-      deltaTime
+      deltaTime,
     );
   };
 
-  useAnimationFrame(mainLoop, !loadingState.loading && !uiState.isScrolling());
+  useAnimationFrame(mainLoop, !loadingState.loading);
 
   React.useEffect(() => {
     uiDispatch({ type: "setScene", scene: "loading" });
@@ -81,6 +81,10 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
       });
     });
   }, [gameState.mapUrl]);
+
+  React.useEffect(() => {
+    uiDispatch({ type: "resetMousePosition" });
+  }, [uiState.scene]);
 
   React.useEffect(() => {
     updateUrlWithFeaturesEnabled(gameState);

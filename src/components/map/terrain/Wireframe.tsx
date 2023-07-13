@@ -1,7 +1,6 @@
 import React from "react";
 import { useGameState } from "../../../hooks/useGameState";
 import { useHero } from "../../../hooks/useHero";
-import { useMousePosition, WorldMousePosition } from "../../../hooks/useMousePosition";
 import { Unit } from "../../../engine/UnitFactory";
 import { constants } from "../../../constants";
 import { WireframeMarker } from "./WireframeMarker";
@@ -10,9 +9,7 @@ import { MapLayer } from "../MapLayer";
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const { hero, doHeroAction } = useHero();
-  const { getWorldMousePosition } = useMousePosition();
 
-  const [mousePosition, setMousePosition] = React.useState(null as unknown as WorldMousePosition);
   const [markerPosition, setMarkerPosition] = React.useState({ x: 0, y: 0 } as GridCoordinates);
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
   const [markerValue, setMarkerValue] = React.useState("");
@@ -21,10 +18,6 @@ export const Wireframe = React.memo(function WireframeTiles() {
             repeating-linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px)`;
   }, [gameState.debug.enabled && gameState.debug.featureEnabled.wireframe]);
 
-  const handleMouseMove = (e: React.MouseEvent) => {
-    setMousePosition(getWorldMousePosition(e));
-  };
-
   const handleClick = () => {
     setMarkerClassName([
       ...markerClassName,
@@ -32,7 +25,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
     ]);
 
     if (markerClassName.includes("action--allowed")) {
-      doHeroAction(mousePosition);
+      doHeroAction(uiState.mousePosition);
     }
   };
 
@@ -64,7 +57,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
         const weapon = hero.getCurrentWeapon();
 
         if (weapon) {
-          weapon.aimAt(mousePosition.grid);
+          weapon.aimAt(uiState.mousePosition.grid);
 
           if (
             !weapon.isReadyToUse() ||
@@ -79,7 +72,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
         break;
 
       default:
-        const unitPath = gameState.calcUnitPath(hero, mousePosition.grid);
+        const unitPath = gameState.calcUnitPath(hero, uiState.mousePosition.grid);
 
         if (
           unitPath.length === 0 ||
@@ -96,15 +89,11 @@ export const Wireframe = React.memo(function WireframeTiles() {
   };
 
   React.useEffect(() => {
-    setMousePosition(null as unknown as WorldMousePosition);
-  }, [gameState.mapUrl]);
+    if (uiState.mousePosition.isOutOfGrid) return;
 
-  React.useEffect(() => {
-    if (!mousePosition || mousePosition.isOutOfGrid) return;
-
-    setMarkerPosition(mousePosition.grid);
+    setMarkerPosition(uiState.mousePosition.grid);
     updateMarkerColor();
-  }, [mousePosition?.grid.x, mousePosition?.grid.y]);
+  }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
 
   return (
     <MapLayer
@@ -114,7 +103,6 @@ export const Wireframe = React.memo(function WireframeTiles() {
         background:
           gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : "none",
       }}
-      onMouseMove={handleMouseMove}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >

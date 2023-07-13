@@ -2,14 +2,14 @@ import { randomInt } from "../helpers";
 import { GameContext } from "../../hooks/useGameState";
 
 export function gameScene(this: GameContext, deltaTime: number) {
-  const { gameState, gameDispatch } = this;
+  const { gameState, gameDispatch, uiDispatch } = this;
 
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
   const heroWeapon = gameState.units[gameState.heroId]?.getCurrentWeapon();
 
   // User Input
-  //uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
+  uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
 
   // Update
   gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
@@ -30,7 +30,7 @@ export function gameScene(this: GameContext, deltaTime: number) {
       !!heroWeapon &&
         heroWeapon.isReadyToUse() &&
         heroWeapon.getAimCoordinates()?.x === enemy.getRoundedPosition().x &&
-        heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y
+        heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y,
     );
 
     // Enemy unit perform random actions

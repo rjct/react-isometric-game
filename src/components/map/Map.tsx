@@ -17,6 +17,7 @@ import { LightEditor } from "../editor/light/LightEditor";
 import { floor, gridToScreenSpace } from "../../engine/helpers";
 import { UnitEditor } from "../editor/unit/UnitEditor";
 import { DictUnit } from "../../engine/UnitFactory";
+import { useMousePosition } from "../../hooks/useMousePosition";
 
 export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
@@ -27,6 +28,7 @@ export const Map = React.memo(
     const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
     const mapRef = React.useRef<HTMLDivElement>(null);
+    const { getWorldMousePosition } = useMousePosition();
 
     const { hero } = useHero();
 
@@ -35,6 +37,14 @@ export const Map = React.memo(
       gameDispatch({ type: "clearSelectedTerrainArea" });
       gameDispatch({ type: "clearSelectedLight" });
       gameDispatch({ type: "clearSelectedUnit" });
+    };
+
+    const handleMouseMove = (e: React.MouseEvent) => {
+      uiDispatch({ type: "setMousePosition", mousePosition: getWorldMousePosition(e) });
+    };
+
+    const handleMouseOut = () => {
+      uiDispatch({ type: "resetMousePosition" });
     };
 
     const handleScroll = () => {
@@ -143,7 +153,7 @@ export const Map = React.memo(
           },
         };
       },
-      []
+      [],
     );
 
     return (
@@ -152,6 +162,8 @@ export const Map = React.memo(
           ref={mapRef}
           className="map-wrapper"
           onMouseDown={handleMouseDown}
+          onMouseMove={handleMouseMove}
+          onMouseOut={handleMouseOut}
           onScroll={handleScroll}
           onDragOver={handleDragOver}
           onDrop={handleDrop}
@@ -175,5 +187,5 @@ export const Map = React.memo(
         </div>
       </>
     );
-  })
+  }),
 );
