@@ -1,14 +1,69 @@
 {
-  "buick": {
+  "vehicle-2x1": {
     "class": "vehicle",
-    "type": "buick",
-    "className": "buick",
+    "type": "vehicle-2x1",
+    "className": "vehicle-2x1",
     "size": {
-      "grid": { "width": 2, "height": 4 },
-      "screen": { "width": 190, "height": 115 }
+      "grid": { "width": 2, "height": 1 },
+      "screen": { "width": 95, "height": 120 }
     },
     "directions": ["top", "right", "bottom","left"],
-    "variants": 8
+    "variants": 1
+  },
+  "vehicle-2x4": {
+    "class": "vehicle",
+    "type": "vehicle-2x4",
+    "className": "vehicle-2x4",
+    "size": {
+      "grid": { "width": 2, "height": 4 },
+      "screen": { "width": 240, "height": 180 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 17
+  },
+  "vehicle-2x6": {
+    "class": "vehicle",
+    "type": "vehicle-2x6",
+    "className": "vehicle-2x6",
+    "size": {
+      "grid": { "width": 2, "height": 6 },
+      "screen": { "width": 268, "height": 205 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 1
+  },
+  "vehicle-3x2": {
+    "class": "vehicle",
+    "type": "vehicle-3x2",
+    "className": "vehicle-3x2",
+    "size": {
+      "grid": { "width": 3, "height": 2 },
+      "screen": { "width": 132, "height": 93 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 1
+  },
+  "vehicle-3x4": {
+    "class": "vehicle",
+    "type": "vehicle-3x4",
+    "className": "vehicle-3x4",
+    "size": {
+      "grid": { "width": 3, "height": 4 },
+      "screen": { "width": 195, "height": 170 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 1
+  },
+  "vehicle-4x4": {
+    "class": "vehicle",
+    "type": "vehicle-4x4",
+    "className": "vehicle-4x4",
+    "size": {
+      "grid": { "width": 4, "height": 4 },
+      "screen": { "width": 235, "height": 176 }
+    },
+    "directions": ["top", "right", "bottom","left"],
+    "variants": 1
   },
   "vault_wall": {
     "class": "wall",

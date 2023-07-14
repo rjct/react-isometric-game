@@ -139,10 +139,10 @@
     { "type": "ghoul", "position": { "x": 1, "y": 0 } }
   ],
   "buildings": [
-    { "type": "buick", "position": { "x": 16, "y": 14 }, "direction": "top", "variant": 6 },
-    { "type": "buick", "position": { "x": 11, "y": 16 }, "direction": "right", "variant": 6 },
-    { "type": "buick", "position": { "x": 14, "y": 11 }, "direction": "left", "variant": 6 },
-    { "type": "buick", "position": { "x": 11, "y": 11 }, "direction": "bottom", "variant": 6 }
+    { "type": "vehicle-2x4", "position": { "x": 16, "y": 14 }, "direction": "top", "variant": 6 },
+    { "type": "vehicle-2x4", "position": { "x": 11, "y": 16 }, "direction": "right", "variant": 6 },
+    { "type": "vehicle-2x4", "position": { "x": 14, "y": 11 }, "direction": "left", "variant": 6 },
+    { "type": "vehicle-2x4", "position": { "x": 11, "y": 11 }, "direction": "bottom", "variant": 6 }
   ],
   "shadows": { "color": "#000d4d", "opacity": 0.3 },
   "lights": [

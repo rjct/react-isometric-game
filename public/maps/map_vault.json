@@ -62,11 +62,10 @@
     { "type": "vault13_male", "position": { "x": 28, "y": 2 }, "direction": "top" }
   ],
   "buildings": [
-    { "type": "buick", "position": { "x": 4, "y": 6 }, "direction": "left", "variant": 1 },
-    { "type": "buick", "position": { "x": 4, "y": 3 }, "direction": "right", "variant": 2 },
-    { "type": "buick", "position": { "x": 0, "y": 25 }, "direction": "bottom", "variant": 3 },
-    { "type": "buick", "position": { "x": 3, "y": 25 }, "direction": "top", "variant": 4 },
-    { "type": "buick", "position": { "x": 6, "y": 25 }, "direction": "bottom", "variant": 5 },
+    { "type": "vehicle-2x4", "position": { "x": 4, "y": 6 }, "direction": "left", "variant": 12 },
+    { "type": "vehicle-2x4", "position": { "x": 0, "y": 25 }, "direction": "bottom", "variant": 3 },
+    { "type": "vehicle-2x4", "position": { "x": 3, "y": 25 }, "direction": "top", "variant": 13 },
+    { "type": "vehicle-2x4", "position": { "x": 6, "y": 25 }, "direction": "bottom", "variant": 15 },
     { "type": "vault_wall", "position": { "x": 4, "y": 16 }, "direction": "top", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 5, "y": 16 }, "direction": "top", "variant": 4 },
     { "type": "vault_wall", "position": { "x": 7, "y": 16 }, "direction": "top", "variant": 5 },
@@ -386,7 +385,9 @@
     { "type": "vault_chair", "position": { "x": 19, "y": 2 }, "direction": "right", "variant": 0 },
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "direction": "bottom", "variant": 6 },
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "direction": "bottom", "variant": 5 },
-    { "type": "vault_wall", "position": { "x": 8, "y": 16 }, "direction": "top", "variant": 3 }
+    { "type": "vault_wall", "position": { "x": 8, "y": 16 }, "direction": "top", "variant": 3 },
+    { "type": "vehicle-4x4", "position": { "x": 5, "y": 1 }, "direction": "left", "variant": 0 },
+    { "type": "vehicle-3x4", "position": { "x": 3, "y": 20 }, "direction": "right", "variant": 0 }
   ],
   "shadows": { "color": "#000d4d", "opacity": 0.3 },
   "lights": [

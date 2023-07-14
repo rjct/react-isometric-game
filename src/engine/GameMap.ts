@@ -191,7 +191,7 @@ export const gameMap = {
       position: GridCoordinates;
       size: TileProps["size"];
     },
-    viewport: GameUI["viewport"]
+    viewport: GameUI["viewport"],
   ) {
     const screenPosition = gridToScreenSpace(entity.position, this.mapSize);
     const x = screenPosition.x;
@@ -297,7 +297,7 @@ export const gameMap = {
     return this.buildings.find(
       (building) =>
         Math.round(building.position.x) === Math.round(coordinates.x) &&
-        Math.round(building.position.y) === Math.round(coordinates.y)
+        Math.round(building.position.y) === Math.round(coordinates.y),
     );
   },
 

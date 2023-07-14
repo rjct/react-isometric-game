@@ -45,7 +45,7 @@
       }
     }
   ],
-  "buildings": [{ "type": "buick", "position": { "x": 6, "y": 8 }, "direction": "right", "variant": 0 }],
+  "buildings": [{ "type": "vehicle-2x4", "position": { "x": 6, "y": 8 }, "direction": "right", "variant": 0 }],
   "shadows": { "color": "#000d23", "opacity": 0.7 },
   "lights": [{ "position": { "x": 1, "y": 1 }, "color": "#ffffff", "radius": 20 }]
 }
