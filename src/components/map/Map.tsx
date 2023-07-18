@@ -18,6 +18,7 @@ import { floor, gridToScreenSpace } from "../../engine/helpers";
 import { UnitEditor } from "../editor/unit/UnitEditor";
 import { DictUnit } from "../../engine/UnitFactory";
 import { useMousePosition } from "../../hooks/useMousePosition";
+import { MapLayer } from "./MapLayer";
 
 export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
@@ -182,8 +183,10 @@ export const Map = React.memo(
 
           <TerrainAreas />
 
-          <Buildings />
-          <Units />
+          <MapLayer size={gameState.mapSize} className={"map"} isometric={gameState.debug.featureEnabled.buildingBoxes}>
+            <Buildings />
+            <Units />
+          </MapLayer>
         </div>
       </>
     );

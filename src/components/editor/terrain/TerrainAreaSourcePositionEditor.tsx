@@ -6,8 +6,8 @@ import { TerrainArea } from "../../../engine/TerrainAreaFactory";
 
 interface ClipMask {
   position: AreaCoordinates;
-  size: Size;
-  cellSize: Size;
+  size: Size2D;
+  cellSize: Size2D;
 }
 
 export function TerrainAreaSourcePositionEditor() {

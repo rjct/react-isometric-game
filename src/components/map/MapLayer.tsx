@@ -5,7 +5,7 @@ export type MapLayerProps = {
   isometric?: boolean;
   additionalEditorSpace?: boolean;
   //
-  size: Size;
+  size: Size2D;
   className: string;
   style?: React.CSSProperties;
   children: React.ReactNode;
@@ -27,7 +27,8 @@ export function MapLayer({ isometric = true, additionalEditorSpace = false, ...p
 
   return (
     <div
-      className={props.className}
+      data-isometric={isometric || null}
+      className={`${props.className}${isometric ? " isometric" : ""}`}
       style={style}
       onMouseMove={props.onMouseMove}
       onClick={props.onClick}

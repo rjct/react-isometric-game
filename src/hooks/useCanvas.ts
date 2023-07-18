@@ -21,7 +21,7 @@ export function useCanvas() {
     color = "#ffffff",
     fillStyle?: CanvasGradient,
     lineWidth = 1,
-    radius = wireframeTileWidth / 2
+    radius = wireframeTileWidth / 2,
   ) => {
     ctx.beginPath();
     ctx.strokeStyle = color;
@@ -32,7 +32,7 @@ export function useCanvas() {
       position.y * wireframeTileHeight + wireframeTileHeight / 2,
       radius,
       0,
-      2 * Math.PI
+      2 * Math.PI,
     );
     ctx.stroke();
   };
@@ -42,7 +42,7 @@ export function useCanvas() {
     position: GridCoordinates,
     color = "#ffffff",
     lineWidth = 1,
-    size = { width: 1, height: 1 } as Size
+    size = { width: 1, length: 1, height: 1 } as Size3D,
   ) => {
     ctx.strokeStyle = color;
     ctx.fillStyle = color;
@@ -52,7 +52,7 @@ export function useCanvas() {
       position.x * wireframeTileWidth,
       position.y * wireframeTileHeight,
       size.width * wireframeTileWidth,
-      size.height * wireframeTileHeight
+      size.length * wireframeTileHeight,
     );
     ctx.stroke();
   };
@@ -62,7 +62,7 @@ export function useCanvas() {
     position: GridCoordinates,
     color = "#ffffff",
     lineWidth = 1,
-    size = { width: wireframeTileWidth, height: wireframeTileHeight } as Size
+    size = { width: wireframeTileWidth, height: wireframeTileHeight } as Size2D,
   ) => {
     ctx.beginPath();
     ctx.rect(position.x * wireframeTileWidth, position.y * wireframeTileHeight, size.width, size.height);
@@ -75,7 +75,7 @@ export function useCanvas() {
     ctx: CanvasRenderingContext2D,
     from: GridCoordinates,
     to: GridCoordinates,
-    color = "rgba(255,255,255, 0.5)"
+    color = "rgba(255,255,255, 0.5)",
   ) => {
     ctx.beginPath();
     ctx.moveTo(from.x * wireframeTileWidth + 0.5, from.y * wireframeTileWidth + 0.5);

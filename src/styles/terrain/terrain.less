@@ -39,7 +39,7 @@
   transition: background-image 1s ease-in-out;
 
   img {
-    box-shadow: 0 0 50px 25px #000000 inset, 0 0 0 100px #000000;
+    box-shadow: 0 0 50px 25px #000000 inset, 0 0 0 150px #000000;
   }
 }
 
@@ -50,4 +50,21 @@
 
 .debug-visualization {
   z-index: 1;
+}
+
+.map {
+  position: absolute;
+  transform-origin: left top;
+
+  z-index: 1;
+  pointer-events: none;
+}
+
+&[data-isometric] {
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(45deg);
+
+  .unit {
+    transform: rotateX(135deg) rotateY(135deg) rotateZ(150deg) translate(-5px, 8px);
+  }
 }

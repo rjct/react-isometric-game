@@ -3,7 +3,7 @@ import { constants } from "../constants";
 import { GameMap } from "../engine/GameMap";
 
 export type LightsAndShadowsWorkerProps = {
-  mapSize: Size;
+  mapSize: Size2D;
   featureEnabled: {
     shadow: boolean;
     light: boolean;

@@ -57,7 +57,7 @@ export function useHero() {
   };
 
   const getHeroScreenPosition = (): ScreenCoordinates => {
-    const pos = hero.screenPosition;
+    const pos = hero.screenPosition.screen;
 
     return {
       x: pos.x + constants.tileSize.width / 2,
@@ -77,7 +77,7 @@ export function useHero() {
     }
 
     const { x, y } = getHeroScreenPosition();
-    const entityPosition = entity.screenPosition;
+    const entityPosition = entity.screenPosition.screen;
     const maskRadius = hero.size.screen.height / 4;
 
     return [
@@ -90,7 +90,6 @@ export function useHero() {
   return {
     hero: hero || new Unit({ unitType: "vault13_male", position: { x: 0, y: 0 }, isHero: true }),
     doHeroAction,
-    getHeroScreenPosition,
     getHeroMaskImage,
   };
 }

@@ -3,7 +3,7 @@ import { GameMap } from "../../../engine/GameMap";
 export interface SetTerrainAreaSizeReducerAction {
   type: "setTerrainAreaSize";
   entityId: string;
-  size: Size;
+  size: Size2D;
 }
 
 export function setTerrainAreaSize(state: GameMap, action: SetTerrainAreaSizeReducerAction): GameMap {

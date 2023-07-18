@@ -26,8 +26,8 @@ export interface DictUnit {
   };
   coolDownTime: number;
   size: {
-    grid: Size;
-    screen: Size;
+    grid: Size3D;
+    screen: Size2D;
   };
   healthPoints: {
     current: number;

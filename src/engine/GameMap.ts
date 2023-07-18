@@ -16,7 +16,7 @@ import { floor, gridToScreenSpace } from "./helpers";
 import { mapsList } from "../maps_list";
 
 interface GameMapProps {
-  mapSize: Size;
+  mapSize: Size2D;
   terrain: TerrainArea[];
   buildings: Building[];
   units: UnitTypes;
@@ -52,6 +52,7 @@ export const gameMap = {
     enabled: false,
     featureEnabled: {
       wireframe: isFeatureEnabled("debug", "wireframe"),
+      buildingBoxes: isFeatureEnabled("debug", "buildingBoxes"),
       occupiedCells: isFeatureEnabled("debug", "occupiedCells"),
       unitPath: isFeatureEnabled("debug", "unitPath"),
       unitFieldOfView: isFeatureEnabled("debug", "unitFieldOfView"),
@@ -136,13 +137,13 @@ export const gameMap = {
     if (!this.settings.featureEnabled.fogOfWar) return true;
 
     const { x, y } = entity.position;
-    const { width, height } = entity.size.grid;
+    const { width, length } = entity.size.grid;
 
     const x1 = x;
     const x2 = x1 + width;
 
     const y1 = y;
-    const y2 = y1 + height;
+    const y2 = y1 + length;
 
     return (
       this.isCellVisited(x1, y1) ||
@@ -153,12 +154,12 @@ export const gameMap = {
   setGridMatrixOccupancy(entities: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
     for (const entity of entities) {
       const { x, y } = entity.getRoundedPosition();
-      const { width, height } = entity.size.grid;
+      const { width, length } = entity.size.grid;
 
       if (!entity.occupiesCell) continue;
 
       for (let xx = x; xx < x + width; xx++) {
-        for (let yy = y; yy < y + height; yy++) {
+        for (let yy = y; yy < y + length; yy++) {
           if (xx < this.mapSize.width && yy < this.mapSize.height) {
             matrix[yy][xx] += occupancy;
           }
@@ -251,7 +252,7 @@ export const gameMap = {
     };
   },
 
-  convertToIsometricSize(size: Size): Size {
+  convertToIsometricSize(size: Size2D): Size2D {
     return {
       width: size.width * constants.wireframeTileSize.width,
       height: size.height * constants.wireframeTileSize.height,

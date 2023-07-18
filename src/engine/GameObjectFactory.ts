@@ -7,17 +7,20 @@ export class GameObjectFactory {
   public readonly id;
   public readonly internalColor: string;
 
-  public size = { grid: { width: 0, height: 0 }, screen: { width: 0, height: 0 } };
+  public size = { grid: { width: 0, length: 0, height: 0 }, screen: { width: 0, height: 0 } };
   public position: GridCoordinates = { x: 0, y: 0 };
-  public screenPosition: ScreenCoordinates = { x: 0, y: 0 };
+  public screenPosition: { screen: ScreenCoordinates; iso: ScreenCoordinates } = {
+    screen: { x: 0, y: 0 },
+    iso: { x: 0, y: 0 },
+  };
   public zIndex: number;
   public direction: Direction = "top";
   public occupiesCell = true;
 
-  private walls: GameObjectWall[] = [];
+  public walls: GameObjectWall[] = [];
 
   constructor(props: {
-    size: { grid: Size; screen: Size };
+    size: { grid: Size3D; screen: Size2D };
     position: GridCoordinates;
     direction: Direction;
     internalColor: string;
@@ -40,36 +43,39 @@ export class GameObjectFactory {
 
   createWalls() {
     this.walls = [
+      // new GameObjectWall(this.position, {
+      //   x1: 0,
+      //   y1: 0,
+      //   x2: this.size.grid.width,
+      //   y2: 0,
+      // }),
       new GameObjectWall(this.position, {
-        x1: 0,
+        x1: this.size.grid.width,
         y1: 0,
         x2: this.size.grid.width,
-        y2: 0,
+        y2: this.size.grid.length,
       }),
       new GameObjectWall(this.position, {
         x1: this.size.grid.width,
-        y1: 0,
-        x2: this.size.grid.width,
-        y2: this.size.grid.height,
-      }),
-      new GameObjectWall(this.position, {
-        x1: this.size.grid.width,
-        y1: this.size.grid.height,
+        y1: this.size.grid.length,
         x2: 0,
-        y2: this.size.grid.height,
+        y2: this.size.grid.length,
       }),
-      new GameObjectWall(this.position, {
-        x1: 0,
-        y1: this.size.grid.height,
-        x2: 0,
-        y2: 0,
-      }),
+      // new GameObjectWall(this.position, {
+      //   x1: 0,
+      //   y1: this.size.grid.length,
+      //   x2: 0,
+      //   y2: 0,
+      // }),
     ];
   }
 
   setPosition(position: GridCoordinates, gameState: GameMap) {
     this.position = position;
-    this.screenPosition = gridToScreenSpace(position, gameState.mapSize);
+    this.screenPosition = {
+      screen: gridToScreenSpace(position, gameState.mapSize),
+      iso: { x: position.x * constants.wireframeTileSize.width, y: position.y * constants.wireframeTileSize.height },
+    };
     this.zIndex = getEntityZIndex(this);
 
     this.createWalls();
@@ -130,7 +136,7 @@ export class GameObjectFactory {
 }
 
 export class GameObjectWall {
-  private area: AreaCoordinates;
+  public area: AreaCoordinates;
   private position: GridCoordinates = { x: 0, y: 0 };
   x = 0;
   y = 0;

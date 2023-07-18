@@ -13,7 +13,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
   const { gameState, gameDispatch, uiDispatch, uiState } = useGameState();
 
   const centerMapOnHero = () => {
-    uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition });
+    uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition.screen });
   };
 
   const handleCurrentHeroActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {

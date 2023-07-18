@@ -25,11 +25,11 @@
 .building-shift(@vertical, @horizontal) {
   &[data-direction="top"],
   &[data-direction="bottom"] {
-    transform: translateX(@vertical);
+    margin-left: @vertical;
   }
 
   &[data-direction="left"],
   &[data-direction="right"] {
-    transform: translateX(@horizontal);
+    margin-left: @horizontal;
   }
 }

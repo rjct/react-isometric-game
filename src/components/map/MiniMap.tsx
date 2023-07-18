@@ -59,7 +59,7 @@ export const MiniMap = React.memo(function MiniMap() {
       canvasHeight / 2 + (wireframeTileWidth / 2) * miniMapZoom,
       (wireframeTileWidth / 2) * miniMapZoom,
       0,
-      2 * Math.PI
+      2 * Math.PI,
     );
     ctx.fill();
 
@@ -74,7 +74,7 @@ export const MiniMap = React.memo(function MiniMap() {
           enemyCoordinates.x,
           enemyCoordinates.y,
           wireframeTileWidth * miniMapZoom,
-          wireframeTileHeight * miniMapZoom
+          wireframeTileHeight * miniMapZoom,
         );
       });
 
@@ -93,7 +93,7 @@ export const MiniMap = React.memo(function MiniMap() {
           buildingCoordinates.x,
           buildingCoordinates.y,
           building.size.grid.width * wireframeTileWidth * miniMapZoom,
-          building.size.grid.height * wireframeTileHeight * miniMapZoom
+          building.size.grid.length * wireframeTileHeight * miniMapZoom,
         );
       });
   };

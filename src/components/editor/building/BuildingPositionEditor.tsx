@@ -38,7 +38,7 @@ export function BuildingPositionEditor() {
         value={coordinates.y}
         label={"y"}
         min={0}
-        max={gameState.mapSize.height - gameState.selectedBuilding.size.grid.height}
+        max={gameState.mapSize.height - gameState.selectedBuilding.size.grid.length}
         disabled={!gameState.selectedBuilding}
         onChange={(value) => {
           gameDispatch({

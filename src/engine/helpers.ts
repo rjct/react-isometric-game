@@ -89,12 +89,12 @@ export function getEntityZIndex(entity: GameObjectFactory) {
   const { position, size } = entity;
 
   const x = Math.ceil(position.x + size.grid.width);
-  const y = Math.ceil(position.y + size.grid.height / 2);
+  const y = Math.ceil(position.y + size.grid.length / 2);
 
   return x + y + 1;
 }
 
-export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size): ScreenCoordinates {
+export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): ScreenCoordinates {
   const mapWidth = mapSize.width;
 
   const tileWidth = constants.tileSize.width;
@@ -109,7 +109,7 @@ export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size): Scre
   return { x, y };
 }
 
-export function createMatrix(mapSize: Size): Array<Array<number>> {
+export function createMatrix(mapSize: Size2D): Array<Array<number>> {
   return [...Array(mapSize.width)].map(() => Array(mapSize.height).fill(0));
 }
 

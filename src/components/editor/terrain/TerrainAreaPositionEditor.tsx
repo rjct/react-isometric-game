@@ -6,7 +6,7 @@ export function TerrainAreaPositionEditor() {
   const { gameState, gameDispatch } = useGameState();
 
   const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
-  const [size, setSize] = React.useState(null as unknown as Size);
+  const [size, setSize] = React.useState(null as unknown as Size2D);
 
   React.useEffect(() => {
     if (gameState.selectedTerrainArea) {

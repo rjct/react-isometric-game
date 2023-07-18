@@ -1,7 +1,8 @@
 import React from "react";
 import { useGameState } from "../../../hooks/useGameState";
-import { BuildingComponent } from "./Building";
 import { useHero } from "../../../hooks/useHero";
+import { BuildingBox } from "./BuildingBox";
+import { BuildingComponent } from "./Building";
 
 export const Buildings = React.memo(function Buildings() {
   const { gameState, uiState } = useGameState();
@@ -11,10 +12,14 @@ export const Buildings = React.memo(function Buildings() {
     () =>
       gameState.buildings
         .filter((building) => gameState.isEntityInViewport(building, uiState.viewport))
-        .map((building) => (
-          <BuildingComponent key={building.id} building={building} maskImage={getHeroMaskImage(building)} />
-        )),
-    [uiState.viewport, hero.getHash()]
+        .map((building) =>
+          gameState.debug.featureEnabled.buildingBoxes ? (
+            <BuildingBox key={building.id} building={building} maskImage={getHeroMaskImage(building)} />
+          ) : (
+            <BuildingComponent key={building.id} building={building} maskImage={getHeroMaskImage(building)} />
+          ),
+        ),
+    [uiState.viewport, hero.getHash(), gameState.debug.featureEnabled.buildingBoxes],
   );
 
   return uiState.scene === "game" || uiState.scene === "combat" ? <>{buildings}</> : null;

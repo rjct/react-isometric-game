@@ -6,12 +6,12 @@ export const Canvas = React.forwardRef(
   (
     props: {
       className: string;
-      size: Size;
+      size: Size2D;
       handleMouseMove?: (e: React.MouseEvent) => void;
       handleClick?: (e: React.MouseEvent) => void;
       handleRightClick?: (e: React.MouseEvent) => void;
     },
-    ref: React.ForwardedRef<HTMLCanvasElement>
+    ref: React.ForwardedRef<HTMLCanvasElement>,
   ) => {
     return (
       <MapLayer
@@ -28,5 +28,5 @@ export const Canvas = React.forwardRef(
         ></canvas>
       </MapLayer>
     );
-  }
+  },
 );

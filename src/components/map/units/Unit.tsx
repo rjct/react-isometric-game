@@ -23,6 +23,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     uiState.scene === "editor" ||
     (gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport));
 
+  const isIsometric = gameState.debug.featureEnabled.buildingBoxes || uiState.scene === "editor";
+
   const renderAmmo = () => {
     const weapon = props.unit.getCurrentWeapon();
 
@@ -72,7 +74,8 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
         className={props.unit.className}
         style={{
-          transform: `translate(${props.unit.screenPosition.x}px, ${props.unit.screenPosition.y}px)`,
+          left: props.unit.screenPosition[isIsometric ? "iso" : "screen"].x,
+          top: props.unit.screenPosition[isIsometric ? "iso" : "screen"].y,
           zIndex: props.unit.zIndex,
         }}
       >

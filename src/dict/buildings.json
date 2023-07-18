@@ -4,10 +4,10 @@
     "type": "vehicle-2x1",
     "className": "vehicle-2x1",
     "size": {
-      "grid": { "width": 2, "height": 1 },
+      "grid": { "width": 2, "length": 1, "height": 1 },
       "screen": { "width": 95, "height": 120 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vehicle-2x4": {
@@ -15,10 +15,10 @@
     "type": "vehicle-2x4",
     "className": "vehicle-2x4",
     "size": {
-      "grid": { "width": 2, "height": 4 },
+      "grid": { "width": 2, "length": 4, "height": 0.75 },
       "screen": { "width": 240, "height": 180 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 17
   },
   "vehicle-2x6": {
@@ -26,10 +26,10 @@
     "type": "vehicle-2x6",
     "className": "vehicle-2x6",
     "size": {
-      "grid": { "width": 2, "height": 6 },
+      "grid": { "width": 2, "length": 6, "height": 1 },
       "screen": { "width": 268, "height": 205 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vehicle-3x2": {
@@ -37,10 +37,10 @@
     "type": "vehicle-3x2",
     "className": "vehicle-3x2",
     "size": {
-      "grid": { "width": 3, "height": 2 },
+      "grid": { "width": 3, "length": 2, "height": 1 },
       "screen": { "width": 132, "height": 93 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vehicle-3x4": {
@@ -48,10 +48,10 @@
     "type": "vehicle-3x4",
     "className": "vehicle-3x4",
     "size": {
-      "grid": { "width": 3, "height": 4 },
+      "grid": { "width": 3, "length": 4, "height": 1 },
       "screen": { "width": 195, "height": 170 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vehicle-4x4": {
@@ -59,10 +59,10 @@
     "type": "vehicle-4x4",
     "className": "vehicle-4x4",
     "size": {
-      "grid": { "width": 4, "height": 4 },
+      "grid": { "width": 4, "length": 4, "height": 1.5 },
       "screen": { "width": 235, "height": 176 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vault_wall": {
@@ -70,10 +70,10 @@
     "type": "vault_wall",
     "className": "vault-wall",
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1, "height": 2 },
       "screen": { "width": 50, "height": 120 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 7
   },
   "vault_bed": {
@@ -81,10 +81,10 @@
     "type": "vault_bed",
     "className": "vault-bed",
     "size": {
-      "grid": { "width": 2, "height": 2 },
+      "grid": { "width": 2, "length": 2, "height": 0.5 },
       "screen": { "width": 150, "height": 85 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 2
   },
   "vault_chair": {
@@ -92,10 +92,10 @@
     "type": "vault_chair",
     "className": "vault-chair",
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1, "height": 1 },
       "screen": { "width": 66, "height": 80 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 2
   },
   "vault_computer_1": {
@@ -103,10 +103,10 @@
     "type": "vault_computer_1",
     "className": "vault-computer-1",
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1, "height": 2 },
       "screen": { "width": 74, "height": 126 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 1
   },
   "vault_computer_2": {
@@ -114,7 +114,7 @@
     "type": "vault_computer_2",
     "className": "vault-computer-2",
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1, "height": 1.7 },
       "screen": { "width": 94, "height": 126 }
     },
     "directions": ["right", "bottom"],
@@ -125,10 +125,10 @@
     "type": "vault_table",
     "className": "vault-table",
     "size": {
-      "grid": { "width": 1, "height": 2 },
+      "grid": { "width": 1, "length": 2, "height": 0.7 },
       "screen": { "width": 113, "height": 93 }
     },
-    "directions": ["top", "right", "bottom","left"],
+    "directions": ["top", "right", "bottom", "left"],
     "variants": 3
   }
 }

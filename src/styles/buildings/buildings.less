@@ -3,6 +3,39 @@
   pointer-events: none;
 }
 
+.building-wall {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.4);
+  height: 50px;
+  transform-origin: left top;
+
+  transform-style: preserve-3d;
+
+  &.front {
+    transform: rotateX(90deg);
+    background-color: steelblue;
+  }
+
+  &.left {
+    transform: rotateY(-90deg);
+    background-color: hsla(180, 100%, 50%, 0.7);
+  }
+
+  &.back {
+    transform: rotateX(90deg);
+    background-color: hsla(120, 100%, 50%, 0.7);
+  }
+
+  &.right {
+    transform: rotateY(-90deg);
+    background-color: lighten(steelblue, 10%);
+  }
+
+  &.top {
+    background-color: lighten(steelblue, 20%); //hsla( 60, 100%, 50%, 0.7);
+  }
+}
+
 @import url("vehicles/_vehicles");
 @import url("walls/vault");
 

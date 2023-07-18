@@ -48,6 +48,7 @@ export const constants = {
 
     debug: {
       wireframe: true,
+      buildingBoxes: false,
       occupiedCells: false,
       unitPath: false,
       unitFieldOfView: false,

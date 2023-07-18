@@ -28,7 +28,7 @@ export function UnitLibraryItem(props: { item: DictUnit }) {
       <div className="info">
         <div className={"entity-type"}>{props.item.type}</div>
         <div className={"entity-size"}>
-          {props.item.size.grid.width}x{props.item.size.grid.height}
+          {props.item.size.grid.width}x{props.item.size.grid.length}
         </div>
       </div>
     </div>

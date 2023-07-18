@@ -46,7 +46,7 @@ export class TerrainArea {
             x: randomInt(this.source.position.x1, this.source.position.x2),
             y: randomInt(this.source.position.y1, this.source.position.y2),
           };
-        })
+        }),
     );
   }
 
@@ -85,7 +85,7 @@ export class TerrainArea {
     this.composeTiles();
   }
 
-  resizeTo(size: Size) {
+  resizeTo(size: Size2D) {
     this.target.x2 = this.target.x1 + Math.max(1, size.width);
     this.target.y2 = this.target.y1 + Math.max(1, size.height);
 
@@ -107,7 +107,7 @@ export class TerrainArea {
     };
   }
 
-  getScreenSize(): Size {
+  getScreenSize(): Size2D {
     return {
       width: (this.target.x2 - this.target.x1) * constants.wireframeTileSize.width,
       height: (this.target.y2 - this.target.y1) * constants.wireframeTileSize.height,

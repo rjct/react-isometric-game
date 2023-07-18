@@ -15,8 +15,8 @@ export const BuildingComponent = React.memo(function Building(props: {
       className={props.building.className}
       id={props.building.id}
       style={{
-        left: props.building.screenPosition.x,
-        top: props.building.screenPosition.y,
+        left: props.building.screenPosition.screen.x,
+        top: props.building.screenPosition.screen.y,
         zIndex: props.building.zIndex,
         WebkitMaskImage: props.maskImage,
       }}

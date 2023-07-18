@@ -3,8 +3,8 @@ import { GameObjectFactory } from "./GameObjectFactory";
 import { StaticMapBuilding } from "../context/GameStateContext";
 
 type BuildingSize = {
-  grid: Size;
-  screen: Size;
+  grid: Size3D;
+  screen: Size2D;
 };
 
 export type BuildingType = keyof typeof buildings;
@@ -63,7 +63,7 @@ export class Building extends GameObjectFactory {
       ? {
           ...size,
           ...{
-            grid: { width: size.grid.height, height: size.grid.width },
+            grid: { width: size.grid.length, length: size.grid.width, height: size.grid.height },
             //screen: { width: size.screen.height, height: size.screen.width },
           },
         }

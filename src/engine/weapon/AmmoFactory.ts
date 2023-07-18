@@ -12,8 +12,8 @@ export class Ammo {
   public readonly id = randomUUID();
   public readonly className = ["ammo"];
   public readonly size: {
-    grid: Size;
-    screen: Size;
+    grid: Size2D;
+    screen: Size2D;
   };
 
   private readonly speed: number;

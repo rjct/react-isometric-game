@@ -14,8 +14,8 @@ interface TileProps {
     screen: ScreenCoordinates;
   };
   size: {
-    grid: Size;
-    screen: Size;
+    grid: Size3D;
+    screen: Size2D;
   };
   className: string;
   sprite?: {
@@ -58,8 +58,14 @@ interface ScreenCoordinates {
   y: number;
 }
 
-interface Size {
+interface Size2D {
   width: number;
+  height: number;
+}
+
+interface Size3D {
+  width: number;
+  length: number;
   height: number;
 }
 

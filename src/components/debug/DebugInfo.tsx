@@ -15,6 +15,30 @@ export const DebugInfo = React.memo(function DebugInfo() {
       <table>
         <tbody>
           <tr>
+            <th>Hero position:</th>
+            <td>
+              <span className={"debug-label"}>
+                <span className={"debug-label-title"}>Grid</span>
+                <label className={"debug-label-value"}>
+                  {hero.position.x.toFixed(2)} x {hero.position.y.toFixed(2)}
+                </label>
+              </span>
+              <span className={"debug-label"}>
+                <span className={"debug-label-title"}>Screen</span>
+                <label className={"debug-label-value"}>
+                  {hero.screenPosition.screen.x.toFixed(2)} x {hero.screenPosition.screen.y.toFixed(2)}
+                </label>
+              </span>
+              <span className={"debug-label"}>
+                <span className={"debug-label-title"}>Screen iso</span>
+                <label className={"debug-label-value"}>
+                  {hero.screenPosition.iso.x.toFixed(2)} x {hero.screenPosition.iso.y.toFixed(2)}
+                </label>
+              </span>
+            </td>
+          </tr>
+
+          <tr>
             <th>Rect:</th>
             <td>{JSON.stringify(uiState.rect)}</td>
           </tr>
@@ -28,13 +52,6 @@ export const DebugInfo = React.memo(function DebugInfo() {
             <th>Scroll:</th>
             <td>
               {JSON.stringify(uiState.isScrolling())} {JSON.stringify(uiState.scroll)}
-            </td>
-          </tr>
-
-          <tr>
-            <th>Hero position:</th>
-            <td>
-              {JSON.stringify(hero.position)} / {JSON.stringify(hero.screenPosition)}
             </td>
           </tr>
 

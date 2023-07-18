@@ -1,10 +1,14 @@
 .unit-editor {
   position: absolute;
+  z-index: 1;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
   transform-origin: left top;
+
+  transform-style: preserve-3d;
+  transform: rotateX(60deg) rotateZ(45deg);
 }
 
 [data-editor-mode="units"] {
@@ -34,6 +38,7 @@
 
   .unit {
     margin: 0;
+    transform: none;
 
     .char {
       animation: unit-preview 3s steps(4) infinite !important;

@@ -8,7 +8,7 @@
     },
     "coolDownTime": 5,
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1 },
       "screen": { "width": 200, "height": 200 }
     },
     "healthPoints": {
@@ -42,7 +42,7 @@
     },
     "coolDownTime": 5,
     "size": {
-      "grid": { "width": 1, "height": 1 },
+      "grid": { "width": 1, "length": 1 },
       "screen": { "width": 200, "height": 200 }
     },
     "healthPoints": {
