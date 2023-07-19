@@ -12,7 +12,7 @@ export const UnitShadow = (props: { shadows: Unit["shadows"] }) => {
               <div
                 className={"unit unit-shadow"}
                 style={{
-                  transform: `rotateX(60deg) rotateZ(${shadow.angle}deg) scaleY(${shadow.width})`,
+                  transform: `rotateX(0deg) rotateZ(${shadow.angle}deg) scaleY(${shadow.width})`,
                   opacity: shadow.opacity,
                 }}
               >

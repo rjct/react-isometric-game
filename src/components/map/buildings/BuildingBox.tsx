@@ -1,6 +1,8 @@
 import { Building } from "../../../engine/BuildingFactory";
 import React, { CSSProperties } from "react";
 import { constants } from "../../../constants";
+import { useGameState } from "../../../hooks/useGameState";
+import { getDistanceBetweenGridPoints } from "../../../engine/helpers";
 
 export const BuildingBox = React.memo(function Building(props: {
   building: Building;
@@ -10,6 +12,30 @@ export const BuildingBox = React.memo(function Building(props: {
   onMouseUp?: (e: React.MouseEvent) => void;
   maskImage: CSSProperties["WebkitMaskImage"];
 }) {
+  const { gameState } = useGameState();
+
+  const getDistance = (position: GridCoordinates, side: "right" | "front") => {
+    return Math.max(
+      ...gameState.lights.map((light) => {
+        const d = getDistanceBetweenGridPoints(position, light.position);
+
+        switch (side) {
+          case "front":
+            if (light.position.y < position.y) return 0;
+            break;
+
+          case "right":
+            if (light.position.x <= position.x - 1) return 0;
+            break;
+        }
+
+        if (d > light.radius) return 0;
+
+        return 50 + 100 - (getDistanceBetweenGridPoints(position, light.position) / light.radius) * 100;
+      }),
+    );
+  };
+
   const createWalls = () => {
     const width = props.building.size.grid.width;
     const length = props.building.size.grid.length;
@@ -23,7 +49,15 @@ export const BuildingBox = React.memo(function Building(props: {
     const x = props.building.position.x * tileWidth;
     const y = props.building.position.y * tileHeight;
 
-    for (let i = 0; i < props.building.size.grid.width; i++) {
+    for (let i = 0; i < width; i++) {
+      const distance = getDistance(
+        {
+          x: props.building.position.x + i,
+          y: props.building.position.y + length,
+        },
+        "front",
+      );
+
       walls.push(
         <div
           key={`front-${i}`}
@@ -34,37 +68,20 @@ export const BuildingBox = React.memo(function Building(props: {
             left: x + i * tileWidth,
             top: y + length * tileWidth,
             zIndex: props.building.position.x + props.building.position.y + length + i,
+            filter: `brightness(${distance}%)`,
           }}
         ></div>,
       );
-
-      // walls.push(
-      //   <div
-      //     className={"building-wall back"}
-      //     style={{
-      //       width: tileWidth,
-      //       height: height * tileHeight,
-      //       left: x + i * tileWidth,
-      //       top: y,
-      //       zIndex: props.building.position.x + props.building.position.y + i,
-      //     }}
-      //   ></div>,
-      // );
     }
 
     for (let i = 0; i < props.building.size.grid.length; i++) {
-      // walls.push(
-      //   <div
-      //     className={"building-wall left"}
-      //     style={{
-      //       width: height * tileHeight,
-      //       height: tileHeight,
-      //       left: x,
-      //       top: y + i * tileHeight,
-      //       zIndex: props.building.position.x + props.building.position.y + i,
-      //     }}
-      //   ></div>,
-      // );
+      const distance = getDistance(
+        {
+          x: props.building.position.x + width,
+          y: props.building.position.y + i,
+        },
+        "right",
+      );
 
       walls.push(
         <div
@@ -76,6 +93,7 @@ export const BuildingBox = React.memo(function Building(props: {
             left: x + width * tileWidth,
             top: y + i * tileHeight,
             zIndex: props.building.position.x + props.building.position.y + width + i,
+            filter: `brightness(${distance}%)`,
           }}
         ></div>,
       );

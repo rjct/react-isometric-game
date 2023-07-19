@@ -22,5 +22,9 @@ export const Buildings = React.memo(function Buildings() {
     [uiState.viewport, hero.getHash(), gameState.debug.featureEnabled.buildingBoxes],
   );
 
-  return uiState.scene === "game" || uiState.scene === "combat" ? <>{buildings}</> : null;
+  return uiState.scene === "game" ||
+    uiState.scene === "combat" ||
+    (uiState.scene === "editor" && uiState.editorMode === "lights") ? (
+    <>{buildings}</>
+  ) : null;
 });
