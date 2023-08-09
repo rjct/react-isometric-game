@@ -33,12 +33,6 @@ const gameUIContext = {
   },
   scene: "game" as GameScene,
   editorMode: "terrain" as keyof typeof EditorModes,
-  offscreenCanvasRenderingProgress: {
-    lightsAndShadows: {
-      percent: 100,
-      complete: true,
-    } as Omit<OffscreenCanvasRenderingProgress, "data">,
-  },
 };
 
 export const GameUIContext = React.createContext(gameUIContext);

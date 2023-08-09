@@ -44,6 +44,8 @@ export const LightEditor = React.memo(function LightEditor() {
       coordinates: selectedEntityPosition,
     });
 
+    gameDispatch({ type: "recalculateLightsAndShadows" });
+
     setWorkingEntity({
       initialMousePosition: null as unknown as GridCoordinates,
       initialEntityPosition: null as unknown as GridCoordinates,
@@ -79,7 +81,7 @@ export const LightEditor = React.memo(function LightEditor() {
       {gameState.lights.map((light) => {
         const position = gameState.convertToIsometricCoordinates(
           workingEntity.entity?.id === light.id ? selectedEntityPosition : light.position,
-          true
+          true,
         );
         const width = wireframeTileWidth;
         const height = wireframeTileHeight;

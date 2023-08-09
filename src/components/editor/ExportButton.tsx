@@ -28,7 +28,8 @@ export const ExportButton = React.memo(function ExportButton() {
       hero: hero.getJSON(true),
       enemies: gameState.getAliveEnemiesArray().map((enemy) => enemy.getJSON()),
       buildings: gameState.buildings.map((building) => building.getJSON()),
-      shadows: gameState.shadows,
+      globalShadows: gameState.globalShadows,
+      globalLights: gameState.globalLights,
       lights: gameState.lights.map((light) => {
         return {
           position: light.position,

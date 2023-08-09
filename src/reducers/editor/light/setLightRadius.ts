@@ -11,7 +11,6 @@ export function setLightRadius(state: GameMap, action: SetLightRadiusReducerActi
 
   if (light) {
     light.setRadius(action.radius);
-    light.castRays(state.buildings);
 
     return { ...state };
   }

@@ -32,6 +32,7 @@ export function LightPropsEditor() {
                   max={Math.max(gameState.mapSize.width, gameState.mapSize.height)}
                   onChange={(radius) => {
                     gameDispatch({ type: "setLightRadius", entityId: gameState.selectedLight.id, radius });
+                    gameDispatch({ type: "recalculateLightsAndShadows" });
                   }}
                 />
               </TableRow>
@@ -40,6 +41,7 @@ export function LightPropsEditor() {
                   initialValue={gameState.selectedLight.getColor()}
                   onChange={(color) => {
                     gameDispatch({ type: "setLightColor", entityId: gameState.selectedLight.id, color });
+                    gameDispatch({ type: "recalculateLightsAndShadows" });
                   }}
                 />
               </TableRow>

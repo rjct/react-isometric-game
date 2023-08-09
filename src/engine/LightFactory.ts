@@ -1,8 +1,6 @@
 import { StaticMapLight } from "../context/GameStateContext";
-import { LightRay } from "./LightRayFactory";
-import { constants } from "../constants";
-import { Building } from "./BuildingFactory";
-import { randomUUID } from "./helpers";
+import { getDistanceBetweenGridPoints, randomUUID } from "./helpers";
+import { GameObjectIntersectionWithLightRay, GameObjectWall } from "./GameObjectFactory";
 
 export class Light {
   public readonly id = randomUUID();
@@ -10,7 +8,7 @@ export class Light {
   public position: GridCoordinates;
   private color = "#ffffff";
   public radius = 6;
-  public rays: LightRay[] = [];
+  public intersectsWithWalls: GameObjectIntersectionWithLightRay[] = [];
 
   constructor(props: StaticMapLight) {
     this.position = props.position;
@@ -22,56 +20,93 @@ export class Light {
     if (props.radius) {
       this.radius = props.radius;
     }
-
-    this.createRays();
   }
 
   setColor(color: string) {
     this.color = color;
-
-    for (const ray of this.rays) {
-      ray.setColor(color);
-    }
   }
 
   getColor() {
     return this.color;
   }
 
-  createRays() {
-    const rays: Array<LightRay> = [];
+  cast(walls: GameObjectWall[]) {
+    const lightPosition = {
+      x: this.position.x + 0.5,
+      y: this.position.y + 0.5,
+    };
 
-    for (let angle = 0; angle < Math.PI * 2; angle += Math.PI / (180 * constants.LIGHT_RENDER_PASSES)) {
-      const ray = new LightRay({ position: this.position, radius: this.radius, color: this.getColor() });
+    const wallPoints = walls
+      .filter((wall) => {
+        if (wall.gameObject.id === "world-walls") return true;
 
-      ray.setDirection(angle);
+        return (
+          getDistanceBetweenGridPoints(
+            {
+              x: wall.area.world.x1 + (wall.area.world.x2 - wall.area.world.x1),
+              y: wall.area.world.y1 + (wall.area.world.y2 - wall.area.world.y1),
+            },
+            lightPosition,
+          ) <= this.radius
+        );
+      })
+      .map((wall) => {
+        return [
+          { x: wall.area.world.x1, y: wall.area.world.y1 },
+          { x: wall.area.world.x2, y: wall.area.world.y2 },
+        ];
+      })
+      .flat();
 
-      rays.push(ray);
+    const uniqueWallPointAngles = [...new Set(wallPoints.map((wallPoint) => wallPoint))]
+      .map((uniqueWallPoint) => {
+        return wallPoints.find((wallPoint) => wallPoint.x === uniqueWallPoint.x && wallPoint.y === uniqueWallPoint.y)!;
+      })
+      .map((uniqueWallPoint) => {
+        const angle = Math.atan2(uniqueWallPoint.y - lightPosition.y, uniqueWallPoint.x - lightPosition.x);
+
+        return [angle - 0.00001, angle, angle + 0.00001];
+      })
+      .flat();
+
+    const intersects = [];
+    for (let i = 0; i < uniqueWallPointAngles.length; i++) {
+      const angle = uniqueWallPointAngles[i];
+
+      const ray = {
+        from: lightPosition,
+        to: { x: lightPosition.x + Math.cos(angle), y: lightPosition.y + Math.sin(angle) },
+      };
+
+      let closestIntersect = null;
+      for (let i = 0; i < walls.length; i++) {
+        const intersect = walls[i].getIntersectionWithRay(ray);
+
+        if (!intersect) continue;
+
+        if (!closestIntersect || intersect.param < closestIntersect.param) {
+          closestIntersect = intersect;
+        }
+      }
+
+      if (!closestIntersect) continue;
+
+      closestIntersect.angle = angle;
+
+      intersects.push(closestIntersect);
     }
 
-    this.rays = rays;
-  }
-
-  castRays(objects: Array<Building>) {
-    for (const ray of this.rays) {
-      ray.cast(objects);
-    }
+    this.intersectsWithWalls = intersects.sort(function (a, b) {
+      return a.angle - b.angle;
+    });
   }
 
   setPosition(position: GridCoordinates) {
     this.position = position;
-
-    for (const ray of this.rays) {
-      ray.setPosition(position);
-    }
   }
 
   setRadius(radius: number) {
     this.radius = radius;
-
-    for (const ray of this.rays) {
-      ray.setLen(radius);
-    }
   }
 
   getHash() {

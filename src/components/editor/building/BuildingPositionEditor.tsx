@@ -13,7 +13,7 @@ export function BuildingPositionEditor() {
     } else {
       setCoordinates({ x: 0, y: 0 });
     }
-  }, [JSON.stringify(gameState.selectedBuilding)]);
+  }, [gameState.selectedBuilding.getHash()]);
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>

@@ -16,7 +16,7 @@
 }
 
 .fow,
-.shadows,
+.lights-and-shadows,
 .debug-visualization,
 .terrain-editor {
   position: absolute;
@@ -43,9 +43,13 @@
   }
 }
 
-.shadows {
+.lights-and-shadows {
   z-index: 9999998;
-  filter: blur(15px);
+  filter: blur(25px);
+
+  img {
+    position: absolute;
+  }
 }
 
 .debug-visualization {

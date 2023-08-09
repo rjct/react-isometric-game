@@ -144,7 +144,8 @@
     { "type": "vehicle-2x4", "position": { "x": 14, "y": 11 }, "direction": "left", "variant": 6 },
     { "type": "vehicle-2x4", "position": { "x": 11, "y": 11 }, "direction": "bottom", "variant": 6 }
   ],
-  "shadows": { "color": "#000d4d", "opacity": 0.3 },
+  "globalShadows": { "color": "#000d4d", "opacity": 0.3 },
+  "globalLights": { "opacity": 0.3 },
   "lights": [
     { "position": { "x": 20, "y": 25 }, "color": "#0432ff", "radius": 6 },
     { "position": { "x": 15, "y": 25 }, "color": "#9437ff", "radius": 6 },

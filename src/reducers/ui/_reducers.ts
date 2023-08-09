@@ -10,10 +10,6 @@ import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHe
 import { setEditorMode, SetEditorModeUIReducerAction } from "./setEditorMode";
 import { resetMousePosition, ResetMousePositionUIReducerAction } from "./resetMousePosition";
 import { setMousePosition, SetMousePositionUIReducerAction } from "./setMousePosition";
-import {
-  updateOffscreenCanvasRenderingProgress,
-  UpdateOffscreenCanvasRenderingProgressReducerAction,
-} from "./updateOffscreenCanvasRenedingProgress";
 
 export type UIReducerAction =
   | CenterMapOnHeroUIReducerAction
@@ -26,8 +22,7 @@ export type UIReducerAction =
   | SetMousePositionUIReducerAction
   | ResetMousePositionUIReducerAction
   | SetSceneUIReducerAction
-  | SetEditorModeUIReducerAction
-  | UpdateOffscreenCanvasRenderingProgressReducerAction;
+  | SetEditorModeUIReducerAction;
 
 export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
   switch (action.type) {
@@ -63,11 +58,5 @@ export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
 
     case "setEditorMode":
       return setEditorMode(state, action as SetEditorModeUIReducerAction);
-
-    case "updateOffscreenCanvasRenderingProgress":
-      return updateOffscreenCanvasRenderingProgress(
-        state,
-        action as UpdateOffscreenCanvasRenderingProgressReducerAction
-      );
   }
 }

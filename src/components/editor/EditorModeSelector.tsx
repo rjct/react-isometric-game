@@ -7,8 +7,9 @@ import { TerrainAreaPropsEditor } from "./terrain/TerrainAreaPropsEditor";
 import { BuildingPropsEditor } from "./building/BuildingPropsEditor";
 import { LightAddNewButton } from "./light/LightAddNewButton";
 import { LightPropsEditor } from "./light/LightPropsEditor";
-import { ShadowsPropsEditor } from "./light/ShadowsPropsEditor";
+import { GlobalShadowsPropsEditor } from "./light/GlobalShadowsPropsEditor";
 import { UnitPropsEditor } from "./unit/UnitPropsEditor";
+import { GlobalLightsPropsEditor } from "./light/GlobalLightsPropsEditor";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
@@ -83,7 +84,8 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
       {uiState.editorMode === "lights" ? (
         <div className={"ui-tab-content"}>
-          <ShadowsPropsEditor />
+          <GlobalShadowsPropsEditor />
+          <GlobalLightsPropsEditor />
           <LightPropsEditor />
           <div className={"toolbar"}>
             <LightAddNewButton />

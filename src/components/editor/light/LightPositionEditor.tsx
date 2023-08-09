@@ -13,7 +13,7 @@ export function LightPositionEditor() {
     } else {
       setCoordinates({ x: 0, y: 0 });
     }
-  }, [JSON.stringify(gameState.selectedLight)]);
+  }, [gameState.selectedLight.getHash()]);
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>
@@ -44,6 +44,7 @@ export function LightPositionEditor() {
             entityId: gameState.selectedLight.id,
             coordinates: { x: gameState.selectedLight.position.x, y: value },
           });
+          gameDispatch({ type: "recalculateLightsAndShadows" });
         }}
       />
     </div>

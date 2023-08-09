@@ -4,7 +4,7 @@ import React from "react";
 import { InputColor } from "../_shared/InputColor";
 import { InputRange } from "../_shared/InputRange";
 
-export function ShadowsPropsEditor() {
+export function GlobalShadowsPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
 
   return uiState.editorMode === "lights" ? (
@@ -17,18 +17,18 @@ export function ShadowsPropsEditor() {
               <InputRange
                 min={0}
                 max={100}
-                initialValue={Math.trunc(100 - gameState.shadows.opacity * 100)}
+                initialValue={Math.trunc(100 - gameState.globalShadows.opacity * 100)}
                 valueSuffix={"%"}
                 onChange={(opacity) => {
-                  gameDispatch({ type: "setShadowsOpacity", opacity: (100 - opacity) / 100 });
+                  gameDispatch({ type: "setGlobalShadowsOpacity", opacity: (100 - opacity) / 100 });
                 }}
               />
             </TableRow>
             <TableRow label={"Color"}>
               <InputColor
-                initialValue={gameState.shadows.color}
+                initialValue={gameState.globalShadows.color}
                 onChange={(color) => {
-                  gameDispatch({ type: "setShadowsColor", color });
+                  gameDispatch({ type: "setGlobalShadowsColor", color });
                 }}
               />
             </TableRow>

@@ -1,12 +1,13 @@
 import { StaticMap, StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
 import { Building } from "../engine/BuildingFactory";
-import { createMatrix } from "../engine/helpers";
+import { createMatrix, gridToScreesSize } from "../engine/helpers";
 import { Unit, UnitTypes } from "../engine/UnitFactory";
 import { GameMap } from "../engine/GameMap";
 import { TerrainArea } from "../engine/TerrainAreaFactory";
 import { Light } from "../engine/LightFactory";
 import { WeaponClass, WeaponType } from "../engine/weapon/WeaponFactory";
 import { Firearm } from "../engine/weapon/firearm/FirearmFactory";
+import { GameObjectFactory } from "../engine/GameObjectFactory";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";
@@ -18,7 +19,7 @@ const createWeaponForUnit = (
   inventoryType: keyof Unit["inventory"],
   staticWeapon: StaticMapWeapon,
   unit: Unit,
-  gameMap: GameMap
+  gameMap: GameMap,
 ) => {
   const weapon = gameMap.createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
 
@@ -26,7 +27,7 @@ const createWeaponForUnit = (
     const ammo = staticWeapon.ammo;
 
     weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () =>
-      gameMap.createAmmoByClassName(ammo.class, ammo?.type)
+      gameMap.createAmmoByClassName(ammo.class, ammo?.type),
     );
   }
 
@@ -54,11 +55,23 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     return new TerrainArea(terrainArea);
   });
 
-  const shadows = action.map.shadows;
+  const globalShadows = action.map.globalShadows;
+  const globalLights = action.map.globalLights;
 
   const newState = {
     ...state,
     ...{
+      world: new GameObjectFactory({
+        id: "world-walls",
+        size: {
+          grid: { width: action.map.size.width, length: action.map.size.height, height: 1 },
+          screen: gridToScreesSize(action.map.size),
+        },
+        position: { x: 0, y: 0 },
+        direction: "left",
+        internalColor: "",
+        occupiesCell: false,
+      }),
       mediaFiles: action.mediaFiles,
       mapSize: action.map.size,
       terrain: terrain, //action.map.terrain,
@@ -66,7 +79,8 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       fogOfWarMatrix: createMatrix(action.map.size),
       units: {} as UnitTypes,
       buildings: [] as Building[],
-      shadows,
+      globalShadows,
+      globalLights,
       lights: [] as Light[],
     },
   };
@@ -90,7 +104,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   newState.lights = (action.map.lights || []).map((staticMapLight) => {
     const light = new Light(staticMapLight);
 
-    light.castRays(newState.buildings);
+    light.cast(newState.getAllGameObjectsWalls()); //light.castRays(newState.buildings);
 
     return light;
   });

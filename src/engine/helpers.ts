@@ -156,3 +156,10 @@ export function floor(num: number) {
 export function randomUUID() {
   return Date.now().toString(36) + Math.random().toString(36).substring(2);
 }
+
+export function gridToScreesSize(size: Size2D): Size2D {
+  return {
+    width: size.width * constants.wireframeTileSize.width,
+    height: size.height * constants.wireframeTileSize.height,
+  };
+}

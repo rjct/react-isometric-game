@@ -1,56 +1,88 @@
 import { GameMap } from "../engine/GameMap";
-import { LightRayData } from "../engine/LightRayFactory";
-import { LightsAndShadowsWorkerProps } from "../workers/lightsAndShadows.worker";
-import { GameScene, GameUI } from "../context/GameUIContext";
-import React from "react";
-import { UIReducerAction } from "../reducers/ui/_reducers";
 
-const worker = new Worker(new URL("../workers/lightsAndShadows.worker.ts", import.meta.url));
+export const useLightsAndShadows = (gameState: GameMap) => {
+  const mapWidth = gameState.mapSize.width;
+  const mapHeight = gameState.mapSize.height;
 
-export const useLightsAndShadows = (
-  gameState: GameMap,
-  uiState: GameUI,
-  uiDispatch: React.Dispatch<UIReducerAction>
-) => {
-  const renderLightsAndShadows = (ctx: CanvasRenderingContext2D) => {
-    const raysData = [] as Array<LightRayData>;
+  const tileWidth = 1; //constants.wireframeTileSize.width;
+  const tileHeight = 1; //constants.wireframeTileSize.height;
+  const renderShadows = (ctx: CanvasRenderingContext2D) => {
+    ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
 
-    for (const light of gameState.lights) {
-      for (const ray of light.rays) {
-        raysData.push(ray.getRayData());
-      }
+    if (!gameState.settings.featureEnabled.shadow) {
+      return;
     }
 
-    const lightEnabled = gameState.settings.featureEnabled.light;
-    const shadowEnabled = gameState.settings.featureEnabled.shadow;
-    const isAllowed =
-      (["game", "combat", "inventory"] as GameScene[]).includes(uiState.scene) ||
-      (uiState.scene === "editor" && uiState.editorMode === "lights");
+    ctx.globalCompositeOperation = "source-over";
 
-    if (ctx && raysData.length > 0) {
-      const workerProps: LightsAndShadowsWorkerProps = {
-        mapSize: gameState.mapSize,
-        featureEnabled: {
-          light: lightEnabled && isAllowed,
-          shadow: shadowEnabled && isAllowed,
-        },
-        shadows: gameState.shadows,
-        lightRaysData: raysData,
-      };
+    ctx.globalAlpha = gameState.globalShadows.opacity;
+    ctx.fillStyle = gameState.globalShadows.color;
+    ctx.fillRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
 
-      worker.postMessage(workerProps);
+    //
+    ctx.globalAlpha = 1 - gameState.globalShadows.opacity;
+    ctx.globalCompositeOperation = "destination-out";
 
-      worker.onmessage = (e) => {
-        const progress: OffscreenCanvasRenderingProgress = e.data;
+    gameState.lights
+      .filter((light) => {
+        return light.intersectsWithWalls.length > 0;
+      })
+      .forEach((light) => {
+        ctx.fillStyle = light.getColor();
 
-        uiDispatch({ type: "updateOffscreenCanvasRenderingProgress", entity: "lightsAndShadows", progress });
+        ctx.beginPath();
+        ctx.moveTo(light.intersectsWithWalls[0].x * tileWidth, light.intersectsWithWalls[0].y * tileHeight);
 
-        if (progress.complete && progress.data) {
-          ctx.putImageData(progress.data, 0, 0);
+        for (let i = 1; i < light.intersectsWithWalls.length; i++) {
+          const intersect = light.intersectsWithWalls[i];
+          ctx.lineTo(intersect.x * tileWidth, intersect.y * tileHeight);
         }
-      };
-    }
+
+        ctx.fill();
+      });
   };
 
-  return { renderLightsAndShadows };
+  const renderLights = (ctx: CanvasRenderingContext2D) => {
+    ctx.clearRect(0, 0, mapWidth, mapHeight);
+
+    if (!gameState.settings.featureEnabled.light) {
+      return;
+    }
+
+    ctx.globalAlpha = gameState.globalLights.opacity;
+
+    gameState.lights
+      .filter((light) => {
+        return light.intersectsWithWalls.length > 0;
+      })
+      .forEach((light) => {
+        const color = light.getColor();
+
+        const colorGradient = ctx.createRadialGradient(
+          light.position.x,
+          light.position.y,
+          light.radius / 2,
+          light.position.x,
+          light.position.y,
+          light.radius,
+        );
+        colorGradient.addColorStop(0, `${color}FF`);
+        colorGradient.addColorStop(0.5, `${color}80`);
+        colorGradient.addColorStop(1, `${color}00`);
+
+        ctx.globalCompositeOperation = "screen";
+
+        ctx.fillStyle = colorGradient;
+        ctx.beginPath();
+        ctx.moveTo(light.intersectsWithWalls[0].x, light.intersectsWithWalls[0].y);
+
+        for (let i = 1; i < light.intersectsWithWalls.length; i++) {
+          const intersect = light.intersectsWithWalls[i];
+          ctx.lineTo(intersect.x, intersect.y);
+        }
+        ctx.fill();
+      });
+  };
+
+  return { renderShadows, renderLights };
 };

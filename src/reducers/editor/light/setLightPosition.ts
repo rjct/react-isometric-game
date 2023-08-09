@@ -12,7 +12,6 @@ export function setLightPosition(state: GameMap, action: SetLightPositionReducer
   if (light) {
     light.setPosition(action.coordinates);
     light.setRadius(light.radius);
-    light.castRays(state.buildings);
 
     return { ...state };
   }

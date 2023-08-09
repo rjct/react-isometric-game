@@ -3,6 +3,14 @@ import { LightRay } from "./LightRayFactory";
 import { getEntityZIndex, gridToScreenSpace, randomUUID } from "./helpers";
 import { GameMap } from "./GameMap";
 
+export type GameObjectIntersectionWithLightRay = {
+  wall: GameObjectWall;
+  x: number;
+  y: number;
+  param: number;
+  angle: number;
+};
+
 export class GameObjectFactory {
   public readonly id;
   public readonly internalColor: string;
@@ -20,13 +28,14 @@ export class GameObjectFactory {
   public walls: GameObjectWall[] = [];
 
   constructor(props: {
+    id?: string;
     size: { grid: Size3D; screen: Size2D };
     position: GridCoordinates;
     direction: Direction;
     internalColor: string;
     occupiesCell?: boolean;
   }) {
-    this.id = randomUUID();
+    this.id = props.id || randomUUID();
     this.internalColor = props.internalColor;
 
     this.size = props.size;
@@ -43,30 +52,37 @@ export class GameObjectFactory {
 
   createWalls() {
     this.walls = [
-      // new GameObjectWall(this.position, {
-      //   x1: 0,
-      //   y1: 0,
-      //   x2: this.size.grid.width,
-      //   y2: 0,
-      // }),
-      new GameObjectWall(this.position, {
+      // top
+      new GameObjectWall(this, {
+        x1: 0,
+        y1: 0,
+        x2: this.size.grid.width,
+        y2: 0,
+      }),
+
+      // right
+      new GameObjectWall(this, {
         x1: this.size.grid.width,
         y1: 0,
         x2: this.size.grid.width,
         y2: this.size.grid.length,
       }),
-      new GameObjectWall(this.position, {
+
+      // bottom
+      new GameObjectWall(this, {
         x1: this.size.grid.width,
         y1: this.size.grid.length,
         x2: 0,
         y2: this.size.grid.length,
       }),
-      // new GameObjectWall(this.position, {
-      //   x1: 0,
-      //   y1: this.size.grid.length,
-      //   x2: 0,
-      //   y2: 0,
-      // }),
+
+      // left
+      new GameObjectWall(this, {
+        x1: 0,
+        y1: this.size.grid.length,
+        x2: 0,
+        y2: 0,
+      }),
     ];
   }
 
@@ -136,8 +152,11 @@ export class GameObjectFactory {
 }
 
 export class GameObjectWall {
-  public area: AreaCoordinates;
-  private position: GridCoordinates = { x: 0, y: 0 };
+  public readonly gameObject: GameObjectFactory;
+  public area = {
+    local: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
+    world: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
+  };
   x = 0;
   y = 0;
   width: number;
@@ -145,10 +164,10 @@ export class GameObjectWall {
   len: number;
   nx: number;
   ny: number;
-  constructor(position: GridCoordinates, area: AreaCoordinates) {
-    this.area = area;
+  constructor(gameObject: GameObjectFactory, area: AreaCoordinates) {
+    this.gameObject = gameObject;
 
-    this.setPosition(position);
+    this.setPosition(gameObject.position, area);
 
     this.width = (area.x2 - area.x1) * constants.wireframeTileSize.width;
     this.height = (area.y2 - area.y1) * constants.wireframeTileSize.height;
@@ -157,10 +176,52 @@ export class GameObjectWall {
     this.ny = this.height / this.len;
   }
 
-  setPosition(position: GridCoordinates) {
-    this.position = position;
+  setPosition(position: GridCoordinates, area: AreaCoordinates) {
+    this.area = {
+      local: area,
+      world: {
+        x1: position.x + area.x1,
+        y1: position.y + area.y1,
+        x2: position.x + area.x2,
+        y2: position.y + area.y2,
+      },
+    };
 
-    this.x = (this.position.x + this.area.x1) * constants.wireframeTileSize.width;
-    this.y = (this.position.y + this.area.y1) * constants.wireframeTileSize.height;
+    this.x = this.area.world.x1 * constants.wireframeTileSize.width;
+    this.y = this.area.world.y1 * constants.wireframeTileSize.height;
   }
+
+  public getIntersectionWithRay = (ray: {
+    from: GridCoordinates;
+    to: GridCoordinates;
+  }): GameObjectIntersectionWithLightRay | null => {
+    const rDx = ray.to.x - ray.from.x;
+    const rDy = ray.to.y - ray.from.y;
+
+    const sPx = this.area.world.x1;
+    const sPy = this.area.world.y1;
+    const sDx = this.area.world.x2 - this.area.world.x1;
+    const sDy = this.area.world.y2 - this.area.world.y1;
+
+    const rMag = Math.sqrt(rDx * rDx + rDy * rDy);
+    const sMag = Math.sqrt(sDx * sDx + sDy * sDy);
+
+    if (rDx / rMag == sDx / sMag && rDy / rMag == sDy / sMag) {
+      return null;
+    }
+
+    const T2 = (rDx * (sPy - ray.from.y) + rDy * (ray.from.x - sPx)) / (sDx * rDy - sDy * rDx);
+    const T1 = (sPx + sDx * T2 - ray.from.x) / rDx;
+
+    if (T1 < 0) return null;
+    if (T2 < 0 || T2 > 1) return null;
+
+    return {
+      wall: this,
+      x: ray.from.x + rDx * T1,
+      y: ray.from.y + rDy * T1,
+      param: T1,
+      angle: 0,
+    };
+  };
 }

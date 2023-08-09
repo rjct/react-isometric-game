@@ -59,8 +59,11 @@ export interface StaticMap {
   hero: Omit<StaticMapUnit, "type">;
   buildings: Array<StaticMapBuilding>;
   enemies: Array<StaticMapUnit>;
-  shadows: {
+  globalShadows: {
     color: string;
+    opacity: number;
+  };
+  globalLights: {
     opacity: number;
   };
   lights: StaticMapLight[];

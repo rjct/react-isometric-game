@@ -14,6 +14,7 @@ import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 import { getUrlParamValue } from "../hooks/useUrl";
 import { floor, gridToScreenSpace } from "./helpers";
 import { mapsList } from "../maps_list";
+import { GameObjectFactory } from "./GameObjectFactory";
 
 interface GameMapProps {
   mapSize: Size2D;
@@ -61,8 +62,12 @@ export const gameMap = {
     },
   },
 
-  shadows: {
+  globalShadows: {
     color: "",
+    opacity: 0,
+  },
+
+  globalLights: {
     opacity: 0,
   },
 
@@ -73,6 +78,8 @@ export const gameMap = {
     height: 0,
   } as GameMapProps["mapSize"],
   terrain: [] as GameMapProps["terrain"],
+
+  world: null as unknown as GameObjectFactory,
 
   buildings: [] as GameMapProps["buildings"],
   heroId: "",
@@ -447,6 +454,16 @@ export const gameMap = {
 
   getBuildingsHash() {
     return this.buildings.map((building) => building.getHash()).join("|");
+  },
+
+  getAllGameObjectsWalls() {
+    return [
+      ...this.world.walls,
+      ...this.buildings
+        .filter((building) => building.occupiesCell)
+        .map((building) => building.walls)
+        .flat(),
+    ];
   },
 
   createWeaponByClassName(weaponClass: WeaponClass, weaponType: WeaponType) {

@@ -36,20 +36,6 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
                 featureName: key as GameSettingsFeature,
                 featureEnabled: e.target.checked,
               });
-
-              if (key === "light" || key === "shadow") {
-                uiDispatch({
-                  type: "updateOffscreenCanvasRenderingProgress",
-                  entity: "lightsAndShadows",
-                  progress: {
-                    ...uiState.offscreenCanvasRenderingProgress.lightsAndShadows,
-                    ...{
-                      percent: 0,
-                      complete: false,
-                    },
-                  },
-                });
-              }
             }}
           />
         );
