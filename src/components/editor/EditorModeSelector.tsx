@@ -30,6 +30,10 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
     gameDispatch({ type: "stopUnits", units: gameState.getAllAliveUnitsArray() });
 
+    if (editorMode === "lights") {
+      gameDispatch({ type: "recalculateLightsAndShadows" });
+    }
+
     uiDispatch({ type: "setEditorMode", editorMode });
   };
 

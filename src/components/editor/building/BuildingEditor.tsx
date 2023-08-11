@@ -30,16 +30,14 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
       coordinates: {
         x: Math.min(
           gameState.mapSize.width - workingEntity.entity.size.grid.width,
-          Math.max(0, workingEntity.initialEntityPosition.x - diffX)
+          Math.max(0, workingEntity.initialEntityPosition.x - diffX),
         ),
         y: Math.min(
           gameState.mapSize.height - workingEntity.entity.size.grid.width,
-          Math.max(0, workingEntity.initialEntityPosition.y - diffY)
+          Math.max(0, workingEntity.initialEntityPosition.y - diffY),
         ),
       },
     });
-
-    gameDispatch({ type: "recalculateLightsAndShadows" });
   };
 
   const handleMouseUp = () => {

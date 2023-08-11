@@ -29,8 +29,6 @@ export function BuildingPositionEditor() {
             entityId: gameState.selectedBuilding.id,
             coordinates: { x: value, y: gameState.selectedBuilding.position.y },
           });
-
-          gameDispatch({ type: "recalculateLightsAndShadows" });
         }}
       />
 
@@ -46,8 +44,6 @@ export function BuildingPositionEditor() {
             entityId: gameState.selectedBuilding.id,
             coordinates: { x: gameState.selectedBuilding.position.x, y: value },
           });
-
-          gameDispatch({ type: "recalculateLightsAndShadows" });
         }}
       />
     </div>

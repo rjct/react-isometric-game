@@ -41,6 +41,10 @@ export const Top = React.memo(function Top() {
               const scene = e.target.checked ? "editor" : "game";
 
               uiDispatch({ type: "setScene", scene });
+
+              if (scene === "game") {
+                gameDispatch({ type: "recalculateLightsAndShadows" });
+              }
             }}
           />
         </div>

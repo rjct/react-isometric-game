@@ -19,7 +19,6 @@ export function BuildingOccupiesCellSwitch() {
           entityId: gameState.selectedBuilding.id,
           value: e.target.checked,
         });
-        gameDispatch({ type: "recalculateLightsAndShadows" });
       }}
     />
   );
