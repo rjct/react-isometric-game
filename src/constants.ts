@@ -35,7 +35,7 @@ export const constants = {
 
   editor: {
     propsEditor: { width: 300 },
-    entitiesLibrary: { height: "20vh" },
+    entitiesLibrary: { width: 400, height: "20vh" },
   },
 
   featureEnabled: {

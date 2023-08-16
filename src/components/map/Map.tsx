@@ -68,7 +68,13 @@ export const Map = React.memo(
       e.preventDefault();
 
       const screen = {
-        x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + uiState.scroll.x),
+        x: Math.round(
+          e.clientX -
+            constants.editor.entitiesLibrary.width -
+            constants.tileSize.width +
+            constants.tileSize.width / 2 +
+            uiState.scroll.x,
+        ),
         y: Math.round(e.clientY - uiState.rect.top) + uiState.scroll.y,
       };
       const grid = gameState.screenSpaceToGridSpace(screen);
@@ -101,6 +107,7 @@ export const Map = React.memo(
             type: "addUnit",
             unitType: (entity as DictUnit).type,
             position: { x: floor(grid.x), y: floor(grid.y) },
+            direction: e.dataTransfer.getData("add/entity/direction") as Direction,
           });
           break;
       }

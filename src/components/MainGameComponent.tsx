@@ -113,13 +113,13 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <GameOver />
               <Top />
               <div className={"center"}>
+                <EntitiesLibrary />
                 <DebugFeaturesSwitches />
                 <MiniMap />
                 <Map ref={setScrollRef} />
                 <EditorSidebar />
               </div>
               <ControlPanel />
-              <EntitiesLibrary />
               <Inventory />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>

@@ -1,5 +1,6 @@
 import React from "react";
 import { constants } from "../../constants";
+import { useGameState } from "../../hooks/useGameState";
 
 export type MapLayerProps = {
   isometric?: boolean;
@@ -16,12 +17,18 @@ export type MapLayerProps = {
 };
 
 export function MapLayer({ isometric = true, additionalEditorSpace = false, ...props }: MapLayerProps) {
+  const { uiState } = useGameState();
+
   const tileWidth = isometric ? constants.wireframeTileSize.width : constants.tileSize.width;
   const tileHeight = isometric ? constants.wireframeTileSize.height : constants.tileSize.height;
 
   const width = props.size.width * tileWidth + (additionalEditorSpace ? constants.editor.propsEditor.width : 0);
   const height = props.size.width * tileHeight;
-  const left = isometric ? (props.size.width * constants.tileSize.width) / 2 : 0;
+  const left =
+    (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) +
+    (uiState.scene === "editor" && (uiState.editorMode === "units" || uiState.editorMode === "buildings")
+      ? constants.editor.entitiesLibrary.width
+      : 0);
 
   const style: React.CSSProperties = { width, height, left, ...props.style };
 

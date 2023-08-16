@@ -68,66 +68,56 @@
 }
 
 .editor-library {
-  width: 100vw;
+  position: absolute;
+  left: @padding;
+  top: @padding;
+  bottom: @padding;
+
   display: flex;
   align-items: stretch;
   z-index: 2;
-  background-color: #000000;
-  color: @text-color;
 
   .editor-library-scroller {
     display: flex;
-    column-gap: 10px;
-    align-items: stretch;
+    flex-direction: column;
     overflow: auto;
     padding: 10px;
+    height: 100vw;
   }
 
   .library-entity {
-    flex-shrink: 0;
-    display: grid;
-    grid-template-columns: auto 1fr auto;
-    grid-template-rows: 1fr auto auto;
-    gap: 10px 0;
-    grid-template-areas:
-      "prev-direction image next-direction"
-      "prev-direction variant next-direction"
-      "info info info";
-
-    position: relative;
-    border: solid 1px #ccc;
-    border-radius: 3px;
+    display: flex;
     cursor: grab;
+    align-items: center;
+
+    fieldset {
+      display: flex;
+      flex: 1;
+      justify-content: space-between;
+
+      legend {
+        color: fade(@text-color, 60%);
+        transition: all 0.1s ease-in-out;
+      }
+    }
 
     .image {
-      grid-area: image;
       margin: 0;
       justify-self: center;
       align-self: center;
-      transform: translateY(20px);
-      transition: transform 0.26s ease-in-out;
-    }
-    &:hover .image {
-      transform: translateY(0.6);
-    }
-
-    .variant {
-      grid-area: variant;
-      transform: scaleY(0);
-      transform-origin: top;
-      transition: all 0.26s ease-in-out;
+      transform: scale(0.7);
     }
 
     .prev-direction,
     .next-direction {
-      width: 3em;
       height: 100%;
       justify-self: center;
       align-self: center;
       display: flex;
       align-items: stretch;
       justify-content: center;
-      transition: all 0.26s ease-in-out;
+      transition: all 0.1s ease-in-out;
+      filter: opacity(0);
 
       a {
         display: flex;
@@ -141,35 +131,32 @@
       }
     }
 
-    .prev-direction {
-      grid-area: prev-direction;
-      transform: translateX(-100%) scaleX(0);
-    }
-    .next-direction {
-      grid-area: next-direction;
-      transform: translateX(100%) scaleX(0);
-    }
     .info {
-      grid-area: info;
       display: flex;
-      flex-direction: row;
-      margin: 0 10px 10px;
+
       gap: @padding;
+      align-items: flex-end;
+      flex: 1;
 
       .entity-type {
-        flex: 1;
+        //
+      }
+
+      .entity-size {
+        color: fade(@text-color, 50%);
       }
     }
 
     &:hover {
-      .variant {
-        max-height: none;
-        transform: scaleY(1);
+      fieldset {
+        legend {
+          color: @text-color;
+        }
       }
 
       .prev-direction,
       .next-direction {
-        transform: translateX(0) scaleX(1);
+        filter: opacity(1);
       }
     }
 
@@ -182,7 +169,6 @@
         transform: scale(0.7);
       }
 
-      .variant,
       .info,
       .prev-direction,
       .next-direction {
@@ -194,14 +180,11 @@
 
 .editor-library-units {
   .library-entity {
-    flex-shrink: 0;
-    display: grid;
-    grid-template-columns: 1fr;
-    grid-template-rows: 100px;
-    gap: 10px 0;
-    grid-template-areas:
-      "image"
-      "info";
+    .image {
+      position: initial;
+      transform: scale(1);
+      margin-bottom: @padding;
+    }
   }
 }
 

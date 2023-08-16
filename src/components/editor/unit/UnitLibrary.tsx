@@ -7,10 +7,14 @@ export function UnitLibrary() {
   const { uiState } = useGameState();
 
   return uiState.editorMode === "units" ? (
-    <>
-      {Object.values(units as DictUnits).map((unit) => (
-        <UnitLibraryItem key={unit.type} item={unit} />
-      ))}
-    </>
+    <div className={"ui-tabs"} data-direction={"vertical"}>
+      <div className={"ui-tab-content"}>
+        <div className={"editor-library-scroller"}>
+          {Object.values(units as DictUnits).map((unit) => (
+            <UnitLibraryItem key={unit.type} item={unit} />
+          ))}
+        </div>
+      </div>
+    </div>
   ) : null;
 }

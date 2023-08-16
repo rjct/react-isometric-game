@@ -5,12 +5,14 @@ export interface AddUnitReducerAction {
   type: "addUnit";
   unitType: UnitType;
   position: GridCoordinates;
+  direction: Unit["direction"];
 }
 
 export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
   const unit = new Unit({
     unitType: action.unitType,
     position: action.position,
+    direction: action.direction,
     isHero: false,
   });
 
