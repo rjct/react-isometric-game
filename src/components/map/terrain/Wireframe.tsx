@@ -5,6 +5,7 @@ import { Unit } from "../../../engine/UnitFactory";
 import { constants } from "../../../constants";
 import { WireframeMarker } from "./WireframeMarker";
 import { MapLayer } from "../MapLayer";
+import { WireframeEntityPlaceholder } from "./WireframeEntityPlaceholder";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -107,18 +108,22 @@ export const Wireframe = React.memo(function WireframeTiles() {
       onContextMenu={handleRightClick}
     >
       {uiState.scene === "game" || uiState.scene === "combat" ? (
-        <WireframeMarker
-          coordinates={markerPosition}
-          className={markerClassName}
-          value={markerValue}
-          onAnimationComplete={() => {
-            const classes = [...markerClassName];
-            classes.pop();
+        <>
+          <WireframeMarker
+            coordinates={markerPosition}
+            className={markerClassName}
+            value={markerValue}
+            onAnimationComplete={() => {
+              const classes = [...markerClassName];
+              classes.pop();
 
-            setMarkerClassName(classes);
-          }}
-        />
+              setMarkerClassName(classes);
+            }}
+          />
+        </>
       ) : null}
+
+      <WireframeEntityPlaceholder />
     </MapLayer>
   );
 });

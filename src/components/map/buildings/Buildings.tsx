@@ -24,7 +24,7 @@ export const Buildings = React.memo(function Buildings() {
 
   return uiState.scene === "game" ||
     uiState.scene === "combat" ||
-    (uiState.scene === "editor" && uiState.editorMode === "lights") ? (
+    (uiState.scene === "editor" && uiState.editorMode === "lights" && gameState.debug.featureEnabled.buildingBoxes) ? (
     <>{buildings}</>
   ) : null;
 });

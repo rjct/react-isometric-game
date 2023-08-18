@@ -95,6 +95,11 @@ export const gameMap = {
   selectedUnit: null as unknown as Unit,
   selectedTerrainArea: null as unknown as TerrainArea,
   selectedLight: null as unknown as Light,
+  entityPlaceholder: null as unknown as {
+    position: GridCoordinates;
+    size: Size3D;
+    direction: Direction;
+  } | null,
 
   combatQueue: {
     currentUnitId: null as unknown as string | null,

@@ -70,6 +70,11 @@ import {
 } from "./light/recalculateLightsAndShadows";
 import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "./deleteInventoryEntity";
 import { setGlobalLightsOpacity, SetGlobalLightsOpacityReducerAction } from "./editor/light/setGlobalLightsOpacity";
+import {
+  highlightEntityPlaceholder,
+  HighlightEntityPlaceholderReducerAction,
+} from "./editor/highlightEntityPlaceholder";
+import { clearEntityPlaceholder, ClearEntityPlaceholderReducerAction } from "./editor/clearEntityPlaceholder";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -95,6 +100,9 @@ export type GameReducerAction =
   | EndTurnReducerAction
   //
   | DetectFiredAmmoHitsTargetAction
+  //
+  | HighlightEntityPlaceholderReducerAction
+  | ClearEntityPlaceholderReducerAction
   //
   | AddBuildingReducerAction
   | SetSelectedBuildingReducerAction
@@ -205,6 +213,13 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     // WEAPON
     case "detectFiredAmmoHitsTarget":
       return detectFiredAmmoHitsTarget(state, action as DetectFiredAmmoHitsTargetAction);
+
+    // EDITOR
+    case "highlightEntityPlaceholder":
+      return highlightEntityPlaceholder(state, action as HighlightEntityPlaceholderReducerAction);
+
+    case "clearEntityPlaceholder":
+      return clearEntityPlaceholder(state, action as ClearEntityPlaceholderReducerAction);
 
     // EDITOR: BUILDING
     case "addBuilding":

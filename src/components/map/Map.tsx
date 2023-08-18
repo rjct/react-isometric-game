@@ -33,6 +33,50 @@ export const Map = React.memo(
 
     const { hero } = useHero();
 
+    const getDraggedEntityDataFromEvent = (e: React.DragEvent) => {
+      const screen = {
+        x: Math.round(
+          e.clientX -
+            constants.editor.entitiesLibrary.width -
+            constants.tileSize.width +
+            constants.tileSize.width / 2 +
+            uiState.scroll.x,
+        ),
+        y: Math.round(e.clientY - uiState.rect.top) + uiState.scroll.y,
+      };
+      const grid = gameState.screenSpaceToGridSpace(screen);
+
+      if (
+        grid.x < 0 ||
+        grid.x > gameState.mapSize.width ||
+        grid.y < 0 ||
+        grid.y > gameState.mapSize.height ||
+        e.dataTransfer.getData("add/entity") === ""
+      )
+        return null;
+
+      const type = e.dataTransfer.getData("add/entity/type") as "building" | "unit";
+      const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
+
+      const position = { x: floor(grid.x), y: floor(grid.y) };
+      const direction = e.dataTransfer.getData("add/entity/direction") as Direction;
+      const size = ["left", "right"].includes(direction)
+        ? ({
+            width: entity.size.grid.length,
+            length: entity.size.grid.width,
+            height: entity.size.grid.height,
+          } as Size3D)
+        : (entity.size.grid as Size3D);
+
+      return {
+        type,
+        entity,
+        position,
+        direction,
+        size,
+      };
+    };
+
     const handleMouseDown = () => {
       gameDispatch({ type: "clearSelectedBuilding" });
       gameDispatch({ type: "clearSelectedTerrainArea" });
@@ -60,6 +104,18 @@ export const Map = React.memo(
 
       e.preventDefault();
       e.dataTransfer.dropEffect = "copy";
+
+      const draggedEntityData = getDraggedEntityDataFromEvent(e);
+
+      if (!draggedEntityData) return;
+
+      const { position, direction, size } = draggedEntityData;
+
+      gameDispatch({ type: "highlightEntityPlaceholder", size, position, direction });
+    };
+
+    const handleDragLeave = () => {
+      gameDispatch({ type: "clearEntityPlaceholder" });
     };
 
     const handleDrop = (e: React.DragEvent) => {
@@ -67,37 +123,19 @@ export const Map = React.memo(
 
       e.preventDefault();
 
-      const screen = {
-        x: Math.round(
-          e.clientX -
-            constants.editor.entitiesLibrary.width -
-            constants.tileSize.width +
-            constants.tileSize.width / 2 +
-            uiState.scroll.x,
-        ),
-        y: Math.round(e.clientY - uiState.rect.top) + uiState.scroll.y,
-      };
-      const grid = gameState.screenSpaceToGridSpace(screen);
+      const draggedEntityData = getDraggedEntityDataFromEvent(e);
 
-      if (
-        grid.x < 0 ||
-        grid.x > gameState.mapSize.width ||
-        grid.y < 0 ||
-        grid.y > gameState.mapSize.height ||
-        e.dataTransfer.getData("add/entity") === ""
-      )
-        return;
+      if (!draggedEntityData) return;
 
-      const type = e.dataTransfer.getData("add/entity/type") as "building" | "unit";
-      const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
+      const { type, entity, position, direction } = draggedEntityData;
 
       switch (type) {
         case "building":
           gameDispatch({
             type: "addBuilding",
             buildingType: (entity as DictBuilding).type,
-            position: { x: floor(grid.x), y: floor(grid.y) },
-            direction: e.dataTransfer.getData("add/entity/direction") as Building["direction"],
+            position,
+            direction,
             variant: Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"],
           });
           break;
@@ -106,11 +144,13 @@ export const Map = React.memo(
           gameDispatch({
             type: "addUnit",
             unitType: (entity as DictUnit).type,
-            position: { x: floor(grid.x), y: floor(grid.y) },
-            direction: e.dataTransfer.getData("add/entity/direction") as Direction,
+            position,
+            direction,
           });
           break;
       }
+
+      gameDispatch({ type: "clearEntityPlaceholder" });
     };
 
     //
@@ -174,6 +214,7 @@ export const Map = React.memo(
           onMouseOut={handleMouseOut}
           onScroll={handleScroll}
           onDragOver={handleDragOver}
+          onDragLeave={handleDragLeave}
           onDrop={handleDrop}
           data-scrolling-active={uiState.isScrolling() || null}
           data-scrolling-direction={uiState.scrollDirection}
