@@ -1,9 +1,8 @@
 import React from "react";
 import { Unit } from "../../../../engine/UnitFactory";
-import { UnitInventoryItemEditor } from "./UnitInventoryItemEditor";
-import { UnitInventoryEmptyText } from "./UnitInventoryEmptyText";
+import { InventoryItemsList } from "../../../inventory/InventoryItemsList";
 
-export const UnitInventoryEditor = (props: { inventory: Unit["inventory"] }) => {
+export const UnitInventoryEditor = (props: { unit: Unit }) => {
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("backpack");
 
   const handleUnitInventoryModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -16,7 +15,7 @@ export const UnitInventoryEditor = (props: { inventory: Unit["inventory"] }) => 
 
       <div className={"ui-tabs"}>
         <div className={"ui-tabs-nav"}>
-          {Object.entries(props.inventory).map(([key, value]) => {
+          {Object.entries(props.unit.inventory).map(([key, value]) => {
             const isActive = key === selectedInventoryMode;
             const activeClass = isActive ? "active" : "";
 
@@ -43,22 +42,15 @@ export const UnitInventoryEditor = (props: { inventory: Unit["inventory"] }) => 
           })}
         </div>
 
-        {Object.entries(props.inventory).map(([key, value]) => {
+        {Object.entries(props.unit.inventory).map(([key]) => {
           return key === selectedInventoryMode ? (
             <div key={key} className={"ui-tab-content"}>
-              <ul className={"unit-inventory-items-list"}>
-                {Array.isArray(value) ? (
-                  value.length > 0 ? (
-                    value.map((entity) => <UnitInventoryItemEditor key={entity.id} entity={entity} />)
-                  ) : (
-                    <UnitInventoryEmptyText />
-                  )
-                ) : value ? (
-                  <UnitInventoryItemEditor entity={value} />
-                ) : (
-                  <UnitInventoryEmptyText />
-                )}
-              </ul>
+              <InventoryItemsList
+                unit={props.unit}
+                inventoryType={selectedInventoryMode}
+                editable={true}
+                draggable={false}
+              />
             </div>
           ) : null;
         })}

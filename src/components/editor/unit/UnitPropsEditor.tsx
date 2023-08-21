@@ -38,7 +38,7 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
           </table>
         </div>
 
-        <UnitInventoryEditor inventory={props.unit.inventory} />
+        <UnitInventoryEditor unit={props.unit} />
 
         <div className={"editor-controls"}>
           <button

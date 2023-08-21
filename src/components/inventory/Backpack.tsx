@@ -1,17 +1,18 @@
 import { useHero } from "../../hooks/useHero";
-import { InventoryItem } from "./InventoryItem";
 import React from "react";
 import { useDragAndDropItem } from "../../hooks/useDragAndDropItem";
+import { InventoryItemsList } from "./InventoryItemsList";
 
 export function Backpack() {
   const { hero } = useHero();
   const { handleDrop, handleDragOver } = useDragAndDropItem();
 
   return (
-    <div className={"backpack"} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, "backpack")}>
-      {hero.getBackpackItems().map((item) => {
-        return <InventoryItem key={item.id} inventoryType={"backpack"} item={item} />;
-      })}
-    </div>
+    <fieldset className={"backpack-wrapper"}>
+      <legend>Backpack ({hero.getBackpackItems().length})</legend>
+      <div className={"backpack"} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, "backpack")}>
+        <InventoryItemsList unit={hero} inventoryType={"backpack"} editable={false} draggable={true} />
+      </div>
+    </fieldset>
   );
 }

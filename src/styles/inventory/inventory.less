@@ -19,12 +19,12 @@
     height: 80%;
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 2fr 1fr 1fr;
-    grid-column-gap: 15px;
-    grid-row-gap: 15px;
+    grid-template-rows: 2fr 1fr 0.75fr;
+    grid-column-gap: (@padding * 2);
+    grid-row-gap: (@padding);
     background-color: #000000;
     background-image: radial-gradient(#11581e, #041607);
-    padding: 10px 15px 15px 15px;
+    padding: (@padding) (@padding * 2) (@padding) (@padding * 2);
     border-radius: 10px;
     box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
     border: solid 1px rgba(0, 255, 0, 0.4);
@@ -33,9 +33,9 @@
     > fieldset:not(.controls) {
       border: solid 1px limegreen;
       display: flex;
+      margin: 0;
+      padding: (@padding / 2) 0 @padding 0;
     }
-
-    @import "inventory-item";
 
     .backpack-wrapper {
       grid-area: 1 / 1 / 5 / 2;
@@ -57,11 +57,22 @@
     }
 
       .hand {
+        display: flex;
         flex: 1;
       }
 
     .hero-overview-wrapper {
       grid-area: 1 / 2 / 2 / 3;
+      align-items: center;
+
+      .unit-preview {
+        position: relative;
+        display: flex;
+        justify-content: center;
+        height: 100px;
+        flex: 1;
+        scale: 2;
+      }
     }
 
     .hero-info-wrapper {
@@ -74,9 +85,11 @@
 
     .controls {
       grid-area: 4 / 2 / 5 / 4;
-      padding: 10px;
+      padding-top: @padding;
       display: flex;
       justify-content: flex-end;
     }
   }
 }
+
+@import "inventory-item";

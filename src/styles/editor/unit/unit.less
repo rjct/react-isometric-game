@@ -46,56 +46,6 @@
   }
 }
 
-.unit-inventory-items-list {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-
-  li {
-    padding: @padding 0;
-    border-bottom: solid 1px darken(@text-color, 40%);
-    display: flex;
-    gap: @padding;
-
-    &:last-child {
-      border-bottom: none;
-    }
-
-    .weapon-pic {
-      width: 40px;
-      background-size: contain;
-      background-repeat: no-repeat;
-      background-position: center;
-    }
-
-    .entity-title-wrapper {
-      flex: 1;
-      justify-content: center;
-      display: flex;
-      flex-direction: column;
-
-      .entity-title {
-        font-size: 1.2em;
-        color: darken(@text-color, 10%);
-      }
-
-      .entity-subtitle {
-
-      }
-    }
-
-    button {
-      visibility: hidden;
-    }
-
-    &:hover {
-      button {
-        visibility: visible;
-      }
-    }
-  }
-}
-
 @keyframes unit-preview {
   from {
     background-position: 0 0;
