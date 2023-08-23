@@ -10,6 +10,7 @@ export interface AddUnitReducerAction {
 
 export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
   const unit = new Unit({
+    gameState: state,
     unitType: action.unitType,
     position: action.position,
     direction: action.direction,

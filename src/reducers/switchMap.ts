@@ -12,7 +12,7 @@ import { GameObjectFactory } from "../engine/GameObjectFactory";
 export type SwitchMapReducerAction = {
   type: "switchMap";
   map: StaticMap;
-  mediaFiles: MediaFiles;
+  mediaFiles: MediaAssets;
 };
 
 const createWeaponForUnit = (
@@ -61,18 +61,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
   const newState = {
     ...state,
     ...{
-      world: new GameObjectFactory({
-        id: "world-walls",
-        size: {
-          grid: { width: action.map.size.width, length: action.map.size.height, height: 1 },
-          screen: gridToScreesSize(action.map.size),
-        },
-        position: { x: 0, y: 0 },
-        direction: "left",
-        internalColor: "",
-        occupiesCell: false,
-      }),
-      mediaFiles: action.mediaFiles,
+      mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
       terrain: terrain, //action.map.terrain,
       matrix: createMatrix(action.map.size),
@@ -85,10 +74,24 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     },
   };
 
+  newState.world = new GameObjectFactory({
+    gameState: newState,
+    id: "world-walls",
+    size: {
+      grid: { width: action.map.size.width, length: action.map.size.height, height: 1 },
+      screen: gridToScreesSize(action.map.size),
+    },
+    position: { x: 0, y: 0 },
+    direction: "left",
+    internalColor: "",
+    occupiesCell: false,
+  });
+
   newState.buildings = action.map.buildings.map((staticMapBuilding) => {
     const { type, position, direction, variant, occupiesCell } = staticMapBuilding;
 
     const building = new Building({
+      gameState: newState,
       buildingType: type,
       position,
       direction,
@@ -111,6 +114,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   newState.units = action.map.enemies.reduce((result, enemy) => {
     const unit = new Unit({
+      gameState: newState,
       unitType: enemy.type!,
       position: enemy.position,
       isDead: enemy.isDead,
@@ -131,6 +135,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
 
   if (state.heroId === "") {
     const hero = new Unit({
+      gameState: newState,
       unitType: "vault13_male",
       position: action.map.hero.position,
       direction: action.map.hero.direction,

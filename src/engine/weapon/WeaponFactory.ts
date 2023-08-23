@@ -12,10 +12,16 @@ export type WeaponType = FirearmType | MeleeWeaponType;
 export type WeaponTypes = { [weaponId: string]: Weapon };
 export type WeaponRef = FirearmRef | MeleeWeaponRef;
 export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
+export type WeaponSfx = {
+  use: {
+    src: string[];
+    timeIntervalMs: number;
+  };
+};
 
 export class Weapon {
   public readonly type: WeaponType;
-  private gameMap: GameMap;
+  public gameMap: GameMap;
 
   public readonly title: string;
   public readonly id = randomUUID();
@@ -44,6 +50,13 @@ export class Weapon {
 
   private isBusy: boolean;
 
+  public readonly sfx: WeaponSfx = {
+    use: {
+      src: [],
+      timeIntervalMs: -1,
+    },
+  };
+
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates) {
     throw new Error("Method not implemented.");
@@ -62,6 +75,8 @@ export class Weapon {
 
     this.actionPointsConsumption = weaponRef.actionPointsConsumption;
     this.isBusy = false;
+
+    this.sfx = weaponRef.sfx;
   }
 
   assignUnit(unit: Unit) {

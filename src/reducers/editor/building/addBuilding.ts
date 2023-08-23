@@ -11,6 +11,7 @@ export interface AddBuildingReducerAction {
 
 export function addBuilding(state: GameMap, action: AddBuildingReducerAction): GameMap {
   const building = new Building({
+    gameState: state,
     buildingType: action.buildingType,
     position: action.position,
     direction: action.direction,

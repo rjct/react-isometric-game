@@ -12,7 +12,7 @@ import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
 import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
 import { MeleePunch } from "./weapon/melee/meleePunchFactory";
 import { getUrlParamValue } from "../hooks/useUrl";
-import { floor, gridToScreenSpace } from "./helpers";
+import { floor, gridToScreenSpace, randomInt } from "./helpers";
 import { mapsList } from "../maps_list";
 import { GameObjectFactory } from "./GameObjectFactory";
 
@@ -89,7 +89,7 @@ export const gameMap = {
 
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
-  mediaFiles: {} as MediaFiles,
+  mediaAssets: {} as MediaAssets,
 
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,
@@ -106,8 +106,39 @@ export const gameMap = {
     units: [] as Array<Unit>,
   },
 
+  audioContext: new AudioContext(),
+
   getHero() {
     return this.units[this.heroId];
+  },
+
+  getAssetImage(assetName: string): AssetFileImage | null {
+    if (!this.mediaAssets[assetName]) return null;
+
+    return this.mediaAssets[assetName] as AssetFileImage;
+  },
+
+  getAssetAudio(assetName: string): AssetFileAudio | null {
+    if (!this.mediaAssets[assetName]) return null;
+
+    return this.mediaAssets[assetName] as AssetFileAudio;
+  },
+
+  playSfx(src: string[], volume: number) {
+    if (volume <= 0) return;
+
+    const decodedTrack = this.getAssetAudio(src[randomInt(0, src.length - 1)]);
+    const gainNode = this.audioContext.createGain();
+    gainNode.gain.value = volume;
+
+    if (decodedTrack) {
+      const bufferSource = this.audioContext.createBufferSource();
+
+      bufferSource.buffer = decodedTrack.source;
+      bufferSource.connect(gainNode).connect(this.audioContext.destination);
+
+      bufferSource.start();
+    }
   },
 
   occupyCell(coordinates: GridCoordinates) {

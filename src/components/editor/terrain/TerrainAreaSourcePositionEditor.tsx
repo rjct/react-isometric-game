@@ -101,9 +101,9 @@ export function TerrainAreaSourcePositionEditor() {
   React.useEffect(() => {
     if (!gameState.selectedTerrainArea) return;
 
-    const fullSizeSource = gameState.mediaFiles[composeSpriteUrl(gameState.selectedTerrainArea.source.type)]?.img;
+    const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(gameState.selectedTerrainArea.source.type));
 
-    setSourceImg(fullSizeSource || null);
+    setSourceImg((fullSizeSource ? fullSizeSource.source : null) as unknown as HTMLImageElement);
   }, [gameState.selectedTerrainArea?.id, gameState.selectedTerrainArea?.source.type]);
 
   React.useEffect(() => {

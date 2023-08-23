@@ -74,9 +74,9 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   React.useEffect(() => {
     uiDispatch({ type: "setScene", scene: "loading" });
 
-    preloadAssets().then((mediaFiles) => {
+    preloadAssets(gameState).then((mediaAssets) => {
       loadMap(gameState.mapUrl).then((map) => {
-        gameDispatch({ type: "switchMap", map, mediaFiles });
+        gameDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
         uiDispatch({ type: "setScene", scene: "game" });
       });
     });

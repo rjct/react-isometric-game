@@ -1,6 +1,7 @@
 import buildings from "../dict/buildings.json";
 import { GameObjectFactory } from "./GameObjectFactory";
 import { StaticMapBuilding } from "../context/GameStateContext";
+import { GameMap } from "./GameMap";
 
 type BuildingSize = {
   grid: Size3D;
@@ -35,6 +36,7 @@ export class Building extends GameObjectFactory {
   private readonly ref: DictBuilding;
 
   constructor(props: {
+    gameState: GameMap;
     buildingType: BuildingType;
     position: GridCoordinates;
     direction: Direction;
@@ -44,7 +46,13 @@ export class Building extends GameObjectFactory {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
 
-    super({ size, position: props.position, direction: props.direction, internalColor: "rgba(255,232,0,0.5)" });
+    super({
+      gameState: props.gameState,
+      size,
+      position: props.position,
+      direction: props.direction,
+      internalColor: "rgba(255,232,0,0.5)",
+    });
 
     this.ref = ref;
 

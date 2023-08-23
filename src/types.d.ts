@@ -78,14 +78,22 @@ interface AreaCoordinates {
 
 type Direction = "left" | "top" | "right" | "bottom";
 
-interface MediaFiles {
-  [url: string]: AssetFile;
+interface MediaAssets {
+  [url: string]: AssetFileImage | AssetFileAudio;
 }
 
-interface AssetFile {
+interface AssetFileImage {
   value: string;
   size: number;
-  img: HTMLImageElement;
+  type: "image";
+  source: HTMLImageElement;
+}
+
+interface AssetFileAudio {
+  value: string;
+  size: number;
+  type: "audio";
+  source: AudioBuffer;
 }
 
 type AngleInDegrees = number;

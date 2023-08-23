@@ -21,7 +21,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
       unit.pathQueue.currentPos = unit.position;
       unit.pathQueue.destinationPos = unit.path[unit.path.length - 1];
 
-      const speed = unit.action === "run" ? unit.speed.run : unit.speed.walk;
+      const speed = unit.getCurrentSpeed();
       const prevPoint = unit.pathQueue.moveAlong(action.deltaTime * speed);
 
       if (prevPoint) {
@@ -72,7 +72,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
         unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition).deg);
       }
 
-      unit.setPosition(unit.pathQueue.currentPos, state);
+      unit.setPosition(unit.pathQueue.currentPos, state, action.deltaTime);
 
       if (unit.isHero) {
         state.setVisitedCell(unit.pathQueue.currentPos);
@@ -82,6 +82,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
         unit.clearPath();
         unit.setAction("none");
         unit.pathQueue.atEnd = false;
+        unit.setPositionComplete();
       }
     }
   });

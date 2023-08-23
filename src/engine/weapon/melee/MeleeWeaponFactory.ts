@@ -24,6 +24,8 @@ export class MeleeWeapon extends Weapon {
     const unit = this.unit;
 
     if (this.isReadyToUse()) {
+      this.gameMap.playSfx(this.sfx.use.src, 1);
+
       const punch = new MeleePunch("punch");
 
       this.setBusy(true);

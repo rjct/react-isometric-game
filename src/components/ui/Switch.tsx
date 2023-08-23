@@ -1,6 +1,8 @@
 import React from "react";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useGameState } from "../../hooks/useGameState";
+import { constants } from "../../constants";
 
 export function Switch(props: {
   title: string;
@@ -9,6 +11,14 @@ export function Switch(props: {
   disabled?: boolean;
   onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
+  const { gameState } = useGameState();
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    gameState.playSfx([constants.sfx.ui.switch], 1);
+
+    props.onChange(e);
+  };
+
   return (
     <label className="ui-switch" title={props.title}>
       <input
@@ -16,7 +26,7 @@ export function Switch(props: {
         className="toggle-checkbox"
         type="checkbox"
         checked={props.checked}
-        onChange={props.onChange}
+        onChange={handleChange}
       />
       <div className="toggle-switch"></div>
       <span className="toggle-label">{props.icon ? <FontAwesomeIcon icon={props.icon} /> : props.title}</span>

@@ -53,7 +53,8 @@ export class Firearm extends Weapon {
 
     if (this.isReadyToUse() && this.ammoCurrent.length > 0) {
       this.setBusy(true);
-      fireInterval = window.setInterval(doFire, 250);
+      this.gameMap.playSfx(this.sfx.use.src, 1);
+      fireInterval = window.setInterval(doFire, this.sfx.use.timeIntervalMs);
     } else {
       unit.setAction("idle");
 

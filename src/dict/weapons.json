@@ -11,6 +11,16 @@
         "attack": 300,
         "attackCompleted": 1000,
         "attackNotAllowed": 1000
+      },
+      "sfx": {
+        "use": {
+          "src": [
+            "public/assets/weapons/punch/punch_1.m4a",
+            "public/assets/weapons/punch/punch_2.m4a",
+            "public/assets/weapons/punch/punch_3.m4a"
+          ],
+          "timeIntervalMs": 400
+        }
       }
     },
     "knife": {
@@ -24,6 +34,14 @@
         "attack": 400,
         "attackCompleted": 1000,
         "attackNotAllowed": 1000
+      },
+      "sfx": {
+        "use": {
+          "src": [
+
+          ],
+          "timeIntervalMs": 400
+        }
       }
     }
   },
@@ -41,6 +59,15 @@
         "attack": 400,
         "attackCompleted": 1000,
         "attackNotAllowed": 1000
+      },
+      "sfx": {
+        "use": {
+          "src": [
+            "public/assets/weapons/pistol/pistol_single_1.m4a",
+            "public/assets/weapons/pistol/pistol_single_2.m4a"
+          ],
+          "timeIntervalMs": 400
+        }
       }
     },
 
@@ -50,13 +77,22 @@
       "ammoType": "pistolAmmo",
       "unitAction": "shooting-smg",
       "ammoCapacity": 30,
-      "ammoConsumptionPerShoot": 3,
+      "ammoConsumptionPerShoot": 7,
       "range": 10,
       "actionPointsConsumption": 3,
       "animationDuration": {
         "attack": 400,
         "attackCompleted": 1000,
         "attackNotAllowed": 1000
+      },
+      "sfx": {
+        "use": {
+          "src": [
+            "public/assets/weapons/smg/smg_burst_1.m4a",
+            "public/assets/weapons/smg/smg_burst_2.m4a"
+          ],
+          "timeIntervalMs": 160
+        }
       }
     }
   }

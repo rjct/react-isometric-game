@@ -56,4 +56,10 @@ export const constants = {
       unitInfo: false,
     },
   },
+
+  sfx: {
+    ui: {
+      switch: "public/assets/UI/switch.m4a",
+    },
+  },
 };

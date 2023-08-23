@@ -29,7 +29,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
           const terrainTile = terrainArea.tiles.get(`${x}:${y}`);
 
           if (terrainTile) {
-            const image = gameState.mediaFiles[terrainTile.type]?.img;
+            const image = gameState.getAssetImage(terrainTile.type)?.source;
 
             if (image) {
               ctx.drawImage(
@@ -41,7 +41,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
                 screenPosition.x,
                 screenPosition.y,
                 tileWidth,
-                tileHeight
+                tileHeight,
               );
             }
           }

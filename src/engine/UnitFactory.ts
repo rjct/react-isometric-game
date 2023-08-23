@@ -12,8 +12,12 @@ import { UnitFieldOfViewFactory } from "./UnitFieldOfViewFactory";
 import { Building } from "./BuildingFactory";
 
 export type UnitType = keyof typeof units;
-
 export type UnitTypes = { [unitId: string]: Unit };
+export type UnitSfxType = "walkStep" | "hit" | "dead";
+export type UnitSfxEntity = {
+  src: string[];
+  repeatEveryMs?: number;
+};
 
 export interface DictUnit {
   type: UnitType;
@@ -49,10 +53,17 @@ export interface DictUnit {
     hit: number;
     notAllowed: number;
   };
+  sfx: {
+    [type in UnitSfxType]: UnitSfxEntity;
+  };
 }
 
 export type DictUnits = {
   [unitType in UnitType]: DictUnit;
+};
+
+export type UnitSfx = {
+  [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
 };
 
 export class Unit extends GameObjectFactory {
@@ -130,7 +141,10 @@ export class Unit extends GameObjectFactory {
   public fieldOfView: UnitFieldOfViewFactory;
   public distanceToHero = Infinity;
 
+  public readonly sfx: UnitSfx;
+
   constructor(props: {
+    gameState: GameMap;
     unitType: UnitType;
     position: GridCoordinates;
     isHero: boolean;
@@ -141,6 +155,7 @@ export class Unit extends GameObjectFactory {
     const ref = units[props.unitType] as DictUnit;
 
     super({
+      gameState: props.gameState,
       size: ref.size,
       position: props.position,
       direction: props.direction || "left",
@@ -169,6 +184,17 @@ export class Unit extends GameObjectFactory {
       direction: this.direction,
       fieldOfView: ref.fieldOfView,
     });
+
+    this.sfx = Object.keys(ref.sfx).reduce(
+      (acc, key) => {
+        const k = key as UnitSfxType;
+
+        acc[k] = { ...ref.sfx[k], ...{ currentProgressMs: 0 } };
+
+        return acc;
+      },
+      {} as unknown as UnitSfx,
+    );
   }
 
   public setPath(path: number[][]) {
@@ -197,13 +223,39 @@ export class Unit extends GameObjectFactory {
     this.fieldOfView.setDirection(angle);
   }
 
-  public setPosition(position: GridCoordinates, gameState: GameMap) {
+  public getCurrentSpeed() {
+    return this.action === "run" ? this.speed.run : this.speed.walk;
+  }
+
+  public setPosition(position: GridCoordinates, gameState: GameMap, deltaTime = -1) {
     super.setPosition(position, gameState);
     this.fieldOfView.setPosition(position);
 
     const hero = gameState.getHero();
 
     this.distanceToHero = !hero ? Infinity : this.getDistanceToEntity(hero);
+
+    if (deltaTime > -1) {
+      if (
+        this.sfx["walkStep"].currentProgressMs === 0 ||
+        this.sfx["walkStep"].currentProgressMs >= this.sfx["walkStep"].repeatEveryMs! / this.getCurrentSpeed()
+      ) {
+        gameState.playSfx(
+          this.sfx["walkStep"].src,
+          this.id === hero.id ? 1 : 1 - Math.min(100, (this.distanceToHero * 100) / hero.fieldOfView.range) / 100,
+        );
+
+        if (this.sfx["walkStep"].currentProgressMs > 0) {
+          this.sfx["walkStep"].currentProgressMs = 0;
+        }
+      }
+
+      this.sfx["walkStep"].currentProgressMs += deltaTime * 1000;
+    }
+  }
+
+  public setPositionComplete() {
+    this.sfx["walkStep"].currentProgressMs = 0;
   }
 
   public setAction(action: Unit["action"]) {
@@ -308,9 +360,12 @@ export class Unit extends GameObjectFactory {
     this.coolDownTimer = this.coolDownTime;
 
     if (this.healthPoints.current === 0) {
+      this.gameState.playSfx(this.sfx["dead"].src, 1);
+
       this.action = "dead";
       this.isDead = true;
     } else {
+      this.gameState.playSfx(this.sfx["hit"].src, 1);
       this.action = "hit";
 
       window.setTimeout(() => {

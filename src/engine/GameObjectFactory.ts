@@ -12,6 +12,8 @@ export type GameObjectIntersectionWithLightRay = {
 };
 
 export class GameObjectFactory {
+  public readonly gameState: GameMap;
+
   public readonly id;
   public readonly internalColor: string;
 
@@ -28,6 +30,7 @@ export class GameObjectFactory {
   public walls: GameObjectWall[] = [];
 
   constructor(props: {
+    gameState: GameMap;
     id?: string;
     size: { grid: Size3D; screen: Size2D };
     position: GridCoordinates;
@@ -35,6 +38,8 @@ export class GameObjectFactory {
     internalColor: string;
     occupiesCell?: boolean;
   }) {
+    this.gameState = props.gameState;
+
     this.id = props.id || randomUUID();
     this.internalColor = props.internalColor;
 

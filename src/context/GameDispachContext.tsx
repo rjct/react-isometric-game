@@ -5,7 +5,7 @@ import { StaticMap } from "./GameStateContext";
 const initialValue: GameReducerAction = {
   type: "switchMap",
   map: {} as StaticMap,
-  mediaFiles: {} as MediaFiles,
+  mediaFiles: {} as MediaAssets,
 };
 
 const initialDispatchFunc: Dispatch<GameReducerAction> = () => initialValue;
