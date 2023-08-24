@@ -23,6 +23,7 @@ export const constants = {
   FOG_OF_WAR_OPACITY: 0.85,
   UNIT_FIELD_OF_VIEW_RAYS: 20,
   LIGHT_RENDER_PASSES: 2,
+  INTRO_SCENE_DISPLAY_TIME: 6000,
   miniMap: {
     size: {
       width: 30,
@@ -59,6 +60,7 @@ export const constants = {
 
   sfx: {
     ui: {
+      button: "public/assets/UI/button.m4a",
       switch: "public/assets/UI/switch.m4a",
     },
   },

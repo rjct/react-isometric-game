@@ -5,7 +5,7 @@ import { faTreeCity } from "@fortawesome/free-solid-svg-icons/faTreeCity";
 import { faPerson } from "@fortawesome/free-solid-svg-icons/faPerson";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons/faLightbulb";
 
-export type GameScene = "editor" | "loading" | "game" | "combat" | "inventory" | "gameOver";
+export type GameScene = "intro" | "mainMenu" | "editor" | "loading" | "game" | "combat" | "inventory" | "gameOver";
 
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup },
@@ -31,7 +31,8 @@ const gameUIContext = {
   isScrolling: function () {
     return this.scrollDirection !== "none";
   },
-  scene: "game" as GameScene,
+  scene: "intro" as GameScene,
+  introSceneElapsedTime: 0,
   editorMode: "terrain" as keyof typeof EditorModes,
 };
 

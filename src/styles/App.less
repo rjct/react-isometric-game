@@ -1,4 +1,5 @@
 @import "variables";
+@import "UI/fullscreen_panel";
 @import "UI/ui-button";
 @import "UI/ui-radio";
 @import "UI/ui-tabs";
@@ -37,41 +38,6 @@ fieldset {
   width: 100%;
   height: 100svh;
   display: flex;
-}
-
-.loading {
-  background-color: #3a3842;
-  position: absolute;
-  z-index: 999;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  color: @text-color;
-  background-image: radial-gradient(#11581e, #041607);
-
-  .loading-info {
-    display: flex;
-    flex-direction: column;
-
-    .entity-progress-wrapper {
-      display: flex;
-      gap: (@padding * 2);
-      margin: 0 @padding;
-
-      .label {
-        flex: 1;
-      }
-
-      .value {
-        //
-      }
-    }
-  }
 }
 
 .with-overlay:after {
@@ -232,23 +198,3 @@ fieldset {
     cursor: s-resize;
   }
 }
-
-@import url("editor/editor");
-
-.game-over {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
-  background-color: rgba(00, 0, 0, 0.5);
-  z-index: 10;
-  color: @text-color;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 5em;
-  backdrop-filter: grayscale(1);
-}
-
-@import url("control_panel/ControlPanel");

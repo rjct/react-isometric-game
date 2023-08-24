@@ -3,14 +3,19 @@ import { GameScene, GameUI } from "../../context/GameUIContext";
 import { GameContext } from "../../hooks/useGameState";
 import { inventoryScene } from "./inventory";
 import { loadingScene } from "./loading";
+
 import { editorScene } from "./editor";
 import { combatScene } from "./combat/combat";
 import { gameOverScene } from "./gameOver";
+import { mainMenuScene } from "./mainMenu";
+import { introScene } from "./intro";
 
 type SceneRunnerFunc = (this: GameContext, deltaTime: number) => void;
 
 const scenes: { [sceneName in GameScene]: SceneRunnerFunc } = {
+  intro: introScene,
   loading: loadingScene,
+  mainMenu: mainMenuScene,
   game: gameScene,
   combat: combatScene,
   inventory: inventoryScene,
@@ -22,6 +27,7 @@ export function playScene(scene: GameUI["scene"], context: GameContext, deltaTim
   const { gameState, gameDispatch, uiState, uiDispatch } = context;
 
   if (uiState.scene === "gameOver") return;
+  if (uiState.scene === "mainMenu") return;
 
   if (gameState.units[gameState.heroId]?.isDead) {
     gameDispatch({ type: "stopUnits", units: gameState.getAliveEnemiesArray() });

@@ -1,5 +1,6 @@
 import React from "react";
 import { useGameState } from "../hooks/useGameState";
+import { FullscreenPanel } from "./ui/FullscreenPanel";
 
 export const Loading = React.memo((props: { assets: { loading: boolean; loaded: number; total: number } }) => {
   const { uiState } = useGameState();
@@ -7,7 +8,7 @@ export const Loading = React.memo((props: { assets: { loading: boolean; loaded: 
   const assetsLoadedPercent = Math.round((props.assets.loaded / props.assets.total) * 100);
 
   return uiState.scene === "loading" ? (
-    <div className={"loading with-overlay"}>
+    <FullscreenPanel overlay={true}>
       <fieldset className={"loading-info"}>
         <legend>Wait</legend>
 
@@ -19,6 +20,6 @@ export const Loading = React.memo((props: { assets: { loading: boolean; loaded: 
           <div className={"value"}>{isNaN(assetsLoadedPercent) ? 0 : assetsLoadedPercent}%</div>
         </div>
       </fieldset>
-    </div>
+    </FullscreenPanel>
   ) : null;
 });

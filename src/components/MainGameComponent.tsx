@@ -21,6 +21,8 @@ import { DebugFeaturesSwitches } from "./debug/DebugFeaturesSwitches";
 import { useUrl } from "../hooks/useUrl";
 import { MiniMap } from "./map/MiniMap";
 import { playScene } from "../engine/scenes/_scenes";
+import { MainMenu } from "./MainMenu";
+import { Intro } from "./Intro";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
   const gameUIContext = React.useContext(GameUIContext);
@@ -72,12 +74,21 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   }, []);
 
   React.useEffect(() => {
+    if (uiState.introSceneElapsedTime > 0) {
+      loadMap(gameState.mapUrl).then((map) => {
+        gameDispatch({ type: "switchMap", map, mediaFiles: gameState.mediaAssets });
+        uiDispatch({ type: "setScene", scene: "game" });
+      });
+
+      return;
+    }
+
     uiDispatch({ type: "setScene", scene: "loading" });
 
     preloadAssets(gameState).then((mediaAssets) => {
       loadMap(gameState.mapUrl).then((map) => {
         gameDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
-        uiDispatch({ type: "setScene", scene: "game" });
+        uiDispatch({ type: "setScene", scene: "intro" });
       });
     });
   }, [gameState.mapUrl]);
@@ -110,6 +121,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
             <GameStateContext.Provider value={gameState}>
               <Loading assets={loadingState} />
 
+              <Intro />
+              <MainMenu />
               <GameOver />
               <Top />
               <div className={"center"}>

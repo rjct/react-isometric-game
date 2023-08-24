@@ -10,8 +10,10 @@ import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHe
 import { setEditorMode, SetEditorModeUIReducerAction } from "./setEditorMode";
 import { resetMousePosition, ResetMousePositionUIReducerAction } from "./resetMousePosition";
 import { setMousePosition, SetMousePositionUIReducerAction } from "./setMousePosition";
+import { setIntroSceneElapsedTime, SetIntroSceneElapsedTimeUIReducerAction } from "./setIntroSceneElapsedTime";
 
 export type UIReducerAction =
+  | SetIntroSceneElapsedTimeUIReducerAction
   | CenterMapOnHeroUIReducerAction
   | ScrollMapUIReducerAction
   | ScrollMapOnScreenEdgesUIReducerAction
@@ -26,6 +28,9 @@ export type UIReducerAction =
 
 export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
   switch (action.type) {
+    case "setIntroSceneElapsedTime":
+      return setIntroSceneElapsedTime(state, action as SetIntroSceneElapsedTimeUIReducerAction);
+
     case "centerMapOnHero":
       return centerMapOnHero(state, action as CenterMapOnHeroUIReducerAction);
 

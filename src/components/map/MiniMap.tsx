@@ -7,8 +7,6 @@ import { degToRad } from "../../engine/helpers";
 export const MiniMap = React.memo(function MiniMap() {
   const { gameState, uiState } = useGameState();
 
-  if (uiState.scene !== "game") return null;
-
   const miniMapContainerRef = React.createRef<HTMLDivElement>();
   const miniMapCanvasRef = React.createRef<HTMLCanvasElement>();
 
@@ -102,7 +100,7 @@ export const MiniMap = React.memo(function MiniMap() {
     renderMiniMap();
   }, [gameState.getAllAliveUnitsHash(), gameState.settings.featureEnabled.fogOfWar]);
 
-  return (
+  return uiState.scene === "game" ? (
     <div ref={miniMapContainerRef} className={`mini-map`}>
       <canvas
         ref={miniMapCanvasRef}
@@ -116,5 +114,5 @@ export const MiniMap = React.memo(function MiniMap() {
         }}
       ></canvas>
     </div>
-  );
+  ) : null;
 });

@@ -1,4 +1,6 @@
 import React from "react";
+import { constants } from "../../constants";
+import { useGameState } from "../../hooks/useGameState";
 
 export function Button(props: {
   children: React.ReactNode;
@@ -8,6 +10,8 @@ export function Button(props: {
   disabled?: boolean;
   active?: boolean;
 }) {
+  const { gameState } = useGameState();
+
   return (
     <div
       title={props.title}
@@ -20,6 +24,7 @@ export function Button(props: {
       onClick={() => {
         if (props.disabled) return;
 
+        gameState.playSfx([constants.sfx.ui.button], 1);
         props.onClick?.();
       }}
     >
