@@ -1,6 +1,7 @@
 import React from "react";
 import { Unit } from "../../../../engine/UnitFactory";
 import { InventoryItemsList } from "../../../inventory/InventoryItemsList";
+import { Tab } from "../../../ui/Tab";
 
 export const UnitInventoryEditor = (props: { unit: Unit }) => {
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("backpack");
@@ -17,27 +18,19 @@ export const UnitInventoryEditor = (props: { unit: Unit }) => {
         <div className={"ui-tabs-nav"}>
           {Object.entries(props.unit.inventory).map(([key, value]) => {
             const isActive = key === selectedInventoryMode;
-            const activeClass = isActive ? "active" : "";
 
             return (
-              <div className={["ui-button", activeClass].join(" ")} key={key}>
-                <label className="ui-radio" htmlFor={`editor--unit-inventory-${key}`} title={key}>
-                  <input
-                    type={"radio"}
-                    name={"editor--unit-inventory"}
-                    id={`editor--unit-inventory-${key}`}
-                    value={key}
-                    checked={isActive}
-                    disabled={isActive}
-                    onChange={handleUnitInventoryModeChange}
-                  />
-                  <div className={"label"}>
-                    <span>
-                      {key} ({Array.isArray(value) ? value.length : value ? 1 : 0})
-                    </span>
-                  </div>
-                </label>
-              </div>
+              <Tab
+                key={key}
+                id={`editor--unit-inventory-${key}`}
+                value={key}
+                title={""}
+                active={isActive}
+                disabled={isActive}
+                onSelect={handleUnitInventoryModeChange}
+              >
+                {key} ({Array.isArray(value) ? value.length : value ? 1 : 0})
+              </Tab>
             );
           })}
         </div>

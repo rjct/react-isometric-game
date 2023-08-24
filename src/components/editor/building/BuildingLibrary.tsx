@@ -3,6 +3,7 @@ import { BuildingLibraryItem } from "./BuildingLibraryItem";
 import { DictBuilding } from "../../../engine/BuildingFactory";
 import { useGameState } from "../../../hooks/useGameState";
 import React from "react";
+import { Tab } from "../../ui/Tab";
 
 export const BuildingLibrary = React.memo(() => {
   const { uiState } = useGameState();
@@ -26,25 +27,19 @@ export const BuildingLibrary = React.memo(() => {
       <div className={"ui-tabs-nav"}>
         {groupNames.map((groupName) => {
           const isActive = selectedGroup === groupName;
-          const activeClass = isActive ? "active" : "";
 
           return (
-            <div className={["ui-button", activeClass].join(" ")} key={groupName}>
-              <label className="ui-radio" htmlFor={`editor-library-group-${groupName}`}>
-                <input
-                  type={"radio"}
-                  name={"editor-library-group"}
-                  id={`editor-library-group-${groupName}`}
-                  value={groupName}
-                  checked={isActive}
-                  disabled={isActive}
-                  onChange={handleTabChange}
-                />
-                <div className={"label"}>
-                  <span>{groupName}</span>
-                </div>
-              </label>
-            </div>
+            <Tab
+              key={groupName}
+              id={`editor-library-group-${groupName}`}
+              value={groupName}
+              title={groupName}
+              active={isActive}
+              disabled={isActive}
+              onSelect={handleTabChange}
+            >
+              {groupName}
+            </Tab>
           );
         })}
       </div>

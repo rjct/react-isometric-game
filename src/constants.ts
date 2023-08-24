@@ -62,6 +62,7 @@ export const constants = {
     ui: {
       button: "public/assets/UI/button.m4a",
       switch: "public/assets/UI/switch.m4a",
+      tab: "public/assets/UI/tab.m4a",
     },
   },
 };

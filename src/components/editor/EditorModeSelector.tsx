@@ -10,6 +10,7 @@ import { LightPropsEditor } from "./light/LightPropsEditor";
 import { GlobalShadowsPropsEditor } from "./light/GlobalShadowsPropsEditor";
 import { UnitPropsEditor } from "./unit/UnitPropsEditor";
 import { GlobalLightsPropsEditor } from "./light/GlobalLightsPropsEditor";
+import { Tab } from "../ui/Tab";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
@@ -42,25 +43,19 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
       <div className={"ui-tabs-nav"}>
         {Object.entries(EditorModes).map(([key, value]) => {
           const isActive = editorMode === key;
-          const activeClass = isActive ? "active" : "";
 
           return (
-            <div className={["ui-button", activeClass].join(" ")} key={key}>
-              <label className="ui-radio" htmlFor={`editor-mode-${key}`} title={value.text}>
-                <input
-                  type={"radio"}
-                  name={"editor-mode"}
-                  id={`editor-mode-${key}`}
-                  value={key}
-                  checked={isActive}
-                  disabled={isActive}
-                  onChange={handleEditorModeChange}
-                />
-                <div className={"label"}>
-                  <span>{<FontAwesomeIcon icon={value.icon} />}</span>
-                </div>
-              </label>
-            </div>
+            <Tab
+              key={key}
+              id={`editor-mode-${key}`}
+              value={key}
+              active={isActive}
+              disabled={isActive}
+              title={value.text}
+              onSelect={handleEditorModeChange}
+            >
+              <FontAwesomeIcon icon={value.icon} />
+            </Tab>
           );
         })}
       </div>
