@@ -56,6 +56,7 @@ export interface DictUnit {
   sfx: {
     [type in UnitSfxType]: UnitSfxEntity;
   };
+  distanceToScreenCenter: number;
 }
 
 export type DictUnits = {
@@ -142,6 +143,8 @@ export class Unit extends GameObjectFactory {
   public distanceToHero = Infinity;
 
   public readonly sfx: UnitSfx;
+
+  public distanceToScreenCenter = -1;
 
   constructor(props: {
     gameState: GameMap;
@@ -243,6 +246,7 @@ export class Unit extends GameObjectFactory {
         gameState.playSfx(
           this.sfx["walkStep"].src,
           this.id === hero.id ? 1 : 1 - Math.min(100, (this.distanceToHero * 100) / hero.fieldOfView.range) / 100,
+          this.distanceToScreenCenter,
         );
 
         if (this.sfx["walkStep"].currentProgressMs > 0) {
@@ -360,12 +364,12 @@ export class Unit extends GameObjectFactory {
     this.coolDownTimer = this.coolDownTime;
 
     if (this.healthPoints.current === 0) {
-      this.gameState.playSfx(this.sfx["dead"].src, 1);
+      this.gameState.playSfx(this.sfx["dead"].src, this.distanceToScreenCenter);
 
       this.action = "dead";
       this.isDead = true;
     } else {
-      this.gameState.playSfx(this.sfx["hit"].src, 1);
+      this.gameState.playSfx(this.sfx["hit"].src, this.distanceToScreenCenter);
       this.action = "hit";
 
       window.setTimeout(() => {
@@ -373,6 +377,10 @@ export class Unit extends GameObjectFactory {
         this.action = "none";
       }, this.animationDuration.hit);
     }
+  }
+
+  public setDistanceToScreenCenter(distanceToScreenCenter: number) {
+    this.distanceToScreenCenter = distanceToScreenCenter;
   }
 
   public consumeActionPoints(actionPoints: number) {

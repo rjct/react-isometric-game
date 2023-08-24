@@ -124,18 +124,21 @@ export const gameMap = {
     return this.mediaAssets[assetName] as AssetFileAudio;
   },
 
-  playSfx(src: string[], volume: number) {
+  playSfx(src: string[], volume = 1, stereoPan = 0) {
     if (volume <= 0) return;
 
     const decodedTrack = this.getAssetAudio(src[randomInt(0, src.length - 1)]);
     const gainNode = this.audioContext.createGain();
+    const panNode = new StereoPannerNode(this.audioContext);
+
     gainNode.gain.value = volume;
+    panNode.pan.value = stereoPan;
 
     if (decodedTrack) {
       const bufferSource = this.audioContext.createBufferSource();
 
       bufferSource.buffer = decodedTrack.source;
-      bufferSource.connect(gainNode).connect(this.audioContext.destination);
+      bufferSource.connect(panNode).connect(gainNode).connect(this.audioContext.destination);
 
       bufferSource.start();
     }

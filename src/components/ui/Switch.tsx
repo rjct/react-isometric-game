@@ -14,7 +14,7 @@ export function Switch(props: {
   const { gameState } = useGameState();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    gameState.playSfx([constants.sfx.ui.switch], 1);
+    gameState.playSfx([constants.sfx.ui.switch]);
 
     props.onChange(e);
   };

@@ -2,7 +2,7 @@ import { randomInt } from "../helpers";
 import { GameContext } from "../../hooks/useGameState";
 
 export function gameScene(this: GameContext, deltaTime: number) {
-  const { gameState, gameDispatch, uiDispatch } = this;
+  const { gameState, gameDispatch, uiState, uiDispatch } = this;
 
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
@@ -22,6 +22,12 @@ export function gameScene(this: GameContext, deltaTime: number) {
     gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
     gameDispatch({ type: "cleanupFiredAmmo", weapon });
     gameDispatch({ type: "recalculateUnitFieldOfView", unit });
+    gameDispatch({
+      type: "recalculateUnitDistanceToScreenCenter",
+      unit,
+      viewport: uiState.viewport,
+      scroll: uiState.scroll,
+    });
   }
 
   for (const enemy of allAliveEnemies) {

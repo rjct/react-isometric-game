@@ -24,7 +24,7 @@ export function Button(props: {
       onClick={() => {
         if (props.disabled) return;
 
-        gameState.playSfx([constants.sfx.ui.button], 1);
+        gameState.playSfx([constants.sfx.ui.button]);
         props.onClick?.();
       }}
     >

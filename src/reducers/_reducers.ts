@@ -75,6 +75,10 @@ import {
   HighlightEntityPlaceholderReducerAction,
 } from "./editor/highlightEntityPlaceholder";
 import { clearEntityPlaceholder, ClearEntityPlaceholderReducerAction } from "./editor/clearEntityPlaceholder";
+import {
+  recalculateUnitDistanceToScreenCenter,
+  RecalculateUnitDistanceToScreenCenterReducerAction,
+} from "./game/unit/recalcUnitDistanceToScreenCenter";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -87,6 +91,8 @@ export type GameReducerAction =
   | AnimateUnitMoveReducerAction
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
+  | RecalculateUnitDistanceToScreenCenterReducerAction
+  //
   | RecalculateLightsAndShadowsReducerAction
   //
   | AnimateFiredAmmoAction
@@ -175,6 +181,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "recalculateUnitFieldOfView":
       return recalculateUnitFieldOfView(state, action as RecalculateUnitFieldOfViewReducerAction);
+
+    case "recalculateUnitDistanceToScreenCenter":
+      return recalculateUnitDistanceToScreenCenter(state, action as RecalculateUnitDistanceToScreenCenterReducerAction);
 
     case "recalculateLightsAndShadows":
       return recalculateLightsAndShadows(state, action as RecalculateLightsAndShadowsReducerAction);
