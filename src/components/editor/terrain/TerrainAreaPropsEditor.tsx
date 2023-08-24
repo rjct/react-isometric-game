@@ -8,6 +8,7 @@ import { TerrainAreaSourcePositionEditor } from "./TerrainAreaSourcePositionEdit
 import { TerrainAreaPositionEditor } from "./TerrainAreaPositionEditor";
 import { TerrainAreaExitUrlEditor } from "./TerrainAreaExitUrlEditor";
 import { NothingSelectedText } from "../_shared/NothingSelectedText";
+import { Button } from "../../ui/Button";
 
 export function TerrainAreaPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -37,8 +38,8 @@ export function TerrainAreaPropsEditor() {
         </div>
 
         <div className={"editor-controls"}>
-          <button
-            className={"ui-button ui-button-red"}
+          <Button
+            className={["ui-button-red"]}
             disabled={!gameState.selectedTerrainArea}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedTerrainArea", entityId: gameState.selectedTerrainArea?.id });
@@ -46,7 +47,7 @@ export function TerrainAreaPropsEditor() {
           >
             <FontAwesomeIcon icon={faTrash} />
             <label>Delete</label>
-          </button>
+          </Button>
         </div>
       </fieldset>
     ) : (

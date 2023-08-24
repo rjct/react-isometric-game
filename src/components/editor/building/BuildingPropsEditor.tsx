@@ -8,6 +8,7 @@ import { NothingSelectedText } from "../_shared/NothingSelectedText";
 import { BuildingPositionEditor } from "./BuildingPositionEditor";
 import { InputRange } from "../_shared/InputRange";
 import { BuildingOccupiesCellSwitch } from "./BuildingOccupiesCellSwitch";
+import { Button } from "../../ui/Button";
 
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();
@@ -48,8 +49,8 @@ export function BuildingPropsEditor() {
         </div>
 
         <div className={"editor-controls"}>
-          <button
-            className={"ui-button ui-button-red"}
+          <Button
+            className={["ui-button-red"]}
             disabled={!gameState.selectedBuilding}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedBuilding", entityId: gameState.selectedBuilding?.id });
@@ -57,7 +58,7 @@ export function BuildingPropsEditor() {
           >
             <FontAwesomeIcon icon={faTrash} />
             <label>Delete</label>
-          </button>
+          </Button>
         </div>
       </fieldset>
     ) : (

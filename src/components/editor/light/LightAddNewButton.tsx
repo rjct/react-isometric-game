@@ -5,6 +5,7 @@ import { useGameState } from "../../../hooks/useGameState";
 import { StaticMapLight } from "../../../context/GameStateContext";
 import { constants } from "../../../constants";
 import { randomInt } from "../../../engine/helpers";
+import { Button } from "../../ui/Button";
 
 export function LightAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -32,9 +33,9 @@ export function LightAddNewButton() {
   };
 
   return (
-    <button className={"ui-button ui-button-green"} onClick={handleClick}>
+    <Button className={["ui-button-green"]} onClick={handleClick}>
       <FontAwesomeIcon icon={faSquarePlus} fixedWidth />
       <label>Add new light</label>
-    </button>
+    </Button>
   );
 }

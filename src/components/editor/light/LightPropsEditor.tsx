@@ -7,6 +7,7 @@ import { NothingSelectedText } from "../_shared/NothingSelectedText";
 import { InputColor } from "../_shared/InputColor";
 import { InputRange } from "../_shared/InputRange";
 import { LightPositionEditor } from "./LightPositionEditor";
+import { Button } from "../../ui/Button";
 
 export function LightPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -50,8 +51,8 @@ export function LightPropsEditor() {
         </div>
 
         <div className={"editor-controls"}>
-          <button
-            className={"ui-button ui-button-red"}
+          <Button
+            className={["ui-button-red"]}
             disabled={!gameState.selectedLight}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedLight", entityId: gameState.selectedLight?.id });
@@ -59,7 +60,7 @@ export function LightPropsEditor() {
           >
             <FontAwesomeIcon icon={faTrash} />
             <label>Delete</label>
-          </button>
+          </Button>
         </div>
       </fieldset>
     ) : (

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { useGameState } from "../../hooks/useGameState";
 import { Unit } from "../../engine/UnitFactory";
+import { Button } from "../ui/Button";
 
 export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: {
   entity: Weapon;
@@ -41,14 +42,15 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
       </div>
 
       {props.editable ? (
-        <button
-          className={"ui-button ui-button-red"}
+        <Button
+          className={["ui-button-red"]}
+          vertical={true}
           onClick={() => {
             gameDispatch({ type: "deleteInventoryEntity", entity: props.entity });
           }}
         >
           <FontAwesomeIcon size={"xs"} icon={faTrash} />
-        </button>
+        </Button>
       ) : null}
     </li>
   );

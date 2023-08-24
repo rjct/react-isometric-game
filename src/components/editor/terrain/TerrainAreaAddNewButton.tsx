@@ -4,6 +4,7 @@ import { faSquarePlus } from "@fortawesome/free-solid-svg-icons/faSquarePlus";
 import { useGameState } from "../../../hooks/useGameState";
 import { StaticMapTerrainArea } from "../../../context/GameStateContext";
 import { constants } from "../../../constants";
+import { Button } from "../../ui/Button";
 
 export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -38,9 +39,9 @@ export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButt
   };
 
   return (
-    <button className={"ui-button ui-button-green"} onClick={handleClick}>
+    <Button className={["ui-button-green"]} onClick={handleClick}>
       <FontAwesomeIcon icon={faSquarePlus} fixedWidth />
       <label>Add new terrain area</label>
-    </button>
+    </Button>
   );
 });

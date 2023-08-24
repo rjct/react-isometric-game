@@ -4,6 +4,7 @@ import { useGameState } from "../../hooks/useGameState";
 import { useHero } from "../../hooks/useHero";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
+import { Button } from "../ui/Button";
 
 export const ExportButton = React.memo(function ExportButton() {
   const { gameState } = useGameState();
@@ -52,13 +53,13 @@ export const ExportButton = React.memo(function ExportButton() {
   };
 
   return (
-    <button
-      className={["ui-button", buttonState.disabled ? "ui-button-green" : ""].join(" ")}
+    <Button
+      className={[buttonState.disabled ? "ui-button-green" : ""]}
       disabled={buttonState.disabled}
       onClick={handleClick}
     >
       <FontAwesomeIcon icon={faCode} fixedWidth />
       <label>{buttonState.text}</label>
-    </button>
+    </Button>
   );
 });

@@ -10,6 +10,7 @@ import { UnitDeadSwitch } from "./UnitDeadSwitch";
 import { UnitDirectionSelector } from "./UnitDirectionSelector";
 import { UnitInventoryEditor } from "./inventory/UnitInventoryEditor";
 import { Unit } from "../../../engine/UnitFactory";
+import { Button } from "../../ui/Button";
 
 export const UnitPropsEditor = (props: { unit: Unit }) => {
   const { uiState, gameDispatch } = useGameState();
@@ -41,8 +42,8 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
         <UnitInventoryEditor unit={props.unit} />
 
         <div className={"editor-controls"}>
-          <button
-            className={"ui-button ui-button-red"}
+          <Button
+            className={["ui-button-red"]}
             disabled={props.unit.isHero}
             onClick={() => {
               gameDispatch({ type: "deleteSelectedUnit", entityId: props.unit.id });
@@ -50,7 +51,7 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
           >
             <FontAwesomeIcon icon={faTrash} />
             <label>Delete</label>
-          </button>
+          </Button>
         </div>
       </fieldset>
     ) : (

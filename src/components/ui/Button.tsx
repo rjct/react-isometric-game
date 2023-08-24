@@ -9,6 +9,7 @@ export function Button(props: {
   onClick?: () => void;
   disabled?: boolean;
   active?: boolean;
+  vertical?: boolean;
 }) {
   const { gameState } = useGameState();
 
@@ -16,7 +17,12 @@ export function Button(props: {
     <div
       title={props.title}
       className={[
-        ...["ui-button", "vertical", props.disabled ? "disabled" : null, props.active ? "active" : null],
+        ...[
+          "ui-button",
+          props.vertical ? "vertical" : null,
+          props.disabled ? "disabled" : null,
+          props.active ? "active" : null,
+        ],
         ...(props.className || []),
       ]
         .filter(Boolean)
