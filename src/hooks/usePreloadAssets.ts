@@ -2,9 +2,26 @@ import { constants } from "../constants";
 import React from "react";
 import { GameMap } from "../engine/GameMap";
 
+export type AssetsLoadingState = {
+  image: {
+    count: number;
+    size: number;
+  };
+  audio: {
+    count: number;
+    size: number;
+  };
+};
+
 export function usePreloadAssets() {
-  const [totalMediaFiles, setTotalMediaFiles] = React.useState(0);
-  const [totalMediaFilesLoaded, setTotalMediaFilesLoaded] = React.useState(0);
+  const [totalMediaFiles, setTotalMediaFiles] = React.useState<AssetsLoadingState>({
+    image: { count: 0, size: 0 },
+    audio: { count: 0, size: 0 },
+  });
+  const [totalMediaFilesLoaded, setTotalMediaFilesLoaded] = React.useState<AssetsLoadingState>({
+    image: { count: 0, size: 0 },
+    audio: { count: 0, size: 0 },
+  });
   const [loading, setLoading] = React.useState(true);
 
   const preloadAssets = async (gameState: GameMap): Promise<MediaAssets> => {
@@ -32,35 +49,65 @@ export function usePreloadAssets() {
       fetch(`${constants.BASE_URL}/media-assets-manifest.json`).then(async (data) => {
         const json = await data.json();
 
-        mediaFiles = Object.keys(json).reduce((obj, key) => {
-          return { ...obj, [key]: json[key] };
-        }, {});
+        mediaFiles = Object.keys(json).reduce(
+          (obj, key) => {
+            const assetFile = json[key] as AssetFileImage | AssetFileAudio;
 
-        const mediaFilesUrls = Object.keys(mediaFiles);
+            obj[assetFile.type][key] = assetFile;
 
-        setTotalMediaFiles(mediaFilesUrls.length);
+            return obj;
+          },
+          {
+            image: {},
+            audio: {},
+          } as MediaAssets,
+        );
 
-        Promise.all(
-          mediaFilesUrls.map((url) => {
-            const assetFile = mediaFiles[url];
+        const gfxUrls = Object.keys(mediaFiles.image);
+        const sfxUrls = Object.keys(mediaFiles.audio);
 
-            switch (assetFile.type) {
-              case "image":
-                return loadImage(assetFile).then((imageElement) => {
-                  setTotalMediaFilesLoaded((prev) => prev + 1);
+        setTotalMediaFiles({
+          image: {
+            count: gfxUrls.length,
+            size: Object.values(mediaFiles.image).reduce((count, value) => {
+              return count + value.size;
+            }, 0),
+          },
+          audio: {
+            count: sfxUrls.length,
+            size: Object.values(mediaFiles.audio).reduce((count, value) => {
+              return count + value.size;
+            }, 0),
+          },
+        });
 
-                  mediaFiles[url].source = imageElement;
-                });
+        const gfxPromises = gfxUrls.map(async (url) => {
+          const assetFile = mediaFiles.image[url];
+          const imageElement = await loadImage(assetFile);
 
-              case "audio":
-                return loadAudio(assetFile).then((audioElement: AudioBuffer) => {
-                  setTotalMediaFilesLoaded((prev) => prev + 1);
+          setTotalMediaFilesLoaded((prev) => {
+            prev.image.count++;
+            prev.image.size += assetFile.size;
 
-                  mediaFiles[url].source = audioElement;
-                });
-            }
-          }),
-        ).finally(() => {
+            return { ...prev };
+          });
+          mediaFiles.image[url].source = imageElement;
+        });
+
+        const sfxPromises = sfxUrls.map(async (url) => {
+          const assetFile = mediaFiles.audio[url];
+          const audioElement = await loadAudio(assetFile);
+
+          setTotalMediaFilesLoaded((prev) => {
+            prev.audio.size += assetFile.size;
+            prev.audio.count++;
+
+            return { ...prev };
+          });
+          mediaFiles.audio[url].source = audioElement;
+        });
+
+        Promise.all([gfxPromises, sfxPromises].flat()).finally(() => {
           setLoading(false);
 
           return resolve(mediaFiles);

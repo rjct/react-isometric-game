@@ -79,7 +79,8 @@ interface AreaCoordinates {
 type Direction = "left" | "top" | "right" | "bottom";
 
 interface MediaAssets {
-  [url: string]: AssetFileImage | AssetFileAudio;
+  image: { [url: string]: AssetFileImage };
+  audio: { [url: string]: AssetFileAudio };
 }
 
 interface AssetFileImage {
