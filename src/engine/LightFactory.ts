@@ -1,6 +1,6 @@
-import { StaticMapLight } from "../context/GameStateContext";
-import { getDistanceBetweenGridPoints, randomUUID } from "./helpers";
-import { GameObjectIntersectionWithLightRay, GameObjectWall } from "./GameObjectFactory";
+import { StaticMapLight } from "@src/context/GameStateContext";
+import { GameObjectIntersectionWithLightRay, GameObjectWall } from "@src/engine/GameObjectFactory";
+import { getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
 
 export class Light {
   public readonly id = randomUUID();

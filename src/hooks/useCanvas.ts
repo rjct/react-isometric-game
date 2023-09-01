@@ -1,5 +1,5 @@
-import { useGameState } from "./useGameState";
-import { constants } from "../constants";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function useCanvas() {
   const { gameState } = useGameState();

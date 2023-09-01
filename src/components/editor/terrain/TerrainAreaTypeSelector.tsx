@@ -1,6 +1,6 @@
-import { TerrainAreaType, TerrainAreaTypes } from "../../../engine/TerrainAreaFactory";
+import { TerrainAreaType, TerrainAreaTypes } from "@src/engine/TerrainAreaFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
 
 export function TerrainAreaTypeSelector() {
   const { gameState, gameDispatch } = useGameState();

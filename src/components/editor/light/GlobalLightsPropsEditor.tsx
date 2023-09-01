@@ -1,7 +1,6 @@
-import { useGameState } from "../../../hooks/useGameState";
-import { TableRow } from "../_shared/TableRow";
-import React from "react";
-import { InputRange } from "../_shared/InputRange";
+import { InputRange } from "@src/components/editor/_shared/InputRange";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function GlobalLightsPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

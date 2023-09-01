@@ -1,8 +1,8 @@
-import { degToRad, getDirectionInDegFromString } from "./helpers";
-import { LightRay } from "./LightRayFactory";
-import { Building } from "./BuildingFactory";
-import { DictUnit, Unit } from "./UnitFactory";
-import { constants } from "../constants";
+import { constants } from "@src/constants";
+import { Building } from "@src/engine/BuildingFactory";
+import { degToRad, getDirectionInDegFromString } from "@src/engine/helpers";
+import { LightRay } from "@src/engine/LightRayFactory";
+import { DictUnit, Unit } from "@src/engine/UnitFactory";
 
 export class UnitFieldOfViewFactory {
   public position: GridCoordinates;

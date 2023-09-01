@@ -1,7 +1,7 @@
-import weapons from "../../../dict/weapons.json";
-import { Weapon } from "../WeaponFactory";
-import { MeleePunch } from "./meleePunchFactory";
-import { GameMap } from "../../GameMap";
+import weapons from "@src/dict/weapons.json";
+import { GameMap } from "@src/engine/GameMap";
+import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type MeleeWeaponType = keyof typeof weapons.MeleeWeapon;
 export type MeleeWeaponRef = (typeof weapons.MeleeWeapon)[MeleeWeaponType];

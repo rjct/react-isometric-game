@@ -1,4 +1,4 @@
-import { GameUI } from "../../context/GameUIContext";
+import { GameUI } from "@src/context/GameUIContext";
 
 export type DetectKeyPressUIReducerAction = {
   type: "detectKeyPress";

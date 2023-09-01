@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
-import { mapsList } from "../maps_list";
+import { GameMap } from "@src/engine/GameMap";
+import { mapsList } from "@src/maps_list";
 
 export type LoadMapReducerAction = {
   type: "loadMap";

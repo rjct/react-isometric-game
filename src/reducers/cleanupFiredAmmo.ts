@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
-import { Weapon } from "../engine/weapon/WeaponFactory";
+import { GameMap } from "@src/engine/GameMap";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type CleanupFiredAmmoAction = {
   type: "cleanupFiredAmmo";

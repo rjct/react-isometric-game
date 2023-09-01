@@ -1,7 +1,7 @@
-import React from "react";
-import { DictUnit } from "../../../engine/UnitFactory";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DictUnit } from "@src/engine/UnitFactory";
+import React from "react";
 
 export function UnitLibraryItem(props: { item: DictUnit }) {
   const [direction, setDirection] = React.useState("right");

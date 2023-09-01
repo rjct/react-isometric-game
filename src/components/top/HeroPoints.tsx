@@ -1,4 +1,4 @@
-import { Unit } from "../../engine/UnitFactory";
+import { Unit } from "@src/engine/UnitFactory";
 
 export function HeroPoints(props: { points: Unit["healthPoints"] | Unit["actionPoints"] }) {
   const { current, max } = props.points;

@@ -1,5 +1,5 @@
-import { GameMap } from "../../../engine/GameMap";
-import { Unit, UnitType } from "../../../engine/UnitFactory";
+import { GameMap } from "@src/engine/GameMap";
+import { Unit, UnitType } from "@src/engine/UnitFactory";
 
 export interface AddUnitReducerAction {
   type: "addUnit";

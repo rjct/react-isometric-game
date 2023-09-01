@@ -1,8 +1,8 @@
+import { constants } from "@src/constants";
+import { LightRay } from "@src/engine/LightRayFactory";
+import { useCanvas } from "@src/hooks/useCanvas";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../useGameState";
-import { constants } from "../../constants";
-import { useCanvas } from "../useCanvas";
-import { LightRay } from "../../engine/LightRayFactory";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
   const { gameState, uiState } = useGameState();
@@ -10,7 +10,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
   const allAliveUnits = React.useMemo(
     () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
-    [gameState.getAllAliveUnitsHash()]
+    [gameState.getAllAliveUnitsHash()],
   );
 
   const wireframeTileWidth = constants.wireframeTileSize.width;
@@ -79,7 +79,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
         for (const pathPoint of path) {
           ctx.lineTo(
             pathPoint.x * wireframeTileWidth + wireframeTileWidth / 2,
-            pathPoint.y * wireframeTileHeight + wireframeTileHeight / 2
+            pathPoint.y * wireframeTileHeight + wireframeTileHeight / 2,
           );
         }
 
@@ -88,7 +88,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
           unit.pathQueue.destinationPos.x * wireframeTileWidth + wireframeTileWidth / 2 - 10,
           unit.pathQueue.destinationPos.y * wireframeTileHeight + wireframeTileHeight / 2 - 10,
           20,
-          20
+          20,
         );
         ctx.stroke();
       }

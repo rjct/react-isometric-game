@@ -1,8 +1,8 @@
+import { Canvas } from "@src/components/_shared/Canvas";
+import { GameScene } from "@src/context/GameUIContext";
+import { useDebugVisualization } from "@src/hooks/debug/useDebugVisualization";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { useDebugVisualization } from "../../hooks/debug/useDebugVisualization";
-import { Canvas } from "../_shared/Canvas";
-import { GameScene } from "../../context/GameUIContext";
 
 export function DebugVisualization() {
   const canvasRef = React.createRef<HTMLCanvasElement>();

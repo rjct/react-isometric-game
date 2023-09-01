@@ -1,5 +1,5 @@
-import { constants } from "../constants";
-import { useGameState } from "./useGameState";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export interface WorldMousePosition {

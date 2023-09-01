@@ -1,8 +1,8 @@
+import { constants } from "@src/constants";
+import { degToRad } from "@src/engine/helpers";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 import React from "react";
-import { constants } from "../../constants";
-import { useHero } from "../../hooks/useHero";
-import { useGameState } from "../../hooks/useGameState";
-import { degToRad } from "../../engine/helpers";
 
 export const MiniMap = React.memo(function MiniMap() {
   const { gameState, uiState } = useGameState();

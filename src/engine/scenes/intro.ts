@@ -1,5 +1,5 @@
-import { GameContext } from "../../hooks/useGameState";
-import { constants } from "../../constants";
+import { constants } from "@src/constants";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function introScene(this: GameContext, deltaTime: number) {
   const { uiState, uiDispatch } = this;

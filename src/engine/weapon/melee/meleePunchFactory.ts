@@ -1,5 +1,5 @@
-import { Ammo } from "../AmmoFactory";
-import ammo from "../../../dict/ammo.json";
+import ammo from "@src/dict/ammo.json";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
 
 export type MeleePunchType = keyof typeof ammo.MeleeWeapon;
 export type MeleePunchRef = (typeof ammo.MeleeWeapon)[MeleePunchType];

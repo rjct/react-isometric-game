@@ -1,10 +1,10 @@
-import { StaticMap } from "../../context/GameStateContext";
-import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { useHero } from "../../hooks/useHero";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCode } from "@fortawesome/free-solid-svg-icons/faCode";
-import { Button } from "../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@src/components/ui/Button";
+import { StaticMap } from "@src/context/GameStateContext";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
+import React from "react";
 
 export const ExportButton = React.memo(function ExportButton() {
   const { gameState } = useGameState();

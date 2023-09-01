@@ -1,6 +1,6 @@
+import { StaticMap } from "@src/context/GameStateContext";
+import { GameReducerAction } from "@src/reducers/_reducers";
 import React, { Dispatch } from "react";
-import { GameReducerAction } from "../reducers/_reducers";
-import { StaticMap } from "./GameStateContext";
 
 const initialValue: GameReducerAction = {
   type: "switchMap",

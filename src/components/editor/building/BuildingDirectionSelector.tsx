@@ -1,5 +1,5 @@
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
 
 export function BuildingDirectionSelector() {
   const { gameState, gameDispatch } = useGameState();

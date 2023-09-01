@@ -1,6 +1,5 @@
-import React from "react";
-import { Unit } from "../../../engine/UnitFactory";
-import { Fade } from "../../Fade";
+import { Fade } from "@src/components/Fade";
+import { Unit } from "@src/engine/UnitFactory";
 
 export const UnitShadow = (props: { shadows: Unit["shadows"] }) => {
   return (

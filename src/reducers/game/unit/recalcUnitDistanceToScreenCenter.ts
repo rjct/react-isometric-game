@@ -1,8 +1,8 @@
-import { Unit } from "../../../engine/UnitFactory";
-import { GameMap } from "../../../engine/GameMap";
-import { GameUI } from "../../../context/GameUIContext";
-import { gridToScreenSpace } from "../../../engine/helpers";
-import { constants } from "../../../constants";
+import { constants } from "@src/constants";
+import { GameUI } from "@src/context/GameUIContext";
+import { GameMap } from "@src/engine/GameMap";
+import { gridToScreenSpace } from "@src/engine/helpers";
+import { Unit } from "@src/engine/UnitFactory";
 
 export type RecalculateUnitDistanceToScreenCenterReducerAction = {
   type: "recalculateUnitDistanceToScreenCenter";

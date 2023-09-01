@@ -1,72 +1,72 @@
 .unit-inventory-items-list {
-	margin: 0;
-	padding: 0 @padding;
-	list-style: none;
-	display: flex;
-	flex-direction: column;
-	flex: 1;
-	gap: (@padding / 2);
+  margin: 0;
+  padding: 0 @padding;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  gap: (@padding / 2);
 
-	li {
-		flex: 1;
-		padding: (@padding / 2) @padding @padding @padding;
-		border-bottom: solid 1px darken(@text-color, 30%);
-		display: flex;
-		gap: (@padding * 2);
-		cursor: default;
-		box-sizing: content-box;
+  li {
+    flex: 1;
+    padding: (@padding / 2) @padding @padding @padding;
+    border-bottom: solid 1px darken(@text-color, 30%);
+    display: flex;
+    gap: (@padding * 2);
+    cursor: default;
+    box-sizing: content-box;
 
-		&[draggable="true"] {
-			cursor: grab;
-		}
+    &[draggable="true"] {
+      cursor: grab;
+    }
 
-		&.hide {
-			transition: 0.01s;
-			transform: translateX(-9999px);
-		}
+    &.hide {
+      transition: 0.01s;
+      transform: translateX(-9999px);
+    }
 
-		&:last-child {
-			border-bottom: none;
-			margin: 0;
-			padding-bottom: (@padding/2);
-		}
+    &:last-child {
+      border-bottom: none;
+      margin: 0;
+      padding-bottom: (@padding / 2);
+    }
 
-		.weapon-pic {
-			flex-shrink: 0;
-			max-width: 30%;
-			aspect-ratio: 4/3;
-			background-size: contain;
-			background-repeat: no-repeat;
-			background-position: center;
-		}
+    .weapon-pic {
+      flex-shrink: 0;
+      max-width: 30%;
+      aspect-ratio: 4/3;
+      background-size: contain;
+      background-repeat: no-repeat;
+      background-position: center;
+    }
 
-		.entity-title-wrapper {
-			flex: 1;
-			justify-content: center;
-			display: flex;
-			flex-direction: column;
-			min-width: 0;
+    .entity-title-wrapper {
+      flex: 1;
+      justify-content: center;
+      display: flex;
+      flex-direction: column;
+      min-width: 0;
 
-			.entity-title {
-				color: darken(@text-color, 10%);
-				white-space: nowrap;
-				overflow: hidden;
-				text-overflow: ellipsis;
-			}
+      .entity-title {
+        color: darken(@text-color, 10%);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
 
-			.entity-subtitle {
-				font-size: 0.9em;
-			}
-		}
+      .entity-subtitle {
+        font-size: 0.9em;
+      }
+    }
 
-		.ui-button {
-			visibility: hidden;
-		}
+    .ui-button {
+      visibility: hidden;
+    }
 
-		&:hover {
-			.ui-button {
-				visibility: visible;
-			}
-		}
-	}
+    &:hover {
+      .ui-button {
+        visibility: visible;
+      }
+    }
+  }
 }

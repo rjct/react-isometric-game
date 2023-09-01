@@ -1,5 +1,5 @@
-import { GameMap } from "../../../engine/GameMap";
-import { getDirectionInDegFromString } from "../../../engine/helpers";
+import { GameMap } from "@src/engine/GameMap";
+import { getDirectionInDegFromString } from "@src/engine/helpers";
 
 export interface SetUnitDirectionReducerAction {
   type: "setUnitDirection";

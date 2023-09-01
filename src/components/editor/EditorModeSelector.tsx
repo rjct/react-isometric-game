@@ -1,16 +1,16 @@
-import { EditorModes, GameUI } from "../../context/GameUIContext";
-import React from "react";
-import { useGameState } from "../../hooks/useGameState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { TerrainAreaAddNewButton } from "./terrain/TerrainAreaAddNewButton";
-import { TerrainAreaPropsEditor } from "./terrain/TerrainAreaPropsEditor";
-import { BuildingPropsEditor } from "./building/BuildingPropsEditor";
-import { LightAddNewButton } from "./light/LightAddNewButton";
-import { LightPropsEditor } from "./light/LightPropsEditor";
-import { GlobalShadowsPropsEditor } from "./light/GlobalShadowsPropsEditor";
-import { UnitPropsEditor } from "./unit/UnitPropsEditor";
-import { GlobalLightsPropsEditor } from "./light/GlobalLightsPropsEditor";
-import { Tab } from "../ui/Tab";
+import { BuildingPropsEditor } from "@src/components/editor/building/BuildingPropsEditor";
+import { GlobalLightsPropsEditor } from "@src/components/editor/light/GlobalLightsPropsEditor";
+import { GlobalShadowsPropsEditor } from "@src/components/editor/light/GlobalShadowsPropsEditor";
+import { LightAddNewButton } from "@src/components/editor/light/LightAddNewButton";
+import { LightPropsEditor } from "@src/components/editor/light/LightPropsEditor";
+import { TerrainAreaAddNewButton } from "@src/components/editor/terrain/TerrainAreaAddNewButton";
+import { TerrainAreaPropsEditor } from "@src/components/editor/terrain/TerrainAreaPropsEditor";
+import { UnitPropsEditor } from "@src/components/editor/unit/UnitPropsEditor";
+import { Tab } from "@src/components/ui/Tab";
+import { EditorModes, GameUI } from "@src/context/GameUIContext";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();

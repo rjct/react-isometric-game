@@ -1,4 +1,4 @@
-import React, { ReactElement } from "react";
+import { ReactElement } from "react";
 
 export function TableRow(props: { label: string; children: ReactElement | string }) {
   return (

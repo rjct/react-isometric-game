@@ -1,7 +1,7 @@
+import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
+import { Tab } from "@src/components/ui/Tab";
+import { Unit } from "@src/engine/UnitFactory";
 import React from "react";
-import { Unit } from "../../../../engine/UnitFactory";
-import { InventoryItemsList } from "../../../inventory/InventoryItemsList";
-import { Tab } from "../../../ui/Tab";
 
 export const UnitInventoryEditor = (props: { unit: Unit }) => {
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("backpack");

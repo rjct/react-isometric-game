@@ -1,16 +1,15 @@
-import { useGameState } from "../../../hooks/useGameState";
-import React from "react";
-import { TableRow } from "../_shared/TableRow";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NothingSelectedText } from "../_shared/NothingSelectedText";
-import { UnitPositionEditor } from "./UnitPositionEditor";
-import { UnitPreview } from "./UnitPreview";
-import { UnitDeadSwitch } from "./UnitDeadSwitch";
-import { UnitDirectionSelector } from "./UnitDirectionSelector";
-import { UnitInventoryEditor } from "./inventory/UnitInventoryEditor";
-import { Unit } from "../../../engine/UnitFactory";
-import { Button } from "../../ui/Button";
+import { UnitInventoryEditor } from "@src/components/editor/unit/inventory/UnitInventoryEditor";
+import { UnitDeadSwitch } from "@src/components/editor/unit/UnitDeadSwitch";
+import { UnitDirectionSelector } from "@src/components/editor/unit/UnitDirectionSelector";
+import { UnitPositionEditor } from "@src/components/editor/unit/UnitPositionEditor";
+import { UnitPreview } from "@src/components/editor/unit/UnitPreview";
+import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { Button } from "@src/components/ui/Button";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
 
 export const UnitPropsEditor = (props: { unit: Unit }) => {
   const { uiState, gameDispatch } = useGameState();

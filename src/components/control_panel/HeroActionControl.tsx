@@ -1,7 +1,7 @@
+import { Unit } from "@src/engine/UnitFactory";
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import React from "react";
-import { Unit } from "../../engine/UnitFactory";
-import { Weapon } from "../../engine/weapon/WeaponFactory";
-import { Firearm } from "../../engine/weapon/firearm/FirearmFactory";
 
 export const HeroActionControl = React.memo(function HeroActionControl(props: {
   action: Unit["currentSelectedAction"];

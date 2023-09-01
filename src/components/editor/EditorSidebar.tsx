@@ -1,8 +1,8 @@
+import { EditorModeSelector } from "@src/components/editor/EditorModeSelector";
+import { ExportButton } from "@src/components/editor/ExportButton";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { constants } from "../../constants";
-import { EditorModeSelector } from "./EditorModeSelector";
-import { ExportButton } from "./ExportButton";
 
 export const EditorSidebar = React.memo(function EditorSidebar() {
   const { uiState } = useGameState();

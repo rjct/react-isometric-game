@@ -1,6 +1,6 @@
-import { constants } from "../constants";
-import { Building } from "./BuildingFactory";
-import { Unit } from "./UnitFactory";
+import { constants } from "@src/constants";
+import { Building } from "@src/engine/BuildingFactory";
+import { Unit } from "@src/engine/UnitFactory";
 
 export type LightRayData = Pick<LightRay, "x" | "y" | "nx" | "ny" | "len" | "color">;
 
@@ -47,7 +47,7 @@ export class LightRay {
   static draw(
     ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
     rayData: LightRayData,
-    useGradient: boolean
+    useGradient: boolean,
   ) {
     let fill: CanvasGradient | string = rayData.color;
 

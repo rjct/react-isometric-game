@@ -1,5 +1,5 @@
-import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "../constants";
-import { GameMap } from "../engine/GameMap";
+import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/constants";
+import { GameMap } from "@src/engine/GameMap";
 
 export const getUrlParamValue = (param: string) => {
   const url = new URL(window.location.href);
@@ -12,7 +12,7 @@ export function useUrl() {
   const getSettingValue = (
     gameState: GameMap,
     section: GameFeatureSections,
-    key: GameSettingsFeature | GameDebugFeature
+    key: GameSettingsFeature | GameDebugFeature,
   ) => {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const currentValue = String((gameState[section] as any).featureEnabled[key]);

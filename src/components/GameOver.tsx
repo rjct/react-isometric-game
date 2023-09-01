@@ -1,5 +1,5 @@
-import { useGameState } from "../hooks/useGameState";
-import { FullscreenPanel } from "./ui/FullscreenPanel";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function GameOver() {
   const { uiState } = useGameState();

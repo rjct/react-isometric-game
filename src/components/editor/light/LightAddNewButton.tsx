@@ -1,11 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons/faSquarePlus";
-import { useGameState } from "../../../hooks/useGameState";
-import { StaticMapLight } from "../../../context/GameStateContext";
-import { constants } from "../../../constants";
-import { randomInt } from "../../../engine/helpers";
-import { Button } from "../../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@src/components/ui/Button";
+import { constants } from "@src/constants";
+import { StaticMapLight } from "@src/context/GameStateContext";
+import { randomInt } from "@src/engine/helpers";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function LightAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();

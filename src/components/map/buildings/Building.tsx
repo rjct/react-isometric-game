@@ -1,4 +1,4 @@
-import { Building } from "../../../engine/BuildingFactory";
+import { Building } from "@src/engine/BuildingFactory";
 import React, { CSSProperties } from "react";
 
 export const BuildingComponent = React.memo(function Building(props: {

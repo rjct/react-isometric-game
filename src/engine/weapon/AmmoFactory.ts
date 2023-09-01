@@ -1,7 +1,7 @@
-import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "../helpers";
-import { FirearmAmmoRef, FirearmAmmoType } from "./firearm/FirearmAmmoFactory";
-import { MeleePunchRef, MeleePunchType } from "./melee/meleePunchFactory";
-import ammo from "../../dict/ammo.json";
+import ammo from "@src/dict/ammo.json";
+import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
+import { FirearmAmmoRef, FirearmAmmoType } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
+import { MeleePunchRef, MeleePunchType } from "@src/engine/weapon/melee/meleePunchFactory";
 
 export type AmmoClass = keyof typeof ammo;
 export type AmmoType = FirearmAmmoType | MeleePunchType;

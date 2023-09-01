@@ -1,8 +1,7 @@
-import { useGameState } from "../../../hooks/useGameState";
-import { TableRow } from "../_shared/TableRow";
-import React from "react";
-import { InputColor } from "../_shared/InputColor";
-import { InputRange } from "../_shared/InputRange";
+import { InputColor } from "@src/components/editor/_shared/InputColor";
+import { InputRange } from "@src/components/editor/_shared/InputRange";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function GlobalShadowsPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

@@ -1,11 +1,11 @@
+import { Armor } from "@src/components/inventory/Armor";
+import { Backpack } from "@src/components/inventory/Backpack";
+import { Hand } from "@src/components/inventory/Hand";
+import { HeroInfo } from "@src/components/inventory/HeroInfo";
+import { HeroOverview } from "@src/components/inventory/HeroOverview";
+import { Button } from "@src/components/ui/Button";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { Button } from "../ui/Button";
-import { Backpack } from "./Backpack";
-import { Hand } from "./Hand";
-import { HeroOverview } from "./HeroOverview";
-import { HeroInfo } from "./HeroInfo";
-import { Armor } from "./Armor";
 
 export function Inventory() {
   const { uiState, uiDispatch } = useGameState();

@@ -1,13 +1,13 @@
-import { StaticMap, StaticMapUnit, StaticMapWeapon } from "../context/GameStateContext";
-import { Building } from "../engine/BuildingFactory";
-import { createMatrix, gridToScreesSize } from "../engine/helpers";
-import { Unit, UnitTypes } from "../engine/UnitFactory";
-import { GameMap } from "../engine/GameMap";
-import { TerrainArea } from "../engine/TerrainAreaFactory";
-import { Light } from "../engine/LightFactory";
-import { WeaponClass, WeaponType } from "../engine/weapon/WeaponFactory";
-import { Firearm } from "../engine/weapon/firearm/FirearmFactory";
-import { GameObjectFactory } from "../engine/GameObjectFactory";
+import { StaticMap, StaticMapUnit, StaticMapWeapon } from "@src/context/GameStateContext";
+import { Building } from "@src/engine/BuildingFactory";
+import { GameMap } from "@src/engine/GameMap";
+import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
+import { Light } from "@src/engine/LightFactory";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { Unit, UnitTypes } from "@src/engine/UnitFactory";
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 
 export type SwitchMapReducerAction = {
   type: "switchMap";

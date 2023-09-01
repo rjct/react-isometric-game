@@ -1,6 +1,6 @@
-import { constants } from "../constants";
+import { constants } from "@src/constants";
+import { GameMap } from "@src/engine/GameMap";
 import React from "react";
-import { GameMap } from "../engine/GameMap";
 
 export type AssetsLoadingState = {
   image: {

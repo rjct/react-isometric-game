@@ -1,5 +1,5 @@
-import { GameMap } from "../../../engine/GameMap";
-import { Building } from "../../../engine/BuildingFactory";
+import { Building } from "@src/engine/BuildingFactory";
+import { GameMap } from "@src/engine/GameMap";
 
 export interface ClearSelectedBuildingReducerAction {
   type: "clearSelectedBuilding";

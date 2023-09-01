@@ -1,7 +1,7 @@
-import units from "../../../dict/units.json";
-import { useGameState } from "../../../hooks/useGameState";
-import { UnitLibraryItem } from "./UnitLibraryItem";
-import { DictUnits } from "../../../engine/UnitFactory";
+import { UnitLibraryItem } from "@src/components/editor/unit/UnitLibraryItem";
+import units from "@src/dict/units.json";
+import { DictUnits } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function UnitLibrary() {
   const { uiState } = useGameState();

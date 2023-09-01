@@ -1,8 +1,7 @@
-import { Unit } from "../../engine/UnitFactory";
-import React from "react";
-import { useHero } from "../../hooks/useHero";
-import { useDragAndDropItem } from "../../hooks/useDragAndDropItem";
-import { InventoryItemsList } from "./InventoryItemsList";
+import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
+import { Unit } from "@src/engine/UnitFactory";
+import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
+import { useHero } from "@src/hooks/useHero";
 
 export function Hand(props: {
   title: string;

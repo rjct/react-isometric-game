@@ -37,9 +37,7 @@
       },
       "sfx": {
         "use": {
-          "src": [
-
-          ],
+          "src": [],
           "timeIntervalMs": 400
         }
       }
@@ -87,10 +85,7 @@
       },
       "sfx": {
         "use": {
-          "src": [
-            "public/assets/weapons/smg/smg_burst_1.m4a",
-            "public/assets/weapons/smg/smg_burst_2.m4a"
-          ],
+          "src": ["public/assets/weapons/smg/smg_burst_1.m4a", "public/assets/weapons/smg/smg_burst_2.m4a"],
           "timeIntervalMs": 160
         }
       }

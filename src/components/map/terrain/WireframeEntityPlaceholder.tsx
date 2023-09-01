@@ -1,6 +1,6 @@
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
 
 export const WireframeEntityPlaceholder = React.memo(() => {
   const { gameState, uiState, gameDispatch } = useGameState();

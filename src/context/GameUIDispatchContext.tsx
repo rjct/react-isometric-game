@@ -1,5 +1,5 @@
+import { UIReducerAction } from "@src/reducers/ui/_reducers";
 import React, { Dispatch } from "react";
-import { UIReducerAction } from "../reducers/ui/_reducers";
 
 const initialValue: UIReducerAction = {
   type: "scrollMapOnScreenEdges",

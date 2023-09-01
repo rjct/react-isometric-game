@@ -1,11 +1,11 @@
+import { MapLayer } from "@src/components/map/MapLayer";
+import { WireframeEntityPlaceholder } from "@src/components/map/terrain/WireframeEntityPlaceholder";
+import { WireframeMarker } from "@src/components/map/terrain/WireframeMarker";
+import { constants } from "@src/constants";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
-import { useHero } from "../../../hooks/useHero";
-import { Unit } from "../../../engine/UnitFactory";
-import { constants } from "../../../constants";
-import { WireframeMarker } from "./WireframeMarker";
-import { MapLayer } from "../MapLayer";
-import { WireframeEntityPlaceholder } from "./WireframeEntityPlaceholder";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();

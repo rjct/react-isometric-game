@@ -1,10 +1,7 @@
+import { constants } from "@src/constants";
 import React from "react";
-import { constants } from "../constants";
 
-export const useAnimationFrame = (
-  callback: (num: number) => void,
-  running: boolean
-) => {
+export const useAnimationFrame = (callback: (num: number) => void, running: boolean) => {
   const savedCallback = React.useRef(callback);
   const animationFrameId = React.useRef(0);
 

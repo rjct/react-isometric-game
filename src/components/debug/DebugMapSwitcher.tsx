@@ -1,6 +1,6 @@
+import { useGameState } from "@src/hooks/useGameState";
+import { mapsList } from "@src/maps_list";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { mapsList } from "../../maps_list";
 
 export const DebugMapSwitcher = React.memo(() => {
   const { gameState, gameDispatch } = useGameState();

@@ -1,7 +1,6 @@
-import { useHero } from "../../hooks/useHero";
-import React from "react";
-import { useDragAndDropItem } from "../../hooks/useDragAndDropItem";
-import { InventoryItemsList } from "./InventoryItemsList";
+import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
+import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
+import { useHero } from "@src/hooks/useHero";
 
 export function Backpack() {
   const { hero } = useHero();

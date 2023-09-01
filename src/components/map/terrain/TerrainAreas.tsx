@@ -1,8 +1,8 @@
+import { MapLayer } from "@src/components/map/MapLayer";
+import { constants } from "@src/constants";
+import { gridToScreenSpace } from "@src/engine/helpers";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
-import { gridToScreenSpace } from "../../../engine/helpers";
-import { MapLayer } from "../MapLayer";
 
 export const TerrainAreas = React.memo(function TerrainAreas() {
   const { gameState, uiState } = useGameState();

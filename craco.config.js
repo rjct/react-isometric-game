@@ -31,6 +31,9 @@ module.exports = {
     enable: true,
   },
   webpack: {
+    alias: {
+      "@src": path.resolve(__dirname, "src"),
+    },
     plugins: {
       remove: ["WebpackAssetsManifest"],
       add: [

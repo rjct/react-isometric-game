@@ -1,4 +1,4 @@
-import { GameContext } from "../../../hooks/useGameState";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function heroTurnNoActionPoints(this: GameContext) {
   this.gameDispatch({ type: "endTurn" });

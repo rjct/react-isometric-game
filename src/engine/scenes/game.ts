@@ -1,5 +1,5 @@
-import { randomInt } from "../helpers";
-import { GameContext } from "../../hooks/useGameState";
+import { randomInt } from "@src/engine/helpers";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function gameScene(this: GameContext, deltaTime: number) {
   const { gameState, gameDispatch, uiState, uiDispatch } = this;

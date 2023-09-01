@@ -1,4 +1,4 @@
-import { GameMap } from "../../../engine/GameMap";
+import { GameMap } from "@src/engine/GameMap";
 
 export interface SetGlobalShadowsColorReducerAction {
   type: "setGlobalShadowsColor";

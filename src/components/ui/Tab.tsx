@@ -1,6 +1,6 @@
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { constants } from "../../constants";
 
 export function Tab(props: {
   children: React.ReactNode;

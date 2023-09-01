@@ -1,11 +1,11 @@
-import React from "react";
-import { useGameState } from "../../hooks/useGameState";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { EditorModes } from "../../context/GameUIContext";
-import { Building } from "../../engine/BuildingFactory";
-import { Unit } from "../../engine/UnitFactory";
-import { TerrainArea } from "../../engine/TerrainAreaFactory";
-import { Light } from "../../engine/LightFactory";
+import { EditorModes } from "@src/context/GameUIContext";
+import { Building } from "@src/engine/BuildingFactory";
+import { Light } from "@src/engine/LightFactory";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export const DebugMapInfo = React.memo(() => {
   const { gameState, uiState } = useGameState();
@@ -22,7 +22,7 @@ export const DebugMapInfo = React.memo(() => {
       const visibleCount = (entities as Array<Building | Unit | TerrainArea | Light>).filter((entity) =>
         entity instanceof Building || entity instanceof Unit
           ? gameState.isEntityVisible(entity) && gameState.isEntityInViewport(entity, uiState.viewport)
-          : true
+          : true,
       ).length;
 
       return (

@@ -1,14 +1,14 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { enemyTurnChaseHero } from "./enemyTurn.chaseHero";
-import { enemyTurnNoActionPoints } from "./enemyTurn.noActionPoints";
-import { enemyTurnBattle } from "./enemyTurn.battle";
+import { enemyTurnBattle } from "@src/engine/scenes/combat/enemyTurn.battle";
+import { enemyTurnChaseHero } from "@src/engine/scenes/combat/enemyTurn.chaseHero";
+import { enemyTurnNoActionPoints } from "@src/engine/scenes/combat/enemyTurn.noActionPoints";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurn(this: GameContext, deltaTime: number) {
   const { gameState } = this;
   const hero = gameState.getHero();
 
   const currentIndex = gameState.combatQueue.units.findIndex(
-    (enemy) => enemy.id === gameState.combatQueue.currentUnitId
+    (enemy) => enemy.id === gameState.combatQueue.currentUnitId,
   );
 
   if (currentIndex >= gameState.combatQueue.units.length) {

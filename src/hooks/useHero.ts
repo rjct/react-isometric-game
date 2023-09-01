@@ -1,11 +1,10 @@
-import { useGameState } from "./useGameState";
-import { Unit } from "../engine/UnitFactory";
-
-import { WorldMousePosition } from "./useMousePosition";
-import { constants } from "../constants";
-import { Building } from "../engine/BuildingFactory";
-import { getDistanceBetweenGridPoints } from "../engine/helpers";
-import { GameScene } from "../context/GameUIContext";
+import { constants } from "@src/constants";
+import { GameScene } from "@src/context/GameUIContext";
+import { Building } from "@src/engine/BuildingFactory";
+import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { WorldMousePosition } from "@src/hooks/useMousePosition";
 
 export function useHero() {
   const { uiState, gameState, gameDispatch } = useGameState();

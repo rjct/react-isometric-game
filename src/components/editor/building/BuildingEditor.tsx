@@ -1,9 +1,9 @@
-import { useGameState } from "../../../hooks/useGameState";
+import { BuildingComponent } from "@src/components/map/buildings/Building";
+import { MapLayer } from "@src/components/map/MapLayer";
+import { Building } from "@src/engine/BuildingFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
-import { useMousePosition } from "../../../hooks/useMousePosition";
-import { Building } from "../../../engine/BuildingFactory";
-import { BuildingComponent } from "../../map/buildings/Building";
-import { MapLayer } from "../../map/MapLayer";
 
 export const BuildingEditor = React.memo(function BuildingEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

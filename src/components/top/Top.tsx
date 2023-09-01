@@ -1,12 +1,12 @@
 import React from "react";
 
-import { useHero } from "../../hooks/useHero";
-import { useGameState } from "../../hooks/useGameState";
-import { Switch } from "../ui/Switch";
-import { DebugMapSwitcher } from "../debug/DebugMapSwitcher";
-import { DebugMapInfo } from "../debug/DebugMapInfo";
-import { DebugInfo } from "../debug/DebugInfo";
-import { HeroPoints } from "./HeroPoints";
+import { DebugInfo } from "@src/components/debug/DebugInfo";
+import { DebugMapInfo } from "@src/components/debug/DebugMapInfo";
+import { DebugMapSwitcher } from "@src/components/debug/DebugMapSwitcher";
+import { HeroPoints } from "@src/components/top/HeroPoints";
+import { Switch } from "@src/components/ui/Switch";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 
 export const Top = React.memo(function Top() {
   const { uiDispatch, gameState, uiState, gameDispatch } = useGameState();

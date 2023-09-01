@@ -1,5 +1,5 @@
-import { GameMap } from "../engine/GameMap";
-import { constants } from "../constants";
+import { constants } from "@src/constants";
+import { GameMap } from "@src/engine/GameMap";
 
 export function useFogOfWar(gameState: GameMap) {
   const renderFogOfWar = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) => {

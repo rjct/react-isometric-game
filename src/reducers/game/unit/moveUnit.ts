@@ -1,5 +1,5 @@
-import { Unit } from "../../../engine/UnitFactory";
-import { GameMap } from "../../../engine/GameMap";
+import { GameMap } from "@src/engine/GameMap";
+import { Unit } from "@src/engine/UnitFactory";
 
 export type MoveUnitReducerAction = {
   type: "moveUnit";

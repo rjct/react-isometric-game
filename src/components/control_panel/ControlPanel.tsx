@@ -1,11 +1,11 @@
-import React from "react";
-import { Unit } from "../../engine/UnitFactory";
-import { HeroActionControl } from "./HeroActionControl";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowsToDot, faPersonRunning, faPersonWalking, faSuitcaseRolling } from "@fortawesome/free-solid-svg-icons";
-import { useHero } from "../../hooks/useHero";
-import { useGameState } from "../../hooks/useGameState";
-import { Button } from "../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { HeroActionControl } from "@src/components/control_panel/HeroActionControl";
+import { Button } from "@src/components/ui/Button";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
+import React from "react";
 
 export const ControlPanel = React.memo(function ControlPanel() {
   const { hero } = useHero();

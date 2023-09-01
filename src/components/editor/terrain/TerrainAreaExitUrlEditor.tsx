@@ -1,6 +1,6 @@
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
 
 export function TerrainAreaExitUrlEditor() {
   const { gameState, gameDispatch } = useGameState();

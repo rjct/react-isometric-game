@@ -1,5 +1,5 @@
-import { GameUI } from "../../context/GameUIContext";
-import { constants } from "../../constants";
+import { constants } from "@src/constants";
+import { GameUI } from "@src/context/GameUIContext";
 
 export type ScrollMapOnScreenEdgesUIReducerAction = {
   type: "scrollMapOnScreenEdges";

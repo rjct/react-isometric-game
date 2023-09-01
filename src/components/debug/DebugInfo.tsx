@@ -1,9 +1,8 @@
+import { FPSMeter } from "@src/components/debug/FPS";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 import React from "react";
-import { useHero } from "../../hooks/useHero";
-import { useGameState } from "../../hooks/useGameState";
-
-import { FPSMeter } from "./FPS";
-import { constants } from "../../constants";
 
 export const DebugInfo = React.memo(function DebugInfo() {
   const { gameState, uiState } = useGameState();

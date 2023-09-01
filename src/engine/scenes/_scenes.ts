@@ -1,14 +1,13 @@
-import { gameScene } from "./game";
-import { GameScene, GameUI } from "../../context/GameUIContext";
-import { GameContext } from "../../hooks/useGameState";
-import { inventoryScene } from "./inventory";
-import { loadingScene } from "./loading";
-
-import { editorScene } from "./editor";
-import { combatScene } from "./combat/combat";
-import { gameOverScene } from "./gameOver";
-import { mainMenuScene } from "./mainMenu";
-import { introScene } from "./intro";
+import { GameScene, GameUI } from "@src/context/GameUIContext";
+import { combatScene } from "@src/engine/scenes/combat/combat";
+import { editorScene } from "@src/engine/scenes/editor";
+import { gameScene } from "@src/engine/scenes/game";
+import { gameOverScene } from "@src/engine/scenes/gameOver";
+import { introScene } from "@src/engine/scenes/intro";
+import { inventoryScene } from "@src/engine/scenes/inventory";
+import { loadingScene } from "@src/engine/scenes/loading";
+import { mainMenuScene } from "@src/engine/scenes/mainMenu";
+import { GameContext } from "@src/hooks/useGameState";
 
 type SceneRunnerFunc = (this: GameContext, deltaTime: number) => void;
 

@@ -1,14 +1,13 @@
-import { useGameState } from "../../../hooks/useGameState";
-import React from "react";
-import { BuildingDirectionSelector } from "./BuildingDirectionSelector";
-import { TableRow } from "../_shared/TableRow";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { NothingSelectedText } from "../_shared/NothingSelectedText";
-import { BuildingPositionEditor } from "./BuildingPositionEditor";
-import { InputRange } from "../_shared/InputRange";
-import { BuildingOccupiesCellSwitch } from "./BuildingOccupiesCellSwitch";
-import { Button } from "../../ui/Button";
+import { BuildingDirectionSelector } from "@src/components/editor/building/BuildingDirectionSelector";
+import { BuildingOccupiesCellSwitch } from "@src/components/editor/building/BuildingOccupiesCellSwitch";
+import { BuildingPositionEditor } from "@src/components/editor/building/BuildingPositionEditor";
+import { InputRange } from "@src/components/editor/_shared/InputRange";
+import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { Button } from "@src/components/ui/Button";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function BuildingPropsEditor() {
   const { gameState, uiState, gameDispatch } = useGameState();

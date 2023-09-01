@@ -1,14 +1,14 @@
+import { UnitActionPoints } from "@src/components/map/units/UnitActionPoints";
+import { UnitCooldownTimer } from "@src/components/map/units/UnitCooldownTimer";
+import { UnitDamagePoints } from "@src/components/map/units/UnitDamagePoints";
+import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
+import { UnitHealth } from "@src/components/map/units/UnitHealth";
+import { UnitShadow } from "@src/components/map/units/UnitShadow";
+import { Ammo } from "@src/components/map/weapons/Ammo";
+import { Unit } from "@src/engine/UnitFactory";
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { Unit } from "../../../engine/UnitFactory";
-import { Ammo } from "../weapons/Ammo";
-import { useGameState } from "../../../hooks/useGameState";
-import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
-import { UnitCooldownTimer } from "./UnitCooldownTimer";
-import { UnitHealth } from "./UnitHealth";
-import { UnitDamagePoints } from "./UnitDamagePoints";
-import { UnitShadow } from "./UnitShadow";
-import { UnitEnemyInViewMark } from "./UnitEnemyInViewMark";
-import { UnitActionPoints } from "./UnitActionPoints";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;

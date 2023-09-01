@@ -1,7 +1,7 @@
-import weapons from "../../../dict/weapons.json";
-import { Ammo, AmmoType } from "../AmmoFactory";
-import { Weapon } from "../WeaponFactory";
-import { GameMap } from "../../GameMap";
+import weapons from "@src/dict/weapons.json";
+import { GameMap } from "@src/engine/GameMap";
+import { Ammo, AmmoType } from "@src/engine/weapon/AmmoFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type FirearmType = keyof typeof weapons.Firearm;
 export type FirearmRef = (typeof weapons.Firearm)[FirearmType];

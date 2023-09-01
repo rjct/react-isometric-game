@@ -1,6 +1,6 @@
-import { GameMap } from "../../../engine/GameMap";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
-import { StaticMapTerrainArea } from "../../../context/GameStateContext";
+import { StaticMapTerrainArea } from "@src/context/GameStateContext";
+import { GameMap } from "@src/engine/GameMap";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
 
 export interface AddTerrainAreaReducerAction {
   type: "addTerrainArea";

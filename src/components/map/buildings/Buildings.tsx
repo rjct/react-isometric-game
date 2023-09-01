@@ -1,8 +1,8 @@
+import { BuildingComponent } from "@src/components/map/buildings/Building";
+import { BuildingBox } from "@src/components/map/buildings/BuildingBox";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
-import { useHero } from "../../../hooks/useHero";
-import { BuildingBox } from "./BuildingBox";
-import { BuildingComponent } from "./Building";
 
 export const Buildings = React.memo(function Buildings() {
   const { gameState, uiState } = useGameState();

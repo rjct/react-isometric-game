@@ -1,5 +1,4 @@
-import React from "react";
-import { useHero } from "../../hooks/useHero";
+import { useHero } from "@src/hooks/useHero";
 
 export function HeroOverview() {
   const { hero } = useHero();

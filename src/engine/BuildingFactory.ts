@@ -1,7 +1,7 @@
-import buildings from "../dict/buildings.json";
-import { GameObjectFactory } from "./GameObjectFactory";
-import { StaticMapBuilding } from "../context/GameStateContext";
-import { GameMap } from "./GameMap";
+import { StaticMapBuilding } from "@src/context/GameStateContext";
+import buildings from "@src/dict/buildings.json";
+import { GameMap } from "@src/engine/GameMap";
+import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 
 type BuildingSize = {
   grid: Size3D;

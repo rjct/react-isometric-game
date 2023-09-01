@@ -1,6 +1,5 @@
-import { Switch } from "../../ui/Switch";
-import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
+import { Switch } from "@src/components/ui/Switch";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function BuildingOccupiesCellSwitch() {
   const { gameState, gameDispatch } = useGameState();

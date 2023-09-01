@@ -1,5 +1,5 @@
-import { GameMap } from "../../../engine/GameMap";
-import { GameDebugFeature } from "../../../constants";
+import { GameDebugFeature } from "@src/constants";
+import { GameMap } from "@src/engine/GameMap";
 
 export type ToggleDebugFeatureReducerAction = {
   type: "toggleDebugFeature";

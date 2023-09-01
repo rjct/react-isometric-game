@@ -1,10 +1,10 @@
+import { Switch } from "@src/components/ui/Switch";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../hooks/useGameState";
-import { Switch } from "../ui/Switch";
 
-import { GameSettingsFeature } from "../../constants";
-import { GameMap } from "../../engine/GameMap";
-import { Button } from "../ui/Button";
+import { Button } from "@src/components/ui/Button";
+import { GameSettingsFeature } from "@src/constants";
+import { GameMap } from "@src/engine/GameMap";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();

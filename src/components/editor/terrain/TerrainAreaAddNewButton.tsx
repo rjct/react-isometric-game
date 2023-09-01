@@ -1,10 +1,10 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import React from "react";
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons/faSquarePlus";
-import { useGameState } from "../../../hooks/useGameState";
-import { StaticMapTerrainArea } from "../../../context/GameStateContext";
-import { constants } from "../../../constants";
-import { Button } from "../../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@src/components/ui/Button";
+import { constants } from "@src/constants";
+import { StaticMapTerrainArea } from "@src/context/GameStateContext";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButton() {
   const { gameState, gameDispatch, uiState } = useGameState();

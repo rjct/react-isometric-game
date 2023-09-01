@@ -1,6 +1,6 @@
-import { GameMap } from "../../../engine/GameMap";
-import { StaticMapLight } from "../../../context/GameStateContext";
-import { Light } from "../../../engine/LightFactory";
+import { StaticMapLight } from "@src/context/GameStateContext";
+import { GameMap } from "@src/engine/GameMap";
+import { Light } from "@src/engine/LightFactory";
 
 export interface AddLightReducerAction {
   type: "addLight";

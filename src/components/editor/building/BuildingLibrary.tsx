@@ -1,9 +1,9 @@
-import buildingTypes from "../../../dict/buildings.json";
-import { BuildingLibraryItem } from "./BuildingLibraryItem";
-import { DictBuilding } from "../../../engine/BuildingFactory";
-import { useGameState } from "../../../hooks/useGameState";
+import { BuildingLibraryItem } from "@src/components/editor/building/BuildingLibraryItem";
+import { Tab } from "@src/components/ui/Tab";
+import buildingTypes from "@src/dict/buildings.json";
+import { DictBuilding } from "@src/engine/BuildingFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { Tab } from "../../ui/Tab";
 
 export const BuildingLibrary = React.memo(() => {
   const { uiState } = useGameState();

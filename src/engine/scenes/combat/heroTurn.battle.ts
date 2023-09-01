@@ -1,5 +1,5 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { Unit } from "../../UnitFactory";
+import { Unit } from "@src/engine/UnitFactory";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit) {
   const { gameState, gameDispatch } = this;
@@ -19,7 +19,7 @@ export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit)
       !!heroWeapon &&
         heroWeapon.isReadyToUse() &&
         heroWeapon.getAimCoordinates()?.x === enemy.getRoundedPosition().x &&
-        heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y
+        heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y,
     );
 
     gameDispatch({ type: "recalculateUnitFieldOfView", unit: enemy });

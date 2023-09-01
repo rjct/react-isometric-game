@@ -1,9 +1,9 @@
-import { useGameState } from "../../../hooks/useGameState";
+import { MapLayer } from "@src/components/map/MapLayer";
+import { UnitComponent } from "@src/components/map/units/Unit";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
-import { useMousePosition } from "../../../hooks/useMousePosition";
-import { Unit } from "../../../engine/UnitFactory";
-import { UnitComponent } from "../../map/units/Unit";
-import { MapLayer } from "../../map/MapLayer";
 
 export const UnitEditor = React.memo(function UnitEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

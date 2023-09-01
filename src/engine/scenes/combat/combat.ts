@@ -1,6 +1,6 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { heroTurn } from "./heroTurn";
-import { enemyTurn } from "./enemyTurn";
+import { enemyTurn } from "@src/engine/scenes/combat/enemyTurn";
+import { heroTurn } from "@src/engine/scenes/combat/heroTurn";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function combatScene(this: GameContext, deltaTime: number) {
   const { gameState } = this;

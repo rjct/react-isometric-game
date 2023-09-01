@@ -1,9 +1,9 @@
-import React from "react";
-import { useGameState } from "../hooks/useGameState";
-import { FullscreenPanel } from "./ui/FullscreenPanel";
-import { AssetsLoadingState } from "../hooks/usePreloadAssets";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
+import { ProgressBar } from "@src/components/ui/ProgressBar";
+import { useGameState } from "@src/hooks/useGameState";
+import { AssetsLoadingState } from "@src/hooks/usePreloadAssets";
 import { filesize } from "filesize";
-import { ProgressBar } from "./ui/ProgressBar";
+import React from "react";
 
 export const Loading = React.memo(
   (props: { assets: { loading: boolean; loaded: AssetsLoadingState; total: AssetsLoadingState } }) => {

@@ -1,5 +1,5 @@
+import { constants } from "@src/constants";
 import React from "react";
-import { constants } from "../../../constants";
 
 export const WireframeMarker = React.memo(
   (props: { coordinates: GridCoordinates; className: string[]; value?: string; onAnimationComplete: () => void }) => {
@@ -19,5 +19,5 @@ export const WireframeMarker = React.memo(
         {props.value ? <span>{props.value}</span> : null}
       </div>
     );
-  }
+  },
 );

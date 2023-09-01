@@ -1,8 +1,8 @@
-import { useGameState } from "../../../hooks/useGameState";
-import { composeSpriteUrl } from "../../../engine/helpers";
-import { constants } from "../../../constants";
+import { constants } from "@src/constants";
+import { composeSpriteUrl } from "@src/engine/helpers";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
 
 interface ClipMask {
   position: AreaCoordinates;

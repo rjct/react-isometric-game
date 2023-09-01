@@ -1,8 +1,8 @@
-import React from "react";
-import { Unit } from "../../../engine/UnitFactory";
-import { useGameState } from "../../../hooks/useGameState";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye } from "@fortawesome/free-regular-svg-icons/faEye";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export const UnitEnemyInViewMark = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();

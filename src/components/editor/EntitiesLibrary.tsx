@@ -1,7 +1,7 @@
-import { useGameState } from "../../hooks/useGameState";
-import { BuildingLibrary } from "./building/BuildingLibrary";
-import { UnitLibrary } from "./unit/UnitLibrary";
-import { constants } from "../../constants";
+import { BuildingLibrary } from "@src/components/editor/building/BuildingLibrary";
+import { UnitLibrary } from "@src/components/editor/unit/UnitLibrary";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function EntitiesLibrary() {
   const { gameState, uiState } = useGameState();

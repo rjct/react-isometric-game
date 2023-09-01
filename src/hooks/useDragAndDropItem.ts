@@ -1,7 +1,7 @@
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useHero } from "@src/hooks/useHero";
 import React from "react";
-import { Unit } from "../engine/UnitFactory";
-import { useHero } from "./useHero";
-import { useGameState } from "./useGameState";
 
 export function useDragAndDropItem() {
   const { hero } = useHero();

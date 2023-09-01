@@ -1,14 +1,13 @@
-import { useGameState } from "../../../hooks/useGameState";
-import { TerrainAreaTypeSelector } from "./TerrainAreaTypeSelector";
-import { TableRow } from "../_shared/TableRow";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import React from "react";
-import { TerrainAreaSourcePositionEditor } from "./TerrainAreaSourcePositionEditor";
-import { TerrainAreaPositionEditor } from "./TerrainAreaPositionEditor";
-import { TerrainAreaExitUrlEditor } from "./TerrainAreaExitUrlEditor";
-import { NothingSelectedText } from "../_shared/NothingSelectedText";
-import { Button } from "../../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { TerrainAreaExitUrlEditor } from "@src/components/editor/terrain/TerrainAreaExitUrlEditor";
+import { TerrainAreaPositionEditor } from "@src/components/editor/terrain/TerrainAreaPositionEditor";
+import { TerrainAreaSourcePositionEditor } from "@src/components/editor/terrain/TerrainAreaSourcePositionEditor";
+import { TerrainAreaTypeSelector } from "@src/components/editor/terrain/TerrainAreaTypeSelector";
+import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { Button } from "@src/components/ui/Button";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function TerrainAreaPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

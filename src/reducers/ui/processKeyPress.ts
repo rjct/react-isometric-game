@@ -1,5 +1,5 @@
-import { GameUI } from "../../context/GameUIContext";
-import { GameMap } from "../../engine/GameMap";
+import { GameUI } from "@src/context/GameUIContext";
+import { GameMap } from "@src/engine/GameMap";
 
 export interface ProcessKeyPressUIReducerAction {
   type: "processKeyPress";

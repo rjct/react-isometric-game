@@ -1,20 +1,20 @@
-import { Building } from "./BuildingFactory";
-import { Unit, UnitTypes } from "./UnitFactory";
-import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "../constants";
-import { GameUI } from "../context/GameUIContext";
-import { TerrainArea } from "./TerrainAreaFactory";
-import { Weapon, WeaponClass, WeaponType, WeaponTypes } from "./weapon/WeaponFactory";
-import { pathFinderAStar } from "./pathFinder";
-import { Light } from "./LightFactory";
-import { MeleeWeapon } from "./weapon/melee/MeleeWeaponFactory";
-import { Firearm } from "./weapon/firearm/FirearmFactory";
-import { AmmoClass, AmmoType } from "./weapon/AmmoFactory";
-import { FirearmAmmo } from "./weapon/firearm/FirearmAmmoFactory";
-import { MeleePunch } from "./weapon/melee/meleePunchFactory";
-import { getUrlParamValue } from "../hooks/useUrl";
-import { floor, gridToScreenSpace, randomInt } from "./helpers";
-import { mapsList } from "../maps_list";
-import { GameObjectFactory } from "./GameObjectFactory";
+import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/constants";
+import { GameUI } from "@src/context/GameUIContext";
+import { Building } from "@src/engine/BuildingFactory";
+import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { floor, gridToScreenSpace, randomInt } from "@src/engine/helpers";
+import { Light } from "@src/engine/LightFactory";
+import { pathFinderAStar } from "@src/engine/pathFinder";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { Unit, UnitTypes } from "@src/engine/UnitFactory";
+import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
+import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
+import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
+import { Weapon, WeaponClass, WeaponType, WeaponTypes } from "@src/engine/weapon/WeaponFactory";
+import { getUrlParamValue } from "@src/hooks/useUrl";
+import { mapsList } from "@src/maps_list";
 
 interface GameMapProps {
   mapSize: Size2D;

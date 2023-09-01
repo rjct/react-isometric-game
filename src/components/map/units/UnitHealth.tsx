@@ -1,6 +1,6 @@
-import { Unit } from "../../../engine/UnitFactory";
+import { Unit } from "@src/engine/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
 
 export const UnitHealth = React.memo((props: { unit: Unit }) => {
   const { gameState } = useGameState();

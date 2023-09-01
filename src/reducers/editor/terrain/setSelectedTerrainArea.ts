@@ -1,5 +1,5 @@
-import { GameMap } from "../../../engine/GameMap";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
+import { GameMap } from "@src/engine/GameMap";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
 
 export interface SetSelectedTerrainAreaReducerAction {
   type: "setSelectedTerrainArea";

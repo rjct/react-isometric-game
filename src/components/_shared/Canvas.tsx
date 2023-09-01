@@ -1,6 +1,6 @@
+import { MapLayer } from "@src/components/map/MapLayer";
+import { constants } from "@src/constants";
 import React from "react";
-import { constants } from "../../constants";
-import { MapLayer } from "../map/MapLayer";
 
 export const Canvas = React.forwardRef(
   (

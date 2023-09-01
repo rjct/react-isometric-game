@@ -1,7 +1,6 @@
-import { InventoryItem } from "./InventoryItem";
-import { InventoryEmptyText } from "./inventoryEmptyText";
-import React from "react";
-import { Unit } from "../../engine/UnitFactory";
+import { InventoryEmptyText } from "@src/components/inventory/inventoryEmptyText";
+import { InventoryItem } from "@src/components/inventory/InventoryItem";
+import { Unit } from "@src/engine/UnitFactory";
 
 export function InventoryItemsList(props: {
   unit: Unit;

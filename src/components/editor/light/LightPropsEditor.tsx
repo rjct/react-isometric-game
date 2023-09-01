@@ -1,13 +1,12 @@
-import { useGameState } from "../../../hooks/useGameState";
-import { TableRow } from "../_shared/TableRow";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import React from "react";
-import { NothingSelectedText } from "../_shared/NothingSelectedText";
-import { InputColor } from "../_shared/InputColor";
-import { InputRange } from "../_shared/InputRange";
-import { LightPositionEditor } from "./LightPositionEditor";
-import { Button } from "../../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { LightPositionEditor } from "@src/components/editor/light/LightPositionEditor";
+import { InputColor } from "@src/components/editor/_shared/InputColor";
+import { InputRange } from "@src/components/editor/_shared/InputRange";
+import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
+import { TableRow } from "@src/components/editor/_shared/TableRow";
+import { Button } from "@src/components/ui/Button";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function LightPropsEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

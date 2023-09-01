@@ -1,9 +1,9 @@
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
+import { TerrainAreaEditor } from "@src/components/editor/terrain/TerrainAreaEditor";
+import { constants } from "@src/constants";
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
-import { TerrainAreaEditor } from "./TerrainAreaEditor";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
-import { useMousePosition } from "../../../hooks/useMousePosition";
 
 export const TerrainEditor = React.memo(function TerrainEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();
@@ -43,11 +43,11 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
           coordinates: {
             x: Math.min(
               gameState.mapSize.width - (workingArea.area.target.x2 - workingArea.area.target.x1),
-              Math.max(0, workingArea.initialAreaPosition.x1 - diffX)
+              Math.max(0, workingArea.initialAreaPosition.x1 - diffX),
             ),
             y: Math.min(
               gameState.mapSize.height - (workingArea.area.target.y2 - workingArea.area.target.y1),
-              Math.max(0, workingArea.initialAreaPosition.y1 - diffY)
+              Math.max(0, workingArea.initialAreaPosition.y1 - diffY),
             ),
           },
         });

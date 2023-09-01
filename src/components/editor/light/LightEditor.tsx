@@ -1,9 +1,9 @@
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
+import { MapLayer } from "@src/components/map/MapLayer";
+import { constants } from "@src/constants";
+import { Light } from "@src/engine/LightFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
-import { useMousePosition } from "../../../hooks/useMousePosition";
-import { Light } from "../../../engine/LightFactory";
-import { MapLayer } from "../../map/MapLayer";
 
 export const LightEditor = React.memo(function LightEditor() {
   const { gameState, gameDispatch, uiState } = useGameState();

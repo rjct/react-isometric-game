@@ -1,84 +1,122 @@
-import { moveUnit, MoveUnitReducerAction } from "./game/unit/moveUnit";
-import { animateUnitMove, AnimateUnitMoveReducerAction } from "./game/unit/animateUnitMove";
-import { switchMap, SwitchMapReducerAction } from "./switchMap";
-import { animateFiredAmmo, AnimateFiredAmmoAction } from "./animateFiredAmmo";
-import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "./cleanupFiredAmmo";
-import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "./game/unit/setCurrentUnitAction";
-
-import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "./detectFiredAmmoHitsTarget";
-import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "./detectHeroOnExitPoints";
-import { toggleDebug, ToggleDebugReducerAction } from "./game/debug/toggleDebug";
-import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "./transferInventoryEntity";
-import { GameMap } from "../engine/GameMap";
-import { setSelectedBuilding, SetSelectedBuildingReducerAction } from "./editor/building/setSelectedBuilding";
-import { clearSelectedBuilding, ClearSelectedBuildingReducerAction } from "./editor/building/clearSelectedBuilding";
-import { setBuildingDirection, SetBuildingDirectionReducerAction } from "./editor/building/setBuildingDirection";
-import { setBuildingVariant, SetBuildingVariantReducerAction } from "./editor/building/setBuildingVariant";
-import { deleteSelectedBuilding, DeleteSelectedBuildingReducerAction } from "./editor/building/deleteSelectedBuilding";
-import { addBuilding, AddBuildingReducerAction } from "./editor/building/addBuilding";
-import { setSelectedTerrainArea, SetSelectedTerrainAreaReducerAction } from "./editor/terrain/setSelectedTerrainArea";
+import { GameMap } from "@src/engine/GameMap";
+import { animateFiredAmmo, AnimateFiredAmmoAction } from "@src/reducers/animateFiredAmmo";
+import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "@src/reducers/cleanupFiredAmmo";
+import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "@src/reducers/deleteInventoryEntity";
+import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "@src/reducers/detectFiredAmmoHitsTarget";
+import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "@src/reducers/detectHeroOnExitPoints";
+import { addBuilding, AddBuildingReducerAction } from "@src/reducers/editor/building/addBuilding";
 import {
-  clearSelectedTerrainArea,
-  ClearSelectedTerrainAreaReducerAction,
-} from "./editor/terrain/clearSelectedTerrainArea";
-import { setTerrainAreaType, SetTerrainAreaTypeReducerAction } from "./editor/terrain/setTerrainAreaType";
-import { setTerrainAreaPosition, SetTerrainAreaPositionReducerAction } from "./editor/terrain/SetTerrainAreaPosition";
-import { setTerrainAreaSize, SetTerrainAreaSizeReducerAction } from "./editor/terrain/SetTerrainAreaSize";
+  clearSelectedBuilding,
+  ClearSelectedBuildingReducerAction,
+} from "@src/reducers/editor/building/clearSelectedBuilding";
 import {
-  setTerrainAreaSourcePosition,
-  SetTerrainAreaSourcePositionReducerAction,
-} from "./editor/terrain/setTerrainAreaSourcePosition";
+  deleteSelectedBuilding,
+  DeleteSelectedBuildingReducerAction,
+} from "@src/reducers/editor/building/deleteSelectedBuilding";
 import {
-  deleteSelectedTerrainArea,
-  DeleteSelectedTerrainAreaReducerAction,
-} from "./editor/terrain/deleteSelectedTerrainArea";
-import { setTerrainAreaExitUrl, SetTerrainAreaExitUrlReducerAction } from "./editor/terrain/setTerrainAreaExitUrl";
-import { addTerrainArea, AddTerrainAreaReducerAction } from "./editor/terrain/addTerrainArea";
-import { setBuildingPosition, SetBuildingPositionReducerAction } from "./editor/building/setBuildingPosition";
-import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "./game/debug/toggleDebugFeature";
-import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "./game/unit/useEntityInUnitHand";
-import { addLight, AddLightReducerAction } from "./editor/light/addLight";
-import { setSelectedLight, SetSelectedLightReducerAction } from "./editor/light/setSelectedLight";
-import { clearSelectedLight, ClearSelectedLightReducerAction } from "./editor/light/clearSelectedLight";
-import { setLightPosition, SetLightPositionReducerAction } from "./editor/light/setLightPosition";
-import { deleteSelectedLight, DeleteSelectedLightReducerAction } from "./editor/light/deleteSelectedLight";
-import { setLightRadius, SetLightRadiusReducerAction } from "./editor/light/setLightRadius";
-import { setLightColor, SetLightColorReducerAction } from "./editor/light/setLightColor";
-import { setGlobalShadowsOpacity, SetGlobalShadowsOpacityReducerAction } from "./editor/light/setGlobalShadowsOpacity";
-import { setGlobalShadowsColor, SetGlobalShadowsColorReducerAction } from "./editor/light/setGlobalShadowsColor";
-import { loadMap, LoadMapReducerAction } from "./loadMap";
-import { toggleFeature, ToggleFeatureReducerAction } from "./game/debug/toggleFeature";
-import { addUnit, AddUnitReducerAction } from "./editor/unit/addUnit";
-import { setSelectedUnit, SetSelectedUnitReducerAction } from "./editor/unit/setSelectedUnit";
-import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "./editor/unit/clearSelectedUnit";
-import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "./editor/unit/deleteSelectedUnit";
-import { setUnitPosition, SetUnitPositionReducerAction } from "./editor/unit/setUnitPosition";
-import { recalculateUnitFieldOfView, RecalculateUnitFieldOfViewReducerAction } from "./game/unit/recalcUnitFieldOfView";
-import { setUnitDead, SetUnitDeadReducerAction } from "./editor/unit/setUnitDead";
-import { setUnitDirection, SetUnitDirectionReducerAction } from "./editor/unit/setUnitDirection";
+  setBuildingDirection,
+  SetBuildingDirectionReducerAction,
+} from "@src/reducers/editor/building/setBuildingDirection";
 import {
   setBuildingOccupiesCell,
   SetBuildingOccupiesCellReducerAction,
-} from "./editor/building/setBuildingOccupiesCell";
-import { stopUnits, StopUnitsActionReducerAction } from "./game/unit/stopUnits";
-import { startCombat, StartCombatReducerAction } from "./game/startCombat";
-import { endTurn, EndTurnReducerAction } from "./game/endTurn";
-import { endCombat, EndCombatReducerAction } from "./game/endCombat";
+} from "@src/reducers/editor/building/setBuildingOccupiesCell";
 import {
-  recalculateLightsAndShadows,
-  RecalculateLightsAndShadowsReducerAction,
-} from "./light/recalculateLightsAndShadows";
-import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "./deleteInventoryEntity";
-import { setGlobalLightsOpacity, SetGlobalLightsOpacityReducerAction } from "./editor/light/setGlobalLightsOpacity";
+  setBuildingPosition,
+  SetBuildingPositionReducerAction,
+} from "@src/reducers/editor/building/setBuildingPosition";
+import { setBuildingVariant, SetBuildingVariantReducerAction } from "@src/reducers/editor/building/setBuildingVariant";
+import {
+  setSelectedBuilding,
+  SetSelectedBuildingReducerAction,
+} from "@src/reducers/editor/building/setSelectedBuilding";
+import {
+  clearEntityPlaceholder,
+  ClearEntityPlaceholderReducerAction,
+} from "@src/reducers/editor/clearEntityPlaceholder";
 import {
   highlightEntityPlaceholder,
   HighlightEntityPlaceholderReducerAction,
-} from "./editor/highlightEntityPlaceholder";
-import { clearEntityPlaceholder, ClearEntityPlaceholderReducerAction } from "./editor/clearEntityPlaceholder";
+} from "@src/reducers/editor/highlightEntityPlaceholder";
+import { addLight, AddLightReducerAction } from "@src/reducers/editor/light/addLight";
+import { clearSelectedLight, ClearSelectedLightReducerAction } from "@src/reducers/editor/light/clearSelectedLight";
+import { deleteSelectedLight, DeleteSelectedLightReducerAction } from "@src/reducers/editor/light/deleteSelectedLight";
+import {
+  setGlobalLightsOpacity,
+  SetGlobalLightsOpacityReducerAction,
+} from "@src/reducers/editor/light/setGlobalLightsOpacity";
+import {
+  setGlobalShadowsColor,
+  SetGlobalShadowsColorReducerAction,
+} from "@src/reducers/editor/light/setGlobalShadowsColor";
+import {
+  setGlobalShadowsOpacity,
+  SetGlobalShadowsOpacityReducerAction,
+} from "@src/reducers/editor/light/setGlobalShadowsOpacity";
+import { setLightColor, SetLightColorReducerAction } from "@src/reducers/editor/light/setLightColor";
+import { setLightPosition, SetLightPositionReducerAction } from "@src/reducers/editor/light/setLightPosition";
+import { setLightRadius, SetLightRadiusReducerAction } from "@src/reducers/editor/light/setLightRadius";
+import { setSelectedLight, SetSelectedLightReducerAction } from "@src/reducers/editor/light/setSelectedLight";
+import { addTerrainArea, AddTerrainAreaReducerAction } from "@src/reducers/editor/terrain/addTerrainArea";
+import {
+  clearSelectedTerrainArea,
+  ClearSelectedTerrainAreaReducerAction,
+} from "@src/reducers/editor/terrain/clearSelectedTerrainArea";
+import {
+  deleteSelectedTerrainArea,
+  DeleteSelectedTerrainAreaReducerAction,
+} from "@src/reducers/editor/terrain/deleteSelectedTerrainArea";
+import {
+  setSelectedTerrainArea,
+  SetSelectedTerrainAreaReducerAction,
+} from "@src/reducers/editor/terrain/setSelectedTerrainArea";
+import {
+  setTerrainAreaExitUrl,
+  SetTerrainAreaExitUrlReducerAction,
+} from "@src/reducers/editor/terrain/setTerrainAreaExitUrl";
+import {
+  setTerrainAreaPosition,
+  SetTerrainAreaPositionReducerAction,
+} from "@src/reducers/editor/terrain/SetTerrainAreaPosition";
+import { setTerrainAreaSize, SetTerrainAreaSizeReducerAction } from "@src/reducers/editor/terrain/SetTerrainAreaSize";
+import {
+  setTerrainAreaSourcePosition,
+  SetTerrainAreaSourcePositionReducerAction,
+} from "@src/reducers/editor/terrain/setTerrainAreaSourcePosition";
+import { setTerrainAreaType, SetTerrainAreaTypeReducerAction } from "@src/reducers/editor/terrain/setTerrainAreaType";
+import { addUnit, AddUnitReducerAction } from "@src/reducers/editor/unit/addUnit";
+import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "@src/reducers/editor/unit/clearSelectedUnit";
+import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "@src/reducers/editor/unit/deleteSelectedUnit";
+import { setSelectedUnit, SetSelectedUnitReducerAction } from "@src/reducers/editor/unit/setSelectedUnit";
+import { setUnitDead, SetUnitDeadReducerAction } from "@src/reducers/editor/unit/setUnitDead";
+import { setUnitDirection, SetUnitDirectionReducerAction } from "@src/reducers/editor/unit/setUnitDirection";
+import { setUnitPosition, SetUnitPositionReducerAction } from "@src/reducers/editor/unit/setUnitPosition";
+import { toggleDebug, ToggleDebugReducerAction } from "@src/reducers/game/debug/toggleDebug";
+import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "@src/reducers/game/debug/toggleDebugFeature";
+import { toggleFeature, ToggleFeatureReducerAction } from "@src/reducers/game/debug/toggleFeature";
+import { endCombat, EndCombatReducerAction } from "@src/reducers/game/endCombat";
+import { endTurn, EndTurnReducerAction } from "@src/reducers/game/endTurn";
+import { startCombat, StartCombatReducerAction } from "@src/reducers/game/startCombat";
+import { animateUnitMove, AnimateUnitMoveReducerAction } from "@src/reducers/game/unit/animateUnitMove";
+import { moveUnit, MoveUnitReducerAction } from "@src/reducers/game/unit/moveUnit";
 import {
   recalculateUnitDistanceToScreenCenter,
   RecalculateUnitDistanceToScreenCenterReducerAction,
-} from "./game/unit/recalcUnitDistanceToScreenCenter";
+} from "@src/reducers/game/unit/recalcUnitDistanceToScreenCenter";
+import {
+  recalculateUnitFieldOfView,
+  RecalculateUnitFieldOfViewReducerAction,
+} from "@src/reducers/game/unit/recalcUnitFieldOfView";
+import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "@src/reducers/game/unit/setCurrentUnitAction";
+import { stopUnits, StopUnitsActionReducerAction } from "@src/reducers/game/unit/stopUnits";
+import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "@src/reducers/game/unit/useEntityInUnitHand";
+import {
+  recalculateLightsAndShadows,
+  RecalculateLightsAndShadowsReducerAction,
+} from "@src/reducers/light/recalculateLightsAndShadows";
+import { loadMap, LoadMapReducerAction } from "@src/reducers/loadMap";
+import { switchMap, SwitchMapReducerAction } from "@src/reducers/switchMap";
+import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "@src/reducers/transferInventoryEntity";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction

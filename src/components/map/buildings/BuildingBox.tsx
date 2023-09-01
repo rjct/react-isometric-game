@@ -1,8 +1,8 @@
-import { Building } from "../../../engine/BuildingFactory";
+import { constants } from "@src/constants";
+import { Building } from "@src/engine/BuildingFactory";
+import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
+import { useGameState } from "@src/hooks/useGameState";
 import React, { CSSProperties } from "react";
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
-import { getDistanceBetweenGridPoints } from "../../../engine/helpers";
 
 export const BuildingBox = React.memo(function Building(props: {
   building: Building;

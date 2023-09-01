@@ -1,5 +1,5 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { Unit } from "../../UnitFactory";
+import { Unit } from "@src/engine/UnitFactory";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnNoActionPoints(this: GameContext, deltaTime: number, enemy: Unit) {
   const { gameState } = this;

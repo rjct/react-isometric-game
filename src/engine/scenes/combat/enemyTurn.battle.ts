@@ -1,7 +1,7 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { Unit } from "../../UnitFactory";
-import { Weapon } from "../../weapon/WeaponFactory";
-import { enemyTurnNoActionPoints } from "./enemyTurn.noActionPoints";
+import { enemyTurnNoActionPoints } from "@src/engine/scenes/combat/enemyTurn.noActionPoints";
+import { Unit } from "@src/engine/UnitFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnBattle(
   this: GameContext,
@@ -10,7 +10,7 @@ export function enemyTurnBattle(
   weapon: {
     hand: Exclude<keyof Unit["inventory"], "backpack">;
     weapon: Weapon;
-  }
+  },
 ) {
   const { gameState, gameDispatch } = this;
   const hero = gameState.getHero();

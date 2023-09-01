@@ -1,5 +1,5 @@
+import { TerrainArea } from "@src/engine/TerrainAreaFactory";
 import React from "react";
-import { TerrainArea } from "../../../engine/TerrainAreaFactory";
 
 export const TerrainAreaEditor = (props: {
   area: TerrainArea;

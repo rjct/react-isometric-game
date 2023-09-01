@@ -1,8 +1,7 @@
 import ReactDOM from "react-dom/client";
 
-import "./index.css";
-import React from "react";
-import { MainGameComponent } from "./components/MainGameComponent";
+import { MainGameComponent } from "@src/components/MainGameComponent";
+import "@src/index.css";
 
 const root = ReactDOM.createRoot(document.getElementById("root") as HTMLElement);
 

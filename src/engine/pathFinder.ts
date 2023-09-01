@@ -1,5 +1,5 @@
+import { GameMap } from "@src/engine/GameMap";
 import pathfinding from "pathfinding";
-import { GameMap } from "./GameMap";
 
 export function pathFinderAStar(matrix: GameMap["matrix"], fromPos: GridCoordinates, toPos: GridCoordinates) {
   const grid = new pathfinding.Grid(matrix);

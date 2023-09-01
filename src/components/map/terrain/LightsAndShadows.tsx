@@ -1,9 +1,9 @@
+import { MapLayer } from "@src/components/map/MapLayer";
+import { constants } from "@src/constants";
+import { GameScene } from "@src/context/GameUIContext";
+import { useGameState } from "@src/hooks/useGameState";
+import { useLightsAndShadows } from "@src/hooks/useLightsAndShadows";
 import React from "react";
-import { useGameState } from "../../../hooks/useGameState";
-import { useLightsAndShadows } from "../../../hooks/useLightsAndShadows";
-import { constants } from "../../../constants";
-import { MapLayer } from "../MapLayer";
-import { GameScene } from "../../../context/GameUIContext";
 
 export const LightsAndShadows = React.memo(() => {
   const { gameState, uiState } = useGameState();

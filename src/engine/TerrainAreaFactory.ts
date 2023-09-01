@@ -1,6 +1,6 @@
-import { StaticMapTerrainArea } from "../context/GameStateContext";
-import { composeSpriteUrl, randomInt, randomUUID } from "./helpers";
-import { constants } from "../constants";
+import { constants } from "@src/constants";
+import { StaticMapTerrainArea } from "@src/context/GameStateContext";
+import { composeSpriteUrl, randomInt, randomUUID } from "@src/engine/helpers";
 
 export interface TerrainTile {
   type: string;

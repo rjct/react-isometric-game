@@ -1,11 +1,11 @@
-import { Unit } from "../UnitFactory";
-import { FirearmRef, FirearmType, FirearmUnitAction } from "./firearm/FirearmFactory";
-import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "./melee/MeleeWeaponFactory";
-import { MeleePunch } from "./melee/meleePunchFactory";
-import { floor, getDistanceBetweenGridPoints, randomUUID } from "../helpers";
-import { GameMap } from "../GameMap";
-import { ObstacleRay } from "../ObstacleRayFactory";
-import weapons from "../../dict/weapons.json";
+import weapons from "@src/dict/weapons.json";
+import { GameMap } from "@src/engine/GameMap";
+import { floor, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
+import { ObstacleRay } from "@src/engine/ObstacleRayFactory";
+import { Unit } from "@src/engine/UnitFactory";
+import { FirearmRef, FirearmType, FirearmUnitAction } from "@src/engine/weapon/firearm/FirearmFactory";
+import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
+import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "@src/engine/weapon/melee/MeleeWeaponFactory";
 
 export type WeaponClass = keyof typeof weapons;
 export type WeaponType = FirearmType | MeleeWeaponType;

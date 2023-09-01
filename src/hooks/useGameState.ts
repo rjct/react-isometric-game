@@ -1,11 +1,11 @@
+import { GameDispatchContext } from "@src/context/GameDispachContext";
+import { GameStateContext } from "@src/context/GameStateContext";
+import { GameUI, GameUIContext } from "@src/context/GameUIContext";
+import { GameUiDispatchContext } from "@src/context/GameUIDispatchContext";
+import { GameMap } from "@src/engine/GameMap";
+import { UIReducerAction } from "@src/reducers/ui/_reducers";
+import { GameReducerAction } from "@src/reducers/_reducers";
 import React from "react";
-import { GameUI, GameUIContext } from "../context/GameUIContext";
-import { GameUiDispatchContext } from "../context/GameUIDispatchContext";
-import { GameStateContext } from "../context/GameStateContext";
-import { GameDispatchContext } from "../context/GameDispachContext";
-import { GameMap } from "../engine/GameMap";
-import { GameReducerAction } from "../reducers/_reducers";
-import { UIReducerAction } from "../reducers/ui/_reducers";
 
 export type GameContext = {
   gameState: GameMap;

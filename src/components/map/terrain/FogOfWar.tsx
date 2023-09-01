@@ -1,9 +1,9 @@
 import React from "react";
 
-import { useGameState } from "../../../hooks/useGameState";
-import { useFogOfWar } from "../../../hooks/useFogOfWar";
-import { constants } from "../../../constants";
-import { MapLayer } from "../MapLayer";
+import { MapLayer } from "@src/components/map/MapLayer";
+import { constants } from "@src/constants";
+import { useFogOfWar } from "@src/hooks/useFogOfWar";
+import { useGameState } from "@src/hooks/useGameState";
 
 export const FogOfWar = React.memo(() => {
   const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);

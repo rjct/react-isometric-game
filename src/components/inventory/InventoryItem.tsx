@@ -1,10 +1,10 @@
-import { Weapon } from "../../engine/weapon/WeaponFactory";
-import React from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
-import { useGameState } from "../../hooks/useGameState";
-import { Unit } from "../../engine/UnitFactory";
-import { Button } from "../ui/Button";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Button } from "@src/components/ui/Button";
+import { Unit } from "@src/engine/UnitFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: {
   entity: Weapon;

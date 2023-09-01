@@ -1,16 +1,19 @@
-import { GameUI } from "../../context/GameUIContext";
-import { scrollMap, ScrollMapUIReducerAction } from "./scrollMap";
-import { setMapRect, SetMapRectUIReducerAction } from "./setMapRect";
-import { setViewport, SetViewportUIReducerAction } from "./setViewport";
-import { scrollMapOnScreenEdges, ScrollMapOnScreenEdgesUIReducerAction } from "./scrollMapOnScreenEdges";
-import { detectKeyPress, DetectKeyPressUIReducerAction } from "./detectKeyPress";
-import { processKeyPress, ProcessKeyPressUIReducerAction } from "./processKeyPress";
-import { setScene, SetSceneUIReducerAction } from "./setScene";
-import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "./centerMapOnHero";
-import { setEditorMode, SetEditorModeUIReducerAction } from "./setEditorMode";
-import { resetMousePosition, ResetMousePositionUIReducerAction } from "./resetMousePosition";
-import { setMousePosition, SetMousePositionUIReducerAction } from "./setMousePosition";
-import { setIntroSceneElapsedTime, SetIntroSceneElapsedTimeUIReducerAction } from "./setIntroSceneElapsedTime";
+import { GameUI } from "@src/context/GameUIContext";
+import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "@src/reducers/ui/centerMapOnHero";
+import { detectKeyPress, DetectKeyPressUIReducerAction } from "@src/reducers/ui/detectKeyPress";
+import { processKeyPress, ProcessKeyPressUIReducerAction } from "@src/reducers/ui/processKeyPress";
+import { resetMousePosition, ResetMousePositionUIReducerAction } from "@src/reducers/ui/resetMousePosition";
+import { scrollMap, ScrollMapUIReducerAction } from "@src/reducers/ui/scrollMap";
+import { scrollMapOnScreenEdges, ScrollMapOnScreenEdgesUIReducerAction } from "@src/reducers/ui/scrollMapOnScreenEdges";
+import { setEditorMode, SetEditorModeUIReducerAction } from "@src/reducers/ui/setEditorMode";
+import {
+  setIntroSceneElapsedTime,
+  SetIntroSceneElapsedTimeUIReducerAction,
+} from "@src/reducers/ui/setIntroSceneElapsedTime";
+import { setMapRect, SetMapRectUIReducerAction } from "@src/reducers/ui/setMapRect";
+import { setMousePosition, SetMousePositionUIReducerAction } from "@src/reducers/ui/setMousePosition";
+import { setScene, SetSceneUIReducerAction } from "@src/reducers/ui/setScene";
+import { setViewport, SetViewportUIReducerAction } from "@src/reducers/ui/setViewport";
 
 export type UIReducerAction =
   | SetIntroSceneElapsedTimeUIReducerAction

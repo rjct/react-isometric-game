@@ -1,8 +1,8 @@
-import React from "react";
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useGameState } from "../../hooks/useGameState";
-import { constants } from "../../constants";
+import { constants } from "@src/constants";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export function Switch(props: {
   title: string;

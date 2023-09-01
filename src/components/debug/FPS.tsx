@@ -47,7 +47,7 @@ export const FPSMeter: React.FC<FPSMeterProps> = ({ width = 120, height = 30, sy
 
       if (numberOfFramesForAverageFps > numberOfVisibleFrames) {
         throw new Error(
-          `numberOfFramesForAverageFps (${numberOfFramesForAverageFps}) must be smaller than numberOfVisibleFrames (${numberOfVisibleFrames}). Either increase the width or increase the resolutionInMs.`
+          `numberOfFramesForAverageFps (${numberOfFramesForAverageFps}) must be smaller than numberOfVisibleFrames (${numberOfVisibleFrames}). Either increase the width or increase the resolutionInMs.`,
         );
       }
 
@@ -114,7 +114,7 @@ export const FPSMeter: React.FC<FPSMeterProps> = ({ width = 120, height = 30, sy
 
       loop();
     },
-    [adjustedHeight, adjustedWidth, numberOfVisibleFrames, numberOfFramesForAverageFps, resolutionInMs, systemFps]
+    [adjustedHeight, adjustedWidth, numberOfVisibleFrames, numberOfFramesForAverageFps, resolutionInMs, systemFps],
   );
 
   return (

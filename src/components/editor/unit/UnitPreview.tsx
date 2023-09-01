@@ -1,4 +1,4 @@
-import { useGameState } from "../../../hooks/useGameState";
+import { useGameState } from "@src/hooks/useGameState";
 
 export function UnitPreview() {
   const { gameState } = useGameState();

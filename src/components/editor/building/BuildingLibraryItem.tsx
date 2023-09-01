@@ -1,7 +1,7 @@
-import { DictBuilding } from "../../../engine/BuildingFactory";
-import React from "react";
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { DictBuilding } from "@src/engine/BuildingFactory";
+import React from "react";
 
 export function BuildingLibraryItem(props: { item: DictBuilding; variant: number }) {
   const [direction, setDirection] = React.useState(props.item.directions[0]);

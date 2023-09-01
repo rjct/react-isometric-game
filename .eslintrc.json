@@ -6,7 +6,9 @@
     },
     "extends": [
         "eslint:recommended",
-        "plugin:@typescript-eslint/recommended"
+        "plugin:@typescript-eslint/recommended",
+        "plugin:import/errors",
+        "plugin:import/warnings"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -14,13 +16,41 @@
         "sourceType": "module"
     },
     "plugins": [
+        "import",
         "@typescript-eslint"
     ],
     "rules": {
+        "import/no-unresolved": "error",
+        "import/no-relative-packages": "error",
         "no-debugger": "warn",
         "no-console": "warn",
         "no-case-declarations": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
-        "@typescript-eslint/no-unused-vars": "warn"
+        "@typescript-eslint/no-unused-vars": "warn",
+        "no-restricted-imports": [
+            "error",
+            {
+                "patterns": [
+                    {
+                        "group": ["../*", "./*"],
+                        "message": "Usage of relative parent imports is not allowed."
+                    }
+                ]
+            }
+        ]
+    },
+    "settings": {
+        "import/resolver": {
+            "node": {
+                "moduleDirectory": [
+                    "@src/"
+                ]
+            },
+            "typescript": {
+                "moduleDirectory": [
+                    "@src/"
+                ]
+            }
+        }
     }
 }

@@ -1,5 +1,5 @@
-import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "./helpers";
-import { GameMap } from "./GameMap";
+import { GameMap } from "@src/engine/GameMap";
+import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 
 export class ObstacleRay {
   public readonly from: GridCoordinates;

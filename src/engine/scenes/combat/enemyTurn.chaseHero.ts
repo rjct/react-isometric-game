@@ -1,6 +1,6 @@
-import { GameContext } from "../../../hooks/useGameState";
-import { Unit } from "../../UnitFactory";
-import { pathFinderBiAStar } from "../../pathFinder";
+import { pathFinderBiAStar } from "@src/engine/pathFinder";
+import { Unit } from "@src/engine/UnitFactory";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: Unit) {
   const { gameState, gameDispatch } = this;

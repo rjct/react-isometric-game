@@ -1,10 +1,11 @@
+import unitTypes from "@src/dict/units.json";
 import React from "react";
-import { GameMap, gameMap } from "../engine/GameMap";
-import { BuildingTypes } from "../engine/BuildingFactory";
-import unitTypes from "../dict/units.json";
-import { TerrainAreaType } from "../engine/TerrainAreaFactory";
-import { WeaponClass, WeaponType } from "../engine/weapon/WeaponFactory";
-import { AmmoClass, AmmoType } from "../engine/weapon/AmmoFactory";
+
+import { BuildingTypes } from "@src/engine/BuildingFactory";
+import { gameMap, GameMap } from "@src/engine/GameMap";
+import { TerrainAreaType } from "@src/engine/TerrainAreaFactory";
+import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
+import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 
 export interface StaticMapTerrainArea {
   source: {

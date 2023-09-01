@@ -1,6 +1,6 @@
-import { useGameState } from "../../../hooks/useGameState";
+import { PositionEntityEditor } from "@src/components/editor/_shared/PositionEntityEditor";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { PositionEntityEditor } from "../_shared/PositionEntityEditor";
 
 export function BuildingPositionEditor() {
   const { gameState, gameDispatch } = useGameState();

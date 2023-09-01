@@ -1,8 +1,8 @@
+import { constants } from "@src/constants";
+import { gridToScreenSpace } from "@src/engine/helpers";
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
-import { constants } from "../../../constants";
-import { useGameState } from "../../../hooks/useGameState";
-import { Firearm } from "../../../engine/weapon/firearm/FirearmFactory";
-import { gridToScreenSpace } from "../../../engine/helpers";
 
 export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) {
   const { gameState } = useGameState();

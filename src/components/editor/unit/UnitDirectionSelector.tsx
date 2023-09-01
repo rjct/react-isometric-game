@@ -1,4 +1,4 @@
-import { useGameState } from "../../../hooks/useGameState";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export function UnitDirectionSelector() {
