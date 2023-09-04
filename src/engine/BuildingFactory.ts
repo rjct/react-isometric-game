@@ -19,6 +19,7 @@ export interface DictBuilding {
   size: BuildingSize;
   directions: Direction[];
   variants: number;
+  internalColor: string;
 }
 
 export type DictBuildings = {
@@ -51,7 +52,7 @@ export class Building extends GameObjectFactory {
       size,
       position: props.position,
       direction: props.direction,
-      internalColor: "rgba(255,232,0,0.5)",
+      internalColor: ref.internalColor,
     });
 
     this.ref = ref;

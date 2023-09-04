@@ -2,10 +2,12 @@ import { MapLayer } from "@src/components/map/MapLayer";
 import { constants } from "@src/constants";
 import { gridToScreenSpace } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const TerrainAreas = React.memo(function TerrainAreas() {
   const { gameState, uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
 
   const canvasRef = React.createRef<HTMLCanvasElement>();
   const [ctx, setCtx] = React.useState(null as unknown as CanvasRenderingContext2D);
@@ -79,8 +81,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   }, [
     gameState.mapSize,
     gameState.mapUrl,
-    gameState.getTerrainHash(),
-    //
+    checkCurrentScene(["editor"]) ? gameState.getTerrainHash() : false,
     uiState.scene,
   ]);
 

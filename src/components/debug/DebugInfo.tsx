@@ -6,10 +6,11 @@ import React from "react";
 
 export const DebugInfo = React.memo(function DebugInfo() {
   const { gameState, uiState } = useGameState();
-
   const { hero } = useHero();
 
-  return gameState.debug.enabled ? (
+  if (!gameState.debug.enabled) return null;
+
+  return (
     <div className={"debug"}>
       <table>
         <tbody>
@@ -68,5 +69,5 @@ export const DebugInfo = React.memo(function DebugInfo() {
         </tbody>
       </table>
     </div>
-  ) : null;
+  );
 });

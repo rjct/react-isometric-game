@@ -4,11 +4,14 @@ import { Hand } from "@src/components/inventory/Hand";
 import { HeroInfo } from "@src/components/inventory/HeroInfo";
 import { HeroOverview } from "@src/components/inventory/HeroOverview";
 import { Button } from "@src/components/ui/Button";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export function Inventory() {
   const { uiState, uiDispatch } = useGameState();
+  const { checkCurrentScene } = useScene();
 
   const [scenesHistory, saveScenesHistory] = React.useState([uiState.scene]);
 
@@ -24,15 +27,15 @@ export function Inventory() {
     };
   }, [uiState.scene]);
 
+  if (!checkCurrentScene(["inventory"])) return null;
+
   const handleCloseButtonClick = () => {
     uiDispatch({ type: "setScene", scene: scenesHistory.at(-2)! });
   };
 
-  return uiState.scene === "inventory" ? (
-    <div className={"inventory-modal"}>
+  return (
+    <FullscreenPanel overlay={true}>
       <div className={"inventory"}>
-        <div className={"with-overlay"}></div>
-
         <Backpack />
         <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
         <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
@@ -46,6 +49,6 @@ export function Inventory() {
           </Button>
         </div>
       </div>
-    </div>
-  ) : null;
+    </FullscreenPanel>
+  );
 }

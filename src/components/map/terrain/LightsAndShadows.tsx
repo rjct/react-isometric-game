@@ -1,12 +1,15 @@
 import { MapLayer } from "@src/components/map/MapLayer";
 import { constants } from "@src/constants";
-import { GameScene } from "@src/context/GameUIContext";
+import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useLightsAndShadows } from "@src/hooks/useLightsAndShadows";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const LightsAndShadows = React.memo(() => {
   const { gameState, uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
+  const { checkEditorMode } = useEditor();
 
   const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
 
@@ -16,9 +19,8 @@ export const LightsAndShadows = React.memo(() => {
   const [lightsImageSrc, setLightsImageSrc] = React.useState("");
 
   const isAllowed =
-    gameState.mapSize.width > 0 &&
-    ((["game", "combat", "inventory"] as GameScene[]).includes(uiState.scene) ||
-      (uiState.scene === "editor" && uiState.editorMode === "lights"));
+    (gameState.mapSize.width > 0 && checkCurrentScene(["game", "combat", "inventory"])) ||
+    (checkCurrentScene(["editor"]) && checkEditorMode(["lights"]));
 
   React.useEffect(() => {
     const ctx = canvasRef.current?.getContext("2d");
@@ -42,7 +44,9 @@ export const LightsAndShadows = React.memo(() => {
     uiState.editorMode,
   ]);
 
-  return isAllowed ? (
+  if (!isAllowed) return null;
+
+  return (
     <MapLayer size={gameState.mapSize} className={"lights-and-shadows"}>
       <img
         alt={undefined}
@@ -67,5 +71,5 @@ export const LightsAndShadows = React.memo(() => {
         style={{ display: "none" }}
       />
     </MapLayer>
-  ) : null;
+  );
 });

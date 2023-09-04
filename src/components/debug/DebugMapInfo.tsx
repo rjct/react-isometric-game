@@ -10,7 +10,7 @@ import React from "react";
 export const DebugMapInfo = React.memo(() => {
   const { gameState, uiState } = useGameState();
 
-  const mapStat = () => {
+  const mapStat = React.useCallback(() => {
     return Object.entries({
       ...EditorModes,
     }).map(([key, value]) => {
@@ -36,7 +36,7 @@ export const DebugMapInfo = React.memo(() => {
         </span>
       );
     });
-  };
+  }, []);
 
   return <span>{mapStat()}</span>;
 });

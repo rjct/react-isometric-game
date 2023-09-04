@@ -1,15 +1,17 @@
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { ProgressBar } from "@src/components/ui/ProgressBar";
-import { useGameState } from "@src/hooks/useGameState";
 import { AssetsLoadingState } from "@src/hooks/usePreloadAssets";
+import { useScene } from "@src/hooks/useScene";
 import { filesize } from "filesize";
 import React from "react";
 
 export const Loading = React.memo(
   (props: { assets: { loading: boolean; loaded: AssetsLoadingState; total: AssetsLoadingState } }) => {
-    const { uiState } = useGameState();
+    const { checkCurrentScene } = useScene();
 
-    return uiState.scene === "loading" ? (
+    if (!checkCurrentScene(["loading"])) return null;
+
+    return (
       <FullscreenPanel overlay={true} classNames={["loading"]}>
         <fieldset className={"loading-info"}>
           <legend>Loading</legend>
@@ -40,6 +42,6 @@ export const Loading = React.memo(
           </div>
         </fieldset>
       </FullscreenPanel>
-    ) : null;
+    );
   },
 );

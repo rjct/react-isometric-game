@@ -1,94 +1,77 @@
-.inventory-modal {
-  position: absolute;
-  left: 0;
-  top: 0;
-  right: 0;
-  bottom: 0;
+.inventory {
+  position: relative;
+  overflow: hidden;
+  width: 80%;
+  height: 80%;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 2fr 1fr 0.75fr;
+  grid-column-gap: (@padding * 2);
+  grid-row-gap: (@padding);
+  padding: (@padding) (@padding * 2) (@padding) (@padding * 2);
+  border-radius: 10px;
+  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
+  border: solid 1px rgba(0, 255, 0, 0.4);
+  color: @text-color;
 
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  > fieldset:not(.controls) {
+    border: solid 1px limegreen;
+    display: flex;
+    margin: 0;
+    padding: (@padding / 2) 0 @padding 0;
+  }
 
-  backdrop-filter: blur(30px);
-  z-index: 999999;
+  .backpack-wrapper {
+    grid-area: 1 / 1 / 5 / 2;
 
-  .inventory {
-    position: relative;
-    overflow: hidden;
-    width: 80%;
-    height: 80%;
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 2fr 1fr 0.75fr;
-    grid-column-gap: (@padding * 2);
-    grid-row-gap: (@padding);
-    background-color: #000000;
-    background-image: radial-gradient(#11581e, #041607);
-    padding: (@padding) (@padding * 2) (@padding) (@padding * 2);
-    border-radius: 10px;
-    box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
-    border: solid 1px rgba(0, 255, 0, 0.4);
-    color: @text-color;
-
-    > fieldset:not(.controls) {
-      border: solid 1px limegreen;
-      display: flex;
-      margin: 0;
-      padding: (@padding / 2) 0 @padding 0;
-    }
-
-    .backpack-wrapper {
-      grid-area: 1 / 1 / 5 / 2;
-
-      .backpack {
-        flex: 1;
-        overflow: auto;
-      }
-    }
-
-    .left-hand-wrapper {
-      display: flex;
-      grid-area: 3 / 2 / 4 / 3;
-    }
-
-    .right-hand-wrapper {
-      display: flex;
-      grid-area: 3 / 3 / 4 / 4;
-    }
-
-    .hand {
-      display: flex;
+    .backpack {
       flex: 1;
+      overflow: auto;
     }
+  }
 
-    .hero-overview-wrapper {
-      grid-area: 1 / 2 / 2 / 3;
-      align-items: center;
+  .left-hand-wrapper {
+    display: flex;
+    grid-area: 3 / 2 / 4 / 3;
+  }
 
-      .unit-preview {
-        position: relative;
-        display: flex;
-        justify-content: center;
-        height: 100px;
-        flex: 1;
-        scale: 2;
-      }
-    }
+  .right-hand-wrapper {
+    display: flex;
+    grid-area: 3 / 3 / 4 / 4;
+  }
 
-    .hero-info-wrapper {
-      grid-area: 1 / 3 / 3 / 4;
-    }
+  .hand {
+    display: flex;
+    flex: 1;
+  }
 
-    .armor-wrapper {
-      grid-area: 2 / 2 / 3 / 3;
-    }
+  .hero-overview-wrapper {
+    grid-area: 1 / 2 / 2 / 3;
+    align-items: center;
 
-    .controls {
-      grid-area: 4 / 2 / 5 / 4;
-      padding-top: @padding;
+    .unit-preview {
+      position: relative;
       display: flex;
-      justify-content: flex-end;
+      justify-content: center;
+      height: 100px;
+      flex: 1;
+      scale: 2;
     }
+  }
+
+  .hero-info-wrapper {
+    grid-area: 1 / 3 / 3 / 4;
+  }
+
+  .armor-wrapper {
+    grid-area: 2 / 2 / 3 / 3;
+  }
+
+  .controls {
+    grid-area: 4 / 2 / 5 / 4;
+    padding-top: @padding;
+    display: flex;
+    justify-content: flex-end;
   }
 }
 

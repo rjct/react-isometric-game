@@ -1,12 +1,18 @@
 import { BuildingLibrary } from "@src/components/editor/building/BuildingLibrary";
 import { UnitLibrary } from "@src/components/editor/unit/UnitLibrary";
 import { constants } from "@src/constants";
+import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 
 export function EntitiesLibrary() {
   const { gameState, uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
+  const { checkEditorMode } = useEditor();
 
-  return uiState.scene === "editor" && (uiState.editorMode === "buildings" || uiState.editorMode === "units") ? (
+  if (!checkCurrentScene(["editor"]) || !checkEditorMode(["buildings", "units"])) return null;
+
+  return (
     <div
       className={`editor-library editor-library-${uiState.editorMode}`}
       style={{
@@ -18,5 +24,5 @@ export function EntitiesLibrary() {
       <BuildingLibrary />
       <UnitLibrary />
     </div>
-  ) : null;
+  );
 }

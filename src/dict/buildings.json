@@ -8,7 +8,8 @@
       "screen": { "width": 95, "height": 120 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "green"
   },
   "vehicle-2x4": {
     "class": "vehicle",
@@ -19,7 +20,8 @@
       "screen": { "width": 240, "height": 180 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 17
+    "variants": 17,
+    "internalColor": "#007fff"
   },
   "vehicle-2x6": {
     "class": "vehicle",
@@ -30,7 +32,8 @@
       "screen": { "width": 268, "height": 205 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "#007fff"
   },
   "vehicle-3x2": {
     "class": "vehicle",
@@ -41,7 +44,8 @@
       "screen": { "width": 132, "height": 93 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "#007fff"
   },
   "vehicle-3x4": {
     "class": "vehicle",
@@ -52,7 +56,8 @@
       "screen": { "width": 195, "height": 170 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "#007fff"
   },
   "vehicle-4x4": {
     "class": "vehicle",
@@ -63,7 +68,8 @@
       "screen": { "width": 235, "height": 176 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "#007fff"
   },
   "vault_wall": {
     "class": "wall",
@@ -74,7 +80,8 @@
       "screen": { "width": 50, "height": 120 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 7
+    "variants": 7,
+    "internalColor": "mediumseagreen"
   },
   "vault_bed": {
     "class": "furniture",
@@ -85,7 +92,8 @@
       "screen": { "width": 150, "height": 85 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 2
+    "variants": 2,
+    "internalColor": "#21abcd"
   },
   "vault_chair": {
     "class": "furniture",
@@ -96,7 +104,8 @@
       "screen": { "width": 66, "height": 80 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 2
+    "variants": 2,
+    "internalColor": "#21abcd"
   },
   "vault_computer_1": {
     "class": "furniture",
@@ -107,7 +116,8 @@
       "screen": { "width": 74, "height": 126 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 1
+    "variants": 1,
+    "internalColor": "#21abcd"
   },
   "vault_computer_2": {
     "class": "furniture",
@@ -118,7 +128,8 @@
       "screen": { "width": 94, "height": 126 }
     },
     "directions": ["right", "bottom"],
-    "variants": 5
+    "variants": 5,
+    "internalColor": "#21abcd"
   },
   "vault_table": {
     "class": "furniture",
@@ -129,6 +140,7 @@
       "screen": { "width": 113, "height": 93 }
     },
     "directions": ["top", "right", "bottom", "left"],
-    "variants": 3
+    "variants": 3,
+    "internalColor": "#21abcd"
   }
 }

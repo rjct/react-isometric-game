@@ -1,13 +1,15 @@
 import { EditorModeSelector } from "@src/components/editor/EditorModeSelector";
 import { ExportButton } from "@src/components/editor/ExportButton";
 import { constants } from "@src/constants";
-import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const EditorSidebar = React.memo(function EditorSidebar() {
-  const { uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
 
-  return uiState.scene === "editor" ? (
+  if (!checkCurrentScene(["editor"])) return null;
+
+  return (
     <div
       className={"editor"}
       style={{
@@ -21,5 +23,5 @@ export const EditorSidebar = React.memo(function EditorSidebar() {
         <ExportButton />
       </div>
     </div>
-  ) : null;
+  );
 });

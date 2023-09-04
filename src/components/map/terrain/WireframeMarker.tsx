@@ -1,9 +1,12 @@
 import { constants } from "@src/constants";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const WireframeMarker = React.memo(
   (props: { coordinates: GridCoordinates; className: string[]; value?: string; onAnimationComplete: () => void }) => {
-    if (!props.coordinates) return null;
+    const { checkCurrentScene } = useScene();
+
+    if (!props.coordinates || !checkCurrentScene(["game", "combat"])) return null;
 
     return (
       <div

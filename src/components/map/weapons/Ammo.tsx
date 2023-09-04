@@ -7,7 +7,9 @@ import React from "react";
 export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) {
   const { gameState } = useGameState();
 
-  return props.weapon ? (
+  if (!props.weapon) return null;
+
+  return (
     <>
       {props.weapon.firedAmmoQueue
         .filter((ammo) => !ammo.isTargetReached)
@@ -29,5 +31,5 @@ export const Ammo = React.memo(function Ammo(props: { weapon: null | Firearm }) 
           );
         })}
     </>
-  ) : null;
+  );
 });

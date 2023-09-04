@@ -5,18 +5,21 @@ import { Button } from "@src/components/ui/Button";
 import { Unit } from "@src/engine/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const ControlPanel = React.memo(function ControlPanel() {
+  const { gameState, gameDispatch, uiDispatch } = useGameState();
+  const { checkCurrentScene } = useScene();
   const { hero } = useHero();
 
-  const { gameState, gameDispatch, uiDispatch, uiState } = useGameState();
+  if (!checkCurrentScene(["game", "combat"])) return null;
 
-  const centerMapOnHero = () => {
+  const handleCenterMapOnHeroClick = () => {
     uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition.screen });
   };
 
-  const handleCurrentHeroActionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCurrentHeroActionButtonClick = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (hero.isMoving()) return;
 
     const selectedAction = e.target.value as Unit["currentSelectedAction"];
@@ -28,10 +31,21 @@ export const ControlPanel = React.memo(function ControlPanel() {
     uiDispatch({ type: "setScene", scene: "inventory" });
   };
 
-  return uiState.scene === "game" || uiState.scene === "combat" ? (
+  const handleEndTurnButtonClick = () => {
+    hero.stop();
+    hero.restoreActionPoints();
+    gameDispatch({ type: "endTurn" });
+  };
+
+  const handleEndCombatButtonClick = () => {
+    gameDispatch({ type: "endCombat" });
+    uiDispatch({ type: "setScene", scene: "game" });
+  };
+
+  return (
     <div className={"control-panel"}>
       <div className={"hero-controls"}>
-        <Button title={"Center map (C)"} className={["control-center-map"]} onClick={centerMapOnHero}>
+        <Button title={"Center map (C)"} className={["control-center-map"]} onClick={handleCenterMapOnHeroClick}>
           <label>
             <FontAwesomeIcon icon={faArrowsToDot} size={"lg"} />
           </label>
@@ -51,7 +65,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
           <HeroActionControl
             action={"leftHand"}
             selected={hero.currentSelectedAction === "leftHand"}
-            onChange={handleCurrentHeroActionChange}
+            onChange={handleCurrentHeroActionButtonClick}
             weapon={hero.inventory.leftHand!}
           />
         </Button>
@@ -64,7 +78,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
           <HeroActionControl
             action={"rightHand"}
             selected={hero.currentSelectedAction === "rightHand"}
-            onChange={handleCurrentHeroActionChange}
+            onChange={handleCurrentHeroActionButtonClick}
             weapon={hero.inventory.rightHand!}
           />
         </Button>
@@ -73,7 +87,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
           <HeroActionControl
             action={"walk"}
             selected={hero.currentSelectedAction === "walk"}
-            onChange={handleCurrentHeroActionChange}
+            onChange={handleCurrentHeroActionButtonClick}
             title={"Walk"}
             text={<FontAwesomeIcon icon={faPersonWalking} size={"lg"} />}
           />
@@ -83,7 +97,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
           <HeroActionControl
             action={"run"}
             selected={hero.currentSelectedAction === "run"}
-            onChange={handleCurrentHeroActionChange}
+            onChange={handleCurrentHeroActionButtonClick}
             title={"Run"}
             text={<FontAwesomeIcon icon={faPersonRunning} size={"lg"} />}
           />
@@ -91,27 +105,20 @@ export const ControlPanel = React.memo(function ControlPanel() {
 
         <Button
           className={["control-end-turn"]}
-          disabled={uiState.scene !== "combat" || gameState.combatQueue.currentUnitId !== hero.id}
-          onClick={() => {
-            hero.stop();
-            hero.restoreActionPoints();
-            gameDispatch({ type: "endTurn" });
-          }}
+          disabled={!checkCurrentScene(["combat"]) || gameState.combatQueue.currentUnitId !== hero.id}
+          onClick={handleEndTurnButtonClick}
         >
           <label>End Turn</label>
         </Button>
 
         <Button
           className={["control-end-combat"]}
-          disabled={uiState.scene !== "combat" || gameState.combatQueue.currentUnitId !== hero.id}
-          onClick={() => {
-            gameDispatch({ type: "endCombat" });
-            uiDispatch({ type: "setScene", scene: "game" });
-          }}
+          disabled={!checkCurrentScene(["combat"]) || gameState.combatQueue.currentUnitId !== hero.id}
+          onClick={handleEndCombatButtonClick}
         >
           <label>End Combat</label>
         </Button>
       </div>
     </div>
-  ) : null;
+  );
 });

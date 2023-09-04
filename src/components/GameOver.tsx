@@ -1,12 +1,14 @@
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
-import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 
 export function GameOver() {
-  const { uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
 
-  return uiState.scene === "gameOver" ? (
+  if (!checkCurrentScene(["gameOver"])) return null;
+
+  return (
     <FullscreenPanel overlay={true} classNames={["game-over"]}>
       Game over
     </FullscreenPanel>
-  ) : null;
+  );
 }

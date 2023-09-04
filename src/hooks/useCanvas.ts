@@ -19,7 +19,7 @@ export function useCanvas() {
     ctx: CanvasRenderingContext2D,
     position: GridCoordinates,
     color = "#ffffff",
-    fillStyle?: CanvasGradient,
+    fillStyle?: CanvasGradient | string,
     lineWidth = 1,
     radius = wireframeTileWidth / 2,
   ) => {
@@ -28,13 +28,14 @@ export function useCanvas() {
     ctx.lineWidth = lineWidth;
     if (fillStyle) ctx.fillStyle = fillStyle;
     ctx.arc(
-      position.x * wireframeTileWidth + wireframeTileWidth / 2,
-      position.y * wireframeTileHeight + wireframeTileHeight / 2,
+      position.x * wireframeTileWidth + wireframeTileWidth / 2 + 0.5,
+      position.y * wireframeTileHeight + wireframeTileHeight / 2 + 0.5,
       radius,
       0,
       2 * Math.PI,
     );
-    ctx.stroke();
+    if (lineWidth > 0) ctx.stroke();
+    if (fillStyle) ctx.fill();
   };
 
   const drawFillRect = (

@@ -3,21 +3,40 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 import { Button } from "@src/components/ui/Button";
-import { GameSettingsFeature } from "@src/constants";
-import { GameMap } from "@src/engine/GameMap";
+import { GameDebugFeature, GameSettingsFeature } from "@src/constants";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
 
-  return gameState.debug.enabled ? (
+  if (!gameState.debug.enabled) return null;
+
+  const handleStartCombatButtonClick = () => {
+    uiDispatch({ type: "setScene", scene: "combat" });
+    gameDispatch({ type: "startCombat" });
+  };
+
+  const handleSettingFeatureSwitch = (e: React.ChangeEvent<HTMLInputElement>, featureName: GameSettingsFeature) => {
+    gameDispatch({
+      type: "toggleFeature",
+      featureName,
+      featureEnabled: e.target.checked,
+    });
+  };
+
+  const handleDebugFeatureSwitch = (e: React.ChangeEvent<HTMLInputElement>, featureName: GameDebugFeature) => {
+    gameDispatch({
+      type: "toggleDebugFeature",
+      featureName,
+      featureEnabled: e.target.checked,
+    });
+  };
+
+  return (
     <div className={"debug-features"}>
       <Button
         className={["control-end-combat"]}
         disabled={uiState.scene !== "game"}
-        onClick={() => {
-          uiDispatch({ type: "setScene", scene: "combat" });
-          gameDispatch({ type: "startCombat" });
-        }}
+        onClick={handleStartCombatButtonClick}
       >
         <label style={{ whiteSpace: "nowrap" }}>start combat</label>
       </Button>
@@ -30,13 +49,7 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
             key={key}
             title={key}
             checked={value}
-            onChange={(e) => {
-              gameDispatch({
-                type: "toggleFeature",
-                featureName: key as GameSettingsFeature,
-                featureEnabled: e.target.checked,
-              });
-            }}
+            onChange={(e) => handleSettingFeatureSwitch(e, key as GameSettingsFeature)}
           />
         );
       })}
@@ -47,16 +60,10 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
             key={key}
             title={key}
             checked={value}
-            onChange={(e) => {
-              gameDispatch({
-                type: "toggleDebugFeature",
-                featureName: key as keyof GameMap["debug"]["featureEnabled"],
-                featureEnabled: e.target.checked,
-              });
-            }}
+            onChange={(e) => handleDebugFeatureSwitch(e, key as GameDebugFeature)}
           />
         );
       })}
     </div>
-  ) : null;
+  );
 });

@@ -10,10 +10,14 @@ import { UnitPropsEditor } from "@src/components/editor/unit/UnitPropsEditor";
 import { Tab } from "@src/components/ui/Tab";
 import { EditorModes, GameUI } from "@src/context/GameUIContext";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
   const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+  const { checkCurrentScene } = useScene();
+
+  if (!checkCurrentScene(["editor"])) return null;
 
   const [editorMode, setEditorMode] = React.useState(uiState.editorMode);
 
@@ -38,7 +42,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
     uiDispatch({ type: "setEditorMode", editorMode });
   };
 
-  return uiState.scene === "editor" ? (
+  return (
     <div className={"ui-tabs"}>
       <div className={"ui-tabs-nav"}>
         {Object.entries(EditorModes).map(([key, value]) => {
@@ -92,5 +96,5 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
         </div>
       ) : null}
     </div>
-  ) : null;
+  );
 });

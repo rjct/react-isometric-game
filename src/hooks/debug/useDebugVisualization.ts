@@ -6,7 +6,7 @@ import React from "react";
 
 export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
   const { gameState, uiState } = useGameState();
-  const { clearCanvas, drawFillRect } = useCanvas();
+  const { clearCanvas, drawFillRect, drawCircle } = useCanvas();
 
   const allAliveUnits = React.useMemo(
     () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
@@ -51,7 +51,7 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     }
 
     for (const unit of allAliveUnits) {
-      drawFillRect(ctx, unit.getRoundedPosition(), unit.internalColor, 1, unit.size.grid);
+      drawCircle(ctx, unit.getRoundedPosition(), unit.internalColor, unit.internalColor, 0);
     }
   };
 

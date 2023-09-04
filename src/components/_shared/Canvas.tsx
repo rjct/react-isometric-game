@@ -1,5 +1,5 @@
 import { MapLayer } from "@src/components/map/MapLayer";
-import { constants } from "@src/constants";
+import { gridToScreesSize } from "@src/engine/helpers";
 import React from "react";
 
 export const Canvas = React.forwardRef(
@@ -21,11 +21,7 @@ export const Canvas = React.forwardRef(
         onClick={props.handleClick}
         onContextMenu={props.handleRightClick}
       >
-        <canvas
-          ref={ref}
-          width={props.size.width * constants.wireframeTileSize.width}
-          height={`${props.size.height * constants.wireframeTileSize.height}`}
-        ></canvas>
+        <canvas ref={ref} {...gridToScreesSize(props.size)}></canvas>
       </MapLayer>
     );
   },

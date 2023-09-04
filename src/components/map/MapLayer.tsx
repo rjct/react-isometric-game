@@ -1,5 +1,6 @@
 import { constants } from "@src/constants";
-import { useGameState } from "@src/hooks/useGameState";
+import { useEditor } from "@src/hooks/useEditor";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export type MapLayerProps = {
@@ -17,7 +18,8 @@ export type MapLayerProps = {
 };
 
 export function MapLayer({ isometric = true, additionalEditorSpace = false, ...props }: MapLayerProps) {
-  const { uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
+  const { checkEditorMode } = useEditor();
 
   const tileWidth = isometric ? constants.wireframeTileSize.width : constants.tileSize.width;
   const tileHeight = isometric ? constants.wireframeTileSize.height : constants.tileSize.height;
@@ -26,7 +28,7 @@ export function MapLayer({ isometric = true, additionalEditorSpace = false, ...p
   const height = props.size.width * tileHeight;
   const left =
     (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) +
-    (uiState.scene === "editor" && (uiState.editorMode === "units" || uiState.editorMode === "buildings")
+    (checkCurrentScene(["editor"]) && checkEditorMode(["units", "buildings"])
       ? constants.editor.entitiesLibrary.width
       : 0);
 

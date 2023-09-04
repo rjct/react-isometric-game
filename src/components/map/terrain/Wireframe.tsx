@@ -107,21 +107,17 @@ export const Wireframe = React.memo(function WireframeTiles() {
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      {uiState.scene === "game" || uiState.scene === "combat" ? (
-        <>
-          <WireframeMarker
-            coordinates={markerPosition}
-            className={markerClassName}
-            value={markerValue}
-            onAnimationComplete={() => {
-              const classes = [...markerClassName];
-              classes.pop();
+      <WireframeMarker
+        coordinates={markerPosition}
+        className={markerClassName}
+        value={markerValue}
+        onAnimationComplete={() => {
+          const classes = [...markerClassName];
+          classes.pop();
 
-              setMarkerClassName(classes);
-            }}
-          />
-        </>
-      ) : null}
+          setMarkerClassName(classes);
+        }}
+      />
 
       <WireframeEntityPlaceholder />
     </MapLayer>

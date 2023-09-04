@@ -1,12 +1,16 @@
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 
 export function Intro() {
   const { uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
+
+  if (!checkCurrentScene(["intro"])) return null;
 
   const text = "Intro scene text...";
 
-  return uiState.scene === "intro" ? (
+  return (
     <FullscreenPanel overlay={false}>
       <div
         className={"intro-title"}
@@ -21,5 +25,5 @@ export function Intro() {
         &nbsp;{text.substring(0, Math.floor(text.length * Math.min(1, (uiState.introSceneElapsedTime - 4000) / 1000)))}
       </div>
     </FullscreenPanel>
-  ) : null;
+  );
 }
