@@ -8,7 +8,18 @@ import { Ammo } from "@src/components/map/weapons/Ammo";
 import { Unit } from "@src/engine/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { useGameState } from "@src/hooks/useGameState";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
+
+const renderAmmo = (unit: Unit) => {
+  const weapon = unit.getCurrentWeapon();
+
+  if (weapon && weapon instanceof Firearm) {
+    return <Ammo weapon={weapon}></Ammo>;
+  }
+
+  return null;
+};
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -18,22 +29,11 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   onMouseUp?: (e: React.MouseEvent) => void;
 }) {
   const { gameState, uiState } = useGameState();
+  const { checkCurrentScene } = useScene();
 
+  const isEditing = checkCurrentScene(["editor"]);
   const isUnitVisible =
-    uiState.scene === "editor" ||
-    (gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport));
-
-  const isIsometric = gameState.debug.featureEnabled.buildingBoxes || uiState.scene === "editor";
-
-  const renderAmmo = () => {
-    const weapon = props.unit.getCurrentWeapon();
-
-    if (weapon && weapon instanceof Firearm) {
-      return <Ammo weapon={weapon}></Ammo>;
-    }
-
-    return null;
-  };
+    isEditing || (gameState.isEntityVisible(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport));
 
   React.useEffect(() => {
     if (!isUnitVisible) return;
@@ -45,9 +45,13 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     gameState.settings.featureEnabled.unitShadow,
   ]);
 
-  return isUnitVisible ? (
+  if (!isUnitVisible) return null;
+
+  const isIsometric = gameState.debug.featureEnabled.buildingBoxes || isEditing;
+
+  return (
     <>
-      {renderAmmo()}
+      {renderAmmo(props.unit)}
 
       <div
         data-direction={props.unit.direction}
@@ -88,5 +92,5 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         <UnitShadow shadows={props.unit.shadows} />
       </div>
     </>
-  ) : null;
+  );
 });

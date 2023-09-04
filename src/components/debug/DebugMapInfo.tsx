@@ -36,7 +36,7 @@ export const DebugMapInfo = React.memo(() => {
         </span>
       );
     });
-  }, []);
+  }, [gameState.mapSize]);
 
   return <span>{mapStat()}</span>;
 });
