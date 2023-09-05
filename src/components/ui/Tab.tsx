@@ -15,6 +15,12 @@ export function Tab(props: {
 
   const activeClass = props.active ? "active" : "";
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    gameState.playSfx([constants.sfx.ui.tab]);
+
+    props.onSelect(e);
+  };
+
   return (
     <div className={["ui-button", activeClass].join(" ")} key={props.value}>
       <label className="ui-radio" htmlFor={props.id} title={props.title}>
@@ -25,11 +31,7 @@ export function Tab(props: {
           value={props.value}
           checked={props.active}
           disabled={props.disabled}
-          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            gameState.playSfx([constants.sfx.ui.tab]);
-
-            props.onSelect(e);
-          }}
+          onChange={handleChange}
         />
         <div className={"label"}>
           <span>{props.children}</span>

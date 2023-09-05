@@ -9,7 +9,7 @@ import { Loading } from "@src/components/Loading";
 import { MainMenu } from "@src/components/MainMenu";
 import { Map, MapForwardedRefs } from "@src/components/map/Map";
 import { MiniMap } from "@src/components/map/MiniMap";
-import { Top } from "@src/components/top/Top";
+import { TopPanel } from "@src/components/top_panel/TopPanel";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
 import { GameStateContext } from "@src/context/GameStateContext";
 import { GameUIContext } from "@src/context/GameUIContext";
@@ -123,7 +123,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <Intro />
               <MainMenu />
               <GameOver />
-              <Top />
+              <TopPanel />
               <div className={"center"}>
                 <EntitiesLibrary />
                 <DebugFeaturesSwitches />

@@ -2,7 +2,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import { mapsList } from "@src/maps_list";
 import React from "react";
 
-export const DebugMapSwitcher = React.memo(() => {
+export const DebugMapSelector = React.memo(() => {
   const { gameState, gameDispatch } = useGameState();
   const [mapUrl, setMapUrl] = React.useState(gameState.mapUrl);
 
@@ -17,6 +17,8 @@ export const DebugMapSwitcher = React.memo(() => {
   React.useEffect(() => {
     setMapUrl(gameState.mapUrl);
   }, [gameState.mapUrl]);
+
+  if (!gameState.debug.enabled) return null;
 
   return (
     <>

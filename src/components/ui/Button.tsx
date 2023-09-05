@@ -13,6 +13,13 @@ export function Button(props: {
 }) {
   const { gameState } = useGameState();
 
+  const handleClick = () => {
+    if (props.disabled) return;
+
+    gameState.playSfx([constants.sfx.ui.button]);
+    props.onClick?.();
+  };
+
   return (
     <div
       title={props.title}
@@ -27,12 +34,7 @@ export function Button(props: {
       ]
         .filter(Boolean)
         .join(" ")}
-      onClick={() => {
-        if (props.disabled) return;
-
-        gameState.playSfx([constants.sfx.ui.button]);
-        props.onClick?.();
-      }}
+      onClick={handleClick}
     >
       {props.children}
     </div>

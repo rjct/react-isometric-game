@@ -38,5 +38,7 @@ export const DebugMapInfo = React.memo(() => {
     });
   }, [gameState.mapSize]);
 
+  if (!gameState.debug.enabled) return null;
+
   return <span>{mapStat()}</span>;
 });

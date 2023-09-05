@@ -99,7 +99,9 @@ export class GameObjectFactory {
     };
     this.zIndex = getEntityZIndex(this);
 
-    this.createWalls();
+    this.walls.forEach((wall) => {
+      wall.setPosition(this.position, wall.area.local);
+    });
   }
 
   getRoundedPosition(): GridCoordinates {
