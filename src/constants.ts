@@ -48,6 +48,7 @@ export const constants = {
     },
 
     debug: {
+      skipIntro: false,
       wireframe: true,
       buildingBoxes: false,
       occupiedCells: false,

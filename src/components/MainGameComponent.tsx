@@ -87,7 +87,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     preloadAssets(gameState).then((mediaAssets) => {
       loadMap(gameState.mapUrl).then((map) => {
         gameDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
-        uiDispatch({ type: "setScene", scene: "intro" });
+        uiDispatch({ type: "setScene", scene: gameState.debug.featureEnabled.skipIntro ? "mainMenu" : "intro" });
       });
     });
   }, [gameState.mapUrl]);

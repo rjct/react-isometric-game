@@ -52,6 +52,7 @@ export const gameMap = {
   debug: {
     enabled: false,
     featureEnabled: {
+      skipIntro: isFeatureEnabled("debug", "skipIntro"),
       wireframe: isFeatureEnabled("debug", "wireframe"),
       buildingBoxes: isFeatureEnabled("debug", "buildingBoxes"),
       occupiedCells: isFeatureEnabled("debug", "occupiedCells"),
