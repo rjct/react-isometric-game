@@ -6,7 +6,7 @@ import { useFogOfWar } from "@src/hooks/useFogOfWar";
 import { useGameState } from "@src/hooks/useGameState";
 
 export const FogOfWar = React.memo(() => {
-  const canvasRef = React.useRef<HTMLCanvasElement>(null as unknown as HTMLCanvasElement);
+  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
 
   const { gameState, uiState } = useGameState();
   const { renderFogOfWar } = useFogOfWar(gameState);
@@ -14,7 +14,9 @@ export const FogOfWar = React.memo(() => {
   const [fowImageSrc, setFowImageSrc] = React.useState("");
 
   React.useLayoutEffect(() => {
-    const ctx = canvasRef.current?.getContext("2d");
+    if (!canvasRef.current) return;
+
+    const ctx = canvasRef.current.getContext("2d");
 
     if (ctx) {
       renderFogOfWar(ctx);

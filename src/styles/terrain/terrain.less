@@ -1,7 +1,3 @@
-@import "../helpers/tiles-generator";
-@import "earth";
-@import "vault";
-
 .terrain {
   pointer-events: none;
   position: absolute;
@@ -11,8 +7,13 @@
   bottom: 0;
   transform-origin: left top;
 
-  .terrain-earth();
-  .terrain-vault();
+  .terrain-earth {
+    background-image: url("/public/assets/terrain/earth.webp");
+  }
+
+  .terrain-vault {
+    background-image: url("/public/assets/terrain/vault.webp");
+  }
 }
 
 .fow,

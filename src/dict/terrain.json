@@ -1,0 +1,18 @@
+{
+  "empty": {
+    "title": "Empty",
+    "src": ""
+  },
+  "earth": {
+    "title": "Earth",
+    "src": "public/assets/terrain/earth.webp",
+    "rows": 8,
+    "columns": 6
+  },
+  "vault": {
+    "title": "Vault",
+    "src": "public/assets/terrain/vault.webp",
+    "rows": 12,
+    "columns": 4
+  }
+}

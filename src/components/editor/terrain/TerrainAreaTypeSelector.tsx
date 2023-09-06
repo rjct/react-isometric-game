@@ -1,4 +1,5 @@
-import { TerrainAreaType, TerrainAreaTypes } from "@src/engine/TerrainAreaFactory";
+import terrain from "@src/dict/terrain.json";
+import { TerrainAreaType } from "@src/engine/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
@@ -19,10 +20,10 @@ export function TerrainAreaTypeSelector() {
 
   return (
     <select value={selectedAreaType} disabled={!gameState.selectedTerrainArea} onChange={handleTypeChange}>
-      {Object.entries(TerrainAreaTypes).map(([key, value]) => {
+      {Object.entries(terrain).map(([key, value]) => {
         return (
           <option key={key} value={key}>
-            {value}
+            {value.title}
           </option>
         );
       })}

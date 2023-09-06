@@ -10,6 +10,14 @@ interface ClipMask {
   cellSize: Size2D;
 }
 
+type ClipMaskEditingMode = null | "move" | "resize";
+
+interface ClipMaskState {
+  mode: ClipMaskEditingMode;
+  initialMousePosition: null | GridCoordinates;
+  initialMaskPosition: null | TerrainArea["source"]["position"];
+}
+
 export function TerrainAreaSourcePositionEditor() {
   const { gameState, gameDispatch } = useGameState();
 
@@ -19,12 +27,12 @@ export function TerrainAreaSourcePositionEditor() {
     cellSize: { width: 0, height: 0 },
   };
 
-  const [sourceImg, setSourceImg] = React.useState(null as unknown as HTMLImageElement);
+  const [sourceImg, setSourceImg] = React.useState<HTMLImageElement | null>(null);
   const [clipMask, setClipMask] = React.useState<ClipMask>({ ...emptyClipMask });
-  const [clipMaskState, setClipMaskState] = React.useState({
-    mode: null as unknown as "move" | "resize",
-    initialMousePosition: null as unknown as GridCoordinates,
-    initialMaskPosition: null as unknown as TerrainArea["source"]["position"],
+  const [clipMaskState, setClipMaskState] = React.useState<ClipMaskState>({
+    mode: null,
+    initialMousePosition: null,
+    initialMaskPosition: null,
   });
 
   const sourceImageRef = React.useRef<HTMLImageElement>(null);
@@ -48,7 +56,7 @@ export function TerrainAreaSourcePositionEditor() {
   };
 
   const handleClipMaskMouseMove = (e: React.MouseEvent) => {
-    if (!clipMaskState.mode) return;
+    if (!clipMaskState.mode || !clipMaskState.initialMousePosition || !clipMaskState.initialMaskPosition) return;
 
     const diffX = Math.round((e.clientX - clipMaskState.initialMousePosition.x) / clipMask.cellSize.width);
     const diffY = Math.round((e.clientY - clipMaskState.initialMousePosition.y) / clipMask.cellSize.height);
@@ -91,11 +99,11 @@ export function TerrainAreaSourcePositionEditor() {
   };
 
   const handleClipMaskMouseLeave = () => {
-    setClipMaskState({ ...clipMaskState, ...{ mode: null as unknown as "move" | "resize" } });
+    setClipMaskState({ ...clipMaskState, ...{ mode: null } });
   };
 
   const handleClipMaskMouseUp = () => {
-    setClipMaskState({ ...clipMaskState, ...{ mode: null as unknown as "move" | "resize" } });
+    setClipMaskState({ ...clipMaskState, ...{ mode: null } });
   };
 
   React.useEffect(() => {
@@ -103,7 +111,7 @@ export function TerrainAreaSourcePositionEditor() {
 
     const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(gameState.selectedTerrainArea.source.type));
 
-    setSourceImg((fullSizeSource ? fullSizeSource.source : null) as unknown as HTMLImageElement);
+    setSourceImg(fullSizeSource ? fullSizeSource.source : null);
   }, [gameState.selectedTerrainArea?.id, gameState.selectedTerrainArea?.source.type]);
 
   React.useEffect(() => {
