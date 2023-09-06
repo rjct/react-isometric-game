@@ -1,14 +1,14 @@
 {
-  "size": { "width": 20, "height": 20 },
+  "size": { "width": 21, "height": 21 },
   "terrain": [
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 0, "x2": 20, "y2": 20 }
+      "target": { "x1": 0, "y1": 0, "x2": 21, "y2": 21 }
     }
   ],
   "hero": {
-    "position": { "x": 7, "y": 7 },
-    "direction": "left",
+    "position": { "x": 10, "y": 3 },
+    "direction": "bottom",
     "inventory": {
       "backpack": [
         { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
@@ -23,30 +23,16 @@
     }
   },
   "enemies": [
-    {
-      "type": "ghoul",
-      "position": { "x": 8, "y": 12 },
-      "direction": "right",
-      "inventory": {
-        "backpack": [],
-        "leftHand": {
-          "class": "Firearm",
-          "type": "pistol",
-          "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
-        }
-      }
-    },
-    {
-      "type": "vault13_male",
-      "position": { "x": 2, "y": 2 },
-      "direction": "right",
-      "inventory": {
-        "rightHand": { "class": "MeleeWeapon", "type": "punch" }
-      }
-    }
+    { "type": "vault13_male", "position": { "x": 0, "y": 9 }, "direction": "right" },
+    { "type": "vault13_male", "position": { "x": 20, "y": 9 }, "direction": "left" }
   ],
-  "buildings": [{ "type": "vehicle-2x4", "position": { "x": 6, "y": 8 }, "direction": "right", "variant": 0 }],
-  "globalShadows": { "color": "#000d23", "opacity": 0.5 },
-  "globalLights": { "opacity": 0.3  },
-  "lights": [{ "position": { "x": 1, "y": 1 }, "color": "#ffffff", "radius": 20 }]
+  "buildings": [
+    { "type": "vault_wall", "position": { "x": 0, "y": 8 }, "direction": "top", "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 20, "y": 8 }, "direction": "top", "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 10, "y": 13 }, "direction": "top", "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 10, "y": 6 }, "direction": "top", "variant": 0 }
+  ],
+  "globalShadows": { "color": "#000d23", "opacity": 0.35 },
+  "globalLights": { "opacity": 0.25 },
+  "lights": [{ "position": { "x": 10, "y": 2 }, "color": "#ffffff", "radius": 20 }]
 }

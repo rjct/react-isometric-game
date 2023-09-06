@@ -23,7 +23,7 @@ export class UnitFieldOfViewFactory {
   }
 
   createRays() {
-    for (let i = 0; i < constants.UNIT_FIELD_OF_VIEW_RAYS; i++) {
+    for (let i = 0; i <= constants.UNIT_FIELD_OF_VIEW_RAYS; i++) {
       this.rays.push(new LightRay({ position: this.position, radius: this.range, color: "#ffffff" }));
     }
   }

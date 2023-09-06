@@ -1,5 +1,4 @@
 import { constants } from "@src/constants";
-import { LightRay } from "@src/engine/LightRayFactory";
 import { useCanvas } from "@src/hooks/useCanvas";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
@@ -113,11 +112,32 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
         continue;
       }
 
-      for (const ray of unit.fieldOfView.rays) {
-        ray.setColor(ray.collidedWithEntity?.id === gameState.heroId ? "rgba(255,0,0,0.5)" : "rgba(0,255,0,0.5)");
+      const x = (unit.position.x + 0.5) * constants.wireframeTileSize.width;
+      const y = (unit.position.y + 0.5) * constants.wireframeTileSize.height;
 
-        LightRay.draw(ctx, ray.getRayData(), false);
+      const isHeroInView = unit.fieldOfView.rays.find((ray) => ray.collidedWithEntity?.id === gameState.heroId);
+
+      ctx.lineWidth = 2;
+      ctx.strokeStyle = isHeroInView ? "rgba(255,0,0,0.75)" : "rgba(0,255,0,0.75)";
+      ctx.fillStyle = isHeroInView ? "rgba(255,0,0,0.35)" : "rgba(0,255,0,0.35)";
+
+      ctx.beginPath();
+      ctx.moveTo(x, y);
+
+      for (const ray of unit.fieldOfView.rays) {
+        ctx.lineTo(Math.round(ray.nx * ray.len) + ray.x, Math.round(ray.ny * ray.len) + ray.y);
       }
+
+      ctx.lineTo(x, y);
+      ctx.closePath();
+      ctx.stroke();
+      ctx.fill();
+
+      ctx.moveTo(0, 0);
+
+      // for (const ray of unit.fieldOfView.rays) {
+      //   LightRay.draw(ctx, ray.getRayData(), false);
+      // }
     }
   };
 
