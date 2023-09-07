@@ -19,5 +19,4 @@ export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: 
   }
 
   gameDispatch({ type: "animateUnitMove", units: [enemy], deltaTime, consumeActionPoints: true });
-  gameDispatch({ type: "recalculateUnitFieldOfView", unit: enemy });
 }

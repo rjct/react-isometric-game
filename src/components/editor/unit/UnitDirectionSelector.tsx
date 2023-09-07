@@ -12,7 +12,6 @@ export function UnitDirectionSelector() {
 
     setSelectedDirection(direction);
     gameDispatch({ type: "setUnitDirection", entityId: gameState.selectedUnit.id, direction });
-    gameDispatch({ type: "recalculateUnitFieldOfView", unit: gameState.selectedUnit });
   };
 
   React.useEffect(() => {

@@ -94,6 +94,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
   React.useEffect(() => {
     uiDispatch({ type: "resetMousePosition" });
+    gameDispatch({ type: "clearEntityPlaceholder" });
 
     if (uiState.scene === "editor") {
       gameState.getAllAliveUnitsArray().forEach((unit) => {

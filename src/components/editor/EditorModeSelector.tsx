@@ -32,6 +32,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
     gameDispatch({ type: "clearSelectedBuilding" });
     gameDispatch({ type: "clearSelectedUnit" });
     gameDispatch({ type: "clearSelectedLight" });
+    gameDispatch({ type: "clearEntityPlaceholder" });
 
     gameDispatch({ type: "stopUnits", units: gameState.getAllAliveUnitsArray() });
 

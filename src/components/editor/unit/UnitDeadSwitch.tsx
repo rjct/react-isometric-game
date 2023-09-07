@@ -1,5 +1,6 @@
 import { Switch } from "@src/components/ui/Switch";
 import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
 
 export function UnitDeadSwitch() {
   const { gameState, gameDispatch } = useGameState();
@@ -8,22 +9,20 @@ export function UnitDeadSwitch() {
     return null;
   }
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    gameDispatch({
+      type: "setUnitDead",
+      entityId: gameState.selectedUnit.id,
+      isDead: e.target.checked,
+    });
+  };
+
   return (
     <Switch
       title={""}
       checked={gameState.selectedUnit.isDead}
       disabled={gameState.selectedUnit.isHero}
-      onChange={(e) => {
-        gameDispatch({
-          type: "setUnitDead",
-          entityId: gameState.selectedUnit.id,
-          isDead: e.target.checked,
-        });
-
-        if (!e.target.checked) {
-          gameDispatch({ type: "recalculateUnitFieldOfView", unit: gameState.selectedUnit });
-        }
-      }}
+      onChange={handleChange}
     />
   );
 }

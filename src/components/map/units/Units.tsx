@@ -4,8 +4,12 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const Units = React.memo(function Units() {
-  const { gameState } = useGameState();
+  const { gameState, gameDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
+
+  React.useEffect(() => {
+    gameDispatch({ type: "recalculateUnitFieldOfView" });
+  }, [gameState.getAllAliveUnitsHash()]);
 
   if (!checkCurrentScene(["game", "combat"])) return null;
 

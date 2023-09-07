@@ -21,7 +21,6 @@ export function gameScene(this: GameContext, deltaTime: number) {
     gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
     gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
     gameDispatch({ type: "cleanupFiredAmmo", weapon });
-    gameDispatch({ type: "recalculateUnitFieldOfView", unit });
     gameDispatch({
       type: "recalculateUnitDistanceToScreenCenter",
       unit,

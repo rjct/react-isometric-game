@@ -30,7 +30,6 @@ export class UnitFieldOfViewFactory {
 
   setPosition(position: GridCoordinates) {
     for (const ray of this.rays) {
-      ray.setLen(this.range);
       ray.setPosition(position);
     }
   }

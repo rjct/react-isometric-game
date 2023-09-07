@@ -1,20 +1,26 @@
 import { MapLayer } from "@src/components/map/MapLayer";
 import { UnitComponent } from "@src/components/map/units/Unit";
 import { Unit } from "@src/engine/UnitFactory";
+import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const UnitEditor = React.memo(function UnitEditor() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { gameState, gameDispatch } = useGameState();
 
   const { getWorldMousePosition } = useMousePosition();
+  const { checkCurrentScene } = useScene();
+  const { checkEditorMode } = useEditor();
 
   const [workingEntity, setWorkingEntity] = React.useState({
     initialMousePosition: null as unknown as GridCoordinates,
     initialEntityPosition: null as unknown as GridCoordinates,
     entity: null as unknown as Unit,
   });
+
+  if (!(checkCurrentScene(["editor"]) && checkEditorMode(["units"]))) return null;
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (!workingEntity.entity) return;
@@ -32,7 +38,6 @@ export const UnitEditor = React.memo(function UnitEditor() {
         y: Math.min(gameState.mapSize.height - 1, Math.max(0, workingEntity.initialEntityPosition.y - diffY)),
       },
     });
-    gameDispatch({ type: "recalculateUnitFieldOfView", unit: workingEntity.entity });
   };
 
   const handleMouseUp = () => {
@@ -57,7 +62,7 @@ export const UnitEditor = React.memo(function UnitEditor() {
     e.stopPropagation();
   };
 
-  return uiState.scene == "editor" && uiState.editorMode == "units" ? (
+  return (
     <MapLayer
       size={gameState.mapSize}
       className={"unit-editor"}
@@ -77,5 +82,5 @@ export const UnitEditor = React.memo(function UnitEditor() {
         );
       })}
     </MapLayer>
-  ) : null;
+  );
 });
