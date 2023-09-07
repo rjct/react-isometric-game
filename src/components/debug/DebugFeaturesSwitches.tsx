@@ -2,18 +2,13 @@ import { Switch } from "@src/components/ui/Switch";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-import { Button } from "@src/components/ui/Button";
+import { DebugStartCombatButton } from "@src/components/debug/DebugStartCombatButton";
 import { GameDebugFeature, GameSettingsFeature } from "@src/constants";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
-  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+  const { gameState, gameDispatch } = useGameState();
 
   if (!gameState.debug.enabled) return null;
-
-  const handleStartCombatButtonClick = () => {
-    uiDispatch({ type: "setScene", scene: "combat" });
-    gameDispatch({ type: "startCombat" });
-  };
 
   const handleSettingFeatureSwitch = (e: React.ChangeEvent<HTMLInputElement>, featureName: GameSettingsFeature) => {
     gameDispatch({
@@ -33,13 +28,7 @@ export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches()
 
   return (
     <div className={"debug-features"}>
-      <Button
-        className={["control-end-combat"]}
-        disabled={uiState.scene !== "game"}
-        onClick={handleStartCombatButtonClick}
-      >
-        <label style={{ whiteSpace: "nowrap" }}>start combat</label>
-      </Button>
+      <DebugStartCombatButton />
 
       <hr />
 
