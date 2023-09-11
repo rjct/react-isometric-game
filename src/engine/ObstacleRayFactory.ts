@@ -69,9 +69,9 @@ export class ObstacleRay {
         y1 += sy;
       }
 
-      result.push({ x: x1, y: y1 });
+      result.unshift({ x: x1, y: y1 });
     }
 
-    this.vector = result.reverse();
+    this.vector = result;
   }
 }

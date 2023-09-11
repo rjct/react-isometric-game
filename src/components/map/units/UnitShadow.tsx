@@ -1,26 +1,19 @@
 import { Fade } from "@src/components/Fade";
-import { Unit } from "@src/engine/UnitFactory";
+import { UnitShadow } from "@src/engine/UnitFactory";
+import React from "react";
 
-export const UnitShadow = (props: { shadows: Unit["shadows"] }) => {
+export const UnitShadowComponent = React.memo((props: { shadow: UnitShadow }) => {
   return (
-    <>
-      {props.shadows.map((shadow, index) => {
-        {
-          return (
-            <Fade key={index} show={!shadow.blocked || shadow.opacity <= 0}>
-              <div
-                className={"unit unit-shadow"}
-                style={{
-                  transform: `rotateX(60deg) rotateZ(${shadow.angle}deg) scaleY(${shadow.width})`,
-                  opacity: shadow.opacity,
-                }}
-              >
-                <div className="char"></div>
-              </div>
-            </Fade>
-          );
-        }
-      })}
-    </>
+    <Fade show={!props.shadow.blocked || props.shadow.opacity <= 0}>
+      <div
+        className={"unit unit-shadow"}
+        style={{
+          transform: `rotateX(60deg) rotateZ(${props.shadow.angle}deg) scaleY(${props.shadow.length})`,
+          opacity: props.shadow.opacity,
+        }}
+      >
+        <div className="char"></div>
+      </div>
+    </Fade>
   );
-};
+});

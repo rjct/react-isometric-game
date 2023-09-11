@@ -3,7 +3,7 @@ import { UnitCooldownTimer } from "@src/components/map/units/UnitCooldownTimer";
 import { UnitDamagePoints } from "@src/components/map/units/UnitDamagePoints";
 import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
 import { UnitHealth } from "@src/components/map/units/UnitHealth";
-import { UnitShadow } from "@src/components/map/units/UnitShadow";
+import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
 import { Ammo } from "@src/components/map/weapons/Ammo";
 import { Unit } from "@src/engine/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
@@ -89,7 +89,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         <UnitCooldownTimer unit={props.unit} />
         <UnitHealth unit={props.unit} />
         <UnitActionPoints unit={props.unit} />
-        <UnitShadow shadows={props.unit.shadows} />
+
+        {props.unit.shadows.map((shadow, index) => (
+          <UnitShadowComponent key={index} shadow={shadow} />
+        ))}
       </div>
     </>
   );

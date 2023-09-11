@@ -30,18 +30,16 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
       clearCanvas(ctx);
 
-      renderOccupiedCells();
-      renderUnitPath();
-      renderUnitFieldOfView();
+      renderOccupiedCells(ctx);
+      renderUnitPath(ctx);
+      renderUnitFieldOfView(ctx);
       renderTargetVector();
-      renderShadowVectors();
+      renderShadowVectors(ctx);
     }
   };
 
-  const renderOccupiedCells = () => {
-    const ctx = getCtx();
-
-    if (!ctx || !gameState.debug.featureEnabled.occupiedCells) return;
+  const renderOccupiedCells = (ctx: CanvasRenderingContext2D) => {
+    if (!gameState.debug.featureEnabled.occupiedCells) return;
 
     for (const building of gameState.buildings) {
       if (building.occupiesCell) {
@@ -54,10 +52,8 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     }
   };
 
-  const renderUnitPath = () => {
-    const ctx = getCtx();
-
-    if (!ctx || !gameState.debug.featureEnabled.unitPath) return;
+  const renderUnitPath = (ctx: CanvasRenderingContext2D) => {
+    if (!gameState.debug.featureEnabled.unitPath) return;
 
     ctx.setLineDash([15, 5]);
 
@@ -94,11 +90,8 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     }
   };
 
-  const renderUnitFieldOfView = () => {
-    const ctx = getCtx();
-
+  const renderUnitFieldOfView = (ctx: CanvasRenderingContext2D) => {
     if (
-      !ctx ||
       ((uiState.scene === "game" || uiState.scene === "combat") && !gameState.debug.featureEnabled.unitFieldOfView) ||
       (uiState.scene === "editor" &&
         (uiState.editorMode !== "units" || !gameState.debug.featureEnabled.unitFieldOfView))
@@ -174,10 +167,8 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
     //   });
   };
 
-  const renderShadowVectors = () => {
-    const ctx = getCtx();
-
-    if (!ctx || !gameState.debug.featureEnabled.unitShadowVectors) return;
+  const renderShadowVectors = (ctx: CanvasRenderingContext2D) => {
+    if (!gameState.debug.featureEnabled.unitShadowVectors) return;
 
     ctx.setLineDash([0, 0]);
     ctx.strokeStyle = "#FFE07D";
@@ -185,11 +176,11 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     for (const unit of allAliveUnits) {
       for (const shadow of unit.shadows) {
-        const x1 = shadow.obstacleRay.from.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y1 = shadow.obstacleRay.from.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x1 = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y1 = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
 
-        const x2 = shadow.obstacleRay.to.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y2 = shadow.obstacleRay.to.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x2 = shadow.light.position.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y2 = shadow.light.position.y * wireframeTileHeight + wireframeTileHeight / 2;
 
         ctx.beginPath();
         ctx.moveTo(x1, y1);

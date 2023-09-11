@@ -4,6 +4,7 @@ import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/GameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "@src/engine/helpers";
+import { Light } from "@src/engine/LightFactory";
 import { ObstacleRay } from "@src/engine/ObstacleRayFactory";
 import { pathFinderAStar } from "@src/engine/pathFinder";
 import { UnitFieldOfViewFactory } from "@src/engine/UnitFieldOfViewFactory";
@@ -17,6 +18,13 @@ export type UnitSfxType = "walkStep" | "hit" | "dead";
 export type UnitSfxEntity = {
   src: string[];
   repeatEveryMs?: number;
+};
+export type UnitShadow = {
+  blocked: boolean;
+  light: Light;
+  opacity: number;
+  length: number;
+  angle: number;
 };
 
 export interface DictUnit {
@@ -130,13 +138,7 @@ export class Unit extends GameObjectFactory {
     notAllowed: number;
   };
 
-  public shadows: Array<{
-    blocked: boolean;
-    obstacleRay: ObstacleRay;
-    opacity: number;
-    width: number;
-    angle: number;
-  }> = [];
+  public shadows: Array<UnitShadow> = [];
 
   public atGunpoint = false;
   public fieldOfView: UnitFieldOfViewFactory;
@@ -474,25 +476,20 @@ export class Unit extends GameObjectFactory {
     }
 
     this.shadows = gameState.lights
-      .filter((light) => {
-        return light.radius >= getDistanceBetweenGridPoints(this.position, light.position);
-      })
-      .reduce((shadows: Unit["shadows"], light) => {
+      .filter((light) => light.radius >= getDistanceBetweenGridPoints(this.position, light.position))
+      .map((light) => {
         const distance = getDistanceBetweenGridPoints(this.position, light.position);
         const obstacleRay = new ObstacleRay(light.position, this.position, true);
         const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
-        const angle = obstacleRay.getAngle();
 
-        shadows.push({
+        return {
+          light,
           blocked: distance - 1 > distanceToRayEnd,
-          obstacleRay,
-          opacity: 1 - distance / light.radius,
-          width: 0.1 + distance / 5,
-          angle: angle.deg + 135,
-        });
-
-        return shadows;
-      }, []);
+          opacity: 1 - distance / light.radius - 0.1,
+          length: Number((0.1 + distance / 5).toFixed(1)),
+          angle: obstacleRay.getAngle().deg + 135,
+        };
+      });
   }
 
   public clearShadows() {

@@ -24,7 +24,12 @@
   },
   "enemies": [],
   "buildings": [],
-  "globalShadows": { "color": "#000d4d", "opacity": 0 },
+  "globalShadows": { "color": "#000d4d", "opacity": 0.5 },
   "globalLights": { "opacity": 0 },
-  "lights": []
+  "lights": [
+    { "position": { "x": 0, "y": 0 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 19, "y": 19 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 0, "y": 19 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 19, "y": 0 }, "color": "#ffffff", "radius": 20 }
+  ]
 }
