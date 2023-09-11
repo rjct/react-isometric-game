@@ -1,4 +1,5 @@
 import { constants } from "@src/constants";
+import { getCss3dPosition } from "@src/engine/helpers";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
@@ -12,14 +13,13 @@ export const WireframeMarker = React.memo(
       <div
         className={["wireframe-marker", ...props.className].join(" ")}
         style={{
-          left: props.coordinates.x * constants.wireframeTileSize.width,
-          top: props.coordinates.y * constants.wireframeTileSize.height,
+          transform: getCss3dPosition(props.coordinates),
           width: constants.wireframeTileSize.width,
           height: constants.wireframeTileSize.height,
         }}
         onAnimationEnd={props.onAnimationComplete}
       >
-        {props.value ? <span>{props.value}</span> : null}
+        <div className={"wireframe-marker-inner"}>{props.value ? <span>{props.value}</span> : null}</div>
       </div>
     );
   },

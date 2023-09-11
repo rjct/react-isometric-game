@@ -1,4 +1,5 @@
 import { constants } from "@src/constants";
+import { getCss3dPosition } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
@@ -26,8 +27,7 @@ export const WireframeEntityPlaceholder = React.memo(() => {
     <div
       className={"wireframe-placeholder"}
       style={{
-        left: gameState.entityPlaceholder.position.x * constants.wireframeTileSize.width,
-        top: gameState.entityPlaceholder.position.y * constants.wireframeTileSize.height,
+        transform: getCss3dPosition(gameState.entityPlaceholder.position),
         width: gameState.entityPlaceholder.size.width * constants.wireframeTileSize.width,
         height: gameState.entityPlaceholder.size.length * constants.wireframeTileSize.height,
       }}

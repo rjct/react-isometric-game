@@ -56,6 +56,13 @@ export function getEntityZIndex(entity: GameObjectFactory) {
   return x + y + 1;
 }
 
+export function getCss3dPosition(position: GridCoordinates, useWorldSize = true) {
+  const tileWidth = useWorldSize ? constants.wireframeTileSize.width : 1;
+  const tileHeight = useWorldSize ? constants.wireframeTileSize.height : 1;
+
+  return `translate3d(${position.x * tileWidth}px, ${position.y * tileHeight}px, 0)`;
+}
+
 export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): ScreenCoordinates {
   const mapWidth = mapSize.width;
 

@@ -5,6 +5,7 @@ import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMa
 import { UnitHealth } from "@src/components/map/units/UnitHealth";
 import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
 import { Ammo } from "@src/components/map/weapons/Ammo";
+import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -78,8 +79,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
         className={props.unit.className}
         style={{
-          left: props.unit.screenPosition[isIsometric ? "iso" : "screen"].x,
-          top: props.unit.screenPosition[isIsometric ? "iso" : "screen"].y,
+          transform: getCss3dPosition(props.unit.screenPosition[isIsometric ? "iso" : "screen"], false),
           zIndex: props.unit.zIndex,
         }}
       >

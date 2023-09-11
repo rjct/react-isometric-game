@@ -20,27 +20,40 @@
 
   .wireframe-marker {
     position: absolute;
-    border: solid 3px;
-    border-radius: 50%;
-    box-sizing: border-box;
     display: flex;
-    justify-content: center;
-    filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+
+    .wireframe-marker-inner {
+      flex: 1;
+      border: solid 3px;
+      border-radius: 50%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+      filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+    }
 
     &.action--allowed {
-      color: limegreen;
+      .wireframe-marker-inner {
+        color: limegreen;
+      }
     }
 
     &.perform-action--allowed {
-      animation: allowed 0.2s linear;
+      .wireframe-marker-inner {
+        animation: allowed 0.2s linear;
+      }
     }
 
     &.perform-action--not-allowed {
-      animation: not-allowed 0.2s linear;
+      .wireframe-marker-inner {
+        animation: not-allowed 0.2s linear;
+      }
     }
 
     &.action--not-allowed {
-      color: #ff004d;
+      .wireframe-marker-inner {
+        color: #ff004d;
+      }
     }
 
     span {
