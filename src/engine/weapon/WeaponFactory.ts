@@ -12,10 +12,12 @@ export type WeaponType = FirearmType | MeleeWeaponType;
 export type WeaponTypes = { [weaponId: string]: Weapon };
 export type WeaponRef = FirearmRef | MeleeWeaponRef;
 export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
+
+export type WeaponSfxType = "use" | "outOfAmmo";
 export type WeaponSfx = {
-  use: {
+  [type in WeaponSfxType]: {
     src: string[];
-    timeIntervalMs: number;
+    timeIntervalMs?: number;
   };
 };
 
@@ -52,6 +54,10 @@ export class Weapon {
 
   public readonly sfx: WeaponSfx = {
     use: {
+      src: [],
+      timeIntervalMs: -1,
+    },
+    outOfAmmo: {
       src: [],
       timeIntervalMs: -1,
     },

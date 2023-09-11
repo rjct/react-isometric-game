@@ -20,6 +20,9 @@
             "public/assets/weapons/punch/punch_3.m4a"
           ],
           "timeIntervalMs": 400
+        },
+        "outOfAmmo": {
+          "src": []
         }
       }
     },
@@ -39,6 +42,9 @@
         "use": {
           "src": [],
           "timeIntervalMs": 400
+        },
+        "outOfAmmo": {
+          "src": []
         }
       }
     }
@@ -65,6 +71,9 @@
             "public/assets/weapons/pistol/pistol_single_2.m4a"
           ],
           "timeIntervalMs": 400
+        },
+        "outOfAmmo": {
+          "src": ["public/assets/weapons/pistol/pistol_out_of_ammo.m4a"]
         }
       }
     },
@@ -87,6 +96,9 @@
         "use": {
           "src": ["public/assets/weapons/smg/smg_burst_1.m4a", "public/assets/weapons/smg/smg_burst_2.m4a"],
           "timeIntervalMs": 160
+        },
+        "outOfAmmo": {
+          "src": ["public/assets/weapons/smg/smg_out_of_ammo.m4a"]
         }
       }
     }

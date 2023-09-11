@@ -57,6 +57,7 @@ export class Firearm extends Weapon {
       fireInterval = window.setInterval(doFire, this.sfx.use.timeIntervalMs);
     } else {
       unit.setAction("idle");
+      this.gameMap.playSfx(this.sfx.outOfAmmo.src, 1, this.unit.distanceToScreenCenter);
 
       setTimeout(() => {
         unit.setAction("none");
