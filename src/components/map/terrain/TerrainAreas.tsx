@@ -22,6 +22,7 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
     checkCurrentScene(["editor"]) ? gameState.getTerrainHash() : false,
     uiState.scene,
     uiState.scroll,
+    uiState.editorMode,
   ]);
 
   React.useEffect(() => {

@@ -2,6 +2,8 @@ import { constants } from "@src/constants";
 import { GameUI } from "@src/context/GameUIContext";
 import { GameMap } from "@src/engine/GameMap";
 import { gridToScreenSpace } from "@src/engine/helpers";
+import { useEditor } from "@src/hooks/useEditor";
+import { useScene } from "@src/hooks/useScene";
 
 export function useTerrainAreas(gameState: GameMap, uiState: GameUI) {
   const tileWidth = constants.tileSize.width;
@@ -9,12 +11,20 @@ export function useTerrainAreas(gameState: GameMap, uiState: GameUI) {
 
   const mapWidth = gameState.mapSize.width;
   const mapHeight = gameState.mapSize.height;
+
+  const { checkCurrentScene } = useScene();
+  const { checkEditorMode } = useEditor();
   const renderTerrainTiles = (ctx: CanvasRenderingContext2D) => {
     if (!ctx) return;
 
+    const entityLibraryWidth =
+      checkCurrentScene(["editor"]) && checkEditorMode(["buildings", "units"])
+        ? constants.editor.entitiesLibrary.width + constants.editor.entitiesLibrary.left
+        : 0;
+
     ctx.resetTransform();
     ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
-    ctx.setTransform(1, 0, 0, 1, -uiState.scroll.x, -uiState.scroll.y);
+    ctx.setTransform(1, 0, 0, 1, -uiState.scroll.x + entityLibraryWidth, -uiState.scroll.y);
 
     gameState.terrain.forEach((terrainArea) => {
       for (let x = terrainArea.target.x1; x < terrainArea.target.x2; x++) {
@@ -24,7 +34,7 @@ export function useTerrainAreas(gameState: GameMap, uiState: GameUI) {
           if (
             !gameState.isEntityInViewport(
               {
-                position,
+                position: { x: x + entityLibraryWidth / constants.wireframeTileSize.width, y },
                 size: {
                   grid: { width: 1, height: 1, length: 1 },
                   screen: {

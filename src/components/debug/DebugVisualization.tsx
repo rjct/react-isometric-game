@@ -39,6 +39,8 @@ export function DebugVisualization() {
     gameState.getLightsHash(),
     gameState.getMatrixHash(),
     JSON.stringify(gameState.debug),
+    uiState.scene,
+    uiState.editorMode,
   ]);
 
   if (!gameState.debug.enabled || !checkCurrentScene(["game", "combat", "editor"])) {
