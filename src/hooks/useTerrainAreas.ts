@@ -12,6 +12,7 @@ export function useTerrainAreas(gameState: GameMap, uiState: GameUI) {
   const renderTerrainTiles = (ctx: CanvasRenderingContext2D) => {
     if (!ctx) return;
 
+    ctx.resetTransform();
     ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
     ctx.setTransform(1, 0, 0, 1, -uiState.scroll.x, -uiState.scroll.y);
 
