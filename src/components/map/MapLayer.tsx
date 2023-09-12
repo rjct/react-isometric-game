@@ -29,7 +29,7 @@ export function MapLayer({ isometric = true, additionalEditorSpace = false, ...p
   const left =
     (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) +
     (checkCurrentScene(["editor"]) && checkEditorMode(["units", "buildings"])
-      ? constants.editor.entitiesLibrary.width
+      ? constants.editor.entitiesLibrary.width + constants.editor.entitiesLibrary.left
       : 0);
 
   const style: React.CSSProperties = { width, height, left, ...props.style };

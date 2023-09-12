@@ -17,6 +17,7 @@ export function EntitiesLibrary() {
       className={`editor-library editor-library-${uiState.editorMode}`}
       style={{
         width: constants.editor.entitiesLibrary.width,
+        left: constants.editor.entitiesLibrary.left,
         top: gameState.debug.enabled ? 130 : undefined,
         bottom: gameState.debug.enabled ? 70 : undefined,
       }}

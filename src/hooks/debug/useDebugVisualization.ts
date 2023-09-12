@@ -1,11 +1,12 @@
 import { constants } from "@src/constants";
+import { degToRad } from "@src/engine/helpers";
 import { useCanvas } from "@src/hooks/useCanvas";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCanvasElement> }) {
+export function useDebugVisualization() {
   const { gameState, uiState } = useGameState();
-  const { clearCanvas, drawFillRect, drawCircle } = useCanvas();
+  const { drawFillRect, drawCircle } = useCanvas();
 
   const allAliveUnits = React.useMemo(
     () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
@@ -15,40 +16,41 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
   const wireframeTileWidth = constants.wireframeTileSize.width;
   const wireframeTileHeight = constants.wireframeTileSize.height;
 
-  const getCtx = () => {
-    if (props.canvasRef?.current) {
-      return props.canvasRef.current.getContext("2d");
-    }
+  const renderDebugVisualization = (ctx: CanvasRenderingContext2D) => {
+    ctx.resetTransform();
+    ctx.clearRect(0, 0, uiState.viewport.x2, uiState.viewport.y2);
 
-    return null;
-  };
+    ctx.setTransform(
+      1,
+      0,
+      0,
+      1,
+      -uiState.scroll.x + (gameState.mapSize.width * constants.tileSize.width) / 2,
+      -uiState.scroll.y,
+    );
+    ctx.scale(1, 0.5);
+    ctx.rotate(degToRad(45));
 
-  const renderDebugVisualization = () => {
-    if (props.canvasRef.current) {
-      const ctx = getCtx();
-      if (!ctx) return;
-
-      clearCanvas(ctx);
-
-      renderOccupiedCells(ctx);
-      renderUnitPath(ctx);
-      renderUnitFieldOfView(ctx);
-      renderTargetVector();
-      renderShadowVectors(ctx);
-    }
+    renderOccupiedCells(ctx);
+    renderUnitFieldOfView(ctx);
+    renderUnitPath(ctx);
+    renderTargetVector();
+    renderShadowVectors(ctx);
   };
 
   const renderOccupiedCells = (ctx: CanvasRenderingContext2D) => {
     if (!gameState.debug.featureEnabled.occupiedCells) return;
 
     for (const building of gameState.buildings) {
-      if (building.occupiesCell) {
+      if (building.occupiesCell && gameState.isEntityInViewport(building, uiState.viewport)) {
         drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
       }
     }
 
     for (const unit of allAliveUnits) {
-      drawCircle(ctx, unit.getRoundedPosition(), unit.internalColor, unit.internalColor, 0);
+      if (gameState.isEntityInViewport(unit, uiState.viewport)) {
+        drawCircle(ctx, unit.getRoundedPosition(), unit.internalColor, unit.internalColor, 0);
+      }
     }
   };
 
@@ -118,7 +120,10 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
       ctx.moveTo(x, y);
 
       for (const ray of unit.fieldOfView.rays) {
-        ctx.lineTo(Math.round(ray.nx * ray.len) + ray.x, Math.round(ray.ny * ray.len) + ray.y);
+        ctx.lineTo(
+          Math.max(0, Math.min(Math.round(ray.nx * ray.len) + ray.x, gameState.mapSize.width * wireframeTileWidth)),
+          Math.max(0, Math.min(Math.round(ray.ny * ray.len) + ray.y, gameState.mapSize.height * wireframeTileHeight)),
+        );
       }
 
       ctx.lineTo(x, y);
@@ -172,9 +177,10 @@ export function useDebugVisualization(props: { canvasRef: React.RefObject<HTMLCa
 
     ctx.setLineDash([0, 0]);
     ctx.strokeStyle = "#FFE07D";
-    ctx.setTransform(1, 0, 0, 1, 0, 0);
 
     for (const unit of allAliveUnits) {
+      if (!gameState.isEntityInViewport(unit, uiState.viewport)) continue;
+
       for (const shadow of unit.shadows) {
         const x1 = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
         const y1 = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;

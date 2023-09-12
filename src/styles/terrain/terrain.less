@@ -1,11 +1,8 @@
 .terrain {
   pointer-events: none;
-  position: absolute;
+  position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  transform-origin: left top;
 
   .terrain-earth {
     background-image: url("/public/assets/terrain/earth.webp");
@@ -18,7 +15,6 @@
 
 .fow,
 .lights-and-shadows,
-.debug-visualization,
 .terrain-editor {
   position: absolute;
   top: 0;
@@ -56,6 +52,9 @@
 }
 
 .debug-visualization {
+  position: fixed;
+  pointer-events: none;
+
   z-index: 1;
 }
 
@@ -70,8 +69,4 @@
 &[data-isometric] {
   transform-style: preserve-3d;
   transform: rotateX(60deg) rotateZ(45deg);
-
-  .unit {
-    transform: rotateX(135deg) rotateY(135deg) rotateZ(150deg) translate(-5px, 8px);
-  }
 }

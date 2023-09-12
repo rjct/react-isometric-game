@@ -1,4 +1,4 @@
-import { MapLayer } from "@src/components/map/MapLayer";
+import { IsometricCanvasMapLayer } from "@src/components/map/IsometricCanvasMapLayer";
 import { constants } from "@src/constants";
 import { gridToScreenSpace } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
@@ -18,15 +18,33 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   const mapWidth = gameState.mapSize.width;
   const mapHeight = gameState.mapSize.height;
 
-  const clear = () => {
-    ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
-  };
-
   const renderTerrainTiles = () => {
+    ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
+    ctx.setTransform(1, 0, 0, 1, -uiState.scroll.x, -uiState.scroll.y);
+
     gameState.terrain.forEach((terrainArea) => {
       for (let x = terrainArea.target.x1; x < terrainArea.target.x2; x++) {
         for (let y = terrainArea.target.y1; y < terrainArea.target.y2; y++) {
           const position = { x, y };
+
+          if (
+            !gameState.isEntityInViewport(
+              {
+                position,
+                size: {
+                  grid: { width: 1, height: 1, length: 1 },
+                  screen: {
+                    width: constants.wireframeTileSize.width,
+                    height: constants.wireframeTileSize.height,
+                  },
+                },
+              },
+              uiState.viewport,
+            )
+          ) {
+            continue;
+          }
+
           const screenPosition = gridToScreenSpace(position, gameState.mapSize);
           const terrainTile = terrainArea.tiles.get(`${x}:${y}`);
 
@@ -76,31 +94,18 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   React.useEffect(() => {
     if (!ctx) return;
 
-    clear();
     renderTerrainTiles();
   }, [
     gameState.mapSize,
     gameState.mapUrl,
     checkCurrentScene(["editor"]) ? gameState.getTerrainHash() : false,
     uiState.scene,
+    uiState.scroll,
   ]);
 
   React.useEffect(() => {
     setCtx(canvasRef.current?.getContext("2d") as CanvasRenderingContext2D);
   }, []);
 
-  return (
-    <MapLayer
-      isometric={false}
-      additionalEditorSpace={uiState.scene === "editor"}
-      size={gameState.mapSize}
-      className={"terrain"}
-    >
-      <canvas
-        ref={canvasRef}
-        width={`${mapWidth * tileWidth + (uiState.scene === "editor" ? constants.editor.propsEditor.width : 0)}`}
-        height={`${mapHeight * tileHeight}`}
-      ></canvas>
-    </MapLayer>
-  );
+  return <IsometricCanvasMapLayer className={"terrain"} ref={canvasRef} />;
 });

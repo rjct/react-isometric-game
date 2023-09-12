@@ -56,11 +56,13 @@ export function getEntityZIndex(entity: GameObjectFactory) {
   return x + y + 1;
 }
 
-export function getCss3dPosition(position: GridCoordinates, useWorldSize = true) {
+export function getCss3dPosition(position: GridCoordinates, useWorldSize = true, isIsometric = false) {
   const tileWidth = useWorldSize ? constants.wireframeTileSize.width : 1;
   const tileHeight = useWorldSize ? constants.wireframeTileSize.height : 1;
 
-  return `translate3d(${position.x * tileWidth}px, ${position.y * tileHeight}px, 0)`;
+  const isometricTransform = isIsometric ? " rotateX(135deg) rotateY(135deg) rotateZ(150deg) translate(-5px, 8px)" : "";
+
+  return `translate3d(${position.x * tileWidth}px, ${position.y * tileHeight}px, 0)${isometricTransform}`;
 }
 
 export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): ScreenCoordinates {
