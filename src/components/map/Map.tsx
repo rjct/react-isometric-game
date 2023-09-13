@@ -86,6 +86,8 @@ export const Map = React.memo(
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
+      if (uiState.isScrolling) return;
+
       uiDispatch({ type: "setMousePosition", mousePosition: getWorldMousePosition(e) });
     };
 

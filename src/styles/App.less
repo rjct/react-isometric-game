@@ -194,6 +194,10 @@ fieldset {
   overflow: auto;
   z-index: 1;
 
+  &[data-scrolling-active] {
+    cursor: none;
+  }
+
   &[data-scrolling-direction="left"] {
     cursor: w-resize;
   }
