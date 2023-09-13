@@ -22,6 +22,7 @@
     "filesize": "^10.0.12",
     "pathfinding": "git+https://github.com/qiao/PathFinding.js.git",
     "react": "^18.2.0",
+    "react-device-detect": "^2.2.3",
     "react-dom": "^18.2.0",
     "react-window": "^1.8.8",
     "use-debounce": "^9.0.4"

@@ -1,5 +1,6 @@
 import { randomInt } from "@src/engine/helpers";
 import { GameContext } from "@src/hooks/useGameState";
+import { isBrowser } from "react-device-detect";
 
 export function gameScene(this: GameContext, deltaTime: number) {
   const { gameState, gameDispatch, uiState, uiDispatch } = this;
@@ -9,7 +10,9 @@ export function gameScene(this: GameContext, deltaTime: number) {
   const heroWeapon = gameState.units[gameState.heroId]?.getCurrentWeapon();
 
   // User Input
-  uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
+  if (isBrowser) {
+    uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
+  }
 
   // Update
   gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
