@@ -35,10 +35,10 @@ export function DebugVisualization() {
       JSON.stringify(gameState.debug),
     ]);
   }, [
-    gameState.getAllAliveUnitsHash(),
-    gameState.getLightsHash(),
-    gameState.getMatrixHash(),
     JSON.stringify(gameState.debug),
+    gameState.debug.enabled ? gameState.getAllAliveUnitsHash() : false,
+    gameState.debug.enabled ? gameState.getLightsHash() : false,
+    gameState.debug.enabled ? gameState.getMatrixHash() : false,
     uiState.scene,
     uiState.editorMode,
   ]);

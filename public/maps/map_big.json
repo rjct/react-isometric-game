@@ -1,0 +1,30 @@
+{
+  "size": { "width": 1000, "height": 1000 },
+  "terrain": [
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 0, "x2": 1000, "y2": 1000 }
+    }
+  ],
+  "hero": {
+    "position": { "x": 500, "y": 500 },
+    "direction": "bottom",
+    "inventory": {
+      "backpack": [
+        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
+        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
+      ],
+      "leftHand": {
+        "class": "Firearm",
+        "type": "pistol",
+        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
+      },
+      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+    }
+  },
+  "enemies": [],
+  "buildings": [],
+  "globalShadows": { "color": "#000d4d", "opacity": 0 },
+  "globalLights": { "opacity": 0 },
+  "lights": []
+}
