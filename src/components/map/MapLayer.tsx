@@ -1,11 +1,12 @@
 import { constants } from "@src/constants";
+import { gridToScreesSize } from "@src/engine/helpers";
 import { useEditor } from "@src/hooks/useEditor";
+import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export type MapLayerProps = {
   isometric?: boolean;
-  additionalEditorSpace?: boolean;
   //
   size: Size2D;
   className: string;
@@ -17,27 +18,26 @@ export type MapLayerProps = {
   onContextMenu?: (e: React.MouseEvent) => void;
 };
 
-export function MapLayer({ isometric = true, additionalEditorSpace = false, ...props }: MapLayerProps) {
+export function MapLayer({ isometric = true, ...props }: MapLayerProps) {
+  const { gameState, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
-  const { checkEditorMode } = useEditor();
+  const { getEditorLibraryPosition } = useEditor();
 
-  const tileWidth = isometric ? constants.wireframeTileSize.width : constants.tileSize.width;
-  const tileHeight = isometric ? constants.wireframeTileSize.height : constants.tileSize.height;
+  if (!checkCurrentScene(["game", "combat", "editor"]) || gameState.mapSize.width === 0) return null;
 
-  const width = props.size.width * tileWidth + (additionalEditorSpace ? constants.editor.propsEditor.width : 0);
-  const height = props.size.width * tileHeight;
-  const left =
-    (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) +
-    (checkCurrentScene(["editor"]) && checkEditorMode(["units", "buildings"])
-      ? constants.editor.entitiesLibrary.width + constants.editor.entitiesLibrary.left
-      : 0);
+  const left = (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) + getEditorLibraryPosition();
 
-  const style: React.CSSProperties = { width, height, left, ...props.style };
+  const style: React.CSSProperties = {
+    left: left - uiState.scroll.x,
+    top: (uiState.rect.top || 0) - uiState.scroll.y,
+    ...gridToScreesSize(props.size),
+    ...props.style,
+  };
 
   return (
     <div
       data-isometric={isometric || null}
-      className={`${props.className}${isometric ? " isometric" : ""}`}
+      className={`map-layer ${props.className}${isometric ? " isometric" : ""}`}
       style={style}
       onMouseMove={props.onMouseMove}
       onClick={props.onClick}

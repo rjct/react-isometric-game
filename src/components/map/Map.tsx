@@ -24,14 +24,15 @@ export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
 };
 
+let scrollTimeout: number | null = null;
+
 export const Map = React.memo(
   React.forwardRef((props, forwardedRefs) => {
     const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+    const { getWorldMousePosition } = useMousePosition();
+    const { hero } = useHero();
 
     const mapRef = React.useRef<HTMLDivElement>(null);
-    const { getWorldMousePosition } = useMousePosition();
-
-    const { hero } = useHero();
 
     const getDraggedEntityDataFromEvent = (e: React.DragEvent) => {
       const screen = {
@@ -92,10 +93,18 @@ export const Map = React.memo(
       uiDispatch({ type: "resetMousePosition" });
     };
 
+    const onScrollComplete = () => {
+      uiDispatch({ type: "scrollMapComplete" });
+    };
+
     const handleScroll = () => {
       if (mapRef.current) {
         uiDispatch({ type: "scrollMap", scroll: getCurrentScroll() });
         uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
+
+        if (scrollTimeout) window.clearTimeout(scrollTimeout);
+
+        scrollTimeout = window.setTimeout(onScrollComplete, 200);
       }
     };
 
@@ -186,6 +195,7 @@ export const Map = React.memo(
         uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
         uiDispatch({ type: "resetMousePosition" });
         uiDispatch({ type: "centerMapOnHero", unitCoordinates: gridToScreenSpace(hero.position, gameState.mapSize) });
+        uiDispatch({ type: "scrollMapComplete" });
       }
     }, [gameState.mapSize]);
 
@@ -216,8 +226,8 @@ export const Map = React.memo(
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          data-scrolling-active={uiState.isScrolling() || null}
-          data-scrolling-direction={uiState.scrollDirection}
+          data-scrolling-active={uiState.isScrolling || null}
+          data-scrolling-direction={uiState.isScrolling ? uiState.scrollDirection : null}
         >
           <FogOfWar />
           <LightsAndShadows />

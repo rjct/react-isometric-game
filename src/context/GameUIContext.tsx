@@ -28,9 +28,7 @@ const gameUIContext = {
   // eslint-disable-next-line  @typescript-eslint/no-unused-vars
   setScroll: (position: ScreenCoordinates) => null,
   scrollDirection: "none" as "none" | "left" | "top" | "right" | "bottom",
-  isScrolling: function () {
-    return this.scrollDirection !== "none";
-  },
+  isScrolling: false,
   scene: "intro" as GameScene,
   introSceneElapsedTime: 0,
   editorMode: "terrain" as keyof typeof EditorModes,

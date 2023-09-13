@@ -3,6 +3,7 @@ import { WireframeEntityPlaceholder } from "@src/components/map/terrain/Wirefram
 import { WireframeMarker } from "@src/components/map/terrain/WireframeMarker";
 import { constants } from "@src/constants";
 import { Unit } from "@src/engine/UnitFactory";
+import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
@@ -10,6 +11,7 @@ import React from "react";
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const { hero, doHeroAction } = useHero();
+  const { getEditorLibraryPosition } = useEditor();
 
   const [markerPosition, setMarkerPosition] = React.useState({ x: 0, y: 0 } as GridCoordinates);
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
@@ -97,29 +99,38 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
 
   return (
-    <MapLayer
-      size={gameState.mapSize}
-      className={"wireframe"}
+    <div
+      className={"wireframe-wrapper"}
       style={{
-        background:
-          gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : "none",
+        width: gameState.mapSize.width * constants.tileSize.width + getEditorLibraryPosition(),
+        height: gameState.mapSize.height * constants.tileSize.height,
       }}
       onClick={handleClick}
       onContextMenu={handleRightClick}
     >
-      <WireframeMarker
-        coordinates={markerPosition}
-        className={markerClassName}
-        value={markerValue}
-        onAnimationComplete={() => {
-          const classes = [...markerClassName];
-          classes.pop();
-
-          setMarkerClassName(classes);
+      <MapLayer
+        isometric={true}
+        size={gameState.mapSize}
+        className={"wireframe"}
+        style={{
+          background:
+            gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : undefined,
         }}
-      />
+      >
+        <WireframeMarker
+          coordinates={markerPosition}
+          className={markerClassName}
+          value={markerValue}
+          onAnimationComplete={() => {
+            const classes = [...markerClassName];
+            classes.pop();
 
-      <WireframeEntityPlaceholder />
-    </MapLayer>
+            setMarkerClassName(classes);
+          }}
+        />
+
+        <WireframeEntityPlaceholder />
+      </MapLayer>
+    </div>
   );
 });

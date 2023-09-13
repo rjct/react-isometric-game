@@ -58,12 +58,13 @@
   z-index: 1;
 }
 
-.map {
-  position: absolute;
-  transform-origin: left top;
-
-  z-index: 1;
+.map-layer {
   pointer-events: none;
+  position: fixed;
+}
+
+.map {
+  z-index: 1;
 }
 
 &[data-isometric] {

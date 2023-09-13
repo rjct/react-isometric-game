@@ -51,7 +51,7 @@ export const DebugInfo = React.memo(function DebugInfo() {
           <tr>
             <th>Scroll:</th>
             <td>
-              {JSON.stringify(uiState.isScrolling())} {JSON.stringify(uiState.scroll)}
+              {JSON.stringify(uiState.isScrolling)} {JSON.stringify(uiState.scroll)}
             </td>
           </tr>
 

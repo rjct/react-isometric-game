@@ -3,14 +3,12 @@ import { degToRad } from "@src/engine/helpers";
 import { useCanvas } from "@src/hooks/useCanvas";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
-import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export function useDebugVisualization() {
   const { gameState, uiState } = useGameState();
   const { drawFillRect, drawCircle } = useCanvas();
-  const { checkCurrentScene } = useScene();
-  const { checkEditorMode } = useEditor();
+  const { getEditorLibraryPosition } = useEditor();
 
   const allAliveUnits = React.useMemo(
     () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
@@ -29,11 +27,7 @@ export function useDebugVisualization() {
       0,
       0,
       1,
-      -uiState.scroll.x +
-        (gameState.mapSize.width * constants.tileSize.width) / 2 +
-        (checkCurrentScene(["editor"]) && checkEditorMode(["buildings", "units"])
-          ? constants.editor.entitiesLibrary.width + constants.editor.entitiesLibrary.left
-          : 0),
+      -uiState.scroll.x + (gameState.mapSize.width * constants.tileSize.width) / 2 + getEditorLibraryPosition(),
       -uiState.scroll.y,
     );
     ctx.scale(1, 0.5);
