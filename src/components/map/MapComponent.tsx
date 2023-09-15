@@ -164,7 +164,6 @@ export const MapComponent = React.memo(
       gameDispatch({ type: "clearEntityPlaceholder" });
     };
 
-    //
     const getCurrentScroll = (): GameUI["scroll"] => {
       return {
         x: mapRef.current?.scrollLeft,
@@ -182,8 +181,8 @@ export const MapComponent = React.memo(
 
       const screen = {
         x1: rect.x + scroll.x,
-        x2: rect.width + scroll.x,
         y1: rect.y + scroll.y - rect.top,
+        x2: rect.width + scroll.x,
         y2: rect.height + scroll.y,
       };
 
