@@ -45,7 +45,7 @@ export const DebugInfo = React.memo(function DebugInfo() {
 
           <tr>
             <th>Viewport:</th>
-            <td>{JSON.stringify(uiState.viewport)}</td>
+            <td>{JSON.stringify(uiState.viewport.screen)}</td>
           </tr>
 
           <tr>

@@ -11,7 +11,7 @@ export const scrollMapOnScreenEdges = (state: GameUI, action: ScrollMapOnScreenE
   const currentScroll = { ...state.scroll };
 
   const x = state.mousePosition.browser.x;
-  const y = state.mousePosition.browser.y + state.viewport.y1;
+  const y = state.mousePosition.browser.y + state.viewport.screen.y1;
 
   const edge = constants.SCROLL_EDGE_WIDTH;
 

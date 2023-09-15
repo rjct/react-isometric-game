@@ -51,10 +51,6 @@ const createUnitInventory = (inventory: StaticMapUnit["inventory"], unit: Unit, 
 };
 
 export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
-  const terrain: TerrainArea[] = action.map.terrain.map((terrainArea) => {
-    return new TerrainArea(terrainArea);
-  });
-
   const globalShadows = action.map.globalShadows;
   const globalLights = action.map.globalLights;
 
@@ -63,7 +59,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     ...{
       mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
-      terrain: terrain, //action.map.terrain,
+      terrain: [] as GameMap["terrain"],
       matrix: createMatrix(action.map.size),
       fogOfWarMatrix: createMatrix(action.map.size),
       units: {} as UnitTypes,
@@ -73,6 +69,10 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
       lights: [] as Light[],
     },
   };
+
+  newState.terrain = action.map.terrain.map((terrainArea) => {
+    return new TerrainArea(terrainArea, newState.mapSize);
+  });
 
   newState.world = new GameObjectFactory({
     gameState: newState,

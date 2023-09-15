@@ -1,5 +1,7 @@
 import { constants } from "@src/constants";
 import { StaticMap } from "@src/context/GameStateContext";
+import { GameUI } from "@src/context/GameUIContext";
+import { GameMap } from "@src/engine/GameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/UnitFactory";
 
@@ -78,6 +80,38 @@ export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): Sc
   const y = (gridPos.x + gridPos.y) * halfHeight;
 
   return { x, y };
+}
+
+export function getVisibleIsometricGridCells(
+  boundingBox: { x: number; y: number; width: number; height: number },
+  mapSize: GameMap["mapSize"],
+) {
+  const tileWidth = constants.tileSize.width;
+  const tileHeight = constants.tileSize.height;
+  const halfWidth = tileWidth / 2;
+  const halfHeight = tileHeight / 2;
+  const cacheH = constants.OFFSCREEN_TILE_CACHE * tileWidth;
+  const cacheV = constants.OFFSCREEN_TILE_CACHE * tileHeight;
+
+  const visibleGridCells: GameUI["viewport"]["grid"] = {};
+
+  for (let x = 0; x < mapSize.width; x++) {
+    for (let y = 0; y < mapSize.height; y++) {
+      const cellCenterX = (x - y) * halfWidth + (mapSize.width / 2 - 0.5) * tileWidth;
+      const cellCenterY = (x + y) * halfHeight;
+
+      if (
+        cellCenterX >= boundingBox.x - cacheH &&
+        cellCenterY >= boundingBox.y - cacheV &&
+        cellCenterX < boundingBox.x + boundingBox.width + cacheH - tileWidth &&
+        cellCenterY <= boundingBox.y + boundingBox.height + cacheV - tileHeight
+      ) {
+        visibleGridCells[`${x}:${y}`] = { x, y };
+      }
+    }
+  }
+
+  return visibleGridCells;
 }
 
 export function createMatrix(mapSize: Size2D): Array<Array<number>> {

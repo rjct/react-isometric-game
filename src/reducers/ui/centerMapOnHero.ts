@@ -6,7 +6,7 @@ export type CenterMapOnHeroUIReducerAction = {
 };
 
 export function centerMapOnHero(state: GameUI, action: CenterMapOnHeroUIReducerAction): GameUI {
-  const { x1, y1, x2, y2 } = state.viewport;
+  const { x1, y1, x2, y2 } = state.viewport.screen;
 
   state.setScroll({
     x: action.unitCoordinates.x - (x2 - x1) / 2,

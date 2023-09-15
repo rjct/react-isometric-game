@@ -7,7 +7,7 @@ import { Intro } from "@src/components/Intro";
 import { Inventory } from "@src/components/inventory/Inventory";
 import { Loading } from "@src/components/Loading";
 import { MainMenu } from "@src/components/MainMenu";
-import { Map, MapForwardedRefs } from "@src/components/map/Map";
+import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
 import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/top_panel/TopPanel";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
@@ -129,7 +129,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                 <EntitiesLibrary />
                 <DebugFeaturesSwitches />
                 <MiniMap />
-                <Map ref={setScrollRef} />
+                <MapComponent ref={setScrollRef} />
                 <EditorSidebar />
               </div>
               <ControlPanel />

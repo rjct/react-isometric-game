@@ -2,10 +2,10 @@ import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature }
 import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
-import { floor, gridToScreenSpace, randomInt } from "@src/engine/helpers";
+import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/LightFactory";
 import { pathFinderAStar } from "@src/engine/pathFinder";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea, TerrainTile } from "@src/engine/TerrainAreaFactory";
 import { Unit, UnitTypes } from "@src/engine/UnitFactory";
 import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
@@ -177,7 +177,7 @@ export const gameMap = {
   },
 
   isCellVisited(x: number, y: number) {
-    return this.fogOfWarMatrix[floor(y)][floor(x)] > 0;
+    return this.fogOfWarMatrix[floor(y)]?.[floor(x)] > 0;
   },
 
   isEntityVisible(entity: Building | Unit) {
@@ -234,31 +234,14 @@ export const gameMap = {
     })!;
   },
 
-  isEntityInViewport(
-    entity: {
-      position: GridCoordinates;
-      size: TileProps["size"];
-    },
-    viewport: GameUI["viewport"],
-  ) {
-    const screenPosition = gridToScreenSpace(entity.position, this.mapSize);
-    const x = screenPosition.x;
-    const y = screenPosition.y;
+  getTerrainTileByCoordinates(coordinates: GridCoordinates): TerrainTile {
+    const terrainArea = this.getTerrainAreaByCoordinates(coordinates);
 
-    const entityWidth = entity.size.screen.width;
-    const entityHeight = entity.size.screen.height;
+    return terrainArea?.tiles[`${coordinates.x}:${coordinates.y}`];
+  },
 
-    const tileWidth = constants.wireframeTileSize.width;
-    const tileHeight = constants.wireframeTileSize.height;
-
-    const cache = constants.OFFSCREEN_TILE_CACHE;
-
-    return (
-      x + tileWidth * cache >= viewport.x1 &&
-      x - entityWidth - tileWidth * cache <= viewport.x2 &&
-      y + tileHeight * cache >= viewport.y1 &&
-      y - entityHeight - tileHeight * cache <= viewport.y2
-    );
+  isEntityInViewport(entity: TerrainTile | Unit | Building, viewport: GameUI["viewport"]) {
+    return !!viewport.grid[`${floor(entity.position.x)}:${floor(entity.position.y)}`];
   },
 
   getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit>, radius: number) {

@@ -24,8 +24,8 @@ export function LightAddNewButton() {
     };
 
     uiState.setScroll({
-      x: light.position.x * constants.tileSize.width - (uiState.viewport.x2 - uiState.viewport.x1) / 2,
-      y: light.position.y * constants.tileSize.height - (uiState.viewport.y2 - uiState.viewport.y1) / 2,
+      x: light.position.x * constants.tileSize.width - (uiState.viewport.screen.x2 - uiState.viewport.screen.x1) / 2,
+      y: light.position.y * constants.tileSize.height - (uiState.viewport.screen.y2 - uiState.viewport.screen.y1) / 2,
     });
 
     gameDispatch({ type: "addLight", entity: light });

@@ -10,8 +10,8 @@ export const IsometricCanvasMapLayer = React.forwardRef(
   ) => {
     const { uiState } = useGameState();
 
-    const width = uiState.viewport.x2 - uiState.viewport.x1;
-    const height = uiState.viewport.y2 - uiState.viewport.y1;
+    const width = uiState.viewport.screen.x2 - uiState.viewport.screen.x1;
+    const height = uiState.viewport.screen.y2 - uiState.viewport.screen.y1;
 
     const top = uiState.rect.top;
 

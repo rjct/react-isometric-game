@@ -31,8 +31,8 @@ export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButt
     };
 
     uiState.setScroll({
-      x: target.x1 * constants.tileSize.width - (uiState.viewport.x2 - uiState.viewport.x1) / 2,
-      y: target.y1 * constants.tileSize.height - (uiState.viewport.y2 - uiState.viewport.y1) / 2,
+      x: target.x1 * constants.tileSize.width - (uiState.viewport.screen.x2 - uiState.viewport.screen.x1) / 2,
+      y: target.y1 * constants.tileSize.height - (uiState.viewport.screen.y2 - uiState.viewport.screen.y1) / 2,
     });
 
     gameDispatch({ type: "addTerrainArea", entity: terrainArea });

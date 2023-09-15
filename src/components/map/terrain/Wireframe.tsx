@@ -7,13 +7,15 @@ import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
+import { useDebounce } from "use-debounce";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const { hero, doHeroAction } = useHero();
   const { getEditorLibraryPosition } = useEditor();
 
-  const [markerPosition, setMarkerPosition] = React.useState({ x: 0, y: 0 } as GridCoordinates);
+  const [markerPosition, setMarkerPosition] = React.useState<GridCoordinates>({ x: 0, y: 0 });
+  const debouncedMarkerPosition = useDebounce(markerPosition, 200);
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
   const [markerValue, setMarkerValue] = React.useState("");
   const wireframeCellsBackground = React.useMemo(() => {
@@ -47,7 +49,10 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const updateMarkerColor = () => {
     let className = "action--allowed";
 
-    if (uiState.scene === "combat" && gameState.combatQueue.currentUnitId !== hero.id) {
+    if (
+      gameState.mapSize.width === 0 ||
+      (uiState.scene === "combat" && gameState.combatQueue.currentUnitId !== hero.id)
+    ) {
       setMarkerClassName(["action--not-allowed"]);
       setMarkerValue("");
 
@@ -94,9 +99,15 @@ export const Wireframe = React.memo(function WireframeTiles() {
   React.useEffect(() => {
     if (uiState.mousePosition.isOutOfGrid) return;
 
+    setMarkerClassName(["action--pending"]);
     setMarkerPosition(uiState.mousePosition.grid);
-    updateMarkerColor();
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
+
+  React.useEffect(() => {
+    if (uiState.mousePosition.isOutOfGrid) return;
+
+    updateMarkerColor();
+  }, [debouncedMarkerPosition[0]]);
 
   return (
     <div

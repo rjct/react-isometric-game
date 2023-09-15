@@ -1,11 +1,21 @@
 import { constants } from "@src/constants";
 import { StaticMapTerrainArea } from "@src/context/GameStateContext";
-import { composeSpriteUrl, randomInt, randomUUID } from "@src/engine/helpers";
+import { GameMap } from "@src/engine/GameMap";
+import { composeSpriteUrl, gridToScreenSpace, randomInt, randomUUID } from "@src/engine/helpers";
 
 export interface TerrainTile {
   type: string;
-  x: number;
-  y: number;
+  backgroundPosition: GridCoordinates;
+  position: GridCoordinates;
+  screenPosition: {
+    screen: ScreenCoordinates;
+    iso: ScreenCoordinates;
+  };
+  size: {
+    grid: Size3D;
+    screen: Size2D;
+  };
+  isMapExit: boolean;
 }
 
 export enum TerrainAreaTypes {
@@ -17,18 +27,20 @@ export enum TerrainAreaTypes {
 export type TerrainAreaType = keyof typeof TerrainAreaTypes;
 
 export class TerrainArea {
+  private readonly mapSize: GameMap["mapSize"];
   readonly id = randomUUID();
   source: { type: TerrainAreaType; position: AreaCoordinates };
   target: AreaCoordinates;
   exitUrl: string | null;
-
-  tiles: Map<string, TerrainTile> = new Map();
+  tiles: { [coordinates: string]: TerrainTile };
   backgrounds: GridCoordinates[][] = [];
 
-  constructor(terrainArea: StaticMapTerrainArea) {
+  constructor(terrainArea: StaticMapTerrainArea, mapSize: GameMap["mapSize"]) {
+    this.mapSize = { ...mapSize };
     this.source = terrainArea.source;
     this.target = terrainArea.target;
     this.exitUrl = terrainArea.exitUrl;
+    this.tiles = {};
 
     this.composeRandomBackgrounds();
     this.composeTiles();
@@ -38,16 +50,16 @@ export class TerrainArea {
     const width = Math.max(1, this.target.x2 - this.target.x1);
     const height = Math.max(1, this.target.y2 - this.target.y1);
 
-    this.backgrounds = [...Array(width)].map(() =>
-      Array(height)
-        .fill(0)
-        .map(() => {
-          return {
-            x: randomInt(this.source.position.x1, this.source.position.x2),
-            y: randomInt(this.source.position.y1, this.source.position.y2),
-          };
-        }),
-    );
+    for (let x = 0; x < width; x++) {
+      if (!this.backgrounds[x]) this.backgrounds[x] = [];
+
+      for (let y = 0; y < height; y++) {
+        this.backgrounds[x][y] = {
+          x: randomInt(this.source.position.x1, this.source.position.x2),
+          y: randomInt(this.source.position.y1, this.source.position.y2),
+        };
+      }
+    }
   }
 
   setType(type: TerrainAreaType) {
@@ -57,18 +69,32 @@ export class TerrainArea {
     this.composeTiles();
   }
   composeTiles() {
-    this.tiles = new Map();
-
     for (let xx = 0, x = this.target.x1; x < this.target.x2; x++, xx++) {
       for (let yy = 0, y = this.target.y1; y < this.target.y2; y++, yy++) {
         const key = `${x}:${y}`;
         const type = composeSpriteUrl(this.source.type);
         const bg = this.backgrounds[xx]?.[yy];
 
-        this.tiles.set(key, {
-          ...{ type },
-          ...bg,
-        });
+        this.tiles[key] = {
+          isMapExit: !!this.exitUrl,
+          type,
+          backgroundPosition: bg,
+          position: { x, y },
+          screenPosition: {
+            screen: gridToScreenSpace({ x, y }, this.mapSize),
+            iso: {
+              x: (x - y) * (constants.tileSize.width / 2) + (this.mapSize.width / 2 - 0.5) * constants.tileSize.width,
+              y: (x + y) * (constants.tileSize.height / 2),
+            },
+          },
+          size: {
+            grid: { width: 1, height: 1, length: 1 },
+            screen: {
+              width: constants.tileSize.width,
+              height: constants.tileSize.height,
+            },
+          },
+        };
       }
     }
   }

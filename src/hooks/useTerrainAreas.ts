@@ -22,71 +22,44 @@ export function useTerrainAreas(gameState: GameMap, uiState: GameUI) {
     ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
     ctx.setTransform(1, 0, 0, 1, -uiState.scroll.x + entityLibraryWidth, -uiState.scroll.y);
 
-    gameState.terrain.forEach((terrainArea) => {
-      for (let x = terrainArea.target.x1; x < terrainArea.target.x2; x++) {
-        for (let y = terrainArea.target.y1; y < terrainArea.target.y2; y++) {
-          const position = { x, y };
+    Object.values(uiState.viewport.grid).forEach((coordinates) => {
+      const terrainTile = gameState.getTerrainTileByCoordinates(coordinates);
 
-          if (
-            !gameState.isEntityInViewport(
-              {
-                position: { x: x + entityLibraryWidth / constants.wireframeTileSize.width, y },
-                size: {
-                  grid: { width: 1, height: 1, length: 1 },
-                  screen: {
-                    width: constants.wireframeTileSize.width,
-                    height: constants.wireframeTileSize.height,
-                  },
-                },
-              },
-              uiState.viewport,
-            )
-          ) {
-            continue;
-          }
+      if (terrainTile) {
+        const image = gameState.getAssetImage(terrainTile.type)?.source;
 
-          const screenPosition = gridToScreenSpace(position, gameState.mapSize);
-          const terrainTile = terrainArea.tiles.get(`${x}:${y}`);
-
-          if (terrainTile) {
-            const image = gameState.getAssetImage(terrainTile.type)?.source;
-
-            if (image) {
-              ctx.drawImage(
-                image,
-                tileWidth * (terrainTile.x || 0) + (terrainTile.x || 0) * 3 + 1,
-                tileHeight * (terrainTile.y || 0) + (terrainTile.y || 0) * 3 + 1,
-                tileWidth,
-                tileHeight,
-                screenPosition.x,
-                screenPosition.y,
-                tileWidth,
-                tileHeight,
-              );
-            }
-          }
+        if (image) {
+          ctx.drawImage(
+            image,
+            tileWidth * (terrainTile.backgroundPosition.x || 0) + (terrainTile.backgroundPosition.x || 0) * 3 + 1,
+            tileHeight * (terrainTile.backgroundPosition.y || 0) + (terrainTile.backgroundPosition.y || 0) * 3 + 1,
+            terrainTile.size.screen.width,
+            terrainTile.size.screen.height,
+            terrainTile.screenPosition.screen.x,
+            terrainTile.screenPosition.screen.y,
+            terrainTile.size.screen.width,
+            terrainTile.size.screen.height,
+          );
         }
-      }
 
-      if (terrainArea.exitUrl) {
-        const { x1, y1, x2, y2 } = terrainArea.target;
+        if (terrainTile.isMapExit) {
+          const position = terrainTile.position;
 
-        const width = x2 - x1;
-        const height = y2 - y1;
+          const tl = gridToScreenSpace(position, gameState.mapSize);
+          const tr = gridToScreenSpace({ x: position.x + 1, y: position.y }, gameState.mapSize);
+          const br = gridToScreenSpace({ x: position.x + 1, y: position.y + 1 }, gameState.mapSize);
+          const bl = gridToScreenSpace({ x: position.x, y: position.y + 1 }, gameState.mapSize);
 
-        const tl = gridToScreenSpace({ x: x1, y: y1 }, gameState.mapSize);
-        const tr = gridToScreenSpace({ x: x1 + width, y: y1 }, gameState.mapSize);
-        const br = gridToScreenSpace({ x: x2, y: y2 }, gameState.mapSize);
-        const bl = gridToScreenSpace({ x: x1, y: y1 + height }, gameState.mapSize);
+          ctx.fillStyle = "rgba(0,255,0, .2)";
+          ctx.beginPath();
+          ctx.moveTo(tl.x + tileWidth / 2, tl.y);
+          ctx.lineTo(tr.x + tileWidth / 2, tr.y);
+          ctx.lineTo(br.x + tileWidth / 2, br.y);
+          ctx.lineTo(bl.x + tileWidth / 2, bl.y);
+          ctx.closePath();
 
-        ctx.beginPath();
-        ctx.moveTo(tl.x + tileWidth / 2, tl.y);
-        ctx.lineTo(tr.x + tileWidth / 2, tr.y);
-        ctx.lineTo(br.x + tileWidth / 2, br.y);
-        ctx.lineTo(bl.x + tileWidth / 2, bl.y);
-
-        ctx.fillStyle = "rgba(0,255,0, .2)";
-        ctx.fill();
+          ctx.fill();
+        }
       }
     });
   };

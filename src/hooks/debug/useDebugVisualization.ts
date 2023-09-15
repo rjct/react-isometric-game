@@ -20,7 +20,7 @@ export function useDebugVisualization() {
 
   const renderDebugVisualization = (ctx: CanvasRenderingContext2D) => {
     ctx.resetTransform();
-    ctx.clearRect(0, 0, uiState.viewport.x2, uiState.viewport.y2);
+    ctx.clearRect(0, 0, uiState.viewport.screen.x2, uiState.viewport.screen.y2);
 
     ctx.setTransform(
       1,

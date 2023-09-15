@@ -17,7 +17,7 @@ export function recalculateUnitDistanceToScreenCenter(
 ): GameMap {
   const { unit, viewport, scroll } = action;
 
-  const screenCenter = (viewport.x2 - viewport.x1) / 2;
+  const screenCenter = (viewport.screen.x2 - viewport.screen.x1) / 2;
   const heroScreenX =
     gridToScreenSpace(unit.position, state.mapSize).x - scroll.x + constants.wireframeTileSize.width / 2;
   const distance = ((heroScreenX * 100) / screenCenter - 100) / 100;

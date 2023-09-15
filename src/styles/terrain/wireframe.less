@@ -31,6 +31,14 @@
         display: flex;
         justify-content: center;
         filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
+        transition: all 150ms linear;
+      }
+
+      &.action--pending {
+        .wireframe-marker-inner {
+          margin: (@padding / 2);
+          color: rgba(255, 255, 255, 0.5);
+        }
       }
 
       &.action--allowed {

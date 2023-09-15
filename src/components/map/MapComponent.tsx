@@ -13,7 +13,7 @@ import { Units } from "@src/components/map/units/Units";
 import { constants } from "@src/constants";
 import { GameUI } from "@src/context/GameUIContext";
 import { Building, DictBuilding } from "@src/engine/BuildingFactory";
-import { floor, gridToScreenSpace } from "@src/engine/helpers";
+import { floor, getVisibleIsometricGridCells, gridToScreenSpace } from "@src/engine/helpers";
 import { DictUnit } from "@src/engine/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
@@ -26,8 +26,8 @@ export type MapForwardedRefs = {
 
 let scrollTimeout: number | null = null;
 
-export const Map = React.memo(
-  React.forwardRef((props, forwardedRefs) => {
+export const MapComponent = React.memo(
+  React.forwardRef((_props, forwardedRefs) => {
     const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
     const { getWorldMousePosition } = useMousePosition();
     const { hero } = useHero();
@@ -180,11 +180,21 @@ export const Map = React.memo(
       const rect = getCurrentRect();
       const scroll = getCurrentScroll();
 
-      return {
+      const screen = {
         x1: rect.x + scroll.x,
         x2: rect.width + scroll.x,
         y1: rect.y + scroll.y - rect.top,
         y2: rect.height + scroll.y,
+      };
+
+      const grid = getVisibleIsometricGridCells(
+        { x: screen.x1, y: screen.y1, width: rect.width, height: rect.height },
+        gameState.mapSize,
+      );
+
+      return {
+        screen,
+        grid,
       };
     };
 
