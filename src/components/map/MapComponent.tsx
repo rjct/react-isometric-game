@@ -186,7 +186,7 @@ export const MapComponent = React.memo(
         y2: rect.height + scroll.y,
       };
 
-      const grid = getVisibleIsometricGridCells(
+      const { grid, visibleCells } = getVisibleIsometricGridCells(
         { x: screen.x1, y: screen.y1, width: rect.width, height: rect.height },
         gameState.mapSize,
       );
@@ -194,6 +194,7 @@ export const MapComponent = React.memo(
       return {
         screen,
         grid,
+        visibleCells,
       };
     };
 

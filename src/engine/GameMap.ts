@@ -241,7 +241,7 @@ export const gameMap = {
   },
 
   isEntityInViewport(entity: TerrainTile | Unit | Building, viewport: GameUI["viewport"]) {
-    return !!viewport.grid[`${floor(entity.position.x)}:${floor(entity.position.y)}`];
+    return !!viewport.visibleCells[`${floor(entity.position.x)}:${floor(entity.position.y)}`];
   },
 
   getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit>, radius: number) {

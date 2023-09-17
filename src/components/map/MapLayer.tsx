@@ -19,18 +19,23 @@ export type MapLayerProps = {
 };
 
 export function MapLayer({ isometric = true, ...props }: MapLayerProps) {
-  const { gameState, uiState } = useGameState();
+  const { gameState } = useGameState();
   const { checkCurrentScene } = useScene();
   const { getEditorLibraryPosition } = useEditor();
 
   if (!checkCurrentScene(["game", "combat", "editor"]) || gameState.mapSize.width === 0) return null;
 
   const left = (isometric ? (props.size.width * constants.tileSize.width) / 2 : 0) + getEditorLibraryPosition();
+  const size = isometric
+    ? gridToScreesSize(props.size)
+    : {
+        width: props.size.width * constants.tileSize.width,
+        height: props.size.height * constants.tileSize.height,
+      };
 
   const style: React.CSSProperties = {
-    left: left - uiState.scroll.x,
-    top: (uiState.rect.top || 0) - uiState.scroll.y,
-    ...gridToScreesSize(props.size),
+    left,
+    ...size,
     ...props.style,
   };
 

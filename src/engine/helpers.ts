@@ -93,7 +93,12 @@ export function getVisibleIsometricGridCells(
   const cacheH = constants.OFFSCREEN_TILE_CACHE * tileWidth;
   const cacheV = constants.OFFSCREEN_TILE_CACHE * tileHeight;
 
-  const visibleGridCells: GameUI["viewport"]["grid"] = {};
+  const visibleGridCells: GameUI["viewport"]["visibleCells"] = {};
+
+  let x1 = mapSize.width;
+  let y1 = mapSize.height;
+  let x2 = 0;
+  let y2 = 0;
 
   for (let x = 0; x < mapSize.width; x++) {
     for (let y = 0; y < mapSize.height; y++) {
@@ -106,12 +111,17 @@ export function getVisibleIsometricGridCells(
         cellCenterX < boundingBox.x + boundingBox.width + cacheH - tileWidth &&
         cellCenterY <= boundingBox.y + boundingBox.height + cacheV - tileHeight
       ) {
+        x1 = Math.min(x1, x);
+        y1 = Math.min(y1, y);
+        x2 = Math.max(x2, x);
+        y2 = Math.max(y2, y);
+
         visibleGridCells[`${x}:${y}`] = { x, y };
       }
     }
   }
 
-  return visibleGridCells;
+  return { grid: { x1, y1, x2, y2 }, visibleCells: visibleGridCells };
 }
 
 export function createMatrix(mapSize: Size2D): Array<Array<number>> {
