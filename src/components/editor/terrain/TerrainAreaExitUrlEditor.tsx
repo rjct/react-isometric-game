@@ -1,16 +1,13 @@
 import { TerrainArea } from "@src/engine/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
+import { mapsList } from "@src/maps_list";
 import React from "react";
 
 export function TerrainAreaExitUrlEditor() {
   const { gameState, gameDispatch } = useGameState();
-  const [exitUrl, setExitUrl] = React.useState(null as unknown as TerrainArea["exitUrl"]);
+  const [exitUrl, setExitUrl] = React.useState<TerrainArea["exitUrl"]>(gameState.selectedTerrainArea.exitUrl);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.stopPropagation();
-  };
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value.trim();
     const exitUrl: TerrainArea["exitUrl"] = value === "" ? null : value;
 
@@ -27,13 +24,13 @@ export function TerrainAreaExitUrlEditor() {
   }, [gameState.selectedTerrainArea?.exitUrl]);
 
   return (
-    <input
-      type={"url"}
-      defaultValue={exitUrl || ""}
-      placeholder={"/maps/___.json"}
-      onKeyDown={handleKeyDown}
-      onChange={handleChange}
-      onBlur={handleChange}
-    />
+    <select value={exitUrl || ""} onChange={handleChange}>
+      <option value={""}>-- None --</option>
+      {Object.entries(mapsList).map(([key, value]) => (
+        <option key={`/${key}`} value={value}>
+          {key}
+        </option>
+      ))}
+    </select>
   );
 }
