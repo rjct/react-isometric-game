@@ -6,6 +6,7 @@ import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/LightFactory";
 import { pathFinderAStar } from "@src/engine/pathFinder";
 import { TerrainArea, TerrainTile } from "@src/engine/TerrainAreaFactory";
+import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
 import { Unit, UnitTypes } from "@src/engine/UnitFactory";
 import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
@@ -18,7 +19,10 @@ import { mapsList } from "@src/maps_list";
 
 interface GameMapProps {
   mapSize: Size2D;
-  terrain: TerrainArea[];
+  terrain: {
+    areas: TerrainArea[];
+    clusters: TerrainCluster[];
+  };
   buildings: Building[];
   units: UnitTypes;
   lights: Light[];
@@ -78,7 +82,10 @@ export const gameMap = {
     width: 0,
     height: 0,
   } as GameMapProps["mapSize"],
-  terrain: [] as GameMapProps["terrain"],
+  terrain: {
+    areas: [],
+    clusters: [],
+  } as GameMapProps["terrain"],
 
   world: null as unknown as GameObjectFactory,
 
@@ -227,7 +234,7 @@ export const gameMap = {
   getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {
     const { x, y } = coordinates;
 
-    return this.terrain.find((terrainArea) => {
+    return this.terrain.areas.find((terrainArea) => {
       const { x1, y1, x2, y2 } = terrainArea.target;
 
       return x >= x1 && x < x2 && y >= y1 && y < y2;
@@ -379,7 +386,7 @@ export const gameMap = {
   },
 
   getTerrainAreaById(id: string) {
-    return this.terrain.find((terrainArea) => terrainArea.id === id);
+    return this.terrain.areas.find((terrainArea) => terrainArea.id === id);
   },
 
   deleteSelectedTerrainArea() {
@@ -389,7 +396,7 @@ export const gameMap = {
 
     if (!confirmDelete) return false;
 
-    this.deleteEntity("terrain", this.selectedTerrainArea.id);
+    this.deleteTerrainArea(this.selectedTerrainArea.id);
     this.selectedTerrainArea = null as unknown as TerrainArea;
 
     return true;
@@ -406,7 +413,7 @@ export const gameMap = {
 
     if (!confirmDelete) return false;
 
-    this.deleteEntity("lights", this.selectedLight.id);
+    this.deleteLight(this.selectedLight.id);
     this.selectedLight = null as unknown as Light;
 
     return true;
@@ -430,12 +437,20 @@ export const gameMap = {
     delete this.weapon[entity.id];
   },
 
-  deleteEntity(entityType: "terrain" | "lights", id: string) {
-    const index = this[entityType].findIndex((entity) => entity.id === id);
+  deleteLight(id: string) {
+    const index = this.lights.findIndex((entity) => entity.id === id);
 
     if (index === -1) return;
 
-    this[entityType].splice(index, 1);
+    this.lights.splice(index, 1);
+  },
+
+  deleteTerrainArea(id: string) {
+    const index = this.terrain.areas.findIndex((entity) => entity.id === id);
+
+    if (index === -1) return;
+
+    this.terrain.areas.splice(index, 1);
   },
 
   // HASH methods
@@ -448,7 +463,7 @@ export const gameMap = {
   },
 
   getTerrainHash() {
-    return this.terrain
+    return this.terrain.areas
       .map((terrainArea) => {
         return [
           `${terrainArea.source.type}`,
@@ -461,6 +476,14 @@ export const gameMap = {
           `${terrainArea.target.x2}`,
           `${terrainArea.target.y2}`,
         ].join(":");
+      })
+      .join("|");
+  },
+
+  getTerrainClustersHash() {
+    return this.terrain.clusters
+      .map((terrainCluster) => {
+        return terrainCluster.id;
       })
       .join("|");
   },

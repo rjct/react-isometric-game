@@ -10,7 +10,7 @@ export interface AddTerrainAreaReducerAction {
 export function addTerrainArea(state: GameMap, action: AddTerrainAreaReducerAction): GameMap {
   const terrainArea = new TerrainArea(action.entity, state.mapSize);
 
-  state.terrain.push(terrainArea);
+  state.terrain.areas.push(terrainArea);
 
   return {
     ...state,

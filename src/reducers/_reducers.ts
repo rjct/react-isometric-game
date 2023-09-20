@@ -1,6 +1,7 @@
 import { GameMap } from "@src/engine/GameMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "@src/reducers/animateFiredAmmo";
 import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "@src/reducers/cleanupFiredAmmo";
+import { createTerrainClusters, CreateTerrainClustersReducerAction } from "@src/reducers/createTerrainClusters";
 import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "@src/reducers/deleteInventoryEntity";
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "@src/reducers/detectFiredAmmoHitsTarget";
 import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "@src/reducers/detectHeroOnExitPoints";
@@ -130,6 +131,7 @@ export type GameReducerAction =
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
+  | CreateTerrainClustersReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -228,6 +230,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "stopUnits":
       return stopUnits(state, action as StopUnitsActionReducerAction);
+
+    case "createTerrainClusters":
+      return createTerrainClusters(state, action as CreateTerrainClustersReducerAction);
 
     //
     case "animateFiredAmmo":

@@ -85,13 +85,14 @@ export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): Sc
 export function getVisibleIsometricGridCells(
   boundingBox: { x: number; y: number; width: number; height: number },
   mapSize: GameMap["mapSize"],
+  offscreenTileCacheSize = constants.OFFSCREEN_TILE_CACHE,
 ) {
   const tileWidth = constants.tileSize.width;
   const tileHeight = constants.tileSize.height;
   const halfWidth = tileWidth / 2;
   const halfHeight = tileHeight / 2;
-  const cacheH = constants.OFFSCREEN_TILE_CACHE * tileWidth;
-  const cacheV = constants.OFFSCREEN_TILE_CACHE * tileHeight;
+  const cacheH = offscreenTileCacheSize * tileWidth;
+  const cacheV = offscreenTileCacheSize * tileHeight;
 
   const visibleGridCells: GameUI["viewport"]["visibleCells"] = {};
 
@@ -108,7 +109,7 @@ export function getVisibleIsometricGridCells(
       if (
         cellCenterX >= boundingBox.x - cacheH &&
         cellCenterY >= boundingBox.y - cacheV &&
-        cellCenterX < boundingBox.x + boundingBox.width + cacheH - tileWidth &&
+        cellCenterX <= boundingBox.x + boundingBox.width + cacheH - tileWidth &&
         cellCenterY <= boundingBox.y + boundingBox.height + cacheV - tileHeight
       ) {
         x1 = Math.min(x1, x);

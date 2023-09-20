@@ -59,7 +59,10 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     ...{
       mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
-      terrain: [] as GameMap["terrain"],
+      terrain: {
+        areas: [],
+        clusters: [],
+      } as GameMap["terrain"],
       matrix: createMatrix(action.map.size),
       fogOfWarMatrix: createMatrix(action.map.size),
       units: {} as UnitTypes,
@@ -70,7 +73,7 @@ export function switchMap(state: GameMap, action: SwitchMapReducerAction) {
     },
   };
 
-  newState.terrain = action.map.terrain.map((terrainArea) => {
+  newState.terrain.areas = action.map.terrain.map((terrainArea) => {
     return new TerrainArea(terrainArea, newState.mapSize);
   });
 

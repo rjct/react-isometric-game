@@ -131,7 +131,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
       onMouseUp={handleMouseUp}
       data-editing-mode={workingArea.mode}
     >
-      {gameState.terrain.map((terrainArea) => {
+      {gameState.terrain.areas.map((terrainArea) => {
         return (
           <TerrainAreaEditor
             key={terrainArea.id}

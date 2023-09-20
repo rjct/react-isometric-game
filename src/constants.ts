@@ -24,6 +24,10 @@ export const constants = {
   UNIT_FIELD_OF_VIEW_RAYS: 20,
   LIGHT_RENDER_PASSES: 2,
   INTRO_SCENE_DISPLAY_TIME: 6000,
+  TERRAIN_CLUSTER_SIZE: {
+    width: 4,
+    height: 8,
+  },
   miniMap: {
     size: {
       width: 30,

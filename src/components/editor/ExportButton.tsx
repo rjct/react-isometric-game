@@ -23,7 +23,7 @@ export const ExportButton = React.memo(function ExportButton() {
   const handleClick = () => {
     const result: StaticMap = {
       size: { ...gameState.mapSize },
-      terrain: gameState.terrain.map((terrainArea) => {
+      terrain: gameState.terrain.areas.map((terrainArea) => {
         return terrainArea.getJSON();
       }),
       hero: hero.getJSON(true),
