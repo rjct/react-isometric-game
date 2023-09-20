@@ -12,6 +12,11 @@ const wireframeTileSize = {
   height: tileSize.height * Math.sin((45 * Math.PI) / 180) * 2,
 };
 
+const terrainClusterGridSize = {
+  width: 8,
+  height: 16,
+};
+
 export const constants = {
   BASE_URL: "/react-isometric-game",
   SPRITE_URL: "public/assets/terrain/%SPRITE_FILE_NAME%.webp",
@@ -25,8 +30,14 @@ export const constants = {
   LIGHT_RENDER_PASSES: 2,
   INTRO_SCENE_DISPLAY_TIME: 6000,
   TERRAIN_CLUSTER_SIZE: {
-    width: 4,
-    height: 8,
+    grid: {
+      width: terrainClusterGridSize.width,
+      height: terrainClusterGridSize.height,
+    },
+    screen: {
+      width: terrainClusterGridSize.width * tileSize.width,
+      height: terrainClusterGridSize.height * tileSize.height,
+    },
   },
   miniMap: {
     size: {

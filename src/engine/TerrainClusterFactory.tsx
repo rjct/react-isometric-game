@@ -19,11 +19,6 @@ export class TerrainCluster {
     screen: ScreenCoordinates;
   };
 
-  public readonly size: {
-    grid: Size2D;
-    screen: Size2D;
-  };
-
   public bg = "";
 
   constructor(props: TerrainClusterProps) {
@@ -33,25 +28,14 @@ export class TerrainCluster {
     //
     this.id = randomUUID();
 
-    this.size = {
-      grid: {
-        width: constants.TERRAIN_CLUSTER_SIZE.width,
-        height: constants.TERRAIN_CLUSTER_SIZE.height,
-      },
-      screen: {
-        width: constants.TERRAIN_CLUSTER_SIZE.width * tileWidth,
-        height: constants.TERRAIN_CLUSTER_SIZE.height * tileHeight,
-      },
-    };
-
     this.position = {
       grid: {
-        x: props.position.grid.x * this.size.grid.width,
-        y: props.position.grid.y * this.size.grid.height,
+        x: props.position.grid.x * constants.TERRAIN_CLUSTER_SIZE.grid.width,
+        y: props.position.grid.y * constants.TERRAIN_CLUSTER_SIZE.grid.height,
       },
       screen: {
-        x: props.position.grid.x * this.size.screen.width,
-        y: props.position.grid.y * this.size.screen.height,
+        x: props.position.grid.x * constants.TERRAIN_CLUSTER_SIZE.screen.width,
+        y: props.position.grid.y * constants.TERRAIN_CLUSTER_SIZE.screen.height,
       },
     };
 
@@ -60,15 +44,20 @@ export class TerrainCluster {
         {
           x: this.position.screen.x,
           y: this.position.screen.y,
-          width: this.size.screen.width,
-          height: this.size.screen.height,
+          width: constants.TERRAIN_CLUSTER_SIZE.screen.width,
+          height: constants.TERRAIN_CLUSTER_SIZE.screen.height,
         },
         props.gameState.mapSize,
         1,
       ).visibleCells,
     ).map((coordinates) => props.gameState.getTerrainTileByCoordinates(coordinates));
 
-    props.ctx.clearRect(0, 0, this.size.screen.width, this.size.screen.height);
+    props.ctx.clearRect(
+      0,
+      0,
+      constants.TERRAIN_CLUSTER_SIZE.screen.width,
+      constants.TERRAIN_CLUSTER_SIZE.screen.height,
+    );
 
     for (const terrainTile of terrainTiles) {
       if (!terrainTile) continue;
