@@ -25,6 +25,10 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
     uiState.scene === "editor" ? gameState.getTerrainClustersHash() : false,
   ]);
 
+  const debugWireframeClass = React.useMemo(() => {
+    return gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? "with-wireframe" : "";
+  }, [gameState.debug.enabled, gameState.debug.featureEnabled.wireframe]);
+
   React.useEffect(() => {
     if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0) return;
 
@@ -34,7 +38,11 @@ export const TerrainAreas = React.memo(function TerrainAreas() {
   }, [gameState.mapSize, uiState.scene === "editor" ? gameState.getTerrainHash() : false]);
 
   return (
-    <MapLayer isometric={false} size={gameState.mapSize} className={"terrain-clusters"}>
+    <MapLayer
+      isometric={false}
+      size={gameState.mapSize}
+      className={["terrain-clusters", debugWireframeClass].join(" ")}
+    >
       {terrainClusters.map((terrainCluster) => {
         return (
           <div
