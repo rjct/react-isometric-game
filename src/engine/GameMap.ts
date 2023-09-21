@@ -76,16 +76,12 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: mapsList.vault,
+  mapUrl: mapsList.test,
 
   mapSize: {
     width: 0,
     height: 0,
   } as GameMapProps["mapSize"],
-  terrain: {
-    areas: [],
-    clusters: [],
-  } as GameMapProps["terrain"],
 
   world: null as unknown as GameObjectFactory,
 
@@ -101,7 +97,6 @@ export const gameMap = {
 
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,
-  selectedTerrainArea: null as unknown as TerrainArea,
   selectedLight: null as unknown as Light,
   entityPlaceholder: null as unknown as {
     position: GridCoordinates;
@@ -222,29 +217,6 @@ export const gameMap = {
     }
 
     return matrix;
-  },
-
-  isUnitIsInExitPoint(unit: Unit) {
-    const { position } = unit;
-    const terrainArea = this.getTerrainAreaByCoordinates(position);
-
-    return !!terrainArea?.exitUrl;
-  },
-
-  getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {
-    const { x, y } = coordinates;
-
-    return this.terrain.areas.find((terrainArea) => {
-      const { x1, y1, x2, y2 } = terrainArea.target;
-
-      return x >= x1 && x < x2 && y >= y1 && y < y2;
-    })!;
-  },
-
-  getTerrainTileByCoordinates(coordinates: GridCoordinates): TerrainTile {
-    const terrainArea = this.getTerrainAreaByCoordinates(coordinates);
-
-    return terrainArea?.tiles[`${coordinates.x}:${coordinates.y}`];
   },
 
   isEntityInViewport(entity: TerrainTile | Unit | Building, viewport: GameUI["viewport"]) {
@@ -385,23 +357,6 @@ export const gameMap = {
     return true;
   },
 
-  getTerrainAreaById(id: string) {
-    return this.terrain.areas.find((terrainArea) => terrainArea.id === id);
-  },
-
-  deleteSelectedTerrainArea() {
-    if (!this.selectedTerrainArea) return false;
-
-    const confirmDelete = confirm(`Are you sure to delete terrain area #"${this.selectedTerrainArea.id}"?`);
-
-    if (!confirmDelete) return false;
-
-    this.deleteTerrainArea(this.selectedTerrainArea.id);
-    this.selectedTerrainArea = null as unknown as TerrainArea;
-
-    return true;
-  },
-
   getLightById(id: string) {
     return this.lights.find((light) => light.id === id);
   },
@@ -445,14 +400,6 @@ export const gameMap = {
     this.lights.splice(index, 1);
   },
 
-  deleteTerrainArea(id: string) {
-    const index = this.terrain.areas.findIndex((entity) => entity.id === id);
-
-    if (index === -1) return;
-
-    this.terrain.areas.splice(index, 1);
-  },
-
   // HASH methods
   getMatrixHash() {
     return this.matrix.map((column) => column.join("")).join("");
@@ -460,32 +407,6 @@ export const gameMap = {
 
   getFogOfWarMatrixHash() {
     return this.fogOfWarMatrix.map((column) => column.join("")).join("");
-  },
-
-  getTerrainHash() {
-    return this.terrain.areas
-      .map((terrainArea) => {
-        return [
-          `${terrainArea.source.type}`,
-          `${terrainArea.source.position.x1}`,
-          `${terrainArea.source.position.y1}`,
-          `${terrainArea.source.position.x2}`,
-          `${terrainArea.source.position.y2}`,
-          `${terrainArea.target.x1}`,
-          `${terrainArea.target.y1}`,
-          `${terrainArea.target.x2}`,
-          `${terrainArea.target.y2}`,
-        ].join(":");
-      })
-      .join("|");
-  },
-
-  getTerrainClustersHash() {
-    return this.terrain.clusters
-      .map((terrainCluster) => {
-        return terrainCluster.id;
-      })
-      .join("|");
   },
 
   getAllAliveUnitsHash() {

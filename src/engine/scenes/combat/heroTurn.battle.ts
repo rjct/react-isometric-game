@@ -1,11 +1,16 @@
 import { Unit } from "@src/engine/UnitFactory";
 import { GameContext } from "@src/hooks/useGameState";
+import { mapsList } from "@src/maps_list";
 
 export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit) {
-  const { gameState, gameDispatch } = this;
+  const { terrainState, gameState, gameDispatch } = this;
   const heroWeapon = hero.getCurrentWeapon();
 
-  gameDispatch({ type: "detectHeroOnExitPoints", unit: hero });
+  if (terrainState.isUnitIsInExitPoint(hero)) {
+    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position).exitUrl! as mapsList;
+
+    gameDispatch({ type: "updateMapUrl", mapUrl });
+  }
   gameDispatch({ type: "animateUnitMove", units: [hero], deltaTime, consumeActionPoints: true });
 
   gameDispatch({ type: "animateFiredAmmo", weapon: heroWeapon, deltaTime });

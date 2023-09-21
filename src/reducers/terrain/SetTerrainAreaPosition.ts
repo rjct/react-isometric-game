@@ -1,4 +1,4 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameTerrain } from "@src/context/GameTerrainContext";
 
 export interface SetTerrainAreaPositionReducerAction {
   type: "setTerrainAreaPosition";
@@ -6,7 +6,7 @@ export interface SetTerrainAreaPositionReducerAction {
   coordinates: GridCoordinates;
 }
 
-export function setTerrainAreaPosition(state: GameMap, action: SetTerrainAreaPositionReducerAction): GameMap {
+export function setTerrainAreaPosition(state: GameTerrain, action: SetTerrainAreaPositionReducerAction): GameTerrain {
   const terrainArea = state.getTerrainAreaById(action.entityId);
 
   if (terrainArea) {

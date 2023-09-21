@@ -14,7 +14,7 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
-  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+  const { terrainDispatch, gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
 
   if (!checkCurrentScene(["editor"])) return null;
@@ -28,7 +28,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
     setEditorMode(editorMode);
 
-    gameDispatch({ type: "clearSelectedTerrainArea" });
+    terrainDispatch({ type: "clearSelectedTerrainArea" });
     gameDispatch({ type: "clearSelectedBuilding" });
     gameDispatch({ type: "clearSelectedUnit" });
     gameDispatch({ type: "clearSelectedLight" });

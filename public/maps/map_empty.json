@@ -2,8 +2,20 @@
   "size": { "width": 40, "height": 40 },
   "terrain": [
     {
-      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 0, "x2": 40, "y2": 40 }
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
+      "target": { "x1": 0, "y1": 0, "x2": 20, "y2": 20 }
+    },
+    {
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 7 } },
+      "target": { "x1": 20, "y1": 20, "x2": 40, "y2": 40 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 4, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 20, "y1": 0, "x2": 40, "y2": 20 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 6 } },
+      "target": { "x1": 0, "y1": 20, "x2": 20, "y2": 40 }
     }
   ],
   "hero": {

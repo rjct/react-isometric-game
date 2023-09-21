@@ -7,7 +7,7 @@ import { Buildings } from "@src/components/map/buildings/Buildings";
 import { MapLayer } from "@src/components/map/MapLayer";
 import { FogOfWar } from "@src/components/map/terrain/FogOfWar";
 import { LightsAndShadows } from "@src/components/map/terrain/LightsAndShadows";
-import { TerrainAreas } from "@src/components/map/terrain/TerrainAreas";
+import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
 import { Wireframe } from "@src/components/map/terrain/Wireframe";
 import { Units } from "@src/components/map/units/Units";
 import { constants } from "@src/constants";
@@ -28,7 +28,7 @@ let scrollTimeout: number | null = null;
 
 export const MapComponent = React.memo(
   React.forwardRef((_props, forwardedRefs) => {
-    const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+    const { terrainState, terrainDispatch, gameState, gameDispatch, uiState, uiDispatch } = useGameState();
     const { getWorldMousePosition } = useMousePosition();
     const { hero } = useHero();
 
@@ -80,7 +80,7 @@ export const MapComponent = React.memo(
 
     const handleMouseDown = () => {
       gameDispatch({ type: "clearSelectedBuilding" });
-      gameDispatch({ type: "clearSelectedTerrainArea" });
+      terrainDispatch({ type: "clearSelectedTerrainArea" });
       gameDispatch({ type: "clearSelectedLight" });
       gameDispatch({ type: "clearSelectedUnit" });
     };
@@ -211,6 +211,21 @@ export const MapComponent = React.memo(
       }
     }, [gameState.mapSize]);
 
+    React.useEffect(() => {
+      const { x1, y1, x2, y2 } = uiState.viewport.screen;
+
+      const clustersInView = terrainState.clusters.filter((terrainCluster) => {
+        return (
+          terrainCluster.position.screen.x + constants.TERRAIN_CLUSTER_SIZE.screen.width >= x1 &&
+          terrainCluster.position.screen.x <= x2 &&
+          terrainCluster.position.screen.y <= y2 &&
+          terrainCluster.position.screen.y + constants.TERRAIN_CLUSTER_SIZE.screen.height >= y1
+        );
+      });
+
+      terrainDispatch({ type: "setTerrainClustersInView", clustersInView });
+    }, [uiState.viewport.grid]);
+
     React.useImperativeHandle(
       forwardedRefs,
       () => {
@@ -251,7 +266,7 @@ export const MapComponent = React.memo(
           <UnitEditor />
           <LightEditor />
 
-          <TerrainAreas />
+          <TerrainClusters />
 
           <MapLayer size={gameState.mapSize} className={"map"} isometric={gameState.debug.featureEnabled.buildingBoxes}>
             <Buildings />

@@ -1,4 +1,4 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameTerrain } from "@src/context/GameTerrainContext";
 
 export interface SetTerrainAreaSizeReducerAction {
   type: "setTerrainAreaSize";
@@ -6,7 +6,7 @@ export interface SetTerrainAreaSizeReducerAction {
   size: Size2D;
 }
 
-export function setTerrainAreaSize(state: GameMap, action: SetTerrainAreaSizeReducerAction): GameMap {
+export function setTerrainAreaSize(state: GameTerrain, action: SetTerrainAreaSizeReducerAction): GameTerrain {
   const terrainArea = state.getTerrainAreaById(action.entityId);
 
   if (terrainArea) {

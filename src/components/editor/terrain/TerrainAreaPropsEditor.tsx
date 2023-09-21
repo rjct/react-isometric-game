@@ -10,16 +10,16 @@ import { Button } from "@src/components/ui/Button";
 import { useGameState } from "@src/hooks/useGameState";
 
 export function TerrainAreaPropsEditor() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { terrainState, terrainDispatch, uiState } = useGameState();
 
   return uiState.editorMode === "terrain" ? (
-    gameState.selectedTerrainArea ? (
+    terrainState.selectedTerrainArea ? (
       <fieldset>
         <legend>Terrain area</legend>
         <div className={"editor-props-wrapper"}>
           <table>
             <tbody>
-              <TableRow label={"ID"}>{gameState.selectedTerrainArea?.id}</TableRow>
+              <TableRow label={"ID"}>{terrainState.selectedTerrainArea?.id}</TableRow>
               <TableRow label={"Type"}>
                 <TerrainAreaTypeSelector />
               </TableRow>
@@ -39,9 +39,9 @@ export function TerrainAreaPropsEditor() {
         <div className={"editor-controls"}>
           <Button
             className={["ui-button-red"]}
-            disabled={!gameState.selectedTerrainArea}
+            disabled={!terrainState.selectedTerrainArea}
             onClick={() => {
-              gameDispatch({ type: "deleteSelectedTerrainArea", entityId: gameState.selectedTerrainArea?.id });
+              terrainDispatch({ type: "deleteSelectedTerrainArea", entityId: terrainState.selectedTerrainArea?.id });
             }}
           >
             <FontAwesomeIcon icon={faTrash} />

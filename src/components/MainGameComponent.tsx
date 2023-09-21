@@ -12,18 +12,24 @@ import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/top_panel/TopPanel";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
 import { GameStateContext } from "@src/context/GameStateContext";
+import { GameTerrainContext } from "@src/context/GameTerrainContext";
 import { GameUIContext } from "@src/context/GameUIContext";
 import { GameUiDispatchContext } from "@src/context/GameUIDispatchContext";
+import { GameTerrainDispatchContext } from "@src/context/GateTerrainDispatchContext";
 import { loadMap } from "@src/engine/helpers";
 import { playScene } from "@src/engine/scenes/_scenes";
 import { useAnimationFrame } from "@src/hooks/useAnimationFrame";
 import { usePreloadAssets } from "@src/hooks/usePreloadAssets";
 import { useUrl } from "@src/hooks/useUrl";
+import { TerrainReducer } from "@src/reducers/terrain/_reducers";
 import { UIReducer } from "@src/reducers/ui/_reducers";
 import { reducer } from "@src/reducers/_reducers";
 import React from "react";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
+  const gameTerrainContext = React.useContext(GameTerrainContext);
+  const [terrainState, terrainDispatch] = React.useReducer(TerrainReducer, gameTerrainContext);
+
   const gameUIContext = React.useContext(GameUIContext);
   const [uiState, uiDispatch] = React.useReducer(UIReducer, gameUIContext);
 
@@ -41,6 +47,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     playScene(
       uiState.scene,
       {
+        terrainState,
+        terrainDispatch,
         gameState,
         gameDispatch,
         uiState,
@@ -86,6 +94,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
     preloadAssets(gameState).then((mediaAssets) => {
       loadMap(gameState.mapUrl).then((map) => {
+        terrainDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
         gameDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
         uiDispatch({ type: "setScene", scene: gameState.debug.featureEnabled.skipIntro ? "game" : "intro" });
       });
@@ -119,21 +128,25 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         <GameUIContext.Provider value={uiState}>
           <GameDispatchContext.Provider value={gameDispatch}>
             <GameStateContext.Provider value={gameState}>
-              <Loading assets={loadingState} />
+              <GameTerrainDispatchContext.Provider value={terrainDispatch}>
+                <GameTerrainContext.Provider value={terrainState}>
+                  <Loading assets={loadingState} />
 
-              <Intro />
-              <MainMenu />
-              <GameOver />
-              <TopPanel />
-              <div className={"center"}>
-                <EntitiesLibrary />
-                <DebugFeaturesSwitches />
-                <MiniMap />
-                <MapComponent ref={setScrollRef} />
-                <EditorSidebar />
-              </div>
-              <ControlPanel />
-              <Inventory />
+                  <Intro />
+                  <MainMenu />
+                  <GameOver />
+                  <TopPanel />
+                  <div className={"center"}>
+                    <EntitiesLibrary />
+                    <DebugFeaturesSwitches />
+                    <MiniMap />
+                    <MapComponent ref={setScrollRef} />
+                    <EditorSidebar />
+                  </div>
+                  <ControlPanel />
+                  <Inventory />
+                </GameTerrainContext.Provider>
+              </GameTerrainDispatchContext.Provider>
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>
         </GameUIContext.Provider>

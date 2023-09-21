@@ -1,9 +1,11 @@
+import { GameTerrain } from "@src/context/GameTerrainContext";
 import { GameUI } from "@src/context/GameUIContext";
 import { GameMap } from "@src/engine/GameMap";
 
 export interface ProcessKeyPressUIReducerAction {
   type: "processKeyPress";
   gameState: GameMap;
+  terrainState: GameTerrain;
 }
 
 export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerAction): GameUI {
@@ -54,7 +56,7 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
             break;
 
           case "terrain":
-            action.gameState.deleteSelectedTerrainArea();
+            action.terrainState.deleteSelectedTerrainArea();
             break;
         }
 

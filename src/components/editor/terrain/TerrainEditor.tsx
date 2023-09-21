@@ -6,7 +6,7 @@ import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
 
 export const TerrainEditor = React.memo(function TerrainEditor() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { gameState, terrainState, terrainDispatch, uiState } = useGameState();
 
   const { getWorldMousePosition } = useMousePosition();
 
@@ -37,7 +37,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
 
     switch (workingArea.mode) {
       case "move":
-        gameDispatch({
+        terrainDispatch({
           type: "setTerrainAreaPosition",
           entityId: workingArea.area.id,
           coordinates: {
@@ -81,7 +81,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   };
 
   const handleAreaRectMouseDown = (e: React.MouseEvent, area: TerrainArea) => {
-    gameDispatch({ type: "setSelectedTerrainArea", entity: area });
+    terrainDispatch({ type: "setSelectedTerrainArea", entity: area });
 
     const mousePosition = getWorldMousePosition(e);
 
@@ -96,7 +96,7 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
   };
 
   const handleAreaResizerMouseDown = (e: React.MouseEvent, area: TerrainArea) => {
-    gameDispatch({ type: "setSelectedTerrainArea", entity: area });
+    terrainDispatch({ type: "setSelectedTerrainArea", entity: area });
 
     const mousePosition = getWorldMousePosition(e);
 
@@ -131,12 +131,12 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
       onMouseUp={handleMouseUp}
       data-editing-mode={workingArea.mode}
     >
-      {gameState.terrain.areas.map((terrainArea) => {
+      {terrainState.areas.map((terrainArea) => {
         return (
           <TerrainAreaEditor
             key={terrainArea.id}
             area={terrainArea}
-            selected={terrainArea.id === gameState.selectedTerrainArea?.id}
+            selected={terrainArea.id === terrainState.selectedTerrainArea?.id}
             dragging={terrainArea.id === workingArea?.area?.id}
             handleAreaRectMouseDown={handleAreaRectMouseDown}
             handleAreaResizerMouseDown={handleAreaResizerMouseDown}

@@ -19,7 +19,7 @@ interface ClipMaskState {
 }
 
 export function TerrainAreaSourcePositionEditor() {
-  const { gameState, gameDispatch } = useGameState();
+  const { terrainState, terrainDispatch, gameState } = useGameState();
 
   const emptyClipMask = {
     position: { x1: 0, y1: 0, x2: 0, y2: 0 },
@@ -107,19 +107,19 @@ export function TerrainAreaSourcePositionEditor() {
   };
 
   React.useEffect(() => {
-    if (!gameState.selectedTerrainArea) return;
+    if (!terrainState.selectedTerrainArea) return;
 
-    const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(gameState.selectedTerrainArea.source.type));
+    const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(terrainState.selectedTerrainArea.source.type));
 
     setSourceImg(fullSizeSource ? fullSizeSource.source : null);
-  }, [gameState.selectedTerrainArea?.id, gameState.selectedTerrainArea?.source.type]);
+  }, [terrainState.selectedTerrainArea?.id, terrainState.selectedTerrainArea?.source.type]);
 
   React.useEffect(() => {
     if (sourceImg) {
       const width = Math.max(1, sourceImg.width / (constants.tileSize.width + 3));
       const height = Math.max(1, sourceImg.height / (constants.tileSize.height + 3));
 
-      const position = { ...gameState.selectedTerrainArea.source.position };
+      const position = { ...terrainState.selectedTerrainArea.source.position };
 
       if (sourceImageRef.current) {
         setClipMask({
@@ -137,19 +137,19 @@ export function TerrainAreaSourcePositionEditor() {
     } else {
       setClipMask({ ...emptyClipMask });
     }
-  }, [sourceImg, gameState.selectedTerrainArea?.source.position]);
+  }, [sourceImg, terrainState.selectedTerrainArea?.source.position]);
 
   React.useEffect(() => {
-    if (!gameState.selectedTerrainArea || !sourceImg) return;
+    if (!terrainState.selectedTerrainArea || !sourceImg) return;
 
-    gameDispatch({
+    terrainDispatch({
       type: "setTerrainAreaSourcePosition",
-      entityId: gameState.selectedTerrainArea.id,
+      entityId: terrainState.selectedTerrainArea.id,
       coordinates: clipMask.position,
     });
   }, [JSON.stringify(clipMask.position)]);
 
-  return gameState.selectedTerrainArea && sourceImg ? (
+  return terrainState.selectedTerrainArea && sourceImg ? (
     <div
       className={"terrain-area-source-editor"}
       onMouseMove={handleClipMaskMouseMove}

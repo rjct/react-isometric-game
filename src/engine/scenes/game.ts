@@ -1,12 +1,14 @@
 import { randomInt } from "@src/engine/helpers";
 import { GameContext } from "@src/hooks/useGameState";
+import { mapsList } from "@src/maps_list";
 
 export function gameScene(this: GameContext, deltaTime: number) {
-  const { gameState, gameDispatch, uiState } = this;
+  const { terrainState, gameState, gameDispatch, uiState } = this;
 
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
-  const heroWeapon = gameState.units[gameState.heroId]?.getCurrentWeapon();
+  const hero = gameState.units[gameState.heroId];
+  const heroWeapon = hero?.getCurrentWeapon();
 
   // User Input
   // if (isBrowser) {
@@ -14,7 +16,12 @@ export function gameScene(this: GameContext, deltaTime: number) {
   // }
 
   // Update
-  gameDispatch({ type: "detectHeroOnExitPoints", unit: gameState.getHero() });
+  if (hero && terrainState.isUnitIsInExitPoint(hero)) {
+    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position).exitUrl! as mapsList;
+
+    gameDispatch({ type: "updateMapUrl", mapUrl });
+  }
+
   gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
 
   for (const unit of allAliveUnits) {

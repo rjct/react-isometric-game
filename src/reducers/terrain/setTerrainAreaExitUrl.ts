@@ -1,4 +1,4 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameTerrain } from "@src/context/GameTerrainContext";
 import { TerrainArea } from "@src/engine/TerrainAreaFactory";
 
 export interface SetTerrainAreaExitUrlReducerAction {
@@ -7,7 +7,7 @@ export interface SetTerrainAreaExitUrlReducerAction {
   exitUrl: TerrainArea["exitUrl"];
 }
 
-export function setTerrainAreaExitUrl(state: GameMap, action: SetTerrainAreaExitUrlReducerAction): GameMap {
+export function setTerrainAreaExitUrl(state: GameTerrain, action: SetTerrainAreaExitUrlReducerAction): GameTerrain {
   const terrainArea = state.getTerrainAreaById(action.entityId);
 
   if (terrainArea) {

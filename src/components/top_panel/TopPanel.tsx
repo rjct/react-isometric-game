@@ -2,7 +2,6 @@ import React from "react";
 
 import { DebugEditorSwitch } from "@src/components/debug/DebugEditorSwitch";
 import { DebugInfo } from "@src/components/debug/DebugInfo";
-import { DebugMapInfo } from "@src/components/debug/DebugMapInfo";
 import { DebugMapPath } from "@src/components/debug/DebugMapPath";
 import { DebugMapSelector } from "@src/components/debug/DebugMapSelector";
 import { DebugSwitch } from "@src/components/debug/DebugSwitch";
@@ -20,7 +19,6 @@ export const TopPanel = React.memo(function Top() {
         <div className={"title"}>
           <DebugSwitch />
           <DebugMapSelector />
-          <DebugMapInfo />
         </div>
 
         <div className={"value"}>

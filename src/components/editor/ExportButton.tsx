@@ -7,7 +7,7 @@ import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
 export const ExportButton = React.memo(function ExportButton() {
-  const { gameState } = useGameState();
+  const { terrainState, gameState } = useGameState();
   const { hero } = useHero();
 
   const text = {
@@ -23,7 +23,7 @@ export const ExportButton = React.memo(function ExportButton() {
   const handleClick = () => {
     const result: StaticMap = {
       size: { ...gameState.mapSize },
-      terrain: gameState.terrain.areas.map((terrainArea) => {
+      terrain: terrainState.areas.map((terrainArea) => {
         return terrainArea.getJSON();
       }),
       hero: hero.getJSON(true),

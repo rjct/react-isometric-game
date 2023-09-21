@@ -23,7 +23,7 @@ const scenes: { [sceneName in GameScene]: SceneRunnerFunc } = {
 };
 
 export function playScene(scene: GameUI["scene"], context: GameContext, deltaTime: number) {
-  const { gameState, gameDispatch, uiState, uiDispatch } = context;
+  const { terrainState, gameState, gameDispatch, uiState, uiDispatch } = context;
 
   if (uiState.scene === "gameOver") return;
   if (uiState.scene === "mainMenu") return;
@@ -35,7 +35,7 @@ export function playScene(scene: GameUI["scene"], context: GameContext, deltaTim
     return;
   }
 
-  uiDispatch({ type: "processKeyPress", gameState });
+  uiDispatch({ type: "processKeyPress", gameState, terrainState });
 
   scenes[scene].apply(context, [deltaTime]);
 }

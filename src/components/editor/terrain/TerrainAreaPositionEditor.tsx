@@ -3,14 +3,14 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export function TerrainAreaPositionEditor() {
-  const { gameState, gameDispatch } = useGameState();
+  const { terrainState, terrainDispatch, gameState } = useGameState();
 
   const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
   const [size, setSize] = React.useState(null as unknown as Size2D);
 
   React.useEffect(() => {
-    if (gameState.selectedTerrainArea) {
-      const area = gameState.selectedTerrainArea.target;
+    if (terrainState.selectedTerrainArea) {
+      const area = terrainState.selectedTerrainArea.target;
 
       setSize({
         width: area.x2 - area.x1,
@@ -25,7 +25,7 @@ export function TerrainAreaPositionEditor() {
       setSize({ width: 0, height: 0 });
       setCoordinates({ x: 0, y: 0 });
     }
-  }, [JSON.stringify(gameState.selectedTerrainArea)]);
+  }, [JSON.stringify(terrainState.selectedTerrainArea)]);
 
   return coordinates && size ? (
     <div className={"terrain-area-coordinates-editor"}>
@@ -34,12 +34,12 @@ export function TerrainAreaPositionEditor() {
         label={"x"}
         min={0}
         max={gameState.mapSize.width - size.width}
-        disabled={!gameState.selectedTerrainArea}
+        disabled={!terrainState.selectedTerrainArea}
         onChange={(value) => {
-          gameDispatch({
+          terrainDispatch({
             type: "setTerrainAreaPosition",
-            entityId: gameState.selectedTerrainArea.id,
-            coordinates: { x: value, y: gameState.selectedTerrainArea.target.y1 },
+            entityId: terrainState.selectedTerrainArea.id,
+            coordinates: { x: value, y: terrainState.selectedTerrainArea.target.y1 },
           });
         }}
       />
@@ -49,12 +49,12 @@ export function TerrainAreaPositionEditor() {
         label={"y"}
         min={0}
         max={gameState.mapSize.height - size.height}
-        disabled={!gameState.selectedTerrainArea}
+        disabled={!terrainState.selectedTerrainArea}
         onChange={(value) => {
-          gameDispatch({
+          terrainDispatch({
             type: "setTerrainAreaPosition",
-            entityId: gameState.selectedTerrainArea.id,
-            coordinates: { x: gameState.selectedTerrainArea.target.x1, y: value },
+            entityId: terrainState.selectedTerrainArea.id,
+            coordinates: { x: terrainState.selectedTerrainArea.target.x1, y: value },
           });
         }}
       />
@@ -63,15 +63,15 @@ export function TerrainAreaPositionEditor() {
         value={size.width}
         label={"width"}
         min={1}
-        max={gameState.mapSize.width - gameState.selectedTerrainArea.target.x1}
-        disabled={!gameState.selectedTerrainArea}
+        max={gameState.mapSize.width - terrainState.selectedTerrainArea.target.x1}
+        disabled={!terrainState.selectedTerrainArea}
         onChange={(value) => {
-          gameDispatch({
+          terrainDispatch({
             type: "setTerrainAreaSize",
-            entityId: gameState.selectedTerrainArea.id,
+            entityId: terrainState.selectedTerrainArea.id,
             size: {
               width: value,
-              height: gameState.selectedTerrainArea.target.y2 - gameState.selectedTerrainArea.target.y1,
+              height: terrainState.selectedTerrainArea.target.y2 - terrainState.selectedTerrainArea.target.y1,
             },
           });
         }}
@@ -81,14 +81,14 @@ export function TerrainAreaPositionEditor() {
         value={size.height}
         label={"height"}
         min={1}
-        max={gameState.mapSize.height - gameState.selectedTerrainArea.target.y1}
-        disabled={!gameState.selectedTerrainArea}
+        max={gameState.mapSize.height - terrainState.selectedTerrainArea.target.y1}
+        disabled={!terrainState.selectedTerrainArea}
         onChange={(value) => {
-          gameDispatch({
+          terrainDispatch({
             type: "setTerrainAreaSize",
-            entityId: gameState.selectedTerrainArea.id,
+            entityId: terrainState.selectedTerrainArea.id,
             size: {
-              width: gameState.selectedTerrainArea.target.x2 - gameState.selectedTerrainArea.target.x1,
+              width: terrainState.selectedTerrainArea.target.x2 - terrainState.selectedTerrainArea.target.x1,
               height: value,
             },
           });

@@ -4,24 +4,24 @@ import { mapsList } from "@src/maps_list";
 import React from "react";
 
 export function TerrainAreaExitUrlEditor() {
-  const { gameState, gameDispatch } = useGameState();
-  const [exitUrl, setExitUrl] = React.useState<TerrainArea["exitUrl"]>(gameState.selectedTerrainArea.exitUrl);
+  const { terrainState, terrainDispatch } = useGameState();
+  const [exitUrl, setExitUrl] = React.useState<TerrainArea["exitUrl"]>(terrainState.selectedTerrainArea.exitUrl);
 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value.trim();
     const exitUrl: TerrainArea["exitUrl"] = value === "" ? null : value;
 
     setExitUrl(exitUrl);
-    gameDispatch({
+    terrainDispatch({
       type: "setTerrainAreaExitUrl",
-      entityId: gameState.selectedTerrainArea.id,
+      entityId: terrainState.selectedTerrainArea.id,
       exitUrl,
     });
   };
 
   React.useEffect(() => {
-    setExitUrl(gameState.selectedTerrainArea?.exitUrl);
-  }, [gameState.selectedTerrainArea?.exitUrl]);
+    setExitUrl(terrainState.selectedTerrainArea?.exitUrl);
+  }, [terrainState.selectedTerrainArea?.exitUrl]);
 
   return (
     <select value={exitUrl || ""} onChange={handleChange}>

@@ -7,7 +7,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButton() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { gameState, terrainDispatch, uiState } = useGameState();
   const handleClick = () => {
     const target = {
       x1: Math.round(gameState.mapSize.width / 2),
@@ -35,7 +35,7 @@ export const TerrainAreaAddNewButton = React.memo(function TerrainAreaAddNewButt
       y: target.y1 * constants.tileSize.height - (uiState.viewport.screen.y2 - uiState.viewport.screen.y1) / 2,
     });
 
-    gameDispatch({ type: "addTerrainArea", entity: terrainArea });
+    terrainDispatch({ type: "addTerrainArea", entity: terrainArea, mapSize: gameState.mapSize });
   };
 
   return (

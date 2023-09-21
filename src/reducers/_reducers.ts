@@ -1,10 +1,9 @@
 import { GameMap } from "@src/engine/GameMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "@src/reducers/animateFiredAmmo";
 import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "@src/reducers/cleanupFiredAmmo";
-import { createTerrainClusters, CreateTerrainClustersReducerAction } from "@src/reducers/createTerrainClusters";
 import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "@src/reducers/deleteInventoryEntity";
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "@src/reducers/detectFiredAmmoHitsTarget";
-import { detectHeroOnExitPoints, DetectHeroOnExitPointsAction } from "@src/reducers/detectHeroOnExitPoints";
+import { updateMapUrl, UpdateMapUrlReducerAction } from "@src/reducers/detectHeroOnExitPoints";
 import { addBuilding, AddBuildingReducerAction } from "@src/reducers/editor/building/addBuilding";
 import {
   clearSelectedBuilding,
@@ -58,33 +57,6 @@ import { setLightColor, SetLightColorReducerAction } from "@src/reducers/editor/
 import { setLightPosition, SetLightPositionReducerAction } from "@src/reducers/editor/light/setLightPosition";
 import { setLightRadius, SetLightRadiusReducerAction } from "@src/reducers/editor/light/setLightRadius";
 import { setSelectedLight, SetSelectedLightReducerAction } from "@src/reducers/editor/light/setSelectedLight";
-import { addTerrainArea, AddTerrainAreaReducerAction } from "@src/reducers/editor/terrain/addTerrainArea";
-import {
-  clearSelectedTerrainArea,
-  ClearSelectedTerrainAreaReducerAction,
-} from "@src/reducers/editor/terrain/clearSelectedTerrainArea";
-import {
-  deleteSelectedTerrainArea,
-  DeleteSelectedTerrainAreaReducerAction,
-} from "@src/reducers/editor/terrain/deleteSelectedTerrainArea";
-import {
-  setSelectedTerrainArea,
-  SetSelectedTerrainAreaReducerAction,
-} from "@src/reducers/editor/terrain/setSelectedTerrainArea";
-import {
-  setTerrainAreaExitUrl,
-  SetTerrainAreaExitUrlReducerAction,
-} from "@src/reducers/editor/terrain/setTerrainAreaExitUrl";
-import {
-  setTerrainAreaPosition,
-  SetTerrainAreaPositionReducerAction,
-} from "@src/reducers/editor/terrain/SetTerrainAreaPosition";
-import { setTerrainAreaSize, SetTerrainAreaSizeReducerAction } from "@src/reducers/editor/terrain/SetTerrainAreaSize";
-import {
-  setTerrainAreaSourcePosition,
-  SetTerrainAreaSourcePositionReducerAction,
-} from "@src/reducers/editor/terrain/setTerrainAreaSourcePosition";
-import { setTerrainAreaType, SetTerrainAreaTypeReducerAction } from "@src/reducers/editor/terrain/setTerrainAreaType";
 import { addUnit, AddUnitReducerAction } from "@src/reducers/editor/unit/addUnit";
 import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "@src/reducers/editor/unit/clearSelectedUnit";
 import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "@src/reducers/editor/unit/deleteSelectedUnit";
@@ -116,7 +88,7 @@ import {
   RecalculateLightsAndShadowsReducerAction,
 } from "@src/reducers/light/recalculateLightsAndShadows";
 import { loadMap, LoadMapReducerAction } from "@src/reducers/loadMap";
-import { switchMap, SwitchMapReducerAction } from "@src/reducers/switchMap";
+import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "@src/reducers/transferInventoryEntity";
 
 export type GameReducerAction =
@@ -125,20 +97,19 @@ export type GameReducerAction =
   | ToggleDebugFeatureReducerAction
   //
   | LoadMapReducerAction
-  | SwitchMapReducerAction
+  | SwitchGameMapReducerAction
   | MoveUnitReducerAction
   | AnimateUnitMoveReducerAction
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
-  | CreateTerrainClustersReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
   | AnimateFiredAmmoAction
   | CleanupFiredAmmoAction
   | SetCurrentUnitActionReducerAction
-  | DetectHeroOnExitPointsAction
+  | UpdateMapUrlReducerAction
   | TransferInventoryEntityReducerAction
   | DeleteInventoryEntityReducerAction
   | StartCombatReducerAction
@@ -168,16 +139,6 @@ export type GameReducerAction =
   | SetUnitDirectionReducerAction
   | StopUnitsActionReducerAction
   //
-  | AddTerrainAreaReducerAction
-  | SetSelectedTerrainAreaReducerAction
-  | ClearSelectedTerrainAreaReducerAction
-  | SetTerrainAreaTypeReducerAction
-  | SetTerrainAreaPositionReducerAction
-  | SetTerrainAreaSizeReducerAction
-  | SetTerrainAreaSourcePositionReducerAction
-  | SetTerrainAreaExitUrlReducerAction
-  | DeleteSelectedTerrainAreaReducerAction
-  //
   | SetGlobalShadowsOpacityReducerAction
   | SetGlobalShadowsColorReducerAction
   | SetGlobalLightsOpacityReducerAction
@@ -205,7 +166,7 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return loadMap(state, action as LoadMapReducerAction);
 
     case "switchMap":
-      return switchMap(state, action as SwitchMapReducerAction);
+      return switchMap(state, action as SwitchGameMapReducerAction);
 
     //
 
@@ -231,9 +192,6 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "stopUnits":
       return stopUnits(state, action as StopUnitsActionReducerAction);
 
-    case "createTerrainClusters":
-      return createTerrainClusters(state, action as CreateTerrainClustersReducerAction);
-
     //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);
@@ -244,8 +202,8 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "setCurrentUnitAction":
       return setCurrentUnitAction(state, action as SetCurrentUnitActionReducerAction);
 
-    case "detectHeroOnExitPoints":
-      return detectHeroOnExitPoints(state, action as DetectHeroOnExitPointsAction);
+    case "updateMapUrl":
+      return updateMapUrl(state, action as UpdateMapUrlReducerAction);
 
     case "transferInventoryEntity":
       return transferInventoryEntity(state, action as TransferInventoryEntityReducerAction);
@@ -319,34 +277,6 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setUnitDirection":
       return setUnitDirection(state, action as SetUnitDirectionReducerAction);
-
-    // EDITOR: TERRAIN
-    case "addTerrainArea":
-      return addTerrainArea(state, action as AddTerrainAreaReducerAction);
-
-    case "setSelectedTerrainArea":
-      return setSelectedTerrainArea(state, action as SetSelectedTerrainAreaReducerAction);
-
-    case "clearSelectedTerrainArea":
-      return clearSelectedTerrainArea(state, action as ClearSelectedTerrainAreaReducerAction);
-
-    case "setTerrainAreaType":
-      return setTerrainAreaType(state, action as SetTerrainAreaTypeReducerAction);
-
-    case "setTerrainAreaPosition":
-      return setTerrainAreaPosition(state, action as SetTerrainAreaPositionReducerAction);
-
-    case "setTerrainAreaSize":
-      return setTerrainAreaSize(state, action as SetTerrainAreaSizeReducerAction);
-
-    case "setTerrainAreaSourcePosition":
-      return setTerrainAreaSourcePosition(state, action as SetTerrainAreaSourcePositionReducerAction);
-
-    case "setTerrainAreaExitUrl":
-      return setTerrainAreaExitUrl(state, action as SetTerrainAreaExitUrlReducerAction);
-
-    case "deleteSelectedTerrainArea":
-      return deleteSelectedTerrainArea(state, action as DeleteSelectedTerrainAreaReducerAction);
 
     // EDITOR: LIGHT
     case "setGlobalShadowsOpacity":
