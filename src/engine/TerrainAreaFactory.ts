@@ -4,6 +4,7 @@ import { GameMap } from "@src/engine/GameMap";
 import { composeSpriteUrl, gridToScreenSpace, randomInt, randomUUID } from "@src/engine/helpers";
 
 export interface TerrainTile {
+  id: string;
   type: string;
   backgroundPosition: GridCoordinates;
   position: GridCoordinates;
@@ -76,6 +77,7 @@ export class TerrainArea {
         const bg = this.backgrounds[xx]?.[yy];
 
         this.tiles[key] = {
+          id: key,
           isMapExit: !!this.exitUrl,
           type,
           backgroundPosition: bg,

@@ -3,7 +3,7 @@ import { TerrainClusterComponent } from "@src/components/map/terrain/TerrainClus
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export const TerrainClusters = React.memo(function TerrainAreas() {
+export const TerrainClusters = function TerrainAreas() {
   const { terrainState, gameState } = useGameState();
 
   const debugWireframeClass = React.useMemo(() => {
@@ -21,4 +21,4 @@ export const TerrainClusters = React.memo(function TerrainAreas() {
       ))}
     </MapLayer>
   );
-});
+};

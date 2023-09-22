@@ -41,7 +41,11 @@ export class TerrainCluster {
     this.ctx = props.ctx;
   }
 
-  render(terrainState: GameTerrain, gameState: GameMap) {
+  public getBg() {
+    return this.bg;
+  }
+
+  public async render(terrainState: GameTerrain, gameState: GameMap): Promise<string> {
     const tileWidth = constants.tileSize.width;
     const tileHeight = constants.tileSize.height;
 
@@ -85,8 +89,8 @@ export class TerrainCluster {
 
         if (terrainTile.isMapExit) {
           const position = {
-            x: terrainTile.position.x, // - this.position.grid.x,
-            y: terrainTile.position.y, // - this.position.grid.y,
+            x: terrainTile.position.x,
+            y: terrainTile.position.y,
           };
 
           const tl = gridToScreenSpace(position, gameState.mapSize);
@@ -107,8 +111,16 @@ export class TerrainCluster {
       }
     }
 
-    this.canvas.convertToBlob().then((blob) => {
-      this.bg = window.URL.createObjectURL(blob);
+    return new Promise((resolve) => {
+      this.canvas.convertToBlob().then((blob) => {
+        this.bg = window.URL.createObjectURL(blob);
+
+        resolve(this.bg);
+      });
     });
+  }
+
+  public clear() {
+    this.bg = "";
   }
 }

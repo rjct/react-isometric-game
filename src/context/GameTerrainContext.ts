@@ -1,4 +1,3 @@
-import { constants } from "@src/constants";
 import { TerrainArea, TerrainTile } from "@src/engine/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
 import { Unit } from "@src/engine/UnitFactory";
@@ -58,26 +57,6 @@ const gameTerrainContext = {
         ].join(":");
       })
       .join("|");
-  },
-
-  getTerrainClustersHash() {
-    return this.clusters
-      .map((terrainCluster) => {
-        return [`${terrainCluster.bg}`].join(":");
-      })
-      .join("|");
-  },
-
-  getTerrainClusterByCoordinates(coordinates: GridCoordinates): TerrainCluster {
-    return this.clusters.find((terrainCluster) => {
-      const x1 = terrainCluster.position.grid.x;
-      const y1 = terrainCluster.position.grid.y;
-
-      const x2 = x1 + constants.TERRAIN_CLUSTER_SIZE.grid.width;
-      const y2 = y1 + constants.TERRAIN_CLUSTER_SIZE.grid.height;
-
-      return coordinates.x >= x1 && coordinates.x < x2 && coordinates.y >= y1 && coordinates.y < y2;
-    })!;
   },
 
   getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {

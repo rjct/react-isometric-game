@@ -128,14 +128,15 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
         <GameUIContext.Provider value={uiState}>
           <GameDispatchContext.Provider value={gameDispatch}>
             <GameStateContext.Provider value={gameState}>
+              <Loading assets={loadingState} />
+
+              <Intro />
+              <MainMenu />
+              <GameOver />
+              <TopPanel />
+
               <GameTerrainDispatchContext.Provider value={terrainDispatch}>
                 <GameTerrainContext.Provider value={terrainState}>
-                  <Loading assets={loadingState} />
-
-                  <Intro />
-                  <MainMenu />
-                  <GameOver />
-                  <TopPanel />
                   <div className={"center"}>
                     <EntitiesLibrary />
                     <DebugFeaturesSwitches />
@@ -143,10 +144,11 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                     <MapComponent ref={setScrollRef} />
                     <EditorSidebar />
                   </div>
-                  <ControlPanel />
-                  <Inventory />
                 </GameTerrainContext.Provider>
               </GameTerrainDispatchContext.Provider>
+
+              <ControlPanel />
+              <Inventory />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>
         </GameUIContext.Provider>

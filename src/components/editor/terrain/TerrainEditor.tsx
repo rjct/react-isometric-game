@@ -116,6 +116,12 @@ export const TerrainEditor = React.memo(function TerrainEditor() {
     workingArea.area.resizeTo(workingAreaSize);
   }, [workingAreaSize]);
 
+  React.useEffect(() => {
+    if (!terrainState.selectedTerrainArea) return;
+
+    terrainDispatch({ type: "clearTerrainClusters", clusters: terrainState.clusters }); // FIXME: Clear only affected clusters
+  }, [terrainState.getTerrainHash()]);
+
   return uiState.scene == "editor" && uiState.editorMode == "terrain" ? (
     <svg
       className="terrain-editor"

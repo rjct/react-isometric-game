@@ -4,6 +4,7 @@ import {
   clearSelectedTerrainArea,
   ClearSelectedTerrainAreaReducerAction,
 } from "@src/reducers/terrain/clearSelectedTerrainArea";
+import { clearTerrainClusters, ClearTerrainClustersReducerAction } from "@src/reducers/terrain/clearTerrainClusters";
 import {
   deleteSelectedTerrainArea,
   DeleteSelectedTerrainAreaReducerAction,
@@ -40,7 +41,8 @@ export type TerrainReducerAction =
   | SetTerrainAreaSizeReducerAction
   | SetTerrainAreaSourcePositionReducerAction
   | SetTerrainAreaTypeReducerAction
-  | SetTerrainClustersInViewReducerAction;
+  | SetTerrainClustersInViewReducerAction
+  | ClearTerrainClustersReducerAction;
 
 export function TerrainReducer(state: GameTerrain, action: TerrainReducerAction): GameTerrain {
   switch (action.type) {
@@ -76,5 +78,8 @@ export function TerrainReducer(state: GameTerrain, action: TerrainReducerAction)
 
     case "setTerrainClustersInView":
       return setTerrainClustersInView(state, action as SetTerrainClustersInViewReducerAction);
+
+    case "clearTerrainClusters":
+      return clearTerrainClusters(state, action as ClearTerrainClustersReducerAction);
   }
 }

@@ -76,7 +76,7 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: mapsList.test,
+  mapUrl: mapsList.vault,
 
   mapSize: {
     width: 0,

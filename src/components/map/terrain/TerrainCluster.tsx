@@ -3,16 +3,20 @@ import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export const TerrainClusterComponent = React.memo((props: { terrainCluster: TerrainCluster }) => {
+export const TerrainClusterComponent = (props: { terrainCluster: TerrainCluster }) => {
   const { terrainState, gameState } = useGameState();
 
-  React.useEffect(() => {
-    if (props.terrainCluster.bg === "") {
-      props.terrainCluster.render(terrainState, gameState);
-    }
-  }, []);
+  const [bg, setBg] = React.useState(props.terrainCluster.getBg());
 
-  if (props.terrainCluster.bg === "") return null;
+  React.useEffect(() => {
+    if (props.terrainCluster.getBg() === "") {
+      props.terrainCluster.render(terrainState, gameState).then((bg) => {
+        setBg(bg);
+      });
+    }
+  }, [props.terrainCluster.getBg()]);
+
+  if (bg === "") return null;
 
   return (
     <div
@@ -21,8 +25,8 @@ export const TerrainClusterComponent = React.memo((props: { terrainCluster: Terr
         transform: `translate3d(${props.terrainCluster.position.screen.x}px, ${props.terrainCluster.position.screen.y}px, 0)`,
         width: constants.TERRAIN_CLUSTER_SIZE.screen.width,
         height: constants.TERRAIN_CLUSTER_SIZE.screen.height,
-        backgroundImage: `url(${props.terrainCluster.bg})`,
+        backgroundImage: `url(${bg})`,
       }}
     ></div>
   );
-});
+};
