@@ -139,7 +139,6 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                 <GameTerrainContext.Provider value={terrainState}>
                   <div className={"center"}>
                     <EntitiesLibrary />
-                    <DebugFeaturesSwitches />
                     <MiniMap />
                     <MapComponent ref={setScrollRef} />
                     <EditorSidebar />
@@ -147,6 +146,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                 </GameTerrainContext.Provider>
               </GameTerrainDispatchContext.Provider>
 
+              <DebugFeaturesSwitches />
               <ControlPanel />
               <Inventory />
             </GameStateContext.Provider>
