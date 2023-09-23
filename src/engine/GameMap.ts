@@ -15,7 +15,6 @@ import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
 import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
 import { Weapon, WeaponClass, WeaponType, WeaponTypes } from "@src/engine/weapon/WeaponFactory";
 import { getUrlParamValue } from "@src/hooks/useUrl";
-import { mapsList } from "@src/maps_list";
 
 interface GameMapProps {
   mapSize: Size2D;
@@ -76,7 +75,7 @@ export const gameMap = {
     opacity: 0,
   },
 
-  mapUrl: mapsList.vault,
+  mapUrl: constants.STARTING_MAP,
 
   mapSize: {
     width: 0,

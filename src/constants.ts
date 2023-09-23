@@ -1,3 +1,5 @@
+import { mapsList } from "@src/maps_list";
+
 export type GameFeatureSections = keyof typeof constants.featureEnabled;
 export type GameSettingsFeature = keyof typeof constants.featureEnabled.settings;
 export type GameDebugFeature = keyof typeof constants.featureEnabled.debug;
@@ -18,6 +20,7 @@ const terrainClusterGridSize = {
 };
 
 export const constants = {
+  STARTING_MAP: mapsList.vault,
   BASE_URL: "/react-isometric-game",
   SPRITE_URL: "public/assets/terrain/%SPRITE_FILE_NAME%.webp",
   FPS: 24,
