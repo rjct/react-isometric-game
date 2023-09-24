@@ -5,7 +5,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";
 
-export const TerrainEditor = React.memo(function TerrainEditor() {
+export const TerrainAreasEditor = React.memo(function TerrainEditor() {
   const { gameState, terrainState, terrainDispatch, uiState } = useGameState();
 
   const { getWorldMousePosition } = useMousePosition();

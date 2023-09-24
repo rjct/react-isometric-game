@@ -1,12 +1,13 @@
 import { DebugVisualization } from "@src/components/debug/DebugVisualization";
 import { BuildingEditor } from "@src/components/editor/building/BuildingEditor";
 import { LightEditor } from "@src/components/editor/light/LightEditor";
-import { TerrainEditor } from "@src/components/editor/terrain/TerrainEditor";
+import { TerrainAreasEditor } from "@src/components/editor/terrain/TerrainAreasEditor";
 import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
 import { Buildings } from "@src/components/map/buildings/Buildings";
 import { MapLayer } from "@src/components/map/MapLayer";
 import { FogOfWar } from "@src/components/map/terrain/FogOfWar";
 import { LightsAndShadows } from "@src/components/map/terrain/LightsAndShadows";
+import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
 import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
 import { Wireframe } from "@src/components/map/terrain/Wireframe";
 import { Units } from "@src/components/map/units/Units";
@@ -262,11 +263,12 @@ export const MapComponent = React.memo(
           <Wireframe />
 
           <BuildingEditor />
-          <TerrainEditor />
+          <TerrainAreasEditor />
           <UnitEditor />
           <LightEditor />
 
-          <TerrainClusters />
+          <TerrainClusters workingScenes={["game", "combat"]} />
+          <TerrainCanvas workingScenes={["editor"]} />
 
           <MapLayer size={gameState.mapSize} className={"map"} isometric={gameState.debug.featureEnabled.buildingBoxes}>
             <Buildings />
