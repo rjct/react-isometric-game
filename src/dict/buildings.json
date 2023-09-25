@@ -142,5 +142,101 @@
     "directions": ["top", "right", "bottom", "left"],
     "variants": 3,
     "internalColor": "#21abcd"
+  },
+  "highway_fence": {
+    "class": "road",
+    "type": "highway_fence",
+    "className": "highway_fence",
+    "size": {
+      "grid": { "width": 1, "length": 2, "height": 0.7 },
+      "screen": { "width": 104, "height": 76 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 2,
+    "internalColor": "#21abcd"
+  },
+  "highway_fence-broken": {
+    "class": "road",
+    "type": "highway_fence-broken",
+    "className": "highway_fence-broken",
+    "size": {
+      "grid": { "width": 1, "length": 2, "height": 0.7 },
+      "screen": { "width": 104, "height": 76 }
+    },
+    "directions": ["top", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "highway_fence-end": {
+    "class": "road",
+    "type": "highway_fence-end",
+    "className": "highway_fence-end",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 0.7 },
+      "screen": { "width": 70, "height": 60 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "street_light": {
+    "class": "road",
+    "type": "street_light",
+    "className": "street_light",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 3 },
+      "screen": { "width": 80, "height": 145 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "traffic_light": {
+    "class": "road",
+    "type": "traffic_light",
+    "className": "traffic_light",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 1.6 },
+      "screen": { "width": 52, "height": 100 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "phonebox": {
+    "class": "road",
+    "type": "phonebox",
+    "className": "phonebox",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 1.6 },
+      "screen": { "width": 52, "height": 100 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "trash_bin": {
+    "class": "road",
+    "type": "trash_bin",
+    "className": "trash_bin",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 1 },
+      "screen": { "width": 35, "height": 46 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "newspaper_kiosk": {
+    "class": "road",
+    "type": "newspaper_kiosk",
+    "className": "newspaper_kiosk",
+    "size": {
+      "grid": { "width": 3, "length": 2, "height": 2 },
+      "screen": { "width": 190, "height": 200 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
   }
 }

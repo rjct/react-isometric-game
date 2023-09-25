@@ -17,8 +17,8 @@ export const TerrainAreaEditor = (props: {
         className="area-rect"
         x={x}
         y={y}
-        width={width}
-        height={height}
+        width={Math.floor(width)}
+        height={Math.floor(height)}
         onMouseDown={(e) => props.handleAreaRectMouseDown(e, props.area)}
       />
       <rect

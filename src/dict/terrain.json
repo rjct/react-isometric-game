@@ -14,5 +14,47 @@
     "src": "public/assets/terrain/vault.webp",
     "rows": 12,
     "columns": 4
+  },
+  "road_1": {
+    "title": "Road 1",
+    "src": "public/assets/terrain/road_1.webp",
+    "rows": 8,
+    "columns": 4
+  },
+  "road_2": {
+    "title": "Road 2",
+    "src": "public/assets/terrain/road_2.webp",
+    "rows": 9,
+    "columns": 4
+  },
+  "road_3": {
+    "title": "Road 3",
+    "src": "public/assets/terrain/road_3.webp",
+    "rows": 9,
+    "columns": 4
+  },
+  "road_4": {
+    "title": "Road 4",
+    "src": "public/assets/terrain/road_4.webp",
+    "rows": 9,
+    "columns": 4
+  },
+  "road_5": {
+    "title": "Road 5",
+    "src": "public/assets/terrain/road_5.webp",
+    "rows": 8,
+    "columns": 4
+  },
+  "road_6": {
+    "title": "Road 6",
+    "src": "public/assets/terrain/road_6.webp",
+    "rows": 9,
+    "columns": 4
+  },
+  "road_curbs": {
+    "title": "Road curbs",
+    "src": "public/assets/terrain/road_curbs.webp",
+    "rows": 10,
+    "columns": 4
   }
 }

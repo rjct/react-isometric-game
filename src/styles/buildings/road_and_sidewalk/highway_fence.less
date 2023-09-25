@@ -1,0 +1,43 @@
+@import "../_helpers";
+
+@highway_fence-width: 104px;
+@highway_fence-height: 76px;
+
+.highway_fence {
+  background-image: url("/public/assets/road_and_sidewalk/highway_fence.webp");
+  background-repeat: no-repeat;
+
+  width: @highway_fence-width;
+  height: @highway_fence-height;
+
+  margin-top: -23px;
+
+  .building-rotation(@highway_fence-width, @highway_fence-height, 2);
+  .building-shift(-32px, 0px);
+}
+
+.highway_fence-broken {
+  background-image: url("/public/assets/road_and_sidewalk/highway_fence_broken.webp");
+  background-repeat: no-repeat;
+
+  width: @highway_fence-width;
+  height: @highway_fence-height;
+
+  margin-top: -23px;
+
+  .building-rotation(@highway_fence-width, @highway_fence-height, 2);
+  .building-shift(-32px, 0px);
+}
+
+.highway_fence-end {
+  background-image: url("/public/assets/road_and_sidewalk/highway_fence_end.webp");
+  background-repeat: no-repeat;
+
+  width: 70px;
+  height: 60px;
+
+  margin-top: -23px;
+
+  .building-rotation(70px, 60px, 2);
+  .building-shift(0px, 0px);
+}
