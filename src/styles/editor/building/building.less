@@ -6,6 +6,7 @@
   bottom: 0;
   transform-origin: left top;
   z-index: 1;
+  pointer-events: auto !important;
 }
 
 [data-editing-active] .building {
@@ -15,11 +16,9 @@
 
   &:hover {
     filter: brightness(1.2);
-    //filter: drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
   }
 
   &[data-selected="true"] {
-    //filter: url("/public/assets/entity-outline-filter.svg#entity-outline-filter");
     filter: brightness(1.2) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
   }
 
