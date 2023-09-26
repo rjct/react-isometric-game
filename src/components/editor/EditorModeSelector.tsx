@@ -5,6 +5,7 @@ import { GlobalShadowsPropsEditor } from "@src/components/editor/light/GlobalSha
 import { LightAddNewButton } from "@src/components/editor/light/LightAddNewButton";
 import { LightPropsEditor } from "@src/components/editor/light/LightPropsEditor";
 import { TerrainAreaAddNewButton } from "@src/components/editor/terrain/TerrainAreaAddNewButton";
+import { TerrainAreaLayersEditor } from "@src/components/editor/terrain/TerrainAreaLayersEditor";
 import { TerrainAreaPropsEditor } from "@src/components/editor/terrain/TerrainAreaPropsEditor";
 import { UnitPropsEditor } from "@src/components/editor/unit/UnitPropsEditor";
 import { Tab } from "@src/components/ui/Tab";
@@ -67,7 +68,9 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
       {uiState.editorMode === "terrain" ? (
         <div className={"ui-tab-content"}>
+          <TerrainAreaLayersEditor />
           <TerrainAreaPropsEditor />
+
           <div className={"toolbar"}>
             <TerrainAreaAddNewButton />
           </div>

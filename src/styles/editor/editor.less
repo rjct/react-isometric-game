@@ -40,8 +40,13 @@
 
   .editor-controls {
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     padding-top: (@padding / 2);
+    gap: @padding;
+
+    .ui-button {
+      flex: 1;
+    }
   }
 
   table {

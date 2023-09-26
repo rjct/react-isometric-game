@@ -1,3 +1,4 @@
+import { faClone } from "@fortawesome/free-solid-svg-icons/faClone";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { TerrainAreaExitUrlEditor } from "@src/components/editor/terrain/TerrainAreaExitUrlEditor";
@@ -10,7 +11,7 @@ import { Button } from "@src/components/ui/Button";
 import { useGameState } from "@src/hooks/useGameState";
 
 export function TerrainAreaPropsEditor() {
-  const { terrainState, terrainDispatch, uiState } = useGameState();
+  const { terrainState, gameState, terrainDispatch, uiState } = useGameState();
 
   return uiState.editorMode === "terrain" ? (
     terrainState.selectedTerrainArea ? (
@@ -37,6 +38,21 @@ export function TerrainAreaPropsEditor() {
         </div>
 
         <div className={"editor-controls"}>
+          <Button
+            className={["ui-button-green"]}
+            disabled={!terrainState.selectedTerrainArea}
+            onClick={() => {
+              terrainDispatch({
+                type: "cloneSelectedTerrainArea",
+                entityId: terrainState.selectedTerrainArea?.id,
+                mapSize: gameState.mapSize,
+              });
+            }}
+          >
+            <FontAwesomeIcon icon={faClone} />
+            <label>Clone</label>
+          </Button>
+
           <Button
             className={["ui-button-red"]}
             disabled={!terrainState.selectedTerrainArea}

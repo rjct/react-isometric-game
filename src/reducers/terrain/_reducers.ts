@@ -6,6 +6,10 @@ import {
 } from "@src/reducers/terrain/clearSelectedTerrainArea";
 import { clearTerrainClusters, ClearTerrainClustersReducerAction } from "@src/reducers/terrain/clearTerrainClusters";
 import {
+  cloneSelectedTerrainArea,
+  CloneSelectedTerrainAreaReducerAction,
+} from "@src/reducers/terrain/cloneSelectedTerrainArea";
+import {
   deleteSelectedTerrainArea,
   DeleteSelectedTerrainAreaReducerAction,
 } from "@src/reducers/terrain/deleteSelectedTerrainArea";
@@ -33,6 +37,7 @@ import { switchMap, SwitchTerrainMapReducerAction } from "@src/reducers/terrain/
 export type TerrainReducerAction =
   | SwitchTerrainMapReducerAction
   | AddTerrainAreaReducerAction
+  | CloneSelectedTerrainAreaReducerAction
   | ClearSelectedTerrainAreaReducerAction
   | DeleteSelectedTerrainAreaReducerAction
   | SetSelectedTerrainAreaReducerAction
@@ -51,6 +56,9 @@ export function TerrainReducer(state: GameTerrain, action: TerrainReducerAction)
 
     case "addTerrainArea":
       return addTerrainArea(state, action as AddTerrainAreaReducerAction);
+
+    case "cloneSelectedTerrainArea":
+      return cloneSelectedTerrainArea(state, action as CloneSelectedTerrainAreaReducerAction);
 
     case "clearSelectedTerrainArea":
       return clearSelectedTerrainArea(state, action as ClearSelectedTerrainAreaReducerAction);
