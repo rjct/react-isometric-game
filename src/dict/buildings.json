@@ -274,5 +274,41 @@
     "directions": ["top"],
     "variants": 1,
     "internalColor": "#21abcd"
+  },
+  "plant_1": {
+    "class": "plants",
+    "type": "plant_1",
+    "className": "plant_1",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 2 },
+      "screen": { "width": 120, "height": 150 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 2,
+    "internalColor": "#21abcd"
+  },
+  "plant_2": {
+    "class": "plants",
+    "type": "plant_2",
+    "className": "plant_2",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 2 },
+      "screen": { "width": 65, "height": 70 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 3,
+    "internalColor": "#21abcd"
+  },
+  "plant_3": {
+    "class": "plants",
+    "type": "plant_3",
+    "className": "plant_3",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 1 },
+      "screen": { "width": 36, "height": 36 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 6,
+    "internalColor": "#21abcd"
   }
 }
