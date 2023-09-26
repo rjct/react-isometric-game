@@ -1,4 +1,5 @@
 export enum mapsList {
+  "road" = "maps/map_road.json",
   "vault" = "maps/map_vault.json",
   "test" = "maps/map_test.json",
   "stress" = "maps/map_stress.json",

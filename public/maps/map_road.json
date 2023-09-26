@@ -1,0 +1,1125 @@
+{
+  "size": { "width": 100, "height": 100 },
+  "terrain": [
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 98, "x2": 53, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 92, "x2": 53, "y2": 94 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 86, "x2": 53, "y2": 88 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 74, "x2": 53, "y2": 76 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 58, "y1": 0, "x2": 59, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 8 } },
+      "target": { "x1": 57, "y1": 0, "x2": 58, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 6, "x2": 2, "y2": 8 } },
+      "target": { "x1": 46, "y1": 0, "x2": 47, "y2": 47 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 98, "x2": 52, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 92, "x2": 52, "y2": 94 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 86, "x2": 52, "y2": 88 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 6, "x2": 2, "y2": 8 } },
+      "target": { "x1": 59, "y1": 0, "x2": 60, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 86, "x2": 66, "y2": 88 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 86, "x2": 65, "y2": 88 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 92, "x2": 66, "y2": 94 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 92, "x2": 65, "y2": 94 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 0, "x2": 1, "y2": 0 } },
+      "target": { "x1": 70, "y1": 84, "x2": 71, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 98, "x2": 66, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 98, "x2": 65, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 60, "y1": 83, "x2": 61, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 6 } },
+      "target": { "x1": 61, "y1": 83, "x2": 62, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 2, "x2": 0, "y2": 2 } },
+      "target": { "x1": 62, "y1": 83, "x2": 63, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 1, "y1": 7, "x2": 1, "y2": 7 } },
+      "target": { "x1": 60, "y1": 82, "x2": 61, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 2, "y1": 4, "x2": 2, "y2": 4 } },
+      "target": { "x1": 60, "y1": 81, "x2": 61, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 4, "x2": 3, "y2": 4 } },
+      "target": { "x1": 61, "y1": 79, "x2": 63, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 6 } },
+      "target": { "x1": 63, "y1": 82, "x2": 64, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 3, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 63, "y1": 83, "x2": 64, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 5, "x2": 0, "y2": 5 } },
+      "target": { "x1": 63, "y1": 78, "x2": 64, "y2": 79 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 80, "x2": 65, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 80, "x2": 66, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 3, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 63, "y1": 81, "x2": 64, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 2, "y1": 0, "x2": 2, "y2": 0 } },
+      "target": { "x1": 63, "y1": 80, "x2": 64, "y2": 81 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 2, "y1": 7, "x2": 2, "y2": 7 } },
+      "target": { "x1": 63, "y1": 79, "x2": 64, "y2": 80 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 2, "y1": 8, "x2": 2, "y2": 8 } },
+      "target": { "x1": 62, "y1": 78, "x2": 63, "y2": 79 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 2, "y1": 1, "x2": 2, "y2": 1 } },
+      "target": { "x1": 61, "y1": 78, "x2": 62, "y2": 79 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 1, "y1": 1, "x2": 1, "y2": 1 } },
+      "target": { "x1": 60, "y1": 79, "x2": 61, "y2": 80 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 1, "x2": 0, "y2": 1 } },
+      "target": { "x1": 60, "y1": 80, "x2": 61, "y2": 81 }
+    },
+    {
+      "source": { "type": "road_2", "position": { "x1": 0, "y1": 1, "x2": 0, "y2": 1 } },
+      "target": { "x1": 60, "y1": 78, "x2": 61, "y2": 79 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 9, "x2": 0, "y2": 9 } },
+      "target": { "x1": 70, "y1": 83, "x2": 71, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 71, "y1": 83, "x2": 89, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 0, "x2": 1, "y2": 1 } },
+      "target": { "x1": 89, "y1": 83, "x2": 90, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 8 } },
+      "target": { "x1": 89, "y1": 49, "x2": 90, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 7, "x2": 1, "y2": 7 } },
+      "target": { "x1": 71, "y1": 84, "x2": 72, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 80, "x2": 71, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 76, "x2": 71, "y2": 78 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 9, "x2": 1, "y2": 9 } },
+      "target": { "x1": 70, "y1": 82, "x2": 71, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 72, "x2": 71, "y2": 74 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 7, "x2": 3, "y2": 7 } },
+      "target": { "x1": 70, "y1": 88, "x2": 71, "y2": 89 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 3, "x2": 0, "y2": 3 } },
+      "target": { "x1": 70, "y1": 87, "x2": 71, "y2": 88 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 6 } },
+      "target": { "x1": 70, "y1": 85, "x2": 71, "y2": 86 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 0, "x2": 1, "y2": 0 } },
+      "target": { "x1": 70, "y1": 86, "x2": 71, "y2": 87 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 90, "y1": 0, "x2": 100, "y2": 84 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 5, "x2": 0, "y2": 5 } },
+      "target": { "x1": 70, "y1": 89, "x2": 71, "y2": 90 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 8 } },
+      "target": { "x1": 70, "y1": 91, "x2": 71, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 6 } },
+      "target": { "x1": 70, "y1": 90, "x2": 71, "y2": 91 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 72, "y1": 84, "x2": 73, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 74, "y1": 84, "x2": 75, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 73, "y1": 84, "x2": 74, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 74, "x2": 52, "y2": 76 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 80, "x2": 53, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 80, "x2": 52, "y2": 82 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 74, "x2": 66, "y2": 76 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 74, "x2": 65, "y2": 76 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 68, "x2": 71, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 68, "x2": 53, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 68, "x2": 52, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 62, "x2": 52, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 62, "x2": 53, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 68, "x2": 66, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 68, "x2": 65, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 62, "x2": 65, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 62, "x2": 66, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 64, "x2": 71, "y2": 66 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 9, "x2": 1, "y2": 9 } },
+      "target": { "x1": 70, "y1": 48, "x2": 71, "y2": 49 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 8 } },
+      "target": { "x1": 71, "y1": 48, "x2": 89, "y2": 49 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 8, "x2": 1, "y2": 8 } },
+      "target": { "x1": 70, "y1": 0, "x2": 71, "y2": 48 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 71, "y1": 0, "x2": 90, "y2": 48 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 87, "y1": 84, "x2": 88, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 86, "y1": 84, "x2": 87, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 85, "y1": 84, "x2": 86, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 7, "x2": 1, "y2": 7 } },
+      "target": { "x1": 84, "y1": 84, "x2": 85, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 8, "x2": 3, "y2": 8 } },
+      "target": { "x1": 83, "y1": 84, "x2": 84, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 82, "y1": 84, "x2": 83, "y2": 85 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 60, "x2": 71, "y2": 62 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 56, "x2": 71, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 70, "y1": 52, "x2": 71, "y2": 54 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 71, "y1": 84, "x2": 100, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 0, "x2": 3, "y2": 1 } },
+      "target": { "x1": 89, "y1": 48, "x2": 90, "y2": 49 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 8 } },
+      "target": { "x1": 84, "y1": 79, "x2": 89, "y2": 80 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 84, "y1": 77, "x2": 89, "y2": 78 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 8 } },
+      "target": { "x1": 84, "y1": 74, "x2": 89, "y2": 75 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 8 } },
+      "target": { "x1": 84, "y1": 69, "x2": 89, "y2": 70 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 84, "y1": 72, "x2": 89, "y2": 73 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 84, "y1": 67, "x2": 89, "y2": 68 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 8, "x2": 2, "y2": 8 } },
+      "target": { "x1": 80, "y1": 56, "x2": 81, "y2": 57 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 7, "x2": 3, "y2": 7 } },
+      "target": { "x1": 79, "y1": 55, "x2": 80, "y2": 56 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 2, "x2": 3, "y2": 2 } },
+      "target": { "x1": 80, "y1": 55, "x2": 81, "y2": 56 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 8, "x2": 0, "y2": 8 } },
+      "target": { "x1": 78, "y1": 55, "x2": 79, "y2": 56 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 5, "x2": 3, "y2": 5 } },
+      "target": { "x1": 77, "y1": 55, "x2": 78, "y2": 56 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 3, "x2": 0, "y2": 3 } },
+      "target": { "x1": 80, "y1": 57, "x2": 81, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 80, "y1": 58, "x2": 81, "y2": 59 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 2, "x2": 3, "y2": 2 } },
+      "target": { "x1": 81, "y1": 59, "x2": 82, "y2": 60 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 8, "x2": 0, "y2": 8 } },
+      "target": { "x1": 82, "y1": 60, "x2": 83, "y2": 61 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 2, "x2": 3, "y2": 2 } },
+      "target": { "x1": 83, "y1": 60, "x2": 84, "y2": 61 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 8, "x2": 2, "y2": 8 } },
+      "target": { "x1": 83, "y1": 61, "x2": 84, "y2": 62 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 83, "y1": 62, "x2": 84, "y2": 63 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 3, "x2": 0, "y2": 3 } },
+      "target": { "x1": 83, "y1": 63, "x2": 84, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 8, "x2": 2, "y2": 8 } },
+      "target": { "x1": 83, "y1": 64, "x2": 84, "y2": 65 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 2 } },
+      "target": { "x1": 83, "y1": 65, "x2": 84, "y2": 66 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 2 } },
+      "target": { "x1": 76, "y1": 56, "x2": 77, "y2": 57 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 2 } },
+      "target": { "x1": 75, "y1": 57, "x2": 76, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 4, "x2": 2, "y2": 4 } },
+      "target": { "x1": 75, "y1": 58, "x2": 76, "y2": 59 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 75, "y1": 59, "x2": 76, "y2": 60 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 6 } },
+      "target": { "x1": 75, "y1": 60, "x2": 76, "y2": 61 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 8, "x2": 3, "y2": 8 } },
+      "target": { "x1": 76, "y1": 60, "x2": 77, "y2": 61 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 7, "x2": 0, "y2": 7 } },
+      "target": { "x1": 77, "y1": 61, "x2": 78, "y2": 62 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 0, "x2": 1, "y2": 0 } },
+      "target": { "x1": 76, "y1": 57, "x2": 77, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 77, "y1": 60, "x2": 78, "y2": 61 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 2, "y1": 5, "x2": 2, "y2": 5 } },
+      "target": { "x1": 82, "y1": 65, "x2": 83, "y2": 66 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 0, "y1": 2, "x2": 0, "y2": 2 } },
+      "target": { "x1": 81, "y1": 64, "x2": 82, "y2": 65 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 6 } },
+      "target": { "x1": 80, "y1": 64, "x2": 81, "y2": 65 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 6 } },
+      "target": { "x1": 79, "y1": 63, "x2": 80, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_4", "position": { "x1": 1, "y1": 6, "x2": 1, "y2": 6 } },
+      "target": { "x1": 78, "y1": 62, "x2": 79, "y2": 63 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 77, "y1": 56, "x2": 80, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 76, "y1": 58, "x2": 78, "y2": 60 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 78, "y1": 58, "x2": 80, "y2": 59 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 78, "y1": 59, "x2": 81, "y2": 62 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 82, "y1": 61, "x2": 83, "y2": 65 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 81, "y1": 60, "x2": 82, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 80, "y1": 62, "x2": 81, "y2": 64 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 1, "x2": 3, "y2": 1 } },
+      "target": { "x1": 79, "y1": 62, "x2": 80, "y2": 63 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 70, "y1": 49, "x2": 89, "y2": 83 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 56, "x2": 53, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 56, "x2": 52, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 50, "x2": 52, "y2": 52 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 50, "x2": 53, "y2": 52 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 44, "x2": 53, "y2": 46 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 44, "x2": 52, "y2": 46 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 38, "x2": 52, "y2": 40 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 38, "x2": 53, "y2": 40 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 32, "x2": 52, "y2": 34 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 32, "x2": 53, "y2": 34 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 26, "x2": 53, "y2": 28 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 26, "x2": 52, "y2": 28 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 20, "x2": 52, "y2": 22 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 20, "x2": 53, "y2": 22 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 14, "x2": 53, "y2": 16 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 14, "x2": 52, "y2": 16 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 8, "x2": 52, "y2": 10 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 8, "x2": 53, "y2": 10 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 52, "y1": 2, "x2": 53, "y2": 4 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 51, "y1": 2, "x2": 52, "y2": 4 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 47, "y1": 0, "x2": 57, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 56, "x2": 65, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 56, "x2": 66, "y2": 58 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 50, "x2": 66, "y2": 52 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 50, "x2": 65, "y2": 52 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 44, "x2": 65, "y2": 46 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 44, "x2": 66, "y2": 46 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 38, "x2": 66, "y2": 40 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 38, "x2": 65, "y2": 40 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 32, "x2": 65, "y2": 34 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 32, "x2": 66, "y2": 34 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 26, "x2": 66, "y2": 28 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 26, "x2": 65, "y2": 28 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 20, "x2": 65, "y2": 22 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 20, "x2": 66, "y2": 22 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 14, "x2": 66, "y2": 16 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 14, "x2": 65, "y2": 16 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 8, "x2": 65, "y2": 10 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 8, "x2": 66, "y2": 10 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 5 } },
+      "target": { "x1": 65, "y1": 2, "x2": 66, "y2": 4 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 5 } },
+      "target": { "x1": 64, "y1": 2, "x2": 65, "y2": 4 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 60, "y1": 0, "x2": 70, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 9, "x2": 3, "y2": 9 } },
+      "target": { "x1": 46, "y1": 47, "x2": 47, "y2": 48 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 6, "x2": 3, "y2": 8 } },
+      "target": { "x1": 0, "y1": 47, "x2": 46, "y2": 48 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 0, "y1": 53, "x2": 9, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 9, "x2": 2, "y2": 9 } },
+      "target": { "x1": 46, "y1": 53, "x2": 47, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 6, "x2": 2, "y2": 8 } },
+      "target": { "x1": 46, "y1": 54, "x2": 47, "y2": 100 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 0, "y1": 48, "x2": 47, "y2": 53 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 0, "x2": 1, "y2": 0 } },
+      "target": { "x1": 9, "y1": 53, "x2": 10, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 8, "x2": 3, "y2": 8 } },
+      "target": { "x1": 10, "y1": 53, "x2": 11, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 11, "y1": 53, "x2": 12, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 2, "x2": 0, "y2": 2 } },
+      "target": { "x1": 12, "y1": 53, "x2": 13, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 3, "y1": 3, "x2": 3, "y2": 3 } },
+      "target": { "x1": 13, "y1": 53, "x2": 14, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 0, "y1": 6, "x2": 0, "y2": 8 } },
+      "target": { "x1": 14, "y1": 53, "x2": 46, "y2": 54 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 13, "y1": 54, "x2": 14, "y2": 55 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 9, "y1": 54, "x2": 10, "y2": 55 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 1, "y1": 4, "x2": 1, "y2": 4 } },
+      "target": { "x1": 14, "y1": 54, "x2": 15, "y2": 55 }
+    },
+    {
+      "source": { "type": "road_3", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
+      "target": { "x1": 8, "y1": 54, "x2": 9, "y2": 55 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 6, "x2": 3, "y2": 6 } },
+      "target": { "x1": 0, "y1": 54, "x2": 45, "y2": 100 }
+    }
+  ],
+  "hero": {
+    "position": { "x": 18, "y": 65 },
+    "direction": "bottom",
+    "inventory": {
+      "backpack": [
+        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
+        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
+      ],
+      "leftHand": {
+        "class": "Firearm",
+        "type": "pistol",
+        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
+      },
+      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+    }
+  },
+  "enemies": [],
+  "buildings": [
+    { "type": "vehicle-2x4", "position": { "x": 49, "y": 60 }, "direction": "bottom", "variant": 16 },
+    { "type": "vehicle-2x4", "position": { "x": 54, "y": 86 }, "direction": "bottom", "variant": 8 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 84 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 86 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 88 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 90 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 92 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 58, "y": 94 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 98 }, "direction": "top", "variant": 0 },
+    { "type": "vehicle-2x4", "position": { "x": 61, "y": 79 }, "direction": "top", "variant": 12 },
+    { "type": "newspaper_kiosk", "position": { "x": 76, "y": 49 }, "direction": "bottom", "variant": 0 },
+    { "type": "street_light", "position": { "x": 74, "y": 83 }, "direction": "top", "variant": 0 },
+    { "type": "trash_bin", "position": { "x": 84, "y": 78 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 71, "y": 85 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 86 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 90 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 92 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 94 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 96 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 98 }, "direction": "bottom", "variant": 0 },
+    { "type": "vehicle-2x4", "position": { "x": 67, "y": 94 }, "direction": "top", "variant": 16 },
+    { "type": "vehicle-2x4", "position": { "x": 84, "y": 80 }, "direction": "left", "variant": 10 },
+    { "type": "vehicle-2x4", "position": { "x": 76, "y": 58 }, "direction": "right", "variant": 13 },
+    { "type": "street_light", "position": { "x": 79, "y": 83 }, "direction": "top", "variant": 0 },
+    { "type": "street_light", "position": { "x": 84, "y": 83 }, "direction": "top", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 78 }, "direction": "right", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 73 }, "direction": "right", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 68 }, "direction": "right", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 63 }, "direction": "right", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 58 }, "direction": "right", "variant": 0 },
+    { "type": "street_light", "position": { "x": 84, "y": 48 }, "direction": "bottom", "variant": 0 },
+    { "type": "street_light", "position": { "x": 79, "y": 48 }, "direction": "bottom", "variant": 0 },
+    { "type": "street_light", "position": { "x": 74, "y": 48 }, "direction": "bottom", "variant": 0 },
+    { "type": "phonebox", "position": { "x": 82, "y": 49 }, "direction": "top", "variant": 0 },
+    { "type": "phonebox", "position": { "x": 87, "y": 49 }, "direction": "bottom", "variant": 0 },
+    { "type": "trash_bin", "position": { "x": 84, "y": 73 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 89, "y": 75 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 74 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 89, "y": 80 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 82 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 79 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 77 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 88, "y": 83 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 86, "y": 83 }, "direction": "right", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 85, "y": 83 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 80, "y": 83 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 81, "y": 83 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 78, "y": 83 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 76, "y": 83 }, "direction": "left", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 75, "y": 83 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 72, "y": 83 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 73, "y": 83 }, "direction": "left", "variant": 0 },
+    { "type": "traffic_light", "position": { "x": 71, "y": 83 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 72 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 89, "y": 70 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 69 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 89, "y": 65 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 64 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 59 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 62 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 89, "y": 60 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 57 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 89, "y": 55 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 54 }, "direction": "bottom", "variant": 0 },
+    { "type": "street_light", "position": { "x": 89, "y": 53 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 89, "y": 50 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 89, "y": 49 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 88, "y": 48 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 86, "y": 48 }, "direction": "right", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 85, "y": 48 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 80, "y": 48 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 81, "y": 48 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 75, "y": 48 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 78, "y": 48 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 76, "y": 48 }, "direction": "left", "variant": 1 },
+    { "type": "highway_fence-end", "position": { "x": 73, "y": 48 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 72, "y": 48 }, "direction": "right", "variant": 0 },
+    { "type": "traffic_light", "position": { "x": 71, "y": 48 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 86, "y": 73 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 86, "y": 78 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 88, "y": 78 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 85, "y": 78 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 85, "y": 73 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 88, "y": 73 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 86, "y": 68 }, "direction": "left", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 85, "y": 68 }, "direction": "right", "variant": 0 },
+    { "type": "vehicle-2x4", "position": { "x": 50, "y": 63 }, "direction": "bottom", "variant": 15 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 80 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 78 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 76 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 74 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 72 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 58, "y": 65 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 63 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 63 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 61 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 59 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 57 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 55 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 53 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 51 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 49 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 47 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 45 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 43 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 41 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 39 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 37 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 35 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 33 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 31 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 29 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 27 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 25 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 23 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 21 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 19 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 17 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 58, "y": 13 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 11 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 6 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 58, "y": 8 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 4 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 2 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 58, "y": 0 }, "direction": "bottom", "variant": 0 },
+    { "type": "vehicle-2x4", "position": { "x": 85, "y": 70 }, "direction": "right", "variant": 0 },
+    { "type": "vehicle-2x4", "position": { "x": 69, "y": 35 }, "direction": "top", "variant": 12 },
+    { "type": "vehicle-2x4", "position": { "x": 59, "y": 17 }, "direction": "top", "variant": 13 },
+    { "type": "vehicle-2x4", "position": { "x": 64, "y": 41 }, "direction": "top", "variant": 16 },
+    { "type": "vehicle-2x4", "position": { "x": 68, "y": 44 }, "direction": "left", "variant": 8 },
+    { "type": "vehicle-2x4", "position": { "x": 68, "y": 6 }, "direction": "right", "variant": 14 },
+    { "type": "vehicle-2x4", "position": { "x": 61, "y": 17 }, "direction": "left", "variant": 15 },
+    { "type": "vehicle-4x4", "position": { "x": 49, "y": 23 }, "direction": "right", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 71, "y": 47 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 42 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 40 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 38 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 36 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 34 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 32 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 30 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 26 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 22 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 20 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 0 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 2 }, "direction": "bottom", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 4 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 71, "y": 8 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 18 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 16 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 14 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 71, "y": 12 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 2 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 4 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 0 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 6 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 8 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 10 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 12 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 14 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 16 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 18 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 20 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 45, "y": 22 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 26 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 28 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 30 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 32 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 34 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 45, "y": 46 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 44 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 42 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 40 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 38 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 45, "y": 36 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-end", "position": { "x": 45, "y": 54 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 55 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 57 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 45, "y": 59 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 61 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 63 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 65 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 67 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 69 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 71 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 73 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 75 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 75 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence-broken", "position": { "x": 45, "y": 77 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 82 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence-broken", "position": { "x": 45, "y": 84 }, "direction": "top", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 86 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 88 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 90 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 92 }, "direction": "bottom", "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 94 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 96 }, "direction": "top", "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 45, "y": 98 }, "direction": "top", "variant": 1 },
+    { "type": "traffic_light", "position": { "x": 44, "y": 54 }, "direction": "left", "variant": 0 },
+    { "type": "traffic_light", "position": { "x": 44, "y": 46 }, "direction": "left", "variant": 0 },
+    { "type": "vehicle-2x1", "position": { "x": 88, "y": 55 }, "direction": "right", "variant": 0 },
+    { "type": "trash_bin", "position": { "x": 84, "y": 68 }, "direction": "left", "variant": 0 },
+    { "type": "fire_barrel", "position": { "x": 78, "y": 60 }, "direction": "top", "variant": 0 },
+    { "type": "vehicle-3x4", "position": { "x": 73, "y": 59 }, "direction": "top", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 3, "y": 67 }, "direction": "bottom", "variant": 0 },
+    {
+      "type": "corrugated_wire_fence_half",
+      "position": { "x": 12, "y": 67 },
+      "direction": "bottom",
+      "variant": 2,
+      "occupiesCell": false
+    },
+    {
+      "type": "corrugated_wire_fence_half",
+      "position": { "x": 13, "y": 67 },
+      "direction": "bottom",
+      "variant": 2,
+      "occupiesCell": false
+    },
+    { "type": "corrugated_wire_fence", "position": { "x": 19, "y": 67 }, "direction": "bottom", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 20, "y": 67 }, "direction": "bottom", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 23, "y": 67 }, "direction": "bottom", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 22, "y": 67 }, "direction": "bottom", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 68 }, "direction": "right", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 21, "y": 67 }, "direction": "bottom", "variant": 10 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 68 }, "direction": "left", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 69 }, "direction": "left", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 71 }, "direction": "left", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 70 }, "direction": "left", "variant": 8 },
+    {
+      "type": "corrugated_wire_fence_half",
+      "position": { "x": 11, "y": 67 },
+      "direction": "bottom",
+      "variant": 2,
+      "occupiesCell": false
+    },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 72 }, "direction": "left", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 73 }, "direction": "left", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 74 }, "direction": "left", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 75 }, "direction": "left", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 76 }, "direction": "left", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 77 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 78 }, "direction": "left", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 79 }, "direction": "left", "variant": 5 },
+    { "type": "vehicle-3x4", "position": { "x": 7, "y": 71 }, "direction": "top", "variant": 0 },
+    { "type": "vehicle-3x4", "position": { "x": 17, "y": 71 }, "direction": "bottom", "variant": 0 },
+    { "type": "vehicle-3x4", "position": { "x": 7, "y": 80 }, "direction": "bottom", "variant": 0 },
+    { "type": "vehicle-3x4", "position": { "x": 17, "y": 80 }, "direction": "top", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 4, "y": 67 }, "direction": "bottom", "variant": 10 },
+    { "type": "corrugated_wire_fence", "position": { "x": 5, "y": 67 }, "direction": "bottom", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 16, "y": 67 }, "direction": "bottom", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 9, "y": 67 }, "direction": "bottom", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 8, "y": 67 }, "direction": "bottom", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 10, "y": 67 }, "direction": "bottom", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 6, "y": 67 }, "direction": "bottom", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 7, "y": 67 }, "direction": "bottom", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 15, "y": 67 }, "direction": "bottom", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 14, "y": 67 }, "direction": "bottom", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 17, "y": 67 }, "direction": "bottom", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 18, "y": 67 }, "direction": "bottom", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 80 }, "direction": "left", "variant": 8 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 88 }, "direction": "left", "variant": 7 },
+    { "type": "corrugated_wire_fence", "position": { "x": 23, "y": 89 }, "direction": "top", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 22, "y": 89 }, "direction": "top", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 21, "y": 89 }, "direction": "top", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 20, "y": 89 }, "direction": "top", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 19, "y": 89 }, "direction": "top", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 17, "y": 89 }, "direction": "top", "variant": 7 },
+    { "type": "corrugated_wire_fence", "position": { "x": 18, "y": 89 }, "direction": "top", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 16, "y": 89 }, "direction": "top", "variant": 10 },
+    { "type": "corrugated_wire_fence", "position": { "x": 15, "y": 89 }, "direction": "top", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 15, "y": 89 }, "direction": "top", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 14, "y": 89 }, "direction": "top", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 13, "y": 89 }, "direction": "top", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 12, "y": 89 }, "direction": "top", "variant": 8 },
+    { "type": "corrugated_wire_fence", "position": { "x": 11, "y": 89 }, "direction": "top", "variant": 7 },
+    { "type": "corrugated_wire_fence", "position": { "x": 10, "y": 89 }, "direction": "top", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 9, "y": 89 }, "direction": "top", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 8, "y": 89 }, "direction": "top", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 7, "y": 89 }, "direction": "top", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 6, "y": 89 }, "direction": "top", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 5, "y": 89 }, "direction": "top", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 4, "y": 89 }, "direction": "top", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 3, "y": 89 }, "direction": "top", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 88 }, "direction": "right", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 69 }, "direction": "right", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 81 }, "direction": "left", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 70 }, "direction": "right", "variant": 10 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 83 }, "direction": "left", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 71 }, "direction": "right", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 72 }, "direction": "right", "variant": 8 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 85 }, "direction": "left", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 84 }, "direction": "left", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 86 }, "direction": "left", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 87 }, "direction": "left", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 24, "y": 82 }, "direction": "left", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 73 }, "direction": "right", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 74 }, "direction": "right", "variant": 11 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 75 }, "direction": "right", "variant": 9 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 76 }, "direction": "right", "variant": 8 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 85 }, "direction": "right", "variant": 8 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 77 }, "direction": "right", "variant": 7 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 78 }, "direction": "right", "variant": 6 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 79 }, "direction": "right", "variant": 5 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 80 }, "direction": "right", "variant": 4 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 81 }, "direction": "right", "variant": 3 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 82 }, "direction": "right", "variant": 2 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 83 }, "direction": "right", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 84 }, "direction": "right", "variant": 0 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 87 }, "direction": "right", "variant": 1 },
+    { "type": "corrugated_wire_fence", "position": { "x": 2, "y": 86 }, "direction": "right", "variant": 8 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 65 }, "direction": "right", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 64 }, "direction": "right", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 62 }, "direction": "right", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 63 }, "direction": "right", "variant": 3 },
+    { "type": "vehicle-2x4", "position": { "x": 21, "y": 62 }, "direction": "top", "variant": 5 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 65 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 64 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 63 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 62 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 66 }, "direction": "left", "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 66 }, "direction": "right", "variant": 3 }
+  ],
+  "globalShadows": { "color": "#000d4d", "opacity": 0.75 },
+  "globalLights": { "opacity": 0.4 },
+  "lights": [
+    { "position": { "x": 74, "y": 82 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 79, "y": 82 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 84, "y": 82 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 88, "y": 78 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 88, "y": 68 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 88, "y": 63 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 88, "y": 58 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 74, "y": 49 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 79, "y": 49 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 84, "y": 49 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 88, "y": 53 }, "color": "#bcc09e", "radius": 3 },
+    { "position": { "x": 77, "y": 51 }, "color": "#efb9cb", "radius": 4 },
+    { "position": { "x": 77, "y": 60 }, "color": "#eea538", "radius": 3 },
+    { "position": { "x": 78, "y": 61 }, "color": "#d53e24", "radius": 3 },
+    { "position": { "x": 79, "y": 60 }, "color": "#fad17e", "radius": 3 }
+  ]
+}
