@@ -1,0 +1,28 @@
+@import "../_helpers";
+
+@corrugated_wire_fence-width: 72px;
+@corrugated_wire_fence-height: 130px;
+
+.corrugated_wire_fence {
+  background-image: url("/public/assets/walls/corrugated_wire_fence.webp");
+  background-repeat: no-repeat;
+
+  width: @corrugated_wire_fence-width;
+  height: @corrugated_wire_fence-height;
+
+  margin-top: -94px;
+
+  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 13);
+}
+
+.corrugated_wire_fence_half {
+  background-image: url("/public/assets/walls/corrugated_wire_fence_half.webp");
+  background-repeat: no-repeat;
+
+  width: @corrugated_wire_fence-width;
+  height: @corrugated_wire_fence-height;
+
+  margin-top: -96px;
+
+  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 6);
+}

@@ -83,6 +83,30 @@
     "variants": 7,
     "internalColor": "mediumseagreen"
   },
+  "corrugated_wire_fence": {
+    "class": "wall",
+    "type": "corrugated_wire_fence",
+    "className": "corrugated_wire_fence",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 2 },
+      "screen": { "width": 50, "height": 120 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 13,
+    "internalColor": "mediumseagreen"
+  },
+  "corrugated_wire_fence_half": {
+    "class": "wall",
+    "type": "corrugated_wire_fence_half",
+    "className": "corrugated_wire_fence_half",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 2 },
+      "screen": { "width": 50, "height": 120 }
+    },
+    "directions": ["top", "right", "bottom", "left"],
+    "variants": 6,
+    "internalColor": "mediumseagreen"
+  },
   "vault_bed": {
     "class": "furniture",
     "type": "vault_bed",
@@ -189,7 +213,7 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#21abcd"
+    "internalColor": "#ffcc33"
   },
   "traffic_light": {
     "class": "road",
@@ -236,6 +260,18 @@
       "screen": { "width": 190, "height": 200 }
     },
     "directions": ["top", "right", "bottom", "left"],
+    "variants": 1,
+    "internalColor": "#21abcd"
+  },
+  "fire_barrel": {
+    "class": "road",
+    "type": "fire_barrel",
+    "className": "fire_barrel",
+    "size": {
+      "grid": { "width": 1, "length": 1, "height": 2 },
+      "screen": { "width": 31, "height": 70 }
+    },
+    "directions": ["top"],
     "variants": 1,
     "internalColor": "#21abcd"
   }

@@ -1,0 +1,28 @@
+@import "../_helpers";
+
+@fire_barrel_width: 31px;
+@fire_barrel_height: 70px;
+
+.fire_barrel {
+  background-image: url("/public/assets/road_and_sidewalk/fire_barrel.webp");
+  background-repeat: no-repeat;
+  animation: fire_barrel @animation-length steps(15);
+  animation-iteration-count: infinite;
+
+  width: @fire_barrel_width;
+  height: @fire_barrel_height;
+
+  margin-top: -48px;
+
+  .building-rotation(@fire_barrel_width, @fire_barrel_height, 2);
+  .building-shift(20px, 0px);
+}
+
+@keyframes fire_barrel {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: (-@fire_barrel_width * 15);
+  }
+}
