@@ -11,9 +11,9 @@ import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
 import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
 import { Wireframe } from "@src/components/map/terrain/Wireframe";
 import { Units } from "@src/components/map/units/Units";
-import { constants } from "@src/engine/constants";
 import { GameUI } from "@src/context/GameUIContext";
 import { Building, DictBuilding } from "@src/engine/BuildingFactory";
+import { constants } from "@src/engine/constants";
 import { floor, getVisibleIsometricGridCells, gridToScreenSpace } from "@src/engine/helpers";
 import { DictUnit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -211,6 +211,16 @@ export const MapComponent = React.memo(
         uiDispatch({ type: "scrollMapComplete" });
       }
     }, [gameState.mapSize]);
+
+    React.useEffect(() => {
+      if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0) return;
+
+      if (mapRef.current) {
+        uiDispatch({ type: "setMapRect", rect: getCurrentRect() });
+        uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
+        uiDispatch({ type: "resetMousePosition" });
+      }
+    }, [uiState.scene]);
 
     React.useEffect(() => {
       const { x1, y1, x2, y2 } = uiState.viewport.screen;
