@@ -12,23 +12,33 @@ export const TerrainAreaEditor = (props: {
   const { width, height } = props.area.getScreenSize();
 
   return (
-    <g className="area" data-selected={props.selected || null} data-dragging={props.dragging || null}>
-      <rect
+    <div
+      className="area"
+      style={{
+        left: x,
+        top: y,
+      }}
+      data-selected={props.selected || null}
+      data-dragging={props.dragging || null}
+    >
+      <div
         className="area-rect"
-        x={x}
-        y={y}
-        width={Math.floor(width)}
-        height={Math.floor(height)}
+        style={{
+          width: Math.floor(width),
+          height: Math.floor(height),
+        }}
         onMouseDown={(e) => props.handleAreaRectMouseDown(e, props.area)}
       />
-      <rect
+      <div
         className="area-resizer"
-        x={x + width - 10}
-        y={y + height - 10}
-        width="20"
-        height="20"
+        style={{
+          left: width - 10,
+          top: height - 10,
+          width: 20,
+          height: 20,
+        }}
         onMouseDown={(e) => props.handleAreaResizerMouseDown(e, props.area)}
       />
-    </g>
+    </div>
   );
 };

@@ -4,8 +4,8 @@ import { GlobalLightsPropsEditor } from "@src/components/editor/light/GlobalLigh
 import { GlobalShadowsPropsEditor } from "@src/components/editor/light/GlobalShadowsPropsEditor";
 import { LightAddNewButton } from "@src/components/editor/light/LightAddNewButton";
 import { LightPropsEditor } from "@src/components/editor/light/LightPropsEditor";
+import { TerrainAreaLayersEditor } from "@src/components/editor/terrain/layers/TerrainAreaLayersEditor";
 import { TerrainAreaAddNewButton } from "@src/components/editor/terrain/TerrainAreaAddNewButton";
-import { TerrainAreaLayersEditor } from "@src/components/editor/terrain/TerrainAreaLayersEditor";
 import { TerrainAreaPropsEditor } from "@src/components/editor/terrain/TerrainAreaPropsEditor";
 import { UnitPropsEditor } from "@src/components/editor/unit/UnitPropsEditor";
 import { Tab } from "@src/components/ui/Tab";

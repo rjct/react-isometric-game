@@ -62,11 +62,13 @@ const gameTerrainContext = {
   getTerrainAreaByCoordinates(coordinates: GridCoordinates): TerrainArea {
     const { x, y } = coordinates;
 
-    return this.areas.find((terrainArea) => {
-      const { x1, y1, x2, y2 } = terrainArea.target;
+    return this.areas
+      .filter((terrainArea) => {
+        const { x1, y1, x2, y2 } = terrainArea.target;
 
-      return x >= x1 && x < x2 && y >= y1 && y < y2;
-    })!;
+        return terrainArea.isVisible() && x >= x1 && x < x2 && y >= y1 && y < y2;
+      })
+      .at(-1)!;
   },
 
   getTerrainTileByCoordinates(coordinates: GridCoordinates): TerrainTile {

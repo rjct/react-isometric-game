@@ -35,6 +35,7 @@ export class TerrainArea {
   exitUrl: string | null;
   tiles: { [coordinates: string]: TerrainTile };
   backgrounds: GridCoordinates[][] = [];
+  private visible = true;
 
   constructor(terrainArea: StaticMapTerrainArea, mapSize: GameMap["mapSize"]) {
     this.mapSize = { ...mapSize };
@@ -42,6 +43,10 @@ export class TerrainArea {
     this.target = terrainArea.target;
     this.exitUrl = terrainArea.exitUrl;
     this.tiles = {};
+
+    if (terrainArea.visibility === false) {
+      this.setVisibility(false);
+    }
 
     this.composeRandomBackgrounds();
     this.composeTiles();
@@ -146,6 +151,14 @@ export class TerrainArea {
     this.exitUrl = url;
   }
 
+  setVisibility(isVisible: boolean) {
+    this.visible = isVisible;
+  }
+
+  isVisible() {
+    return this.visible;
+  }
+
   getJSON(): StaticMapTerrainArea {
     const json: Partial<StaticMapTerrainArea> = {
       source: { ...this.source },
@@ -154,6 +167,10 @@ export class TerrainArea {
 
     if (this.exitUrl) {
       json.exitUrl = this.exitUrl;
+    }
+
+    if (!this.isVisible()) {
+      json.visibility = false;
     }
 
     return json as StaticMapTerrainArea;

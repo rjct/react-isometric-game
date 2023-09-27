@@ -1,4 +1,4 @@
-import { TerrainAreaLayer } from "@src/components/editor/terrain/TerrainAreaLayer";
+import { TerrainAreaLayer } from "@src/components/editor/terrain/layers/TerrainAreaLayer";
 import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
@@ -11,6 +11,10 @@ export function TerrainAreaLayersEditor() {
     terrainDispatch({ type: "setSelectedTerrainArea", entity: terrainArea });
 
     e.preventDefault();
+  };
+
+  const handleVisibilityChange = (terrainArea: TerrainArea, visibility: boolean) => {
+    terrainDispatch({ type: "setTerrainAreaVisibility", entityId: terrainArea.id, visibility });
   };
 
   React.useEffect(() => {
@@ -32,6 +36,7 @@ export function TerrainAreaLayersEditor() {
               terrainArea={terrainArea}
               selected={terrainArea.id === terrainState.selectedTerrainArea?.id}
               onClick={handleClick}
+              onVisibilityChange={handleVisibilityChange}
             />
           ))}
         </ul>

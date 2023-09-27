@@ -123,11 +123,8 @@ export const TerrainAreasEditor = React.memo(function TerrainEditor() {
   }, [terrainState.getTerrainHash()]);
 
   return uiState.scene == "editor" && uiState.editorMode == "terrain" ? (
-    <svg
+    <div
       className="terrain-editor"
-      xmlns="http://www.w3.org/2000/svg"
-      version="1.1"
-      baseProfile="full"
       style={{
         width: mapWidth * wireframeTileWidth,
         height: mapHeight * wireframeTileHeight,
@@ -149,6 +146,6 @@ export const TerrainAreasEditor = React.memo(function TerrainEditor() {
           />
         );
       })}
-    </svg>
+    </div>
   ) : null;
 });

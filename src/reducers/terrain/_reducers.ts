@@ -29,6 +29,10 @@ import {
 } from "@src/reducers/terrain/setTerrainAreaSourcePosition";
 import { setTerrainAreaType, SetTerrainAreaTypeReducerAction } from "@src/reducers/terrain/setTerrainAreaType";
 import {
+  setTerrainAreaVisibility,
+  SetTerrainAreaVisibilityReducerAction,
+} from "@src/reducers/terrain/setTerrainAreaVisibility";
+import {
   setTerrainClustersInView,
   SetTerrainClustersInViewReducerAction,
 } from "@src/reducers/terrain/setTerrainClustersInView";
@@ -47,7 +51,8 @@ export type TerrainReducerAction =
   | SetTerrainAreaSourcePositionReducerAction
   | SetTerrainAreaTypeReducerAction
   | SetTerrainClustersInViewReducerAction
-  | ClearTerrainClustersReducerAction;
+  | ClearTerrainClustersReducerAction
+  | SetTerrainAreaVisibilityReducerAction;
 
 export function TerrainReducer(state: GameTerrain, action: TerrainReducerAction): GameTerrain {
   switch (action.type) {
@@ -89,5 +94,8 @@ export function TerrainReducer(state: GameTerrain, action: TerrainReducerAction)
 
     case "clearTerrainClusters":
       return clearTerrainClusters(state, action as ClearTerrainClustersReducerAction);
+
+    case "setTerrainAreaVisibility":
+      return setTerrainAreaVisibility(state, action as SetTerrainAreaVisibilityReducerAction);
   }
 }
