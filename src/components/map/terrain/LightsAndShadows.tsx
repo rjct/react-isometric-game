@@ -1,5 +1,5 @@
 import { MapLayer } from "@src/components/map/MapLayer";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useLightsAndShadows } from "@src/hooks/useLightsAndShadows";

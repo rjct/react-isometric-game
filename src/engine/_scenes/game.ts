@@ -1,6 +1,6 @@
 import { randomInt } from "@src/engine/helpers";
 import { GameContext } from "@src/hooks/useGameState";
-import { mapsList } from "@src/maps_list";
+import { mapsList } from "@src/engine/maps_list";
 
 export function gameScene(this: GameContext, deltaTime: number) {
   const { terrainState, gameState, gameDispatch, uiState } = this;

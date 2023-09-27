@@ -1,6 +1,6 @@
-import { heroTurnBattle } from "@src/engine/scenes/combat/heroTurn.battle";
-import { heroTurnNoActionPoints } from "@src/engine/scenes/combat/heroTurn.noActionPoints";
-import { heroTurnNoEnemies } from "@src/engine/scenes/combat/heroTurn.noEnemies";
+import { heroTurnBattle } from "@src/engine/_scenes/combat/heroTurn.battle";
+import { heroTurnNoActionPoints } from "@src/engine/_scenes/combat/heroTurn.noActionPoints";
+import { heroTurnNoEnemies } from "@src/engine/_scenes/combat/heroTurn.noEnemies";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function heroTurn(this: GameContext, deltaTime: number) {

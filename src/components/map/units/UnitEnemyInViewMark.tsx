@@ -1,6 +1,6 @@
 import { faEye } from "@fortawesome/free-regular-svg-icons/faEye";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

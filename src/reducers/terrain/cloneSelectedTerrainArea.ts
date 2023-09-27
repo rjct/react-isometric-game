@@ -1,6 +1,6 @@
 import { GameTerrain } from "@src/context/GameTerrainContext";
-import { GameMap } from "@src/engine/GameMap";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { GameMap } from "@src/engine/gameMap";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 
 export interface CloneSelectedTerrainAreaReducerAction {
   type: "cloneSelectedTerrainArea";

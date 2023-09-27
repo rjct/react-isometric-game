@@ -2,8 +2,8 @@ import unitTypes from "@src/dict/units.json";
 import React from "react";
 
 import { BuildingTypes } from "@src/engine/BuildingFactory";
-import { gameMap, GameMap } from "@src/engine/GameMap";
-import { TerrainAreaType } from "@src/engine/TerrainAreaFactory";
+import { gameMap, GameMap } from "@src/engine/gameMap";
+import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
 import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
 import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 

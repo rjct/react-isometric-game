@@ -1,8 +1,8 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { GameScene } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { WorldMousePosition } from "@src/hooks/useMousePosition";
 

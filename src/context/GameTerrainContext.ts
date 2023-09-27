@@ -1,6 +1,6 @@
-import { TerrainArea, TerrainTile } from "@src/engine/TerrainAreaFactory";
-import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
-import { Unit } from "@src/engine/UnitFactory";
+import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
+import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 const gameTerrainContext = {

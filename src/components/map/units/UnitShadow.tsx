@@ -1,5 +1,5 @@
 import { Fade } from "@src/components/Fade";
-import { UnitShadow } from "@src/engine/UnitFactory";
+import { UnitShadow } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 export const UnitShadowComponent = React.memo((props: { shadow: UnitShadow }) => {

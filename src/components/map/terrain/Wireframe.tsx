@@ -1,8 +1,8 @@
 import { MapLayer } from "@src/components/map/MapLayer";
 import { WireframeEntityPlaceholder } from "@src/components/map/terrain/WireframeEntityPlaceholder";
 import { WireframeMarker } from "@src/components/map/terrain/WireframeMarker";
-import { constants } from "@src/constants";
-import { Unit } from "@src/engine/UnitFactory";
+import { constants } from "@src/engine/constants";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";

@@ -1,6 +1,6 @@
-import { enemyTurnBattle } from "@src/engine/scenes/combat/enemyTurn.battle";
-import { enemyTurnChaseHero } from "@src/engine/scenes/combat/enemyTurn.chaseHero";
-import { enemyTurnNoActionPoints } from "@src/engine/scenes/combat/enemyTurn.noActionPoints";
+import { enemyTurnBattle } from "@src/engine/_scenes/combat/enemyTurn.battle";
+import { enemyTurnChaseHero } from "@src/engine/_scenes/combat/enemyTurn.chaseHero";
+import { enemyTurnNoActionPoints } from "@src/engine/_scenes/combat/enemyTurn.noActionPoints";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurn(this: GameContext, deltaTime: number) {

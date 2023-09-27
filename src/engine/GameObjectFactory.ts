@@ -1,7 +1,7 @@
-import { constants } from "@src/constants";
-import { GameMap } from "@src/engine/GameMap";
+import { constants } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 import { getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
-import { LightRay } from "@src/engine/LightRayFactory";
+import { LightRay } from "@src/engine/light/LightRayFactory";
 
 export type GameObjectIntersectionWithLightRay = {
   wall: GameObjectWall;

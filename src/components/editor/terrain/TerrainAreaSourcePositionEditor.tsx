@@ -1,6 +1,6 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { composeSpriteUrl } from "@src/engine/helpers";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

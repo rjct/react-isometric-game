@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function introScene(this: GameContext, deltaTime: number) {

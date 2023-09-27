@@ -1,6 +1,6 @@
 import { UnitLibraryItem } from "@src/components/editor/unit/UnitLibraryItem";
 import units from "@src/dict/units.json";
-import { DictUnits } from "@src/engine/UnitFactory";
+import { DictUnits } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 
 export function UnitLibrary() {

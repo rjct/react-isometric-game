@@ -1,13 +1,13 @@
 import { StaticMapUnit, StaticMapWeapon } from "@src/context/GameStateContext";
 import units from "@src/dict/units.json";
 import { Building } from "@src/engine/BuildingFactory";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "@src/engine/helpers";
-import { Light } from "@src/engine/LightFactory";
-import { ObstacleRay } from "@src/engine/ObstacleRayFactory";
-import { pathFinderAStar } from "@src/engine/pathFinder";
-import { UnitFieldOfViewFactory } from "@src/engine/UnitFieldOfViewFactory";
+import { Light } from "@src/engine/light/LightFactory";
+import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
+import { pathFinderAStar } from "@src/engine/unit/pathFinder";
+import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
 import { AmmoClass } from "@src/engine/weapon/AmmoFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { Weapon, WeaponClass, WeaponUnitAction } from "@src/engine/weapon/WeaponFactory";

@@ -6,7 +6,7 @@ import { UnitHealth } from "@src/components/map/units/UnitHealth";
 import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
 import { Ammo } from "@src/components/map/weapons/Ammo";
 import { getCss3dPosition } from "@src/engine/helpers";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

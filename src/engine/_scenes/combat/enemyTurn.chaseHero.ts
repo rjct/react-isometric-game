@@ -1,5 +1,5 @@
-import { pathFinderBiAStar } from "@src/engine/pathFinder";
-import { Unit } from "@src/engine/UnitFactory";
+import { pathFinderBiAStar } from "@src/engine/unit/pathFinder";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: Unit) {

@@ -1,5 +1,5 @@
 import terrain from "@src/dict/terrain.json";
-import { TerrainAreaType } from "@src/engine/TerrainAreaFactory";
+import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { degToRad } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMiniMap } from "@src/hooks/useMiniMap";

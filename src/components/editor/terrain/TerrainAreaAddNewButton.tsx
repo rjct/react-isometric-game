@@ -1,7 +1,7 @@
 import { faSquarePlus } from "@fortawesome/free-solid-svg-icons/faSquarePlus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { StaticMapTerrainArea } from "@src/context/GameStateContext";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";

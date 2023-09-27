@@ -1,6 +1,6 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

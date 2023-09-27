@@ -1,4 +1,4 @@
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnNoActionPoints(this: GameContext, deltaTime: number, enemy: Unit) {

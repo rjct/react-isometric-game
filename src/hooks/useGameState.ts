@@ -4,7 +4,7 @@ import { GameTerrain, GameTerrainContext } from "@src/context/GameTerrainContext
 import { GameUI, GameUIContext } from "@src/context/GameUIContext";
 import { GameUiDispatchContext } from "@src/context/GameUIDispatchContext";
 import { GameTerrainDispatchContext } from "@src/context/GateTerrainDispatchContext";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { TerrainReducerAction } from "@src/reducers/terrain/_reducers";
 import { UIReducerAction } from "@src/reducers/ui/_reducers";
 import { GameReducerAction } from "@src/reducers/_reducers";

@@ -1,5 +1,5 @@
 import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
 import { useHero } from "@src/hooks/useHero";
 

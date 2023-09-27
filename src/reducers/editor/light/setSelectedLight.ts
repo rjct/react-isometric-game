@@ -1,5 +1,5 @@
-import { GameMap } from "@src/engine/GameMap";
-import { Light } from "@src/engine/LightFactory";
+import { GameMap } from "@src/engine/gameMap";
+import { Light } from "@src/engine/light/LightFactory";
 
 export interface SetSelectedLightReducerAction {
   type: "setSelectedLight";

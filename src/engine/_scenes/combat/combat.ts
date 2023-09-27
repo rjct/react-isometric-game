@@ -1,5 +1,5 @@
-import { enemyTurn } from "@src/engine/scenes/combat/enemyTurn";
-import { heroTurn } from "@src/engine/scenes/combat/heroTurn";
+import { enemyTurn } from "@src/engine/_scenes/combat/enemyTurn";
+import { heroTurn } from "@src/engine/_scenes/combat/heroTurn";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function combatScene(this: GameContext, deltaTime: number) {

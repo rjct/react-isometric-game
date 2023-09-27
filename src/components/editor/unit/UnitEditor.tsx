@@ -1,6 +1,6 @@
 import { MapLayer } from "@src/components/map/MapLayer";
 import { UnitComponent } from "@src/components/map/units/Unit";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";

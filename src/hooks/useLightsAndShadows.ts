@@ -1,4 +1,4 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 
 export const useLightsAndShadows = (gameState: GameMap) => {
   const mapWidth = gameState.mapSize.width;

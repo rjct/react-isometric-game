@@ -1,5 +1,5 @@
 import { GameTerrain } from "@src/context/GameTerrainContext";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 
 export interface SetTerrainAreaExitUrlReducerAction {
   type: "setTerrainAreaExitUrl";

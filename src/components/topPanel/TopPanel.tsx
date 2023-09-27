@@ -5,7 +5,7 @@ import { DebugInfo } from "@src/components/debug/DebugInfo";
 import { DebugMapPath } from "@src/components/debug/DebugMapPath";
 import { DebugMapSelector } from "@src/components/debug/DebugMapSelector";
 import { DebugSwitch } from "@src/components/debug/DebugSwitch";
-import { HeroPoints } from "@src/components/top_panel/HeroPoints";
+import { HeroPoints } from "@src/components/topPanel/HeroPoints";
 import { useHero } from "@src/hooks/useHero";
 
 export const TopPanel = React.memo(function Top() {

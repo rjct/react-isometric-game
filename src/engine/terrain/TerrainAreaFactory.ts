@@ -1,6 +1,6 @@
-import { constants } from "@src/constants";
 import { StaticMapTerrainArea } from "@src/context/GameStateContext";
-import { GameMap } from "@src/engine/GameMap";
+import { constants } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 import { composeSpriteUrl, gridToScreenSpace, randomInt, randomUUID } from "@src/engine/helpers";
 
 export interface TerrainTile {

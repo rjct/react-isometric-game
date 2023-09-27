@@ -1,5 +1,5 @@
-import { constants } from "@src/constants";
-import { GameMap } from "@src/engine/GameMap";
+import { constants } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
 

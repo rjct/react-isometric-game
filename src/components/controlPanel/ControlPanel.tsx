@@ -1,10 +1,10 @@
 import { faPersonRunning, faPersonWalking } from "@fortawesome/free-solid-svg-icons";
-import { CenterMapButton } from "@src/components/control_panel/CenterMapButton";
-import { EndCombatButton } from "@src/components/control_panel/EndCombatButton";
-import { EndTurnButton } from "@src/components/control_panel/EndTurnButton";
-import { HeroHandButton } from "@src/components/control_panel/HeroHandButton";
-import { HeroMovementButton } from "@src/components/control_panel/HeroMovementButton";
-import { OpenInventoryButton } from "@src/components/control_panel/OpenInventoryButton";
+import { CenterMapButton } from "@src/components/controlPanel/CenterMapButton";
+import { EndCombatButton } from "@src/components/controlPanel/EndCombatButton";
+import { EndTurnButton } from "@src/components/controlPanel/EndTurnButton";
+import { HeroHandButton } from "@src/components/controlPanel/HeroHandButton";
+import { HeroMovementButton } from "@src/components/controlPanel/HeroMovementButton";
+import { OpenInventoryButton } from "@src/components/controlPanel/OpenInventoryButton";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 

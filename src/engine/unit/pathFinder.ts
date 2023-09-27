@@ -1,4 +1,4 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import pathfinding from "pathfinding";
 
 export function pathFinderAStar(matrix: GameMap["matrix"], fromPos: GridCoordinates, toPos: GridCoordinates) {

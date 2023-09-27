@@ -1,4 +1,4 @@
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import React from "react";

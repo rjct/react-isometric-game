@@ -1,6 +1,6 @@
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
-import { mapsList } from "@src/maps_list";
+import { mapsList } from "@src/engine/maps_list";
 import React from "react";
 
 export function TerrainAreaExitUrlEditor() {

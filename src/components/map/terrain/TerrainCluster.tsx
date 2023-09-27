@@ -1,5 +1,5 @@
-import { constants } from "@src/constants";
-import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
+import { constants } from "@src/engine/constants";
+import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

@@ -1,6 +1,6 @@
 import { InventoryEmptyText } from "@src/components/inventory/inventoryEmptyText";
 import { InventoryItem } from "@src/components/inventory/InventoryItem";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export function InventoryItemsList(props: {
   unit: Unit;

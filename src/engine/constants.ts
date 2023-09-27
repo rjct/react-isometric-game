@@ -1,4 +1,4 @@
-import { mapsList } from "@src/maps_list";
+import { mapsList } from "@src/engine/maps_list";
 
 export type GameFeatureSections = keyof typeof constants.featureEnabled;
 export type GameSettingsFeature = keyof typeof constants.featureEnabled.settings;

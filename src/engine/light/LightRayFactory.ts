@@ -1,6 +1,6 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export type LightRayData = Pick<LightRay, "x" | "y" | "nx" | "ny" | "len" | "color">;
 

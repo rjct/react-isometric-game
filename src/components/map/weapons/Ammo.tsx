@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { gridToScreenSpace } from "@src/engine/helpers";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { useGameState } from "@src/hooks/useGameState";

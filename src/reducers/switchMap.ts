@@ -1,10 +1,10 @@
 import { StaticMap, StaticMapUnit, StaticMapWeapon } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/BuildingFactory";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
-import { Light } from "@src/engine/LightFactory";
-import { Unit, UnitTypes } from "@src/engine/UnitFactory";
+import { Light } from "@src/engine/light/LightFactory";
+import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 

@@ -1,5 +1,5 @@
 import { TerrainAreaLayer } from "@src/components/editor/terrain/TerrainAreaLayer";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

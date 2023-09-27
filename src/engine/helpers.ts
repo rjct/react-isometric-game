@@ -1,9 +1,9 @@
-import { constants } from "@src/constants";
 import { StaticMap } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
-import { GameMap } from "@src/engine/GameMap";
+import { constants } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export const loadMap = async (mapUrl: string) => {
   const data = await fetch(`${constants.BASE_URL}/${mapUrl}`);

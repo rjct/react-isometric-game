@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { degToRad } from "@src/engine/helpers";
 import { useCanvas } from "@src/hooks/useCanvas";
 import { useEditor } from "@src/hooks/useEditor";

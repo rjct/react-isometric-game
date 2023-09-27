@@ -1,6 +1,6 @@
-import { constants } from "@src/constants";
 import { GameTerrain } from "@src/context/GameTerrainContext";
-import { GameMap } from "@src/engine/GameMap";
+import { constants } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 import { getVisibleIsometricGridCells, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
 
 export interface TerrainClusterProps {

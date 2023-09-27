@@ -1,8 +1,8 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
 import { degToRad, getDirectionInDegFromString } from "@src/engine/helpers";
-import { LightRay } from "@src/engine/LightRayFactory";
-import { DictUnit, Unit } from "@src/engine/UnitFactory";
+import { LightRay } from "@src/engine/light/LightRayFactory";
+import { DictUnit, Unit } from "@src/engine/unit/UnitFactory";
 
 export class UnitFieldOfViewFactory {
   public position: GridCoordinates;

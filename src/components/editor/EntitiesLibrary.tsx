@@ -1,6 +1,6 @@
 import { BuildingLibrary } from "@src/components/editor/building/BuildingLibrary";
 import { UnitLibrary } from "@src/components/editor/unit/UnitLibrary";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

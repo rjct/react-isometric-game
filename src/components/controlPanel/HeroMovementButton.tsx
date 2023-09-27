@@ -1,6 +1,6 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { HeroActionControl } from "@src/components/control_panel/HeroActionControl";
+import { HeroActionControl } from "@src/components/controlPanel/HeroActionControl";
 import { Button } from "@src/components/ui/Button";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";

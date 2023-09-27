@@ -1,8 +1,8 @@
 import weapons from "@src/dict/weapons.json";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { floor, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
-import { ObstacleRay } from "@src/engine/ObstacleRayFactory";
-import { Unit } from "@src/engine/UnitFactory";
+import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { FirearmRef, FirearmType, FirearmUnitAction } from "@src/engine/weapon/firearm/FirearmFactory";
 import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
 import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "@src/engine/weapon/melee/MeleeWeaponFactory";

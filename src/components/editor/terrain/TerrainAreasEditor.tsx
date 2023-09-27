@@ -1,6 +1,6 @@
 import { TerrainAreaEditor } from "@src/components/editor/terrain/TerrainAreaEditor";
-import { constants } from "@src/constants";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { constants } from "@src/engine/constants";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";
 import React from "react";

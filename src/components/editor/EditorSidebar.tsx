@@ -1,6 +1,6 @@
 import { EditorModeSelector } from "@src/components/editor/EditorModeSelector";
 import { ExportButton } from "@src/components/editor/ExportButton";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 

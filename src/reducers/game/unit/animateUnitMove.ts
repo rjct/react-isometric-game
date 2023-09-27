@@ -1,7 +1,7 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
-import { pathFinderAStar } from "@src/engine/pathFinder";
-import { Unit } from "@src/engine/UnitFactory";
+import { pathFinderAStar } from "@src/engine/unit/pathFinder";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export type AnimateUnitMoveReducerAction = {
   type: "animateUnitMove";

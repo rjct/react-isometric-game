@@ -1,5 +1,5 @@
-import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/constants";
-import { GameMap } from "@src/engine/GameMap";
+import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
+import { GameMap } from "@src/engine/gameMap";
 
 export const getUrlParamValue = (param: string) => {
   const url = new URL(window.location.href);

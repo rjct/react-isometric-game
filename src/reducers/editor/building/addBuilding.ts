@@ -1,5 +1,5 @@
 import { Building } from "@src/engine/BuildingFactory";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 
 export interface AddBuildingReducerAction {
   type: "addBuilding";

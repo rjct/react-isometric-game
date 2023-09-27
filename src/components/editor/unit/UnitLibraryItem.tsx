@@ -1,6 +1,6 @@
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DictUnit } from "@src/engine/UnitFactory";
+import { DictUnit } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 export function UnitLibraryItem(props: { item: DictUnit }) {

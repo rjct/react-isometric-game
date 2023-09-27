@@ -1,5 +1,5 @@
 import { IsometricCanvasMapLayer } from "@src/components/map/IsometricCanvasMapLayer";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useDebugVisualization } from "@src/hooks/debug/useDebugVisualization";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

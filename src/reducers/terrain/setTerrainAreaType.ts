@@ -1,5 +1,5 @@
 import { GameTerrain } from "@src/context/GameTerrainContext";
-import { TerrainAreaType } from "@src/engine/TerrainAreaFactory";
+import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
 
 export interface SetTerrainAreaTypeReducerAction {
   type: "setTerrainAreaType";

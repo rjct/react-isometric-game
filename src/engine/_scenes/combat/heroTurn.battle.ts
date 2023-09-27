@@ -1,6 +1,6 @@
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { GameContext } from "@src/hooks/useGameState";
-import { mapsList } from "@src/maps_list";
+import { mapsList } from "@src/engine/maps_list";
 
 export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit) {
   const { terrainState, gameState, gameDispatch } = this;

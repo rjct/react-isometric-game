@@ -1,8 +1,8 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { StaticMap } from "@src/context/GameStateContext";
 import { GameTerrain } from "@src/context/GameTerrainContext";
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
-import { TerrainCluster } from "@src/engine/TerrainClusterFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
+import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 
 export type SwitchTerrainMapReducerAction = {
   type: "switchMap";

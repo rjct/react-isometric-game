@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";

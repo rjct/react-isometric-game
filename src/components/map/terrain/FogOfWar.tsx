@@ -1,7 +1,7 @@
 import React from "react";
 
 import { MapLayer } from "@src/components/map/MapLayer";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useFogOfWar } from "@src/hooks/useFogOfWar";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

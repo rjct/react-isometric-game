@@ -3,7 +3,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 import { DebugStartCombatButton } from "@src/components/debug/DebugStartCombatButton";
-import { GameDebugFeature, GameSettingsFeature } from "@src/constants";
+import { GameDebugFeature, GameSettingsFeature } from "@src/engine/constants";
 
 export const DebugFeaturesSwitches = React.memo(function DebugFeaturesSwitches() {
   const { gameState, gameDispatch } = useGameState();

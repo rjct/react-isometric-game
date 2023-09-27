@@ -1,6 +1,6 @@
-import { enemyTurnNoActionPoints } from "@src/engine/scenes/combat/enemyTurn.noActionPoints";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { enemyTurnNoActionPoints } from "@src/engine/_scenes/combat/enemyTurn.noActionPoints";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function enemyTurnBattle(

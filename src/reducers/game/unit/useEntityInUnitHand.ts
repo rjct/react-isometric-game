@@ -1,6 +1,6 @@
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { getAngleBetweenTwoGridPoints } from "@src/engine/helpers";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export interface UseEntityInUnitHandReducerAction {
   type: "useEntityInUnitHand";

@@ -1,5 +1,5 @@
 import weapons from "@src/dict/weapons.json";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { Ammo, AmmoType } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 

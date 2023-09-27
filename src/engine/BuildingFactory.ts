@@ -1,6 +1,6 @@
 import { StaticMapBuilding } from "@src/context/GameStateContext";
 import buildings from "@src/dict/buildings.json";
-import { GameMap } from "@src/engine/GameMap";
+import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 
 type BuildingSize = {

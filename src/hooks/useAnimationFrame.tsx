@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import React from "react";
 
 export const useAnimationFrame = (callback: (num: number) => void, running: boolean) => {

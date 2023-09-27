@@ -1,5 +1,5 @@
 import { useGameState } from "@src/hooks/useGameState";
-import { mapsList } from "@src/maps_list";
+import { mapsList } from "@src/engine/maps_list";
 import React from "react";
 
 export const DebugMapSelector = React.memo(() => {

@@ -8,7 +8,7 @@ import { UnitPreview } from "@src/components/editor/unit/UnitPreview";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
 import { Button } from "@src/components/ui/Button";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 
 export const UnitPropsEditor = (props: { unit: Unit }) => {

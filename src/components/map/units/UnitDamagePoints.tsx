@@ -1,4 +1,4 @@
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 export const UnitDamagePoints = React.memo((props: { action: Unit["action"]; damagePoints: Unit["damagePoints"] }) => {

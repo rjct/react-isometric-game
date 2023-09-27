@@ -1,6 +1,6 @@
 import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
 import { Tab } from "@src/components/ui/Tab";
-import { Unit } from "@src/engine/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 export const UnitInventoryEditor = (props: { unit: Unit }) => {

@@ -1,4 +1,4 @@
-import { TerrainArea } from "@src/engine/TerrainAreaFactory";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import React from "react";
 
 export const TerrainAreaLayer = React.forwardRef(

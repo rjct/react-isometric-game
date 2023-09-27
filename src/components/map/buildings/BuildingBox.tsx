@@ -1,4 +1,4 @@
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
 import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";

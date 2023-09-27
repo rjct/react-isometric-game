@@ -1,5 +1,5 @@
 import { FPSMeter } from "@src/components/debug/FPS";
-import { constants } from "@src/constants";
+import { constants } from "@src/engine/constants";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";

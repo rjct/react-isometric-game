@@ -1,5 +1,5 @@
-import { GameMap } from "@src/engine/GameMap";
-import { Unit } from "@src/engine/UnitFactory";
+import { GameMap } from "@src/engine/gameMap";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export interface ClearSelectedUnitReducerAction {
   type: "clearSelectedUnit";
