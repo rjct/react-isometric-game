@@ -22,12 +22,7 @@ export const TerrainAreaLayer = React.forwardRef(
 
     return (
       <li ref={ref} className={["terrain-area-layer", [props.selected ? "selected" : ""]].join(" ")}>
-        <Switch
-          title={""}
-          checked={props.terrainArea.isVisible()}
-          disabled={!props.selected}
-          onChange={handleVisibilityChange}
-        />
+        <Switch title={""} checked={props.terrainArea.isVisible()} onChange={handleVisibilityChange} />
         <a href="#" onClick={handleClick}>
           [{props.terrainArea.target.x2 - props.terrainArea.target.x1}x
           {props.terrainArea.target.y2 - props.terrainArea.target.y1}] {props.terrainArea.id}
