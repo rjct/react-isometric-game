@@ -19,7 +19,7 @@ export function TerrainAreaLayersEditor() {
 
   React.useEffect(() => {
     if (activeElementRef.current) {
-      activeElementRef.current.scrollIntoView();
+      activeElementRef.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   }, [terrainState.selectedTerrainArea]);
 
