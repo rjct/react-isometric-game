@@ -89,6 +89,8 @@ export const gameMap = {
   fogOfWarMatrix: [] as Array<Array<number>>,
   mediaAssets: {} as MediaAssets,
 
+  selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
+
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,
   selectedLight: null as unknown as Light,

@@ -16,10 +16,20 @@ export const Buildings = React.memo(function Buildings() {
           gameState.debug.featureEnabled.buildingBoxes ? (
             <BuildingBox key={building.id} building={building} maskImage={getHeroMaskImage(building)} />
           ) : (
-            <BuildingComponent key={building.id} building={building} maskImage={getHeroMaskImage(building)} />
+            <BuildingComponent
+              key={building.id}
+              building={building}
+              maskImage={getHeroMaskImage(building)}
+              selectedForInventoryTransfer={gameState.selectedEntityForInventoryTransfer?.id === building.id}
+            />
           ),
         ),
-    [uiState.viewport, hero.getHash(), gameState.debug.featureEnabled.buildingBoxes],
+    [
+      uiState.viewport,
+      hero.getHash(),
+      gameState.debug.featureEnabled.buildingBoxes,
+      gameState.selectedEntityForInventoryTransfer,
+    ],
   );
 
   return uiState.scene === "game" ||

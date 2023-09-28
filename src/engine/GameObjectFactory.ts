@@ -29,6 +29,8 @@ export class GameObjectFactory {
 
   public walls: GameObjectWall[] = [];
 
+  public readonly explorable: boolean = false;
+
   constructor(props: {
     gameState: GameMap;
     id?: string;
@@ -37,6 +39,7 @@ export class GameObjectFactory {
     direction: Direction;
     internalColor: string;
     occupiesCell?: boolean;
+    explorable?: boolean;
   }) {
     this.gameState = props.gameState;
 
@@ -50,6 +53,10 @@ export class GameObjectFactory {
 
     if (props.occupiesCell === false) {
       this.occupiesCell = false;
+    }
+
+    if (props.explorable) {
+      this.explorable = true;
     }
 
     this.createWalls();

@@ -153,8 +153,6 @@ export class Unit extends GameObjectFactory {
 
   public distanceToScreenCenter = -1;
 
-  public transferInventoryWithEntity: Unit | Building | null = null;
-
   constructor(props: {
     gameState: GameMap;
     unitType: UnitType;
@@ -173,6 +171,7 @@ export class Unit extends GameObjectFactory {
       position: props.position,
       direction: props.direction || "left",
       internalColor: props.isHero ? "rgba(255,255,255,0.5)" : "rgba(255,0,0,0.5)",
+      explorable: true,
     });
 
     this.isHero = props.isHero;
@@ -545,14 +544,6 @@ export class Unit extends GameObjectFactory {
 
   public getDistanceToEntity(entity: Unit | Building) {
     return getDistanceBetweenGridPoints(this.getRoundedPosition(), entity.getRoundedPosition());
-  }
-
-  public startTransferInventory(entity: Unit | Building) {
-    this.transferInventoryWithEntity = entity;
-  }
-
-  public stopTransferInventory() {
-    this.transferInventoryWithEntity = null;
   }
 
   public getJSON(omitUnitType = false) {

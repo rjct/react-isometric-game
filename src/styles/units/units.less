@@ -146,6 +146,12 @@
     }
   }
 
+  &[data-selected-for-inventory-transfer="true"] {
+    .char {
+      filter: drop-shadow(0px 0px 5px @explorable_entity_color) drop-shadow(0px 0px 5px @explorable_entity_color) !important;
+    }
+  }
+
   &[data-action="hit"] {
     .damage-points {
       top: -20%;

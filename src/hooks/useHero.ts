@@ -33,9 +33,9 @@ export function useHero() {
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
 
         if (entity) {
-          hero.startTransferInventory(entity);
           uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
         }
+
         break;
 
       case "leftHand":

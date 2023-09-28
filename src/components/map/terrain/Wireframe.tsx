@@ -7,6 +7,7 @@ import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
+import { isMobile } from "react-device-detect";
 import { useDebounce } from "use-debounce";
 
 export const Wireframe = React.memo(function WireframeTiles() {
@@ -86,8 +87,10 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       case "explore":
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
+        const isExplorable = entity && entity.explorable && entity.id !== hero.id;
 
-        setMarkerClassName([entity && entity.id !== hero.id ? "action--allowed" : "action--not-allowed"]);
+        setMarkerClassName([isExplorable ? "action--allowed" : "action--not-allowed"]);
+        gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: isExplorable ? entity : null });
 
         break;
 
@@ -123,10 +126,13 @@ export const Wireframe = React.memo(function WireframeTiles() {
     let singleClickTimer: number;
 
     if (clicks === 1) {
-      singleClickTimer = window.setTimeout(function () {
-        handleClick();
-        setClicks(0);
-      }, 250);
+      singleClickTimer = window.setTimeout(
+        function () {
+          handleClick();
+          setClicks(0);
+        },
+        isMobile ? 150 : 250,
+      );
     } else if (clicks === 2) {
       handleDoubleClick();
       setClicks(0);

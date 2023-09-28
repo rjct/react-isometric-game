@@ -9,7 +9,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "green"
+    "internalColor": "green",
+    "explorable": true
   },
   "vehicle-2x4": {
     "class": "vehicle",
@@ -21,7 +22,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 17,
-    "internalColor": "#007fff"
+    "internalColor": "#007fff",
+    "explorable": true
   },
   "vehicle-2x6": {
     "class": "vehicle",
@@ -33,7 +35,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#007fff"
+    "internalColor": "#007fff",
+    "explorable": true
   },
   "vehicle-3x2": {
     "class": "vehicle",
@@ -45,7 +48,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#007fff"
+    "internalColor": "#007fff",
+    "explorable": true
   },
   "vehicle-3x4": {
     "class": "vehicle",
@@ -57,7 +61,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#007fff"
+    "internalColor": "#007fff",
+    "explorable": true
   },
   "vehicle-4x4": {
     "class": "vehicle",
@@ -69,7 +74,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#007fff"
+    "internalColor": "#007fff",
+    "explorable": true
   },
   "vault_wall": {
     "class": "wall",
@@ -237,7 +243,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#21abcd"
+    "internalColor": "#21abcd",
+    "explorable": true
   },
   "trash_bin": {
     "class": "road",
@@ -249,7 +256,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#21abcd"
+    "internalColor": "#21abcd",
+    "explorable": true
   },
   "newspaper_kiosk": {
     "class": "road",
@@ -261,7 +269,8 @@
     },
     "directions": ["top", "right", "bottom", "left"],
     "variants": 1,
-    "internalColor": "#21abcd"
+    "internalColor": "#21abcd",
+    "explorable": true
   },
   "fire_barrel": {
     "class": "road",

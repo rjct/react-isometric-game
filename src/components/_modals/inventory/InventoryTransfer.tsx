@@ -10,7 +10,7 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export function InventoryTransfer() {
-  const { gameDispatch, uiState, uiDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
   const { hero } = useHero();
 
@@ -35,7 +35,7 @@ export function InventoryTransfer() {
   };
 
   const handleTakeAllButtonClick = () => {
-    hero.transferInventoryWithEntity?.getInventoryItems().forEach((inventoryItem) => {
+    gameState.selectedEntityForInventoryTransfer?.getInventoryItems().forEach((inventoryItem) => {
       gameDispatch({
         type: "transferInventoryEntity",
         entity: inventoryItem,
@@ -61,7 +61,7 @@ export function InventoryTransfer() {
         <div className={"transfer-controls"}>
           <Button
             onClick={handleTakeAllButtonClick}
-            disabled={hero.transferInventoryWithEntity?.getInventoryItems().length === 0}
+            disabled={gameState.selectedEntityForInventoryTransfer?.getInventoryItems().length === 0}
           >
             <label>Take all</label>
             <FontAwesomeIcon icon={faArrowLeft} />
@@ -69,13 +69,13 @@ export function InventoryTransfer() {
         </div>
 
         <EntityOverview
-          entity={hero.transferInventoryWithEntity!}
+          entity={gameState.selectedEntityForInventoryTransfer!}
           className={["entity-overview-wrapper", "entity-overview-wrapper-right"]}
-          title={hero.transferInventoryWithEntity!.type}
+          title={gameState.selectedEntityForInventoryTransfer!.type}
         />
         <InventoryStorage
-          title={`${hero.transferInventoryWithEntity?.getInventoryItems().length}`}
-          owner={hero.transferInventoryWithEntity!}
+          title={`${gameState.selectedEntityForInventoryTransfer?.getInventoryItems().length}`}
+          owner={gameState.selectedEntityForInventoryTransfer!}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
         />
 

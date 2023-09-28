@@ -25,6 +25,7 @@ export interface DictBuilding {
   variants: number;
   internalColor: string;
   inventory?: Weapon[];
+  explorable?: boolean;
 }
 
 export type DictBuildings = {
@@ -62,6 +63,7 @@ export class Building extends GameObjectFactory {
       position: props.position,
       direction: props.direction,
       internalColor: ref.internalColor,
+      explorable: ref.explorable,
     });
 
     this.ref = ref;

@@ -58,6 +58,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         data-direction={props.unit.direction}
         data-action={props.unit.action}
         data-weapon={props.unit.getCurrentWeapon()?.className}
+        data-selected-for-inventory-transfer={
+          gameState.selectedEntityForInventoryTransfer?.id === props.unit.id || null
+        }
         data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
         data-highlighed={
           (!props.unit.isDead &&

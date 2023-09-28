@@ -89,6 +89,10 @@ import {
   RecalculateLightsAndShadowsReducerAction,
 } from "@src/reducers/light/recalculateLightsAndShadows";
 import { loadMap, LoadMapReducerAction } from "@src/reducers/loadMap";
+import {
+  setSelectedEntityForInventoryTransfer,
+  SetSelectedEntityForInventoryTransferReducerAction,
+} from "@src/reducers/setSelectedEntityForInventoryTransfer";
 import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "@src/reducers/transferInventoryEntity";
 
@@ -113,6 +117,7 @@ export type GameReducerAction =
   | SetUnitMovementModeReducerAction
   | UpdateMapUrlReducerAction
   | TransferInventoryEntityReducerAction
+  | SetSelectedEntityForInventoryTransferReducerAction
   | DeleteInventoryEntityReducerAction
   | StartCombatReducerAction
   | EndCombatReducerAction
@@ -209,6 +214,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "updateMapUrl":
       return updateMapUrl(state, action as UpdateMapUrlReducerAction);
+
+    case "setSelectedEntityForInventoryTransfer":
+      return setSelectedEntityForInventoryTransfer(state, action as SetSelectedEntityForInventoryTransferReducerAction);
 
     case "transferInventoryEntity":
       return transferInventoryEntity(state, action as TransferInventoryEntityReducerAction);

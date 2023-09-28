@@ -6,6 +6,7 @@ export const BuildingComponent = React.memo(function Building(props: {
   building: Building;
   selected?: boolean;
   dragging?: boolean;
+  selectedForInventoryTransfer?: boolean;
   onMouseDown?: (e: React.MouseEvent, entity: Building) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
   maskImage: CSSProperties["WebkitMaskImage"];
@@ -41,6 +42,7 @@ export const BuildingComponent = React.memo(function Building(props: {
       data-variant={props.building.variant}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}
+      data-selected-for-inventory-transfer={props.selectedForInventoryTransfer || null}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}
