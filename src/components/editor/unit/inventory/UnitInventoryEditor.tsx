@@ -1,10 +1,10 @@
-import { InventoryItemsList } from "@src/components/inventory/InventoryItemsList";
 import { Tab } from "@src/components/ui/Tab";
+import { InventoryItemsList } from "@src/components/_modals/inventory/InventoryItemsList";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import React from "react";
 
 export const UnitInventoryEditor = (props: { unit: Unit }) => {
-  const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("backpack");
+  const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("main");
 
   const handleUnitInventoryModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInventoryMode(e.target.value as keyof Unit["inventory"]);
@@ -39,7 +39,7 @@ export const UnitInventoryEditor = (props: { unit: Unit }) => {
           return key === selectedInventoryMode ? (
             <div key={key} className={"ui-tab-content"}>
               <InventoryItemsList
-                unit={props.unit}
+                owner={props.unit}
                 inventoryType={selectedInventoryMode}
                 editable={true}
                 draggable={false}

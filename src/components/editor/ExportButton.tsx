@@ -27,7 +27,7 @@ export const ExportButton = React.memo(function ExportButton() {
         return terrainArea.getJSON();
       }),
       hero: hero.getJSON(true),
-      enemies: gameState.getAliveEnemiesArray().map((enemy) => enemy.getJSON()),
+      enemies: gameState.getAllEnemiesArray().map((enemy) => enemy.getJSON()),
       buildings: gameState.buildings.map((building) => building.getJSON()),
       globalShadows: gameState.globalShadows,
       globalLights: gameState.globalLights,

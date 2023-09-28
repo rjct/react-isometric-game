@@ -1,14 +1,19 @@
-import { InventoryEmptyText } from "@src/components/inventory/inventoryEmptyText";
-import { InventoryItem } from "@src/components/inventory/InventoryItem";
+import { InventoryEmptyText } from "@src/components/_modals/inventory/inventoryEmptyText";
+import { InventoryItem } from "@src/components/_modals/inventory/InventoryItem";
+import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export function InventoryItemsList(props: {
-  unit: Unit;
-  inventoryType: keyof Unit["inventory"];
+  owner: Unit | Building;
+  inventoryType?: keyof Unit["inventory"] | keyof Building["inventory"];
   editable: boolean;
   draggable: boolean;
 }) {
-  const inventoryEntities = props.unit.inventory[props.inventoryType];
+  const inventoryEntities = props.inventoryType
+    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      props.owner.inventory[props.inventoryType]
+    : props.owner.getInventoryItems();
 
   return (
     <ul className={"unit-inventory-items-list"}>
@@ -18,7 +23,7 @@ export function InventoryItemsList(props: {
             <InventoryItem
               key={entity.id}
               entity={entity}
-              inventoryType={props.inventoryType}
+              inventoryType={props.owner.findInventoryEntityPlaceType(entity)!}
               editable={props.editable}
               draggable={props.draggable}
             />
@@ -29,7 +34,7 @@ export function InventoryItemsList(props: {
       ) : inventoryEntities ? (
         <InventoryItem
           entity={inventoryEntities}
-          inventoryType={props.inventoryType}
+          inventoryType={props.owner.findInventoryEntityPlaceType(inventoryEntities)!}
           editable={props.editable}
           draggable={props.draggable}
         />

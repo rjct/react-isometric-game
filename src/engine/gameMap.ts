@@ -1,19 +1,14 @@
-import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
+import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
-import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
+import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
-import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
-import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
-import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
-import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
-import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
-import { Weapon, WeaponClass, WeaponType, WeaponTypes } from "@src/engine/weapon/WeaponFactory";
+import { Weapon, WeaponTypes } from "@src/engine/weapon/WeaponFactory";
 import { getUrlParamValue } from "@src/hooks/useUrl";
 
 interface GameMapProps {
@@ -267,12 +262,20 @@ export const gameMap = {
     };
   },
 
+  getAllUnitsArray() {
+    return Object.values(this.units);
+  },
+
   getAllAliveUnitsArray() {
-    return Object.values(this.units).filter((unit) => !unit.isDead);
+    return this.getAllUnitsArray().filter((unit) => !unit.isDead);
   },
 
   getAliveEnemiesArray() {
     return this.getAllAliveUnitsArray().filter((unit) => unit.id !== this.heroId);
+  },
+
+  getAllEnemiesArray() {
+    return this.getAllUnitsArray().filter((unit) => unit.id !== this.heroId);
   },
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
@@ -281,6 +284,10 @@ export const gameMap = {
 
       return unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y);
     });
+  },
+
+  getEntityByCoordinates(coordinates: GridCoordinates): Unit | Building | undefined {
+    return this.getUnitByCoordinates(coordinates) || this.getBuildingByCoordinates(coordinates);
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
@@ -303,10 +310,14 @@ export const gameMap = {
   },
 
   getBuildingByCoordinates(coordinates: GridCoordinates): Building | undefined {
+    const { x, y } = coordinates;
+
     return this.buildings.find(
       (building) =>
-        Math.round(building.position.x) === Math.round(coordinates.x) &&
-        Math.round(building.position.y) === Math.round(coordinates.y),
+        x >= Math.round(building.position.x) &&
+        x <= Math.round(building.position.x + building.size.grid.width) &&
+        y >= Math.round(building.position.y) &&
+        y <= Math.round(building.position.y + building.size.grid.length),
     );
   },
 
@@ -378,14 +389,14 @@ export const gameMap = {
 
     if (!confirmDelete) return false;
 
-    if (entity.unit) {
-      const inventoryPlaceType = entity.unit.findInventoryEntityPlaceType(entity);
+    if (entity.owner) {
+      const inventoryPlaceType = entity.owner.findInventoryEntityPlaceType(entity);
 
       if (inventoryPlaceType) {
-        entity.unit.removeItemFromInventory(entity, inventoryPlaceType);
+        entity.owner.removeItemFromInventory(entity, inventoryPlaceType);
       }
 
-      entity.unAssignUnit();
+      entity.unAssignOwner();
     }
 
     delete this.weapon[entity.id];
@@ -430,27 +441,5 @@ export const gameMap = {
         .map((building) => building.walls)
         .flat(),
     ];
-  },
-
-  createWeaponByClassName(weaponClass: WeaponClass, weaponType: WeaponType) {
-    const weaponDict = {
-      MeleeWeapon,
-      Firearm,
-    };
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return new weaponDict[weaponClass](weaponType, this);
-  },
-
-  createAmmoByClassName(ammoClass: AmmoClass, ammoType: AmmoType) {
-    const weaponDict = {
-      MeleePunch,
-      FirearmAmmo,
-    };
-
-    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-    // @ts-ignore
-    return new weaponDict[ammoClass](ammoType, this);
   },
 };

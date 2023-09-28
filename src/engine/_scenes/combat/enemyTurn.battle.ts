@@ -8,7 +8,7 @@ export function enemyTurnBattle(
   deltaTime: number,
   enemy: Unit,
   weapon: {
-    hand: Exclude<keyof Unit["inventory"], "backpack">;
+    hand: Exclude<keyof Unit["inventory"], "main">;
     weapon: Weapon;
   },
 ) {
@@ -26,7 +26,7 @@ export function enemyTurnBattle(
   gameDispatch({
     type: "useEntityInUnitHand",
     unit: enemy,
-    hand: enemy.currentSelectedAction as Exclude<keyof Unit["inventory"], "backpack">,
+    hand: enemy.currentSelectedAction as Exclude<keyof Unit["inventory"], "main">,
     targetPosition: hero.getRoundedPosition(),
     consumeActionPoints: true,
   });

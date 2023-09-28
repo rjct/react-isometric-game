@@ -31,7 +31,7 @@
   "hero": {
     "position": { "x": 56, "y": 44 },
     "inventory": {
-      "backpack": [
+      "main": [
         {
           "class": "Firearm",
           "type": "smg",
@@ -62,7 +62,7 @@
       "type": "ghoul",
       "position": { "x": 49, "y": 38 },
       "inventory": {
-        "backpack": [],
+        "main": [],
         "leftHand": {
           "class": "MeleeWeapon",
           "type": "punch"

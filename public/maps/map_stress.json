@@ -9,7 +9,7 @@
   "hero": {
     "position": { "x": 14, "y": 14 },
     "inventory": {
-      "backpack": [
+      "main": [
         { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
       ],
       "leftHand": {

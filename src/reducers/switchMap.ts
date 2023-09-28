@@ -1,52 +1,15 @@
-import { StaticMap, StaticMapUnit, StaticMapWeapon } from "@src/context/GameStateContext";
+import { StaticMap } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
-import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
-import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 
 export type SwitchGameMapReducerAction = {
   type: "switchMap";
   map: StaticMap;
   mediaFiles: MediaAssets;
-};
-
-const createWeaponForUnit = (
-  inventoryType: keyof Unit["inventory"],
-  staticWeapon: StaticMapWeapon,
-  unit: Unit,
-  gameMap: GameMap,
-) => {
-  const weapon = gameMap.createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
-
-  if (staticWeapon.ammo && weapon instanceof Firearm) {
-    const ammo = staticWeapon.ammo;
-
-    weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () =>
-      gameMap.createAmmoByClassName(ammo.class, ammo?.type),
-    );
-  }
-
-  weapon.assignUnit(unit);
-
-  unit.putItemToInventory(weapon, inventoryType);
-};
-
-const createUnitInventory = (inventory: StaticMapUnit["inventory"], unit: Unit, gameMap: GameMap) => {
-  if (!inventory) return;
-
-  Object.entries(inventory).forEach(([inventoryType, staticWeapon]) => {
-    if (Array.isArray(staticWeapon)) {
-      staticWeapon.forEach((iter) => {
-        createWeaponForUnit(inventoryType as keyof Unit["inventory"], iter, unit, gameMap);
-      });
-    } else {
-      createWeaponForUnit(inventoryType as keyof Unit["inventory"], staticWeapon, unit, gameMap);
-    }
-  });
 };
 
 export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
@@ -82,7 +45,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   });
 
   newState.buildings = action.map.buildings.map((staticMapBuilding) => {
-    const { type, position, direction, variant, occupiesCell } = staticMapBuilding;
+    const { type, position, direction, variant, occupiesCell, inventory } = staticMapBuilding;
 
     const building = new Building({
       gameState: newState,
@@ -91,6 +54,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       direction,
       variant,
       occupiesCell: occupiesCell !== false,
+      inventory,
     });
 
     building.setPosition(position, newState);
@@ -114,6 +78,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       isDead: enemy.isDead,
       action: enemy.isDead ? "dead" : "none",
       direction: enemy.direction,
+      inventory: enemy.inventory,
       isHero: false,
     });
     unit.setPosition(unit.position, newState);
@@ -121,8 +86,6 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     if (newState.settings.featureEnabled.unitShadow) {
       unit.calcShadows(newState);
     }
-
-    createUnitInventory(enemy.inventory, unit, newState);
 
     return { ...result, [unit.id]: unit };
   }, {});
@@ -133,13 +96,12 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       unitType: "vault13_male",
       position: action.map.hero.position,
       direction: action.map.hero.direction,
+      inventory: action.map.hero.inventory,
       isHero: true,
     });
 
     newState.heroId = hero.id;
     newState.units[hero.id] = hero;
-
-    createUnitInventory(action.map.hero.inventory, hero, newState);
   } else {
     newState.units[state.heroId] = state.units[state.heroId];
   }
@@ -157,13 +119,6 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
 
   newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);
-
-  Object.values(newState.units).forEach((unit) => {
-    unit.getInventoryItems().forEach((item) => {
-      newState.weapon[item.id] = item;
-      item.updateReferenceToGameMap(newState);
-    });
-  });
 
   return newState;
 }

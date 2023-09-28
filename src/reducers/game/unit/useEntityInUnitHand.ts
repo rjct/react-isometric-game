@@ -5,7 +5,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 export interface UseEntityInUnitHandReducerAction {
   type: "useEntityInUnitHand";
   unit: Unit;
-  hand: Exclude<keyof Unit["inventory"], "backpack">;
+  hand: Exclude<keyof Unit["inventory"], "main">;
   targetPosition: GridCoordinates;
   consumeActionPoints?: boolean;
 }

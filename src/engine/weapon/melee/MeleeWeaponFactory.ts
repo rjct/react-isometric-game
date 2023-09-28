@@ -1,5 +1,6 @@
 import weapons from "@src/dict/weapons.json";
 import { GameMap } from "@src/engine/gameMap";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
@@ -19,12 +20,14 @@ export class MeleeWeapon extends Weapon {
   }
 
   use(targetPosition: GridCoordinates) {
-    if (!this.unit) return;
+    if (!this.owner) return;
 
-    const unit = this.unit;
+    const unit = this.owner as Unit;
+
+    if (!(unit instanceof Unit)) return;
 
     if (this.isReadyToUse()) {
-      this.gameMap.playSfx(this.sfx.use.src, 1, this.unit.distanceToScreenCenter);
+      this.gameMap.playSfx(this.sfx.use.src, 1, unit.distanceToScreenCenter);
 
       const punch = new MeleePunch("punch");
 

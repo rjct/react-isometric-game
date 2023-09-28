@@ -1,4 +1,6 @@
+import { StaticMapWeapon } from "@src/context/GameStateContext";
 import weapons from "@src/dict/weapons.json";
+import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { floor, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
@@ -35,7 +37,7 @@ export class Weapon {
     screen: { width: 0, height: 0 },
   };
 
-  public unit: Unit | null = null;
+  public owner: Unit | Building | null = null;
   public readonly unitAction: WeaponUnitAction;
   public firedAmmoQueue: MeleePunch[] = [];
 
@@ -85,12 +87,12 @@ export class Weapon {
     this.sfx = weaponRef.sfx;
   }
 
-  assignUnit(unit: Unit) {
-    this.unit = unit;
+  assignOwner(owner: Unit | Building) {
+    this.owner = owner;
   }
 
-  unAssignUnit() {
-    this.unit = null;
+  unAssignOwner() {
+    this.owner = null;
   }
 
   updateReferenceToGameMap(gameMap: GameMap) {
@@ -99,8 +101,8 @@ export class Weapon {
 
   aimAt(position: GridCoordinates) {
     this.targetPosition = position;
-    if (this.unit) {
-      this.ray = new ObstacleRay(this.unit.position, this.targetPosition);
+    if (this.owner) {
+      this.ray = new ObstacleRay(this.owner.position, this.targetPosition);
     }
   }
 
@@ -118,15 +120,15 @@ export class Weapon {
   }
 
   getDistanceToTarget() {
-    if (this.targetPosition && this.unit) {
-      return floor(getDistanceBetweenGridPoints(this.unit.position, this.targetPosition));
+    if (this.targetPosition && this.owner) {
+      return floor(getDistanceBetweenGridPoints(this.owner.position, this.targetPosition));
     }
 
     return Infinity;
   }
 
   isReadyToUse() {
-    if (!this.unit || !this.targetPosition || this.busy()) return false;
+    if (!this.owner || !this.targetPosition || this.busy()) return false;
 
     const distanceToTarget = this.getDistanceToTarget();
     const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(this.gameMap);
@@ -140,5 +142,14 @@ export class Weapon {
 
   busy() {
     return this.isBusy;
+  }
+
+  getJSON() {
+    const weaponJson: StaticMapWeapon = {
+      class: this.constructor.name as WeaponClass,
+      type: this.type,
+    };
+
+    return weaponJson;
   }
 }

@@ -10,7 +10,7 @@ import React from "react";
 import { useDebounce } from "use-debounce";
 
 export const Wireframe = React.memo(function WireframeTiles() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const { hero, doHeroAction } = useHero();
   const { getEditorLibraryPosition } = useEditor();
 
@@ -31,8 +31,19 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
     if (markerClassName.includes("action--allowed")) {
       doHeroAction(uiState.mousePosition);
+    } else {
+      // const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
+      //
+      // if (entity) {
+      //   console.log(gameState.getEntityByCoordinates(uiState.mousePosition.grid));
+      //
+      //   hero.startTransferInventory(entity);
+      //   uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
+      // }
     }
   };
+
+  const handleDoubleClick = () => {};
 
   const handleRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
@@ -80,6 +91,12 @@ export const Wireframe = React.memo(function WireframeTiles() {
         break;
 
       default:
+        // const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
+        //
+        // if (entity && entity.getInventoryItems().length > 0) {
+        //   console.log(gameState.getEntityByCoordinates(uiState.mousePosition.grid));
+        // }
+
         const unitPath = gameState.calcUnitPath(hero, uiState.mousePosition.grid);
 
         if (
@@ -117,6 +134,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
         height: gameState.mapSize.height * constants.tileSize.height,
       }}
       onClick={handleClick}
+      onDoubleClick={handleDoubleClick}
       onContextMenu={handleRightClick}
     >
       <MapLayer

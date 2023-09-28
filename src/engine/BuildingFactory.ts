@@ -1,7 +1,11 @@
-import { StaticMapBuilding } from "@src/context/GameStateContext";
+import { StaticMapBuilding, StaticMapWeapon } from "@src/context/GameStateContext";
 import buildings from "@src/dict/buildings.json";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+
+import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { createAmmoByClassName, createWeaponByClassName } from "@src/engine/weapon/helpers";
+import { Weapon, WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 
 type BuildingSize = {
   grid: Size3D;
@@ -20,6 +24,7 @@ export interface DictBuilding {
   directions: Direction[];
   variants: number;
   internalColor: string;
+  inventory?: Weapon[];
 }
 
 export type DictBuildings = {
@@ -35,6 +40,9 @@ export class Building extends GameObjectFactory {
   variant = 0;
 
   private readonly ref: DictBuilding;
+  public inventory = {
+    main: [] as Weapon[],
+  };
 
   constructor(props: {
     gameState: GameMap;
@@ -43,6 +51,7 @@ export class Building extends GameObjectFactory {
     direction: Direction;
     variant: number;
     occupiesCell: boolean;
+    inventory?: StaticMapWeapon[];
   }) {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
@@ -65,6 +74,27 @@ export class Building extends GameObjectFactory {
     this.variant = props.variant;
 
     this.occupiesCell = props.occupiesCell;
+
+    if (props.inventory) {
+      this.inventory.main = props.inventory.map((staticWeapon) => {
+        const weapon = createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
+
+        if (staticWeapon.ammo && weapon instanceof Firearm) {
+          const ammo = staticWeapon.ammo;
+
+          weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () =>
+            createAmmoByClassName(ammo.class, ammo?.type),
+          );
+        }
+
+        weapon.assignOwner(this);
+
+        this.gameState.weapon[weapon.id] = weapon;
+        weapon.updateReferenceToGameMap(this.gameState);
+
+        return weapon;
+      });
+    }
   }
 
   private static getSizeByPositionAndDirection(size: BuildingSize, direction: Direction) {
@@ -93,6 +123,35 @@ export class Building extends GameObjectFactory {
     return this.ref.directions;
   }
 
+  public getInventoryItems() {
+    return this.inventory.main;
+  }
+
+  public putItemToInventory(item: Weapon) {
+    this.inventory.main.push(item);
+  }
+
+  public findInventoryEntityPlaceType(_entity: Weapon): keyof Building["inventory"] {
+    return "main";
+  }
+
+  public removeItemFromInventory(item: Weapon) {
+    const itemOnInventory = this.inventory.main.find((backpackItem) => backpackItem.id === item.id);
+
+    if (itemOnInventory) {
+      const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
+      this.inventory.main.splice(index, 1);
+    }
+  }
+
+  public getInventoryItemById(itemId: string) {
+    return this.getInventoryItems().find((item) => item?.id === itemId);
+  }
+
+  public isAllowedToPutItemInInventory() {
+    return true;
+  }
+
   public getJSON() {
     const json = {
       type: this.type,
@@ -103,6 +162,12 @@ export class Building extends GameObjectFactory {
 
     if (!this.occupiesCell) {
       json.occupiesCell = false;
+    }
+
+    if (this.inventory.main.length > 0) {
+      json.inventory = this.inventory.main.map((item) => {
+        return item.getJSON();
+      });
     }
 
     return json;

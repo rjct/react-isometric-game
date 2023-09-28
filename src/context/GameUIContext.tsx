@@ -5,7 +5,16 @@ import { faLightbulb } from "@fortawesome/free-solid-svg-icons/faLightbulb";
 import { faPerson } from "@fortawesome/free-solid-svg-icons/faPerson";
 import { faTreeCity } from "@fortawesome/free-solid-svg-icons/faTreeCity";
 
-export type GameScene = "intro" | "mainMenu" | "editor" | "loading" | "game" | "combat" | "inventory" | "gameOver";
+export type GameScene =
+  | "intro"
+  | "mainMenu"
+  | "editor"
+  | "loading"
+  | "game"
+  | "combat"
+  | "inventory"
+  | "inventoryTransfer"
+  | "gameOver";
 
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup },

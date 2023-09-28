@@ -4,12 +4,13 @@ import { EditorSidebar } from "@src/components/editor/EditorSidebar";
 import { EntitiesLibrary } from "@src/components/editor/EntitiesLibrary";
 import { GameOver } from "@src/components/GameOver";
 import { Intro } from "@src/components/Intro";
-import { Inventory } from "@src/components/inventory/Inventory";
 import { Loading } from "@src/components/Loading";
 import { MainMenu } from "@src/components/MainMenu";
 import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
 import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
+import { Inventory } from "@src/components/_modals/inventory/Inventory";
+import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
 import { GameStateContext } from "@src/context/GameStateContext";
 import { GameTerrainContext } from "@src/context/GameTerrainContext";
@@ -149,6 +150,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <DebugFeaturesSwitches />
               <ControlPanel />
               <Inventory />
+              <InventoryTransfer />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>
         </GameUIContext.Provider>

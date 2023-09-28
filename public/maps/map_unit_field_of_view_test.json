@@ -10,7 +10,7 @@
     "position": { "x": 10, "y": 3 },
     "direction": "bottom",
     "inventory": {
-      "backpack": [
+      "main": [
         { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
         { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
       ],

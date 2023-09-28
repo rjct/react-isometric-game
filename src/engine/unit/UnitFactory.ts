@@ -8,9 +8,9 @@ import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
-import { AmmoClass } from "@src/engine/weapon/AmmoFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
-import { Weapon, WeaponClass, WeaponUnitAction } from "@src/engine/weapon/WeaponFactory";
+import { createAmmoByClassName, createWeaponByClassName } from "@src/engine/weapon/helpers";
+import { Weapon, WeaponClass, WeaponType, WeaponUnitAction } from "@src/engine/weapon/WeaponFactory";
 
 export type UnitType = keyof typeof units;
 export type UnitTypes = { [unitId: string]: Unit };
@@ -123,7 +123,7 @@ export class Unit extends GameObjectFactory {
   public pathQueue: UnitPathQueue;
 
   public inventory = {
-    backpack: [] as Array<Weapon>,
+    main: [] as Array<Weapon>,
     leftHand: null as Weapon | null,
     rightHand: null as Weapon | null,
   };
@@ -148,6 +148,8 @@ export class Unit extends GameObjectFactory {
 
   public distanceToScreenCenter = -1;
 
+  public transferInventoryWithEntity: Unit | Building | null = null;
+
   constructor(props: {
     gameState: GameMap;
     unitType: UnitType;
@@ -156,6 +158,7 @@ export class Unit extends GameObjectFactory {
     action?: Unit["action"];
     isDead?: boolean;
     direction?: Unit["direction"];
+    inventory?: StaticMapUnit["inventory"];
   }) {
     const ref = units[props.unitType] as DictUnit;
 
@@ -200,6 +203,41 @@ export class Unit extends GameObjectFactory {
       },
       {} as unknown as UnitSfx,
     );
+
+    if (props.inventory) {
+      this.createUnitInventory(props.inventory);
+    }
+  }
+
+  private createWeaponForUnit(inventoryType: keyof Unit["inventory"], staticWeapon: StaticMapWeapon) {
+    const weapon = createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
+
+    if (staticWeapon.ammo && weapon instanceof Firearm) {
+      const ammo = staticWeapon.ammo;
+
+      weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () => createAmmoByClassName(ammo.class, ammo?.type));
+    }
+
+    weapon.assignOwner(this);
+
+    this.putItemToInventory(weapon, inventoryType);
+
+    this.gameState.weapon[weapon.id] = weapon;
+    weapon.updateReferenceToGameMap(this.gameState);
+  }
+
+  private createUnitInventory(inventory: StaticMapUnit["inventory"]) {
+    if (!inventory) return;
+
+    Object.entries(inventory).forEach(([inventoryType, staticWeapon]) => {
+      if (Array.isArray(staticWeapon)) {
+        staticWeapon.forEach((iter) => {
+          this.createWeaponForUnit(inventoryType as keyof Unit["inventory"], iter);
+        });
+      } else {
+        this.createWeaponForUnit(inventoryType as keyof Unit["inventory"], staticWeapon);
+      }
+    });
   }
 
   public setPath(path: number[][]) {
@@ -283,7 +321,7 @@ export class Unit extends GameObjectFactory {
   }
 
   public getFirstAvailableWeaponInHands(): {
-    hand: Exclude<keyof Unit["inventory"], "backpack">;
+    hand: Exclude<keyof Unit["inventory"], "main">;
     weapon: Weapon;
   } | null {
     if (this.inventory.leftHand instanceof Weapon) {
@@ -298,26 +336,26 @@ export class Unit extends GameObjectFactory {
   }
 
   public getBackpackItems() {
-    return this.inventory.backpack;
+    return this.inventory.main;
   }
 
   public putItemToInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
-    if (inventoryType === "backpack") {
-      this.inventory.backpack.push(item);
+    if (inventoryType === "main") {
+      this.inventory.main.push(item);
     } else {
       this.inventory[inventoryType] = item;
     }
   }
 
   public isAllowedToPutItemInInventory(inventoryType: keyof Unit["inventory"]) {
-    if (inventoryType === "backpack") return true;
+    if (inventoryType === "main") return true;
 
     return this.inventory[inventoryType] === null;
   }
 
   public findInventoryEntityPlaceType(entity: Weapon): keyof Unit["inventory"] | null {
-    if (this.inventory.backpack.find((backpackItem) => backpackItem.id === entity.id)) {
-      return "backpack";
+    if (this.inventory.main.find((backpackItem) => backpackItem.id === entity.id)) {
+      return "main";
     }
 
     if (this.inventory.leftHand?.id === entity.id) {
@@ -333,14 +371,14 @@ export class Unit extends GameObjectFactory {
 
   public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
     const itemOnInventory =
-      this.inventory.backpack.find((backpackItem) => backpackItem.id === item.id) ||
+      this.inventory.main.find((backpackItem) => backpackItem.id === item.id) ||
       this.inventory.leftHand ||
       this.inventory.rightHand;
 
     if (itemOnInventory) {
-      if (inventoryType === "backpack") {
-        const index = this.inventory.backpack.findIndex((item) => item.id === itemOnInventory.id);
-        this.inventory.backpack.splice(index, 1);
+      if (inventoryType === "main") {
+        const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
+        this.inventory.main.splice(index, 1);
       } else {
         this.inventory[inventoryType] = null;
       }
@@ -351,7 +389,7 @@ export class Unit extends GameObjectFactory {
     const leftHand = this.inventory.leftHand ? [this.inventory.leftHand] : [];
     const rightHand = this.inventory.rightHand ? [this.inventory.rightHand] : [];
 
-    return [...this.inventory.backpack, ...leftHand, ...rightHand];
+    return [...this.inventory.main, ...leftHand, ...rightHand];
   }
 
   public getInventoryItemById(itemId: string) {
@@ -504,24 +542,15 @@ export class Unit extends GameObjectFactory {
     return getDistanceBetweenGridPoints(this.getRoundedPosition(), entity.getRoundedPosition());
   }
 
+  public startTransferInventory(entity: Unit | Building) {
+    this.transferInventoryWithEntity = entity;
+  }
+
+  public stopTransferInventory() {
+    this.transferInventoryWithEntity = null;
+  }
+
   public getJSON(omitUnitType = false) {
-    const conventInventoryItemToJson = (item: Weapon): StaticMapWeapon => {
-      const weaponJson: StaticMapWeapon = {
-        class: item.constructor.name as WeaponClass,
-        type: item.type,
-      };
-
-      if (item instanceof Firearm && item.ammoCurrent.length > 0) {
-        weaponJson.ammo = {
-          class: item.ammoCurrent[0].constructor.name as AmmoClass,
-          type: item.ammoCurrent[0].type,
-          quantity: item.ammoCurrent.length,
-        };
-      }
-
-      return weaponJson;
-    };
-
     const json: StaticMapUnit = {
       type: this.type,
       position: this.getRoundedPosition(),
@@ -535,19 +564,19 @@ export class Unit extends GameObjectFactory {
     if (this.getInventoryItems().length > 0) {
       json.inventory = {} as StaticMapUnit["inventory"];
 
-      if (this.inventory.backpack) {
+      if (this.inventory.main) {
         json.inventory = {
           ...json.inventory,
-          ...{ backpack: this.inventory.backpack.map((backpackItem) => conventInventoryItemToJson(backpackItem)) },
+          ...{ backpack: this.inventory.main.map((backpackItem) => backpackItem.getJSON()) },
         };
       }
 
       if (this.inventory.leftHand) {
-        json.inventory = { ...json.inventory, ...{ leftHand: conventInventoryItemToJson(this.inventory.leftHand!) } };
+        json.inventory = { ...json.inventory, ...{ leftHand: this.inventory.leftHand.getJSON() } };
       }
 
       if (this.inventory.rightHand) {
-        json.inventory = { ...json.inventory, ...{ rightHand: conventInventoryItemToJson(this.inventory.rightHand!) } };
+        json.inventory = { ...json.inventory, ...{ rightHand: this.inventory.rightHand.getJSON() } };
       }
     }
 

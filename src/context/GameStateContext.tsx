@@ -23,6 +23,7 @@ export interface StaticMapBuilding {
   direction: Direction;
   variant: number;
   occupiesCell?: boolean;
+  inventory?: StaticMapWeapon[];
 }
 
 export interface StaticMapLight {
@@ -37,7 +38,7 @@ export interface StaticMapUnit {
   isDead?: boolean;
   direction?: Direction;
   inventory?: {
-    backpack?: StaticMapWeapon[];
+    main?: StaticMapWeapon[];
     leftHand?: StaticMapWeapon;
     rightHand?: StaticMapWeapon;
   };

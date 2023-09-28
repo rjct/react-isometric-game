@@ -1,6 +1,8 @@
+import { StaticMapWeapon } from "@src/context/GameStateContext";
 import weapons from "@src/dict/weapons.json";
 import { GameMap } from "@src/engine/gameMap";
-import { Ammo, AmmoType } from "@src/engine/weapon/AmmoFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
+import { Ammo, AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type FirearmType = keyof typeof weapons.Firearm;
@@ -26,9 +28,9 @@ export class Firearm extends Weapon {
   }
 
   use(targetPosition: GridCoordinates) {
-    if (!this.unit) return;
+    if (!this.owner) return;
 
-    const unit = this.unit;
+    const unit = this.owner as Unit;
     let count = 0;
     let fireInterval: number;
 
@@ -53,16 +55,30 @@ export class Firearm extends Weapon {
 
     if (this.isReadyToUse() && this.ammoCurrent.length >= this.ammoConsumptionPerShoot) {
       this.setBusy(true);
-      this.gameMap.playSfx(this.sfx.use.src, 1, this.unit.distanceToScreenCenter);
+      this.gameMap.playSfx(this.sfx.use.src, 1, unit.distanceToScreenCenter);
       fireInterval = window.setInterval(doFire, this.sfx.use.timeIntervalMs);
     } else {
       unit.setAction("idle");
-      this.gameMap.playSfx(this.sfx.outOfAmmo.src, 1, this.unit.distanceToScreenCenter);
+      this.gameMap.playSfx(this.sfx.outOfAmmo.src, 1, unit.distanceToScreenCenter);
 
       setTimeout(() => {
         unit.setAction("none");
         this.setBusy(false);
       }, this.animationDuration.attackNotAllowed);
     }
+  }
+
+  getJSON() {
+    const weaponJson: StaticMapWeapon = super.getJSON();
+
+    if (this.ammoCurrent.length > 0) {
+      weaponJson.ammo = {
+        class: this.ammoCurrent[0].constructor.name as AmmoClass,
+        type: this.ammoCurrent[0].type,
+        quantity: this.ammoCurrent.length,
+      };
+    }
+
+    return weaponJson;
   }
 }

@@ -5,6 +5,7 @@ import { gameScene } from "@src/engine/_scenes/game";
 import { gameOverScene } from "@src/engine/_scenes/gameOver";
 import { introScene } from "@src/engine/_scenes/intro";
 import { inventoryScene } from "@src/engine/_scenes/inventory";
+import { inventoryTransferScene } from "@src/engine/_scenes/inventoryTransfer";
 import { loadingScene } from "@src/engine/_scenes/loading";
 import { mainMenuScene } from "@src/engine/_scenes/mainMenu";
 import { GameContext } from "@src/hooks/useGameState";
@@ -18,6 +19,7 @@ const scenes: { [sceneName in GameScene]: SceneRunnerFunc } = {
   game: gameScene,
   combat: combatScene,
   inventory: inventoryScene,
+  inventoryTransfer: inventoryTransferScene,
   editor: editorScene,
   gameOver: gameOverScene,
 };

@@ -1,3 +1,4 @@
+import { StaticMapUnit } from "@src/context/GameStateContext";
 import { GameMap } from "@src/engine/gameMap";
 import { Unit, UnitType } from "@src/engine/unit/UnitFactory";
 
@@ -6,6 +7,7 @@ export interface AddUnitReducerAction {
   unitType: UnitType;
   position: GridCoordinates;
   direction: Unit["direction"];
+  inventory?: StaticMapUnit["inventory"];
 }
 
 export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
@@ -14,6 +16,7 @@ export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
     unitType: action.unitType,
     position: action.position,
     direction: action.direction,
+    inventory: action.inventory,
     isHero: false,
   });
 

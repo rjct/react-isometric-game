@@ -1,31 +1,27 @@
+import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
-import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
 export function useDragAndDropItem() {
-  const { hero } = useHero();
-  const { gameDispatch } = useGameState();
+  const { gameState, gameDispatch } = useGameState();
 
   const handleDragOver = (e: React.DragEvent) => {
     e.preventDefault();
     e.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (e: React.DragEvent, toInventoryType: keyof Unit["inventory"]) => {
+  const handleDrop = (e: React.DragEvent, to: Unit | Building, toInventoryType: keyof Unit["inventory"]) => {
     e.preventDefault();
 
-    const fromInventoryType = e.dataTransfer.getData("inventory/type") as keyof Unit["inventory"];
-    const itemId = e.dataTransfer.getData("inventory/item-id");
+    const inventoryItemId = e.dataTransfer.getData("inventory/item-id");
+    const inventoryItem = gameState.weapon[inventoryItemId]; //from.getInventoryItemById(inventoryItemId);
 
-    const entity = hero.getInventoryItemById(itemId);
-
-    if (entity && hero.isAllowedToPutItemInInventory(toInventoryType)) {
+    if (inventoryItem && to.isAllowedToPutItemInInventory(toInventoryType)) {
       gameDispatch({
         type: "transferInventoryEntity",
-        entity,
-        from: { unit: hero, inventoryType: fromInventoryType },
-        to: { unit: hero, inventoryType: toInventoryType },
+        entity: inventoryItem,
+        to: { unit: to, inventoryType: toInventoryType },
       });
     }
   };
