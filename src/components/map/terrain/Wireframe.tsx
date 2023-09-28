@@ -110,13 +110,19 @@ export const Wireframe = React.memo(function WireframeTiles() {
   };
 
   React.useEffect(() => {
-    if (uiState.mousePosition.isOutOfGrid) return;
+    if (uiState.mousePosition.isOutOfGrid) {
+      return;
+    }
 
     setMarkerClassName(["action--pending"]);
     setMarkerPosition(uiState.mousePosition.grid);
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
 
   React.useEffect(() => {
+    if (gameState.selectedEntityForInventoryTransfer) {
+      gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: null });
+    }
+
     if (uiState.mousePosition.isOutOfGrid) return;
 
     updateMarkerColor();
@@ -144,6 +150,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   return (
     <div
       className={"wireframe-wrapper"}
+      data-entity-selected-for-inventory-transfer={!!gameState.selectedEntityForInventoryTransfer || null}
       style={{
         width: gameState.mapSize.width * constants.tileSize.width + getEditorLibraryPosition(),
         height: gameState.mapSize.height * constants.tileSize.height,

@@ -15,6 +15,10 @@
   cursor: crosshair;
   z-index: 1;
 
+  &[data-entity-selected-for-inventory-transfer="true"] {
+    cursor: zoom-in;
+  }
+
   .wireframe {
     transform-origin: left top;
     transform: rotateX(60deg) rotateZ(45deg);
