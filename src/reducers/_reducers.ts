@@ -81,6 +81,7 @@ import {
   RecalculateUnitFieldOfViewReducerAction,
 } from "@src/reducers/game/unit/recalcUnitFieldOfView";
 import { setCurrentUnitAction, SetCurrentUnitActionReducerAction } from "@src/reducers/game/unit/setCurrentUnitAction";
+import { setUnitMovementMode, SetUnitMovementModeReducerAction } from "@src/reducers/game/unit/setUnitMovementMode";
 import { stopUnits, StopUnitsActionReducerAction } from "@src/reducers/game/unit/stopUnits";
 import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "@src/reducers/game/unit/useEntityInUnitHand";
 import {
@@ -109,6 +110,7 @@ export type GameReducerAction =
   | AnimateFiredAmmoAction
   | CleanupFiredAmmoAction
   | SetCurrentUnitActionReducerAction
+  | SetUnitMovementModeReducerAction
   | UpdateMapUrlReducerAction
   | TransferInventoryEntityReducerAction
   | DeleteInventoryEntityReducerAction
@@ -201,6 +203,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setCurrentUnitAction":
       return setCurrentUnitAction(state, action as SetCurrentUnitActionReducerAction);
+
+    case "setUnitMovementMode":
+      return setUnitMovementMode(state, action as SetUnitMovementModeReducerAction);
 
     case "updateMapUrl":
       return updateMapUrl(state, action as UpdateMapUrlReducerAction);

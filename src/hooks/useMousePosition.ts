@@ -3,9 +3,9 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export interface WorldMousePosition {
-  grid: { x: number; y: number };
-  screen: { x: number; y: number };
-  browser: { x: number; y: number };
+  grid: GridCoordinates;
+  screen: ScreenCoordinates;
+  browser: ScreenCoordinates;
   isOutOfGrid: boolean;
 }
 

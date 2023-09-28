@@ -14,7 +14,8 @@ export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: 
     if (unitPath.length > 0) {
       enemy.setPath(unitPath);
       enemy.setAction("run");
-      gameDispatch({ type: "setCurrentUnitAction", unit: enemy, selectedAction: "run" });
+      gameDispatch({ type: "setUnitMovementMode", unit: enemy, mode: "run" });
+      gameDispatch({ type: "setCurrentUnitAction", unit: enemy, selectedAction: "move" });
     }
   }
 

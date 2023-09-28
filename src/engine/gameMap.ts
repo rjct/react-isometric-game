@@ -279,7 +279,7 @@ export const gameMap = {
   },
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
-    return Object.values(this.units).find((unit) => {
+    return this.getAllUnitsArray().find((unit) => {
       const unitPosition = unit.getRoundedPosition();
 
       return unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y);
@@ -315,9 +315,9 @@ export const gameMap = {
     return this.buildings.find(
       (building) =>
         x >= Math.round(building.position.x) &&
-        x <= Math.round(building.position.x + building.size.grid.width) &&
+        x < Math.round(building.position.x + building.size.grid.width) &&
         y >= Math.round(building.position.y) &&
-        y <= Math.round(building.position.y + building.size.grid.length),
+        y < Math.round(building.position.y + building.size.grid.length),
     );
   },
 

@@ -1,16 +1,16 @@
-import { constants } from "@src/engine/constants";
 import { GameScene } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
+import { constants } from "@src/engine/constants";
 import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { WorldMousePosition } from "@src/hooks/useMousePosition";
 
 export function useHero() {
-  const { uiState, gameState, gameDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const hero = gameState.units[gameState.heroId];
 
-  const doHeroAction = (mousePosition: WorldMousePosition) => {
+  const doHeroAction = (mousePosition: WorldMousePosition, type: "click" | "doubleClick") => {
     if (!mousePosition || mousePosition.isOutOfGrid || !(["game", "combat"] as GameScene[]).includes(uiState.scene))
       return;
 
@@ -18,22 +18,24 @@ export function useHero() {
     const weapon = hero.getCurrentWeapon();
 
     switch (hero.currentSelectedAction) {
-      case "walk":
+      case "move":
+        hero.currentMovementMode = type === "doubleClick" ? "run" : "walk";
+
         gameDispatch({
           type: "moveUnit",
           unit: hero,
           position: targetPosition,
-          moveAction: "walk",
+          moveAction: hero.currentMovementMode,
         });
         break;
 
-      case "run":
-        gameDispatch({
-          type: "moveUnit",
-          unit: hero,
-          position: targetPosition,
-          moveAction: "run",
-        });
+      case "explore":
+        const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
+
+        if (entity) {
+          hero.startTransferInventory(entity);
+          uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
+        }
         break;
 
       case "leftHand":

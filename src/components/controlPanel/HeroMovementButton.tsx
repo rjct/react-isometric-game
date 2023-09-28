@@ -1,34 +1,53 @@
 import { IconDefinition } from "@fortawesome/free-solid-svg-icons";
+import { faPersonRunning } from "@fortawesome/free-solid-svg-icons/faPersonRunning";
+import { faPersonWalking } from "@fortawesome/free-solid-svg-icons/faPersonWalking";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { HeroActionControl } from "@src/components/controlPanel/HeroActionControl";
 import { Button } from "@src/components/ui/Button";
+import { UnitMovementMode } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
-export const HeroMovementButton = React.memo((props: { type: "walk" | "run"; title: string; icon: IconDefinition }) => {
+const heroMovementTypes: { [t in UnitMovementMode]: { text: string; icon: IconDefinition } } = {
+  walk: {
+    text: "Walk",
+    icon: faPersonWalking,
+  },
+  run: {
+    text: "Run",
+    icon: faPersonRunning,
+  },
+};
+
+export const HeroMovementButton = React.memo(() => {
   const { gameDispatch } = useGameState();
   const { hero } = useHero();
 
-  const handleChange = () => {
+  const handleClick = () => {
     if (hero.isMoving()) return;
 
-    gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: props.type });
+    if (hero.currentSelectedAction === "move") {
+      gameDispatch({
+        type: "setUnitMovementMode",
+        unit: hero,
+        mode: hero.currentMovementMode === "walk" ? "run" : "walk",
+      });
+    } else {
+      gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: "move" });
+    }
   };
 
   return (
     <Button
-      className={[`control-${props.type}`]}
-      active={hero.currentSelectedAction === props.type}
+      className={[`control-movement`]}
+      active={hero.currentSelectedAction === "move"}
+      title={heroMovementTypes[hero.currentMovementMode].text}
       disabled={hero.isMoving()}
+      onClick={handleClick}
     >
-      <HeroActionControl
-        action={props.type}
-        selected={hero.currentSelectedAction === props.type}
-        onChange={handleChange}
-        title={props.title}
-        text={<FontAwesomeIcon icon={props.icon} size={"lg"} />}
-      />
+      <label>
+        <FontAwesomeIcon icon={heroMovementTypes[hero.currentMovementMode].icon} />
+      </label>
     </Button>
   );
 });

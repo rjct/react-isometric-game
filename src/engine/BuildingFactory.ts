@@ -131,7 +131,7 @@ export class Building extends GameObjectFactory {
     this.inventory.main.push(item);
   }
 
-  public findInventoryEntityPlaceType(_entity: Weapon): keyof Building["inventory"] {
+  public findInventoryEntityPlaceType(): keyof Building["inventory"] {
     return "main";
   }
 

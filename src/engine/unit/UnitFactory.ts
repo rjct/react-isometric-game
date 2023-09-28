@@ -27,6 +27,8 @@ export type UnitShadow = {
   angle: number;
 };
 
+export type UnitMovementMode = Extract<Unit["action"], "walk" | "run">;
+
 export interface DictUnit {
   type: UnitType;
   idDead?: boolean;
@@ -51,6 +53,7 @@ export interface DictUnit {
     consumption: {
       walk: number;
       run: number;
+      explore: number;
     };
   };
   fieldOfView: {
@@ -112,6 +115,7 @@ export class Unit extends GameObjectFactory {
     readonly consumption: {
       walk: number;
       run: number;
+      explore: number;
     };
   };
 
@@ -128,7 +132,8 @@ export class Unit extends GameObjectFactory {
     rightHand: null as Weapon | null,
   };
 
-  public currentSelectedAction: "walk" | "run" | "leftHand" | "rightHand" = "walk";
+  public currentMovementMode: UnitMovementMode = "walk";
+  public currentSelectedAction: "move" | "explore" | "leftHand" | "rightHand" = "move";
 
   public readonly coolDownTime: number;
   public coolDownTimer = 0;
@@ -433,11 +438,8 @@ export class Unit extends GameObjectFactory {
 
   public getCurrentActionPointsConsumption() {
     switch (this.currentSelectedAction) {
-      case "walk":
-        return this.actionPoints.consumption.walk;
-
-      case "run":
-        return this.actionPoints.consumption.run;
+      case "move":
+        return this.actionPoints.consumption[this.currentMovementMode];
 
       case "leftHand":
       case "rightHand":
@@ -448,6 +450,9 @@ export class Unit extends GameObjectFactory {
         }
 
         return 0;
+
+      case "explore":
+        return this.actionPoints.consumption.explore;
     }
   }
 
@@ -567,7 +572,7 @@ export class Unit extends GameObjectFactory {
       if (this.inventory.main) {
         json.inventory = {
           ...json.inventory,
-          ...{ backpack: this.inventory.main.map((backpackItem) => backpackItem.getJSON()) },
+          ...{ main: this.inventory.main.map((backpackItem) => backpackItem.getJSON()) },
         };
       }
 

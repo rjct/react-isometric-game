@@ -20,7 +20,8 @@
       "max": 10,
       "consumption": {
         "walk": 1,
-        "run": 2
+        "run": 2,
+        "explore": 1
       }
     },
     "fieldOfView": {
@@ -77,7 +78,8 @@
       "max": 10,
       "consumption": {
         "walk": 1,
-        "run": 2
+        "run": 2,
+        "explore": 1
       }
     },
     "fieldOfView": {

@@ -29,8 +29,8 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
       if (action.consumeActionPoints) {
         const currentSelectedAction = unit.currentSelectedAction;
 
-        if (currentSelectedAction === "walk" || currentSelectedAction === "run") {
-          unit.consumeActionPoints(unit.actionPoints.consumption[currentSelectedAction]);
+        if (currentSelectedAction === "move") {
+          unit.consumeActionPoints(unit.actionPoints.consumption[unit.currentMovementMode]);
         }
       }
 
