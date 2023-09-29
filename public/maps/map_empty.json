@@ -19,7 +19,7 @@
     }
   ],
   "hero": {
-    "position": { "x": 21, "y": 18 },
+    "position": { "x": 19, "y": 19 },
     "direction": "top",
     "inventory": {
       "main": [],
@@ -30,35 +30,8 @@
       }
     }
   },
-  "enemies": [
-    {
-      "type": "ghoul",
-      "position": { "x": 20, "y": 20 },
-      "direction": "right",
-      "isDead": true,
-      "inventory": { "main": [{ "class": "MeleeWeapon", "type": "punch" }] }
-    }
-  ],
-  "buildings": [
-    {
-      "type": "vehicle-2x4",
-      "position": { "x": 15, "y": 22 },
-      "direction": "top",
-      "variant": 0,
-      "inventory": [
-        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
-      ]
-    },
-    {
-      "type": "vehicle-2x4",
-      "position": { "x": 10, "y": 22 },
-      "direction": "top",
-      "variant": 11,
-      "inventory": [
-        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 95 } }
-      ]
-    }
-  ],
+  "enemies": [],
+  "buildings": [],
   "globalShadows": { "color": "#000d4d", "opacity": 0.5 },
   "globalLights": { "opacity": 0 },
   "lights": [
