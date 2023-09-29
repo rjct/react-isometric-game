@@ -87,7 +87,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       case "explore":
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
-        const isExplorable = entity && entity.explorable && entity.id !== hero.id;
+        const isExplorable = entity && entity.isExplorable() && entity.id !== hero.id;
 
         setMarkerClassName([isExplorable ? "action--allowed" : "action--not-allowed"]);
         gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: isExplorable ? entity : null });

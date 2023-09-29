@@ -29,7 +29,7 @@ export class GameObjectFactory {
 
   public walls: GameObjectWall[] = [];
 
-  public readonly explorable: boolean = false;
+  private readonly explorable: boolean = false;
 
   constructor(props: {
     gameState: GameMap;
@@ -158,6 +158,10 @@ export class GameObjectFactory {
 
     //return !u || u < 0 ? Infinity : u;
     return !u || u < 0 ? { distance: Infinity, entity: null } : { distance: u, entity: this }; // if behind ray return Infinity else the dist
+  }
+
+  isExplorable() {
+    return this.explorable;
   }
 
   getHash() {

@@ -555,6 +555,10 @@ export class Unit extends GameObjectFactory {
     return getDistanceBetweenGridPoints(this.getRoundedPosition(), entity.getRoundedPosition());
   }
 
+  public isExplorable() {
+    return super.isExplorable() && this.isDead;
+  }
+
   public getJSON(omitUnitType = false) {
     const json: StaticMapUnit = {
       type: this.type,
