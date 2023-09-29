@@ -1,5 +1,6 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
+import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObjectFactory } from "@src/engine/GameObjectFactory";
@@ -136,6 +137,36 @@ export function getDistanceBetweenGridPoints(startPosition: GridCoordinates, tar
   return Math.sqrt(Math.pow(displacementX, 2) + Math.pow(displacementY, 2));
 }
 
+export function getDistanceBetweenEntities(entity1: Unit | Building, entity2: Unit | Building): number {
+  const entity1Corners = [
+    { x: entity1.position.x, y: entity1.position.y },
+    { x: entity1.position.x + entity1.size.grid.width, y: entity1.position.y },
+    { x: entity1.position.x, y: entity1.position.y + entity1.size.grid.length },
+    { x: entity1.position.x + entity1.size.grid.width, y: entity1.position.y + entity1.size.grid.length },
+  ];
+
+  const entity2Corners = [
+    { x: entity2.position.x, y: entity2.position.y },
+    { x: entity2.position.x + entity2.size.grid.width, y: entity2.position.y },
+    { x: entity2.position.x, y: entity2.position.y + entity2.size.grid.length },
+    { x: entity2.position.x + entity2.size.grid.width, y: entity2.position.y + entity2.size.grid.length },
+  ];
+
+  let minDistance = Number.MAX_VALUE;
+
+  for (const corner1 of entity1Corners) {
+    for (const corner2 of entity2Corners) {
+      const distance = Math.sqrt(Math.pow(corner1.x - corner2.x, 2) + Math.pow(corner1.y - corner2.y, 2));
+
+      if (distance < minDistance) {
+        minDistance = distance;
+      }
+    }
+  }
+
+  return minDistance;
+}
+
 export function getAngleBetweenTwoGridPoints(startPosition: GridCoordinates, targetPosition: GridCoordinates) {
   const distance = {
     x: targetPosition.x - startPosition.x,
@@ -178,4 +209,26 @@ export function gridToScreesSize(size: Size2D): Size2D {
     width: size.width * constants.wireframeTileSize.width,
     height: size.height * constants.wireframeTileSize.height,
   };
+}
+
+export function getCellsInVector(
+  grid: GameMap["matrix"],
+  from: GridCoordinates,
+  to: GridCoordinates,
+): GridCoordinates[] {
+  const cellsInVector: GridCoordinates[] = [];
+  const dx = to.x - from.x;
+  const dy = to.y - from.y;
+  const steps = Math.max(Math.abs(dx), Math.abs(dy));
+
+  for (let i = 0; i <= steps; i++) {
+    const x = Math.round(from.x + (i * dx) / steps);
+    const y = Math.round(from.y + (i * dy) / steps);
+
+    if (x >= 0 && x < grid.length && y >= 0 && y < grid[0].length) {
+      cellsInVector.push({ x, y });
+    }
+  }
+
+  return cellsInVector;
 }

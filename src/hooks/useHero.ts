@@ -1,7 +1,7 @@
 import { GameScene } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
-import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
+import { getCellsInVector, getDistanceBetweenEntities, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { WorldMousePosition } from "@src/hooks/useMousePosition";
@@ -33,7 +33,25 @@ export function useHero() {
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
 
         if (entity) {
-          uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
+          if (getDistanceBetweenEntities(hero, entity) > 0) {
+            const positionNearEntity = getCellsInVector(
+              gameState.matrix,
+              hero.getRoundedPosition(),
+              uiState.mousePosition.grid,
+            ).at(-2)!;
+
+            gameDispatch({
+              type: "moveUnit",
+              unit: hero,
+              position: positionNearEntity,
+              moveAction: hero.currentMovementMode,
+              onUnitMoveFinished: () => {
+                uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
+              },
+            });
+          } else {
+            uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
+          }
         }
 
         break;

@@ -152,6 +152,7 @@ export class Unit extends GameObjectFactory {
   public readonly sfx: UnitSfx;
 
   public distanceToScreenCenter = -1;
+  public pathCompleteCallback: (() => void) | null = null;
 
   constructor(props: {
     gameState: GameMap;
@@ -248,6 +249,10 @@ export class Unit extends GameObjectFactory {
     this.path = this.convertPathToCoordinatesArray(path);
   }
 
+  public setPathCompleteCallback(callback: (() => void) | null) {
+    this.pathCompleteCallback = callback;
+  }
+
   public convertPathToCoordinatesArray(path: number[][]): GridCoordinates[] {
     return path.map((iter) => {
       return { x: iter[0], y: iter[1] };
@@ -304,6 +309,10 @@ export class Unit extends GameObjectFactory {
 
   public setPositionComplete() {
     this.sfx["walkStep"].currentProgressMs = 0;
+
+    if (this.pathCompleteCallback) {
+      this.pathCompleteCallback();
+    }
   }
 
   public setAction(action: Unit["action"]) {

@@ -96,15 +96,13 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       case "move":
         const unitPath = gameState.calcUnitPath(hero, uiState.mousePosition.grid);
-
-        setMarkerClassName([
+        const isMoveAllowed = !(
           unitPath.length === 0 ||
           (uiState.scene === "combat" &&
             hero.actionPoints.current / hero.getCurrentActionPointsConsumption() < unitPath.length - 1)
-            ? "action--not-allowed"
-            : "action--allowed",
-        ]);
+        );
 
+        setMarkerClassName([isMoveAllowed ? "action--allowed" : "action--not-allowed"]);
         setMarkerValue(uiState.scene === "combat" ? String(unitPath.length - 1) : "");
     }
   };
@@ -119,7 +117,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
 
   React.useEffect(() => {
-    if (gameState.selectedEntityForInventoryTransfer) {
+    if (gameState.selectedEntityForInventoryTransfer && !hero.isMoving()) {
       gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: null });
     }
 
