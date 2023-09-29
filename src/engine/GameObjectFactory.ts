@@ -164,6 +164,20 @@ export class GameObjectFactory {
     return this.explorable;
   }
 
+  getAllUnblockedCellsAroundEntity() {
+    const cells: GridCoordinates[] = [];
+
+    for (let x = this.position.x - 1; x < this.position.x + this.size.grid.width + 1; x++) {
+      for (let y = this.position.y - 1; y < this.position.y + this.size.grid.length + 1; y++) {
+        if (!this.gameState.isCellOccupied({ x, y })) {
+          cells.push({ x, y });
+        }
+      }
+    }
+
+    return cells;
+  }
+
   getHash() {
     return `${this.position.x}:${this.position.y}:${this.direction}:${this.occupiesCell}`;
   }

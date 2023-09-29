@@ -559,6 +559,21 @@ export class Unit extends GameObjectFactory {
     return super.isExplorable() && this.isDead;
   }
 
+  public getClosestCoordinatesToEntity(entity: Unit | Building) {
+    const roundedPosition = this.getRoundedPosition();
+
+    const allUnblockedCellsAroundEntity = entity
+      .getAllUnblockedCellsAroundEntity()
+      .filter((coordinates) => {
+        return this.gameState.calcUnitPath(this, coordinates).length > 0;
+      })
+      .sort((a: GridCoordinates, b: GridCoordinates) => {
+        return getDistanceBetweenGridPoints(roundedPosition, a) - getDistanceBetweenGridPoints(roundedPosition, b);
+      });
+
+    return allUnblockedCellsAroundEntity[0];
+  }
+
   public getJSON(omitUnitType = false) {
     const json: StaticMapUnit = {
       type: this.type,

@@ -87,10 +87,11 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       case "explore":
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
-        const isExplorable = entity && entity.isExplorable() && entity.id !== hero.id;
+        const isExplorable =
+          entity && entity.isExplorable() && entity.id !== hero.id && !!hero.getClosestCoordinatesToEntity(entity);
 
         setMarkerClassName([isExplorable ? "action--allowed" : "action--not-allowed"]);
-        gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: isExplorable ? entity : null });
+        gameDispatch({ type: "highlightExplorableEntity", entity: isExplorable ? entity : null });
 
         break;
 
@@ -117,8 +118,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
 
   React.useEffect(() => {
-    if (gameState.selectedEntityForInventoryTransfer && !hero.isMoving()) {
-      gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: null });
+    if (gameState.highlightedEntityForInventoryTransfer) {
+      gameDispatch({ type: "highlightExplorableEntity", entity: null });
     }
 
     if (uiState.mousePosition.isOutOfGrid) return;

@@ -20,6 +20,7 @@ export const Buildings = React.memo(function Buildings() {
               key={building.id}
               building={building}
               maskImage={getHeroMaskImage(building)}
+              highlightedForInventoryTransfer={gameState.highlightedEntityForInventoryTransfer?.id === building.id}
               selectedForInventoryTransfer={gameState.selectedEntityForInventoryTransfer?.id === building.id}
             />
           ),
@@ -28,6 +29,7 @@ export const Buildings = React.memo(function Buildings() {
       uiState.viewport,
       hero.getHash(),
       gameState.debug.featureEnabled.buildingBoxes,
+      gameState.highlightedEntityForInventoryTransfer,
       gameState.selectedEntityForInventoryTransfer,
     ],
   );

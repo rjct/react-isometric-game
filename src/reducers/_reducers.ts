@@ -85,6 +85,10 @@ import { setUnitMovementMode, SetUnitMovementModeReducerAction } from "@src/redu
 import { stopUnits, StopUnitsActionReducerAction } from "@src/reducers/game/unit/stopUnits";
 import { useEntityInUnitHand, UseEntityInUnitHandReducerAction } from "@src/reducers/game/unit/useEntityInUnitHand";
 import {
+  highlightExplorableEntity,
+  HighlightExplorableEntityReducerAction,
+} from "@src/reducers/highlightExplorableEntity";
+import {
   recalculateLightsAndShadows,
   RecalculateLightsAndShadowsReducerAction,
 } from "@src/reducers/light/recalculateLightsAndShadows";
@@ -118,6 +122,7 @@ export type GameReducerAction =
   | UpdateMapUrlReducerAction
   | TransferInventoryEntityReducerAction
   | SetSelectedEntityForInventoryTransferReducerAction
+  | HighlightExplorableEntityReducerAction
   | DeleteInventoryEntityReducerAction
   | StartCombatReducerAction
   | EndCombatReducerAction
@@ -217,6 +222,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setSelectedEntityForInventoryTransfer":
       return setSelectedEntityForInventoryTransfer(state, action as SetSelectedEntityForInventoryTransferReducerAction);
+
+    case "highlightExplorableEntity":
+      return highlightExplorableEntity(state, action as HighlightExplorableEntityReducerAction);
 
     case "transferInventoryEntity":
       return transferInventoryEntity(state, action as TransferInventoryEntityReducerAction);

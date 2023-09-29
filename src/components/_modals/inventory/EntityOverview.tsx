@@ -1,3 +1,4 @@
+import { BuildingComponent } from "@src/components/map/buildings/Building";
 import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
@@ -18,7 +19,7 @@ const UnitOverview = (props: { entity: Unit }) => {
 const BuildingOverview = (props: { entity: Building }) => {
   return (
     <div className="entity-preview building-preview">
-      <div className={[props.entity.className].join(" ")} data-direction={props.entity.direction}></div>
+      <BuildingComponent building={props.entity} />
     </div>
   );
 };

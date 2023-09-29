@@ -90,6 +90,7 @@ export const gameMap = {
   mediaAssets: {} as MediaAssets,
 
   selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
+  highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
 
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,

@@ -31,6 +31,8 @@ export function InventoryTransfer() {
   if (!checkCurrentScene(["inventoryTransfer"])) return null;
 
   const handleCloseButtonClick = () => {
+    gameDispatch({ type: "highlightExplorableEntity", entity: null });
+    gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: null });
     uiDispatch({ type: "setScene", scene: scenesHistory.at(-2)! });
   };
 
