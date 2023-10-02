@@ -1,6 +1,6 @@
 import React from "react";
 
-export function PositionEntityEditor(props: {
+export function EntityPositionEditor(props: {
   label: string;
   min: number;
   max: number;

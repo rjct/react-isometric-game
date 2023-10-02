@@ -27,7 +27,7 @@ export const TerrainCanvas = React.memo(function TerrainEditor(props: { workingS
     uiState.scene,
     uiState.scroll,
     uiState.editorMode,
-    checkCurrentScene(props.workingScenes) ? terrainState.getTerrainHash() : false,
+    checkCurrentScene(props.workingScenes) ? terrainState.getTerrainAreasHash() : false,
     checkCurrentScene(props.workingScenes) ? canvasRef : false,
   ]);
 

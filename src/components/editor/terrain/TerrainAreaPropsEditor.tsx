@@ -8,65 +8,67 @@ import { TerrainAreaTypeSelector } from "@src/components/editor/terrain/TerrainA
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
 import { Button } from "@src/components/ui/Button";
+import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
+import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 
-export function TerrainAreaPropsEditor() {
-  const { terrainState, gameState, terrainDispatch, uiState } = useGameState();
+export function TerrainAreaPropsEditor(props: { terrainArea: TerrainArea }) {
+  const { gameState, terrainDispatch } = useGameState();
+  const { checkEditorMode } = useEditor();
 
-  return uiState.editorMode === "terrain" ? (
-    terrainState.selectedTerrainArea ? (
-      <fieldset>
-        <legend>Terrain area</legend>
-        <div className={"editor-props-wrapper"}>
-          <table>
-            <tbody>
-              <TableRow label={"ID"}>{terrainState.selectedTerrainArea?.id}</TableRow>
-              <TableRow label={"Type"}>
-                <TerrainAreaTypeSelector />
-              </TableRow>
-              <TableRow label={"Position"}>
-                <TerrainAreaPositionEditor />
-              </TableRow>
-              <TableRow label={"Source"}>
-                <TerrainAreaSourcePositionEditor />
-              </TableRow>
-              <TableRow label={"Exit to map"}>
-                <TerrainAreaExitUrlEditor />
-              </TableRow>
-            </tbody>
-          </table>
-        </div>
+  if (!checkEditorMode(["terrain"])) return null;
+  if (!props.terrainArea) return <NothingSelectedText />;
 
-        <div className={"editor-controls"}>
-          <Button
-            className={["ui-button-green"]}
-            disabled={!terrainState.selectedTerrainArea}
-            onClick={() => {
-              terrainDispatch({
-                type: "cloneSelectedTerrainArea",
-                entityId: terrainState.selectedTerrainArea?.id,
-                mapSize: gameState.mapSize,
-              });
-            }}
-          >
-            <FontAwesomeIcon icon={faClone} />
-            <label>Clone</label>
-          </Button>
+  return (
+    <fieldset>
+      <legend>Terrain area</legend>
+      <div className={"editor-props-wrapper"}>
+        <table>
+          <tbody>
+            <TableRow label={"ID"}>{props.terrainArea.id}</TableRow>
+            <TableRow label={"Type"}>
+              <TerrainAreaTypeSelector terrainArea={props.terrainArea} />
+            </TableRow>
+            <TableRow label={"Position"}>
+              <TerrainAreaPositionEditor terrainArea={props.terrainArea} />
+            </TableRow>
+            <TableRow label={"Source"}>
+              <TerrainAreaSourcePositionEditor terrainArea={props.terrainArea} />
+            </TableRow>
+            <TableRow label={"Exit to map"}>
+              <TerrainAreaExitUrlEditor terrainArea={props.terrainArea} />
+            </TableRow>
+          </tbody>
+        </table>
+      </div>
 
-          <Button
-            className={["ui-button-red"]}
-            disabled={!terrainState.selectedTerrainArea}
-            onClick={() => {
-              terrainDispatch({ type: "deleteSelectedTerrainArea", entityId: terrainState.selectedTerrainArea?.id });
-            }}
-          >
-            <FontAwesomeIcon icon={faTrash} />
-            <label>Delete</label>
-          </Button>
-        </div>
-      </fieldset>
-    ) : (
-      <NothingSelectedText />
-    )
-  ) : null;
+      <div className={"editor-controls"}>
+        <Button
+          className={["ui-button-green"]}
+          disabled={!props.terrainArea}
+          onClick={() => {
+            terrainDispatch({
+              type: "cloneSelectedTerrainArea",
+              entityId: props.terrainArea.id,
+              mapSize: gameState.mapSize,
+            });
+          }}
+        >
+          <FontAwesomeIcon icon={faClone} />
+          <label>Clone</label>
+        </Button>
+
+        <Button
+          className={["ui-button-red"]}
+          disabled={!props.terrainArea}
+          onClick={() => {
+            terrainDispatch({ type: "deleteSelectedTerrainArea", entityId: props.terrainArea.id });
+          }}
+        >
+          <FontAwesomeIcon icon={faTrash} />
+          <label>Delete</label>
+        </Button>
+      </div>
+    </fieldset>
+  );
 }

@@ -149,6 +149,7 @@ export class TerrainArea {
 
   setExitUrl(url: TerrainArea["exitUrl"]) {
     this.exitUrl = url;
+    this.composeTiles();
   }
 
   setVisibility(isVisible: boolean) {

@@ -18,8 +18,8 @@ interface ClipMaskState {
   initialMaskPosition: null | TerrainArea["source"]["position"];
 }
 
-export function TerrainAreaSourcePositionEditor() {
-  const { terrainState, terrainDispatch, gameState } = useGameState();
+export const TerrainAreaSourcePositionEditor = React.memo((props: { terrainArea: TerrainArea }) => {
+  const { terrainDispatch, gameState } = useGameState();
 
   const emptyClipMask = {
     position: { x1: 0, y1: 0, x2: 0, y2: 0 },
@@ -107,19 +107,17 @@ export function TerrainAreaSourcePositionEditor() {
   };
 
   React.useEffect(() => {
-    if (!terrainState.selectedTerrainArea) return;
-
-    const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(terrainState.selectedTerrainArea.source.type));
+    const fullSizeSource = gameState.getAssetImage(composeSpriteUrl(props.terrainArea.source.type));
 
     setSourceImg(fullSizeSource ? fullSizeSource.source : null);
-  }, [terrainState.selectedTerrainArea?.id, terrainState.selectedTerrainArea?.source.type]);
+  }, [props.terrainArea.source.type]);
 
   React.useEffect(() => {
     if (sourceImg) {
       const width = Math.max(1, sourceImg.width / (constants.tileSize.width + 3));
       const height = Math.max(1, sourceImg.height / (constants.tileSize.height + 3));
 
-      const position = { ...terrainState.selectedTerrainArea.source.position };
+      const position = { ...props.terrainArea.source.position };
 
       if (sourceImageRef.current) {
         setClipMask({
@@ -137,19 +135,19 @@ export function TerrainAreaSourcePositionEditor() {
     } else {
       setClipMask({ ...emptyClipMask });
     }
-  }, [sourceImg, terrainState.selectedTerrainArea?.source.position]);
+  }, [sourceImg, props.terrainArea.source.position]);
 
   React.useEffect(() => {
-    if (!terrainState.selectedTerrainArea || !sourceImg) return;
+    if (!sourceImg) return;
 
     terrainDispatch({
       type: "setTerrainAreaSourcePosition",
-      entityId: terrainState.selectedTerrainArea.id,
+      entityId: props.terrainArea.id,
       coordinates: clipMask.position,
     });
   }, [JSON.stringify(clipMask.position)]);
 
-  return terrainState.selectedTerrainArea && sourceImg ? (
+  return sourceImg ? (
     <div
       className={"terrain-area-source-editor"}
       onMouseMove={handleClipMaskMouseMove}
@@ -169,7 +167,7 @@ export function TerrainAreaSourcePositionEditor() {
       >
         <div className={"clip-mask-resize"} onMouseDown={handleClipMaskResizerMouseDown}></div>
       </div>
-      {<img ref={sourceImageRef} src={sourceImg?.src} />}
+      {<img ref={sourceImageRef} src={sourceImg?.src} alt={undefined} />}
     </div>
   ) : null;
-}
+});

@@ -164,6 +164,10 @@ export class GameObjectFactory {
     return this.explorable;
   }
 
+  public getAvailableDirections(): Direction[] {
+    return ["left", "top", "right", "bottom"];
+  }
+
   getAllUnblockedCellsAroundEntity() {
     const cells: GridCoordinates[] = [];
 

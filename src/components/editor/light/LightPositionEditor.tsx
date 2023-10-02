@@ -1,48 +1,45 @@
-import { PositionEntityEditor } from "@src/components/editor/_shared/PositionEntityEditor";
+import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
+import { Light } from "@src/engine/light/LightFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export function LightPositionEditor() {
+export function LightPositionEditor(props: { light: Light }) {
   const { gameState, gameDispatch } = useGameState();
 
-  const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
+  const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
 
   React.useEffect(() => {
-    if (gameState.selectedLight) {
-      setCoordinates(gameState.selectedLight.position);
-    } else {
-      setCoordinates({ x: 0, y: 0 });
-    }
-  }, [gameState.selectedLight.getHash()]);
+    setCoordinates(props.light ? props.light.position : { x: 0, y: 0 });
+  }, [props.light.getHash()]);
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.x}
         label={"x"}
         min={0}
         max={gameState.mapSize.width - 1}
-        disabled={!gameState.selectedLight}
+        disabled={!props.light}
         onChange={(value) => {
           gameDispatch({
             type: "setLightPosition",
-            entityId: gameState.selectedLight.id,
-            coordinates: { x: value, y: gameState.selectedLight.position.y },
+            entityId: props.light.id,
+            coordinates: { x: value, y: props.light.position.y },
           });
         }}
       />
 
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.y}
         label={"y"}
         min={0}
         max={gameState.mapSize.height - 1}
-        disabled={!gameState.selectedLight}
+        disabled={!props.light}
         onChange={(value) => {
           gameDispatch({
             type: "setLightPosition",
-            entityId: gameState.selectedLight.id,
-            coordinates: { x: gameState.selectedLight.position.x, y: value },
+            entityId: props.light.id,
+            coordinates: { x: props.light.position.x, y: value },
           });
           gameDispatch({ type: "recalculateLightsAndShadows" });
         }}

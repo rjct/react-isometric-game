@@ -1,51 +1,52 @@
-import { PositionEntityEditor } from "@src/components/editor/_shared/PositionEntityEditor";
+import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export function UnitPositionEditor() {
+export function UnitPositionEditor(props: { unit: Unit }) {
   const { gameState, gameDispatch } = useGameState();
 
   const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
 
   React.useEffect(() => {
-    setCoordinates(gameState.selectedUnit ? gameState.selectedUnit.getRoundedPosition() : null);
-  }, [gameState.selectedUnit.getHash()]);
+    setCoordinates(props.unit.getRoundedPosition());
+  }, [props.unit.getHash()]);
 
   if (!coordinates) return null;
 
   const handlePositionXChange = (value: number) => {
     gameDispatch({
       type: "setUnitPosition",
-      entityId: gameState.selectedUnit.id,
-      coordinates: { x: value, y: gameState.selectedUnit.getRoundedPosition().y },
+      entityId: props.unit.id,
+      coordinates: { x: value, y: props.unit.getRoundedPosition().y },
     });
   };
 
   const handlePositionYChange = (value: number) => {
     gameDispatch({
       type: "setUnitPosition",
-      entityId: gameState.selectedUnit.id,
-      coordinates: { x: gameState.selectedUnit.getRoundedPosition().x, y: value },
+      entityId: props.unit.id,
+      coordinates: { x: props.unit.getRoundedPosition().x, y: value },
     });
   };
 
   return (
     <div className={"terrain-area-coordinates-editor"}>
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.x}
         label={"x"}
         min={0}
         max={gameState.mapSize.width - 1}
-        disabled={!gameState.selectedUnit}
+        disabled={!props.unit}
         onChange={handlePositionXChange}
       />
 
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.y}
         label={"y"}
         min={0}
         max={gameState.mapSize.height - 1}
-        disabled={!gameState.selectedUnit}
+        disabled={!props.unit}
         onChange={handlePositionYChange}
       />
     </div>

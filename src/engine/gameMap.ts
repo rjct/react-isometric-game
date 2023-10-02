@@ -202,8 +202,6 @@ export const gameMap = {
       const { x, y } = entity.getRoundedPosition();
       const { width, length } = entity.size.grid;
 
-      if (!entity.occupiesCell) continue;
-
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + length; yy++) {
           if (xx < this.mapSize.width && yy < this.mapSize.height) {

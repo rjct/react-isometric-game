@@ -1,48 +1,45 @@
-import { PositionEntityEditor } from "@src/components/editor/_shared/PositionEntityEditor";
+import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
+import { Building } from "@src/engine/BuildingFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export function BuildingPositionEditor() {
+export function BuildingPositionEditor(props: { building: Building }) {
   const { gameState, gameDispatch } = useGameState();
 
-  const [coordinates, setCoordinates] = React.useState(null as unknown as GridCoordinates);
+  const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
 
   React.useEffect(() => {
-    if (gameState.selectedBuilding) {
-      setCoordinates(gameState.selectedBuilding.position);
-    } else {
-      setCoordinates({ x: 0, y: 0 });
-    }
-  }, [gameState.selectedBuilding.getHash()]);
+    setCoordinates(props.building ? props.building.position : { x: 0, y: 0 });
+  }, [props.building.getHash()]);
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.x}
         label={"x"}
         min={0}
-        max={gameState.mapSize.width - gameState.selectedBuilding.size.grid.width}
-        disabled={!gameState.selectedBuilding}
+        max={gameState.mapSize.width - props.building.size.grid.width}
+        disabled={!props.building}
         onChange={(value) => {
           gameDispatch({
             type: "setBuildingPosition",
-            entityId: gameState.selectedBuilding.id,
-            coordinates: { x: value, y: gameState.selectedBuilding.position.y },
+            entityId: props.building.id,
+            coordinates: { x: value, y: props.building.position.y },
           });
         }}
       />
 
-      <PositionEntityEditor
+      <EntityPositionEditor
         value={coordinates.y}
         label={"y"}
         min={0}
-        max={gameState.mapSize.height - gameState.selectedBuilding.size.grid.length}
-        disabled={!gameState.selectedBuilding}
+        max={gameState.mapSize.height - props.building.size.grid.length}
+        disabled={!props.building}
         onChange={(value) => {
           gameDispatch({
             type: "setBuildingPosition",
-            entityId: gameState.selectedBuilding.id,
-            coordinates: { x: gameState.selectedBuilding.position.x, y: value },
+            entityId: props.building.id,
+            coordinates: { x: props.building.position.x, y: value },
           });
         }}
       />

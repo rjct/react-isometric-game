@@ -120,7 +120,7 @@ export const TerrainAreasEditor = React.memo(function TerrainEditor() {
     if (!terrainState.selectedTerrainArea) return;
 
     terrainDispatch({ type: "clearTerrainClusters", clusters: terrainState.clusters }); // FIXME: Clear only affected clusters
-  }, [terrainState.getTerrainHash()]);
+  }, [terrainState.getTerrainAreasHash()]);
 
   return uiState.scene == "editor" && uiState.editorMode == "terrain" ? (
     <div

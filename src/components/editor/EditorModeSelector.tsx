@@ -15,14 +15,17 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const EditorModeSelector = React.memo(function EditorModeSelector() {
-  const { terrainDispatch, gameState, gameDispatch, uiState, uiDispatch } = useGameState();
+  const { terrainState, terrainDispatch, gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
 
   if (!checkCurrentScene(["editor"])) return null;
 
   const [editorMode, setEditorMode] = React.useState(uiState.editorMode);
 
+  const selectedTerrainArea = React.useMemo(() => terrainState.selectedTerrainArea, [terrainState.selectedTerrainArea]);
+  const selectedBuilding = React.useMemo(() => gameState.selectedBuilding, [gameState.selectedBuilding]);
   const selectedUnit = React.useMemo(() => gameState.selectedUnit, [gameState.selectedUnit]);
+  const selectedLight = React.useMemo(() => gameState.selectedLight, [gameState.selectedLight]);
 
   const handleEditorModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const editorMode = e.target.value as GameUI["editorMode"];
@@ -69,7 +72,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
       {uiState.editorMode === "terrain" ? (
         <div className={"ui-tab-content"}>
           <TerrainAreaLayersEditor />
-          <TerrainAreaPropsEditor />
+          <TerrainAreaPropsEditor terrainArea={selectedTerrainArea} />
 
           <div className={"toolbar"}>
             <TerrainAreaAddNewButton />
@@ -79,7 +82,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
       {uiState.editorMode === "buildings" ? (
         <div className={"ui-tab-content"}>
-          <BuildingPropsEditor />
+          <BuildingPropsEditor building={selectedBuilding} />
         </div>
       ) : null}
 
@@ -93,7 +96,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
         <div className={"ui-tab-content"}>
           <GlobalShadowsPropsEditor />
           <GlobalLightsPropsEditor />
-          <LightPropsEditor />
+          <LightPropsEditor light={selectedLight} />
           <div className={"toolbar"}>
             <LightAddNewButton />
           </div>

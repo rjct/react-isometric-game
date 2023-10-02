@@ -41,7 +41,7 @@ const gameTerrainContext = {
     this.areas.splice(index, 1);
   },
 
-  getTerrainHash() {
+  getTerrainAreasHash() {
     return this.areas
       .map((terrainArea) => {
         return [
@@ -54,6 +54,7 @@ const gameTerrainContext = {
           `${terrainArea.target.y1}`,
           `${terrainArea.target.x2}`,
           `${terrainArea.target.y2}`,
+          `${terrainArea.exitUrl}`,
         ].join(":");
       })
       .join("|");

@@ -1,17 +1,12 @@
-import { useGameState } from "@src/hooks/useGameState";
+import { Unit } from "@src/engine/unit/UnitFactory";
+import React from "react";
 
-export function UnitPreview() {
-  const { gameState } = useGameState();
-
-  return gameState.selectedUnit ? (
+export const UnitPreview = React.memo((props: { unit: Unit }) => {
+  return (
     <div className={"unit-preview"}>
-      <div
-        className={gameState.selectedUnit.className}
-        data-direction={gameState.selectedUnit.direction}
-        data-action={gameState.selectedUnit.action}
-      >
-        <div className={"char"}></div>{" "}
+      <div className={props.unit.className} data-direction={props.unit.direction} data-action={props.unit.action}>
+        <div className={"char"}></div>
       </div>
     </div>
-  ) : null;
-}
+  );
+});
