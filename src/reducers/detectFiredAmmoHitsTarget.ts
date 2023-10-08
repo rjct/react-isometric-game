@@ -1,4 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
+import { calcDamage } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type DetectFiredAmmoHitsTargetAction = {
@@ -7,15 +8,19 @@ export type DetectFiredAmmoHitsTargetAction = {
 };
 
 export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmmoHitsTargetAction) {
-  if (!action.weapon) return state;
+  const { weapon } = action;
 
-  const ammo = [...action.weapon.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];
+  if (!weapon) return state;
+
+  const ammo = [...weapon.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];
 
   ammo.forEach((singleAmmo) => {
     const unitAtTargetPosition = state.getUnitByCoordinates(singleAmmo.position);
 
     if (unitAtTargetPosition) {
-      unitAtTargetPosition.takeDamage(singleAmmo.damage);
+      const damage = calcDamage(weapon, singleAmmo);
+
+      unitAtTargetPosition.takeDamage(damage);
 
       if (unitAtTargetPosition.isDead) {
         state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());

@@ -1,0 +1,28 @@
+@fx-fire-explosion-sprite-width: 128px;
+@fx-fire-explosion-sprite-height: 128px;
+@fx-fire-explosion-sprite-animation-steps: 36;
+@fx-fire-explosion-sprite-animation-length: 900ms;
+
+.fx-fire-explosion {
+  position: absolute;
+  width: 128px;
+  height: 128px;
+  transform-origin: center;
+  transform: translate(-10%, -60%);
+  background-image: url("/public/assets/fx/fire-explosion.webp");
+  animation: fx-fire-explosion @fx-fire-explosion-sprite-animation-length
+    steps(@fx-fire-explosion-sprite-animation-steps) forwards;
+}
+
+@keyframes fx-fire-explosion {
+  0% {
+    background-position-x: 0;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-position-x: (-@fx-fire-explosion-sprite-width * @fx-fire-explosion-sprite-animation-steps);
+  }
+}

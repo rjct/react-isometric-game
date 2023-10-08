@@ -10,10 +10,9 @@
 
 .building-wall {
   position: absolute;
-  background-color: rgba(0, 0, 0, 0.4);
+  background-color: rgb(0 0 0 / 40%);
   height: 50px;
   transform-origin: left top;
-
   transform-style: preserve-3d;
 
   &.front {
@@ -23,12 +22,12 @@
 
   &.left {
     transform: rotateY(-90deg);
-    background-color: hsla(180, 100%, 50%, 0.7);
+    background-color: hsl(180deg 100% 50% / 70%);
   }
 
   &.back {
     transform: rotateX(90deg);
-    background-color: hsla(120, 100%, 50%, 0.7);
+    background-color: hsl(120deg 100% 50% / 70%);
   }
 
   &.right {
@@ -41,11 +40,9 @@
   }
 }
 
-@import url("vehicles/_vehicles");
-
-@import url("walls/vault");
-@import url("walls/corrugated_wire_fence");
-
-@import url("furniture/vault");
-@import url("road_and_sidewalk/_road_and_sidewalk");
-@import url("plants/_plants");
+@import "vehicles/_vehicles";
+@import "walls/vault";
+@import "walls/corrugated_wire_fence";
+@import "furniture/vault";
+@import "road_and_sidewalk/_road_and_sidewalk";
+@import "plants/_plants";

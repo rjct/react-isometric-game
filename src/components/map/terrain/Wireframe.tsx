@@ -73,7 +73,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
           if (
             !weapon.isReadyToUse() ||
-            (uiState.scene === "combat" && weapon.actionPointsConsumption > hero.actionPoints.current)
+            (uiState.scene === "combat" &&
+              weapon.getCurrentAttackModeDetails().actionPointsConsumption > hero.actionPoints.current)
           ) {
             setMarkerClassName(["action--not-allowed"]);
             weapon.stopAiming();

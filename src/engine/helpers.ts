@@ -3,7 +3,7 @@ import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export const loadMap = async (mapUrl: string) => {
@@ -50,7 +50,7 @@ export function getDirectionInDegFromString(direction: Direction) {
   }
 }
 
-export function getEntityZIndex(entity: GameObjectFactory) {
+export function getEntityZIndex(entity: GameObject) {
   const { position, size } = entity;
 
   const x = Math.ceil(position.x + size.grid.width);

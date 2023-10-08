@@ -1,17 +1,17 @@
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { Armor } from "@src/components/_modals/inventory/Armor";
-import { Backpack } from "@src/components/_modals/inventory/Backpack";
 import { EntityOverview } from "@src/components/_modals/inventory/EntityOverview";
 import { Hand } from "@src/components/_modals/inventory/Hand";
-import { HeroInfo } from "@src/components/_modals/inventory/HeroInfo";
+import { InventoryItemInfo } from "@src/components/_modals/inventory/InventoryItemInfo";
+import { InventoryStorage } from "@src/components/_modals/inventory/InventoryStorage";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export function Inventory() {
-  const { uiState, uiDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
   const { hero } = useHero();
 
@@ -35,14 +35,23 @@ export function Inventory() {
     uiDispatch({ type: "setScene", scene: scenesHistory.at(-2)! });
   };
 
+  const handleClickOut = () => {
+    gameDispatch({ type: "setSelectedInventoryItem", item: null });
+  };
+
   return (
-    <FullscreenPanel overlay={true}>
+    <FullscreenPanel overlay={true} onClick={handleClickOut}>
       <div className={"inventory"}>
-        <Backpack owner={hero} />
+        <InventoryStorage
+          owner={hero}
+          inventoryType={"main"}
+          className={["inventory-storage-wrapper"]}
+          title={"Backpack"}
+        />
         <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
         <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
         <EntityOverview entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
-        <HeroInfo />
+        <InventoryItemInfo item={gameState.selectedInventoryItem} />
         <Armor />
 
         <div className={"controls"}>

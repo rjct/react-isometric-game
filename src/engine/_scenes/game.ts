@@ -1,9 +1,9 @@
 import { randomInt } from "@src/engine/helpers";
-import { GameContext } from "@src/hooks/useGameState";
 import { mapsList } from "@src/engine/maps_list";
+import { GameContext } from "@src/hooks/useGameState";
 
 export function gameScene(this: GameContext, deltaTime: number) {
-  const { terrainState, gameState, gameDispatch, uiState } = this;
+  const { fxDispatch, terrainState, gameState, gameDispatch, uiState } = this;
 
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
@@ -24,12 +24,28 @@ export function gameScene(this: GameContext, deltaTime: number) {
 
   gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
 
-  for (const unit of allAliveUnits) {
-    const weapon = unit.getCurrentWeapon();
-
+  Object.values(gameState.weapon).forEach((weapon) => {
     gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
     gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
-    gameDispatch({ type: "cleanupFiredAmmo", weapon });
+
+    weapon.firedAmmoQueue
+      .filter((ammo) => ammo.isTargetReached)
+      .forEach((ammo) => {
+        if (ammo.dictEntity.fx?.targetReached) {
+          ammo.dictEntity.fx.targetReached.forEach((effectType) => {
+            fxDispatch({ type: "addFx", effectType, coordinates: ammo.position });
+          });
+
+          ammo.afterTargetReached(gameState);
+        }
+      });
+
+    weapon.firedAmmoQueue = [...weapon.firedAmmoQueue.filter((ammo) => !ammo.isTargetReached)];
+
+    //gameDispatch({ type: "cleanupFiredAmmo", weapon });
+  });
+
+  for (const unit of allAliveUnits) {
     gameDispatch({
       type: "recalculateUnitDistanceToScreenCenter",
       unit,

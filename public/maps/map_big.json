@@ -10,16 +10,7 @@
     "position": { "x": 500, "y": 500 },
     "direction": "bottom",
     "inventory": {
-      "main": [
-        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
-        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
-      ],
-      "leftHand": {
-        "class": "Firearm",
-        "type": "pistol",
-        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
-      },
-      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+      "main": []
     }
   },
   "enemies": [],

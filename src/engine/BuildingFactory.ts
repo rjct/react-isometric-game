@@ -1,11 +1,10 @@
-import { StaticMapBuilding, StaticMapWeapon } from "@src/context/GameStateContext";
+import { StaticMapBuilding } from "@src/context/GameStateContext";
 import buildings from "@src/dict/buildings.json";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 
-import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
-import { createAmmoByClassName, createWeaponByClassName } from "@src/engine/weapon/helpers";
-import { Weapon, WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 type BuildingSize = {
   grid: Size3D;
@@ -28,11 +27,7 @@ export interface DictBuilding {
   explorable?: boolean;
 }
 
-export type DictBuildings = {
-  [buildingType in BuildingType]: DictBuilding;
-};
-
-export class Building extends GameObjectFactory {
+export class Building extends GameObject {
   public readonly class;
   public readonly type;
 
@@ -41,9 +36,6 @@ export class Building extends GameObjectFactory {
   variant = 0;
 
   private readonly ref: DictBuilding;
-  public inventory = {
-    main: [] as Weapon[],
-  };
 
   constructor(props: {
     gameState: GameMap;
@@ -52,7 +44,7 @@ export class Building extends GameObjectFactory {
     direction: Direction;
     variant: number;
     occupiesCell: boolean;
-    inventory?: StaticMapWeapon[];
+    inventory?: StaticMapBuilding["inventory"]; //Array<StaticMapWeapon | StaticMapWeaponAmmo>;
   }) {
     const ref = { ...buildings[props.buildingType] } as DictBuilding;
     const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
@@ -78,24 +70,7 @@ export class Building extends GameObjectFactory {
     this.occupiesCell = props.occupiesCell;
 
     if (props.inventory) {
-      this.inventory.main = props.inventory.map((staticWeapon) => {
-        const weapon = createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
-
-        if (staticWeapon.ammo && weapon instanceof Firearm) {
-          const ammo = staticWeapon.ammo;
-
-          weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () =>
-            createAmmoByClassName(ammo.class, ammo?.type),
-          );
-        }
-
-        weapon.assignOwner(this);
-
-        this.gameState.weapon[weapon.id] = weapon;
-        weapon.updateReferenceToGameMap(this.gameState);
-
-        return weapon;
-      });
+      this.createInventory(props.inventory, this);
     }
   }
 
@@ -125,11 +100,7 @@ export class Building extends GameObjectFactory {
     return this.ref.directions;
   }
 
-  public getInventoryItems() {
-    return this.inventory.main;
-  }
-
-  public putItemToInventory(item: Weapon) {
+  public putItemToInventory(item: Weapon | Ammo) {
     this.inventory.main.push(item);
   }
 
@@ -137,7 +108,7 @@ export class Building extends GameObjectFactory {
     return "main";
   }
 
-  public removeItemFromInventory(item: Weapon) {
+  public removeItemFromInventory(item: Weapon | Ammo) {
     const itemOnInventory = this.inventory.main.find((backpackItem) => backpackItem.id === item.id);
 
     if (itemOnInventory) {
@@ -166,10 +137,12 @@ export class Building extends GameObjectFactory {
       json.occupiesCell = false;
     }
 
-    if (this.inventory.main.length > 0) {
-      json.inventory = this.inventory.main.map((item) => {
-        return item.getJSON();
-      });
+    if (this.inventory?.main.length > 0) {
+      json.inventory = {
+        main: this.inventory.main.map((item) => {
+          return item.getJSON();
+        }),
+      };
     }
 
     return json;

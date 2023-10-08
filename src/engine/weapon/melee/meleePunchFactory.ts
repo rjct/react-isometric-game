@@ -1,13 +1,9 @@
-import ammo from "@src/dict/ammo.json";
+import { AmmoDictEntity, AmmoName } from "@src/dict/ammo/ammo";
+import { GameMap } from "@src/engine/gameMap";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 
-export type MeleePunchType = keyof typeof ammo.MeleeWeapon;
-export type MeleePunchRef = (typeof ammo.MeleeWeapon)[MeleePunchType];
-
 export class MeleePunch extends Ammo {
-  constructor(type: MeleePunchType) {
-    const ref = ammo.MeleeWeapon[type];
-
-    super(type, ref);
+  constructor(ammoName: AmmoName, ammoDictEntity: AmmoDictEntity, gameState: GameMap) {
+    super(ammoName, ammoDictEntity, gameState);
   }
 }

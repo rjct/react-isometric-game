@@ -1,6 +1,11 @@
 import React from "react";
 
-export function FullscreenPanel(props: { overlay: boolean; classNames?: string[]; children: React.ReactNode }) {
+export function FullscreenPanel(props: {
+  overlay: boolean;
+  classNames?: string[];
+  onClick?: () => void;
+  children: React.ReactNode;
+}) {
   const classNames = [
     "fullscreen-panel",
     props.overlay ? "with-overlay" : null,
@@ -9,5 +14,15 @@ export function FullscreenPanel(props: { overlay: boolean; classNames?: string[]
     .filter(Boolean)
     .join(" ");
 
-  return <div className={classNames}>{props.children}</div>;
+  const handleClick = () => {
+    if (props.onClick) {
+      props.onClick();
+    }
+  };
+
+  return (
+    <div className={classNames} onClick={handleClick}>
+      {props.children}
+    </div>
+  );
 }

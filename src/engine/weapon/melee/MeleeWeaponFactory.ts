@@ -1,49 +1,39 @@
-import weapons from "@src/dict/weapons.json";
+import { AmmoName } from "@src/dict/ammo/ammo";
+import { WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
+import { createAmmoByName } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
-export type MeleeWeaponType = keyof typeof weapons.MeleeWeapon;
-export type MeleeWeaponRef = (typeof weapons.MeleeWeapon)[MeleeWeaponType];
-export type MeleeUnitAction = Pick<(typeof weapons.MeleeWeapon)[MeleeWeaponType], "unitAction">;
-
 export class MeleeWeapon extends Weapon {
-  private readonly damage: number;
-
-  constructor(weaponType: MeleeWeaponType, gameMap: GameMap) {
-    const ref = weapons.MeleeWeapon[weaponType];
-
-    super(weaponType, ref, gameMap);
-
-    this.damage = ref.damage;
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
+    super(weaponName, weaponDictEntity, gameMap);
   }
 
   use(targetPosition: GridCoordinates) {
     if (!this.owner) return;
 
     const unit = this.owner as Unit;
-
-    if (!(unit instanceof Unit)) return;
+    const currentAttackModeDetails = this.getCurrentAttackModeDetails();
 
     if (this.isReadyToUse()) {
-      this.gameMap.playSfx(this.sfx.use.src, 1, unit.distanceToScreenCenter);
+      this.gameMap.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-      const punch = new MeleePunch("punch");
+      const fakeAmmo = createAmmoByName(this.dictEntity.ammoType as AmmoName, this.gameMap);
 
       this.setBusy(true);
-      this.firedAmmoQueue.push(punch);
 
-      unit.setAction(this.unitAction);
+      unit.setAction(this.currentAttackMode);
 
       setTimeout(() => {
-        punch.shot(unit.position, targetPosition);
-      }, this.animationDuration.attack);
+        this.firedAmmoQueue.push(fakeAmmo);
+        fakeAmmo.shot(unit.position, targetPosition);
+      }, currentAttackModeDetails.animationDuration.attack);
 
       setTimeout(() => {
         unit.setAction("none");
         this.setBusy(false);
-      }, this.animationDuration.attackCompleted);
+      }, currentAttackModeDetails.animationDuration.attackCompleted);
     } else {
       this.setBusy(true);
       unit.setAction("idle");
@@ -51,7 +41,7 @@ export class MeleeWeapon extends Weapon {
       setTimeout(() => {
         unit.setAction("none");
         this.setBusy(false);
-      }, this.animationDuration.attackNotAllowed);
+      }, currentAttackModeDetails.animationDuration.attackNotAllowed);
     }
   }
 }

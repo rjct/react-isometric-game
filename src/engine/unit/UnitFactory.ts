@@ -1,16 +1,19 @@
-import { StaticMapUnit, StaticMapWeapon } from "@src/context/GameStateContext";
+import { StaticMapUnit } from "@src/context/GameStateContext";
+
 import units from "@src/dict/units.json";
+
+import { WeaponAttackMode } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
-import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
-import { createAmmoByClassName, createWeaponByClassName } from "@src/engine/weapon/helpers";
-import { Weapon, WeaponClass, WeaponType, WeaponUnitAction } from "@src/engine/weapon/WeaponFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { itemIsWeapon } from "@src/engine/weapon/helpers";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type UnitType = keyof typeof units;
 export type UnitTypes = { [unitId: string]: Unit };
@@ -78,7 +81,7 @@ export type UnitSfx = {
   [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
 };
 
-export class Unit extends GameObjectFactory {
+export class Unit extends GameObject {
   public readonly isHero: boolean;
   public readonly type;
 
@@ -91,18 +94,7 @@ export class Unit extends GameObjectFactory {
     run: number;
   };
 
-  public action:
-    | "none"
-    | "idle"
-    | "walk"
-    | "run"
-    | "hit"
-    | "dead"
-    | "punch"
-    | "fall"
-    | "standup"
-    | "die"
-    | WeaponUnitAction;
+  public action: "none" | "idle" | "walk" | "run" | "hit" | "dead" | "fall" | "standup" | "die" | WeaponAttackMode;
 
   public healthPoints: {
     current: number;
@@ -125,12 +117,6 @@ export class Unit extends GameObjectFactory {
 
   public path: GridCoordinates[] = [];
   public pathQueue: UnitPathQueue;
-
-  public inventory = {
-    main: [] as Array<Weapon>,
-    leftHand: null as Weapon | null,
-    rightHand: null as Weapon | null,
-  };
 
   public currentMovementMode: UnitMovementMode = "walk";
   public currentSelectedAction: "move" | "explore" | "leftHand" | "rightHand" = "move";
@@ -210,39 +196,8 @@ export class Unit extends GameObjectFactory {
     );
 
     if (props.inventory) {
-      this.createUnitInventory(props.inventory);
+      this.createInventory(props.inventory, this);
     }
-  }
-
-  private createWeaponForUnit(inventoryType: keyof Unit["inventory"], staticWeapon: StaticMapWeapon) {
-    const weapon = createWeaponByClassName(staticWeapon.class as WeaponClass, staticWeapon.type as WeaponType);
-
-    if (staticWeapon.ammo && weapon instanceof Firearm) {
-      const ammo = staticWeapon.ammo;
-
-      weapon.ammoCurrent = Array.from({ length: ammo.quantity }, () => createAmmoByClassName(ammo.class, ammo?.type));
-    }
-
-    weapon.assignOwner(this);
-
-    this.putItemToInventory(weapon, inventoryType);
-
-    this.gameState.weapon[weapon.id] = weapon;
-    weapon.updateReferenceToGameMap(this.gameState);
-  }
-
-  private createUnitInventory(inventory: StaticMapUnit["inventory"]) {
-    if (!inventory) return;
-
-    Object.entries(inventory).forEach(([inventoryType, staticWeapon]) => {
-      if (Array.isArray(staticWeapon)) {
-        staticWeapon.forEach((iter) => {
-          this.createWeaponForUnit(inventoryType as keyof Unit["inventory"], iter);
-        });
-      } else {
-        this.createWeaponForUnit(inventoryType as keyof Unit["inventory"], staticWeapon);
-      }
-    });
   }
 
   public setPath(path: number[][]) {
@@ -352,21 +307,13 @@ export class Unit extends GameObjectFactory {
     return this.inventory.main;
   }
 
-  public putItemToInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
-    if (inventoryType === "main") {
-      this.inventory.main.push(item);
-    } else {
-      this.inventory[inventoryType] = item;
-    }
-  }
-
-  public isAllowedToPutItemInInventory(inventoryType: keyof Unit["inventory"]) {
+  public isAllowedToPutItemInInventory(inventoryItem: Weapon | Ammo, inventoryType: keyof Unit["inventory"]) {
     if (inventoryType === "main") return true;
 
-    return this.inventory[inventoryType] === null;
+    return this.inventory[inventoryType] === null && itemIsWeapon(inventoryItem);
   }
 
-  public findInventoryEntityPlaceType(entity: Weapon): keyof Unit["inventory"] | null {
+  public findInventoryEntityPlaceType(entity: Weapon | Ammo): keyof Unit["inventory"] | null {
     if (this.inventory.main.find((backpackItem) => backpackItem.id === entity.id)) {
       return "main";
     }
@@ -382,7 +329,7 @@ export class Unit extends GameObjectFactory {
     return null;
   }
 
-  public removeItemFromInventory(item: Weapon, inventoryType: keyof Unit["inventory"]) {
+  public removeItemFromInventory(item: Weapon | Ammo, inventoryType: keyof Unit["inventory"]) {
     const itemOnInventory =
       this.inventory.main.find((backpackItem) => backpackItem.id === item.id) ||
       this.inventory.leftHand ||
@@ -396,13 +343,6 @@ export class Unit extends GameObjectFactory {
         this.inventory[inventoryType] = null;
       }
     }
-  }
-
-  public getInventoryItems() {
-    const leftHand = this.inventory.leftHand ? [this.inventory.leftHand] : [];
-    const rightHand = this.inventory.rightHand ? [this.inventory.rightHand] : [];
-
-    return [...this.inventory.main, ...leftHand, ...rightHand];
   }
 
   public getInventoryItemById(itemId: string) {
@@ -454,7 +394,7 @@ export class Unit extends GameObjectFactory {
         const weapon = this.getCurrentWeapon();
 
         if (weapon) {
-          return weapon.actionPointsConsumption;
+          return weapon.getCurrentAttackModeDetails().actionPointsConsumption;
         }
 
         return 0;

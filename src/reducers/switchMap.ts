@@ -1,7 +1,7 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
@@ -31,7 +31,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     },
   };
 
-  newState.world = new GameObjectFactory({
+  newState.world = new GameObject({
     gameState: newState,
     id: "world-walls",
     size: {

@@ -13,6 +13,12 @@ export function cleanupFiredAmmo(state: GameMap, action: CleanupFiredAmmoAction)
 
   if (firedAmmoQueue.length == 0) return state;
 
+  firedAmmoQueue
+    .filter((ammo) => ammo.isTargetReached)
+    .forEach((ammo) => {
+      ammo.afterTargetReached(state);
+    });
+
   action.weapon.firedAmmoQueue = [...firedAmmoQueue.filter((ammo) => !ammo.isTargetReached)];
 
   return { ...state };

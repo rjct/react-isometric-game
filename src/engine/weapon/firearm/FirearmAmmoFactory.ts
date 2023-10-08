@@ -1,13 +1,9 @@
-import ammo from "@src/dict/ammo.json";
+import { AmmoDictEntity, AmmoName } from "@src/dict/ammo/ammo";
 import { Ammo } from "@src/engine//weapon/AmmoFactory";
-
-export type FirearmAmmoType = keyof typeof ammo.FirearmAmmo;
-export type FirearmAmmoRef = (typeof ammo.FirearmAmmo)[FirearmAmmoType];
+import { GameMap } from "@src/engine/gameMap";
 
 export class FirearmAmmo extends Ammo {
-  constructor(ammoType: FirearmAmmoType) {
-    const ref = ammo.FirearmAmmo[ammoType];
-
-    super(ammoType, ref);
+  constructor(ammoName: AmmoName, ammoDictEntity: AmmoDictEntity, gameState: GameMap) {
+    super(ammoName, ammoDictEntity, gameState);
   }
 }

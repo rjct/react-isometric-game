@@ -1,98 +1,47 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
-import weapons from "@src/dict/weapons.json";
-import { Building } from "@src/engine/BuildingFactory";
+import { WeaponAttackMode, WeaponDictEntity, WeaponName, WeaponSfxType } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { floor, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
+import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
-import { Unit } from "@src/engine/unit/UnitFactory";
-import { FirearmRef, FirearmType, FirearmUnitAction } from "@src/engine/weapon/firearm/FirearmFactory";
-import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
-import { MeleeUnitAction, MeleeWeaponRef, MeleeWeaponType } from "@src/engine/weapon/melee/MeleeWeaponFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
 
-export type WeaponClass = keyof typeof weapons;
-export type WeaponType = FirearmType | MeleeWeaponType;
-export type WeaponTypes = { [weaponId: string]: Weapon };
-export type WeaponRef = FirearmRef | MeleeWeaponRef;
-export type WeaponUnitAction = FirearmUnitAction | MeleeUnitAction;
-
-export type WeaponSfxType = "use" | "outOfAmmo";
-export type WeaponSfx = {
-  [type in WeaponSfxType]: {
-    src: string[];
-    timeIntervalMs?: number;
-  };
-};
-
-export class Weapon {
-  public readonly type: WeaponType;
+export class Weapon extends InventoryItem {
+  public readonly class = "weapon";
+  public readonly id = randomUUID();
+  public readonly name: WeaponName;
+  public readonly dictEntity: WeaponDictEntity;
   public gameMap: GameMap;
 
-  public readonly title: string;
-  public readonly id = randomUUID();
-  public readonly className: string[] = [];
-  readonly range: number;
+  public currentAttackMode: WeaponAttackMode;
 
-  public size = {
-    grid: { width: 1, height: 1 },
-    screen: { width: 0, height: 0 },
-  };
-
-  public owner: Unit | Building | null = null;
-  public readonly unitAction: WeaponUnitAction;
-  public firedAmmoQueue: MeleePunch[] = [];
-
+  public firedAmmoQueue: Array<Ammo> = [];
   private targetPosition: null | GridCoordinates = null;
   public ray: null | ObstacleRay = null;
 
-  public readonly animationDuration: {
-    attack: number;
-    attackCompleted: number;
-    attackNotAllowed: number;
-  };
-
-  public readonly actionPointsConsumption: number;
-
-  private isBusy: boolean;
-
-  public readonly sfx: WeaponSfx = {
-    use: {
-      src: [],
-      timeIntervalMs: -1,
-    },
-    outOfAmmo: {
-      src: [],
-      timeIntervalMs: -1,
-    },
-  };
+  private isBusy = false;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates) {
     throw new Error("Method not implemented.");
   }
 
-  constructor(weaponType: WeaponType, weaponRef: WeaponRef, gameMap: GameMap) {
-    this.type = weaponType;
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
+    super();
+    this.name = weaponName;
+    this.dictEntity = weaponDictEntity;
     this.gameMap = gameMap;
+    this.currentAttackMode = Object.keys(weaponDictEntity.attackModes)[0] as WeaponAttackMode;
 
-    this.title = weaponRef.title;
-    this.className = [...this.className, ...weaponRef.className];
-    this.range = weaponRef.range;
-    this.unitAction = weaponRef.unitAction as unknown as WeaponUnitAction;
-
-    this.animationDuration = weaponRef.animationDuration;
-
-    this.actionPointsConsumption = weaponRef.actionPointsConsumption;
-    this.isBusy = false;
-
-    this.sfx = weaponRef.sfx;
+    this.gameMap.weapon[this.id] = this;
   }
 
-  assignOwner(owner: Unit | Building) {
-    this.owner = owner;
+  setAttackMode(attackMode: WeaponAttackMode) {
+    this.currentAttackMode = attackMode;
   }
 
-  unAssignOwner() {
-    this.owner = null;
+  getAttackModes() {
+    return Object.keys(this.dictEntity.attackModes) as WeaponAttackMode[];
   }
 
   updateReferenceToGameMap(gameMap: GameMap) {
@@ -133,7 +82,11 @@ export class Weapon {
     const distanceToTarget = this.getDistanceToTarget();
     const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(this.gameMap);
 
-    return distanceToTarget <= this.range && distanceToTarget === distanceToRayEnd;
+    return distanceToTarget <= this.getCurrentAttackModeDetails().range && distanceToTarget === distanceToRayEnd;
+  }
+
+  getCurrentAttackModeDetails() {
+    return this.dictEntity.attackModes[this.currentAttackMode]!;
   }
 
   setBusy(isBusy: boolean) {
@@ -144,12 +97,23 @@ export class Weapon {
     return this.isBusy;
   }
 
+  getSfx(sfxType: WeaponSfxType) {
+    return (
+      this.dictEntity.sfx[sfxType] || {
+        src: [],
+        timeIntervalMs: 0,
+      }
+    );
+  }
+
   getJSON() {
     const weaponJson: StaticMapWeapon = {
-      class: this.constructor.name as WeaponClass,
-      type: this.type,
+      class: "weapon",
+      name: this.name,
     };
 
     return weaponJson;
   }
 }
+
+export type WeaponFactory = typeof Weapon;

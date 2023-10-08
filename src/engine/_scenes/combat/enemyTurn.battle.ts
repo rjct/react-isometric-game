@@ -15,7 +15,7 @@ export function enemyTurnBattle(
   const { gameState, gameDispatch } = this;
   const hero = gameState.getHero();
 
-  if (weapon.weapon.actionPointsConsumption > enemy.actionPoints.current) {
+  if (weapon.weapon.getCurrentAttackModeDetails().actionPointsConsumption > enemy.actionPoints.current) {
     return enemyTurnNoActionPoints.apply(this, [deltaTime, enemy]);
   }
 

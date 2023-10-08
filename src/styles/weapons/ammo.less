@@ -1,12 +1,22 @@
-.ammo {
-  &.pistol-ammo {
-    position: absolute;
-    background-color: #000000;
-    z-index: 1;
-    transform-origin: left top;
-    border-radius: 0 0 50% 50%;
+.inventory-item-pic {
+  &[data-name="9mm_ball"] {
+    background-image: url("/public/assets/ammo/9mm/9mm_ball/icon.webp");
+  }
+}
 
-    &:before {
+.ammo {
+  position: absolute;
+  background-color: #000000;
+  z-index: 1;
+  transform-origin: left top;
+
+  &.pistol-ammo,
+  &.ammo_9mm_ball {
+    border-radius: 0 0 50% 50%;
+    width: 5px !important;
+    height: 10px !important;
+
+    &::before {
       content: "";
       position: absolute;
       background-image: url("/public/assets/weapons/pistol/muzzle.webp");

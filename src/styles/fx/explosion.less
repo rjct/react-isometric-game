@@ -1,0 +1,27 @@
+@fx-explosion-sprite-width: 192px;
+@fx-explosion-sprite-height: 192px;
+@fx-explosion-sprite-animation-steps: 12;
+@fx-explosion-sprite-animation-length: 400ms;
+
+.fx-explosion {
+  position: absolute;
+  width: 192px;
+  height: 192px;
+  transform-origin: center;
+  transform: translate(-30%, -45%);
+  background-image: url("/public/assets/fx/explosion.webp");
+  animation: fx-explosion @fx-explosion-sprite-animation-length steps(@fx-explosion-sprite-animation-steps) forwards;
+}
+
+@keyframes fx-explosion {
+  0% {
+    background-position-x: 0;
+  }
+  99% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    background-position-x: (-@fx-explosion-sprite-width * @fx-explosion-sprite-animation-steps);
+  }
+}

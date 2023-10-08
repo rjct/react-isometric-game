@@ -19,7 +19,7 @@ export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandR
     action.unit.inventory[action.hand]?.use(action.targetPosition);
 
     if (action.consumeActionPoints) {
-      action.unit.consumeActionPoints(weapon.actionPointsConsumption);
+      action.unit.consumeActionPoints(weapon.getCurrentAttackModeDetails().actionPointsConsumption);
     }
   }
 

@@ -1,46 +1,30 @@
-import { InventoryEmptyText } from "@src/components/_modals/inventory/inventoryEmptyText";
-import { InventoryItem } from "@src/components/_modals/inventory/InventoryItem";
+import { InventoryItemGroup } from "@src/components/_modals/inventory/InventoryItemGroup";
 import { Building } from "@src/engine/BuildingFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export function InventoryItemsList(props: {
   owner: Unit | Building;
-  inventoryType?: keyof Unit["inventory"] | keyof Building["inventory"];
+  inventoryType?: keyof GameObject["inventory"];
   editable: boolean;
   draggable: boolean;
 }) {
-  const inventoryEntities = props.inventoryType
-    ? // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      props.owner.inventory[props.inventoryType]
-    : props.owner.getInventoryItems();
+  const inventoryEntities = props.owner.getInventoryItemsGrouped(props.inventoryType);
 
   return (
     <ul className={"unit-inventory-items-list"}>
-      {inventoryEntities && Array.isArray(inventoryEntities) ? (
-        inventoryEntities.length > 0 ? (
-          inventoryEntities.map((entity) => (
-            <InventoryItem
-              key={entity.id}
-              entity={entity}
-              inventoryType={props.owner.findInventoryEntityPlaceType(entity)!}
-              editable={props.editable}
-              draggable={props.draggable}
-            />
-          ))
-        ) : (
-          <InventoryEmptyText />
-        )
-      ) : inventoryEntities ? (
-        <InventoryItem
-          entity={inventoryEntities}
-          inventoryType={props.owner.findInventoryEntityPlaceType(inventoryEntities)!}
-          editable={props.editable}
-          draggable={props.draggable}
-        />
-      ) : (
-        <InventoryEmptyText />
-      )}
+      {Object.keys(inventoryEntities).map((key, index) => {
+        const entitiesGroup = inventoryEntities[key];
+
+        return (
+          <InventoryItemGroup
+            key={index}
+            entitiesGroup={entitiesGroup}
+            draggable={props.draggable}
+            editable={props.editable}
+          />
+        );
+      })}
     </ul>
   );
 }

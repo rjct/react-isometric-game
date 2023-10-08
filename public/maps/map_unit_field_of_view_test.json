@@ -11,15 +11,10 @@
     "direction": "bottom",
     "inventory": {
       "main": [
-        { "class": "Firearm", "type": "smg", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } },
-        { "class": "Firearm", "type": "pistol", "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 50 } }
+        { "class": "ammo", "name": "9mm_ball", "quantity": 25 }
       ],
-      "leftHand": {
-        "class": "Firearm",
-        "type": "pistol",
-        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 100 }
-      },
-      "rightHand": { "class": "MeleeWeapon", "type": "punch" }
+      "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
+      "rightHand": { "class": "weapon", "name": "broken_bottle" }
     }
   },
   "enemies": [

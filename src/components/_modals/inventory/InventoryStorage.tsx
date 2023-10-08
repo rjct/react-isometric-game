@@ -13,13 +13,17 @@ export function InventoryStorage(props: {
 
   return (
     <fieldset className={props.className.join(" ")}>
-      <legend>{props.title}</legend>
+      <legend className={"outlined"}>{props.title}</legend>
       <div
         className={"inventory-storage"}
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, props.owner, "main")}
       >
         <InventoryItemsList owner={props.owner} inventoryType={props.inventoryType} editable={false} draggable={true} />
+      </div>
+
+      <div className={"inventory-storage-info"}>
+        Total weight: {props.owner.getInventoryItemsWeight(props.inventoryType)}
       </div>
     </fieldset>
   );

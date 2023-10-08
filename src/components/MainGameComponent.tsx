@@ -12,6 +12,8 @@ import { TopPanel } from "@src/components/topPanel/TopPanel";
 import { Inventory } from "@src/components/_modals/inventory/Inventory";
 import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
+import { GameFxContext } from "@src/context/GameFxContext";
+import { GameFxDispatchContext } from "@src/context/GameFxDispatchContext";
 import { GameStateContext } from "@src/context/GameStateContext";
 import { GameTerrainContext } from "@src/context/GameTerrainContext";
 import { GameUIContext } from "@src/context/GameUIContext";
@@ -22,12 +24,16 @@ import { playScene } from "@src/engine/_scenes/_scenes";
 import { useAnimationFrame } from "@src/hooks/useAnimationFrame";
 import { usePreloadAssets } from "@src/hooks/usePreloadAssets";
 import { useUrl } from "@src/hooks/useUrl";
+import { FxReducer } from "@src/reducers/fx/_reducers";
 import { TerrainReducer } from "@src/reducers/terrain/_reducers";
 import { UIReducer } from "@src/reducers/ui/_reducers";
 import { reducer } from "@src/reducers/_reducers";
 import React from "react";
 
 export const MainGameComponent = React.memo(function MainGameComponent() {
+  const gameFxContext = React.useContext(GameFxContext);
+  const [fxState, fxDispatch] = React.useReducer(FxReducer, gameFxContext);
+
   const gameTerrainContext = React.useContext(GameTerrainContext);
   const [terrainState, terrainDispatch] = React.useReducer(TerrainReducer, gameTerrainContext);
 
@@ -48,6 +54,8 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
     playScene(
       uiState.scene,
       {
+        fxState,
+        fxDispatch,
         terrainState,
         terrainDispatch,
         gameState,
@@ -138,12 +146,16 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
               <GameTerrainDispatchContext.Provider value={terrainDispatch}>
                 <GameTerrainContext.Provider value={terrainState}>
-                  <div className={"center"}>
-                    <EntitiesLibrary />
-                    <MiniMap />
-                    <MapComponent ref={setScrollRef} />
-                    <EditorSidebar />
-                  </div>
+                  <GameFxDispatchContext.Provider value={fxDispatch}>
+                    <GameFxContext.Provider value={fxState}>
+                      <div className={"center"}>
+                        <EntitiesLibrary />
+                        <MiniMap />
+                        <MapComponent ref={setScrollRef} />
+                        <EditorSidebar />
+                      </div>
+                    </GameFxContext.Provider>
+                  </GameFxDispatchContext.Provider>
                 </GameTerrainContext.Provider>
               </GameTerrainDispatchContext.Provider>
 

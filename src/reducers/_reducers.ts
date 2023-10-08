@@ -1,7 +1,7 @@
 import { GameMap } from "@src/engine/gameMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "@src/reducers/animateFiredAmmo";
 import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "@src/reducers/cleanupFiredAmmo";
-import { deleteInventoryEntity, DeleteInventoryEntityReducerAction } from "@src/reducers/deleteInventoryEntity";
+import { deleteInventoryItem, DeleteInventoryItemReducerAction } from "@src/reducers/deleteInventoryItem";
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "@src/reducers/detectFiredAmmoHitsTarget";
 import { updateMapUrl, UpdateMapUrlReducerAction } from "@src/reducers/detectHeroOnExitPoints";
 import { addBuilding, AddBuildingReducerAction } from "@src/reducers/editor/building/addBuilding";
@@ -97,8 +97,12 @@ import {
   setSelectedEntityForInventoryTransfer,
   SetSelectedEntityForInventoryTransferReducerAction,
 } from "@src/reducers/setSelectedEntityForInventoryTransfer";
+import {
+  setSelectedInventoryItem,
+  SetSelectedInventoryItemReducerAction,
+} from "@src/reducers/setSelectedInventoryItem";
 import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
-import { transferInventoryEntity, TransferInventoryEntityReducerAction } from "@src/reducers/transferInventoryEntity";
+import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
 export type GameReducerAction =
   | ToggleDebugReducerAction
@@ -120,10 +124,11 @@ export type GameReducerAction =
   | SetCurrentUnitActionReducerAction
   | SetUnitMovementModeReducerAction
   | UpdateMapUrlReducerAction
-  | TransferInventoryEntityReducerAction
+  | TransferInventoryItemReducerAction
   | SetSelectedEntityForInventoryTransferReducerAction
   | HighlightExplorableEntityReducerAction
-  | DeleteInventoryEntityReducerAction
+  | DeleteInventoryItemReducerAction
+  | SetSelectedInventoryItemReducerAction
   | StartCombatReducerAction
   | EndCombatReducerAction
   | EndTurnReducerAction
@@ -226,11 +231,14 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "highlightExplorableEntity":
       return highlightExplorableEntity(state, action as HighlightExplorableEntityReducerAction);
 
-    case "transferInventoryEntity":
-      return transferInventoryEntity(state, action as TransferInventoryEntityReducerAction);
+    case "transferInventoryItem":
+      return transferInventoryItem(state, action as TransferInventoryItemReducerAction);
 
-    case "deleteInventoryEntity":
-      return deleteInventoryEntity(state, action as DeleteInventoryEntityReducerAction);
+    case "deleteInventoryItem":
+      return deleteInventoryItem(state, action as DeleteInventoryItemReducerAction);
+
+    case "setSelectedInventoryItem":
+      return setSelectedInventoryItem(state, action as SetSelectedInventoryItemReducerAction);
 
     case "startCombat":
       return startCombat(state, action as StartCombatReducerAction);

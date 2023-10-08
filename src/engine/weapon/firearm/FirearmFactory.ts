@@ -1,30 +1,16 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
-import weapons from "@src/dict/weapons.json";
+import { WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { Ammo, AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
-export type FirearmType = keyof typeof weapons.Firearm;
-export type FirearmRef = (typeof weapons.Firearm)[FirearmType];
-export type FirearmUnitAction = Pick<(typeof weapons.Firearm)[FirearmType], "unitAction">;
-
 export class Firearm extends Weapon {
-  ammoCurrent: Ammo[];
+  ammoCurrent: Ammo[] = [];
 
-  readonly ammoType: AmmoType;
-  readonly ammoCapacity: number;
-  readonly ammoConsumptionPerShoot: number;
-
-  constructor(weaponType: FirearmType, gameMap: GameMap) {
-    const ref = weapons.Firearm[weaponType];
-
-    super(weaponType, ref, gameMap);
-
-    this.ammoType = ref.ammoType as AmmoType;
-    this.ammoCurrent = [];
-    this.ammoCapacity = ref.ammoCapacity;
-    this.ammoConsumptionPerShoot = ref.ammoConsumptionPerShoot;
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
+    super(weaponName, weaponDictEntity, gameMap);
   }
 
   use(targetPosition: GridCoordinates) {
@@ -33,6 +19,8 @@ export class Firearm extends Weapon {
     const unit = this.owner as Unit;
     let count = 0;
     let fireInterval: number;
+
+    const currentAttackModeDetails = this.getCurrentAttackModeDetails();
 
     const doFire = () => {
       const ammo = this.ammoCurrent.shift() as Ammo;
@@ -43,41 +31,60 @@ export class Firearm extends Weapon {
 
       count++;
 
-      if (count === this.ammoConsumptionPerShoot) {
+      if (count === currentAttackModeDetails.ammoConsumption) {
         clearInterval(fireInterval);
 
         setTimeout(() => {
           unit.setAction("none");
           this.setBusy(false);
-        }, this.animationDuration.attackCompleted);
+        }, currentAttackModeDetails.animationDuration.attackCompleted);
       }
     };
 
-    if (this.isReadyToUse() && this.ammoCurrent.length >= this.ammoConsumptionPerShoot) {
+    if (this.isReadyToUse() && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
       this.setBusy(true);
-      this.gameMap.playSfx(this.sfx.use.src, 1, unit.distanceToScreenCenter);
-      fireInterval = window.setInterval(doFire, this.sfx.use.timeIntervalMs);
+      this.gameMap.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
+      fireInterval = window.setInterval(doFire, this.getSfx(this.currentAttackMode).timeIntervalMs);
     } else {
       unit.setAction("idle");
-      this.gameMap.playSfx(this.sfx.outOfAmmo.src, 1, unit.distanceToScreenCenter);
+      this.gameMap.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);
 
       setTimeout(() => {
         unit.setAction("none");
         this.setBusy(false);
-      }, this.animationDuration.attackNotAllowed);
+      }, currentAttackModeDetails.animationDuration.attackNotAllowed);
     }
+  }
+
+  reload() {
+    if (!this.owner) return;
+
+    const ammoItems = this.owner.inventory.main
+      .filter((item) => item instanceof FirearmAmmo && item.dictEntity.type === this.dictEntity.ammoType)
+      .slice(0, this.dictEntity.ammoCapacity) as Ammo[];
+
+    if (ammoItems.length === 0) {
+      this.gameMap.playSfx(this.getSfx("outOfAmmo").src, 1);
+      return;
+    }
+
+    this.ammoCurrent.push(...ammoItems);
+
+    const removedIds = new Set(ammoItems.map((item) => item.id));
+    this.owner.inventory.main = this.owner.inventory.main.filter((item) => !removedIds.has(item.id));
+
+    this.gameMap.playSfx(this.getSfx("reload").src, 1);
+  }
+
+  unload() {
+    if (!this.owner || this.ammoCurrent.length === 0) return;
+
+    this.owner.inventory.main.push(...this.ammoCurrent);
+    this.ammoCurrent = [];
   }
 
   getJSON() {
     const weaponJson: StaticMapWeapon = super.getJSON();
-
-    if (this.ammoCurrent.length > 0) {
-      weaponJson.ammo = {
-        class: this.ammoCurrent[0].constructor.name as AmmoClass,
-        type: this.ammoCurrent[0].type,
-        quantity: this.ammoCurrent.length,
-      };
-    }
 
     return weaponJson;
   }

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { EntityOverview } from "@src/components/_modals/inventory/EntityOverview";
+import { InventoryItemInfo } from "@src/components/_modals/inventory/InventoryItemInfo";
 import { InventoryStorage } from "@src/components/_modals/inventory/InventoryStorage";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
@@ -28,6 +29,10 @@ export function InventoryTransfer() {
     };
   }, [uiState.scene]);
 
+  const inventoryItems = React.useMemo(() => {
+    return gameState.selectedEntityForInventoryTransfer?.getInventoryItems() || [];
+  }, [gameState.selectedEntityForInventoryTransfer, gameState.selectedEntityForInventoryTransfer?.getInventoryItems()]);
+
   if (!checkCurrentScene(["inventoryTransfer"])) return null;
 
   const handleCloseButtonClick = () => {
@@ -37,17 +42,21 @@ export function InventoryTransfer() {
   };
 
   const handleTakeAllButtonClick = () => {
-    gameState.selectedEntityForInventoryTransfer?.getInventoryItems().forEach((inventoryItem) => {
+    inventoryItems.forEach((inventoryItem) => {
       gameDispatch({
-        type: "transferInventoryEntity",
-        entity: inventoryItem,
+        type: "transferInventoryItem",
+        item: inventoryItem,
         to: { unit: hero, inventoryType: "main" },
       });
     });
   };
 
+  const handleClickOut = () => {
+    gameDispatch({ type: "setSelectedInventoryItem", item: null });
+  };
+
   return (
-    <FullscreenPanel overlay={true}>
+    <FullscreenPanel overlay={true} onClick={handleClickOut}>
       <div className={"inventory inventory-transfer"}>
         <EntityOverview
           entity={hero}
@@ -60,12 +69,11 @@ export function InventoryTransfer() {
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
         />
 
+        <InventoryItemInfo item={gameState.selectedInventoryItem} />
+
         <div className={"transfer-controls"}>
-          <Button
-            onClick={handleTakeAllButtonClick}
-            disabled={gameState.selectedEntityForInventoryTransfer?.getInventoryItems().length === 0}
-          >
-            <label>Take all</label>
+          <Button onClick={handleTakeAllButtonClick} disabled={inventoryItems.length === 0}>
+            <label>Take all{inventoryItems.length > 0 ? ` (${inventoryItems.length})` : ``}</label>
             <FontAwesomeIcon icon={faArrowLeft} />
           </Button>
         </div>
@@ -76,7 +84,7 @@ export function InventoryTransfer() {
           title={gameState.selectedEntityForInventoryTransfer!.type}
         />
         <InventoryStorage
-          title={`${gameState.selectedEntityForInventoryTransfer?.getInventoryItems().length}`}
+          title={`${inventoryItems.length}`}
           owner={gameState.selectedEntityForInventoryTransfer!}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
         />

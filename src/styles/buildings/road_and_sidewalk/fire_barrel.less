@@ -6,7 +6,7 @@
 .fire_barrel {
   background-image: url("/public/assets/road_and_sidewalk/fire_barrel.webp");
   background-repeat: no-repeat;
-  animation: fire_barrel @animation-length steps(15);
+  animation: fire-barrel @animation-length steps(15);
   animation-iteration-count: infinite;
 
   width: @fire_barrel_width;
@@ -18,7 +18,7 @@
   .building-shift(20px, 0px);
 }
 
-@keyframes fire_barrel {
+@keyframes fire-barrel {
   0% {
     background-position-x: 0;
   }

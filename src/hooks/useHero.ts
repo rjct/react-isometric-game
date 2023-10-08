@@ -66,7 +66,7 @@ export function useHero() {
         if (weapon) {
           window.setTimeout(() => {
             gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
-          }, weapon.animationDuration.attackCompleted);
+          }, weapon.getCurrentAttackModeDetails().animationDuration.attackCompleted);
         }
         break;
     }

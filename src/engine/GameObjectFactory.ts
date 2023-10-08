@@ -1,7 +1,15 @@
+import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
+import { AmmoName } from "@src/dict/ammo/ammo";
+import { WeaponName } from "@src/dict/weapon/weapon";
+import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { createAmmoByName, createWeaponByName, itemIsWeapon } from "@src/engine/weapon/helpers";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type GameObjectIntersectionWithLightRay = {
   wall: GameObjectWall;
@@ -11,7 +19,7 @@ export type GameObjectIntersectionWithLightRay = {
   angle: number;
 };
 
-export class GameObjectFactory {
+export class GameObject {
   public readonly gameState: GameMap;
 
   public readonly id;
@@ -28,6 +36,16 @@ export class GameObjectFactory {
   public occupiesCell = true;
 
   public walls: GameObjectWall[] = [];
+
+  public inventory: {
+    main: Array<Weapon | Ammo>;
+    leftHand: Weapon | null;
+    rightHand: Weapon | null;
+  } = {
+    main: [],
+    leftHand: null,
+    rightHand: null,
+  };
 
   private readonly explorable: boolean = false;
 
@@ -118,7 +136,7 @@ export class GameObjectFactory {
     };
   }
 
-  public rayDist(lightRay: LightRay, wall: GameObjectWall) {
+  rayDist(lightRay: LightRay, wall: GameObjectWall) {
     const rWCross = lightRay.nx * wall.ny - lightRay.ny * wall.nx;
 
     if (!rWCross) {
@@ -164,7 +182,7 @@ export class GameObjectFactory {
     return this.explorable;
   }
 
-  public getAvailableDirections(): Direction[] {
+  getAvailableDirections(): Direction[] {
     return ["left", "top", "right", "bottom"];
   }
 
@@ -182,13 +200,97 @@ export class GameObjectFactory {
     return cells;
   }
 
+  getInventoryItems(inventoryType?: keyof GameObject["inventory"]) {
+    if (inventoryType) {
+      return [this.inventory[inventoryType] || []].flat();
+    }
+
+    const leftHand = this.inventory.leftHand ? [this.inventory.leftHand] : [];
+    const rightHand = this.inventory.rightHand ? [this.inventory.rightHand] : [];
+    const main = this.inventory.main;
+
+    return [...leftHand, ...rightHand, ...main];
+  }
+
+  getInventoryItemsGrouped(inventoryType?: keyof GameObject["inventory"]) {
+    const items = this.getInventoryItems(inventoryType);
+
+    return items.reduce(
+      (group, item) => {
+        const { name } = item;
+
+        group[name] = group[name] ?? [];
+        group[name].push(item);
+
+        return group;
+      },
+      {} as { [p: WeaponName | AmmoName]: Array<Weapon | Ammo> },
+    );
+  }
+
+  getInventoryItemsWeight(inventoryType?: keyof GameObject["inventory"]) {
+    const items = this.getInventoryItems(inventoryType);
+
+    return Math.round(items.reduce((prevValue, item) => prevValue + item.dictEntity.weight, 0));
+  }
+
+  public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameObject["inventory"]) {
+    if (inventoryType === "main" || !itemIsWeapon(item)) {
+      this.inventory.main.push(item);
+    } else {
+      this.inventory[inventoryType] = item;
+    }
+  }
+
+  createInventoryItem(inventoryType: keyof StaticMapInventory, staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo) {
+    switch (staticMapItem.class) {
+      case "weapon":
+        const weapon = createWeaponByName(staticMapItem.name, this.gameState);
+
+        this.putItemToInventory(weapon, inventoryType);
+
+        weapon.updateReferenceToGameMap(this.gameState);
+
+        return [weapon];
+
+      case "ammo":
+        const ammo = Array.from({ length: staticMapItem.quantity }, () =>
+          createAmmoByName(staticMapItem.name, this.gameState),
+        );
+
+        ammo.forEach((iter) => {
+          this.putItemToInventory(iter, inventoryType);
+        });
+
+        return ammo;
+    }
+  }
+
+  createInventory(inventory: StaticMapInventory, owner: Building | Unit) {
+    if (!inventory) return;
+
+    Object.entries(inventory).forEach(([inventoryType, staticEntity]) => {
+      if (Array.isArray(staticEntity)) {
+        staticEntity.forEach((iter) => {
+          this.createInventoryItem(inventoryType as keyof StaticMapInventory, iter).forEach((item) => {
+            item.assignOwner(owner);
+          });
+        });
+      } else {
+        this.createInventoryItem(inventoryType as keyof StaticMapInventory, staticEntity).forEach((item) => {
+          item.assignOwner(owner);
+        });
+      }
+    });
+  }
+
   getHash() {
     return `${this.position.x}:${this.position.y}:${this.direction}:${this.occupiesCell}`;
   }
 }
 
 export class GameObjectWall {
-  public readonly gameObject: GameObjectFactory;
+  public readonly gameObject: GameObject;
   public area = {
     local: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
     world: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
@@ -200,7 +302,7 @@ export class GameObjectWall {
   len: number;
   nx: number;
   ny: number;
-  constructor(gameObject: GameObjectFactory, area: AreaCoordinates) {
+  constructor(gameObject: GameObject, area: AreaCoordinates) {
     this.gameObject = gameObject;
 
     this.setPosition(gameObject.position, area);

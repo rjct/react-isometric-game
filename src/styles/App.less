@@ -7,19 +7,19 @@
 @import "UI/progress-bar";
 
 ::-webkit-scrollbar {
-  -webkit-appearance: none;
+  appearance: none;
   width: 7px;
 }
 
 ::-webkit-scrollbar-thumb {
   border-radius: 4px;
-  background-color: rgba(0, 0, 0, 0.5);
-  -webkit-box-shadow: 0 0 1px rgba(255, 255, 255, 0.5);
+  background-color: rgb(0 0 0 / 50%);
+  box-shadow: 0 0 1px rgb(255 255 255 / 50%);
 }
 
 body {
   margin: 0;
-  font-family: "Inconsolata", Helvetica, sans-serif;
+  font-family: Inconsolata, Helvetica, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: black;
@@ -38,6 +38,16 @@ fieldset {
     padding: 0 @padding;
     margin: 0 auto;
     color: @text-color;
+    font-size: 0.8em;
+    text-transform: uppercase;
+
+    &.outlined {
+      border: solid 1px rgb(0 255 0 / 40%);
+      background-color: rgb(9 46 15);
+      border-radius: @border-radius * 2;
+      box-sizing: border-box;
+      filter: drop-shadow(0 10px 10px rgb(0 0 0 / 50%));
+    }
   }
 
   &:last-child {
@@ -52,10 +62,9 @@ fieldset {
   display: flex;
 }
 
-.with-overlay:after {
+.with-overlay::after {
   content: "";
-  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
-  -webkit-background-size: auto 4px;
+  background: repeating-linear-gradient(180deg, rgb(0 0 0 / 0%) 0, rgb(0 0 0 / 30%) 50%, rgb(0 0 0 / 0%) 100%);
   background-size: auto 4px;
   position: absolute;
   width: 100%;
@@ -70,8 +79,7 @@ fieldset {
 .app-wrapper {
   display: flex;
   flex: 1;
-  flex-direction: column;
-  flex-wrap: nowrap;
+  flex-flow: column nowrap;
   justify-content: flex-start;
   align-items: stretch;
   align-content: stretch;
@@ -86,7 +94,7 @@ fieldset {
   user-select: none;
   color: @text-color;
   margin-top: @padding;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgb(0 0 0 / 25%);
   padding: 5px;
   border-radius: 5px;
   backdrop-filter: blur(5px);
@@ -112,7 +120,7 @@ fieldset {
     padding: 0 (@padding / 2);
     margin-left: (@padding / 2);
     margin-right: @padding;
-    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.75);
+    text-shadow: 1px 1px 0 rgb(255 255 255 / 75%);
   }
 }
 
@@ -123,14 +131,14 @@ fieldset {
   display: flex;
   gap: (@padding);
   padding: @padding;
-  background-color: rgba(0, 0, 0, 0.25);
+  background-color: rgb(0 0 0 / 25%);
   backdrop-filter: blur(5px);
 
   hr {
     flex: 1;
     flex-grow: 0;
     margin: 0;
-    border-color: rgba(0, 255, 0, 0.4);
+    border-color: rgb(0 255 0 / 40%);
   }
 }
 
@@ -139,7 +147,8 @@ fieldset {
     bottom: 0;
   }
 }
-@media (max-height: 500px) and (orientation: landscape) {
+
+@media (height <= 500px) and (orientation: landscape) {
   .debug-features {
     bottom: @control-panel-height-mobile;
   }
@@ -153,14 +162,11 @@ fieldset {
 
 [data-scene="combat"] {
   .center {
-    &:after {
+    &::after {
       content: "";
       pointer-events: none;
       position: absolute;
-      left: 0;
-      top: 0;
-      right: 0;
-      bottom: 0;
+      inset: 0;
       z-index: 999999;
       box-shadow: 0 0 50px -20px red inset;
       animation: scene-combat 3s infinite;
@@ -170,9 +176,11 @@ fieldset {
       0% {
         box-shadow: 0 0 50px -20px red inset;
       }
+
       50% {
         box-shadow: 0 0 70px -20px red inset;
       }
+
       100% {
         box-shadow: 0 0 50px -20px red inset;
       }
@@ -183,9 +191,7 @@ fieldset {
 .map-wrapper {
   position: relative;
   display: block;
-  flex-grow: 1;
-  flex-shrink: 1;
-  flex-basis: auto;
+  flex: 1 1 auto;
   align-self: auto;
   order: 0;
   overflow: auto;

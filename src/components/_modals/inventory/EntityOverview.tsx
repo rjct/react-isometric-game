@@ -27,7 +27,7 @@ const BuildingOverview = (props: { entity: Building }) => {
 export function EntityOverview(props: { entity: Unit | Building; className: string[]; title: string }) {
   return (
     <fieldset className={props.className.join(" ")}>
-      <legend>{props.title}</legend>
+      <legend className={"outlined"}>{props.title}</legend>
       {props.entity instanceof Unit ? (
         <UnitOverview entity={props.entity} />
       ) : (

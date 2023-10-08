@@ -2,8 +2,7 @@
   display: grid;
   grid-template-columns: auto 1fr 1fr auto auto;
   grid-template-rows: 1fr 1fr;
-  grid-column-gap: 10px;
-  grid-row-gap: 10px;
+  grid-gap: 10px;
   margin: 10px;
 
   & > div {
@@ -23,11 +22,13 @@
   }
 
   .control-leftHand {
+    position: relative;
     min-width: 70px;
     grid-area: 1 / 2 / 3 / 3;
   }
 
   .control-rightHand {
+    position: relative;
     min-width: 70px;
     grid-area: 1 / 3 / 3 / 4;
   }
@@ -38,6 +39,21 @@
 
   .control-explore {
     grid-area: 2 / 4 / 3 / 5;
+  }
+
+  .weapon-reload-button {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    color: @text-color;
+    backdrop-filter: blur(1px);
+    border-radius: @border-radius;
+    z-index: 1;
+    margin: -@padding;
   }
 
   .current-hero-action {
@@ -62,9 +78,10 @@
         flex: 1;
 
         .weapon-title {
+          //
         }
 
-        .weapon-pic {
+        .inventory-item-pic {
           margin: 10px 0;
           width: 100%;
           height: 100%;
@@ -82,7 +99,7 @@
       }
 
       &:checked ~ .label {
-        .weapon-pic {
+        .inventory-item-pic {
           opacity: 0.7;
           filter: grayscale(1) sepia(60%) hue-rotate(75deg) saturate(5) brightness(1.2) contrast(1.2);
         }
@@ -91,7 +108,7 @@
   }
 }
 
-@media (max-height: 500px) and (orientation: landscape) {
+@media (height <= 500px) and (orientation: landscape) {
   .hero-controls {
     display: flex;
     flex: 1;
@@ -106,7 +123,7 @@
         & ~ .label {
           flex-direction: row-reverse;
 
-          .weapon-pic {
+          .inventory-item-pic {
             flex: 1;
           }
         }

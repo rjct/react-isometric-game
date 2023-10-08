@@ -1,11 +1,11 @@
 import unitTypes from "@src/dict/units.json";
 import React from "react";
 
+import { AmmoName } from "@src/dict/ammo/ammo";
+import { WeaponName } from "@src/dict/weapon/weapon";
 import { BuildingTypes } from "@src/engine/BuildingFactory";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
-import { AmmoClass, AmmoType } from "@src/engine/weapon/AmmoFactory";
-import { WeaponClass, WeaponType } from "@src/engine/weapon/WeaponFactory";
 
 export interface StaticMapTerrainArea {
   source: {
@@ -17,13 +17,19 @@ export interface StaticMapTerrainArea {
   visibility?: boolean | null;
 }
 
+export interface StaticMapInventory {
+  main?: Array<StaticMapWeapon | StaticMapWeaponAmmo>;
+  leftHand?: StaticMapWeapon;
+  rightHand?: StaticMapWeapon;
+}
+
 export interface StaticMapBuilding {
   type: keyof BuildingTypes;
   position: GridCoordinates;
   direction: Direction;
   variant: number;
   occupiesCell?: boolean;
-  inventory?: StaticMapWeapon[];
+  inventory?: StaticMapInventory;
 }
 
 export interface StaticMapLight {
@@ -37,22 +43,17 @@ export interface StaticMapUnit {
   position: GridCoordinates;
   isDead?: boolean;
   direction?: Direction;
-  inventory?: {
-    main?: StaticMapWeapon[];
-    leftHand?: StaticMapWeapon;
-    rightHand?: StaticMapWeapon;
-  };
+  inventory?: StaticMapInventory;
 }
 
 export interface StaticMapWeapon {
-  class: WeaponClass;
-  type: WeaponType;
-  ammo?: StaticMapWeaponAmmo;
+  class: "weapon";
+  name: WeaponName;
 }
 
 export interface StaticMapWeaponAmmo {
-  class: AmmoClass;
-  type: AmmoType;
+  class: "ammo"; //"WeaponAmmoClass;
+  name: AmmoName;
   quantity: number;
 }
 

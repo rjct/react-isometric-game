@@ -1,10 +1,7 @@
 .unit-editor {
   position: absolute;
   z-index: 1;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
+  inset: 0;
   transform-origin: left top;
 
   transform-style: preserve-3d;
@@ -22,12 +19,12 @@
     }
 
     &[data-selected="true"] > .char {
-      filter: brightness(1.2) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff) drop-shadow(0px 0px 1px #fff);
+      filter: brightness(1.2) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff) drop-shadow(0 0 1px #fff);
     }
 
     &[data-dragging="true"] > .char {
-      filter: brightness(1.2) drop-shadow(0px 0px 1px #19ff81) drop-shadow(0px 0px 1px #19ff81)
-        drop-shadow(0px 0px 1px #19ff81);
+      filter: brightness(1.2) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81)
+        drop-shadow(0 0 1px #19ff81);
     }
   }
 }

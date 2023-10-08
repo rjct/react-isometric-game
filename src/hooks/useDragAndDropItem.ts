@@ -15,12 +15,12 @@ export function useDragAndDropItem() {
     e.preventDefault();
 
     const inventoryItemId = e.dataTransfer.getData("inventory/item-id");
-    const inventoryItem = gameState.weapon[inventoryItemId]; //from.getInventoryItemById(inventoryItemId);
+    const inventoryItem = gameState.getItemById(inventoryItemId);
 
-    if (inventoryItem && to.isAllowedToPutItemInInventory(toInventoryType)) {
+    if (inventoryItem && to.isAllowedToPutItemInInventory(inventoryItem, toInventoryType)) {
       gameDispatch({
-        type: "transferInventoryEntity",
-        entity: inventoryItem,
+        type: "transferInventoryItem",
+        item: inventoryItem,
         to: { unit: to, inventoryType: toInventoryType },
       });
     }

@@ -22,12 +22,15 @@
     "position": { "x": 19, "y": 19 },
     "direction": "top",
     "inventory": {
-      "main": [],
-      "leftHand": {
-        "class": "Firearm",
-        "type": "pistol",
-        "ammo": { "class": "FirearmAmmo", "type": "pistol", "quantity": 95 }
-      }
+      "main": [
+        { "class": "weapon", "name": "broken_bottle" },
+        { "class": "weapon", "name": "colt_45" },
+        { "class": "weapon", "name": "colt_45" },
+        { "class": "weapon", "name": "beretta_M92FS" },
+        { "class": "ammo", "name": "9mm_ball", "quantity": 25 }
+      ],
+      "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
+      "rightHand": { "class": "weapon", "name": "mp5" }
     }
   },
   "enemies": [],

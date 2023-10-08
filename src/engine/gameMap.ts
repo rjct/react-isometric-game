@@ -1,14 +1,15 @@
 import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
-import { GameObjectFactory } from "@src/engine/GameObjectFactory";
+import { GameObject } from "@src/engine/GameObjectFactory";
 import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
-import { Weapon, WeaponTypes } from "@src/engine/weapon/WeaponFactory";
+import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import { getUrlParamValue } from "@src/hooks/useUrl";
 
 interface GameMapProps {
@@ -20,7 +21,8 @@ interface GameMapProps {
   buildings: Building[];
   units: UnitTypes;
   lights: Light[];
-  weapon: WeaponTypes;
+  weapon: { [id: string]: Weapon };
+  ammo: { [id: string]: Ammo };
 }
 
 export type GameMap = typeof gameMap;
@@ -77,13 +79,14 @@ export const gameMap = {
     height: 0,
   } as GameMapProps["mapSize"],
 
-  world: null as unknown as GameObjectFactory,
+  world: null as unknown as GameObject,
 
   buildings: [] as GameMapProps["buildings"],
   heroId: "",
   units: {} as GameMapProps["units"],
   lights: [] as GameMapProps["lights"],
   weapon: {} as GameMapProps["weapon"],
+  ammo: {} as GameMapProps["ammo"],
 
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
@@ -91,6 +94,8 @@ export const gameMap = {
 
   selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
   highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
+
+  selectedInventoryItem: null as unknown as Weapon | Ammo | null,
 
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,
@@ -125,7 +130,7 @@ export const gameMap = {
   },
 
   playSfx(src: string[], volume = 1, stereoPan = 0) {
-    if (volume <= 0) return;
+    if (volume <= 0 || src.length === 0) return;
 
     const decodedTrack = this.getAssetAudio(src[randomInt(0, src.length - 1)]);
     const gainNode = this.audioContext.createGain();
@@ -141,6 +146,8 @@ export const gameMap = {
       bufferSource.connect(panNode).connect(gainNode).connect(this.audioContext.destination);
 
       bufferSource.start();
+    } else {
+      throw Error(`Can't find SFX "${src}"`);
     }
   },
 
@@ -385,22 +392,22 @@ export const gameMap = {
     return true;
   },
 
-  deleteInventoryEntity(entity: Weapon) {
-    const confirmDelete = confirm(`Are you sure to delete entity #"${entity.id}"?`);
+  deleteInventoryItem(item: Weapon | Ammo) {
+    const confirmDelete = confirm(`Are you sure to delete entity #"${item.id}"?`);
 
     if (!confirmDelete) return false;
 
-    if (entity.owner) {
-      const inventoryPlaceType = entity.owner.findInventoryEntityPlaceType(entity);
+    if (item.owner) {
+      const inventoryPlaceType = item.owner.findInventoryEntityPlaceType(item);
 
       if (inventoryPlaceType) {
-        entity.owner.removeItemFromInventory(entity, inventoryPlaceType);
+        item.owner.removeItemFromInventory(item, inventoryPlaceType);
       }
 
-      entity.unAssignOwner();
+      item.unAssignOwner();
     }
 
-    delete this.weapon[entity.id];
+    delete this.weapon[item.id];
   },
 
   deleteLight(id: string) {
@@ -409,6 +416,10 @@ export const gameMap = {
     if (index === -1) return;
 
     this.lights.splice(index, 1);
+  },
+
+  getItemById(id: string): Weapon | Ammo | null {
+    return this.weapon[id] || this.ammo[id];
   },
 
   // HASH methods

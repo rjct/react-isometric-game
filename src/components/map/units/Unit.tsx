@@ -4,23 +4,11 @@ import { UnitDamagePoints } from "@src/components/map/units/UnitDamagePoints";
 import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
 import { UnitHealth } from "@src/components/map/units/UnitHealth";
 import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
-import { Ammo } from "@src/components/map/weapons/Ammo";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
-
-const renderAmmo = (unit: Unit) => {
-  const weapon = unit.getCurrentWeapon();
-
-  if (weapon && weapon instanceof Firearm) {
-    return <Ammo weapon={weapon}></Ammo>;
-  }
-
-  return null;
-};
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -52,12 +40,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
   return (
     <>
-      {renderAmmo(props.unit)}
-
       <div
         data-direction={props.unit.direction}
         data-action={props.unit.action}
-        data-weapon={props.unit.getCurrentWeapon()?.className}
+        data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
         data-selected-for-inventory-transfer={
           gameState.highlightedEntityForInventoryTransfer?.id === props.unit.id ||
           gameState.selectedEntityForInventoryTransfer?.id === props.unit.id ||

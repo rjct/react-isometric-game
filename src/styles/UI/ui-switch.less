@@ -20,12 +20,12 @@
     flex-shrink: 0;
   }
 
-  .toggle-switch:before,
-  .toggle-switch:after {
+  .toggle-switch::before,
+  .toggle-switch::after {
     content: "";
   }
 
-  .toggle-switch:before {
+  .toggle-switch::before {
     display: block;
     background: linear-gradient(to bottom, #fff 0%, #eee 100%);
     border-radius: 50%;
@@ -38,7 +38,7 @@
     transition: left 0.25s;
   }
 
-  .toggle:hover .toggle-switch:before {
+  .toggle:hover .toggle-switch::before {
     background: linear-gradient(to bottom, #fff 0%, #fff 100%);
     box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.5);
   }
@@ -47,7 +47,7 @@
     background: darken(@text-color, 20%);
   }
 
-  .toggle-checkbox:checked + .toggle-switch:before {
+  .toggle-checkbox:checked + .toggle-switch::before {
     left: @ui-switch-width - @ui-switch-height + 4;
   }
 

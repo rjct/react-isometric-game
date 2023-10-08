@@ -1,20 +1,41 @@
 .unit-inventory-items-list {
   margin: 0;
-  padding: 0 @padding;
+  margin-top: -@padding;
+  padding: @padding * 2;
   list-style: none;
   display: flex;
-  flex-direction: column;
+  flex-flow: row wrap;
   flex: 1;
-  gap: (@padding / 2);
+  gap: (@padding * 2);
 
   li {
-    flex: 1;
-    padding: (@padding / 2) @padding @padding @padding;
-    border-bottom: solid 1px darken(@text-color, 30%);
+    position: relative;
+    flex: 1 100px 0;
+    width: 100px;
+    //height: 100px;
+    padding: @padding;
+    border: solid 1px rgba(0, 255, 0, 0.2);
     display: flex;
     gap: (@padding * 2);
     cursor: default;
     box-sizing: content-box;
+    box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.75);
+    border-radius: @border-radius;
+    background-color: rgba(0, 255, 0, 0.05);
+    transition: all 150ms linear;
+
+    &.group-item-list {
+      box-shadow:
+        0 10px 0 -5px #072f0c,
+        0 10px 1px -4px rgba(0, 255, 0, 0.2),
+        0 20px 0 -10px #072f0c,
+        0 20px 1px -9px rgba(0, 255, 0, 0.2);
+    }
+
+    &.selected {
+      border-color: rgba(0, 255, 0, 0.5);
+      background-color: rgba(0, 255, 0, 0.2);
+    }
 
     &[draggable="true"] {
       cursor: grab;
@@ -25,13 +46,19 @@
       transform: translateX(-9999px);
     }
 
-    &:last-child {
-      border-bottom: none;
-      margin: 0;
-      padding-bottom: (@padding / 2);
+    .entities-group-count {
+      position: absolute;
+      z-index: 1;
+      right: -@padding;
+      top: -@padding;
+      border-radius: (@padding);
+      padding: 0 (@padding / 2);
+      background-color: rgba(0, 255, 0, 0.2);
+      border: solid 1px rgba(0, 255, 0, 0.2);
+      font-size: 0.85em;
     }
 
-    .weapon-pic {
+    .inventory-item-pic {
       flex-shrink: 0;
       max-width: 30%;
       aspect-ratio: 4/3;

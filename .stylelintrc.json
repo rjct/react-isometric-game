@@ -1,0 +1,15 @@
+{
+  "extends": ["stylelint-config-standard-less"],
+  "plugins": ["stylelint-less"],
+  "formatter": "compact",
+  "rules": {
+    "no-descending-specificity": null,
+    "selector-class-pattern": null,
+    "color-hex-length": null,
+    "rule-empty-line-before": null,
+    "declaration-empty-line-before": null,
+    "alpha-value-notation": null,
+    "color-function-notation": null,
+    "less/no-duplicate-variables": null
+  }
+}

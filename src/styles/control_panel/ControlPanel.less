@@ -8,10 +8,10 @@
   height: @control-panel-height;
 }
 
-@import url("MiniMap.less");
-@import url("HeroControls.less");
+@import "MiniMap.less";
+@import "HeroControls.less";
 
-@media (max-height: 500px) and (orientation: landscape) {
+@media (height <= 500px) and (orientation: landscape) {
   .control-panel {
     height: 60px;
     margin-top: -60px;

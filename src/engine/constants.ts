@@ -20,7 +20,7 @@ const terrainClusterGridSize = {
 };
 
 export const constants = {
-  STARTING_MAP: mapsList.vault,
+  STARTING_MAP: mapsList.empty,
   BASE_URL: "/react-isometric-game",
   SPRITE_URL: "public/assets/terrain/%SPRITE_FILE_NAME%.webp",
   FPS: 24,
@@ -84,4 +84,6 @@ export const constants = {
       tab: "public/assets/UI/tab.m4a",
     },
   },
+
+  GRAVITY_ACCELERATION: 9.81,
 };

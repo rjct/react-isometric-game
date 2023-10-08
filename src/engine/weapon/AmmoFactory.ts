@@ -1,47 +1,39 @@
-import ammo from "@src/dict/ammo.json";
+import { StaticMapWeaponAmmo } from "@src/context/GameStateContext";
+import { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
+import { GameMap } from "@src/engine/gameMap";
 import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
-import { FirearmAmmoRef, FirearmAmmoType } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
-import { MeleePunchRef, MeleePunchType } from "@src/engine/weapon/melee/meleePunchFactory";
+import { InventoryItem } from "@src/engine/InventoryItemFactory";
 
-export type AmmoClass = keyof typeof ammo;
-export type AmmoType = FirearmAmmoType | MeleePunchType;
-export type AmmoRef = FirearmAmmoRef | MeleePunchRef;
-
-export class Ammo {
-  public readonly type: AmmoType;
-  public readonly id = randomUUID();
-  public readonly className = ["ammo"];
-  public readonly size: {
-    grid: Size2D;
-    screen: Size2D;
-  };
-
-  private readonly speed: number;
-
-  readonly damage: number;
+export class Ammo extends InventoryItem {
+  readonly class: WeaponAmmoClass;
+  readonly id = randomUUID();
+  readonly name: AmmoName;
+  readonly dictEntity: AmmoDictEntity;
+  readonly gameMap: GameMap;
 
   startPosition: GridCoordinates = { x: Infinity, y: Infinity };
   position: GridCoordinates = { x: Infinity, y: Infinity };
   targetPosition: GridCoordinates = { x: Infinity, y: Infinity };
 
-  shotDistance: number;
+  shotDistance = 0;
 
   angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
 
   isTargetReached = false;
-  constructor(ammoType: AmmoType, ammoRef: AmmoRef) {
-    this.type = ammoType;
-    this.className = [...this.className, ...ammoRef.className];
-    this.size = ammoRef.size;
 
-    this.speed = ammoRef.speed;
-    this.damage = ammoRef.damage;
+  constructor(ammoName: AmmoName, ammoDictEntity: AmmoDictEntity, gameState: GameMap) {
+    super();
 
-    this.shotDistance = 0;
+    this.class = ammoDictEntity.class;
+    this.name = ammoName;
+    this.dictEntity = ammoDictEntity;
+    this.gameMap = gameState;
+
+    this.gameMap.ammo[this.id] = this;
   }
 
   updatePosition(deltaTime: number) {
-    const speed = this.speed * deltaTime;
+    const speed = this.dictEntity.speed * deltaTime; // FIXME: Real speed or time
     const angle = this.angle;
 
     const x = Math.cos(angle.rad) * speed;
@@ -52,7 +44,7 @@ export class Ammo {
 
     const currentDistance = getDistanceBetweenGridPoints(this.position, this.targetPosition);
 
-    this.isTargetReached = currentDistance <= 0 || currentDistance >= this.shotDistance;
+    this.isTargetReached = currentDistance <= 1 || currentDistance >= this.shotDistance;
 
     if (this.isTargetReached) {
       this.position = this.targetPosition;
@@ -67,4 +59,27 @@ export class Ammo {
     this.angle = getAngleBetweenTwoGridPoints(initialCoordinates, targetCoordinates);
     this.shotDistance = getDistanceBetweenGridPoints(initialCoordinates, targetCoordinates);
   }
+
+  convert2DToIso(x: number, y: number, z: number) {
+    return {
+      x: x,
+      y: y / 2 - z,
+    };
+  }
+
+  afterTargetReached(gameState: GameMap) {
+    if (this.dictEntity.sfx?.targetReached) {
+      gameState.playSfx(this.dictEntity.sfx.targetReached.src);
+    }
+  }
+
+  getJSON(): StaticMapWeaponAmmo {
+    return {
+      class: "ammo",
+      name: this.name,
+      quantity: 1,
+    };
+  }
 }
+
+export type AmmoFactory = typeof Ammo;

@@ -2,6 +2,7 @@ const path = require("path");
 
 const WebpackAssetsManifest = require("webpack-assets-manifest");
 const CopyPlugin = require("copy-webpack-plugin");
+const StylelintPlugin = require("stylelint-webpack-plugin");
 
 const { homepage } = require("./package.json");
 
@@ -37,6 +38,9 @@ module.exports = {
     plugins: {
       remove: ["WebpackAssetsManifest"],
       add: [
+        new StylelintPlugin({
+          extensions: ["less"],
+        }),
         new CopyPlugin({
           patterns: [
             {
