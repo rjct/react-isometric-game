@@ -23,7 +23,11 @@ export class Firearm extends Weapon {
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
 
     const doFire = () => {
-      const ammo = this.ammoCurrent.shift() as Ammo;
+      const ammo = this.ammoCurrent.shift();
+
+      if (!ammo) {
+        return;
+      }
 
       ammo.shot(unit.position, targetPosition, gameState);
 
@@ -42,7 +46,7 @@ export class Firearm extends Weapon {
     if (this.isReadyToUse(gameState) && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
       this.setBusy(true);
       gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
-      fireInterval = window.setInterval(doFire, this.getSfx(this.currentAttackMode).timeIntervalMs);
+      fireInterval = window.setInterval(doFire, 1);
     } else {
       unit.setAction("idle");
       gameState.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);
@@ -83,11 +87,8 @@ export class Firearm extends Weapon {
     this.ammoCurrent = [];
   }
 
-  onAfterAmmoReachedTarget(ammo: Ammo) {
-    this.ammoCurrent.splice(
-      this.ammoCurrent.findIndex((iter) => iter.id === ammo.id),
-      1,
-    );
+  onAfterAmmoReachedTarget(ammo: Ammo, gameState: GameMap) {
+    delete gameState.ammo[ammo.id];
   }
 
   getJSON() {
