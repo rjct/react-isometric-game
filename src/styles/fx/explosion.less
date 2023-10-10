@@ -8,20 +8,33 @@
   width: 192px;
   height: 192px;
   transform-origin: center;
-  transform: translate(-30%, -45%);
+  transform: translate(-30%, -45%) translateZ(40px) rotateX(60deg) rotateZ(45deg);
   background-image: url("/public/assets/fx/explosion.webp");
-  animation: fx-explosion @fx-explosion-sprite-animation-length steps(@fx-explosion-sprite-animation-steps) forwards;
+  animation: fx-explosion @fx-explosion-sprite-animation-length steps(@fx-explosion-sprite-animation-steps) backwards;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);
+    inset: 0;
+
+    background-image: url("/public/assets/fx/explosion.webp");
+    animation: fx-explosion @fx-explosion-sprite-animation-length steps(@fx-explosion-sprite-animation-steps) backwards;
+  }
+
+  &::after {
+    transform: rotateX(90deg) rotateY(0deg);
+  }
 }
 
 @keyframes fx-explosion {
   0% {
     background-position-x: 0;
   }
-  99% {
-    opacity: 1;
-  }
   100% {
-    opacity: 0;
     background-position-x: (-@fx-explosion-sprite-width * @fx-explosion-sprite-animation-steps);
   }
 }
