@@ -80,6 +80,8 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       direction: enemy.direction,
       inventory: enemy.inventory,
       isHero: false,
+      healthPoints: enemy.healthPoints,
+      randomActions: enemy.randomActions,
     });
     unit.setPosition(unit.position, newState);
 

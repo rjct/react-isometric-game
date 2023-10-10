@@ -6,6 +6,7 @@ import { WeaponName } from "@src/dict/weapon/weapon";
 import { BuildingTypes } from "@src/engine/BuildingFactory";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export interface StaticMapTerrainArea {
   source: {
@@ -44,6 +45,8 @@ export interface StaticMapUnit {
   isDead?: boolean;
   direction?: Direction;
   inventory?: StaticMapInventory;
+  healthPoints?: Unit["healthPoints"];
+  randomActions?: Array<"roam" | "idle">;
 }
 
 export interface StaticMapWeapon {

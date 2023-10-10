@@ -139,6 +139,7 @@ export class Unit extends GameObject {
 
   public distanceToScreenCenter = -1;
   public pathCompleteCallback: (() => void) | null = null;
+  public randomActions: string[];
 
   constructor(props: {
     gameState: GameMap;
@@ -147,8 +148,10 @@ export class Unit extends GameObject {
     isHero: boolean;
     action?: Unit["action"];
     isDead?: boolean;
+    healthPoints?: Unit["healthPoints"];
     direction?: Unit["direction"];
     inventory?: StaticMapUnit["inventory"];
+    randomActions?: StaticMapUnit["randomActions"];
   }) {
     const ref = units[props.unitType] as DictUnit;
 
@@ -171,8 +174,9 @@ export class Unit extends GameObject {
 
     this.action = props.action || "none";
 
-    this.healthPoints = { ...ref.healthPoints };
+    this.healthPoints = props.healthPoints || { ...ref.healthPoints };
     this.actionPoints = { ...ref.actionPoints };
+    this.randomActions = props.randomActions || ["roam", "idle"];
 
     this.isDead = props.isDead === true;
 

@@ -10,7 +10,7 @@ export type DoRandomUnitActionReducerAction = {
 
 export function doRandomUnitAction(state: GameMap, action: DoRandomUnitActionReducerAction) {
   if (!action.unit.isMoving()) {
-    const randomActions = ["roam", "idle"];
+    const randomActions = action.unit.randomActions;
     const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 
     // eslint-disable-next-line @typescript-eslint/ban-ts-comment

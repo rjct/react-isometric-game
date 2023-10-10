@@ -1,0 +1,56 @@
+{
+  "size": { "width": 21, "height": 21 },
+  "terrain": [
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 10, "x2": 21, "y2": 21 }
+    },
+    {
+      "source": { "type": "vault", "position": { "x1": 0, "y1": 0, "x2": 1, "y2": 1 } },
+      "target": { "x1": 0, "y1": 0, "x2": 21, "y2": 10 }
+    }
+  ],
+  "hero": {
+    "position": { "x": 10, "y": 15 },
+    "direction": "top",
+    "inventory": {
+      "main": [
+        { "class": "ammo", "name": "9mm_ball", "quantity": 999 },
+        { "class": "weapon", "name": "colt_45" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "broken_bottle" }
+      ],
+      "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
+      "rightHand": { "class": "weapon", "name": "mp5" }
+    }
+  },
+  "enemies": [
+    {
+      "type": "ghoul",
+      "position": { "x": 10, "y": 7 },
+      "direction": "bottom",
+      "healthPoints": {
+        "current": 1e10,
+        "max": 1e10
+      },
+      "randomActions": ["idle"]
+    }
+  ],
+  "buildings": [
+    {
+      "type": "newspaper_kiosk",
+      "position": { "x": 6, "y": 14 },
+      "direction": "right",
+      "variant": 0,
+      "inventory": {
+        "main": [{ "class": "weapon", "name": "molotov_cocktail" }]
+      }
+    }
+  ],
+  "globalShadows": { "color": "#000d23", "opacity": 0.35 },
+  "globalLights": { "opacity": 0.25 },
+  "lights": [
+    { "position": { "x": 0, "y": 10 }, "color": "#ffffff", "radius": 10 },
+    { "position": { "x": 19, "y": 10 }, "color": "#ffffff", "radius": 10 }
+  ]
+}
