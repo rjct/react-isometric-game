@@ -5,7 +5,7 @@ const ammo_9mm_AP: AmmoDictEntity = {
   type: "9mm",
   title: "9mm AP",
   description: "Ammunition. Caliber: 9mm, armor piercing.",
-  speed: 20,
+  speed: 50,
   damage: -25,
   penetration: 50,
   magazineSize: 20,

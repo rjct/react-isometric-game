@@ -87,6 +87,7 @@ export const gameMap = {
   lights: [] as GameMapProps["lights"],
   weapon: {} as GameMapProps["weapon"],
   ammo: {} as GameMapProps["ammo"],
+  ammoFiredIds: [] as Array<Ammo["id"]>,
 
   matrix: [] as Array<Array<number>>,
   fogOfWarMatrix: [] as Array<Array<number>>,
@@ -237,20 +238,6 @@ export const gameMap = {
 
       return entityX >= x1 && entityX <= x2 && entityY >= y1 && entityY <= y2;
     });
-  },
-
-  screenSpaceToGridSpace(screenPos: GridCoordinates): ScreenCoordinates {
-    const mapWidth = this.mapSize.width;
-    const mapHeight = this.mapSize.height;
-    const tileWidth = constants.tileSize.width;
-    const tileHeight = constants.tileSize.height;
-    const halfWidth = tileWidth / 2;
-    const halfHeight = tileHeight / 2;
-
-    const x = 0.5 * ((screenPos.x - (mapWidth / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
-    const y = 0.5 * (-(screenPos.x - (mapHeight / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
-
-    return { x, y };
   },
 
   convertToIsometricCoordinates(gridPos: GridCoordinates, centerOnCell = false): ScreenCoordinates {
@@ -418,8 +405,12 @@ export const gameMap = {
     this.lights.splice(index, 1);
   },
 
-  getItemById(id: string): Weapon | Ammo | null {
-    return this.weapon[id] || this.ammo[id];
+  getItemById(id: string): Weapon | Ammo | undefined {
+    return this.weapon[id] || this.getAmmoById(id);
+  },
+
+  getAmmoById(id: string): Ammo | undefined {
+    return this.ammo[id];
   },
 
   // HASH methods

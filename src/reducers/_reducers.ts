@@ -1,6 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
 import { animateFiredAmmo, AnimateFiredAmmoAction } from "@src/reducers/animateFiredAmmo";
-import { cleanupFiredAmmo, CleanupFiredAmmoAction } from "@src/reducers/cleanupFiredAmmo";
 import { deleteInventoryItem, DeleteInventoryItemReducerAction } from "@src/reducers/deleteInventoryItem";
 import { detectFiredAmmoHitsTarget, DetectFiredAmmoHitsTargetAction } from "@src/reducers/detectFiredAmmoHitsTarget";
 import { updateMapUrl, UpdateMapUrlReducerAction } from "@src/reducers/detectHeroOnExitPoints";
@@ -120,7 +119,6 @@ export type GameReducerAction =
   | RecalculateLightsAndShadowsReducerAction
   //
   | AnimateFiredAmmoAction
-  | CleanupFiredAmmoAction
   | SetCurrentUnitActionReducerAction
   | SetUnitMovementModeReducerAction
   | UpdateMapUrlReducerAction
@@ -213,9 +211,6 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);
 
-    case "cleanupFiredAmmo":
-      return cleanupFiredAmmo(state, action as CleanupFiredAmmoAction);
-
     case "setCurrentUnitAction":
       return setCurrentUnitAction(state, action as SetCurrentUnitActionReducerAction);
 
@@ -251,7 +246,7 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     // WEAPON
     case "detectFiredAmmoHitsTarget":
-      return detectFiredAmmoHitsTarget(state, action as DetectFiredAmmoHitsTargetAction);
+      return detectFiredAmmoHitsTarget(state);
 
     // EDITOR
     case "highlightEntityPlaceholder":

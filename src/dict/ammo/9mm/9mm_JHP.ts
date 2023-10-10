@@ -5,7 +5,7 @@ const ammo_9mm_JHP: AmmoDictEntity = {
   type: "9mm",
   title: "9mm JHP",
   description: "Ammunition. Caliber: 9mm, hollow point.",
-  speed: 20,
+  speed: 50,
   damage: 60,
   penetration: -20,
   magazineSize: 30,

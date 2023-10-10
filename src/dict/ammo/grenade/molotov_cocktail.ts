@@ -5,7 +5,7 @@ const molotov_cocktail: AmmoDictEntity = {
   type: "molotov_cocktail",
   title: "",
   description: "",
-  speed: 10,
+  speed: 6,
   damage: 0,
   penetration: 0,
   magazineSize: 0,

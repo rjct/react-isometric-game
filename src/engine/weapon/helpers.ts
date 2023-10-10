@@ -24,7 +24,11 @@ export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
 
   const weaponDictEntity = getWeaponDictEntityByName(weaponName);
 
-  return new weaponFactoryDict[weaponDictEntity.class](weaponName, weaponDictEntity, gameState);
+  const newWeapon = new weaponFactoryDict[weaponDictEntity.class](weaponName, weaponDictEntity);
+
+  gameState.weapon[newWeapon.id] = newWeapon;
+
+  return newWeapon;
 }
 
 //
@@ -41,7 +45,11 @@ export function createAmmoByName(ammoName: AmmoName, gameState: GameMap) {
 
   const ammoDictEntity = getAmmoDictEntityByName(ammoName);
 
-  return new ammoFactoryDict[ammoDictEntity.class](ammoName, ammoDictEntity, gameState);
+  const newAmmo = new ammoFactoryDict[ammoDictEntity.class](ammoName, ammoDictEntity);
+
+  gameState.ammo[newAmmo.id] = newAmmo;
+
+  return newAmmo;
 }
 
 export function calcDamage(weapon: Weapon, ammo: Ammo) {

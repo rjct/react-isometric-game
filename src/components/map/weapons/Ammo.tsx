@@ -7,13 +7,9 @@ export const Ammo = () => {
 
   return (
     <MapLayer size={gameState.mapSize} className={"ammo-layer"} isometric={false}>
-      {Object.values(gameState.weapon)
-        .filter((weapon) => weapon.firedAmmoQueue.length > 0)
-        .map((weapon) =>
-          weapon.firedAmmoQueue
-            .filter((ammo) => !ammo.isTargetReached)
-            .map((ammo) => <SingleUnitAmmo key={ammo.id} ammo={ammo} />),
-        )}
+      {Object.values(gameState.ammoFiredIds).map((ammoId) => (
+        <SingleUnitAmmo key={ammoId} ammo={gameState.getAmmoById(ammoId)} />
+      ))}
     </MapLayer>
   );
 };

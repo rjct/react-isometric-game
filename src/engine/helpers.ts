@@ -83,6 +83,22 @@ export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): Sc
   return { x, y };
 }
 
+export function screenToGridSpace(screenPos: GridCoordinates, mapSize: Size2D): GridCoordinates {
+  const mapWidth = mapSize.width;
+  const mapHeight = mapSize.height;
+
+  const tileWidth = constants.tileSize.width;
+  const tileHeight = constants.tileSize.height;
+
+  const halfWidth = tileWidth / 2;
+  const halfHeight = tileHeight / 2;
+
+  const x = 0.5 * ((screenPos.x - (mapWidth / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
+  const y = 0.5 * (-(screenPos.x - (mapHeight / 2 - 0.5) * tileWidth) / halfWidth + screenPos.y / halfHeight);
+
+  return { x, y };
+}
+
 export function getVisibleIsometricGridCells(
   boundingBox: { x: number; y: number; width: number; height: number },
   mapSize: GameMap["mapSize"],

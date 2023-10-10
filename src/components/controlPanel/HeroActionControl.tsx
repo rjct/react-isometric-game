@@ -4,6 +4,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
 import { ThrowableWeapon } from "@src/engine/weapon/throwable/ThrowableWeaponFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
@@ -15,6 +16,7 @@ export const HeroActionControl = (props: {
   title?: string;
   text?: React.ReactElement;
 }) => {
+  const { gameState } = useGameState();
   const { hero } = useHero();
 
   const weaponTitle = () => {
@@ -54,7 +56,7 @@ export const HeroActionControl = (props: {
 
     if (weapon instanceof Firearm && weapon.ammoCurrent.length === 0) {
       e.stopPropagation();
-      weapon.reload();
+      weapon.reload(gameState);
     }
   };
 

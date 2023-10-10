@@ -1,29 +1,25 @@
 import { GameMap } from "@src/engine/gameMap";
 import { calcDamage } from "@src/engine/weapon/helpers";
-import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type DetectFiredAmmoHitsTargetAction = {
   type: "detectFiredAmmoHitsTarget";
-  weapon: null | Weapon;
 };
 
-export function detectFiredAmmoHitsTarget(state: GameMap, action: DetectFiredAmmoHitsTargetAction) {
-  const { weapon } = action;
+export function detectFiredAmmoHitsTarget(state: GameMap) {
+  state.ammoFiredIds.forEach((ammoId) => {
+    const ammo = state.getAmmoById(ammoId);
 
-  if (!weapon) return state;
+    if (ammo) {
+      const unitAtTargetPosition = state.getUnitByCoordinates(ammo.position.grid);
 
-  const ammo = [...weapon.firedAmmoQueue.filter((ammo) => ammo.isTargetReached)];
+      if (unitAtTargetPosition && ammo.loadedInWeapon && ammo.loadedInWeapon.owner?.id !== unitAtTargetPosition.id) {
+        const damage = calcDamage(ammo.loadedInWeapon, ammo);
 
-  ammo.forEach((singleAmmo) => {
-    const unitAtTargetPosition = state.getUnitByCoordinates(singleAmmo.position);
+        unitAtTargetPosition.takeDamage(damage);
 
-    if (unitAtTargetPosition) {
-      const damage = calcDamage(weapon, singleAmmo);
-
-      unitAtTargetPosition.takeDamage(damage);
-
-      if (unitAtTargetPosition.isDead) {
-        state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());
+        if (unitAtTargetPosition.isDead) {
+          state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());
+        }
       }
     }
   });

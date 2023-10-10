@@ -9,11 +9,11 @@ import { Weapon } from "@src/engine/weapon/WeaponFactory";
 export class Firearm extends Weapon {
   ammoCurrent: Ammo[] = [];
 
-  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
-    super(weaponName, weaponDictEntity, gameMap);
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity) {
+    super(weaponName, weaponDictEntity);
   }
 
-  use(targetPosition: GridCoordinates) {
+  use(targetPosition: GridCoordinates, gameState: GameMap) {
     if (!this.owner) return;
 
     const unit = this.owner as Unit;
@@ -25,9 +25,7 @@ export class Firearm extends Weapon {
     const doFire = () => {
       const ammo = this.ammoCurrent.shift() as Ammo;
 
-      ammo.shot(unit.position, targetPosition);
-
-      this.firedAmmoQueue.push(ammo);
+      ammo.shot(unit.position, targetPosition, gameState);
 
       count++;
 
@@ -41,13 +39,13 @@ export class Firearm extends Weapon {
       }
     };
 
-    if (this.isReadyToUse() && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
+    if (this.isReadyToUse(gameState) && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
       this.setBusy(true);
-      this.gameMap.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
+      gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
       fireInterval = window.setInterval(doFire, this.getSfx(this.currentAttackMode).timeIntervalMs);
     } else {
       unit.setAction("idle");
-      this.gameMap.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);
+      gameState.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);
 
       setTimeout(() => {
         unit.setAction("none");
@@ -56,7 +54,7 @@ export class Firearm extends Weapon {
     }
   }
 
-  reload() {
+  reload(gameState: GameMap) {
     if (!this.owner) return;
 
     const ammoItems = this.owner.inventory.main
@@ -64,23 +62,32 @@ export class Firearm extends Weapon {
       .slice(0, this.dictEntity.ammoCapacity) as Ammo[];
 
     if (ammoItems.length === 0) {
-      this.gameMap.playSfx(this.getSfx("outOfAmmo").src, 1);
+      gameState.playSfx(this.getSfx("outOfAmmo").src, 1);
       return;
     }
 
+    ammoItems.forEach((ammo) => (ammo.loadedInWeapon = this));
     this.ammoCurrent.push(...ammoItems);
 
     const removedIds = new Set(ammoItems.map((item) => item.id));
     this.owner.inventory.main = this.owner.inventory.main.filter((item) => !removedIds.has(item.id));
 
-    this.gameMap.playSfx(this.getSfx("reload").src, 1);
+    gameState.playSfx(this.getSfx("reload").src, 1);
   }
 
   unload() {
     if (!this.owner || this.ammoCurrent.length === 0) return;
 
+    this.ammoCurrent.forEach((ammo) => (ammo.loadedInWeapon = null));
     this.owner.inventory.main.push(...this.ammoCurrent);
     this.ammoCurrent = [];
+  }
+
+  onAfterAmmoReachedTarget(ammo: Ammo) {
+    this.ammoCurrent.splice(
+      this.ammoCurrent.findIndex((iter) => iter.id === ammo.id),
+      1,
+    );
   }
 
   getJSON() {

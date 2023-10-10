@@ -6,28 +6,28 @@ import { createAmmoByName } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export class MeleeWeapon extends Weapon {
-  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
-    super(weaponName, weaponDictEntity, gameMap);
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity) {
+    super(weaponName, weaponDictEntity);
   }
 
-  use(targetPosition: GridCoordinates) {
+  use(targetPosition: GridCoordinates, gameState: GameMap) {
     if (!this.owner) return;
 
     const unit = this.owner as Unit;
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
 
-    if (this.isReadyToUse()) {
-      this.gameMap.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
+    if (this.isReadyToUse(gameState)) {
+      gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-      const fakeAmmo = createAmmoByName(this.dictEntity.ammoType as AmmoName, this.gameMap);
+      const fakeAmmo = createAmmoByName(this.dictEntity.ammoType as AmmoName, gameState);
+      fakeAmmo.loadedInWeapon = this;
 
       this.setBusy(true);
 
       unit.setAction(this.currentAttackMode);
 
       setTimeout(() => {
-        this.firedAmmoQueue.push(fakeAmmo);
-        fakeAmmo.shot(unit.position, targetPosition);
+        fakeAmmo.shot(unit.position, targetPosition, gameState);
       }, currentAttackModeDetails.animationDuration.attack);
 
       setTimeout(() => {

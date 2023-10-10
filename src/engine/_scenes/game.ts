@@ -23,27 +23,26 @@ export function gameScene(this: GameContext, deltaTime: number) {
   }
 
   gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
+  gameDispatch({ type: "animateFiredAmmo", deltaTime });
+  gameDispatch({ type: "detectFiredAmmoHitsTarget" });
 
-  Object.values(gameState.weapon).forEach((weapon) => {
-    gameDispatch({ type: "animateFiredAmmo", weapon, deltaTime });
-    gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon });
+  gameState.ammoFiredIds
+    .filter((ammoId) => gameState.getAmmoById(ammoId)?.isTargetReached)
+    .forEach((ammoId) => {
+      const ammo = gameState.getAmmoById(ammoId);
 
-    weapon.firedAmmoQueue
-      .filter((ammo) => ammo.isTargetReached)
-      .forEach((ammo) => {
+      if (ammo) {
         if (ammo.dictEntity.fx?.targetReached) {
           ammo.dictEntity.fx.targetReached.forEach((effectType) => {
-            fxDispatch({ type: "addFx", effectType, coordinates: ammo.position });
+            fxDispatch({ type: "addFx", effectType, coordinates: ammo.position.grid });
           });
-
-          ammo.afterTargetReached(gameState);
         }
-      });
 
-    weapon.firedAmmoQueue = [...weapon.firedAmmoQueue.filter((ammo) => !ammo.isTargetReached)];
+        ammo.afterTargetReached(gameState);
+      }
+    });
 
-    //gameDispatch({ type: "cleanupFiredAmmo", weapon });
-  });
+  //gameDispatch({ type: "cleanupFiredAmmo" });
 
   for (const unit of allAliveUnits) {
     gameDispatch({
@@ -58,7 +57,7 @@ export function gameScene(this: GameContext, deltaTime: number) {
     // Mark enemy unit at gunpoint
     enemy.setAtGunpoint(
       !!heroWeapon &&
-        heroWeapon.isReadyToUse() &&
+        heroWeapon.isReadyToUse(gameState) &&
         heroWeapon.getAimCoordinates()?.x === enemy.getRoundedPosition().x &&
         heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y,
     );

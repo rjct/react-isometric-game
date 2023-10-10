@@ -6,7 +6,7 @@ const ammo_9mm_ball: AmmoDictEntity = {
   title: "9mm ball",
   description:
     "A collection of ancient 9mm rounds. Heavy grease to preserve them from the environment. Standard bullets",
-  speed: 20,
+  speed: 50,
   damage: -11,
   penetration: -20,
   magazineSize: 10,

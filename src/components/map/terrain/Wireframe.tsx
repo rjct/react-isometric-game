@@ -72,7 +72,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
           weapon.aimAt(uiState.mousePosition.grid);
 
           if (
-            !weapon.isReadyToUse() ||
+            !weapon.isReadyToUse(gameState) ||
             (uiState.scene === "combat" &&
               weapon.getCurrentAttackModeDetails().actionPointsConsumption > hero.actionPoints.current)
           ) {

@@ -5,7 +5,7 @@ const punch: AmmoDictEntity = {
   type: "punch",
   title: "",
   description: "",
-  speed: 10,
+  speed: 1000,
   damage: 0,
   penetration: 0,
   magazineSize: 0,

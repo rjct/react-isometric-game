@@ -16,7 +16,7 @@ import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
 import { Building, DictBuilding } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
-import { floor, getVisibleIsometricGridCells, gridToScreenSpace } from "@src/engine/helpers";
+import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
 import { DictUnit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
@@ -48,7 +48,7 @@ export const MapComponent = React.memo(
         ),
         y: Math.round(e.clientY - uiState.rect.top) + uiState.scroll.y,
       };
-      const grid = gameState.screenSpaceToGridSpace(screen);
+      const grid = screenToGridSpace(screen, gameState.mapSize);
 
       if (
         grid.x < 0 ||

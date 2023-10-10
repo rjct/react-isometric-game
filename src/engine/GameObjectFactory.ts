@@ -249,8 +249,6 @@ export class GameObject {
 
         this.putItemToInventory(weapon, inventoryType);
 
-        weapon.updateReferenceToGameMap(this.gameState);
-
         return [weapon];
 
       case "ammo":

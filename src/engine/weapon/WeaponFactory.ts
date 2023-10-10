@@ -11,29 +11,24 @@ export class Weapon extends InventoryItem {
   public readonly id = randomUUID();
   public readonly name: WeaponName;
   public readonly dictEntity: WeaponDictEntity;
-  public gameMap: GameMap;
 
   public currentAttackMode: WeaponAttackMode;
 
-  public firedAmmoQueue: Array<Ammo> = [];
   private targetPosition: null | GridCoordinates = null;
   public ray: null | ObstacleRay = null;
 
   private isBusy = false;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  use(targetPosition: GridCoordinates) {
+  use(targetPosition: GridCoordinates, gameState: GameMap) {
     throw new Error("Method not implemented.");
   }
 
-  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity, gameMap: GameMap) {
+  constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity) {
     super();
     this.name = weaponName;
     this.dictEntity = weaponDictEntity;
-    this.gameMap = gameMap;
     this.currentAttackMode = Object.keys(weaponDictEntity.attackModes)[0] as WeaponAttackMode;
-
-    this.gameMap.weapon[this.id] = this;
   }
 
   setAttackMode(attackMode: WeaponAttackMode) {
@@ -42,10 +37,6 @@ export class Weapon extends InventoryItem {
 
   getAttackModes() {
     return Object.keys(this.dictEntity.attackModes) as WeaponAttackMode[];
-  }
-
-  updateReferenceToGameMap(gameMap: GameMap) {
-    this.gameMap = gameMap;
   }
 
   aimAt(position: GridCoordinates) {
@@ -76,11 +67,11 @@ export class Weapon extends InventoryItem {
     return Infinity;
   }
 
-  isReadyToUse() {
+  isReadyToUse(gameState: GameMap) {
     if (!this.owner || !this.targetPosition || this.busy()) return false;
 
     const distanceToTarget = this.getDistanceToTarget();
-    const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(this.gameMap);
+    const distanceToRayEnd = this.ray?.getDistanceToRayEndPosition(gameState);
 
     return distanceToTarget <= this.getCurrentAttackModeDetails().range && distanceToTarget === distanceToRayEnd;
   }
@@ -95,6 +86,11 @@ export class Weapon extends InventoryItem {
 
   busy() {
     return this.isBusy;
+  }
+
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  onAfterAmmoReachedTarget(ammo: Ammo, gameState: GameMap) {
+    //
   }
 
   getSfx(sfxType: WeaponSfxType) {

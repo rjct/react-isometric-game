@@ -31,7 +31,6 @@ export function enemyTurnBattle(
     consumeActionPoints: true,
   });
 
-  gameDispatch({ type: "animateFiredAmmo", weapon: weapon.weapon, deltaTime });
-  gameDispatch({ type: "detectFiredAmmoHitsTarget", weapon: weapon.weapon });
-  gameDispatch({ type: "cleanupFiredAmmo", weapon: weapon.weapon });
+  gameDispatch({ type: "animateFiredAmmo", deltaTime });
+  gameDispatch({ type: "detectFiredAmmoHitsTarget" });
 }

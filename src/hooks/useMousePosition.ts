@@ -1,4 +1,5 @@
 import { constants } from "@src/engine/constants";
+import { screenToGridSpace } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
@@ -24,7 +25,7 @@ export function useMousePosition() {
       x: Math.round(e.clientX - constants.tileSize.width + constants.tileSize.width / 2 + scroll.x),
       y: Math.round(e.clientY - rect.top - constants.tileSize.height + constants.tileSize.height / 2 + scroll.y),
     };
-    const grid = gameState.screenSpaceToGridSpace(screen);
+    const grid = screenToGridSpace(screen, gameState.mapSize);
 
     return {
       grid: {
