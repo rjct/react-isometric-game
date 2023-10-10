@@ -15,6 +15,8 @@ export function recalculateUnitDistanceToScreenCenter(
   state: GameMap,
   action: RecalculateUnitDistanceToScreenCenterReducerAction,
 ): GameMap {
+  if (state.mapSize.width === 0) return state;
+
   const { unit, viewport, scroll } = action;
 
   const screenCenter = (viewport.screen.x2 - viewport.screen.x1) / 2;
@@ -22,7 +24,9 @@ export function recalculateUnitDistanceToScreenCenter(
     gridToScreenSpace(unit.position, state.mapSize).x - scroll.x + constants.wireframeTileSize.width / 2;
   const distance = ((heroScreenX * 100) / screenCenter - 100) / 100;
 
-  unit.setDistanceToScreenCenter(distance);
+  if (distance < Infinity) {
+    unit.setDistanceToScreenCenter(distance);
+  }
 
   return state;
 }
