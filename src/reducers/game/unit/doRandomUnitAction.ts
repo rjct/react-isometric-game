@@ -9,12 +9,16 @@ export type DoRandomUnitActionReducerAction = {
 };
 
 export function doRandomUnitAction(state: GameMap, action: DoRandomUnitActionReducerAction) {
-  const randomActions = ["roam", "idle"];
-  const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
+  if (!action.unit.isMoving()) {
+    const randomActions = ["roam", "idle"];
+    const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 
-  // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-  // @ts-ignore
-  action.unit[randomAction](state);
+    // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+    // @ts-ignore
+    action.unit[randomAction](state);
+  }
+
+  action.unit.cooldown(action.deltaTime);
 
   return state;
 }

@@ -70,6 +70,7 @@ import { endCombat, EndCombatReducerAction } from "@src/reducers/game/endCombat"
 import { endTurn, EndTurnReducerAction } from "@src/reducers/game/endTurn";
 import { startCombat, StartCombatReducerAction } from "@src/reducers/game/startCombat";
 import { animateUnitMove, AnimateUnitMoveReducerAction } from "@src/reducers/game/unit/animateUnitMove";
+import { doRandomUnitAction, DoRandomUnitActionReducerAction } from "@src/reducers/game/unit/doRandomUnitAction";
 import { moveUnit, MoveUnitReducerAction } from "@src/reducers/game/unit/moveUnit";
 import {
   recalculateUnitDistanceToScreenCenter,
@@ -153,6 +154,7 @@ export type GameReducerAction =
   | SetUnitDeadReducerAction
   | SetUnitDirectionReducerAction
   | StopUnitsActionReducerAction
+  | DoRandomUnitActionReducerAction
   //
   | SetGlobalShadowsOpacityReducerAction
   | SetGlobalShadowsColorReducerAction
@@ -206,6 +208,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "stopUnits":
       return stopUnits(state, action as StopUnitsActionReducerAction);
+
+    case "doRandomUnitAction":
+      return doRandomUnitAction(state, action as DoRandomUnitActionReducerAction);
 
     //
     case "animateFiredAmmo":

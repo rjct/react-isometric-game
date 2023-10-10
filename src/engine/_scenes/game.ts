@@ -1,4 +1,3 @@
-import { randomInt } from "@src/engine/helpers";
 import { mapsList } from "@src/engine/maps_list";
 import { GameContext } from "@src/hooks/useGameState";
 
@@ -62,16 +61,6 @@ export function gameScene(this: GameContext, deltaTime: number) {
         heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y,
     );
 
-    // Enemy unit perform random actions
-    if (!enemy.isMoving()) {
-      const randomActions = ["roam", "idle"];
-      const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      enemy[randomAction](gameState);
-    }
-
-    enemy.cooldown(deltaTime);
+    gameDispatch({ type: "doRandomUnitAction", unit: enemy, deltaTime });
   }
 }
