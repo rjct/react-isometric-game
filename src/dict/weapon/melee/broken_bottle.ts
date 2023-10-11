@@ -40,6 +40,7 @@ const broken_bottle: WeaponDictEntity = {
       src: "public/assets/weapons/melee/broken_bottle/iso.webp",
     },
   },
+  vfx: {},
 };
 
 export default broken_bottle;

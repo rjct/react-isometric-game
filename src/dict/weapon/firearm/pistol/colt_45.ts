@@ -52,6 +52,16 @@ const colt_45: WeaponDictEntity = {
       src: "public/assets/weapons/firearm/pistol/colt_45/iso.webp",
     },
   },
+  vfx: {
+    single: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
+    },
+    burst: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
+    },
+  },
 };
 
 export default colt_45;

@@ -19,10 +19,19 @@
         { "class": "ammo", "name": "9mm_AP", "quantity": 999 },
         { "class": "ammo", "name": "9mm_JHP", "quantity": 999 },
         { "class": "weapon", "name": "colt_45" },
+        { "class": "weapon", "name": "beretta_M92FS" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
+        { "class": "weapon", "name": "molotov_cocktail" },
         { "class": "weapon", "name": "molotov_cocktail" },
         { "class": "weapon", "name": "broken_bottle" }
       ],
-      "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
+      "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
       "rightHand": { "class": "weapon", "name": "mp5" }
     }
   },

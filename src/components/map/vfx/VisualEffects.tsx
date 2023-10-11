@@ -1,0 +1,31 @@
+import { constants } from "@src/engine/constants";
+import { gridToScreenSpace } from "@src/engine/helpers";
+import { useGameState } from "@src/hooks/useGameState";
+import React from "react";
+
+export const VisualEffects = React.memo(() => {
+  const { gameState, gameDispatch } = useGameState();
+
+  return (
+    <>
+      {gameState.visualEffects.map((vfx) => {
+        const position = gridToScreenSpace(vfx.position, gameState.mapSize);
+
+        return (
+          <div
+            key={vfx.id}
+            className={`vfx-${vfx.type}`}
+            style={{
+              left: position.x + constants.tileSize.width / 2,
+              top: position.y + constants.tileSize.height / 2,
+              ...{ ...vfx.getElementCss() },
+            }}
+            onAnimationEnd={() => {
+              gameDispatch({ type: "deleteVfx", id: vfx.id });
+            }}
+          ></div>
+        );
+      })}
+    </>
+  );
+});

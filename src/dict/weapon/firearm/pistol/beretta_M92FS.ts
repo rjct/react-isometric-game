@@ -33,7 +33,7 @@ const beretta_M92FS: WeaponDictEntity = {
         "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a",
         "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a",
       ],
-      timeIntervalMs: 400,
+      timeIntervalMs: 140,
     },
     outOfAmmo: {
       src: ["public/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a"],
@@ -50,6 +50,16 @@ const beretta_M92FS: WeaponDictEntity = {
     isometric: {
       size: { width: 72, height: 10 },
       src: "public/assets/weapons/firearm/pistol/beretta_M92FS/iso.webp",
+    },
+  },
+  vfx: {
+    single: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
+    },
+    burst: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
     },
   },
 };

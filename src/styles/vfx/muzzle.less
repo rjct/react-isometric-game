@@ -1,0 +1,52 @@
+@vfx-muzzle-sprite-width: 70px;
+@vfx-muzzle-sprite-height: 50px;
+@vfx-muzzle-sprite-animation-steps: 4;
+@vfx-muzzle-sprite-animation-length: 100ms;
+
+.vfx-muzzle(@variant) {
+  position: absolute;
+  width: @vfx-muzzle-sprite-width;
+  height: @vfx-muzzle-sprite-height;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  backface-visibility: hidden;
+
+  &::before,
+  &::after {
+    content: "";
+    position: absolute;
+    transform: rotateX(90deg);
+    inset: 0;
+
+    background-image: url("/public/assets/vfx/muzzle.webp");
+    background-position-y: -@vfx-muzzle-sprite-height * @variant;
+    animation: vfx-muzzle @vfx-muzzle-sprite-animation-length steps(@vfx-muzzle-sprite-animation-steps) forwards;
+    animation-iteration-count: inherit;
+    animation-delay: inherit;
+  }
+
+  &::after {
+    transform: rotateX(0deg);
+  }
+}
+
+.vfx-muzzle-1 {
+  .vfx-muzzle(0);
+}
+
+.vfx-muzzle-2 {
+  .vfx-muzzle(1);
+}
+
+.vfx-muzzle-3 {
+  .vfx-muzzle(2);
+}
+
+@keyframes vfx-muzzle {
+  0% {
+    background-position-x: 0;
+  }
+  100% {
+    background-position-x: (-@vfx-muzzle-sprite-width * @vfx-muzzle-sprite-animation-steps);
+  }
+}

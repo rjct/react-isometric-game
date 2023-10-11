@@ -104,6 +104,9 @@ import {
 import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
+import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
+import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
+
 export type GameReducerAction =
   | ToggleDebugReducerAction
   | ToggleFeatureReducerAction
@@ -165,7 +168,10 @@ export type GameReducerAction =
   | SetLightPositionReducerAction
   | SetLightRadiusReducerAction
   | SetLightColorReducerAction
-  | DeleteSelectedLightReducerAction;
+  | DeleteSelectedLightReducerAction
+  //
+  | EmitVfxReducerAction
+  | DeleteVfxReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
@@ -337,6 +343,14 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "deleteSelectedLight":
       return deleteSelectedLight(state, action as DeleteSelectedLightReducerAction);
+
+    //
+    case "emitVfx":
+      return emitVfx(state, action as EmitVfxReducerAction);
+
+    case "deleteVfx":
+      return deleteVfx(state, action as DeleteVfxReducerAction);
+    //
     default:
       throw new Error();
   }

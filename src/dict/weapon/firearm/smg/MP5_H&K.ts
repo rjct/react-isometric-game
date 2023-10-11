@@ -46,13 +46,14 @@ const mp5: WeaponDictEntity = {
         "public/assets/weapons/firearm/smg/mp5/shot_single_1.m4a",
         "public/assets/weapons/firearm/smg/mp5/shot_single_2.m4a",
       ],
+      timeIntervalMs: 160,
     },
     burst: {
       src: [
         "public/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a",
         "public/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a",
       ],
-      timeIntervalMs: 140,
+      timeIntervalMs: 160,
     },
     outOfAmmo: {
       src: ["public/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a"],
@@ -69,6 +70,16 @@ const mp5: WeaponDictEntity = {
     isometric: {
       size: { width: 72, height: 10 },
       src: "public/assets/weapons/firearm/smg/mp5/iso.webp",
+    },
+  },
+  vfx: {
+    single: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
+    },
+    burst: {
+      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      delayBeforeEmitting: 160,
     },
   },
 };

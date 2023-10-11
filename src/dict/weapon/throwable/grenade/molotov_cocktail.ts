@@ -36,6 +36,7 @@ const molotov_cocktail: WeaponDictEntity = {
       src: "",
     },
   },
+  vfx: {},
 };
 
 export default molotov_cocktail;

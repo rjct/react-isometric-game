@@ -1,7 +1,9 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
 import { WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
+import { randomInt } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
@@ -17,8 +19,8 @@ export class Firearm extends Weapon {
     if (!this.owner) return;
 
     const unit = this.owner as Unit;
-    let count = 0;
-    let fireInterval: number;
+    let consumedAmmoCount = 0;
+    let consumeAmmoInterval: number;
 
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
 
@@ -31,10 +33,10 @@ export class Firearm extends Weapon {
 
       ammo.shot(unit.position, targetPosition, gameState);
 
-      count++;
+      consumedAmmoCount++;
 
-      if (count === currentAttackModeDetails.ammoConsumption) {
-        clearInterval(fireInterval);
+      if (consumedAmmoCount === currentAttackModeDetails.ammoConsumption) {
+        clearInterval(consumeAmmoInterval);
 
         setTimeout(() => {
           unit.setAction("none");
@@ -46,7 +48,26 @@ export class Firearm extends Weapon {
     if (this.isReadyToUse(gameState) && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
       this.setBusy(true);
       gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
-      fireInterval = window.setInterval(doFire, 1);
+
+      [...Array(currentAttackModeDetails.ammoConsumption)].fill(1).forEach((value, index) => {
+        const vfx = this.dictEntity.vfx[this.currentAttackMode];
+
+        if (vfx) {
+          const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
+
+          gameState.visualEffects.push(
+            new Vfx({
+              coordinates: unit.getRoundedPosition(),
+              type: randomVfxType,
+              angle: this.angle.deg,
+              animationDelay: `${(index + 1) * vfx.delayBeforeEmitting}ms`,
+              elevationLevel: 0,
+            }),
+          );
+        }
+      });
+
+      consumeAmmoInterval = window.setInterval(doFire, 1);
     } else {
       unit.setAction("idle");
       gameState.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);

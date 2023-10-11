@@ -2,6 +2,7 @@ import { WeaponAmmoType } from "@src/dict/ammo/ammo";
 import firearm from "@src/dict/weapon/firearm/firearm";
 import melee from "@src/dict/weapon/melee/melee";
 import throwable from "@src/dict/weapon/throwable/throwable";
+import { VfxType } from "@src/engine/vfx/VfxFactory";
 
 export type WeaponClass = "melee" | "firearm" | "throwable";
 export type WeaponType = "pistol" | "smg" | "grenade" | "knife";
@@ -30,6 +31,13 @@ export type WeaponGfx = {
   isometric: WeaponGfxIcon;
 };
 
+export type WeaponVfx = {
+  [type in WeaponAttackMode]?: {
+    type: Array<VfxType>;
+    delayBeforeEmitting: number;
+  };
+};
+
 export type WeaponDictEntity = {
   class: WeaponClass;
   type: WeaponType;
@@ -55,6 +63,7 @@ export type WeaponDictEntity = {
   };
   sfx: WeaponSfx;
   gfx: WeaponGfx;
+  vfx: WeaponVfx;
 };
 
 const weaponList = { ...melee, ...firearm, ...throwable };

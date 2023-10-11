@@ -19,8 +19,11 @@ const molotov_cocktail: AmmoDictEntity = {
       ],
     },
   },
-  fx: {
-    targetReached: ["explosion", "fire-explosion"],
+  vfx: {
+    targetReached: {
+      type: ["explosion", "fire-explosion"],
+      delayBeforeEmitting: 0,
+    },
   },
 };
 

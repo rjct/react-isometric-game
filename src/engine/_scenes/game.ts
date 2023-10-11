@@ -2,7 +2,7 @@ import { mapsList } from "@src/engine/maps_list";
 import { GameContext } from "@src/hooks/useGameState";
 
 export function gameScene(this: GameContext, deltaTime: number) {
-  const { fxDispatch, terrainState, gameState, gameDispatch, uiState } = this;
+  const { terrainState, gameState, gameDispatch, uiState } = this;
 
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
@@ -31,17 +31,15 @@ export function gameScene(this: GameContext, deltaTime: number) {
       const ammo = gameState.getAmmoById(ammoId);
 
       if (ammo) {
-        if (ammo.dictEntity.fx?.targetReached) {
-          ammo.dictEntity.fx.targetReached.forEach((effectType) => {
-            fxDispatch({ type: "addFx", effectType, coordinates: ammo.position.grid });
+        if (ammo.dictEntity.vfx?.targetReached) {
+          ammo.dictEntity.vfx.targetReached.type.forEach((effectType) => {
+            gameDispatch({ type: "emitVfx", effectType, coordinates: ammo.targetPosition.grid });
           });
         }
 
         ammo.afterTargetReached(gameState);
       }
     });
-
-  //gameDispatch({ type: "cleanupFiredAmmo" });
 
   for (const unit of allAliveUnits) {
     gameDispatch({

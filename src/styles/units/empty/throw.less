@@ -1,0 +1,17 @@
+@import "../_variables";
+
+.shared-unit-action-throw() {
+  &[data-action="throw"] .char {
+    animation: action-idle @animation-length steps(@animation-steps--throw);
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes action-idle {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-sprite-width * (@animation-steps--throw));
+    }
+  }
+}

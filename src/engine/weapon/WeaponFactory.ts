@@ -1,7 +1,7 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
 import { WeaponAttackMode, WeaponDictEntity, WeaponName, WeaponSfxType } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
-import { floor, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
+import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
 import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -16,7 +16,7 @@ export class Weapon extends InventoryItem {
 
   private targetPosition: null | GridCoordinates = null;
   public ray: null | ObstacleRay = null;
-
+  public angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
   private isBusy = false;
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -41,8 +41,10 @@ export class Weapon extends InventoryItem {
 
   aimAt(position: GridCoordinates) {
     this.targetPosition = position;
+
     if (this.owner) {
       this.ray = new ObstacleRay(this.owner.position, this.targetPosition);
+      this.angle = getAngleBetweenTwoGridPoints(this.owner.getRoundedPosition(), this.targetPosition);
     }
   }
 

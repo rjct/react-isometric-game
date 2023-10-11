@@ -8,6 +8,7 @@ import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
+import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import { getUrlParamValue } from "@src/hooks/useUrl";
@@ -113,6 +114,7 @@ export const gameMap = {
   },
 
   audioContext: new AudioContext(),
+  visualEffects: [] as Array<Vfx>,
 
   getHero() {
     return this.units[this.heroId];

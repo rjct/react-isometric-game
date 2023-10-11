@@ -23,34 +23,5 @@
     border-radius: 0 0 50% 50%;
     width: 5px !important;
     height: 10px !important;
-
-    &::before {
-      content: "";
-      position: absolute;
-      background-image: url("/public/assets/weapons/pistol/muzzle.webp");
-      background-position-y: -600px;
-      animation: action-pistol-muzzle 0.05s steps(5) 1;
-      width: 200px;
-      height: 200px;
-      rotate: 90deg;
-      margin-left: -123px;
-      left: 0;
-      top: 0;
-      zoom: 0.3;
-      visibility: hidden;
-    }
-  }
-}
-
-@keyframes action-pistol-muzzle {
-  0% {
-    background-position-x: 0;
-    visibility: visible;
-    transform: translateX(-50%);
-  }
-  100% {
-    background-position-x: -960px;
-    visibility: hidden;
-    transform: translateX(-100%);
   }
 }
