@@ -47,27 +47,30 @@ export class Firearm extends Weapon {
 
     if (this.isReadyToUse(gameState) && this.ammoCurrent.length >= currentAttackModeDetails.ammoConsumption) {
       this.setBusy(true);
-      gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
+      unit.setAction(this.currentAttackMode);
 
-      [...Array(currentAttackModeDetails.ammoConsumption)].fill(1).forEach((value, index) => {
-        const vfx = this.dictEntity.vfx[this.currentAttackMode];
+      setTimeout(() => {
+        gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-        if (vfx) {
-          const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
+        [...Array(currentAttackModeDetails.ammoConsumption)].fill(1).forEach((value, index) => {
+          const vfx = this.dictEntity.vfx[this.currentAttackMode];
 
-          gameState.visualEffects.push(
-            new Vfx({
-              coordinates: unit.getRoundedPosition(),
-              type: randomVfxType,
-              angle: this.angle.deg,
-              animationDelay: `${(index + 1) * vfx.delayBeforeEmitting}ms`,
-              elevationLevel: 0,
-            }),
-          );
-        }
-      });
+          if (vfx) {
+            const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
 
-      consumeAmmoInterval = window.setInterval(doFire, 1);
+            gameState.visualEffects.push(
+              new Vfx({
+                coordinates: unit.getRoundedPosition(),
+                type: randomVfxType,
+                angle: this.angle.deg,
+                animationDelay: `${index * vfx.delayBeforeEmitting}ms`,
+              }),
+            );
+          }
+        });
+
+        consumeAmmoInterval = window.setInterval(doFire, 1);
+      }, currentAttackModeDetails.animationDuration.attack);
     } else {
       unit.setAction("idle");
       gameState.playSfx(this.getSfx("outOfAmmo").src, 1, unit.distanceToScreenCenter);

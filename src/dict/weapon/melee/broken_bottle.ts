@@ -18,6 +18,7 @@ const broken_bottle: WeaponDictEntity = {
         min: 1,
         max: 5,
       },
+      removeFromInventoryAfterUse: false,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,

@@ -16,7 +16,7 @@
   }
 }
 
-@unit-actions: idle, walk, run, hit, dead, punch, throw;
+@unit-actions: idle, walk, run, hit, dead, punch, throw, shot_single, shot_burst;
 
 .createUnit(@unit-type) {
   &.@{unit-type} {
@@ -35,6 +35,13 @@
         }
       }
 
+      &[data-action="none"][data-weapon="smg"] {
+        .char {
+          @bg-with-smg: %('/public/assets/units/%a/idle/smg.webp', @unit-type);
+          background-image: url(@bg-with-smg) !important;
+        }
+      }
+
       &[data-action="@{value}"] {
         .char {
           @action-bg: %('/public/assets/units/%a/%s/empty.webp', @unit-type, @value);
@@ -48,6 +55,13 @@
           background-image: url(@action-bg-with-pistol) !important;
         }
       }
+
+      &[data-action="@{value}"][data-weapon="smg"] {
+        .char {
+          @action-bg-with-smg: %('/public/assets/units/%a/%s/smg.webp', @unit-type, @value);
+          background-image: url(@action-bg-with-smg) !important;
+        }
+      }
     });
   }
 }
@@ -59,6 +73,8 @@
 @import "empty/dead";
 @import "empty/punch";
 @import "empty/throw";
+@import "empty/shot_single";
+@import "empty/shot_burst";
 
 .sharedUnitActions() {
   .shared-unit-action-idle();
@@ -68,4 +84,6 @@
   .shared-unit-action-dead();
   .shared-unit-action-punch();
   .shared-unit-action-throw();
+  .shared-unit-action-shot_single();
+  .shared-unit-action-shot_burst();
 }

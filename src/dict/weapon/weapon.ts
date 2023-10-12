@@ -11,7 +11,7 @@ export type WeaponDamage = {
   max: number;
 };
 export type WeaponDamageType = "normal" | "explosion" | "fire";
-export type WeaponAttackMode = "punch" | "single" | "burst" | "throw";
+export type WeaponAttackMode = "punch" | "shot_single" | "shot_burst" | "throw";
 
 export type WeaponSfxType = WeaponAttackMode | "outOfAmmo" | "reload";
 export type WeaponSfx = {
@@ -54,6 +54,7 @@ export type WeaponDictEntity = {
       ammoConsumption: number;
       range: number;
       damage: WeaponDamage;
+      removeFromInventoryAfterUse: boolean;
       animationDuration: {
         attack: number;
         attackCompleted: number;

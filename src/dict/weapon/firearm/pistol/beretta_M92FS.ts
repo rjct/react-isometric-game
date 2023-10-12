@@ -12,7 +12,7 @@ const beretta_M92FS: WeaponDictEntity = {
   ammoType: "9mm",
   ammoCapacity: 15,
   attackModes: {
-    single: {
+    shot_single: {
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 22,
@@ -20,6 +20,7 @@ const beretta_M92FS: WeaponDictEntity = {
         min: 8,
         max: 15,
       },
+      removeFromInventoryAfterUse: false,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,
@@ -28,12 +29,12 @@ const beretta_M92FS: WeaponDictEntity = {
     },
   },
   sfx: {
-    single: {
+    shot_single: {
       src: [
         "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a",
         "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a",
       ],
-      timeIntervalMs: 140,
+      timeIntervalMs: 400,
     },
     outOfAmmo: {
       src: ["public/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a"],
@@ -53,13 +54,9 @@ const beretta_M92FS: WeaponDictEntity = {
     },
   },
   vfx: {
-    single: {
+    shot_single: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      delayBeforeEmitting: 160,
-    },
-    burst: {
-      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      delayBeforeEmitting: 160,
+      delayBeforeEmitting: 500,
     },
   },
 };

@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.shared-unit-action-shot_burst() {
+  &[data-action="shot_burst"] .char {
+    animation: action-shot-burst @animation-length steps(@animation-steps--shot_burst) backwards;
+  }
+
+  @keyframes action-shot-burst {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@unit-sprite-width * (@animation-steps--shot_burst));
+    }
+  }
+}

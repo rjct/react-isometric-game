@@ -1,4 +1,3 @@
-import { constants } from "@src/engine/constants";
 import { randomUUID } from "@src/engine/helpers";
 import React from "react";
 
@@ -11,7 +10,6 @@ export class Vfx {
   readonly type: VfxType;
   readonly angle: AngleInDegrees;
   readonly animationDelay: string = "0ms";
-  readonly elevationLevel: number = 0;
   constructor(props: {
     coordinates: GridCoordinates;
     type: VfxType;
@@ -27,21 +25,13 @@ export class Vfx {
     if (this.animationDelay) {
       this.animationDelay = props.animationDelay || "0ms";
     }
-
-    if (props.elevationLevel) {
-      this.elevationLevel = props.elevationLevel || 0;
-    }
   }
 
   getElementCss(): React.CSSProperties {
-    const singleLevelElevation = constants.tileSize.height;
-
     return {
       zIndex: Math.ceil(this.position.x + 1) + Math.ceil(this.position.y + 1) + 1,
       animationDelay: this.animationDelay,
-      transform: `translateY(-${
-        singleLevelElevation * 2 + this.elevationLevel * singleLevelElevation
-      }px) rotateX(60deg) rotateZ(${this.angle + 45}deg)`,
+      transform: `rotateX(60deg) rotateZ(${this.angle + 45}deg)`,
     };
   }
 }

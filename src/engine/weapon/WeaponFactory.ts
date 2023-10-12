@@ -1,10 +1,13 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
+import { AmmoName } from "@src/dict/ammo/ammo";
 import { WeaponAttackMode, WeaponDictEntity, WeaponName, WeaponSfxType } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
 import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { createAmmoByName } from "@src/engine/weapon/helpers";
 
 export class Weapon extends InventoryItem {
   public readonly class = "weapon";
@@ -21,7 +24,46 @@ export class Weapon extends InventoryItem {
 
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates, gameState: GameMap) {
-    throw new Error("Method not implemented.");
+    if (!this.owner) return;
+
+    const unit = this.owner as Unit;
+    const currentAttackModeDetails = this.getCurrentAttackModeDetails();
+
+    if (this.isReadyToUse(gameState)) {
+      gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
+
+      const fakeAmmo = createAmmoByName(this.dictEntity.ammoType as AmmoName, gameState);
+      fakeAmmo.loadedInWeapon = this;
+
+      if (currentAttackModeDetails.removeFromInventoryAfterUse) {
+        const inventoryType = unit.findInventoryEntityPlaceType(this);
+
+        if (inventoryType) {
+          unit.removeItemFromInventory(this, inventoryType);
+        }
+      }
+
+      this.setBusy(true);
+
+      unit.setAction(this.currentAttackMode);
+
+      setTimeout(() => {
+        fakeAmmo.shot(unit.position, targetPosition, gameState);
+      }, currentAttackModeDetails.animationDuration.attack);
+
+      setTimeout(() => {
+        unit.setAction("none");
+        this.setBusy(false);
+      }, currentAttackModeDetails.animationDuration.attackCompleted);
+    } else {
+      this.setBusy(true);
+      unit.setAction("idle");
+
+      setTimeout(() => {
+        unit.setAction("none");
+        this.setBusy(false);
+      }, currentAttackModeDetails.animationDuration.attackNotAllowed);
+    }
   }
 
   constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity) {

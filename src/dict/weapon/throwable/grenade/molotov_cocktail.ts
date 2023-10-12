@@ -18,6 +18,7 @@ const molotov_cocktail: WeaponDictEntity = {
         min: 8,
         max: 20,
       },
+      removeFromInventoryAfterUse: true,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,

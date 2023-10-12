@@ -12,7 +12,7 @@ const colt_45: WeaponDictEntity = {
   ammoType: ".45",
   ammoCapacity: 12,
   attackModes: {
-    single: {
+    shot_single: {
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 22,
@@ -20,6 +20,7 @@ const colt_45: WeaponDictEntity = {
         min: 12,
         max: 18,
       },
+      removeFromInventoryAfterUse: false,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,
@@ -28,7 +29,7 @@ const colt_45: WeaponDictEntity = {
     },
   },
   sfx: {
-    single: {
+    shot_single: {
       src: [
         "public/assets/weapons/firearm/pistol/colt_45/shot_single_1.m4a",
         "public/assets/weapons/firearm/pistol/colt_45/shot_single_2.m4a",
@@ -53,11 +54,7 @@ const colt_45: WeaponDictEntity = {
     },
   },
   vfx: {
-    single: {
-      type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      delayBeforeEmitting: 160,
-    },
-    burst: {
+    shot_single: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
       delayBeforeEmitting: 160,
     },

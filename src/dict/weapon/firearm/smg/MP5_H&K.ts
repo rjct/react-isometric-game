@@ -11,7 +11,7 @@ const mp5: WeaponDictEntity = {
   ammoType: "9mm",
   ammoCapacity: 15,
   attackModes: {
-    single: {
+    shot_single: {
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 25,
@@ -19,13 +19,14 @@ const mp5: WeaponDictEntity = {
         min: 10,
         max: 20,
       },
+      removeFromInventoryAfterUse: false,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,
         attackNotAllowed: 1000,
       },
     },
-    burst: {
+    shot_burst: {
       actionPointsConsumption: 5,
       ammoConsumption: 6,
       range: 20,
@@ -33,6 +34,7 @@ const mp5: WeaponDictEntity = {
         min: 8,
         max: 17,
       },
+      removeFromInventoryAfterUse: false,
       animationDuration: {
         attack: 400,
         attackCompleted: 1000,
@@ -41,14 +43,14 @@ const mp5: WeaponDictEntity = {
     },
   },
   sfx: {
-    single: {
+    shot_single: {
       src: [
         "public/assets/weapons/firearm/smg/mp5/shot_single_1.m4a",
         "public/assets/weapons/firearm/smg/mp5/shot_single_2.m4a",
       ],
       timeIntervalMs: 160,
     },
-    burst: {
+    shot_burst: {
       src: [
         "public/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a",
         "public/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a",
@@ -73,11 +75,11 @@ const mp5: WeaponDictEntity = {
     },
   },
   vfx: {
-    single: {
+    shot_single: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      delayBeforeEmitting: 160,
+      delayBeforeEmitting: 500,
     },
-    burst: {
+    shot_burst: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
       delayBeforeEmitting: 160,
     },

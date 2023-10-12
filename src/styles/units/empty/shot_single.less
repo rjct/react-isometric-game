@@ -1,0 +1,16 @@
+@import "../_variables";
+
+.shared-unit-action-shot_single() {
+  &[data-action="shot_single"] .char {
+    animation: action-shot-single @animation-length steps(@animation-steps--shot_single) backwards;
+  }
+
+  @keyframes action-shot-single {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: -(@unit-sprite-width * @animation-steps--shot_single);
+    }
+  }
+}
