@@ -9,7 +9,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
   state.ammoFiredIds.forEach((ammoId) => {
     const ammo = state.getAmmoById(ammoId);
 
-    if (ammo) {
+    if (ammo && ammo.isTargetReached) {
       const unitAtTargetPosition = state.getUnitByCoordinates(ammo.position.grid);
 
       if (unitAtTargetPosition && ammo.loadedInWeapon && ammo.loadedInWeapon.owner?.id !== unitAtTargetPosition.id) {
