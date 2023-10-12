@@ -22,7 +22,6 @@ export class Weapon extends InventoryItem {
   public angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
   private isBusy = false;
 
-  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   use(targetPosition: GridCoordinates, gameState: GameMap) {
     if (!this.owner) return;
 
@@ -32,7 +31,7 @@ export class Weapon extends InventoryItem {
     if (this.isReadyToUse(gameState)) {
       gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-      const fakeAmmo = createAmmoByName(this.dictEntity.ammoType as AmmoName, gameState);
+      const fakeAmmo = createAmmoByName(currentAttackModeDetails.ammoType as AmmoName, gameState);
       fakeAmmo.loadedInWeapon = this;
 
       if (currentAttackModeDetails.removeFromInventoryAfterUse) {
@@ -79,6 +78,16 @@ export class Weapon extends InventoryItem {
 
   getAttackModes() {
     return Object.keys(this.dictEntity.attackModes) as WeaponAttackMode[];
+  }
+
+  getAllowedAmmoTypes() {
+    return [
+      ...new Set(
+        this.getAttackModes()
+          .filter((attackMode) => attackMode !== "punch")
+          .map((attackMode) => this.dictEntity.attackModes[attackMode]!.ammoType),
+      ),
+    ];
   }
 
   aimAt(position: GridCoordinates) {

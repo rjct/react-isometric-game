@@ -2,6 +2,7 @@ import { WeaponAmmoType } from "@src/dict/ammo/ammo";
 import firearm from "@src/dict/weapon/firearm/firearm";
 import melee from "@src/dict/weapon/melee/melee";
 import throwable from "@src/dict/weapon/throwable/throwable";
+import throwable_melee from "@src/dict/weapon/throwableMelee/throwableMelee";
 import { VfxType } from "@src/engine/vfx/VfxFactory";
 
 export type WeaponClass = "melee" | "firearm" | "throwable";
@@ -46,10 +47,10 @@ export type WeaponDictEntity = {
   weight: number;
   price: number;
   damageType: WeaponDamageType;
-  ammoType?: WeaponAmmoType;
   ammoCapacity?: number;
   attackModes: {
     [attackMode in WeaponAttackMode]?: {
+      ammoType: WeaponAmmoType;
       actionPointsConsumption: number;
       ammoConsumption: number;
       range: number;
@@ -67,7 +68,7 @@ export type WeaponDictEntity = {
   vfx: WeaponVfx;
 };
 
-const weaponList = { ...melee, ...firearm, ...throwable };
+const weaponList = { ...melee, ...firearm, ...throwable, ...throwable_melee };
 
 export type WeaponName = keyof typeof weaponList;
 

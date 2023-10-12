@@ -9,10 +9,10 @@ const colt_45: WeaponDictEntity = {
   weight: 3,
   price: 350,
   damageType: "normal",
-  ammoType: ".45",
   ammoCapacity: 12,
   attackModes: {
     shot_single: {
+      ammoType: ".45",
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 22,

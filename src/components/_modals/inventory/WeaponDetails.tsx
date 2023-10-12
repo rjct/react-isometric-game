@@ -29,7 +29,7 @@ export const WeaponDetails = React.memo((props: { item: Weapon }) => {
         </li>
         <li>
           <div className={"prop"}>Ammo:</div>
-          <div className={"value"}>{props.item.dictEntity.ammoType}</div>
+          <div className={"value"}>{props.item.getAllowedAmmoTypes().join(", ")}</div>
         </li>
         <li>
           <div className={"prop"}>Magazine size:</div>{" "}
@@ -38,10 +38,6 @@ export const WeaponDetails = React.memo((props: { item: Weapon }) => {
         <li>
           <div className={"prop"}>Price:</div>
           <div className={"value"}>${props.item.dictEntity.price}</div>
-        </li>
-        <li>
-          <div className={"prop"}>Ammo:</div>
-          <div className={"value"}>{props.item.dictEntity.ammoType}</div>
         </li>
         <li>
           <div className={"prop"}>Range:</div>

@@ -85,8 +85,9 @@ export class Firearm extends Weapon {
   reload(gameState: GameMap) {
     if (!this.owner) return;
 
+    const currentAttackModeDetails = this.getCurrentAttackModeDetails();
     const ammoItems = this.owner.inventory.main
-      .filter((item) => item instanceof FirearmAmmo && item.dictEntity.type === this.dictEntity.ammoType)
+      .filter((item) => item instanceof FirearmAmmo && item.dictEntity.type === currentAttackModeDetails.ammoType)
       .slice(0, this.dictEntity.ammoCapacity) as Ammo[];
 
     if (ammoItems.length === 0) {

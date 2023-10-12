@@ -29,7 +29,8 @@
         { "class": "weapon", "name": "molotov_cocktail" },
         { "class": "weapon", "name": "molotov_cocktail" },
         { "class": "weapon", "name": "molotov_cocktail" },
-        { "class": "weapon", "name": "broken_bottle" }
+        { "class": "weapon", "name": "broken_bottle" },
+        { "class": "weapon", "name": "throwing_knife" }
       ],
       "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
       "rightHand": { "class": "weapon", "name": "mp5" }

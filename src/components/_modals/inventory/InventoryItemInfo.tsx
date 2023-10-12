@@ -8,7 +8,6 @@ import React from "react";
 type InventoryItemInfoProps = { item: Weapon | Ammo | null };
 
 const ItemInfoComponent = (item: InventoryItemInfoProps["item"]) => {
-  //console.log(item?.constructor.name);
   switch (item?.class) {
     case "weapon":
       return <WeaponDetails item={item} />;

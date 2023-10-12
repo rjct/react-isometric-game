@@ -8,10 +8,10 @@ const mp5: WeaponDictEntity = {
   weight: 6,
   price: 1200,
   damageType: "normal",
-  ammoType: "9mm",
   ammoCapacity: 15,
   attackModes: {
     shot_single: {
+      ammoType: "9mm",
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 25,
@@ -27,6 +27,7 @@ const mp5: WeaponDictEntity = {
       },
     },
     shot_burst: {
+      ammoType: "9mm",
       actionPointsConsumption: 5,
       ammoConsumption: 6,
       range: 20,

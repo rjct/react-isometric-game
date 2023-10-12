@@ -9,10 +9,10 @@ const beretta_M92FS: WeaponDictEntity = {
   weight: 3,
   price: 250,
   damageType: "normal",
-  ammoType: "9mm",
   ammoCapacity: 15,
   attackModes: {
     shot_single: {
+      ammoType: "9mm",
       actionPointsConsumption: 4,
       ammoConsumption: 1,
       range: 22,

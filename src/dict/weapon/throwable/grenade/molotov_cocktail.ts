@@ -3,7 +3,6 @@ import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 const molotov_cocktail: WeaponDictEntity = {
   class: "throwable",
   type: "grenade",
-  ammoType: "molotov_cocktail",
   title: "Molotov cocktail",
   description: "A home-made flammable grenade.",
   weight: 1,
@@ -11,6 +10,7 @@ const molotov_cocktail: WeaponDictEntity = {
   damageType: "fire",
   attackModes: {
     throw: {
+      ammoType: "molotov_cocktail",
       actionPointsConsumption: 1,
       ammoConsumption: 1,
       range: 18,

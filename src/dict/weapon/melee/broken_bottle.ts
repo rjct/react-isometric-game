@@ -7,10 +7,10 @@ const broken_bottle: WeaponDictEntity = {
   description: "The preferred weapon for advocates of the drunken brawl.",
   weight: 1,
   price: 25,
-  ammoType: "punch",
   damageType: "normal",
   attackModes: {
     punch: {
+      ammoType: "punch",
       actionPointsConsumption: 3,
       ammoConsumption: 0,
       range: 1,

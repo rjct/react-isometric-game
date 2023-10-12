@@ -18,7 +18,8 @@ export type WeaponAmmoType =
   //
   | "molotov_cocktail"
   //
-  | "punch";
+  | "punch"
+  | "throwing_knife";
 
 export type WeaponAmmoVFxType = "targetReached";
 export type WeaponAmmoVfx = {
@@ -52,7 +53,7 @@ export type AmmoDictEntity = {
   title: string;
   description: string;
   speed: number;
-  // in percent, can be negative(?)
+  // in percent
   damage: number;
   // in percent
   penetration: number;

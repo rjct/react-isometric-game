@@ -12,7 +12,7 @@ export const SingleUnitAmmo = (props: { ammo?: Ammo }) => {
       style={{
         left: position.screen.x + constants.tileSize.width / 2,
         top: position.screen.y + constants.tileSize.height / 2,
-        transform: `rotateX(60deg) rotateZ(${props.ammo.angle.deg - 45}deg) translateZ(40px)`,
+        transform: `rotateX(60deg) rotateZ(${props.ammo.angle.deg + 45}deg) translateZ(40px)`,
       }}
     ></div>
   );
