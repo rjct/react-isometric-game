@@ -1,5 +1,4 @@
 import { GameMap } from "@src/engine/gameMap";
-import { Ammo } from "@src/engine/weapon/AmmoFactory";
 
 export type AnimateFiredAmmoAction = {
   type: "animateFiredAmmo";
@@ -11,10 +10,10 @@ export function animateFiredAmmo(state: GameMap, action: AnimateFiredAmmoAction)
 
   if (ammoFiredIds.length === 0) return state;
 
-  const ammoFired = ammoFiredIds.map((id) => state.getAmmoById(id)).filter((ammo) => !ammo?.isTargetReached) as Ammo[];
+  const ammoFired = ammoFiredIds.map((id) => state.getAmmoById(id)).filter((ammo) => ammo && !ammo.isTargetReached);
 
   ammoFired.forEach((ammo) => {
-    ammo.updatePosition(action.deltaTime, state);
+    if (ammo) ammo.updatePosition(action.deltaTime, state);
   });
 
   return { ...state };
