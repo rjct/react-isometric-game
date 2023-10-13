@@ -12,7 +12,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
     if (ammo && ammo.isTargetReached) {
       const unitAtTargetPosition = state.getUnitByCoordinates(ammo.position.grid);
 
-      if (unitAtTargetPosition && ammo.loadedInWeapon && ammo.loadedInWeapon.owner?.id !== unitAtTargetPosition.id) {
+      if (unitAtTargetPosition && ammo.loadedInWeapon) {
         const damage = calcDamage(ammo.loadedInWeapon, ammo);
 
         unitAtTargetPosition.takeDamage(damage);
