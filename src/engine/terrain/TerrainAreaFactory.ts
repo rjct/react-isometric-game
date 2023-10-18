@@ -7,8 +7,8 @@ export interface TerrainTile {
   id: string;
   type: string;
   backgroundPosition: GridCoordinates;
-  position: GridCoordinates;
-  screenPosition: {
+  position: {
+    grid: GridCoordinates;
     screen: ScreenCoordinates;
     iso: ScreenCoordinates;
   };
@@ -86,8 +86,8 @@ export class TerrainArea {
           isMapExit: !!this.exitUrl,
           type,
           backgroundPosition: bg,
-          position: { x, y },
-          screenPosition: {
+          position: {
+            grid: { x, y },
             screen: gridToScreenSpace({ x, y }, this.mapSize),
             iso: {
               x: (x - y) * (constants.tileSize.width / 2) + (this.mapSize.width / 2 - 0.5) * constants.tileSize.width,

@@ -4,7 +4,13 @@ import { WeaponName } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
-import { getDirectionAngleFromString, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
+import {
+  getDirectionAngleFromString,
+  getEntityZIndex,
+  getHumanReadableDirection,
+  gridToScreenSpace,
+  randomUUID,
+} from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -26,8 +32,12 @@ export class GameObject {
   public readonly internalColor: string;
 
   public size = { grid: { width: 0, length: 0, height: 0 }, screen: { width: 0, height: 0 } };
-  public position: GridCoordinates = { x: 0, y: 0 };
-  public screenPosition: { screen: ScreenCoordinates; iso: ScreenCoordinates } = {
+  public position: {
+    grid: GridCoordinates;
+    screen: ScreenCoordinates;
+    iso: ScreenCoordinates;
+  } = {
+    grid: { x: 0, y: 0 },
     screen: { x: 0, y: 0 },
     iso: { x: 0, y: 0 },
   };
@@ -66,7 +76,7 @@ export class GameObject {
     this.internalColor = props.internalColor;
 
     this.size = props.size;
-    this.position = props.position;
+
     this.zIndex = getEntityZIndex(this);
     this.direction = props.direction;
     this.directionAngle = getDirectionAngleFromString(props.direction);
@@ -119,44 +129,50 @@ export class GameObject {
   }
 
   setPosition(position: GridCoordinates, gameState: GameMap) {
-    this.position = position;
-    this.screenPosition = {
+    this.position = {
+      grid: position,
       screen: gridToScreenSpace(position, gameState.mapSize),
       iso: { x: position.x * constants.wireframeTileSize.width, y: position.y * constants.wireframeTileSize.height },
     };
+
     this.zIndex = getEntityZIndex(this);
 
     this.walls.forEach((wall) => {
-      wall.setPosition(this.position, wall.area.local);
+      wall.setPosition(this.position.grid, wall.area.local);
     });
+  }
+
+  public setDirection(angle: Angle) {
+    this.directionAngle = angle;
+    this.direction = getHumanReadableDirection(angle);
   }
 
   getRoundedPosition(): GridCoordinates {
     return {
-      x: Math.round(this.position.x),
-      y: Math.round(this.position.y),
+      x: Math.round(this.position.grid.x),
+      y: Math.round(this.position.grid.y),
     };
   }
 
   rayDist(lightRay: LightRay, wall: GameObjectWall) {
-    const rWCross = lightRay.nx * wall.ny - lightRay.ny * wall.nx;
+    const rWCross = lightRay.n.grid.x * wall.n.grid.y - lightRay.n.grid.y * wall.n.grid.x;
 
     if (!rWCross) {
       return Infinity;
     }
 
-    const x = lightRay.x - wall.x; // vector from ray to wall start
-    const y = lightRay.y - wall.y;
+    const x = lightRay.position.grid.x - wall.position.grid.x; // vector from ray to wall start
+    const y = lightRay.position.grid.y - wall.position.grid.y;
 
-    let u = (lightRay.nx * y - lightRay.ny * x) / rWCross; // unit distance along normal of wall
+    let u = (lightRay.n.grid.x * y - lightRay.n.grid.y * x) / rWCross; // unit distance along normal of wall
 
     // does the ray hit the wall segment
-    if (u < 0 || u > wall.len) {
+    if (u < 0 || u > wall.len.grid) {
       return Infinity;
     }
     // no
     // as we use the wall normal and ray normal the unit distance is the same as the
-    u = (wall.nx * y - wall.ny * x) / rWCross;
+    u = (wall.n.grid.x * y - wall.n.grid.y * x) / rWCross;
 
     return u < 0 ? Infinity : u; // if behind ray return Infinity else the dist
   }
@@ -176,7 +192,6 @@ export class GameObject {
       }
     }
 
-    //return !u || u < 0 ? Infinity : u;
     return !u || u < 0 ? { distance: Infinity, entity: null } : { distance: u, entity: this }; // if behind ray return Infinity else the dist
   }
 
@@ -191,8 +206,8 @@ export class GameObject {
   getAllUnblockedCellsAroundEntity() {
     const cells: GridCoordinates[] = [];
 
-    for (let x = this.position.x - 1; x < this.position.x + this.size.grid.width + 1; x++) {
-      for (let y = this.position.y - 1; y < this.position.y + this.size.grid.length + 1; y++) {
+    for (let x = this.position.grid.x - 1; x < this.position.grid.x + this.size.grid.width + 1; x++) {
+      for (let y = this.position.grid.y - 1; y < this.position.grid.y + this.size.grid.length + 1; y++) {
         if (!this.gameState.isCellOccupied({ x, y })) {
           cells.push({ x, y });
         }
@@ -285,7 +300,7 @@ export class GameObject {
   }
 
   getHash() {
-    return `${this.position.x}:${this.position.y}:${this.direction}:${this.occupiesCell}`;
+    return `${this.position.grid.x}:${this.position.grid.y}:${this.direction}:${this.occupiesCell}`;
   }
 }
 
@@ -295,23 +310,63 @@ export class GameObjectWall {
     local: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
     world: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
   };
-  x = 0;
-  y = 0;
-  width: number;
-  height: number;
-  len: number;
-  nx: number;
-  ny: number;
+  position: {
+    grid: GridCoordinates;
+    screen: ScreenCoordinates;
+  } = {
+    grid: { x: 0, y: 0 },
+    screen: { x: 0, y: 0 },
+  };
+
+  size: {
+    grid: Size2D;
+    screen: Size2D;
+  } = {
+    grid: { width: 0, height: 0 },
+    screen: { width: 0, height: 0 },
+  };
+
+  len: {
+    grid: number;
+    screen: number;
+  };
+
+  n: {
+    grid: { x: number; y: number };
+    screen: { x: number; y: number };
+  };
+
   constructor(gameObject: GameObject, area: AreaCoordinates) {
     this.gameObject = gameObject;
 
-    this.setPosition(gameObject.position, area);
+    this.setPosition(gameObject.position.grid, area);
 
-    this.width = (area.x2 - area.x1) * constants.wireframeTileSize.width;
-    this.height = (area.y2 - area.y1) * constants.wireframeTileSize.height;
-    this.len = Math.hypot(this.width, this.height);
-    this.nx = this.width / this.len;
-    this.ny = this.height / this.len;
+    this.size = {
+      grid: {
+        width: area.x2 - area.x1,
+        height: area.y2 - area.y1,
+      },
+      screen: {
+        width: (area.x2 - area.x1) * constants.wireframeTileSize.width,
+        height: (area.y2 - area.y1) * constants.wireframeTileSize.height,
+      },
+    };
+
+    this.len = {
+      grid: Math.hypot(this.size.grid.width, this.size.grid.height),
+      screen: Math.hypot(this.size.screen.width, this.size.screen.height),
+    };
+
+    this.n = {
+      grid: {
+        x: this.size.grid.width / this.len.grid,
+        y: this.size.grid.height / this.len.grid,
+      },
+      screen: {
+        x: this.size.screen.width / this.len.screen,
+        y: this.size.screen.height / this.len.screen,
+      },
+    };
   }
 
   setPosition(position: GridCoordinates, area: AreaCoordinates) {
@@ -325,8 +380,16 @@ export class GameObjectWall {
       },
     };
 
-    this.x = this.area.world.x1 * constants.wireframeTileSize.width;
-    this.y = this.area.world.y1 * constants.wireframeTileSize.height;
+    this.position = {
+      grid: {
+        x: this.area.world.x1,
+        y: this.area.world.y1,
+      },
+      screen: {
+        x: this.area.world.x1 * constants.wireframeTileSize.width,
+        y: this.area.world.y1 * constants.wireframeTileSize.height,
+      },
+    };
   }
 
   public getIntersectionWithRay = (ray: {

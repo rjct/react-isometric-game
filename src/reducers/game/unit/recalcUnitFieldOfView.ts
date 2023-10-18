@@ -20,8 +20,8 @@ export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUn
       .filter((iter) => iter.id !== unit.id && state.isEntityVisible(iter));
 
     unit.fieldOfView.castRays([
-      ...state.getEntitiesWithinRadius(unit.position, buildings, unit.fieldOfView.range),
-      ...state.getEntitiesWithinRadius(unit.position, allAliveUnits, unit.fieldOfView.range),
+      ...state.getEntitiesWithinRadius(unit.position.grid, buildings, unit.fieldOfView.range),
+      ...state.getEntitiesWithinRadius(unit.position.grid, allAliveUnits, unit.fieldOfView.range),
     ]);
   }
 

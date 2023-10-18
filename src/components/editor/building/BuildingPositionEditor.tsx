@@ -9,7 +9,7 @@ export function BuildingPositionEditor(props: { building: Building }) {
   const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
 
   React.useEffect(() => {
-    setCoordinates(props.building ? props.building.position : { x: 0, y: 0 });
+    setCoordinates(props.building ? props.building.position.grid : { x: 0, y: 0 });
   }, [props.building.getHash()]);
 
   return coordinates ? (
@@ -24,7 +24,7 @@ export function BuildingPositionEditor(props: { building: Building }) {
           gameDispatch({
             type: "setBuildingPosition",
             entityId: props.building.id,
-            coordinates: { x: value, y: props.building.position.y },
+            coordinates: { x: value, y: props.building.position.grid.y },
           });
         }}
       />
@@ -39,7 +39,7 @@ export function BuildingPositionEditor(props: { building: Building }) {
           gameDispatch({
             type: "setBuildingPosition",
             entityId: props.building.id,
-            coordinates: { x: props.building.position.x, y: value },
+            coordinates: { x: props.building.position.grid.x, y: value },
           });
         }}
       />

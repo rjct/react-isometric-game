@@ -83,7 +83,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       healthPoints: enemy.healthPoints,
       randomActions: enemy.randomActions,
     });
-    unit.setPosition(unit.position, newState);
+    unit.setPosition(enemy.position, newState);
 
     if (newState.settings.featureEnabled.unitShadow) {
       unit.calcShadows(newState);
@@ -117,7 +117,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     newState.units[heroId].calcShadows(newState);
   }
 
-  newState.setVisitedCell(newState.units[newState.heroId].position);
+  newState.setVisitedCell(newState.units[newState.heroId].position.grid);
 
   newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);

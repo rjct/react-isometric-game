@@ -86,9 +86,10 @@ export class Building extends GameObject {
       : size;
   }
 
-  public setDirection(direction: Direction) {
-    this.direction = direction;
-    this.size = Building.getSizeByPositionAndDirection(this.ref.size, direction);
+  public setDirection(angle: Angle) {
+    super.setDirection(angle);
+
+    this.size = Building.getSizeByPositionAndDirection(this.ref.size, this.direction);
     this.createWalls();
   }
 

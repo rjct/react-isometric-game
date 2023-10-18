@@ -14,10 +14,10 @@ export function setUnitDead(state: GameMap, action: SetUnitDeadReducerAction): G
     entity.setAction(action.isDead ? "dead" : "none");
 
     if (action.isDead) {
-      state.deOccupyCell(entity.position);
+      state.deOccupyCell(entity.position.grid);
       entity.clearShadows();
     } else {
-      state.occupyCell(entity.position);
+      state.occupyCell(entity.position.grid);
       entity.healthPoints.current = entity.healthPoints.max;
       entity.calcShadows(state);
     }

@@ -39,7 +39,7 @@
   "enemies": [
     {
       "type": "ghoul",
-      "position": { "x": 49, "y": 38 }
+      "position": { "x": 49, "y": 37 }
     }
   ],
   "buildings": [

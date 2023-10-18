@@ -11,13 +11,17 @@ export type AnimateUnitMoveReducerAction = {
 };
 
 export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAction) {
-  const units = action.units.filter((unit) => unit.path.length > 0);
+  let isStateChangd = false;
 
-  for (const unit of units) {
-    const unitPosition = { ...unit.position };
+  for (const unit of action.units) {
+    if (unit.path.length === 0) continue;
+
+    isStateChangd = true;
+
+    const unitPosition = { ...unit.position.grid };
 
     unit.pathQueue.points = unit.path;
-    unit.pathQueue.currentPos = unit.position;
+    unit.pathQueue.currentPos = unit.position.grid;
     unit.pathQueue.destinationPos = unit.path[unit.path.length - 1];
 
     const speed = unit.getCurrentSpeed();
@@ -56,12 +60,12 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
             unit.clearPath();
             unit.pathQueue.points = [];
             unit.pathQueue.atEnd = true;
-            unit.pathQueue.currentPos = unit.position;
+            unit.pathQueue.currentPos = unit.position.grid;
           }
         }
       }
 
-      state.occupyCell(unit.position);
+      state.occupyCell(unit.position.grid);
     }
 
     if (unit.pathQueue.points.length > 1 && getDistanceBetweenGridPoints(unit.pathQueue.currentPos, unitPosition) > 0) {
@@ -82,5 +86,5 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
     }
   }
 
-  return { ...state };
+  return isStateChangd ? { ...state } : state;
 }

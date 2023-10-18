@@ -36,15 +36,15 @@ export function useTerrainAreas(terrainState: GameTerrain, gameState: GameMap, u
             tileHeight * (terrainTile.backgroundPosition.y || 0) + (terrainTile.backgroundPosition.y || 0) * 3 + 1,
             terrainTile.size.screen.width,
             terrainTile.size.screen.height,
-            terrainTile.screenPosition.screen.x,
-            terrainTile.screenPosition.screen.y,
+            terrainTile.position.screen.x,
+            terrainTile.position.screen.y,
             terrainTile.size.screen.width,
             terrainTile.size.screen.height,
           );
         }
 
         if (terrainTile.isMapExit) {
-          const position = terrainTile.position;
+          const position = terrainTile.position.grid;
 
           const tl = gridToScreenSpace(position, gameState.mapSize);
           const tr = gridToScreenSpace({ x: position.x + 1, y: position.y }, gameState.mapSize);

@@ -3,11 +3,25 @@ import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export class LightRay {
-  x = 0;
-  y = 0;
-  len = 0;
-  nx = 0;
-  ny = 0;
+  position: {
+    grid: GridCoordinates;
+    screen: ScreenCoordinates;
+  } = {
+    grid: { x: 0, y: 0 },
+    screen: { x: 0, y: 0 },
+  };
+  len = {
+    grid: 0,
+    screen: 0,
+  };
+  n: {
+    grid: { x: number; y: number };
+    screen: { x: number; y: number };
+  } = {
+    grid: { x: 0, y: 0 },
+    screen: { x: 0, y: 0 },
+  };
+
   color = "";
   angle = 0;
   collidedWithEntity: Building | Unit | null = null;
@@ -21,17 +35,31 @@ export class LightRay {
 
   setDirection(dir: number) {
     this.angle = dir;
-    this.nx = Math.cos(dir);
-    this.ny = Math.sin(dir);
+
+    this.n = {
+      grid: { x: Math.cos(dir), y: Math.sin(dir) },
+      screen: { x: Math.cos(dir), y: Math.sin(dir) },
+    };
   }
 
   setPosition(position: GridCoordinates) {
-    this.x = position.x * constants.wireframeTileSize.width + constants.wireframeTileSize.width / 2;
-    this.y = position.y * constants.wireframeTileSize.height + constants.wireframeTileSize.height / 2;
+    this.position = {
+      grid: {
+        x: position.x + 0.5,
+        y: position.y + 0.5,
+      },
+      screen: {
+        x: (position.x + 0.5) * constants.wireframeTileSize.width,
+        y: (position.y + 0.5) * constants.wireframeTileSize.height,
+      },
+    };
   }
 
-  setLen(lightRadius: number) {
-    this.len = lightRadius * constants.wireframeTileSize.width;
+  setLen(len: number) {
+    this.len = {
+      grid: len,
+      screen: len * constants.wireframeTileSize.width,
+    };
   }
 
   setColor(color: string) {
@@ -39,7 +67,7 @@ export class LightRay {
   }
 
   cast(entities: Array<Building | Unit>) {
-    let minDist = this.len;
+    let minDist = this.len.grid;
     let collidedWithEntity = null;
     this.collidedWithEntity = null;
 
@@ -52,7 +80,10 @@ export class LightRay {
       }
     }
 
-    this.len = minDist;
+    this.len = {
+      grid: minDist,
+      screen: minDist * constants.wireframeTileSize.width,
+    };
     this.collidedWithEntity = collidedWithEntity;
   }
 }

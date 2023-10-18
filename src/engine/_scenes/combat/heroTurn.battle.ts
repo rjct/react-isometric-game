@@ -7,7 +7,7 @@ export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit)
   const heroWeapon = hero.getCurrentWeapon();
 
   if (terrainState.isUnitIsInExitPoint(hero)) {
-    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position).exitUrl! as mapsList;
+    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position.grid).exitUrl! as mapsList;
 
     gameDispatch({ type: "updateMapUrl", mapUrl });
   }

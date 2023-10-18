@@ -11,9 +11,7 @@ export function setUnitDirection(state: GameMap, action: SetUnitDirectionReducer
   const entity = state.getUnitById(action.entityId);
 
   if (entity) {
-    const angle = getDirectionAngleFromString(action.direction);
-
-    entity.setDirection(angle);
+    entity.setDirection(getDirectionAngleFromString(action.direction));
 
     return { ...state };
   }

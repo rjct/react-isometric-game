@@ -10,7 +10,7 @@ export const CenterMapButton = React.memo(() => {
   const { hero } = useHero();
 
   const handleCenterMapOnHeroClick = () => {
-    uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.screenPosition.screen });
+    uiDispatch({ type: "centerMapOnHero", unitCoordinates: hero.position.screen });
   };
 
   return (

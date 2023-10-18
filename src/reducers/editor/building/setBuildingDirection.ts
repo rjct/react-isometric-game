@@ -1,4 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
+import { getDirectionAngleFromString } from "@src/engine/helpers";
 
 export interface SetBuildingDirectionReducerAction {
   type: "setBuildingDirection";
@@ -11,7 +12,7 @@ export function setBuildingDirection(state: GameMap, action: SetBuildingDirectio
 
   if (entity) {
     state.setGridMatrixOccupancy([entity], state.matrix, -1);
-    entity.setDirection(action.direction);
+    entity.setDirection(getDirectionAngleFromString(action.direction));
     state.setGridMatrixOccupancy([entity], state.matrix, 1);
 
     return { ...state };

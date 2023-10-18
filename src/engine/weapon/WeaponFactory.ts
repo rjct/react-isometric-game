@@ -47,7 +47,7 @@ export class Weapon extends InventoryItem {
       unit.setAction(this.currentAttackMode);
 
       setTimeout(() => {
-        fakeAmmo.shot(unit.position, targetPosition, gameState);
+        fakeAmmo.shot(unit.position.grid, targetPosition, gameState);
       }, currentAttackModeDetails.animationDuration.attack);
 
       setTimeout(() => {
@@ -94,7 +94,7 @@ export class Weapon extends InventoryItem {
     this.targetPosition = position;
 
     if (this.owner) {
-      this.ray = new ObstacleRay(this.owner.position, this.targetPosition);
+      this.ray = new ObstacleRay(this.owner.position.grid, this.targetPosition);
       this.angle = getAngleBetweenTwoGridPoints(this.owner.getRoundedPosition(), this.targetPosition);
     }
   }
@@ -114,7 +114,7 @@ export class Weapon extends InventoryItem {
 
   getDistanceToTarget() {
     if (this.targetPosition && this.owner) {
-      return floor(getDistanceBetweenGridPoints(this.owner.position, this.targetPosition));
+      return floor(getDistanceBetweenGridPoints(this.owner.position.grid, this.targetPosition));
     }
 
     return Infinity;

@@ -20,19 +20,19 @@ export const DebugInfo = React.memo(function DebugInfo() {
               <span className={"debug-label"}>
                 <span className={"debug-label-title"}>Grid</span>
                 <label className={"debug-label-value"}>
-                  {hero.position.x.toFixed(2)} x {hero.position.y.toFixed(2)}
+                  {hero.position.grid.x.toFixed(2)} x {hero.position.grid.y.toFixed(2)}
                 </label>
               </span>
               <span className={"debug-label"}>
                 <span className={"debug-label-title"}>Screen</span>
                 <label className={"debug-label-value"}>
-                  {hero.screenPosition.screen.x.toFixed(2)} x {hero.screenPosition.screen.y.toFixed(2)}
+                  {hero.position.screen.x.toFixed(2)} x {hero.position.screen.y.toFixed(2)}
                 </label>
               </span>
               <span className={"debug-label"}>
                 <span className={"debug-label-title"}>Screen iso</span>
                 <label className={"debug-label-value"}>
-                  {hero.screenPosition.iso.x.toFixed(2)} x {hero.screenPosition.iso.y.toFixed(2)}
+                  {hero.position.iso.x.toFixed(2)} x {hero.position.iso.y.toFixed(2)}
                 </label>
               </span>
             </td>

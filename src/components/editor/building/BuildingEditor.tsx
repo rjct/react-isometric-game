@@ -55,7 +55,7 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
 
     setWorkingEntity({
       initialMousePosition: { ...mousePosition.grid },
-      initialEntityPosition: { ...entity.position },
+      initialEntityPosition: { ...entity.position.grid },
       entity,
     });
 

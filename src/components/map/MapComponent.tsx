@@ -209,7 +209,10 @@ export const MapComponent = React.memo(
         uiDispatch({ type: "setMapRect", rect: getCurrentRect() });
         uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
         uiDispatch({ type: "resetMousePosition" });
-        uiDispatch({ type: "centerMapOnHero", unitCoordinates: gridToScreenSpace(hero.position, gameState.mapSize) });
+        uiDispatch({
+          type: "centerMapOnHero",
+          unitCoordinates: gridToScreenSpace(hero.position.grid, gameState.mapSize),
+        });
         uiDispatch({ type: "scrollMapComplete" });
       }
     }, [gameState.mapSize]);

@@ -11,7 +11,7 @@ export interface UseEntityInUnitHandReducerAction {
 }
 
 export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandReducerAction) {
-  action.unit.setDirection(getAngleBetweenTwoGridPoints(action.targetPosition, action.unit.position));
+  action.unit.setDirection(getAngleBetweenTwoGridPoints(action.targetPosition, action.unit.position.grid));
 
   const weapon = action.unit.getCurrentWeapon();
 

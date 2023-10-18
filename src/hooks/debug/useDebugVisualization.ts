@@ -45,7 +45,7 @@ export function useDebugVisualization() {
 
     for (const building of gameState.buildings) {
       if (building.occupiesCell && gameState.isEntityInViewport(building, uiState.viewport)) {
-        drawFillRect(ctx, building.position, building.internalColor, 1, building.size.grid);
+        drawFillRect(ctx, building.position.grid, building.internalColor, 1, building.size.grid);
       }
     }
 
@@ -63,8 +63,8 @@ export function useDebugVisualization() {
 
     for (const unit of allAliveUnits) {
       if (unit.path.length > 0) {
-        const x = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x = unit.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y = unit.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
         const color = unit.isHero ? "orange" : "limegreen";
 
         ctx.lineWidth = 3;
@@ -109,8 +109,8 @@ export function useDebugVisualization() {
         continue;
       }
 
-      const x = (unit.position.x + 0.5) * constants.wireframeTileSize.width;
-      const y = (unit.position.y + 0.5) * constants.wireframeTileSize.height;
+      const x = (unit.position.grid.x + 0.5) * constants.wireframeTileSize.width;
+      const y = (unit.position.grid.y + 0.5) * constants.wireframeTileSize.height;
 
       const isHeroInView = unit.fieldOfView.rays.find((ray) => ray.collidedWithEntity?.id === gameState.heroId);
 
@@ -123,8 +123,20 @@ export function useDebugVisualization() {
 
       for (const ray of unit.fieldOfView.rays) {
         ctx.lineTo(
-          Math.max(0, Math.min(Math.round(ray.nx * ray.len) + ray.x, gameState.mapSize.width * wireframeTileWidth)),
-          Math.max(0, Math.min(Math.round(ray.ny * ray.len) + ray.y, gameState.mapSize.height * wireframeTileHeight)),
+          Math.max(
+            0,
+            Math.min(
+              Math.round(ray.n.screen.x * ray.len.screen) + ray.position.screen.x,
+              gameState.mapSize.width * wireframeTileWidth,
+            ),
+          ),
+          Math.max(
+            0,
+            Math.min(
+              Math.round(ray.n.screen.y * ray.len.screen) + ray.position.screen.y,
+              gameState.mapSize.height * wireframeTileHeight,
+            ),
+          ),
         );
       }
 
@@ -184,8 +196,8 @@ export function useDebugVisualization() {
       if (!gameState.isEntityInViewport(unit, uiState.viewport)) continue;
 
       for (const shadow of unit.shadows) {
-        const x1 = unit.position.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y1 = unit.position.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x1 = unit.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y1 = unit.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
 
         const x2 = shadow.light.position.x * wireframeTileWidth + wireframeTileWidth / 2;
         const y2 = shadow.light.position.y * wireframeTileHeight + wireframeTileHeight / 2;

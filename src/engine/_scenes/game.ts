@@ -16,7 +16,7 @@ export function gameScene(this: GameContext, deltaTime: number) {
 
   // Update
   if (hero && terrainState.isUnitIsInExitPoint(hero)) {
-    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position).exitUrl! as mapsList;
+    const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position.grid).exitUrl! as mapsList;
 
     gameDispatch({ type: "updateMapUrl", mapUrl });
   }

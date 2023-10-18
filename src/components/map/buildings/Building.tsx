@@ -35,7 +35,7 @@ export const BuildingComponent = React.memo(function Building(props: {
       className={props.building.className}
       id={props.building.id}
       style={{
-        transform: getCss3dPosition(props.building.screenPosition.screen, false),
+        transform: getCss3dPosition(props.building.position.screen, false),
         zIndex: props.building.zIndex,
         WebkitMaskImage: props.maskImage,
       }}

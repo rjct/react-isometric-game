@@ -81,16 +81,16 @@ export class TerrainCluster {
           tileHeight * (terrainTile.backgroundPosition.y || 0) + (terrainTile.backgroundPosition.y || 0) * 3 + 1,
           terrainTile.size.screen.width,
           terrainTile.size.screen.height,
-          terrainTile.screenPosition.screen.x - shift.x,
-          terrainTile.screenPosition.screen.y - shift.y,
+          terrainTile.position.screen.x - shift.x,
+          terrainTile.position.screen.y - shift.y,
           terrainTile.size.screen.width,
           terrainTile.size.screen.height,
         );
 
         if (terrainTile.isMapExit) {
           const position = {
-            x: terrainTile.position.x,
-            y: terrainTile.position.y,
+            x: terrainTile.position.grid.x,
+            y: terrainTile.position.grid.y,
           };
 
           const tl = gridToScreenSpace(position, gameState.mapSize);

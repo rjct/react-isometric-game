@@ -4,7 +4,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 export type MoveUnitReducerAction = {
   type: "moveUnit";
   unit: Unit;
-  position: Unit["position"];
+  position: GridCoordinates;
   moveAction: Extract<Unit["action"], "walk" | "run">;
   onUnitMoveFinished?: () => void;
 };
@@ -13,7 +13,7 @@ export function moveUnit(state: GameMap, action: MoveUnitReducerAction): GameMap
   const unit = action.unit;
 
   if (unit.path.length > 0) {
-    state.deOccupyCell(unit.position);
+    state.deOccupyCell(unit.position.grid);
 
     unit.path.forEach((pathPoint) => {
       state.deOccupyCell(pathPoint);
@@ -24,7 +24,7 @@ export function moveUnit(state: GameMap, action: MoveUnitReducerAction): GameMap
     unit.pathQueue.totalDistMoved = 0;
     unit.pathQueue.points = [];
     unit.pathQueue.atEnd = false;
-    unit.pathQueue.currentPos = unit.position;
+    unit.pathQueue.currentPos = unit.position.grid;
   }
 
   const unitPath = state.calcUnitPath(unit, action.position);

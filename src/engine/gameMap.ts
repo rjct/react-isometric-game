@@ -192,7 +192,7 @@ export const gameMap = {
   isEntityVisible(entity: Building | Unit) {
     if (!this.settings.featureEnabled.fogOfWar) return true;
 
-    const { x, y } = entity.position;
+    const { x, y } = entity.position.grid;
     const { width, length } = entity.size.grid;
 
     const x1 = x;
@@ -225,7 +225,7 @@ export const gameMap = {
   },
 
   isEntityInViewport(entity: TerrainTile | Unit | Building, viewport: GameUI["viewport"]) {
-    return !!viewport.visibleCells[`${floor(entity.position.x)}:${floor(entity.position.y)}`];
+    return !!viewport.visibleCells[`${floor(entity.position.grid.x)}:${floor(entity.position.grid.y)}`];
   },
 
   getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit>, radius: number) {
@@ -235,8 +235,8 @@ export const gameMap = {
       const x2 = coordinates.x + radius;
       const y2 = coordinates.y + radius;
 
-      const entityX = entity.position.x;
-      const entityY = entity.position.y;
+      const entityX = entity.position.grid.x;
+      const entityY = entity.position.grid.y;
 
       return entityX >= x1 && entityX <= x2 && entityY >= y1 && entityY <= y2;
     });
@@ -288,14 +288,14 @@ export const gameMap = {
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
-    const unitPath = pathFinderAStar(this.matrix, unit.position, {
+    const unitPath = pathFinderAStar(this.matrix, unit.position.grid, {
       x: Math.min(this.mapSize.width - 1, destinationPosition.x),
       y: Math.min(this.mapSize.height - 1, destinationPosition.y),
     });
 
     if (unitPath.length > 0) {
-      if (unit.position.x !== unitPath[0][0] || unit.position.y !== unitPath[0][1]) {
-        unitPath.splice(0, 1, [unit.position.x, unit.position.y]);
+      if (unit.position.grid.x !== unitPath[0][0] || unit.position.grid.y !== unitPath[0][1]) {
+        unitPath.splice(0, 1, [unit.position.grid.x, unit.position.grid.y]);
       }
     }
 
@@ -311,10 +311,10 @@ export const gameMap = {
 
     return this.buildings.find(
       (building) =>
-        x >= Math.round(building.position.x) &&
-        x < Math.round(building.position.x + building.size.grid.width) &&
-        y >= Math.round(building.position.y) &&
-        y < Math.round(building.position.y + building.size.grid.length),
+        x >= Math.round(building.position.grid.x) &&
+        x < Math.round(building.position.grid.x + building.size.grid.width) &&
+        y >= Math.round(building.position.grid.y) &&
+        y < Math.round(building.position.grid.y + building.size.grid.length),
     );
   },
 

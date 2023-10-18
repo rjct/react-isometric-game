@@ -65,8 +65,8 @@ export function getDirectionAngleFromString(direction: Direction): Angle {
 export function getEntityZIndex(entity: GameObject) {
   const { position, size } = entity;
 
-  const x = Math.ceil(position.x + size.grid.width);
-  const y = Math.ceil(position.y + size.grid.length / 2);
+  const x = Math.ceil(position.grid.x + size.grid.width);
+  const y = Math.ceil(position.grid.y + size.grid.length / 2);
 
   return x + y + 1;
 }
@@ -167,17 +167,17 @@ export function getDistanceBetweenGridPoints(startPosition: GridCoordinates, tar
 
 export function getDistanceBetweenEntities(entity1: Unit | Building, entity2: Unit | Building): number {
   const entity1Corners = [
-    { x: entity1.position.x, y: entity1.position.y },
-    { x: entity1.position.x + entity1.size.grid.width, y: entity1.position.y },
-    { x: entity1.position.x, y: entity1.position.y + entity1.size.grid.length },
-    { x: entity1.position.x + entity1.size.grid.width, y: entity1.position.y + entity1.size.grid.length },
+    { x: entity1.position.grid.x, y: entity1.position.grid.y },
+    { x: entity1.position.grid.x + entity1.size.grid.width, y: entity1.position.grid.y },
+    { x: entity1.position.grid.x, y: entity1.position.grid.y + entity1.size.grid.length },
+    { x: entity1.position.grid.x + entity1.size.grid.width, y: entity1.position.grid.y + entity1.size.grid.length },
   ];
 
   const entity2Corners = [
-    { x: entity2.position.x, y: entity2.position.y },
-    { x: entity2.position.x + entity2.size.grid.width, y: entity2.position.y },
-    { x: entity2.position.x, y: entity2.position.y + entity2.size.grid.length },
-    { x: entity2.position.x + entity2.size.grid.width, y: entity2.position.y + entity2.size.grid.length },
+    { x: entity2.position.grid.x, y: entity2.position.grid.y },
+    { x: entity2.position.grid.x + entity2.size.grid.width, y: entity2.position.grid.y },
+    { x: entity2.position.grid.x, y: entity2.position.grid.y + entity2.size.grid.length },
+    { x: entity2.position.grid.x + entity2.size.grid.width, y: entity2.position.grid.y + entity2.size.grid.length },
   ];
 
   let minDistance = Number.MAX_VALUE;

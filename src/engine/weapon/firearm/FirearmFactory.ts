@@ -31,7 +31,7 @@ export class Firearm extends Weapon {
         return;
       }
 
-      ammo.shot(unit.position, targetPosition, gameState);
+      ammo.shot(unit.position.grid, targetPosition, gameState);
 
       consumedAmmoCount++;
 

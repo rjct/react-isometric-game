@@ -36,8 +36,8 @@ export function useMiniMap(gameState: GameMap) {
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
 
     const mapCenter = {
-      x: miniMapWidth / 2 - hero.position.x,
-      y: miniMapHeight / 2 - hero.position.y,
+      x: miniMapWidth / 2 - hero.position.grid.x,
+      y: miniMapHeight / 2 - hero.position.grid.y,
     };
 
     // map rect
@@ -68,7 +68,10 @@ export function useMiniMap(gameState: GameMap) {
 
     // enemies
     allAliveEnemies.forEach((enemy) => {
-      const enemyCoordinates = getCoordinates({ x: enemy.position.x + mapCenter.x, y: enemy.position.y + mapCenter.y });
+      const enemyCoordinates = getCoordinates({
+        x: enemy.position.grid.x + mapCenter.x,
+        y: enemy.position.grid.y + mapCenter.y,
+      });
 
       ctx.fillStyle = "red";
       ctx.fillRect(
@@ -82,8 +85,8 @@ export function useMiniMap(gameState: GameMap) {
     // buildings
     buildings.forEach((building) => {
       const buildingCoordinates = getCoordinates({
-        x: building.position.x + mapCenter.x,
-        y: building.position.y + mapCenter.y,
+        x: building.position.grid.x + mapCenter.x,
+        y: building.position.grid.y + mapCenter.y,
       });
 
       ctx.fillStyle = building.internalColor;

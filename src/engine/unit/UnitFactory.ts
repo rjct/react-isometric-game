@@ -6,7 +6,7 @@ import { WeaponAttackMode } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObject } from "@src/engine/GameObjectFactory";
-import { getDistanceBetweenGridPoints, getHumanReadableDirection, randomInt } from "@src/engine/helpers";
+import { getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
@@ -181,7 +181,7 @@ export class Unit extends GameObject {
     this.pathQueue = new UnitPathQueue();
 
     this.fieldOfView = new UnitFieldOfViewFactory({
-      position: this.position,
+      position: this.position.grid,
       directionAngle: this.directionAngle,
       fieldOfView: ref.fieldOfView,
     });
@@ -226,8 +226,7 @@ export class Unit extends GameObject {
   }
 
   public setDirection(angle: Angle) {
-    this.directionAngle = angle;
-    this.direction = getHumanReadableDirection(angle);
+    super.setDirection(angle);
 
     this.fieldOfView.setDirectionAngle(angle);
   }
@@ -420,7 +419,7 @@ export class Unit extends GameObject {
       }
     }
 
-    const path = pathFinderAStar(gameState.matrix, this.position, newPosition);
+    const path = pathFinderAStar(gameState.matrix, this.position.grid, newPosition);
 
     if (path.length > 1) {
       this.setPath(path);
@@ -469,10 +468,10 @@ export class Unit extends GameObject {
     }
 
     this.shadows = gameState.lights
-      .filter((light) => light.radius >= getDistanceBetweenGridPoints(this.position, light.position))
+      .filter((light) => light.radius >= getDistanceBetweenGridPoints(this.position.grid, light.position))
       .map((light) => {
-        const distance = getDistanceBetweenGridPoints(this.position, light.position);
-        const obstacleRay = new ObstacleRay(light.position, this.position, true);
+        const distance = getDistanceBetweenGridPoints(this.position.grid, light.position);
+        const obstacleRay = new ObstacleRay(light.position, this.position.grid, true);
         const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
 
         return {

@@ -70,7 +70,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
         className={props.unit.className}
         style={{
-          transform: getCss3dPosition(props.unit.screenPosition[isIsometric ? "iso" : "screen"], false, isIsometric),
+          transform: getCss3dPosition(props.unit.position[isIsometric ? "iso" : "screen"], false, isIsometric),
           zIndex: props.unit.zIndex,
         }}
       >

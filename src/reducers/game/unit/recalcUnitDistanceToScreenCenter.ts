@@ -21,7 +21,7 @@ export function recalculateUnitDistanceToScreenCenter(
 
   const screenCenter = (viewport.screen.x2 - viewport.screen.x1) / 2;
   const heroScreenX =
-    gridToScreenSpace(unit.position, state.mapSize).x - scroll.x + constants.wireframeTileSize.width / 2;
+    gridToScreenSpace(unit.position.grid, state.mapSize).x - scroll.x + constants.wireframeTileSize.width / 2;
   const distance = ((heroScreenX * 100) / screenCenter - 100) / 100;
 
   if (distance < Infinity) {

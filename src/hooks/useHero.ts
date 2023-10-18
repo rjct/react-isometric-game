@@ -73,7 +73,7 @@ export function useHero() {
   };
 
   const getHeroScreenPosition = (): ScreenCoordinates => {
-    const pos = hero.screenPosition.screen;
+    const pos = hero.position.screen;
 
     return {
       x: pos.x + constants.tileSize.width / 2,
@@ -86,14 +86,14 @@ export function useHero() {
       entity.class !== "wall" ||
       hero.zIndex > entity.zIndex ||
       hero.zIndex < entity.zIndex - 5 ||
-      entity.position.y < hero.position.y ||
-      getDistanceBetweenGridPoints(hero.position, entity.position) > 4
+      entity.position.grid.y < hero.position.grid.y ||
+      getDistanceBetweenGridPoints(hero.position.grid, entity.position.grid) > 4
     ) {
       return "none";
     }
 
     const { x, y } = getHeroScreenPosition();
-    const entityPosition = entity.screenPosition.screen;
+    const entityPosition = entity.position.screen;
     const maskRadius = hero.size.screen.height / 4;
 
     return [

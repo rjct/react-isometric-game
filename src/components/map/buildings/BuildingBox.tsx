@@ -1,5 +1,5 @@
-import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
+import { constants } from "@src/engine/constants";
 import { getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import React, { CSSProperties } from "react";
@@ -46,14 +46,14 @@ export const BuildingBox = React.memo(function Building(props: {
 
     const walls = [];
 
-    const x = props.building.position.x * tileWidth;
-    const y = props.building.position.y * tileHeight;
+    const x = props.building.position.grid.x * tileWidth;
+    const y = props.building.position.grid.y * tileHeight;
 
     for (let i = 0; i < width; i++) {
       const distance = getDistance(
         {
-          x: props.building.position.x + i,
-          y: props.building.position.y + length,
+          x: props.building.position.grid.x + i,
+          y: props.building.position.grid.y + length,
         },
         "front",
       );
@@ -67,7 +67,7 @@ export const BuildingBox = React.memo(function Building(props: {
             height: height * tileHeight,
             left: x + i * tileWidth,
             top: y + length * tileWidth,
-            zIndex: props.building.position.x + props.building.position.y + length + i,
+            zIndex: props.building.position.grid.x + props.building.position.grid.y + length + i,
             filter: `brightness(${distance}%)`,
           }}
         ></div>,
@@ -77,8 +77,8 @@ export const BuildingBox = React.memo(function Building(props: {
     for (let i = 0; i < props.building.size.grid.length; i++) {
       const distance = getDistance(
         {
-          x: props.building.position.x + width,
-          y: props.building.position.y + i,
+          x: props.building.position.grid.x + width,
+          y: props.building.position.grid.y + i,
         },
         "right",
       );
@@ -92,7 +92,7 @@ export const BuildingBox = React.memo(function Building(props: {
             height: tileHeight,
             left: x + width * tileWidth,
             top: y + i * tileHeight,
-            zIndex: props.building.position.x + props.building.position.y + width + i,
+            zIndex: props.building.position.grid.x + props.building.position.grid.y + width + i,
             filter: `brightness(${distance}%)`,
           }}
         ></div>,
@@ -108,7 +108,7 @@ export const BuildingBox = React.memo(function Building(props: {
           height: props.building.size.grid.length * tileHeight,
           left: x,
           top: y,
-          zIndex: props.building.position.x + props.building.position.y + width,
+          zIndex: props.building.position.grid.x + props.building.position.grid.y + width,
           transform: `translateZ(${height * tileHeight}px)`,
         }}
       ></div>,

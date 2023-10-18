@@ -11,7 +11,7 @@ const gameTerrainContext = {
 
   isUnitIsInExitPoint(unit: Unit) {
     const { position } = unit;
-    const terrainArea = this.getTerrainAreaByCoordinates(position);
+    const terrainArea = this.getTerrainAreaByCoordinates(position.grid);
 
     return !!terrainArea?.exitUrl;
   },
