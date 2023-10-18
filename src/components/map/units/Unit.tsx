@@ -14,6 +14,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
   selected?: boolean;
   dragging?: boolean;
+  isInHeroView?: boolean;
   onMouseDown?: (e: React.MouseEvent, entity: Unit) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
 }) {
@@ -56,6 +57,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
             !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
           null
         }
+        data-in-hero-view={props.isInHeroView}
         data-selected={props.selected || null}
         data-dragging={props.dragging || null}
         onMouseDown={(e: React.MouseEvent) => {

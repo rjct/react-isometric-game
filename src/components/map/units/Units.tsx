@@ -16,7 +16,14 @@ export const Units = React.memo(function Units() {
   return (
     <>
       {Object.keys(gameState.units).map((unitId) => (
-        <UnitComponent key={unitId} unit={gameState.units[unitId]} />
+        <UnitComponent
+          key={unitId}
+          unit={gameState.units[unitId]}
+          isInHeroView={
+            unitId === gameState.heroId ||
+            gameState.getHero().fieldOfView.entitiesInView.some((entity) => entity.id === unitId)
+          }
+        />
       ))}
     </>
   );

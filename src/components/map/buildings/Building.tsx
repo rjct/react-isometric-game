@@ -11,6 +11,7 @@ export const BuildingComponent = React.memo(function Building(props: {
   onMouseDown?: (e: React.MouseEvent, entity: Building) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
   maskImage?: CSSProperties["WebkitMaskImage"];
+  isInHeroView?: boolean;
 }) {
   const handleMouseDown = (e: React.MouseEvent) => {
     if (props.onMouseDown) {
@@ -46,6 +47,7 @@ export const BuildingComponent = React.memo(function Building(props: {
       data-selected-for-inventory-transfer={
         props.highlightedForInventoryTransfer || props.selectedForInventoryTransfer || null
       }
+      data-in-hero-view={props.isInHeroView}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}
