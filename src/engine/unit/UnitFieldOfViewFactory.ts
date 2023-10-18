@@ -1,6 +1,5 @@
-import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
-import { degToRad, getDirectionInDegFromString } from "@src/engine/helpers";
+import { degToRad } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { DictUnit, Unit } from "@src/engine/unit/UnitFactory";
 
@@ -9,35 +8,42 @@ export class UnitFieldOfViewFactory {
   public readonly range: number;
   public rays: Array<LightRay> = [];
 
-  private readonly angle: AngleInRadians;
+  private readonly sectorAngle: Angle;
+  private directionAngle: Angle = { deg: 0, rad: 0 };
   private readonly angleStep: AngleInRadians;
+  public readonly raysCount: number;
 
-  constructor(props: { position: GridCoordinates; direction: Direction; fieldOfView: DictUnit["fieldOfView"] }) {
+  constructor(props: { position: GridCoordinates; directionAngle: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
     this.position = props.position;
     this.range = props.fieldOfView.range;
-    this.angle = degToRad(props.fieldOfView.angle);
-    this.angleStep = degToRad(props.fieldOfView.angle / constants.UNIT_FIELD_OF_VIEW_RAYS);
+    this.sectorAngle = {
+      deg: props.fieldOfView.sectorAngle,
+      rad: degToRad(props.fieldOfView.sectorAngle),
+    };
+    this.raysCount = this.calculateRaysForSector();
+    this.angleStep = this.sectorAngle.rad / this.raysCount;
 
     this.createRays();
-    this.setDirection(getDirectionInDegFromString(props.direction));
+    this.setDirectionAngle(props.directionAngle);
   }
 
   createRays() {
-    for (let i = 0; i <= constants.UNIT_FIELD_OF_VIEW_RAYS; i++) {
+    for (let i = 0; i <= this.raysCount; i++) {
       this.rays.push(new LightRay({ position: this.position, radius: this.range, color: "#ffffff" }));
     }
   }
 
   setPosition(position: GridCoordinates) {
     for (const ray of this.rays) {
-      //ray.setLen(this.range);
       ray.setPosition(position);
     }
   }
 
-  setDirection(angle: number) {
+  setDirectionAngle(angle: Angle) {
+    this.directionAngle = angle;
+
     this.rays.forEach((ray, i) => {
-      ray.setDirection(i * this.angleStep + degToRad(angle) - this.angle / 2 + degToRad(180));
+      ray.setDirection(i * this.angleStep + angle.rad - this.sectorAngle.rad / 2 + degToRad(180));
     });
   }
 
@@ -46,5 +52,9 @@ export class UnitFieldOfViewFactory {
       ray.setLen(this.range);
       ray.cast(objects);
     }
+  }
+
+  private calculateRaysForSector(): number {
+    return Math.ceil(this.range * Math.sin(this.sectorAngle.rad / 2) * 2);
   }
 }

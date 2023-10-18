@@ -1,8 +1,6 @@
-import { constants } from "@src/engine/constants";
 import { Building } from "@src/engine/BuildingFactory";
+import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
-
-export type LightRayData = Pick<LightRay, "x" | "y" | "nx" | "ny" | "len" | "color">;
 
 export class LightRay {
   x = 0;
@@ -40,34 +38,6 @@ export class LightRay {
     this.color = color;
   }
 
-  static pathEnd(ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D, rayData: LightRayData) {
-    ctx.lineTo(rayData.nx * rayData.len, rayData.ny * rayData.len);
-  }
-
-  static draw(
-    ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D,
-    rayData: LightRayData,
-    useGradient: boolean,
-  ) {
-    let fill: CanvasGradient | string = rayData.color;
-
-    if (useGradient) {
-      fill = ctx.createRadialGradient(0, 0, rayData.len / 2, 0, 0, rayData.len);
-      fill.addColorStop(0, `${rayData.color}FF`);
-      fill.addColorStop(0.5, `${rayData.color}80`);
-      fill.addColorStop(1, `${rayData.color}00`);
-    }
-
-    ctx.strokeStyle = fill;
-    ctx.lineWidth = 1;
-    ctx.setTransform(1, 0, 0, 1, Math.round(rayData.x), Math.round(rayData.y));
-    ctx.beginPath();
-    ctx.moveTo(0, 0);
-    ctx.lineTo(Math.round(rayData.nx * rayData.len), Math.round(rayData.ny * rayData.len));
-    ctx.closePath();
-    ctx.stroke();
-  }
-
   cast(entities: Array<Building | Unit>) {
     let minDist = this.len;
     let collidedWithEntity = null;
@@ -84,16 +54,5 @@ export class LightRay {
 
     this.len = minDist;
     this.collidedWithEntity = collidedWithEntity;
-  }
-
-  getRayData(): LightRayData {
-    return {
-      x: this.x,
-      y: this.y,
-      nx: this.nx,
-      ny: this.ny,
-      len: this.len,
-      color: this.color,
-    };
   }
 }

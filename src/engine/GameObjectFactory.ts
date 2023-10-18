@@ -4,7 +4,7 @@ import { WeaponName } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
-import { getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
+import { getDirectionAngleFromString, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -33,6 +33,7 @@ export class GameObject {
   };
   public zIndex: number;
   public direction: Direction = "top";
+  public directionAngle: Angle = getDirectionAngleFromString("top");
   public occupiesCell = true;
 
   public walls: GameObjectWall[] = [];
@@ -68,6 +69,7 @@ export class GameObject {
     this.position = props.position;
     this.zIndex = getEntityZIndex(this);
     this.direction = props.direction;
+    this.directionAngle = getDirectionAngleFromString(props.direction);
 
     if (props.occupiesCell === false) {
       this.occupiesCell = false;

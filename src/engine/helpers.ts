@@ -17,36 +17,48 @@ export function randomInt(min: number, max: number) {
   return floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function getHumanReadableDirection(angle: number): Unit["direction"] {
+export function getHumanReadableDirection(angle: Angle): Unit["direction"] {
   switch (true) {
-    case angle > 315 || angle < 45:
+    case angle.deg > 315 || angle.deg < 45:
       return "left";
 
-    case angle >= 45 && angle <= 135:
+    case angle.deg >= 45 && angle.deg <= 135:
       return "top";
 
-    case angle >= 135 && angle <= 225:
+    case angle.deg >= 135 && angle.deg <= 225:
       return "right";
 
-    case angle >= 225 && angle <= 315:
+    case angle.deg >= 225 && angle.deg <= 315:
     default:
       return "bottom";
   }
 }
 
-export function getDirectionInDegFromString(direction: Direction) {
+export function getDirectionAngleFromString(direction: Direction): Angle {
   switch (direction) {
     case "top":
-      return 90;
+      return {
+        deg: 90,
+        rad: degToRad(90),
+      };
 
     case "right":
-      return 180;
+      return {
+        deg: 180,
+        rad: degToRad(180),
+      };
 
     case "bottom":
-      return 270;
+      return {
+        deg: 270,
+        rad: degToRad(270),
+      };
 
     case "left":
-      return 0;
+      return {
+        deg: 0,
+        rad: degToRad(0),
+      };
   }
 }
 

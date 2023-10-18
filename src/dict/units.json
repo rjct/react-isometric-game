@@ -25,7 +25,7 @@
       }
     },
     "fieldOfView": {
-      "angle": 120,
+      "sectorAngle": 120,
       "range": 10
     },
     "animationDuration": {
@@ -83,7 +83,7 @@
       }
     },
     "fieldOfView": {
-      "angle": 30,
+      "sectorAngle": 30,
       "range": 6
     },
     "animationDuration": {

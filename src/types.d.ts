@@ -99,3 +99,7 @@ interface AssetFileAudio {
 
 type AngleInDegrees = number;
 type AngleInRadians = number;
+type Angle = {
+  deg: AngleInDegrees;
+  rad: AngleInRadians;
+};

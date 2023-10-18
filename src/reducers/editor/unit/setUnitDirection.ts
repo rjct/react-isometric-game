@@ -1,5 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
-import { getDirectionInDegFromString } from "@src/engine/helpers";
+import { getDirectionAngleFromString } from "@src/engine/helpers";
 
 export interface SetUnitDirectionReducerAction {
   type: "setUnitDirection";
@@ -11,7 +11,7 @@ export function setUnitDirection(state: GameMap, action: SetUnitDirectionReducer
   const entity = state.getUnitById(action.entityId);
 
   if (entity) {
-    const angle = getDirectionInDegFromString(action.direction);
+    const angle = getDirectionAngleFromString(action.direction);
 
     entity.setDirection(angle);
 

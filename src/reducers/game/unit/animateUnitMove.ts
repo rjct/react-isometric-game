@@ -65,7 +65,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
     }
 
     if (unit.pathQueue.points.length > 1 && getDistanceBetweenGridPoints(unit.pathQueue.currentPos, unitPosition) > 0) {
-      unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition).deg);
+      unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition));
     }
 
     unit.setPosition(unit.pathQueue.currentPos, state, action.deltaTime);

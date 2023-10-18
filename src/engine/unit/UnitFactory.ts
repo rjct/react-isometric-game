@@ -60,7 +60,7 @@ export interface DictUnit {
     };
   };
   fieldOfView: {
-    angle: AngleInDegrees; // Degrees
+    sectorAngle: AngleInDegrees;
     range: number;
   };
   animationDuration: {
@@ -86,8 +86,6 @@ export class Unit extends GameObject {
   public readonly type;
 
   public readonly className;
-
-  public angle = 0;
 
   public readonly speed: {
     walk: number;
@@ -184,7 +182,7 @@ export class Unit extends GameObject {
 
     this.fieldOfView = new UnitFieldOfViewFactory({
       position: this.position,
-      direction: this.direction,
+      directionAngle: this.directionAngle,
       fieldOfView: ref.fieldOfView,
     });
 
@@ -227,11 +225,11 @@ export class Unit extends GameObject {
     this.path = [];
   }
 
-  public setDirection(angle: number) {
-    this.angle = angle;
+  public setDirection(angle: Angle) {
+    this.directionAngle = angle;
     this.direction = getHumanReadableDirection(angle);
 
-    this.fieldOfView.setDirection(angle);
+    this.fieldOfView.setDirectionAngle(angle);
   }
 
   public getCurrentSpeed() {
