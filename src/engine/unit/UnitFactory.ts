@@ -455,8 +455,8 @@ export class Unit extends GameObject {
   }
 
   public isEnemyDetected(enemy: Unit) {
-    return this.fieldOfView.rays.find((ray) => {
-      return ray.collidedWithEntity?.id === enemy.id;
+    return this.fieldOfView.entitiesInView.find((entity) => {
+      return entity.id === enemy.id;
     });
   }
 

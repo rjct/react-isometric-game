@@ -13,6 +13,8 @@ export class UnitFieldOfViewFactory {
   private readonly angleStep: AngleInRadians;
   public readonly raysCount: number;
 
+  public entitiesInView: Array<Building | Unit> = [];
+
   constructor(props: { position: GridCoordinates; directionAngle: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
     this.position = props.position;
     this.range = props.fieldOfView.range;
@@ -48,9 +50,15 @@ export class UnitFieldOfViewFactory {
   }
 
   castRays(objects: (Building | Unit)[]) {
+    this.entitiesInView = [];
+
     for (const ray of this.rays) {
       ray.setLen(this.range);
-      ray.cast(objects);
+      const entityInView = ray.cast(objects);
+
+      if (entityInView) {
+        this.entitiesInView.push(entityInView);
+      }
     }
   }
 

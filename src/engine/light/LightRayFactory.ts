@@ -85,5 +85,7 @@ export class LightRay {
       screen: minDist * constants.wireframeTileSize.width,
     };
     this.collidedWithEntity = collidedWithEntity;
+
+    return collidedWithEntity;
   }
 }
