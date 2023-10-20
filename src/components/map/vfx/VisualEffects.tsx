@@ -4,7 +4,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export const VisualEffects = React.memo(() => {
-  const { gameState, gameDispatch } = useGameState();
+  const { gameState } = useGameState();
 
   return (
     <>

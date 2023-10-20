@@ -4,7 +4,7 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const Units = React.memo(function Units() {
-  const { gameState, gameDispatch, uiState } = useGameState();
+  const { gameState, gameDispatch } = useGameState();
   const { checkCurrentScene } = useScene();
 
   React.useEffect(() => {
