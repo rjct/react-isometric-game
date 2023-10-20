@@ -1,7 +1,6 @@
 @vfx-muzzle-sprite-width: 70px;
 @vfx-muzzle-sprite-height: 50px;
 @vfx-muzzle-sprite-animation-steps: 4;
-@vfx-muzzle-sprite-animation-length: 100ms;
 
 .vfx-muzzle(@variant) {
   position: absolute;
@@ -20,7 +19,7 @@
 
     background-image: url("/public/assets/vfx/muzzle.webp");
     background-position-y: -@vfx-muzzle-sprite-height * @variant;
-    animation: vfx-muzzle @vfx-muzzle-sprite-animation-length steps(@vfx-muzzle-sprite-animation-steps) forwards;
+    animation: vfx-muzzle steps(@vfx-muzzle-sprite-animation-steps) forwards;
     animation-iteration-count: inherit;
     animation-delay: inherit;
   }

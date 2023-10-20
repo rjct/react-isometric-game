@@ -20,9 +20,6 @@ export const VisualEffects = React.memo(() => {
               top: position.y + constants.tileSize.height / 2,
               ...{ ...vfx.getElementCss() },
             }}
-            onAnimationEnd={() => {
-              gameDispatch({ type: "deleteVfx", id: vfx.id });
-            }}
           ></div>
         );
       })}

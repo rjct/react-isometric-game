@@ -1,7 +1,6 @@
 @vfx-fire-explosion-sprite-width: 128px;
 @vfx-fire-explosion-sprite-height: 128px;
 @vfx-fire-explosion-sprite-animation-steps: 36;
-@vfx-fire-explosion-sprite-animation-length: 900ms;
 
 .vfx-fire-explosion {
   position: absolute;
@@ -10,8 +9,7 @@
   transform-origin: center;
   transform: translateX(-60px) translateY(-135px) rotateZ(-35deg) !important;
   background-image: url("/public/assets/vfx/fire-explosion.webp");
-  animation: vfx-fire-explosion @vfx-fire-explosion-sprite-animation-length
-    steps(@vfx-fire-explosion-sprite-animation-steps) forwards;
+  animation: vfx-fire-explosion steps(@vfx-fire-explosion-sprite-animation-steps) forwards;
 }
 
 @keyframes vfx-fire-explosion {

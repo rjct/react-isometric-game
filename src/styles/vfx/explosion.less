@@ -1,7 +1,6 @@
 @vfx-explosion-sprite-width: 192px;
 @vfx-explosion-sprite-height: 192px;
 @vfx-explosion-sprite-animation-steps: 12;
-@vfx-explosion-sprite-animation-length: 400ms;
 
 .vfx-explosion {
   position: absolute;
@@ -9,7 +8,7 @@
   height: @vfx-explosion-sprite-height;
   transform-origin: 67% -30%;
   background-image: url("/public/assets/vfx/explosion.webp");
-  animation: vfx-explosion @vfx-explosion-sprite-animation-length steps(@vfx-explosion-sprite-animation-steps) backwards;
+  animation: vfx-explosion steps(@vfx-explosion-sprite-animation-steps) backwards;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 

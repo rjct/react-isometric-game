@@ -3,7 +3,7 @@ import firearm from "@src/dict/weapon/firearm/firearm";
 import melee from "@src/dict/weapon/melee/melee";
 import throwable from "@src/dict/weapon/throwable/throwable";
 import throwable_melee from "@src/dict/weapon/throwableMelee/throwableMelee";
-import { VfxType } from "@src/engine/vfx/VfxFactory";
+import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
 export type WeaponClass = "melee" | "firearm" | "throwable";
 export type WeaponType = "pistol" | "smg" | "grenade" | "knife";
@@ -35,7 +35,9 @@ export type WeaponGfx = {
 export type WeaponVfx = {
   [type in WeaponAttackMode]?: {
     type: Array<VfxType>;
+    animationDuration: number;
     delayBeforeEmitting: number;
+    light?: VfxLight;
   };
 };
 

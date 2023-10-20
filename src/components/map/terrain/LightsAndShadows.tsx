@@ -34,7 +34,7 @@ export const LightsAndShadows = React.memo(() => {
     }
   }, [
     gameState.mapSize,
-    uiState.scene === "editor" ? gameState.getLightsHash() : false,
+    gameState.getLightsHash(),
     gameState.globalShadows,
     gameState.globalLights,
     gameState.settings.featureEnabled.light,

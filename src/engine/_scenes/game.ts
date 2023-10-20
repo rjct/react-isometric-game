@@ -33,7 +33,13 @@ export function gameScene(this: GameContext, deltaTime: number) {
       if (ammo) {
         if (ammo.dictEntity.vfx?.targetReached) {
           ammo.dictEntity.vfx.targetReached.type.forEach((effectType) => {
-            gameDispatch({ type: "emitVfx", effectType, coordinates: ammo.targetPosition.grid });
+            gameDispatch({
+              type: "emitVfx",
+              effectType,
+              animationDuration: ammo.dictEntity.vfx!.targetReached.animationDuration!,
+              coordinates: ammo.targetPosition.grid,
+              light: ammo.dictEntity.vfx?.targetReached.light,
+            });
           });
         }
 
@@ -48,6 +54,26 @@ export function gameScene(this: GameContext, deltaTime: number) {
       viewport: uiState.viewport,
       scroll: uiState.scroll,
     });
+  }
+
+  for (const vfx of this.gameState.visualEffects) {
+    if (vfx.lightEffect && vfx.isLightAnimationCompleted()) {
+      gameDispatch({ type: "deleteLight", entityId: vfx.lightEffect.light.id });
+    }
+
+    if (vfx.isAnimationCompleted() && vfx.isLightAnimationCompleted()) {
+      gameDispatch({ type: "deleteVfx", id: vfx.id });
+    }
+
+    if (vfx.lightEffect) {
+      gameDispatch({
+        type: "setLightRadius",
+        entityId: vfx.lightEffect.light.id,
+        radius: vfx.lightEffect.light.radius + deltaTime * vfx.lightEffect.animationRadiusMultiplier,
+      });
+    }
+
+    vfx.update(gameState, deltaTime);
   }
 
   for (const enemy of allAliveEnemies) {

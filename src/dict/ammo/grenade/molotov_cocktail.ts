@@ -23,6 +23,12 @@ const molotov_cocktail: AmmoDictEntity = {
     targetReached: {
       type: ["explosion", "fire-explosion"],
       delayBeforeEmitting: 0,
+      animationDuration: 900,
+      light: {
+        animationDuration: 100,
+        color: "#ffc400",
+        radius: 15,
+      },
     },
   },
 };

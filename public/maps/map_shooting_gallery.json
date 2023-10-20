@@ -62,7 +62,7 @@
   "globalShadows": { "color": "#000d23", "opacity": 0.35 },
   "globalLights": { "opacity": 0.25 },
   "lights": [
-    { "position": { "x": 0, "y": 10 }, "color": "#ffffff", "radius": 10 },
-    { "position": { "x": 19, "y": 10 }, "color": "#ffffff", "radius": 10 }
+    { "position": { "x": 0, "y": 10 }, "color": "#ffff00", "radius": 10 },
+    { "position": { "x": 19, "y": 10 }, "color": "#00ffff", "radius": 10 }
   ]
 }

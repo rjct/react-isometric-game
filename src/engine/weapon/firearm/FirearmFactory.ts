@@ -58,14 +58,21 @@ export class Firearm extends Weapon {
           if (vfx) {
             const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
 
-            gameState.visualEffects.push(
-              new Vfx({
-                coordinates: unit.getRoundedPosition(),
-                type: randomVfxType,
-                angle: this.angle.deg,
-                animationDelay: `${index * vfx.delayBeforeEmitting}ms`,
-              }),
-            );
+            const emittedVfx = new Vfx({
+              coordinates: unit.getRoundedPosition(),
+              type: randomVfxType,
+              angle: this.angle.deg,
+              animationDuration: vfx.animationDuration,
+              animationDelay: `${index * vfx.delayBeforeEmitting}ms`,
+              light: vfx.light,
+            });
+
+            gameState.visualEffects.push(emittedVfx);
+
+            if (emittedVfx.lightEffect?.light) {
+              gameState.lights.push(emittedVfx.lightEffect.light);
+              emittedVfx.lightEffect.light.cast(gameState.getAllGameObjectsWalls());
+            }
           }
         });
 

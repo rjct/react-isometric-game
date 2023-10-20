@@ -56,6 +56,7 @@ const colt_45: WeaponDictEntity = {
   vfx: {
     shot_single: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
+      animationDuration: 100,
       delayBeforeEmitting: 160,
     },
   },

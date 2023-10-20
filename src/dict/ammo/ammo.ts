@@ -2,7 +2,7 @@ import ammo_45 from "@src/dict/ammo/.45/.45";
 import ammo_9mm from "@src/dict/ammo/9mm/_9mm";
 import grenade from "@src/dict/ammo/grenade/_grenade";
 import melee from "@src/dict/ammo/melee/_melee";
-import { VfxType } from "@src/engine/vfx/VfxFactory";
+import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
 export type WeaponAmmoClass = "firearm_ammo" | "grenade_ammo" | "melee_ammo";
 
@@ -25,7 +25,9 @@ export type WeaponAmmoVFxType = "targetReached";
 export type WeaponAmmoVfx = {
   [type in WeaponAmmoVFxType]: {
     type: Array<VfxType>;
+    animationDuration: number;
     delayBeforeEmitting: number;
+    light?: VfxLight;
   };
 };
 
