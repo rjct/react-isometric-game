@@ -767,8 +767,8 @@
     }
   ],
   "hero": {
-    "position": { "x": 18, "y": 65 },
-    "direction": "bottom",
+    "position": { "x": 3, "y": 50 },
+    "direction": "right",
     "inventory": {
       "main": [
         { "class": "ammo", "name": "9mm_ball", "quantity": 25 }
@@ -1102,7 +1102,7 @@
     { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 66 }, "direction": "left", "variant": 3 },
     { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 66 }, "direction": "right", "variant": 3 }
   ],
-  "globalShadows": { "color": "#000d4d", "opacity": 0.75 },
+  "globalShadows": { "color": "#000d4d", "opacity": 0.2 },
   "globalLights": { "opacity": 0.4 },
   "lights": [
     { "position": { "x": 74, "y": 82 }, "color": "#bcc09e", "radius": 3 },

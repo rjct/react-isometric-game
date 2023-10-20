@@ -1,9 +1,9 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UnitInventoryEditor } from "@src/components/editor/unit/inventory/UnitInventoryEditor";
 import { UnitPositionEditor } from "@src/components/editor/unit/UnitPositionEditor";
 import { UnitPreview } from "@src/components/editor/unit/UnitPreview";
 import { EntityDirectionSelector } from "@src/components/editor/_shared/EntityDirectionSelector";
+import { EntityInventoryEditor } from "@src/components/editor/_shared/EntityInventoryEditor";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
 import { Button } from "@src/components/ui/Button";
@@ -59,7 +59,7 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
         </table>
       </div>
 
-      <UnitInventoryEditor unit={props.unit} />
+      <EntityInventoryEditor entity={props.unit} />
 
       <div className={"editor-controls"}>
         <Button

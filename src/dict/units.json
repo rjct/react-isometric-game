@@ -2,6 +2,7 @@
   "vault13_male": {
     "type": "vault13_male",
     "className": "vault13-male",
+    "explorable": true,
     "speed": {
       "walk": 1,
       "run": 2.5
@@ -60,6 +61,7 @@
   "ghoul": {
     "type": "ghoul",
     "className": "ghoul",
+    "explorable": true,
     "speed": {
       "walk": 0.4,
       "run": 0.8

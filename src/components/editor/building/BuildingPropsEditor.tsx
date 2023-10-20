@@ -2,6 +2,7 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BuildingPositionEditor } from "@src/components/editor/building/BuildingPositionEditor";
 import { EntityDirectionSelector } from "@src/components/editor/_shared/EntityDirectionSelector";
+import { EntityInventoryEditor } from "@src/components/editor/_shared/EntityInventoryEditor";
 import { InputRange } from "@src/components/editor/_shared/InputRange";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
@@ -67,6 +68,8 @@ export function BuildingPropsEditor(props: { building: Building }) {
           </tbody>
         </table>
       </div>
+
+      <EntityInventoryEditor entity={props.building} />
 
       <div className={"editor-controls"}>
         <Button

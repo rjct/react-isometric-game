@@ -28,14 +28,13 @@ export interface DictBuilding {
 }
 
 export class Building extends GameObject {
+  public readonly dictEntity: DictBuilding;
   public readonly class;
   public readonly type;
 
   public readonly className;
   public readonly variants;
   variant = 0;
-
-  private readonly ref: DictBuilding;
 
   constructor(props: {
     gameState: GameMap;
@@ -58,13 +57,13 @@ export class Building extends GameObject {
       explorable: ref.explorable,
     });
 
-    this.ref = ref;
+    this.dictEntity = ref;
 
     this.class = ref.class;
     this.type = props.buildingType;
-    this.className = ["building", this.ref.className].join(" ");
+    this.className = ["building", this.dictEntity.className].join(" ");
 
-    this.variants = this.ref.variants;
+    this.variants = this.dictEntity.variants;
     this.variant = props.variant;
 
     this.occupiesCell = props.occupiesCell;
@@ -89,7 +88,7 @@ export class Building extends GameObject {
   public setDirection(angle: Angle) {
     super.setDirection(angle);
 
-    this.size = Building.getSizeByPositionAndDirection(this.ref.size, this.direction);
+    this.size = Building.getSizeByPositionAndDirection(this.dictEntity.size, this.direction);
     this.createWalls();
   }
 
@@ -98,7 +97,7 @@ export class Building extends GameObject {
   }
 
   public getAvailableDirections() {
-    return this.ref.directions;
+    return this.dictEntity.directions;
   }
 
   public putItemToInventory(item: Weapon | Ammo) {

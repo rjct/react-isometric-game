@@ -50,11 +50,6 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
       <div className={`inventory-item-pic`} data-name={[props.item.name]}></div>
       <div className={"entity-title-wrapper"}>
         <div className={"entity-title"}>{props.item.dictEntity.title}</div>
-        {/*<div className={"entity-subtitle"}>*/}
-        {/*  AP: {props.entity.getCurrentAttackModeDetails().actionPointsConsumption}*/}
-        {/*  <br />*/}
-        {/*  Distance: {props.entity.getCurrentAttackModeDetails().range}*/}
-        {/*</div>*/}
       </div>
 
       {props.editable ? (

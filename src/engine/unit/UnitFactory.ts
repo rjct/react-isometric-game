@@ -37,6 +37,7 @@ export interface DictUnit {
   idDead?: boolean;
   direction?: Direction;
   className: string;
+  explorable: boolean;
   speed: {
     walk: number;
     run: number;
@@ -82,6 +83,7 @@ export type UnitSfx = {
 };
 
 export class Unit extends GameObject {
+  public readonly dictEntity: DictUnit;
   public readonly isHero: boolean;
   public readonly type;
 
@@ -162,6 +164,8 @@ export class Unit extends GameObject {
       explorable: true,
     });
 
+    this.dictEntity = ref;
+
     this.isHero = props.isHero;
     this.type = props.unitType;
 
@@ -196,6 +200,12 @@ export class Unit extends GameObject {
       },
       {} as unknown as UnitSfx,
     );
+
+    this.inventory = {
+      main: [],
+      leftHand: null,
+      rightHand: null,
+    };
 
     if (props.inventory) {
       this.createInventory(props.inventory, this);

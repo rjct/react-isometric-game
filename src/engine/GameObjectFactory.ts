@@ -50,12 +50,10 @@ export class GameObject {
 
   public inventory: {
     main: Array<Weapon | Ammo>;
-    leftHand: Weapon | null;
-    rightHand: Weapon | null;
+    leftHand?: Weapon | null;
+    rightHand?: Weapon | null;
   } = {
     main: [],
-    leftHand: null,
-    rightHand: null,
   };
 
   private readonly explorable: boolean = false;
