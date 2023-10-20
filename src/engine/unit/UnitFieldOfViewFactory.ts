@@ -1,5 +1,5 @@
 import { Building } from "@src/engine/BuildingFactory";
-import { degToRad } from "@src/engine/helpers";
+import { degToRad, normalizeAngle } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { DictUnit, Unit } from "@src/engine/unit/UnitFactory";
 
@@ -13,7 +13,8 @@ export class UnitFieldOfViewFactory {
   private readonly angleStep: AngleInRadians;
   public readonly raysCount: number;
 
-  public entitiesInView: Array<Building | Unit> = [];
+  public cellsInView: Array<GridCoordinates> = [];
+  public entitiesInView: { [id: string]: Building | Unit } = {};
 
   constructor(props: { position: GridCoordinates; directionAngle: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
     this.position = props.position;
@@ -36,30 +37,76 @@ export class UnitFieldOfViewFactory {
   }
 
   setPosition(position: GridCoordinates) {
+    this.position = position;
+
     for (const ray of this.rays) {
       ray.setPosition(position);
     }
+
+    //this.cellsInView = this.getCellsInSector();
   }
 
   setDirectionAngle(angle: Angle) {
-    this.directionAngle = angle;
+    const correctedAngle: Angle = {
+      deg: angle.deg + 180,
+      rad: angle.rad + Math.PI,
+    };
+    this.directionAngle = correctedAngle;
 
     this.rays.forEach((ray, i) => {
-      ray.setDirection(i * this.angleStep + angle.rad - this.sectorAngle.rad / 2 + degToRad(180));
+      ray.setDirection(i * this.angleStep + correctedAngle.rad - this.sectorAngle.rad / 2);
     });
   }
 
   castRays(objects: (Building | Unit)[]) {
-    this.entitiesInView = [];
+    this.entitiesInView = {};
 
     for (const ray of this.rays) {
       ray.setLen(this.range);
       const entityInView = ray.cast(objects);
 
       if (entityInView) {
-        this.entitiesInView.push(entityInView);
+        this.entitiesInView[entityInView.id] = entityInView;
       }
     }
+  }
+
+  isEntityInView(id: string) {
+    return !!this.entitiesInView[id];
+  }
+
+  private getCellsInSector() {
+    const cellsInSector: GridCoordinates[] = [];
+    const { x, y } = this.position;
+
+    for (let i = -this.range; i <= this.range; i++) {
+      for (let j = -this.range; j <= this.range; j++) {
+        const distance = Math.sqrt(i * i + j * j);
+
+        if (distance <= this.range) {
+          const cellX = x + i;
+          const cellY = y + j;
+          const cellAngle: Angle = {
+            deg: Math.atan2(cellY - y, cellX - x) * (180 / Math.PI),
+            rad: Math.atan2(cellY - y, cellX - x),
+          };
+          const normalizedDirectionAngle = normalizeAngle(this.directionAngle);
+          const normalizedCellAngle = normalizeAngle(cellAngle);
+
+          let angleDifference = Math.abs(normalizedDirectionAngle.rad - normalizedCellAngle.rad);
+
+          if (angleDifference > Math.PI) {
+            angleDifference = 2 * Math.PI - angleDifference;
+          }
+
+          if (angleDifference <= this.sectorAngle.rad / 2) {
+            cellsInSector.push({ x: cellX, y: cellY });
+          }
+        }
+      }
+    }
+
+    return cellsInSector;
   }
 
   private calculateRaysForSector(): number {

@@ -160,7 +160,11 @@
   }
 
   &[data-in-hero-view="false"] {
-    filter: grayscale(100%);
+    .char {
+      filter: contrast(0) sepia(100%) saturate(0%) brightness(100%) drop-shadow(0 0 1px black)
+        drop-shadow(0 0 1px black);
+      opacity: 0.5;
+    }
   }
 }
 

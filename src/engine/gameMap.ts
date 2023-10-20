@@ -1,6 +1,7 @@
 import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
+import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
@@ -91,8 +92,9 @@ export const gameMap = {
   ammoFiredIds: [] as Array<Ammo["id"]>,
 
   matrix: [] as Array<Array<number>>,
-  fogOfWarMatrix: [] as Array<Array<number>>,
   mediaAssets: {} as MediaAssets,
+
+  fogOfWar: null as unknown as FogOfWar,
 
   selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
   highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
@@ -168,43 +170,10 @@ export const gameMap = {
     return this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] > 0;
   },
 
-  setVisitedCell(coordinates: GridCoordinates) {
-    const radius = constants.FOG_OF_WAR_RADIUS;
+  isEntityVisibleByHero(entity: Building | Unit) {
+    if (!this.settings.featureEnabled.fogOfWar || entity.id === this.heroId) return true;
 
-    for (let i = coordinates.x - radius; i <= coordinates.x + radius; i++) {
-      for (let n = coordinates.y - radius; n <= coordinates.y + radius; n++) {
-        const x = Math.max(0, Math.floor(n));
-        const y = Math.max(0, Math.floor(i));
-
-        if ((i - coordinates.x) * (i - coordinates.x) + (n - coordinates.y) * (n - coordinates.y) <= radius * radius) {
-          if (x < this.mapSize.width && y < this.mapSize.height) {
-            this.fogOfWarMatrix[x][y] = 1;
-          }
-        }
-      }
-    }
-  },
-
-  isCellVisited(x: number, y: number) {
-    return this.fogOfWarMatrix[floor(y)]?.[floor(x)] > 0;
-  },
-
-  isEntityVisible(entity: Building | Unit) {
-    if (!this.settings.featureEnabled.fogOfWar) return true;
-
-    const { x, y } = entity.position.grid;
-    const { width, length } = entity.size.grid;
-
-    const x1 = x;
-    const x2 = x1 + width;
-
-    const y1 = y;
-    const y2 = y1 + length;
-
-    return (
-      this.isCellVisited(x1, y1) ||
-      this.isCellVisited(Math.min(this.mapSize.width - 1, x2), Math.min(this.mapSize.height - 1, y2))
-    );
+    return this.getHero().fieldOfView.isEntityInView(entity.id);
   },
 
   setGridMatrixOccupancy(entities: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
@@ -418,10 +387,6 @@ export const gameMap = {
   // HASH methods
   getMatrixHash() {
     return this.matrix.map((column) => column.join("")).join("");
-  },
-
-  getFogOfWarMatrixHash() {
-    return this.fogOfWarMatrix.map((column) => column.join("")).join("");
   },
 
   getAllAliveUnitsHash() {

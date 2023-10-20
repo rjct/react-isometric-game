@@ -454,12 +454,6 @@ export class Unit extends GameObject {
     this.clearPath();
   }
 
-  public isEnemyDetected(enemy: Unit) {
-    return this.fieldOfView.entitiesInView.some((entity) => {
-      return entity.id === enemy.id;
-    });
-  }
-
   public calcShadows(gameState: GameMap) {
     if (this.isDead || !gameState.settings.featureEnabled.unitShadow) {
       this.clearShadows();
@@ -550,6 +544,12 @@ export class Unit extends GameObject {
     }
 
     return json;
+  }
+
+  public getHash(): string {
+    const hash = super.getHash();
+
+    return `${hash}:${Object.keys(this.fieldOfView.entitiesInView).length}`;
   }
 }
 

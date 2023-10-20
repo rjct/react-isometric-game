@@ -5,7 +5,7 @@ import { TerrainAreasEditor } from "@src/components/editor/terrain/TerrainAreasE
 import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
 import { Buildings } from "@src/components/map/buildings/Buildings";
 import { MapLayer } from "@src/components/map/MapLayer";
-import { FogOfWar } from "@src/components/map/terrain/FogOfWar";
+import { FogOfWarComponent } from "@src/components/map/terrain/FogOfWar";
 import { LightsAndShadows } from "@src/components/map/terrain/LightsAndShadows";
 import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
 import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
@@ -272,7 +272,7 @@ export const MapComponent = React.memo(
           data-scrolling-active={uiState.isScrolling || null}
           data-scrolling-direction={uiState.isScrolling ? uiState.scrollDirection : null}
         >
-          <FogOfWar />
+          <FogOfWarComponent />
           <LightsAndShadows />
           <DebugVisualization />
           <Wireframe />

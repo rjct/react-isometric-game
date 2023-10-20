@@ -386,7 +386,7 @@
     { "type": "vehicle-4x4", "position": { "x": 5, "y": 1 }, "direction": "left", "variant": 0 },
     { "type": "vehicle-3x4", "position": { "x": 3, "y": 20 }, "direction": "right", "variant": 0 }
   ],
-  "globalShadows": { "color": "#000d4d", "opacity": 0.5 },
+  "globalShadows": { "color": "#000d4d", "opacity": 0.1 },
   "globalLights": { "opacity": 0.3 },
   "lights": [
     { "position": { "x": 23, "y": 2 }, "color": "#54b9f8", "radius": 15 },

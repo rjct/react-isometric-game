@@ -4,7 +4,7 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const Units = React.memo(function Units() {
-  const { gameState, gameDispatch } = useGameState();
+  const { gameState, gameDispatch, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
 
   React.useEffect(() => {
@@ -19,10 +19,7 @@ export const Units = React.memo(function Units() {
         <UnitComponent
           key={unitId}
           unit={gameState.units[unitId]}
-          isInHeroView={
-            unitId === gameState.heroId ||
-            gameState.getHero().fieldOfView.entitiesInView.some((entity) => entity.id === unitId)
-          }
+          isInHeroView={unitId === gameState.heroId || gameState.getHero().fieldOfView.isEntityInView(unitId)}
         />
       ))}
     </>

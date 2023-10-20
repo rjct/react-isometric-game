@@ -1,5 +1,6 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/BuildingFactory";
+import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
@@ -22,7 +23,6 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
       matrix: createMatrix(action.map.size),
-      fogOfWarMatrix: createMatrix(action.map.size),
       units: {} as UnitTypes,
       buildings: [] as Building[],
       globalShadows,
@@ -30,6 +30,8 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       lights: [] as Light[],
     },
   };
+
+  newState.fogOfWar = new FogOfWar({ size: action.map.size });
 
   newState.world = new GameObject({
     gameState: newState,
@@ -116,8 +118,6 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   if (newState.settings.featureEnabled.unitShadow) {
     newState.units[heroId].calcShadows(newState);
   }
-
-  newState.setVisitedCell(newState.units[newState.heroId].position.grid);
 
   newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);

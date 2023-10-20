@@ -11,7 +11,7 @@ export function useDebugVisualization() {
   const { getEditorLibraryPosition } = useEditor();
 
   const allAliveUnits = React.useMemo(
-    () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisible(unit)),
+    () => gameState.getAllAliveUnitsArray().filter((unit) => gameState.isEntityVisibleByHero(unit)),
     [gameState.getAllAliveUnitsHash()],
   );
 
@@ -109,6 +109,17 @@ export function useDebugVisualization() {
         continue;
       }
 
+      ctx.fillStyle = "rgba(0,0,255,0.3)";
+
+      unit.fieldOfView.cellsInView.forEach((cell) => {
+        ctx.fillRect(
+          cell.x * constants.wireframeTileSize.width,
+          cell.y * constants.wireframeTileSize.height,
+          constants.wireframeTileSize.width,
+          constants.wireframeTileSize.height,
+        );
+      });
+
       const x = (unit.position.grid.x + 0.5) * constants.wireframeTileSize.width;
       const y = (unit.position.grid.y + 0.5) * constants.wireframeTileSize.height;
 
@@ -160,7 +171,7 @@ export function useDebugVisualization() {
     //
     // gameState
     //   .getAllAliveUnitsArray()
-    //   .filter((unit) => gameState.isEntityVisible(unit))
+    //   .filter((unit) => gameState.isEntityVisibleByHero(unit))
     //   .forEach((unit) => {
     //     //
     //     const weapon = unit.getCurrentWeapon();

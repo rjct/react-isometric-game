@@ -220,6 +220,13 @@ export function degToRad(degrees: number) {
   return degrees * (Math.PI / 180);
 }
 
+export function normalizeAngle(angle: Angle) {
+  angle.deg = ((angle.deg % 360) + 360) % 360; // Normalize degrees using modulo
+  angle.rad = (angle.deg * Math.PI) / 180; // Convert degrees to radians
+
+  return angle;
+}
+
 export function composeSpriteUrl(spriteFileName: string) {
   return constants.SPRITE_URL.replace("%SPRITE_FILE_NAME%", spriteFileName);
 }

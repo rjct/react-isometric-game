@@ -2,32 +2,24 @@ import React from "react";
 
 import { MapLayer } from "@src/components/map/MapLayer";
 import { constants } from "@src/engine/constants";
-import { useFogOfWar } from "@src/hooks/useFogOfWar";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
 
-export const FogOfWar = React.memo(() => {
-  const canvasRef = React.useRef<HTMLCanvasElement | null>(null);
-
+export const FogOfWarComponent = React.memo(() => {
   const { gameState, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
-  const { renderFogOfWar } = useFogOfWar(gameState);
 
   const [fowImageSrc, setFowImageSrc] = React.useState("");
 
-  React.useLayoutEffect(() => {
-    if (!canvasRef.current) return;
+  React.useEffect(() => {
+    if (!gameState.fogOfWar || !gameState.settings.featureEnabled.fogOfWar) return;
 
-    const ctx = canvasRef.current.getContext("2d");
-
-    if (ctx) {
-      renderFogOfWar(ctx);
-
-      setFowImageSrc(canvasRef.current.toDataURL());
-    }
+    gameState.fogOfWar.render(gameState.getHero()).then((bg) => {
+      setFowImageSrc(bg);
+    });
   }, [
-    gameState.settings.featureEnabled.fogOfWar ? gameState.getFogOfWarMatrixHash() : false,
     uiState.scene,
+    gameState.settings.featureEnabled.fogOfWar ? gameState.getAllAliveUnitsHash() : false,
     gameState.settings.featureEnabled.fogOfWar,
   ]);
 
@@ -43,12 +35,6 @@ export const FogOfWar = React.memo(() => {
           height: gameState.mapSize.height * constants.wireframeTileSize.height,
         }}
       ></img>
-      <canvas
-        width={gameState.mapSize.width}
-        height={gameState.mapSize.height}
-        ref={canvasRef}
-        style={{ display: "none" }}
-      />
     </MapLayer>
   );
 });

@@ -24,11 +24,11 @@ export function useMiniMap(gameState: GameMap) {
   }, []);
 
   const allAliveEnemies = React.useMemo(() => {
-    return gameState.getAliveEnemiesArray().filter((enemy) => gameState.isEntityVisible(enemy));
+    return gameState.getAliveEnemiesArray().filter((enemy) => gameState.isEntityVisibleByHero(enemy));
   }, [gameState.getAllAliveUnitsHash()]);
 
   const buildings = React.useMemo(() => {
-    return gameState.buildings.filter((building) => gameState.isEntityVisible(building));
+    return gameState.buildings;
   }, [hero.getHash(), gameState.settings.featureEnabled.fogOfWar]);
 
   const renderMiniMap = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) => {
@@ -39,6 +39,11 @@ export function useMiniMap(gameState: GameMap) {
       x: miniMapWidth / 2 - hero.position.grid.x,
       y: miniMapHeight / 2 - hero.position.grid.y,
     };
+
+    const heroCoordinates = getCoordinates({
+      x: hero.position.grid.x + mapCenter.x,
+      y: hero.position.grid.y + mapCenter.y,
+    });
 
     // map rect
     const mapRect = getCoordinates({
@@ -55,15 +60,35 @@ export function useMiniMap(gameState: GameMap) {
       gameState.mapSize.height * wireframeTileHeight * miniMapZoom,
     );
 
-    // hero pin
-    ctx.fillStyle = "#ffffff";
-    ctx.arc(
-      canvasWidth / 2 + (wireframeTileWidth / 2) * miniMapZoom,
-      canvasHeight / 2 + (wireframeTileWidth / 2) * miniMapZoom,
-      (wireframeTileWidth / 2) * miniMapZoom,
-      0,
-      2 * Math.PI,
+    //
+    ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
+    ctx.strokeStyle = "rgba(0, 255, 0, 0.7)";
+
+    ctx.beginPath();
+    ctx.moveTo(
+      heroCoordinates.x + (wireframeTileWidth / 2) * miniMapZoom,
+      heroCoordinates.y + (wireframeTileHeight / 2) * miniMapZoom,
     );
+
+    for (const ray of hero.fieldOfView.rays) {
+      const rayCoordinates = getCoordinates({
+        x:
+          Math.max(
+            Math.min(Math.round(ray.n.grid.x * ray.len.grid) + ray.position.grid.x, gameState.mapSize.width),
+            0,
+          ) + mapCenter.x,
+        y:
+          Math.max(
+            Math.min(Math.round(ray.n.grid.y * ray.len.grid) + ray.position.grid.y, gameState.mapSize.height),
+            0,
+          ) + mapCenter.y,
+      });
+
+      ctx.lineTo(rayCoordinates.x, rayCoordinates.y);
+    }
+
+    ctx.closePath();
+    ctx.stroke();
     ctx.fill();
 
     // enemies
@@ -89,7 +114,7 @@ export function useMiniMap(gameState: GameMap) {
         y: building.position.grid.y + mapCenter.y,
       });
 
-      ctx.fillStyle = building.internalColor;
+      ctx.fillStyle = gameState.isEntityVisibleByHero(building) ? building.internalColor : "rgba(255,255,255,0.3)";
 
       ctx.fillRect(
         buildingCoordinates.x,
@@ -98,6 +123,15 @@ export function useMiniMap(gameState: GameMap) {
         building.size.grid.length * wireframeTileHeight * miniMapZoom,
       );
     });
+
+    // hero pin
+    ctx.fillStyle = "white";
+    ctx.fillRect(
+      heroCoordinates.x,
+      heroCoordinates.y,
+      wireframeTileWidth * miniMapZoom,
+      wireframeTileHeight * miniMapZoom,
+    );
   };
 
   return { renderMiniMap };
