@@ -7,7 +7,7 @@ import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
-import { pathFinderAStar } from "@src/engine/unit/pathFinder";
+import { pathFinderBiAStar } from "@src/engine/unit/pathFinder";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
 import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -178,6 +178,8 @@ export const gameMap = {
 
   setGridMatrixOccupancy(entities: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
     for (const entity of entities) {
+      if (!entity.occupiesCell) continue;
+
       const { x, y } = entity.getRoundedPosition();
       const { width, length } = entity.size.grid;
 
@@ -257,7 +259,7 @@ export const gameMap = {
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
-    const unitPath = pathFinderAStar(this.matrix, unit.position.grid, {
+    const unitPath = pathFinderBiAStar(this.matrix, unit.position.grid, {
       x: Math.min(this.mapSize.width - 1, destinationPosition.x),
       y: Math.min(this.mapSize.height - 1, destinationPosition.y),
     });
