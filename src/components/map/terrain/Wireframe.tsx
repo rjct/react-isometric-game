@@ -6,6 +6,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 import { isMobile } from "react-device-detect";
 import { useDebounce } from "use-debounce";
@@ -14,6 +15,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
   const { hero, doHeroAction } = useHero();
   const { getEditorLibraryPosition } = useEditor();
+  const { checkCurrentScene } = useScene();
 
   const [markerPosition, setMarkerPosition] = React.useState<GridCoordinates>({ x: 0, y: 0 });
   const debouncedMarkerPosition = useDebounce(markerPosition, 200);
@@ -55,6 +57,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const updateMarkerColor = () => {
     if (
       gameState.mapSize.width === 0 ||
+      !checkCurrentScene(["game", "combat"]) ||
       (uiState.scene === "combat" && gameState.combatQueue.currentUnitId !== hero.id)
     ) {
       setMarkerClassName(["action--not-allowed"]);
