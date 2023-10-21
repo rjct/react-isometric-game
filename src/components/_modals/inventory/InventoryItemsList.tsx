@@ -4,7 +4,6 @@ import { InventoryItemGroup } from "@src/components/_modals/inventory/InventoryI
 import { Building } from "@src/engine/BuildingFactory";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { useGameState } from "@src/hooks/useGameState";
 
 export function InventoryItemsList(props: {
   owner: Unit | Building;
@@ -12,8 +11,6 @@ export function InventoryItemsList(props: {
   editable: boolean;
   draggable: boolean;
 }) {
-  const { gameState, gameDispatch, uiDispatch } = useGameState();
-
   const inventoryEntities = props.owner.getInventoryItemsGrouped(props.inventoryType);
   const inventoryEntitiesKeys = Object.keys(inventoryEntities);
 
