@@ -112,7 +112,7 @@ export class Ammo extends InventoryItem {
 
   getJSON(): StaticMapWeaponAmmo {
     return {
-      class: "ammo",
+      class: this.class,
       name: this.name,
       quantity: 1,
     };

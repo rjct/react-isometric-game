@@ -139,9 +139,7 @@ export class Building extends GameObject {
 
     if (this.inventory?.main.length > 0) {
       json.inventory = {
-        main: this.inventory.main.map((item) => {
-          return item.getJSON();
-        }),
+        main: super.getInventoryMainJSON(),
       };
     }
 

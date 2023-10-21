@@ -25,6 +25,8 @@ export type GameObjectIntersectionWithLightRay = {
   angle: number;
 };
 
+export type InventoryType = keyof GameObject["inventory"];
+
 export class GameObject {
   public readonly gameState: GameMap;
 
@@ -260,14 +262,20 @@ export class GameObject {
   createInventoryItem(inventoryType: keyof StaticMapInventory, staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo) {
     switch (staticMapItem.class) {
       case "weapon":
-        const weapon = createWeaponByName(staticMapItem.name, this.gameState);
+        const weapon = Array.from({ length: staticMapItem.quantity || 1 }, () =>
+          createWeaponByName(staticMapItem.name, this.gameState),
+        );
 
-        this.putItemToInventory(weapon, inventoryType);
+        weapon.forEach((iter) => {
+          this.putItemToInventory(iter, inventoryType);
+        });
 
-        return [weapon];
+        return weapon;
 
-      case "ammo":
-        const ammo = Array.from({ length: staticMapItem.quantity }, () =>
+      case "firearm_ammo":
+      case "grenade_ammo":
+      case "melee_ammo":
+        const ammo = Array.from({ length: staticMapItem.quantity || 1 }, () =>
           createAmmoByName(staticMapItem.name, this.gameState),
         );
 
@@ -295,6 +303,39 @@ export class GameObject {
         });
       }
     });
+  }
+
+  getInventoryMainJSON(): (StaticMapWeapon | StaticMapWeaponAmmo)[] {
+    const backpackItems = this.inventory.main.reduce(
+      (acc, item) => {
+        const { name } = item;
+
+        const newItem: StaticMapWeapon | StaticMapWeaponAmmo = {
+          class: item.class,
+          name,
+          quantity: acc[name] ? (acc[name].quantity || 0) + 1 : 1,
+        };
+
+        return {
+          ...acc,
+          [name]: newItem,
+        };
+      },
+      {} as { [id: string]: StaticMapWeapon | StaticMapWeaponAmmo },
+    );
+
+    Object.values(backpackItems).forEach((iter) => {
+      if (iter.quantity === 1) delete iter.quantity;
+    });
+
+    return Object.values(backpackItems);
+  }
+
+  getInventoryHandJSON(inventoryType: "leftHand" | "rightHand") {
+    return {
+      class: this.inventory[inventoryType]!.class,
+      name: this.inventory[inventoryType]!.name,
+    } as StaticMapWeapon;
   }
 
   getHash() {

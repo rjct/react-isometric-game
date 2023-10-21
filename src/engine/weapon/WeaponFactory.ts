@@ -159,6 +159,7 @@ export class Weapon extends InventoryItem {
     const weaponJson: StaticMapWeapon = {
       class: "weapon",
       name: this.name,
+      quantity: 1,
     };
 
     return weaponJson;

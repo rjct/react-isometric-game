@@ -1,4 +1,3 @@
-import { StaticMapWeapon } from "@src/context/GameStateContext";
 import { WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { randomInt } from "@src/engine/helpers";
@@ -121,11 +120,5 @@ export class Firearm extends Weapon {
 
   onAfterAmmoReachedTarget(ammo: Ammo, gameState: GameMap) {
     delete gameState.ammo[ammo.id];
-  }
-
-  getJSON() {
-    const weaponJson: StaticMapWeapon = super.getJSON();
-
-    return weaponJson;
   }
 }

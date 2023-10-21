@@ -536,16 +536,16 @@ export class Unit extends GameObject {
       if (this.inventory.main) {
         json.inventory = {
           ...json.inventory,
-          ...{ main: this.inventory.main.map((backpackItem) => backpackItem.getJSON()) },
+          ...{ main: super.getInventoryMainJSON() },
         };
       }
 
       if (this.inventory.leftHand) {
-        json.inventory = { ...json.inventory, ...{ leftHand: this.inventory.leftHand.getJSON() } };
+        json.inventory = { ...json.inventory, ...{ leftHand: super.getInventoryHandJSON("leftHand") } };
       }
 
       if (this.inventory.rightHand) {
-        json.inventory = { ...json.inventory, ...{ rightHand: this.inventory.rightHand.getJSON() } };
+        json.inventory = { ...json.inventory, ...{ rightHand: super.getInventoryHandJSON("rightHand") } };
       }
     }
 

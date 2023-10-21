@@ -27,7 +27,7 @@
         { "class": "weapon", "name": "colt_45" },
         { "class": "weapon", "name": "colt_45" },
         { "class": "weapon", "name": "beretta_M92FS" },
-        { "class": "ammo", "name": "9mm_ball", "quantity": 25 }
+        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
       ],
       "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
       "rightHand": { "class": "weapon", "name": "mp5" }

@@ -1,7 +1,7 @@
 import unitTypes from "@src/dict/units.json";
 import React from "react";
 
-import { AmmoName } from "@src/dict/ammo/ammo";
+import { AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import { WeaponName } from "@src/dict/weapon/weapon";
 import { BuildingTypes } from "@src/engine/BuildingFactory";
 import { gameMap, GameMap } from "@src/engine/gameMap";
@@ -52,12 +52,13 @@ export interface StaticMapUnit {
 export interface StaticMapWeapon {
   class: "weapon";
   name: WeaponName;
+  quantity?: number;
 }
 
 export interface StaticMapWeaponAmmo {
-  class: "ammo"; //"WeaponAmmoClass;
+  class: WeaponAmmoClass;
   name: AmmoName;
-  quantity: number;
+  quantity?: number;
 }
 
 export interface StaticMap {

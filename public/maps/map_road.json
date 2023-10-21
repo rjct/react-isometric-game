@@ -771,7 +771,7 @@
     "direction": "right",
     "inventory": {
       "main": [
-        { "class": "ammo", "name": "9mm_ball", "quantity": 25 }
+        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
       ],
       "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
       "rightHand": { "class": "weapon", "name": "broken_bottle" }
