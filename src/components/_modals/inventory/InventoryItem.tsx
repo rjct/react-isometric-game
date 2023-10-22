@@ -8,6 +8,7 @@ import React from "react";
 
 export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: {
   item: Weapon | Ammo;
+  selectable?: boolean;
   editable?: boolean;
   draggable: boolean;
   groupLength?: number;
@@ -29,6 +30,8 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
   };
 
   const handleClick = (e: React.MouseEvent) => {
+    if (!props.selectable) return;
+
     e.stopPropagation();
     gameDispatch({ type: "setSelectedInventoryItem", item: props.item });
   };
@@ -37,6 +40,7 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
 
   return (
     <li
+      title={props.item.dictEntity.title}
       className={[
         isGroup ? "group-item-list" : "",
         gameState.selectedInventoryItem?.id === props.item.id ? "selected" : "",
@@ -48,9 +52,6 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
     >
       {isGroup ? <div className={"entities-group-count"}>x{props.groupLength}</div> : null}
       <div className={`inventory-item-pic`} data-name={[props.item.name]}></div>
-      <div className={"entity-title-wrapper"}>
-        <div className={"entity-title"}>{props.item.dictEntity.title}</div>
-      </div>
 
       {props.editable ? (
         <Button

@@ -44,6 +44,7 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
               <InventoryItemsList
                 owner={props.entity}
                 inventoryType={selectedInventoryMode}
+                selectable={false}
                 editable={true}
                 draggable={false}
               />

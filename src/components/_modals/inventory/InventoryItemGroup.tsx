@@ -5,6 +5,7 @@ import React from "react";
 
 export const InventoryItemGroup = React.memo(function InventoryItemGroup(props: {
   entitiesGroup: Array<Weapon | Ammo>;
+  selectable: boolean;
   draggable: boolean;
   editable?: boolean;
 }) {

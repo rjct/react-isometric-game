@@ -19,7 +19,13 @@ export function InventoryStorage(props: {
         onDragOver={handleDragOver}
         onDrop={(e) => handleDrop(e, props.owner, "main")}
       >
-        <InventoryItemsList owner={props.owner} inventoryType={props.inventoryType} editable={false} draggable={true} />
+        <InventoryItemsList
+          owner={props.owner}
+          inventoryType={props.inventoryType}
+          selectable={true}
+          editable={false}
+          draggable={true}
+        />
       </div>
 
       <div className={"inventory-storage-info"}>

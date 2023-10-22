@@ -19,7 +19,7 @@ export function Hand(props: {
       <div className={"hand"} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, hero, props.inventoryType)}>
         {inventoryItem ? (
           <ul className={"unit-inventory-items-list"}>
-            <InventoryItem item={inventoryItem} editable={false} draggable={true} />
+            <InventoryItem item={inventoryItem} selectable={true} editable={false} draggable={true} />
           </ul>
         ) : null}
       </div>

@@ -8,6 +8,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 export function InventoryItemsList(props: {
   owner: Unit | Building;
   inventoryType?: keyof GameObject["inventory"];
+  selectable: boolean;
   editable: boolean;
   draggable: boolean;
 }) {
@@ -31,6 +32,7 @@ export function InventoryItemsList(props: {
               <InventoryItemGroup
                 key={index}
                 entitiesGroup={entitiesGroup}
+                selectable={props.selectable}
                 draggable={props.draggable}
                 editable={props.editable}
               />
