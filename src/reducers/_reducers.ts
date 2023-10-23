@@ -105,6 +105,10 @@ import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
 import { deleteLight, DeleteLightReducerAction } from "@src/reducers/editor/light/deleteLight";
+import {
+  highlightUnitAtGunpoint,
+  HighlightUnitAtGunpointReducerAction,
+} from "@src/reducers/game/unit/highlightUnitAtGunpoint";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 
@@ -120,6 +124,7 @@ export type GameReducerAction =
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
+  | HighlightUnitAtGunpointReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -207,6 +212,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "recalculateUnitFieldOfView":
       return recalculateUnitFieldOfView(state, action as RecalculateUnitFieldOfViewReducerAction);
+
+    case "highlightUnitAtGunpoint":
+      return highlightUnitAtGunpoint(state, action as HighlightUnitAtGunpointReducerAction);
 
     case "recalculateUnitDistanceToScreenCenter":
       return recalculateUnitDistanceToScreenCenter(state, action as RecalculateUnitDistanceToScreenCenterReducerAction);

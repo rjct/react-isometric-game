@@ -114,6 +114,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
   React.useEffect(() => {
     if (uiState.mousePosition.isOutOfGrid) {
+      setMarkerPosition({ x: -1, y: -1 });
+
       return;
     }
 

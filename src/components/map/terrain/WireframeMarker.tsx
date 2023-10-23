@@ -7,7 +7,7 @@ export const WireframeMarker = React.memo(
   (props: { coordinates: GridCoordinates; className: string[]; value?: string; onAnimationComplete: () => void }) => {
     const { checkCurrentScene } = useScene();
 
-    if (!props.coordinates || !checkCurrentScene(["game", "combat"])) return null;
+    if (props.coordinates.x < 0 || props.coordinates.y < 0 || !checkCurrentScene(["game", "combat"])) return null;
 
     return (
       <div

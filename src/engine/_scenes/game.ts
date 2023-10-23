@@ -7,7 +7,6 @@ export function gameScene(this: GameContext, deltaTime: number) {
   const allAliveUnits = gameState.getAllAliveUnitsArray();
   const allAliveEnemies = gameState.getAliveEnemiesArray();
   const hero = gameState.units[gameState.heroId];
-  const heroWeapon = hero?.getCurrentWeapon();
 
   // User Input
   // if (isBrowser) {
@@ -77,14 +76,7 @@ export function gameScene(this: GameContext, deltaTime: number) {
   }
 
   for (const enemy of allAliveEnemies) {
-    // Mark enemy unit at gunpoint
-    enemy.setAtGunpoint(
-      !!heroWeapon &&
-        heroWeapon.isReadyToUse(gameState) &&
-        heroWeapon.getAimCoordinates()?.x === enemy.getRoundedPosition().x &&
-        heroWeapon.getAimCoordinates()?.y === enemy.getRoundedPosition().y,
-    );
-
+    gameDispatch({ type: "highlightUnitAtGunpoint", unit: enemy });
     gameDispatch({ type: "doRandomUnitAction", unit: enemy, deltaTime });
   }
 }
