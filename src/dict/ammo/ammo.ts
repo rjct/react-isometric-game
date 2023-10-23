@@ -17,6 +17,7 @@ export type WeaponAmmoType =
   | "9mm"
   //
   | "molotov_cocktail"
+  | "frag_grenade"
   //
   | "punch"
   | "throwing_knife";

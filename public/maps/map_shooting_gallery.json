@@ -21,10 +21,11 @@
         { "class": "weapon", "name": "colt_45" },
         { "class": "weapon", "name": "beretta_M92FS" },
         { "class": "weapon", "name": "molotov_cocktail", "quantity": 10 },
+        { "class": "weapon", "name": "frag_grenade", "quantity": 10 },
         { "class": "weapon", "name": "broken_bottle" },
         { "class": "weapon", "name": "throwing_knife" }
       ],
-      "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
+      "leftHand": { "class": "weapon", "name": "frag_grenade" },
       "rightHand": { "class": "weapon", "name": "mp5" }
     }
   },

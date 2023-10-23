@@ -1,8 +1,8 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
-const molotov_cocktail: AmmoDictEntity = {
+const frag_grenade: AmmoDictEntity = {
   class: "grenade_ammo",
-  type: "molotov_cocktail",
+  type: "frag_grenade",
   title: "",
   description: "",
   speed: 6,
@@ -14,16 +14,16 @@ const molotov_cocktail: AmmoDictEntity = {
   sfx: {
     targetReached: {
       src: [
-        "public/assets/weapons/throwable/grenade/molotov_cocktail/explode_1.m4a",
-        "public/assets/weapons/throwable/grenade/molotov_cocktail/explode_2.m4a",
+        "public/assets/weapons/throwable/grenade/grenade_explode_1.m4a",
+        "public/assets/weapons/throwable/grenade/grenade_explode_2.m4a",
       ],
     },
   },
   vfx: {
     targetReached: {
-      type: ["fire-explosion"],
+      type: ["explosion"],
       delayBeforeEmitting: 0,
-      animationDuration: 900,
+      animationDuration: 600,
       light: {
         animationDuration: 100,
         color: "#ffc400",
@@ -33,4 +33,4 @@ const molotov_cocktail: AmmoDictEntity = {
   },
 };
 
-export default molotov_cocktail;
+export default frag_grenade;
