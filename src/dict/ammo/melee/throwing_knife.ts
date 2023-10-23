@@ -1,6 +1,8 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const throwing_knife: AmmoDictEntity = {
+  name: "throwing_knife",
+  fakeAmmo: true,
   class: "melee_ammo",
   type: "punch",
   title: "",

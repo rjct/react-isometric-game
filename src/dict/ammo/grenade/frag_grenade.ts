@@ -1,6 +1,8 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const frag_grenade: AmmoDictEntity = {
+  name: "frag_grenade",
+  fakeAmmo: true,
   class: "grenade_ammo",
   type: "frag_grenade",
   title: "",

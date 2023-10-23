@@ -2,6 +2,7 @@ import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const ammo_45: { [id: string]: AmmoDictEntity } = {
   ".45": {
+    name: ".45",
     class: "firearm_ammo",
     type: ".45",
     title: ".45 caliber",
@@ -15,8 +16,8 @@ const ammo_45: { [id: string]: AmmoDictEntity } = {
     price: 5,
     gfx: {
       icon: {
-        size: { width: 0, height: 0 },
-        src: "",
+        size: { width: 116, height: 53 },
+        src: "public/assets/ammo/45_caliber/icon.webp",
       },
       isometric: {
         size: { width: 0, height: 0 },

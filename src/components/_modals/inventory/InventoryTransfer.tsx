@@ -67,9 +67,10 @@ export function InventoryTransfer() {
           title={`Hero (${hero.getInventoryItems().length})`}
           owner={hero}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
+          editable={false}
         />
 
-        <InventoryItemInfoPanel item={gameState.selectedInventoryItem} />
+        <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
 
         <div className={"transfer-controls"}>
           <Button onClick={handleTakeAllButtonClick} disabled={inventoryItems.length === 0}>
@@ -87,6 +88,7 @@ export function InventoryTransfer() {
           title={`${inventoryItems.length}`}
           owner={gameState.selectedEntityForInventoryTransfer!}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
+          editable={false}
         />
 
         <div className={"controls"}>

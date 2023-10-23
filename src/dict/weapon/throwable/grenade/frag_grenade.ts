@@ -1,6 +1,7 @@
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 
 const frag_grenade: WeaponDictEntity = {
+  name: "frag_grenade",
   class: "throwable",
   type: "grenade",
   title: "Frag grenade",

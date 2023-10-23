@@ -17,10 +17,11 @@ export type GameScene =
   | "gameOver";
 
 export const EditorModes = {
-  terrain: { text: "Terrain", icon: faLayerGroup },
-  buildings: { text: "Building", icon: faTreeCity },
-  units: { text: "Unit", icon: faPerson },
-  lights: { text: "Light", icon: faLightbulb },
+  terrain: { text: "Terrain", icon: faLayerGroup, tab: true },
+  buildings: { text: "Building", icon: faTreeCity, tab: true },
+  units: { text: "Unit", icon: faPerson, tab: true },
+  lights: { text: "Light", icon: faLightbulb, tab: true },
+  manageInventory: { text: "Inventory", icon: faPerson, tab: false },
 };
 
 const gameUIContext = {

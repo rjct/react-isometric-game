@@ -1,6 +1,8 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const molotov_cocktail: AmmoDictEntity = {
+  name: "molotov_cocktail",
+  fakeAmmo: true,
   class: "grenade_ammo",
   type: "molotov_cocktail",
   title: "",

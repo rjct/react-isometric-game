@@ -1,10 +1,10 @@
+import { AmmoDictEntity } from "@src/dict/ammo/ammo";
+import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
-import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type SetSelectedInventoryItemReducerAction = {
   type: "setSelectedInventoryItem";
-  item: Weapon | Ammo | null;
+  item: WeaponDictEntity | AmmoDictEntity | null;
 };
 
 export function setSelectedInventoryItem(state: GameMap, action: SetSelectedInventoryItemReducerAction): GameMap {

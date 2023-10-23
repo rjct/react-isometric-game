@@ -1,6 +1,7 @@
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 
 const molotov_cocktail: WeaponDictEntity = {
+  name: "molotov_cocktail",
   class: "throwable",
   type: "grenade",
   title: "Molotov cocktail",

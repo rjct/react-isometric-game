@@ -50,23 +50,25 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
   return (
     <div className={"ui-tabs"}>
       <div className={"ui-tabs-nav"}>
-        {Object.entries(EditorModes).map(([key, value]) => {
-          const isActive = editorMode === key;
+        {Object.entries(EditorModes)
+          .filter(([_key, mode]) => mode.tab)
+          .map(([key, value]) => {
+            const isActive = editorMode === key;
 
-          return (
-            <Tab
-              key={key}
-              id={`editor-mode-${key}`}
-              value={key}
-              active={isActive}
-              disabled={isActive}
-              title={value.text}
-              onSelect={handleEditorModeChange}
-            >
-              <FontAwesomeIcon icon={value.icon} />
-            </Tab>
-          );
-        })}
+            return (
+              <Tab
+                key={key}
+                id={`editor-mode-${key}`}
+                value={key}
+                active={isActive}
+                disabled={isActive}
+                title={value.text}
+                onSelect={handleEditorModeChange}
+              >
+                <FontAwesomeIcon icon={value.icon} />
+              </Tab>
+            );
+          })}
       </div>
 
       {uiState.editorMode === "terrain" ? (

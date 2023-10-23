@@ -1,6 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
+import { InventoryDictEntity } from "@src/components/_modals/inventory/_shared/InventoryDictEntity";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -34,42 +35,33 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
     if (!props.selectable) return;
 
     e.stopPropagation();
-    gameDispatch({ type: "setSelectedInventoryItem", item: props.item });
+    gameDispatch({ type: "setSelectedInventoryItem", item: props.item.dictEntity });
   };
 
-  const isGroup = (props.groupLength || 0) > 1;
-
   return (
-    <li
-      title={props.item.dictEntity.title}
-      className={[
-        isGroup ? "group-item-list" : "",
-        gameState.selectedInventoryItem?.id === props.item.id ? "selected" : "",
-      ].join(" ")}
-      draggable={props.draggable}
-      onDragStart={handleDragStart}
-      onDragEnd={handleDragEnd}
-      onClick={handleClick}
-    >
-      {isGroup ? <div className={"entities-group-count"}>x{props.groupLength}</div> : null}
-      <div className={`inventory-item-pic`} data-name={[props.item.name]}></div>
-      {props.compact ? (
-        <div className={"inventory-item-title-wrapper"}>
-          <div className={"inventory-item-title-title"}>{props.item.dictEntity.title}</div>
-        </div>
-      ) : null}
-
-      {props.editable ? (
-        <Button
-          className={["ui-button-red"]}
-          vertical={true}
-          onClick={() => {
-            gameDispatch({ type: "deleteInventoryItem", item: props.item });
-          }}
-        >
-          <FontAwesomeIcon size={"xs"} icon={faTrash} />
-        </Button>
-      ) : null}
-    </li>
+    <>
+      <InventoryDictEntity
+        dictEntity={props.item.dictEntity}
+        selected={gameState.selectedInventoryItem?.name === props.item.name}
+        draggable={props.draggable}
+        compact={props.compact}
+        groupLength={props.groupLength}
+        onDragStart={handleDragStart}
+        onDragEnd={handleDragEnd}
+        onClick={handleClick}
+      >
+        {props.editable ? (
+          <Button
+            className={["ui-button-red"]}
+            vertical={true}
+            onClick={() => {
+              gameDispatch({ type: "deleteInventoryItem", item: props.item });
+            }}
+          >
+            <FontAwesomeIcon size={"2xs"} icon={faTrash} />
+          </Button>
+        ) : null}
+      </InventoryDictEntity>
+    </>
   );
 });

@@ -2,6 +2,7 @@ import { ControlPanel } from "@src/components/controlPanel/ControlPanel";
 import { DebugFeaturesSwitches } from "@src/components/debug/DebugFeaturesSwitches";
 import { EditorSidebar } from "@src/components/editor/EditorSidebar";
 import { EntitiesLibrary } from "@src/components/editor/EntitiesLibrary";
+import { EntityInventoryManagerModal } from "@src/components/editor/_shared/EntityInventoryManagerModal";
 import { GameOver } from "@src/components/GameOver";
 import { Intro } from "@src/components/Intro";
 import { Loading } from "@src/components/Loading";
@@ -151,6 +152,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <ControlPanel />
               <Inventory />
               <InventoryTransfer />
+              <EntityInventoryManagerModal />
             </GameStateContext.Provider>
           </GameDispatchContext.Provider>
         </GameUIContext.Provider>

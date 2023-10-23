@@ -14,7 +14,7 @@ export function Hand(props: {
   const inventoryItem = hero.getInventoryItems(props.inventoryType)[0];
 
   return (
-    <fieldset className={props.className}>
+    <fieldset className={props.className} data-droppable={true}>
       <legend className={"outlined"}>{props.title}</legend>
       <div className={"hand"} onDragOver={handleDragOver} onDrop={(e) => handleDrop(e, hero, props.inventoryType)}>
         {inventoryItem ? (

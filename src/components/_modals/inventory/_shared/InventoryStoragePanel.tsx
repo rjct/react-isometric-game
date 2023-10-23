@@ -8,11 +8,13 @@ export function InventoryStoragePanel(props: {
   className: string[];
   title: string;
   inventoryType?: keyof Unit["inventory"];
+  editable: boolean;
+  compact?: boolean;
 }) {
   const { handleDrop, handleDragOver } = useDragAndDropItem();
 
   return (
-    <fieldset className={props.className.join(" ")}>
+    <fieldset className={props.className.join(" ")} data-droppable={true}>
       <legend className={"outlined"}>{props.title}</legend>
       <div
         className={"inventory-storage"}
@@ -23,8 +25,9 @@ export function InventoryStoragePanel(props: {
           owner={props.owner}
           inventoryType={props.inventoryType}
           selectable={true}
-          editable={false}
+          editable={props.editable}
           draggable={true}
+          compact={props.compact}
         />
       </div>
 

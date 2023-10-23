@@ -42,6 +42,7 @@ export type WeaponVfx = {
 };
 
 export type WeaponDictEntity = {
+  name: WeaponName;
   class: WeaponClass;
   type: WeaponType;
   title: string;
@@ -74,4 +75,6 @@ const weaponList = { ...melee, ...firearm, ...throwable, ...throwable_melee };
 
 export type WeaponName = keyof typeof weaponList;
 
-export default weaponList;
+export default function getWeaponDictList() {
+  return weaponList;
+}

@@ -1,6 +1,7 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const ammo_9mm_ball: AmmoDictEntity = {
+  name: "9mm_ball",
   class: "firearm_ammo",
   type: "9mm",
   title: "9mm ball",

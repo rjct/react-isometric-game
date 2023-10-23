@@ -1,6 +1,7 @@
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 
 const beretta_M92FS: WeaponDictEntity = {
+  name: "beretta_M92FS",
   class: "firearm",
   type: "pistol",
   title: "Beretta M92FS",

@@ -51,6 +51,8 @@ export type WeaponAmmoSfx = {
 };
 
 export type AmmoDictEntity = {
+  name: AmmoName;
+  fakeAmmo?: boolean;
   class: WeaponAmmoClass;
   type: WeaponAmmoType;
   title: string;
@@ -71,4 +73,10 @@ export type AmmoDictEntity = {
 const ammoList = { ...ammo_45, ...ammo_9mm, ...grenade, ...melee } as const;
 
 export type AmmoName = keyof typeof ammoList;
-export default ammoList;
+export default function getAmmoDictList(skipFakeAmmo = false) {
+  if (skipFakeAmmo) {
+    return Object.fromEntries(Object.entries(ammoList).filter(([, dictEntity]) => !dictEntity.fakeAmmo));
+  }
+
+  return ammoList;
+}

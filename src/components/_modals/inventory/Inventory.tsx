@@ -47,11 +47,12 @@ export function Inventory() {
           inventoryType={"main"}
           className={["inventory-storage-wrapper"]}
           title={"Backpack"}
+          editable={false}
         />
         <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
         <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
         <EntityOverviewPanel entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
-        <InventoryItemInfoPanel item={gameState.selectedInventoryItem} />
+        <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
         <ArmorPanel />
 
         <div className={"controls"}>

@@ -14,7 +14,7 @@ import {
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { createAmmoByName, createWeaponByName, itemIsWeapon } from "@src/engine/weapon/helpers";
+import { createInventoryItemByName, itemIsWeapon } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type GameObjectIntersectionWithLightRay = {
@@ -260,31 +260,15 @@ export class GameObject {
   }
 
   createInventoryItem(inventoryType: keyof StaticMapInventory, staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo) {
-    switch (staticMapItem.class) {
-      case "weapon":
-        const weapon = Array.from({ length: staticMapItem.quantity || 1 }, () =>
-          createWeaponByName(staticMapItem.name, this.gameState),
-        );
+    const inventoryItem = Array.from({ length: staticMapItem.quantity || 1 }, () =>
+      createInventoryItemByName(staticMapItem.name, this.gameState),
+    );
 
-        weapon.forEach((iter) => {
-          this.putItemToInventory(iter, inventoryType);
-        });
+    inventoryItem.forEach((iter) => {
+      this.putItemToInventory(iter, inventoryType);
+    });
 
-        return weapon;
-
-      case "firearm_ammo":
-      case "grenade_ammo":
-      case "melee_ammo":
-        const ammo = Array.from({ length: staticMapItem.quantity || 1 }, () =>
-          createAmmoByName(staticMapItem.name, this.gameState),
-        );
-
-        ammo.forEach((iter) => {
-          this.putItemToInventory(iter, inventoryType);
-        });
-
-        return ammo;
-    }
+    return inventoryItem;
   }
 
   createInventory(inventory: StaticMapInventory, owner: Building | Unit) {

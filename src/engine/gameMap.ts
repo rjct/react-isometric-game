@@ -1,4 +1,6 @@
 import { GameUI } from "@src/context/GameUIContext";
+import { AmmoDictEntity } from "@src/dict/ammo/ammo";
+import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
@@ -99,7 +101,7 @@ export const gameMap = {
   selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
   highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
 
-  selectedInventoryItem: null as unknown as Weapon | Ammo | null,
+  selectedInventoryItem: null as unknown as WeaponDictEntity | AmmoDictEntity | null,
 
   selectedBuilding: null as unknown as Building,
   selectedUnit: null as unknown as Unit,

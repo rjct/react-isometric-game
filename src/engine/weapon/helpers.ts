@@ -1,5 +1,5 @@
-import ammoList, { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
-import weaponList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
+import getAmmoDictList, { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
+import getWeaponDictList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { randomInt } from "@src/engine/helpers";
 import { Ammo, AmmoFactory } from "@src/engine/weapon/AmmoFactory";
@@ -11,8 +11,40 @@ import { ProjectileAmmo } from "@src/engine/weapon/throwable/ProjectileAmmoFacto
 import { ThrowableWeapon } from "@src/engine/weapon/throwable/ThrowableWeaponFactory";
 import { Weapon, WeaponFactory } from "@src/engine/weapon/WeaponFactory";
 
+export function getItemDictEntityByName<T extends WeaponName | AmmoName>(name: T) {
+  const weaponList = getWeaponDictList();
+  const ammoList = getAmmoDictList();
+
+  switch (true) {
+    case !!weaponList[name]:
+      return {
+        class: "weapon",
+        entity: weaponList[name],
+      };
+
+    case !!ammoList[name]:
+      return {
+        class: "ammo",
+        entity: ammoList[name],
+      };
+  }
+}
+
+export function createInventoryItemByName(name: WeaponName | AmmoName, gameState: GameMap) {
+  const dictEntity = getItemDictEntityByName(name);
+
+  switch (dictEntity.class) {
+    case "weapon":
+      return createWeaponByName(dictEntity.entity.name, gameState);
+
+    case "ammo":
+    default:
+      return createAmmoByName(dictEntity.entity.name, gameState);
+  }
+}
+
 export function getWeaponDictEntityByName(weaponName: WeaponName): WeaponDictEntity {
-  return weaponList[weaponName];
+  return getWeaponDictList()[weaponName];
 }
 
 export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
@@ -33,7 +65,7 @@ export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
 
 //
 export function getAmmoDictEntityByName(ammoName: AmmoName): AmmoDictEntity {
-  return ammoList[ammoName];
+  return getAmmoDictList()[ammoName];
 }
 
 export function createAmmoByName(ammoName: AmmoName, gameState: GameMap) {

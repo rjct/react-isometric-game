@@ -3,9 +3,11 @@ import { Tab } from "@src/components/ui/Tab";
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
 import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
+  const { uiDispatch } = useGameState();
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("main");
 
   if (!props.entity.dictEntity.explorable) return null;
@@ -15,7 +17,7 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
   };
 
   const handleAddItemButtonClick = () => {
-    //
+    uiDispatch({ type: "setEditorMode", editorMode: "manageInventory" });
   };
 
   return (
@@ -45,22 +47,20 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
 
         {Object.entries(props.entity.inventory).map(([key]) => {
           return key === selectedInventoryMode ? (
-            <>
-              <div key={key} className={"ui-tab-content"}>
-                <InventoryItemsList
-                  owner={props.entity}
-                  inventoryType={selectedInventoryMode}
-                  selectable={false}
-                  editable={true}
-                  draggable={false}
-                  compact={true}
-                />
+            <div key={key} className={"ui-tab-content"}>
+              <InventoryItemsList
+                owner={props.entity}
+                inventoryType={selectedInventoryMode}
+                selectable={false}
+                editable={true}
+                draggable={false}
+                compact={true}
+              />
 
-                <Button className={["ui-button-green"]} onClick={handleAddItemButtonClick} disabled>
-                  <label>Add item</label>
-                </Button>
-              </div>
-            </>
+              <Button className={["ui-button-green"]} onClick={handleAddItemButtonClick}>
+                <label>Manage items</label>
+              </Button>
+            </div>
           ) : null;
         })}
       </div>
