@@ -1,6 +1,5 @@
-import { Button } from "@src/components/ui/Button";
 import { InventoryEmptyText } from "@src/components/_modals/inventory/_shared/inventoryEmptyText";
-import { InventoryItemGroup } from "@src/components/_modals/inventory/_shared/InventoryItemGroup";
+import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
@@ -8,6 +7,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 export function InventoryItemsList(props: {
   owner: Unit | Building;
   inventoryType?: keyof GameObject["inventory"];
+  compact?: boolean;
   selectable: boolean;
   editable: boolean;
   draggable: boolean;
@@ -15,37 +15,19 @@ export function InventoryItemsList(props: {
   const inventoryEntities = props.owner.getInventoryItemsGrouped(props.inventoryType);
   const inventoryEntitiesKeys = Object.keys(inventoryEntities);
 
-  const handleAddItemButtonClick = () => {
-    //
-  };
-
   return (
     <>
       {inventoryEntitiesKeys.length == 0 ? (
         <InventoryEmptyText />
       ) : (
-        <ul className={"unit-inventory-items-list"}>
-          {inventoryEntitiesKeys.map((key, index) => {
+        <ul className={`unit-inventory-items-list ${props.compact ? "unit-inventory-items-list--compact" : ""}`}>
+          {inventoryEntitiesKeys.map((key) => {
             const entitiesGroup = inventoryEntities[key];
 
-            return (
-              <InventoryItemGroup
-                key={index}
-                entitiesGroup={entitiesGroup}
-                selectable={props.selectable}
-                draggable={props.draggable}
-                editable={props.editable}
-              />
-            );
+            return <InventoryItem key={key} item={entitiesGroup[0]} groupLength={entitiesGroup.length} {...props} />;
           })}
         </ul>
       )}
-
-      {props.editable ? (
-        <Button onClick={handleAddItemButtonClick} disabled>
-          <label>Add item</label>
-        </Button>
-      ) : null}
     </>
   );
 }

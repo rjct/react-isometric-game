@@ -8,6 +8,7 @@ import React from "react";
 
 export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: {
   item: Weapon | Ammo;
+  compact?: boolean;
   selectable?: boolean;
   editable?: boolean;
   draggable: boolean;
@@ -52,6 +53,11 @@ export const InventoryItem = React.memo(function UnitInventoryItemEditor(props: 
     >
       {isGroup ? <div className={"entities-group-count"}>x{props.groupLength}</div> : null}
       <div className={`inventory-item-pic`} data-name={[props.item.name]}></div>
+      {props.compact ? (
+        <div className={"inventory-item-title-wrapper"}>
+          <div className={"inventory-item-title-title"}>{props.item.dictEntity.title}</div>
+        </div>
+      ) : null}
 
       {props.editable ? (
         <Button

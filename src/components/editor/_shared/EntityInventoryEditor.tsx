@@ -1,3 +1,4 @@
+import { Button } from "@src/components/ui/Button";
 import { Tab } from "@src/components/ui/Tab";
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
 import { Building } from "@src/engine/BuildingFactory";
@@ -11,6 +12,10 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
 
   const handleUnitInventoryModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInventoryMode(e.target.value as keyof Unit["inventory"]);
+  };
+
+  const handleAddItemButtonClick = () => {
+    //
   };
 
   return (
@@ -40,15 +45,22 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
 
         {Object.entries(props.entity.inventory).map(([key]) => {
           return key === selectedInventoryMode ? (
-            <div key={key} className={"ui-tab-content"}>
-              <InventoryItemsList
-                owner={props.entity}
-                inventoryType={selectedInventoryMode}
-                selectable={false}
-                editable={true}
-                draggable={false}
-              />
-            </div>
+            <>
+              <div key={key} className={"ui-tab-content"}>
+                <InventoryItemsList
+                  owner={props.entity}
+                  inventoryType={selectedInventoryMode}
+                  selectable={false}
+                  editable={true}
+                  draggable={false}
+                  compact={true}
+                />
+
+                <Button className={["ui-button-green"]} onClick={handleAddItemButtonClick} disabled>
+                  <label>Add item</label>
+                </Button>
+              </div>
+            </>
           ) : null;
         })}
       </div>
