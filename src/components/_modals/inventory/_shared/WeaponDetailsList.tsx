@@ -1,7 +1,7 @@
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import React from "react";
 
-export const WeaponDetails = React.memo((props: { item: Weapon }) => {
+export const WeaponDetailsList = React.memo((props: { item: Weapon }) => {
   const range = {
     min: Infinity,
     max: -Infinity,

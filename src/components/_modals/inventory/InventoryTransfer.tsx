@@ -2,9 +2,9 @@ import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
-import { EntityOverview } from "@src/components/_modals/inventory/EntityOverview";
-import { InventoryItemInfo } from "@src/components/_modals/inventory/InventoryItemInfo";
-import { InventoryStorage } from "@src/components/_modals/inventory/InventoryStorage";
+import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
+import { InventoryItemInfoPanel } from "@src/components/_modals/inventory/_shared/InventoryItemInfoPanel";
+import { InventoryStoragePanel } from "@src/components/_modals/inventory/_shared/InventoryStoragePanel";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
@@ -58,18 +58,18 @@ export function InventoryTransfer() {
   return (
     <FullscreenPanel overlay={true} onClick={handleClickOut}>
       <div className={"inventory inventory-transfer"}>
-        <EntityOverview
+        <EntityOverviewPanel
           entity={hero}
           className={["entity-overview-wrapper", "entity-overview-wrapper-left"]}
           title={"Hero"}
         />
-        <InventoryStorage
+        <InventoryStoragePanel
           title={`Hero (${hero.getInventoryItems().length})`}
           owner={hero}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
         />
 
-        <InventoryItemInfo item={gameState.selectedInventoryItem} />
+        <InventoryItemInfoPanel item={gameState.selectedInventoryItem} />
 
         <div className={"transfer-controls"}>
           <Button onClick={handleTakeAllButtonClick} disabled={inventoryItems.length === 0}>
@@ -78,12 +78,12 @@ export function InventoryTransfer() {
           </Button>
         </div>
 
-        <EntityOverview
+        <EntityOverviewPanel
           entity={gameState.selectedEntityForInventoryTransfer!}
           className={["entity-overview-wrapper", "entity-overview-wrapper-right"]}
           title={gameState.selectedEntityForInventoryTransfer!.type}
         />
-        <InventoryStorage
+        <InventoryStoragePanel
           title={`${inventoryItems.length}`}
           owner={gameState.selectedEntityForInventoryTransfer!}
           className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}

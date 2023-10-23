@@ -5,7 +5,7 @@ const correctValuePrefix = (value: number) => {
   return `${value < 0 ? "-" : "+"}${Math.abs(value)}`;
 };
 
-export const AmmoDetails = React.memo((props: { item: Ammo }) => {
+export const AmmoDetailsList = React.memo((props: { item: Ammo }) => {
   return (
     <ul>
       <li>

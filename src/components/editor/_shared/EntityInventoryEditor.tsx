@@ -1,5 +1,5 @@
 import { Tab } from "@src/components/ui/Tab";
-import { InventoryItemsList } from "@src/components/_modals/inventory/InventoryItemsList";
+import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
 import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import React from "react";

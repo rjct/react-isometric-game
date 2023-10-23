@@ -1,6 +1,6 @@
 import { Button } from "@src/components/ui/Button";
-import { InventoryEmptyText } from "@src/components/_modals/inventory/inventoryEmptyText";
-import { InventoryItemGroup } from "@src/components/_modals/inventory/InventoryItemGroup";
+import { InventoryEmptyText } from "@src/components/_modals/inventory/_shared/inventoryEmptyText";
+import { InventoryItemGroup } from "@src/components/_modals/inventory/_shared/InventoryItemGroup";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";

@@ -1,6 +1,6 @@
-import { AmmoDetails } from "@src/components/_modals/inventory/AmmoDetails";
-import { ItemImage } from "@src/components/_modals/inventory/ItemImage";
-import { WeaponDetails } from "@src/components/_modals/inventory/WeaponDetails";
+import { AmmoDetailsList } from "@src/components/_modals/inventory/_shared/AmmoDetailsList";
+import { ItemImage } from "@src/components/_modals/inventory/_shared/ItemImage";
+import { WeaponDetailsList } from "@src/components/_modals/inventory/_shared/WeaponDetailsList";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import React from "react";
@@ -10,17 +10,17 @@ type InventoryItemInfoProps = { item: Weapon | Ammo | null };
 const ItemInfoComponent = (item: InventoryItemInfoProps["item"]) => {
   switch (item?.class) {
     case "weapon":
-      return <WeaponDetails item={item} />;
+      return <WeaponDetailsList item={item} />;
 
     case "firearm_ammo":
-      return <AmmoDetails item={item} />;
+      return <AmmoDetailsList item={item} />;
 
     default:
       return "---";
   }
 };
 
-export const InventoryItemInfo = React.memo((props: InventoryItemInfoProps) => {
+export const InventoryItemInfoPanel = React.memo((props: InventoryItemInfoProps) => {
   return (
     <fieldset className={"inventory-item-info-wrapper"}>
       <legend className={"outlined"}>Info</legend>

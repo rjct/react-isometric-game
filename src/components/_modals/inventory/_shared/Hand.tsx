@@ -1,4 +1,4 @@
-import { InventoryItem } from "@src/components/_modals/inventory/InventoryItem";
+import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
 import { useHero } from "@src/hooks/useHero";

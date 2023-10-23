@@ -1,4 +1,4 @@
-import { InventoryItem } from "@src/components/_modals/inventory/InventoryItem";
+import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import React from "react";

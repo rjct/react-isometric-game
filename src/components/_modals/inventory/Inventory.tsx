@@ -1,10 +1,10 @@
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
-import { Armor } from "@src/components/_modals/inventory/Armor";
-import { EntityOverview } from "@src/components/_modals/inventory/EntityOverview";
-import { Hand } from "@src/components/_modals/inventory/Hand";
-import { InventoryItemInfo } from "@src/components/_modals/inventory/InventoryItemInfo";
-import { InventoryStorage } from "@src/components/_modals/inventory/InventoryStorage";
+import { ArmorPanel } from "@src/components/_modals/inventory/_shared/ArmorPanel";
+import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
+import { Hand } from "@src/components/_modals/inventory/_shared/Hand";
+import { InventoryItemInfoPanel } from "@src/components/_modals/inventory/_shared/InventoryItemInfoPanel";
+import { InventoryStoragePanel } from "@src/components/_modals/inventory/_shared/InventoryStoragePanel";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
@@ -42,7 +42,7 @@ export function Inventory() {
   return (
     <FullscreenPanel overlay={true} onClick={handleClickOut}>
       <div className={"inventory"}>
-        <InventoryStorage
+        <InventoryStoragePanel
           owner={hero}
           inventoryType={"main"}
           className={["inventory-storage-wrapper"]}
@@ -50,9 +50,9 @@ export function Inventory() {
         />
         <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
         <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
-        <EntityOverview entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
-        <InventoryItemInfo item={gameState.selectedInventoryItem} />
-        <Armor />
+        <EntityOverviewPanel entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
+        <InventoryItemInfoPanel item={gameState.selectedInventoryItem} />
+        <ArmorPanel />
 
         <div className={"controls"}>
           <Button onClick={handleCloseButtonClick}>
