@@ -4,7 +4,12 @@ import grenade from "@src/dict/ammo/grenade/_grenade";
 import melee from "@src/dict/ammo/melee/_melee";
 import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
-export type WeaponAmmoClass = "firearm_ammo" | "grenade_ammo" | "melee_ammo";
+export enum weaponAmmoClassNames {
+  "firearm_ammo" = "Firearm ammo",
+  "grenade_ammo" = "",
+  "melee_ammo" = "",
+}
+export type WeaponAmmoClass = keyof typeof weaponAmmoClassNames;
 
 export type WeaponAmmoType =
   | ".303"
@@ -70,9 +75,9 @@ export type AmmoDictEntity = {
   vfx?: WeaponAmmoVfx;
 };
 
-const ammoList = { ...ammo_45, ...ammo_9mm, ...grenade, ...melee } as const;
+const ammoList = { ...ammo_45, ...ammo_9mm, ...grenade, ...melee };
 
-export type AmmoName = keyof typeof ammoList;
+export type AmmoName = Exclude<keyof typeof ammoList, number>;
 export default function getAmmoDictList(skipFakeAmmo = false) {
   if (skipFakeAmmo) {
     return Object.fromEntries(Object.entries(ammoList).filter(([, dictEntity]) => !dictEntity.fakeAmmo));

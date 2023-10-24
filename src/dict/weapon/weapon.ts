@@ -5,7 +5,13 @@ import throwable from "@src/dict/weapon/throwable/throwable";
 import throwable_melee from "@src/dict/weapon/throwableMelee/throwableMelee";
 import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
-export type WeaponClass = "melee" | "firearm" | "throwable";
+export enum weaponClassNames {
+  "melee" = "Melee",
+  "firearm" = "Firearm",
+  "throwable" = "Throwable",
+}
+
+export type WeaponClass = keyof typeof weaponClassNames;
 export type WeaponType = "pistol" | "smg" | "grenade" | "knife";
 export type WeaponDamage = {
   min: number;
@@ -41,6 +47,20 @@ export type WeaponVfx = {
   };
 };
 
+export type WeaponDictEntityAttackMode = {
+  ammoType: WeaponAmmoType;
+  actionPointsConsumption: number;
+  ammoConsumption: number;
+  range: number;
+  damage: WeaponDamage;
+  removeFromInventoryAfterUse: boolean;
+  animationDuration: {
+    attack: number;
+    attackCompleted: number;
+    attackNotAllowed: number;
+  };
+};
+
 export type WeaponDictEntity = {
   name: WeaponName;
   class: WeaponClass;
@@ -52,19 +72,7 @@ export type WeaponDictEntity = {
   damageType: WeaponDamageType;
   ammoCapacity?: number;
   attackModes: {
-    [attackMode in WeaponAttackMode]?: {
-      ammoType: WeaponAmmoType;
-      actionPointsConsumption: number;
-      ammoConsumption: number;
-      range: number;
-      damage: WeaponDamage;
-      removeFromInventoryAfterUse: boolean;
-      animationDuration: {
-        attack: number;
-        attackCompleted: number;
-        attackNotAllowed: number;
-      };
-    };
+    [attackMode in WeaponAttackMode]?: WeaponDictEntityAttackMode;
   };
   sfx: WeaponSfx;
   gfx: WeaponGfx;
@@ -73,7 +81,7 @@ export type WeaponDictEntity = {
 
 const weaponList = { ...melee, ...firearm, ...throwable, ...throwable_melee };
 
-export type WeaponName = keyof typeof weaponList;
+export type WeaponName = Exclude<keyof typeof weaponList, number>;
 
 export default function getWeaponDictList() {
   return weaponList;
