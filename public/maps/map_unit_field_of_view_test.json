@@ -8,7 +8,7 @@
   ],
   "hero": {
     "position": { "x": 10, "y": 3 },
-    "direction": "bottom",
+    "rotation": 180,
     "inventory": {
       "main": [
         { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
@@ -19,14 +19,15 @@
   },
   "enemies": [
     { "type": "vault13_male", "position": { "x": 0, "y": 9 }, "direction": "right" },
-    { "type": "vault13_male", "position": { "x": 20, "y": 9 }, "direction": "left" }
+    { "type": "vault13_male", "position": { "x": 20, "y": 9 }, "rotation": 270 }
   ],
   "buildings": [
-    { "type": "vault_wall", "position": { "x": 0, "y": 8 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 20, "y": 8 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 10, "y": 13 }, "direction": "top", "variant": 0 },
-    { "type": "vault_wall", "position": { "x": 10, "y": 6 }, "direction": "top", "variant": 0 }
+    { "type": "vault_wall", "position": { "x": 0, "y": 8 }, "rotation": 0, "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 20, "y": 8 }, "rotation": 0, "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 10, "y": 13 }, "rotation": 0, "variant": 0 },
+    { "type": "vault_wall", "position": { "x": 10, "y": 6 }, "rotation": 0, "variant": 0 }
   ],
+  "vehicles": [],
   "globalShadows": { "color": "#000d23", "opacity": 0.35 },
   "globalLights": { "opacity": 0.25 },
   "lights": [{ "position": { "x": 10, "y": 2 }, "color": "#ffffff", "radius": 20 }]

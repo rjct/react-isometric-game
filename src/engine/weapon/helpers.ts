@@ -1,7 +1,7 @@
 import getAmmoDictList, { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import getWeaponDictList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
-import { randomInt } from "@src/engine/helpers";
+import { degToRad, randomInt } from "@src/engine/helpers";
 import { Ammo, AmmoFactory } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
@@ -94,4 +94,48 @@ export function calcDamage(weapon: Weapon, ammo: Ammo) {
 
 export function itemIsWeapon(item: Weapon | Ammo): item is Weapon {
   return item instanceof Weapon;
+}
+
+export function calculateSizeAfterRotation(size: Size3D, rotation: Angle) {
+  const { width, length } = size;
+  const { rad } = rotation;
+
+  if (rad === 0 || width === length) return size;
+
+  const newWidth = Math.round(Math.abs(width * Math.cos(rad)) + Math.abs(length * Math.sin(rad)));
+  const newLength = Math.round(Math.abs(width * Math.sin(rad)) + Math.abs(length * Math.cos(rad)));
+
+  return {
+    ...size,
+    ...{
+      width: newWidth,
+      length: newLength,
+      height: size.height,
+    },
+  };
+}
+
+export function normalizeRotation(angleInDegrees: AngleInDegrees, sectorSizeInDegrees: AngleInDegrees): Angle {
+  angleInDegrees = ((angleInDegrees % 360) + 360) % 360;
+
+  const sectorSize = 360 / sectorSizeInDegrees;
+  const sectorNumber = Math.floor(angleInDegrees / sectorSize);
+  const lowerBoundary = sectorNumber * sectorSize;
+  const upperBoundary = (sectorNumber + 1) * sectorSize;
+  const lowerBoundaryDifference = Math.abs(angleInDegrees - lowerBoundary);
+  const upperBoundaryDifference = Math.abs(upperBoundary - angleInDegrees);
+
+  let normalizedDegree: number;
+
+  if (lowerBoundaryDifference < upperBoundaryDifference) {
+    normalizedDegree = lowerBoundary;
+  } else {
+    normalizedDegree = upperBoundary;
+  }
+
+  if (normalizedDegree === 360) {
+    normalizedDegree = 0;
+  }
+
+  return { deg: normalizedDegree, rad: degToRad(normalizedDegree) };
 }

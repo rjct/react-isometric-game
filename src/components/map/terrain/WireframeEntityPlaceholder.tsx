@@ -16,7 +16,7 @@ export const WireframeEntityPlaceholder = React.memo(() => {
         type: "highlightEntityPlaceholder",
         size: selectedEntity.size.grid,
         position: selectedEntity.position.grid,
-        direction: selectedEntity.direction,
+        rotation: selectedEntity.rotation.deg,
       });
     } else {
       gameDispatch({ type: "clearEntityPlaceholder" });

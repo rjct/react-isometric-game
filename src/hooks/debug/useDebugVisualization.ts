@@ -49,6 +49,12 @@ export function useDebugVisualization() {
       }
     }
 
+    for (const vehicle of gameState.vehicles) {
+      if (vehicle.occupiesCell && gameState.isEntityInViewport(vehicle, uiState.viewport)) {
+        drawFillRect(ctx, vehicle.position.grid, vehicle.internalColor, 1, vehicle.size.grid);
+      }
+    }
+
     for (const unit of allAliveUnits) {
       if (gameState.isEntityInViewport(unit, uiState.viewport)) {
         drawCircle(ctx, unit.getRoundedPosition(), unit.internalColor, unit.internalColor, 0);

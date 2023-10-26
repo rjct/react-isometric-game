@@ -6,7 +6,7 @@ export interface AddUnitReducerAction {
   type: "addUnit";
   unitType: UnitType;
   position: GridCoordinates;
-  direction: Unit["direction"];
+  rotation: AngleInDegrees;
   inventory?: StaticMapUnit["inventory"];
 }
 
@@ -15,7 +15,7 @@ export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
     gameState: state,
     unitType: action.unitType,
     position: action.position,
-    direction: action.direction,
+    rotation: action.rotation,
     inventory: action.inventory,
     isHero: false,
   });

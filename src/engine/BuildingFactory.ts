@@ -4,6 +4,7 @@ import { GameMap } from "@src/engine/gameMap";
 import { GameObject } from "@src/engine/GameObjectFactory";
 
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { calculateSizeAfterRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 type BuildingSize = {
@@ -20,7 +21,7 @@ export interface DictBuilding {
   type: keyof typeof buildings;
   className: string;
   size: BuildingSize;
-  directions: Direction[];
+  rotationAngles: AngleInDegrees[];
   variants: number;
   internalColor: string;
   inventory?: Weapon[];
@@ -40,26 +41,25 @@ export class Building extends GameObject {
     gameState: GameMap;
     buildingType: BuildingType;
     position: GridCoordinates;
-    direction: Direction;
+    rotation: AngleInDegrees;
     variant: number;
     occupiesCell: boolean;
     inventory?: StaticMapBuilding["inventory"]; //Array<StaticMapWeapon | StaticMapWeaponAmmo>;
   }) {
-    const ref = { ...buildings[props.buildingType] } as DictBuilding;
-    const size = Building.getSizeByPositionAndDirection(ref.size, props.direction);
+    const dictEntity = { ...buildings[props.buildingType] } as DictBuilding;
 
     super({
       gameState: props.gameState,
-      size,
+      size: dictEntity.size,
       position: props.position,
-      direction: props.direction,
-      internalColor: ref.internalColor,
-      explorable: ref.explorable,
+      rotation: props.rotation,
+      internalColor: dictEntity.internalColor,
+      explorable: dictEntity.explorable,
     });
 
-    this.dictEntity = ref;
+    this.dictEntity = dictEntity;
 
-    this.class = ref.class;
+    this.class = dictEntity.class;
     this.type = props.buildingType;
     this.className = ["building", this.dictEntity.className].join(" ");
 
@@ -73,22 +73,14 @@ export class Building extends GameObject {
     }
   }
 
-  private static getSizeByPositionAndDirection(size: BuildingSize, direction: Direction) {
-    return ["left", "right"].includes(direction)
-      ? {
-          ...size,
-          ...{
-            grid: { width: size.grid.length, length: size.grid.width, height: size.grid.height },
-            //screen: { width: size.screen.height, height: size.screen.width },
-          },
-        }
-      : size;
-  }
+  public setRotation(angle: Angle) {
+    super.setRotation(angle);
 
-  public setDirection(angle: Angle) {
-    super.setDirection(angle);
+    this.size = {
+      grid: calculateSizeAfterRotation(this.dictEntity.size.grid, this.rotation),
+      screen: { ...this.size.screen },
+    };
 
-    this.size = Building.getSizeByPositionAndDirection(this.dictEntity.size, this.direction);
     this.createWalls();
   }
 
@@ -96,8 +88,8 @@ export class Building extends GameObject {
     this.variant = variant;
   }
 
-  public getAvailableDirections() {
-    return this.dictEntity.directions;
+  public getAvailableRotationAngles() {
+    return [...this.dictEntity.rotationAngles, 45, 135, 22];
   }
 
   public putItemToInventory(item: Weapon | Ammo) {
@@ -117,19 +109,19 @@ export class Building extends GameObject {
     }
   }
 
-  public getInventoryItemById(itemId: string) {
-    return this.getInventoryItems().find((item) => item?.id === itemId);
-  }
-
   public isAllowedToPutItemInInventory() {
     return true;
+  }
+
+  public getInventoryItemById(itemId: string) {
+    return this.getInventoryItems().find((item) => item?.id === itemId);
   }
 
   public getJSON() {
     const json = {
       type: this.type,
       position: this.getRoundedPosition(),
-      direction: this.direction,
+      rotation: this.rotation.deg,
       variant: this.variant,
     } as StaticMapBuilding;
 

@@ -1,0 +1,18 @@
+.shared-vehicle-action-idle(@width) {
+  @duration: 1000ms;
+  @steps: 2;
+
+  &[data-action="idle"] {
+    animation: vehicle-action-idle @duration steps(@steps);
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes vehicle-action-idle {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@width * @steps);
+    }
+  }
+}

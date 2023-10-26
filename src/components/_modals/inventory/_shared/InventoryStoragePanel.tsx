@@ -1,10 +1,11 @@
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
 import { Building } from "@src/engine/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
 
 export function InventoryStoragePanel(props: {
-  owner: Unit | Building;
+  owner: Unit | Building | Vehicle;
   className: string[];
   title: string;
   inventoryType?: keyof Unit["inventory"];

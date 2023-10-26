@@ -40,7 +40,7 @@ export const BuildingComponent = React.memo(function Building(props: {
         zIndex: props.building.zIndex,
         WebkitMaskImage: props.maskImage,
       }}
-      data-direction={props.building.direction}
+      data-rotation={props.building.rotation.deg}
       data-variant={props.building.variant}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}

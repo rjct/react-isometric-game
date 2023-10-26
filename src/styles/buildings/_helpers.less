@@ -5,31 +5,31 @@
 	}
   });
 
-  &[data-direction="top"] {
+  &[data-rotation="0"] {
     background-position-x: @width * 0;
   }
 
-  &[data-direction="left"] {
+  &[data-rotation="270"] {
     background-position-x: @width * -1;
   }
 
-  &[data-direction="right"] {
+  &[data-rotation="90"] {
     background-position-x: @width * -2;
   }
 
-  &[data-direction="bottom"] {
+  &[data-rotation="180"] {
     background-position-x: @width * -3;
   }
 }
 
 .building-shift(@vertical, @horizontal) {
-  &[data-direction="top"],
-  &[data-direction="bottom"] {
+  &[data-rotation="0"],
+  &[data-rotation="180"] {
     margin-left: @vertical;
   }
 
-  &[data-direction="left"],
-  &[data-direction="right"] {
+  &[data-rotation="90"],
+  &[data-rotation="270"] {
     margin-left: @horizontal;
   }
 }

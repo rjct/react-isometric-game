@@ -3,9 +3,10 @@ import { InventoryItem } from "@src/components/_modals/inventory/_shared/Invento
 import { Building } from "@src/engine/BuildingFactory";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export function InventoryItemsList(props: {
-  owner: Unit | Building;
+  owner: Unit | Building | Vehicle;
   inventoryType?: keyof GameObject["inventory"];
   compact?: boolean;
   selectable: boolean;

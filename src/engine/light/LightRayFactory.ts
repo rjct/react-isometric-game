@@ -1,6 +1,7 @@
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export class LightRay {
   position: {
@@ -23,22 +24,22 @@ export class LightRay {
   };
 
   color = "";
-  angle = 0;
-  collidedWithEntity: Building | Unit | null = null;
+  angle: AngleInRadians = 0;
+  collidedWithEntity: Building | Unit | Vehicle | null = null;
 
   constructor(props: { position: GridCoordinates; radius: number; color: string }) {
     this.setPosition(props.position);
     this.setLen(props.radius);
     this.setColor(props.color);
-    this.setDirection(0);
+    this.setRotation(0);
   }
 
-  setDirection(dir: number) {
-    this.angle = dir;
+  setRotation(angle: AngleInRadians) {
+    this.angle = angle;
 
     this.n = {
-      grid: { x: Math.cos(dir), y: Math.sin(dir) },
-      screen: { x: Math.cos(dir), y: Math.sin(dir) },
+      grid: { x: Math.cos(angle), y: Math.sin(angle) },
+      screen: { x: Math.cos(angle), y: Math.sin(angle) },
     };
   }
 
@@ -66,7 +67,7 @@ export class LightRay {
     this.color = color;
   }
 
-  cast(entities: Array<Building | Unit>) {
+  cast(entities: Array<Building | Unit | Vehicle>) {
     let minDist = this.len.grid;
     let collidedWithEntity = null;
     this.collidedWithEntity = null;

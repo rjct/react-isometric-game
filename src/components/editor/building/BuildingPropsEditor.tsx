@@ -1,8 +1,8 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { BuildingPositionEditor } from "@src/components/editor/building/BuildingPositionEditor";
-import { EntityDirectionSelector } from "@src/components/editor/_shared/EntityDirectionSelector";
 import { EntityInventoryEditor } from "@src/components/editor/_shared/EntityInventoryEditor";
+import { EntityRotationSelector } from "@src/components/editor/_shared/EntityRotationSelector";
 import { InputRange } from "@src/components/editor/_shared/InputRange";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
@@ -44,12 +44,12 @@ export function BuildingPropsEditor(props: { building: Building }) {
             <TableRow label={"Position"}>
               <BuildingPositionEditor building={props.building} />
             </TableRow>
-            <TableRow label={"Direction"}>
-              <EntityDirectionSelector
-                values={props.building.getAvailableDirections()}
-                selectedValue={props.building.direction}
-                onChange={(direction) => {
-                  gameDispatch({ type: "setBuildingDirection", entityId: props.building.id, direction });
+            <TableRow label={"Rotation"}>
+              <EntityRotationSelector
+                values={props.building.getAvailableRotationAngles()}
+                selectedValue={props.building.rotation.deg}
+                onChange={(rotation) => {
+                  gameDispatch({ type: "setBuildingRotation", entityId: props.building.id, rotation });
                 }}
               />
             </TableRow>

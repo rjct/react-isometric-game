@@ -11,8 +11,9 @@ import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { itemIsWeapon } from "@src/engine/weapon/helpers";
+import { itemIsWeapon, normalizeRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type UnitType = keyof typeof units;
@@ -35,7 +36,7 @@ export type UnitMovementMode = Extract<Unit["action"], "walk" | "run">;
 export interface DictUnit {
   type: UnitType;
   idDead?: boolean;
-  direction?: Direction;
+  rotation?: AngleInDegrees;
   className: string;
   explorable: boolean;
   speed: {
@@ -149,7 +150,7 @@ export class Unit extends GameObject {
     action?: Unit["action"];
     isDead?: boolean;
     healthPoints?: Unit["healthPoints"];
-    direction?: Unit["direction"];
+    rotation?: AngleInDegrees;
     inventory?: StaticMapUnit["inventory"];
     randomActions?: StaticMapUnit["randomActions"];
   }) {
@@ -159,7 +160,7 @@ export class Unit extends GameObject {
       gameState: props.gameState,
       size: ref.size,
       position: props.position,
-      direction: props.direction || "left",
+      rotation: props.rotation || 0,
       internalColor: props.isHero ? "rgba(255,255,255,0.5)" : "rgba(255,0,0,0.5)",
       explorable: true,
     });
@@ -186,7 +187,7 @@ export class Unit extends GameObject {
 
     this.fieldOfView = new UnitFieldOfViewFactory({
       position: this.position.grid,
-      directionAngle: this.directionAngle,
+      rotation: this.rotation,
       fieldOfView: ref.fieldOfView,
     });
 
@@ -235,10 +236,12 @@ export class Unit extends GameObject {
     this.path = [];
   }
 
-  public setDirection(angle: Angle) {
-    super.setDirection(angle);
+  public setRotation(angle: Angle) {
+    angle = normalizeRotation(angle.deg, 4);
 
-    this.fieldOfView.setDirectionAngle(angle);
+    super.setRotation(angle);
+
+    this.fieldOfView.setRotation(angle);
   }
 
   public getCurrentSpeed() {
@@ -504,7 +507,7 @@ export class Unit extends GameObject {
     return super.isExplorable() && this.isDead;
   }
 
-  public getClosestCoordinatesToEntity(entity: Unit | Building) {
+  public getClosestCoordinatesToEntity(entity: Unit | Building | Vehicle) {
     const roundedPosition = this.getRoundedPosition();
 
     const allUnblockedCellsAroundEntity = entity
@@ -523,7 +526,7 @@ export class Unit extends GameObject {
     const json: StaticMapUnit = {
       type: this.type,
       position: this.getRoundedPosition(),
-      direction: this.direction,
+      rotation: this.rotation.deg,
     };
 
     if (this.isDead) {

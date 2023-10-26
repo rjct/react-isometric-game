@@ -2,6 +2,7 @@ import { Building } from "@src/engine/BuildingFactory";
 import { degToRad, normalizeAngle } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { DictUnit, Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export class UnitFieldOfViewFactory {
   public position: GridCoordinates;
@@ -9,14 +10,14 @@ export class UnitFieldOfViewFactory {
   public rays: Array<LightRay> = [];
 
   private readonly sectorAngle: Angle;
-  private directionAngle: Angle = { deg: 0, rad: 0 };
+  private rotation: Angle = { deg: 0, rad: 0 };
   private readonly angleStep: AngleInRadians;
   public readonly raysCount: number;
 
   public cellsInView: Array<GridCoordinates> = [];
-  public entitiesInView: { [id: string]: Building | Unit } = {};
+  public entitiesInView: { [id: string]: Building | Unit | Vehicle } = {};
 
-  constructor(props: { position: GridCoordinates; directionAngle: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
+  constructor(props: { position: GridCoordinates; rotation: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
     this.position = props.position;
     this.range = props.fieldOfView.range;
     this.sectorAngle = {
@@ -27,7 +28,7 @@ export class UnitFieldOfViewFactory {
     this.angleStep = this.sectorAngle.rad / this.raysCount;
 
     this.createRays();
-    this.setDirectionAngle(props.directionAngle);
+    this.setRotation(props.rotation);
   }
 
   createRays() {
@@ -46,19 +47,19 @@ export class UnitFieldOfViewFactory {
     //this.cellsInView = this.getCellsInSector();
   }
 
-  setDirectionAngle(angle: Angle) {
+  setRotation(angle: Angle) {
     const correctedAngle: Angle = {
-      deg: angle.deg + 180,
-      rad: angle.rad + Math.PI,
+      deg: angle.deg - 90,
+      rad: angle.rad - Math.PI / 2,
     };
-    this.directionAngle = correctedAngle;
+    this.rotation = correctedAngle;
 
     this.rays.forEach((ray, i) => {
-      ray.setDirection(i * this.angleStep + correctedAngle.rad - this.sectorAngle.rad / 2);
+      ray.setRotation(i * this.angleStep + correctedAngle.rad - this.sectorAngle.rad / 2);
     });
   }
 
-  castRays(objects: (Building | Unit)[]) {
+  castRays(objects: (Building | Unit | Vehicle)[]) {
     this.entitiesInView = {};
 
     for (const ray of this.rays) {
@@ -90,7 +91,7 @@ export class UnitFieldOfViewFactory {
             deg: Math.atan2(cellY - y, cellX - x) * (180 / Math.PI),
             rad: Math.atan2(cellY - y, cellX - x),
           };
-          const normalizedDirectionAngle = normalizeAngle(this.directionAngle);
+          const normalizedDirectionAngle = normalizeAngle(this.rotation);
           const normalizedCellAngle = normalizeAngle(cellAngle);
 
           let angleDifference = Math.abs(normalizedDirectionAngle.rad - normalizedCellAngle.rad);

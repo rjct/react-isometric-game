@@ -9,7 +9,7 @@ export const Units = React.memo(function Units() {
 
   React.useEffect(() => {
     gameDispatch({ type: "recalculateUnitFieldOfView" });
-  }, [gameState.getAllAliveUnitsHash()]);
+  }, [gameState.getAllAliveUnitsHash(), gameState.getVehiclesHash()]);
 
   if (!checkCurrentScene(["game", "combat"])) return null;
 

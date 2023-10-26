@@ -2,6 +2,7 @@ import unitTypes from "@src/dict/units.json";
 import React from "react";
 
 import { AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
+import { VehicleType } from "@src/dict/vehicle/vehicle";
 import { WeaponName } from "@src/dict/weapon/weapon";
 import { BuildingTypes } from "@src/engine/BuildingFactory";
 import { gameMap, GameMap } from "@src/engine/gameMap";
@@ -27,10 +28,16 @@ export interface StaticMapInventory {
 export interface StaticMapBuilding {
   type: keyof BuildingTypes;
   position: GridCoordinates;
-  direction: Direction;
+  rotation: AngleInDegrees;
   variant: number;
   occupiesCell?: boolean;
   inventory?: StaticMapInventory;
+}
+
+export interface StaticMapVehicle {
+  type: VehicleType;
+  position: GridCoordinates;
+  rotation: AngleInDegrees;
 }
 
 export interface StaticMapLight {
@@ -43,7 +50,7 @@ export interface StaticMapUnit {
   type?: keyof typeof unitTypes;
   position: GridCoordinates;
   isDead?: boolean;
-  direction?: Direction;
+  rotation?: AngleInDegrees;
   inventory?: StaticMapInventory;
   healthPoints?: Unit["healthPoints"];
   randomActions?: Array<"roam" | "idle">;
@@ -66,6 +73,7 @@ export interface StaticMap {
   terrain: Array<StaticMapTerrainArea>;
   hero: Omit<StaticMapUnit, "type">;
   buildings: Array<StaticMapBuilding>;
+  vehicles: Array<StaticMapVehicle>;
   enemies: Array<StaticMapUnit>;
   globalShadows: {
     color: string;

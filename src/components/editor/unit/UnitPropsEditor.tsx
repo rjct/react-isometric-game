@@ -2,8 +2,8 @@ import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UnitPositionEditor } from "@src/components/editor/unit/UnitPositionEditor";
 import { UnitPreview } from "@src/components/editor/unit/UnitPreview";
-import { EntityDirectionSelector } from "@src/components/editor/_shared/EntityDirectionSelector";
 import { EntityInventoryEditor } from "@src/components/editor/_shared/EntityInventoryEditor";
+import { EntityRotationSelector } from "@src/components/editor/_shared/EntityRotationSelector";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { TableRow } from "@src/components/editor/_shared/TableRow";
 import { Button } from "@src/components/ui/Button";
@@ -43,12 +43,12 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
                 }}
               />
             </TableRow>
-            <TableRow label={"Direction"}>
-              <EntityDirectionSelector
-                values={props.unit.getAvailableDirections()}
-                selectedValue={props.unit.direction}
-                onChange={(direction) => {
-                  gameDispatch({ type: "setUnitDirection", entityId: props.unit.id, direction });
+            <TableRow label={"Rotation"}>
+              <EntityRotationSelector
+                values={props.unit.getAvailableRotationAngles()}
+                selectedValue={props.unit.rotation.deg}
+                onChange={(rotation) => {
+                  gameDispatch({ type: "setUnitRotation", entityId: props.unit.id, rotation });
                 }}
               />
             </TableRow>

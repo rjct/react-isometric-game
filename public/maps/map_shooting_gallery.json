@@ -12,7 +12,7 @@
   ],
   "hero": {
     "position": { "x": 10, "y": 15 },
-    "direction": "top",
+    "rotation": 0,
     "inventory": {
       "main": [
         { "class": "firearm_ammo", "name": ".45", "quantity": 2 },
@@ -34,7 +34,7 @@
     {
       "type": "ghoul",
       "position": { "x": 10, "y": 7 },
-      "direction": "bottom",
+      "rotation": 180,
       "healthPoints": {
         "current": 1e10,
         "max": 1e10
@@ -46,11 +46,21 @@
     {
       "type": "newspaper_kiosk",
       "position": { "x": 6, "y": 14 },
-      "direction": "right",
+      "rotation": 90,
       "variant": 0,
       "inventory": {
         "main": [{ "class": "weapon", "name": "molotov_cocktail" }]
       }
+    }
+  ],
+  "vehicles": [
+    {
+      "type": "hummer",
+      "position": {
+        "x": 3,
+        "y": 3
+      },
+      "rotation": 180
     }
   ],
   "globalShadows": { "color": "#000d23", "opacity": 0.35 },

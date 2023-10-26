@@ -41,53 +41,51 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   const isIsometric = gameState.debug.featureEnabled.buildingBoxes || isEditing;
 
   return (
-    <>
-      <div
-        data-direction={props.unit.direction}
-        data-action={props.unit.action}
-        data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
-        data-selected-for-inventory-transfer={
-          gameState.highlightedEntityForInventoryTransfer?.id === props.unit.id ||
-          gameState.selectedEntityForInventoryTransfer?.id === props.unit.id ||
-          null
+    <div
+      data-rotation={props.unit.rotation.deg}
+      data-action={props.unit.action}
+      data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
+      data-selected-for-inventory-transfer={
+        gameState.highlightedEntityForInventoryTransfer?.id === props.unit.id ||
+        gameState.selectedEntityForInventoryTransfer?.id === props.unit.id ||
+        null
+      }
+      data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
+      data-highlighed={
+        (!props.unit.isDead &&
+          uiState.scene === "combat" &&
+          !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
+        null
+      }
+      data-in-hero-view={props.isInHeroView}
+      data-selected={props.selected || null}
+      data-dragging={props.dragging || null}
+      onMouseDown={(e: React.MouseEvent) => {
+        if (props.onMouseDown) {
+          props.onMouseDown(e, props.unit);
         }
-        data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
-        data-highlighed={
-          (!props.unit.isDead &&
-            uiState.scene === "combat" &&
-            !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
-          null
-        }
-        data-in-hero-view={props.isInHeroView}
-        data-selected={props.selected || null}
-        data-dragging={props.dragging || null}
-        onMouseDown={(e: React.MouseEvent) => {
-          if (props.onMouseDown) {
-            props.onMouseDown(e, props.unit);
-          }
-        }}
-        onMouseUp={props.onMouseUp}
-        onDragStart={(e) => {
-          e.preventDefault();
-          e.stopPropagation();
-        }}
-        className={props.unit.className}
-        style={{
-          transform: getCss3dPosition(props.unit.position[isIsometric ? "iso" : "screen"], false, isIsometric),
-          zIndex: props.unit.zIndex,
-        }}
-      >
-        <div className="char"></div>
-        <UnitEnemyInViewMark unit={props.unit} />
-        <UnitDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
-        <UnitCooldownTimer unit={props.unit} />
-        <UnitHealth unit={props.unit} />
-        <UnitActionPoints unit={props.unit} />
+      }}
+      onMouseUp={props.onMouseUp}
+      onDragStart={(e) => {
+        e.preventDefault();
+        e.stopPropagation();
+      }}
+      className={props.unit.className}
+      style={{
+        transform: getCss3dPosition(props.unit.position.screen, false),
+        zIndex: props.unit.zIndex,
+      }}
+    >
+      <div className="char"></div>
+      <UnitEnemyInViewMark unit={props.unit} />
+      <UnitDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
+      <UnitCooldownTimer unit={props.unit} />
+      <UnitHealth unit={props.unit} />
+      <UnitActionPoints unit={props.unit} />
 
-        {props.unit.shadows.map((shadow, index) => (
-          <UnitShadowComponent key={index} shadow={shadow} />
-        ))}
-      </div>
-    </>
+      {props.unit.shadows.map((shadow, index) => (
+        <UnitShadowComponent key={index} shadow={shadow} />
+      ))}
+    </div>
   );
 });

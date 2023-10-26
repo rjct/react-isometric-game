@@ -5,6 +5,7 @@ import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export const loadMap = async (mapUrl: string) => {
   const data = await fetch(`${constants.BASE_URL}/${mapUrl}`);
@@ -15,51 +16,6 @@ export const loadMap = async (mapUrl: string) => {
 
 export function randomInt(min: number, max: number) {
   return floor(Math.random() * (max - min + 1)) + min;
-}
-
-export function getHumanReadableDirection(angle: Angle): Unit["direction"] {
-  switch (true) {
-    case angle.deg > 315 || angle.deg < 45:
-      return "left";
-
-    case angle.deg >= 45 && angle.deg <= 135:
-      return "top";
-
-    case angle.deg >= 135 && angle.deg <= 225:
-      return "right";
-
-    case angle.deg >= 225 && angle.deg <= 315:
-    default:
-      return "bottom";
-  }
-}
-
-export function getDirectionAngleFromString(direction: Direction): Angle {
-  switch (direction) {
-    case "top":
-      return {
-        deg: 90,
-        rad: degToRad(90),
-      };
-
-    case "right":
-      return {
-        deg: 180,
-        rad: degToRad(180),
-      };
-
-    case "bottom":
-      return {
-        deg: 270,
-        rad: degToRad(270),
-      };
-
-    case "left":
-      return {
-        deg: 0,
-        rad: degToRad(0),
-      };
-  }
 }
 
 export function getEntityZIndex(entity: GameObject) {
@@ -165,7 +121,10 @@ export function getDistanceBetweenGridPoints(startPosition: GridCoordinates, tar
   return Math.sqrt(Math.pow(displacementX, 2) + Math.pow(displacementY, 2));
 }
 
-export function getDistanceBetweenEntities(entity1: Unit | Building, entity2: Unit | Building): number {
+export function getDistanceBetweenEntities(
+  entity1: Unit | Building | Vehicle,
+  entity2: Unit | Building | Vehicle,
+): number {
   const entity1Corners = [
     { x: entity1.position.grid.x, y: entity1.position.grid.y },
     { x: entity1.position.grid.x + entity1.size.grid.width, y: entity1.position.grid.y },
@@ -195,13 +154,19 @@ export function getDistanceBetweenEntities(entity1: Unit | Building, entity2: Un
   return minDistance;
 }
 
-export function getAngleBetweenTwoGridPoints(startPosition: GridCoordinates, targetPosition: GridCoordinates) {
+export function getAngleBetweenTwoGridPoints(
+  startPosition: GridCoordinates,
+  targetPosition: GridCoordinates,
+  compensateRotation = true,
+) {
   const distance = {
     x: targetPosition.x - startPosition.x,
     y: targetPosition.y - startPosition.y,
   };
 
-  const rad: number = Math.atan2(distance.y, distance.x);
+  const compensationAngle = compensateRotation ? degToRad(90) : 0;
+
+  const rad: number = Math.atan2(distance.y, distance.x) - compensationAngle;
   const deg = radToDeg(rad);
 
   return {

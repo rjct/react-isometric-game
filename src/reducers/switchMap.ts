@@ -6,6 +6,7 @@ import { GameObject } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export type SwitchGameMapReducerAction = {
   type: "switchMap";
@@ -41,19 +42,19 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       screen: gridToScreesSize(action.map.size),
     },
     position: { x: 0, y: 0 },
-    direction: "left",
+    rotation: 0,
     internalColor: "",
     occupiesCell: false,
   });
 
   newState.buildings = action.map.buildings.map((staticMapBuilding) => {
-    const { type, position, direction, variant, occupiesCell, inventory } = staticMapBuilding;
+    const { type, position, rotation, variant, occupiesCell, inventory } = staticMapBuilding;
 
     const building = new Building({
       gameState: newState,
       buildingType: type,
       position,
-      direction,
+      rotation,
       variant,
       occupiesCell: occupiesCell !== false,
       inventory,
@@ -62,6 +63,20 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     building.setPosition(position, newState);
 
     return building;
+  });
+
+  newState.vehicles = action.map.vehicles.map((staticMapVehicle) => {
+    const { type, position, rotation } = staticMapVehicle;
+    const vehicle = new Vehicle({
+      gameState: newState,
+      type,
+      position,
+      rotation,
+    });
+
+    vehicle.setPosition(position, newState);
+
+    return vehicle;
   });
 
   newState.lights = (action.map.lights || []).map((staticMapLight) => {
@@ -79,7 +94,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       position: enemy.position,
       isDead: enemy.isDead,
       action: enemy.isDead ? "dead" : "none",
-      direction: enemy.direction,
+      rotation: enemy.rotation,
       inventory: enemy.inventory,
       isHero: false,
       healthPoints: enemy.healthPoints,
@@ -99,7 +114,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       gameState: newState,
       unitType: "vault13_male",
       position: action.map.hero.position,
-      direction: action.map.hero.direction,
+      rotation: action.map.hero.rotation,
       inventory: action.map.hero.inventory,
       isHero: true,
     });
@@ -120,6 +135,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   }
 
   newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
+  newState.matrix = newState.setGridMatrixOccupancy(newState.vehicles, newState.matrix);
   newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);
 
   return newState;

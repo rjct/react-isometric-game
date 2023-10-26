@@ -1,17 +1,17 @@
 .unit-rotation(@unit-sprite-height) {
-  &[data-direction="top"] .char {
+  &[data-rotation="0"] .char {
     background-position: 0 calc(@unit-sprite-height * 0);
   }
 
-  &[data-direction="right"] .char {
+  &[data-rotation="90"] .char {
     background-position: 0 calc(@unit-sprite-height * -1);
   }
 
-  &[data-direction="bottom"] .char {
+  &[data-rotation="180"] .char {
     background-position: 0 calc(@unit-sprite-height * -2);
   }
 
-  &[data-direction="left"] .char {
+  &[data-rotation="270"] .char {
     background-position: 0 calc(@unit-sprite-height * -3);
   }
 }

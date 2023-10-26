@@ -4,17 +4,11 @@ import { WeaponName } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
-import {
-  getDirectionAngleFromString,
-  getEntityZIndex,
-  getHumanReadableDirection,
-  gridToScreenSpace,
-  randomUUID,
-} from "@src/engine/helpers";
+import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { createInventoryItemByName, itemIsWeapon } from "@src/engine/weapon/helpers";
+import { calculateSizeAfterRotation, createInventoryItemByName, itemIsWeapon } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type GameObjectIntersectionWithLightRay = {
@@ -44,8 +38,10 @@ export class GameObject {
     iso: { x: 0, y: 0 },
   };
   public zIndex: number;
-  public direction: Direction = "top";
-  public directionAngle: Angle = getDirectionAngleFromString("top");
+  public rotation: Angle = {
+    deg: 0,
+    rad: 0,
+  };
   public occupiesCell = true;
 
   public walls: GameObjectWall[] = [];
@@ -65,7 +61,7 @@ export class GameObject {
     id?: string;
     size: { grid: Size3D; screen: Size2D };
     position: GridCoordinates;
-    direction: Direction;
+    rotation: AngleInDegrees;
     internalColor: string;
     occupiesCell?: boolean;
     explorable?: boolean;
@@ -75,11 +71,17 @@ export class GameObject {
     this.id = props.id || randomUUID();
     this.internalColor = props.internalColor;
 
-    this.size = props.size;
+    this.rotation = {
+      deg: props.rotation,
+      rad: degToRad(props.rotation),
+    };
+
+    this.size = {
+      grid: calculateSizeAfterRotation(props.size.grid, this.rotation),
+      screen: props.size.screen,
+    };
 
     this.zIndex = getEntityZIndex(this);
-    this.direction = props.direction;
-    this.directionAngle = getDirectionAngleFromString(props.direction);
 
     if (props.occupiesCell === false) {
       this.occupiesCell = false;
@@ -142,9 +144,8 @@ export class GameObject {
     });
   }
 
-  public setDirection(angle: Angle) {
-    this.directionAngle = angle;
-    this.direction = getHumanReadableDirection(angle);
+  public setRotation(angle: Angle) {
+    this.rotation = angle;
   }
 
   getRoundedPosition(): GridCoordinates {
@@ -199,8 +200,8 @@ export class GameObject {
     return this.explorable;
   }
 
-  getAvailableDirections(): Direction[] {
-    return ["left", "top", "right", "bottom"];
+  getAvailableRotationAngles(): AngleInDegrees[] {
+    return [0, 90, 180, 270];
   }
 
   getAllUnblockedCellsAroundEntity() {
@@ -323,7 +324,7 @@ export class GameObject {
   }
 
   getHash() {
-    return `${this.position.grid.x}:${this.position.grid.y}:${this.direction}:${this.occupiesCell}`;
+    return `${this.position.grid.x}:${this.position.grid.y}:${this.rotation.deg}:${this.occupiesCell}`;
   }
 }
 

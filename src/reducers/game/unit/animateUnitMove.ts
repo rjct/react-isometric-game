@@ -11,12 +11,12 @@ export type AnimateUnitMoveReducerAction = {
 };
 
 export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAction) {
-  let isStateChangd = false;
+  let isStateChanged = false;
 
   for (const unit of action.units) {
     if (unit.path.length === 0) continue;
 
-    isStateChangd = true;
+    isStateChanged = true;
 
     const unitPosition = { ...unit.position.grid };
 
@@ -69,7 +69,7 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
     }
 
     if (unit.pathQueue.points.length > 1 && getDistanceBetweenGridPoints(unit.pathQueue.currentPos, unitPosition) > 0) {
-      unit.setDirection(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition));
+      unit.setRotation(getAngleBetweenTwoGridPoints(unit.pathQueue.currentPos, unitPosition));
     }
 
     unit.setPosition(unit.pathQueue.currentPos, state, action.deltaTime);
@@ -82,5 +82,5 @@ export function animateUnitMove(state: GameMap, action: AnimateUnitMoveReducerAc
     }
   }
 
-  return isStateChangd ? { ...state } : state;
+  return isStateChanged ? { ...state } : state;
 }

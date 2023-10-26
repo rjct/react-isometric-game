@@ -1,0 +1,34 @@
+@import "actions/idle";
+@import "actions/driving";
+
+.vehicle-rotation(@width, @height, @angle-steps) {
+  @angle-increment: (360 / @angle-steps);
+
+  each(range(@angle-steps), {
+		@angle: @value * @angle-increment;
+
+		&[data-rotation="@{angle}"] {
+			background-position-y: -@height * @value;
+		}
+  	});
+}
+
+.createVehicle(@vehicle-type, @width, @height) {
+  @vehicle-actions: idle, parked, driving;
+
+  &.@{vehicle-type} {
+    width: @width;
+    height: @height;
+
+    each(@vehicle-actions, {
+			&[data-action="@{value}"] {
+				@action-bg: %('/public/assets/vehicles/drivable/%a/%s.webp', @vehicle-type, @value);
+				background-image: url(@action-bg);
+			}
+
+			.shared-vehicle-action-idle(@width);
+			.shared-vehicle-action-driving(@width);
+			.vehicle-rotation(@width, @height, 32);
+		});
+  }
+}

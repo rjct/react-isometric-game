@@ -79,4 +79,8 @@ export function gameScene(this: GameContext, deltaTime: number) {
     gameDispatch({ type: "highlightUnitAtGunpoint", unit: enemy });
     gameDispatch({ type: "doRandomUnitAction", unit: enemy, deltaTime });
   }
+
+  //for (const vehicle of gameState.vehicles) {
+  //gameDispatch({ type: "animateVehicleMove", vehicle, deltaTime });
+  //}
 }

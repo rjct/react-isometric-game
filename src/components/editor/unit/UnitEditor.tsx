@@ -64,6 +64,7 @@ export const UnitEditor = React.memo(function UnitEditor() {
 
   return (
     <MapLayer
+      isometric={false}
       size={gameState.mapSize}
       className={"unit-editor"}
       onMouseMove={handleMouseMove}

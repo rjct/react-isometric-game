@@ -32,6 +32,7 @@ export function DebugVisualization() {
       gameState.getAllAliveUnitsHash(),
       gameState.getLightsHash(),
       gameState.getMatrixHash(),
+      gameState.getVehiclesHash(),
       JSON.stringify(gameState.debug),
     ]);
   }, [
@@ -39,6 +40,7 @@ export function DebugVisualization() {
     gameState.debug.enabled ? gameState.getAllAliveUnitsHash() : false,
     gameState.debug.enabled ? gameState.getLightsHash() : false,
     gameState.debug.enabled ? gameState.getMatrixHash() : false,
+    gameState.debug.enabled ? gameState.getVehiclesHash() : false,
     uiState.scene,
     uiState.editorMode,
   ]);

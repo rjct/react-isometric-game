@@ -11,6 +11,7 @@ import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
@@ -23,6 +24,7 @@ interface GameMapProps {
     clusters: TerrainCluster[];
   };
   buildings: Building[];
+  vehicles: Vehicle[];
   units: UnitTypes;
   lights: Light[];
   weapon: { [id: string]: Weapon };
@@ -86,6 +88,7 @@ export const gameMap = {
   world: null as unknown as GameObject,
 
   buildings: [] as GameMapProps["buildings"],
+  vehicles: [] as GameMapProps["vehicles"],
   heroId: "",
   units: {} as GameMapProps["units"],
   lights: [] as GameMapProps["lights"],
@@ -98,8 +101,8 @@ export const gameMap = {
 
   fogOfWar: null as unknown as FogOfWar,
 
-  selectedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
-  highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | null,
+  selectedEntityForInventoryTransfer: null as unknown as Unit | Building | Vehicle | null,
+  highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | Vehicle | null,
 
   selectedInventoryItem: null as unknown as WeaponDictEntity | AmmoDictEntity | null,
 
@@ -109,7 +112,7 @@ export const gameMap = {
   entityPlaceholder: null as unknown as {
     position: GridCoordinates;
     size: Size3D;
-    direction: Direction;
+    rotation: AngleInDegrees;
   } | null,
 
   combatQueue: {
@@ -178,7 +181,7 @@ export const gameMap = {
     return this.getHero().fieldOfView.isEntityInView(entity.id);
   },
 
-  setGridMatrixOccupancy(entities: Array<Unit | Building>, matrix: Array<Array<number>>, occupancy = 1) {
+  setGridMatrixOccupancy(entities: Array<Unit | Building | Vehicle>, matrix: Array<Array<number>>, occupancy = 1) {
     for (const entity of entities) {
       if (!entity.occupiesCell) continue;
 
@@ -197,11 +200,11 @@ export const gameMap = {
     return matrix;
   },
 
-  isEntityInViewport(entity: TerrainTile | Unit | Building, viewport: GameUI["viewport"]) {
+  isEntityInViewport(entity: TerrainTile | Unit | Building | Vehicle, viewport: GameUI["viewport"]) {
     return !!viewport.visibleCells[`${floor(entity.position.grid.x)}:${floor(entity.position.grid.y)}`];
   },
 
-  getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit>, radius: number) {
+  getEntitiesWithinRadius(coordinates: GridCoordinates, entities: Array<Building | Unit | Vehicle>, radius: number) {
     return entities.filter((entity) => {
       const x1 = coordinates.x - radius;
       const y1 = coordinates.y - radius;
@@ -256,8 +259,12 @@ export const gameMap = {
     });
   },
 
-  getEntityByCoordinates(coordinates: GridCoordinates): Unit | Building | undefined {
-    return this.getUnitByCoordinates(coordinates) || this.getBuildingByCoordinates(coordinates);
+  getEntityByCoordinates(coordinates: GridCoordinates): Unit | Building | Vehicle | undefined {
+    return (
+      this.getUnitByCoordinates(coordinates) ||
+      this.getBuildingByCoordinates(coordinates) ||
+      this.getVehicleByCoordinates(coordinates)
+    );
   },
 
   calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
@@ -289,6 +296,21 @@ export const gameMap = {
         y >= Math.round(building.position.grid.y) &&
         y < Math.round(building.position.grid.y + building.size.grid.length),
     );
+  },
+
+  getVehicleByCoordinates(coordinates: GridCoordinates) {
+    const { x, y } = coordinates;
+
+    return this.vehicles.find((vehicle) => {
+      const { x: vehicleX, y: vehicleY } = vehicle.getRoundedPosition();
+
+      return (
+        x >= Math.round(vehicleX) &&
+        x < Math.round(vehicleX + vehicle.size.grid.width) &&
+        y >= Math.round(vehicleY) &&
+        y < Math.round(vehicleY + vehicle.size.grid.length)
+      );
+    });
   },
 
   deleteBuilding(id: string) {
@@ -405,6 +427,10 @@ export const gameMap = {
 
   getBuildingsHash() {
     return this.buildings.map((building) => building.getHash()).join("|");
+  },
+
+  getVehiclesHash() {
+    return this.vehicles.map((vehicle) => vehicle.getHash()).join("|");
   },
 
   getAllGameObjectsWalls() {

@@ -84,7 +84,7 @@ export class Vfx {
       zIndex: Math.ceil(this.position.x + 1) + Math.ceil(this.position.y + 1) + 1,
       animationDuration: `${this.animationDuration}ms`,
       animationDelay: this.animationDelay,
-      transform: `rotateX(60deg) rotateZ(${this.angle + 45}deg)`,
+      transform: `rotateX(60deg) rotateZ(${this.angle - 45}deg)`,
     };
   }
 }

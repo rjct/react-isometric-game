@@ -4,12 +4,12 @@ import { DictBuilding } from "@src/engine/BuildingFactory";
 import React from "react";
 
 export function BuildingLibraryItem(props: { item: DictBuilding; variant: number }) {
-  const [direction, setDirection] = React.useState(props.item.directions[0]);
+  const [rotation, setRotation] = React.useState(props.item.rotationAngles[0]);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {
     e.dataTransfer.setData("add/entity/type", "building");
     e.dataTransfer.setData("add/entity", JSON.stringify(props.item));
-    e.dataTransfer.setData("add/entity/direction", direction);
+    e.dataTransfer.setData("add/entity/rotation", String(rotation));
     e.dataTransfer.setData("add/entity/variant", String(props.variant));
     e.dataTransfer.dropEffect = "move";
 
@@ -42,11 +42,11 @@ export function BuildingLibraryItem(props: { item: DictBuilding; variant: number
         <div className="prev-direction">
           <a
             onClick={() => {
-              const index = props.item.directions.findIndex((d) => d === direction);
+              const index = props.item.rotationAngles.findIndex((d) => d === rotation);
 
-              const i = index - 1 < 0 ? props.item.directions.length - 1 : index - 1;
+              const i = index - 1 < 0 ? props.item.rotationAngles.length - 1 : index - 1;
 
-              setDirection(props.item.directions[i]);
+              setRotation(props.item.rotationAngles[i]);
             }}
           >
             <FontAwesomeIcon icon={faRotateLeft} />
@@ -55,18 +55,18 @@ export function BuildingLibraryItem(props: { item: DictBuilding; variant: number
 
         <div
           className={["image", props.item.className].join(" ")}
-          data-direction={direction}
+          data-rotation={rotation}
           data-variant={props.variant}
         ></div>
 
         <div className="next-direction">
           <a
             onClick={() => {
-              const index = props.item.directions.findIndex((d) => d === direction);
+              const index = props.item.rotationAngles.findIndex((d) => d === rotation);
 
-              const i = index + 1 > props.item.directions.length - 1 ? 0 : index + 1;
+              const i = index + 1 > props.item.rotationAngles.length - 1 ? 0 : index + 1;
 
-              setDirection(props.item.directions[i]);
+              setRotation(props.item.rotationAngles[i]);
             }}
           >
             <FontAwesomeIcon icon={faRotateRight} />

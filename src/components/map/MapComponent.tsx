@@ -11,6 +11,7 @@ import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
 import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
 import { Wireframe } from "@src/components/map/terrain/Wireframe";
 import { Units } from "@src/components/map/units/Units";
+import { Vehicles } from "@src/components/map/vehicles/Vehicles";
 import { VisualEffects } from "@src/components/map/vfx/VisualEffects";
 import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
@@ -63,20 +64,14 @@ export const MapComponent = React.memo(
       const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
 
       const position = { x: floor(grid.x), y: floor(grid.y) };
-      const direction = e.dataTransfer.getData("add/entity/direction") as Direction;
-      const size = ["left", "right"].includes(direction)
-        ? ({
-            width: entity.size.grid.length,
-            length: entity.size.grid.width,
-            height: entity.size.grid.height,
-          } as Size3D)
-        : (entity.size.grid as Size3D);
+      const rotation = Number(e.dataTransfer.getData("add/entity/rotation")) as AngleInDegrees;
+      const size = entity.size.grid;
 
       return {
         type,
         entity,
         position,
-        direction,
+        rotation,
         size,
       };
     };
@@ -123,9 +118,9 @@ export const MapComponent = React.memo(
 
       if (!draggedEntityData) return;
 
-      const { position, direction, size } = draggedEntityData;
+      const { position, rotation, size } = draggedEntityData;
 
-      gameDispatch({ type: "highlightEntityPlaceholder", size, position, direction });
+      gameDispatch({ type: "highlightEntityPlaceholder", size, position, rotation });
     };
 
     const handleDragLeave = () => {
@@ -141,7 +136,7 @@ export const MapComponent = React.memo(
 
       if (!draggedEntityData) return;
 
-      const { type, entity, position, direction } = draggedEntityData;
+      const { type, entity, position, rotation } = draggedEntityData;
 
       switch (type) {
         case "building":
@@ -149,7 +144,7 @@ export const MapComponent = React.memo(
             type: "addBuilding",
             buildingType: (entity as DictBuilding).type,
             position,
-            direction,
+            rotation,
             variant: Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"],
           });
           break;
@@ -159,7 +154,7 @@ export const MapComponent = React.memo(
             type: "addUnit",
             unitType: (entity as DictUnit).type,
             position,
-            direction,
+            rotation,
           });
           break;
       }
@@ -290,6 +285,7 @@ export const MapComponent = React.memo(
           <MapLayer size={gameState.mapSize} className={"map"} isometric={gameState.debug.featureEnabled.buildingBoxes}>
             <VisualEffects />
             <Buildings />
+            <Vehicles />
             <Units />
           </MapLayer>
         </div>

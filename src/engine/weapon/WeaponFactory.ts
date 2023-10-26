@@ -19,7 +19,7 @@ export class Weapon extends InventoryItem {
 
   private targetPosition: null | GridCoordinates = null;
   public ray: null | ObstacleRay = null;
-  public angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
+  public angle: Angle = { rad: Infinity, deg: Infinity };
   private isBusy = false;
 
   use(targetPosition: GridCoordinates, gameState: GameMap) {
@@ -95,7 +95,7 @@ export class Weapon extends InventoryItem {
 
     if (this.owner) {
       this.ray = new ObstacleRay(this.owner.position.grid, this.targetPosition);
-      this.angle = getAngleBetweenTwoGridPoints(this.owner.getRoundedPosition(), this.targetPosition);
+      this.angle = getAngleBetweenTwoGridPoints(this.targetPosition, this.owner.getRoundedPosition());
     }
   }
 

@@ -6,9 +6,10 @@
   position: absolute;
   width: @vfx-explosion-sprite-width;
   height: @vfx-explosion-sprite-height;
-  transform-origin: 67% -30%;
+  transform-origin: 100% -50%; // 67% -30%;
   background-image: url("/public/assets/vfx/explosion.webp");
   animation: vfx-explosion steps(@vfx-explosion-sprite-animation-steps) forwards;
+  transform: translateX(-100px) translateY(-140px) !important;
   transform-style: preserve-3d;
   backface-visibility: hidden;
 
@@ -16,7 +17,7 @@
   &::after {
     content: "";
     position: absolute;
-    transform: rotateX(0deg) rotateY(90deg) rotateZ(0deg);
+    transform: rotateX(-30deg) rotateY(45deg) rotateZ(0deg);
     inset: 0;
 
     background-image: inherit;
@@ -25,7 +26,7 @@
   }
 
   &::after {
-    transform: rotateX(90deg) rotateY(0deg);
+    transform: rotateX(90deg) rotateY(-45deg);
   }
 }
 

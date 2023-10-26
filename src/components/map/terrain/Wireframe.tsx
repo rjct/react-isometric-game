@@ -91,6 +91,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       case "explore":
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
+
         const isExplorable =
           entity && entity.isExplorable() && entity.id !== hero.id && !!hero.getClosestCoordinatesToEntity(entity);
 

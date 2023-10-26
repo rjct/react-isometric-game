@@ -3,7 +3,7 @@ import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory"
 describe("calculateRaysForSector()", () => {
   const props = {
     position: { x: 0, y: 0 },
-    directionAngle: { deg: 0, rad: 0 },
+    rotation: { deg: 0, rad: 0 },
     fieldOfView: { sectorAngle: 120, range: 10 },
   };
 

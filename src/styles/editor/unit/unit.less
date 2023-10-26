@@ -1,12 +1,9 @@
 .unit-editor {
-  position: absolute;
   z-index: 1;
   inset: 0;
   transform-origin: left top;
 
   transform-style: preserve-3d;
-  transform: rotateX(60deg) rotateZ(45deg);
-
   pointer-events: auto !important;
 }
 
@@ -23,8 +20,7 @@
     }
 
     &[data-dragging="true"] > .char {
-      filter: brightness(1.2) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81)
-        drop-shadow(0 0 1px #19ff81);
+      filter: brightness(1.2) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81);
     }
   }
 }

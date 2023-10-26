@@ -5,7 +5,7 @@ export interface AddBuildingReducerAction {
   type: "addBuilding";
   buildingType: Building["type"];
   position: GridCoordinates;
-  direction: Building["direction"];
+  rotation: AngleInDegrees;
   variant: Building["variant"];
 }
 
@@ -14,7 +14,7 @@ export function addBuilding(state: GameMap, action: AddBuildingReducerAction): G
     gameState: state,
     buildingType: action.buildingType,
     position: action.position,
-    direction: action.direction,
+    rotation: action.rotation,
     variant: action.variant,
     occupiesCell: true,
   });

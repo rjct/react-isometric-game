@@ -32,7 +32,7 @@ export class Ammo extends InventoryItem {
   };
 
   shotDistance = 0;
-  angle: { rad: number; deg: number } = { rad: Infinity, deg: Infinity };
+  angle: Angle = { rad: Infinity, deg: Infinity };
 
   isTargetReached = false;
 
@@ -86,7 +86,7 @@ export class Ammo extends InventoryItem {
       screen: gridToScreenSpace({ ...targetCoordinates }, gameState.mapSize),
     };
 
-    this.angle = getAngleBetweenTwoGridPoints(initialCoordinates, targetCoordinates);
+    this.angle = getAngleBetweenTwoGridPoints(initialCoordinates, targetCoordinates, false);
     this.shotDistance = getDistanceBetweenGridPoints(initialCoordinates, targetCoordinates);
 
     gameState.ammoFiredIds.push(this.id);

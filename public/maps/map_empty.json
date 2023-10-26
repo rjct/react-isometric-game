@@ -35,6 +35,7 @@
   },
   "enemies": [],
   "buildings": [],
+  "vehicles": [],
   "globalShadows": { "color": "#000d4d", "opacity": 0.5 },
   "globalLights": { "opacity": 0 },
   "lights": [

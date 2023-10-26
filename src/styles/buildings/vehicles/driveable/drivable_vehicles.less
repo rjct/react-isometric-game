@@ -1,0 +1,12 @@
+@import "_helpers";
+
+.vehicle {
+  .createVehicle(hummer, 180px, 144px);
+
+  margin-left: -50px;
+  margin-top: -20px;
+
+  &[data-selected-for-inventory-transfer="true"] {
+    .explorable-entity-highlight();
+  }
+}

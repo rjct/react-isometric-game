@@ -1,0 +1,18 @@
+.shared-vehicle-action-driving(@width) {
+  @duration: 1000ms;
+  @steps: 8;
+
+  &[data-action="driving"] {
+    animation: vehicle-action-driving @duration steps(@steps);
+    animation-iteration-count: infinite;
+  }
+
+  @keyframes vehicle-action-driving {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@width * @steps);
+    }
+  }
+}

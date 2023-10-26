@@ -13,10 +13,6 @@ import {
   DeleteSelectedBuildingReducerAction,
 } from "@src/reducers/editor/building/deleteSelectedBuilding";
 import {
-  setBuildingDirection,
-  SetBuildingDirectionReducerAction,
-} from "@src/reducers/editor/building/setBuildingDirection";
-import {
   setBuildingOccupiesCell,
   SetBuildingOccupiesCellReducerAction,
 } from "@src/reducers/editor/building/setBuildingOccupiesCell";
@@ -24,6 +20,10 @@ import {
   setBuildingPosition,
   SetBuildingPositionReducerAction,
 } from "@src/reducers/editor/building/setBuildingPosition";
+import {
+  setBuildingRotation,
+  SetBuildingRotationReducerAction,
+} from "@src/reducers/editor/building/setBuildingRotation";
 import { setBuildingVariant, SetBuildingVariantReducerAction } from "@src/reducers/editor/building/setBuildingVariant";
 import {
   setSelectedBuilding,
@@ -61,8 +61,8 @@ import { clearSelectedUnit, ClearSelectedUnitReducerAction } from "@src/reducers
 import { deleteSelectedUnit, DeleteSelectedUnitReducerAction } from "@src/reducers/editor/unit/deleteSelectedUnit";
 import { setSelectedUnit, SetSelectedUnitReducerAction } from "@src/reducers/editor/unit/setSelectedUnit";
 import { setUnitDead, SetUnitDeadReducerAction } from "@src/reducers/editor/unit/setUnitDead";
-import { setUnitDirection, SetUnitDirectionReducerAction } from "@src/reducers/editor/unit/setUnitDirection";
 import { setUnitPosition, SetUnitPositionReducerAction } from "@src/reducers/editor/unit/setUnitPosition";
+import { setUnitRotation, SetUnitRotationReducerAction } from "@src/reducers/editor/unit/setUnitRotation";
 import { toggleDebug, ToggleDebugReducerAction } from "@src/reducers/game/debug/toggleDebug";
 import { toggleDebugFeature, ToggleDebugFeatureReducerAction } from "@src/reducers/game/debug/toggleDebugFeature";
 import { toggleFeature, ToggleFeatureReducerAction } from "@src/reducers/game/debug/toggleFeature";
@@ -109,6 +109,7 @@ import {
   highlightUnitAtGunpoint,
   HighlightUnitAtGunpointReducerAction,
 } from "@src/reducers/game/unit/highlightUnitAtGunpoint";
+import { animateVehicleMove, AnimateVehicleMoveReducerAction } from "@src/reducers/game/vehicle/animateVehicleMove";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 
@@ -125,6 +126,8 @@ export type GameReducerAction =
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
   | HighlightUnitAtGunpointReducerAction
+  //
+  | AnimateVehicleMoveReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -149,7 +152,7 @@ export type GameReducerAction =
   | AddBuildingReducerAction
   | SetSelectedBuildingReducerAction
   | ClearSelectedBuildingReducerAction
-  | SetBuildingDirectionReducerAction
+  | SetBuildingRotationReducerAction
   | DeleteSelectedBuildingReducerAction
   | SetBuildingVariantReducerAction
   | SetBuildingPositionReducerAction
@@ -161,7 +164,7 @@ export type GameReducerAction =
   | DeleteSelectedUnitReducerAction
   | SetUnitPositionReducerAction
   | SetUnitDeadReducerAction
-  | SetUnitDirectionReducerAction
+  | SetUnitRotationReducerAction
   | StopUnitsActionReducerAction
   | DoRandomUnitActionReducerAction
   //
@@ -229,6 +232,10 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return doRandomUnitAction(state, action as DoRandomUnitActionReducerAction);
 
     //
+
+    case "animateVehicleMove":
+      return animateVehicleMove(state, action as AnimateVehicleMoveReducerAction);
+    //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);
 
@@ -286,8 +293,8 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "clearSelectedBuilding":
       return clearSelectedBuilding(state, action as ClearSelectedBuildingReducerAction);
 
-    case "setBuildingDirection":
-      return setBuildingDirection(state, action as SetBuildingDirectionReducerAction);
+    case "setBuildingRotation":
+      return setBuildingRotation(state, action as SetBuildingRotationReducerAction);
 
     case "deleteSelectedBuilding":
       return deleteSelectedBuilding(state, action as DeleteSelectedBuildingReducerAction);
@@ -320,8 +327,8 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "setUnitDead":
       return setUnitDead(state, action as SetUnitDeadReducerAction);
 
-    case "setUnitDirection":
-      return setUnitDirection(state, action as SetUnitDirectionReducerAction);
+    case "setUnitRotation":
+      return setUnitRotation(state, action as SetUnitRotationReducerAction);
 
     // EDITOR: LIGHT
     case "setGlobalShadowsOpacity":

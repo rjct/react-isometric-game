@@ -3,7 +3,7 @@ import { GameMap } from "@src/engine/gameMap";
 export interface HighlightEntityPlaceholderReducerAction {
   type: "highlightEntityPlaceholder";
   position: GridCoordinates;
-  direction: Direction;
+  rotation: AngleInDegrees;
   size: Size3D;
 }
 
@@ -11,7 +11,7 @@ export function highlightEntityPlaceholder(state: GameMap, action: HighlightEnti
   if (
     state.entityPlaceholder?.position.x === action.position.x &&
     state.entityPlaceholder?.position.y === action.position.y &&
-    state.entityPlaceholder?.direction === action.direction
+    state.entityPlaceholder?.rotation === action.rotation
   ) {
     return state;
   }
@@ -21,7 +21,7 @@ export function highlightEntityPlaceholder(state: GameMap, action: HighlightEnti
     ...{
       entityPlaceholder: {
         position: action.position,
-        direction: action.direction,
+        rotation: action.rotation,
         size: action.size,
       },
     },
