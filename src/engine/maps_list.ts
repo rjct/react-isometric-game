@@ -7,4 +7,5 @@ export enum mapsList {
   "empty" = "maps/map_empty.json",
   "shooting_gallery" = "maps/map_shooting_gallery.json",
   "big" = "maps/map_big.json",
+  "autodrome" = "maps/map_autodrome.json",
 }

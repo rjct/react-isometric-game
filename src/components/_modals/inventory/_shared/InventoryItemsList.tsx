@@ -1,13 +1,13 @@
 import { InventoryEmptyText } from "@src/components/_modals/inventory/_shared/inventoryEmptyText";
 import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
 import { Building } from "@src/engine/BuildingFactory";
-import { GameObject } from "@src/engine/GameObjectFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export function InventoryItemsList(props: {
   owner: Unit | Building | Vehicle;
-  inventoryType?: keyof GameObject["inventory"];
+  inventoryType?: keyof GameEntity["inventory"];
   compact?: boolean;
   selectable: boolean;
   editable: boolean;

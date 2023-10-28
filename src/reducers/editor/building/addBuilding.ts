@@ -22,11 +22,11 @@ export function addBuilding(state: GameMap, action: AddBuildingReducerAction): G
   building.setPosition(action.position, state);
 
   state.buildings.push(building);
+  state.setGridMatrixOccupancy([building]);
 
   return {
     ...state,
     ...{
-      matrix: state.setGridMatrixOccupancy([building], state.matrix),
       selectedBuilding: building,
     },
   };

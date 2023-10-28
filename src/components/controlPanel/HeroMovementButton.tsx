@@ -42,7 +42,7 @@ export const HeroMovementButton = React.memo(() => {
       className={[`control-movement`]}
       active={hero.currentSelectedAction === "move"}
       title={heroMovementTypes[hero.currentMovementMode].text}
-      disabled={hero.isMoving()}
+      disabled={hero.isMoving() || hero.isVehicleInUse()}
       onClick={handleClick}
     >
       <label>

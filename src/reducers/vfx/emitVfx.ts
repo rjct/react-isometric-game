@@ -23,7 +23,7 @@ export function emitVfx(state: GameMap, action: EmitVfxReducerAction): GameMap {
 
   if (vfx.lightEffect?.light) {
     state.lights.push(vfx.lightEffect.light);
-    vfx.lightEffect.light.cast(state.getAllGameObjectsWalls());
+    vfx.lightEffect.light.cast(state.getAllGameEntitiesWalls());
   }
 
   return { ...state };

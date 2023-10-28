@@ -9,6 +9,8 @@ export const HeroExploreButton = React.memo(() => {
   const { gameDispatch } = useGameState();
   const { hero } = useHero();
 
+  if (hero.isVehicleInUse()) return null;
+
   const handleClick = () => {
     if (hero.isMoving()) return;
 

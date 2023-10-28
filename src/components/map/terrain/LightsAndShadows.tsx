@@ -7,7 +7,7 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export const LightsAndShadows = React.memo(() => {
-  const { gameState, uiState } = useGameState();
+  const { gameState, gameDispatch, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
   const { checkEditorMode } = useEditor();
 
@@ -40,9 +40,16 @@ export const LightsAndShadows = React.memo(() => {
     gameState.settings.featureEnabled.light,
     gameState.settings.featureEnabled.shadow,
     gameState.settings.featureEnabled.unitShadow,
+    gameState.getVehiclesHash(),
     uiState.scene,
     uiState.editorMode,
   ]);
+
+  React.useEffect(() => {
+    if (!isAllowed) return;
+
+    gameDispatch({ type: "recalculateLightsAndShadows" });
+  }, [gameState.getVehiclesHash()]);
 
   if (!isAllowed) return null;
 

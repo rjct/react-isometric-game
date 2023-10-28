@@ -14,21 +14,26 @@
 }
 
 .createVehicle(@vehicle-type, @width, @height) {
-  @vehicle-actions: idle, parked, driving;
+  @vehicle-actions: none, idle, driving;
 
   &.@{vehicle-type} {
     width: @width;
     height: @height;
 
     each(@vehicle-actions, {
-			&[data-action="@{value}"] {
-				@action-bg: %('/public/assets/vehicles/drivable/%a/%s.webp', @vehicle-type, @value);
-				background-image: url(@action-bg);
-			}
+		&[data-action="@{value}"] {
+			@action-bg: %('/public/assets/vehicles/drivable/%a/%s.webp', @vehicle-type, @value);
+			background-image: url(@action-bg);
+		}
 
-			.shared-vehicle-action-idle(@width);
-			.shared-vehicle-action-driving(@width);
-			.vehicle-rotation(@width, @height, 32);
-		});
+		.shared-vehicle-action-idle(@width);
+		.shared-vehicle-action-driving(@width);
+		.vehicle-rotation(@width, @height, 32);
+	});
+
+    &[data-action="none"] {
+      @action-bg: %("/public/assets/vehicles/drivable/%a/idle.webp", @vehicle-type);
+      background-image: url(@action-bg);
+    }
   }
 }

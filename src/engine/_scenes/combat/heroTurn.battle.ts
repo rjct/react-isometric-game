@@ -11,7 +11,7 @@ export function heroTurnBattle(this: GameContext, deltaTime: number, hero: Unit)
 
     gameDispatch({ type: "updateMapUrl", mapUrl });
   }
-  gameDispatch({ type: "animateUnitMove", units: [hero], deltaTime, consumeActionPoints: true });
+  gameDispatch({ type: "animateEntitiesMove", entities: [hero], deltaTime, consumeActionPoints: true });
 
   gameDispatch({ type: "animateFiredAmmo", deltaTime });
   gameDispatch({ type: "detectFiredAmmoHitsTarget" });

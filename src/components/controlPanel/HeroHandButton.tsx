@@ -14,11 +14,13 @@ export const HeroHandButton = React.memo((props: { type: "leftHand" | "rightHand
     gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: props.type });
   };
 
+  if (hero.isVehicleInUse()) return null;
+
   return (
     <Button
       className={[`control-${props.type}`]}
       active={hero.currentSelectedAction === props.type}
-      disabled={hero.isMoving()}
+      disabled={hero.isMoving() || hero.isVehicleInUse()}
     >
       <HeroActionControl
         action={props.type}

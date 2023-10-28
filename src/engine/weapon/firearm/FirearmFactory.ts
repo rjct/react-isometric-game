@@ -70,7 +70,7 @@ export class Firearm extends Weapon {
 
             if (emittedVfx.lightEffect?.light) {
               gameState.lights.push(emittedVfx.lightEffect.light);
-              emittedVfx.lightEffect.light.cast(gameState.getAllGameObjectsWalls());
+              emittedVfx.lightEffect.light.cast(gameState.getAllGameEntitiesWalls());
             }
           }
         });

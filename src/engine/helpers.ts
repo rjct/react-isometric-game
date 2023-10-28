@@ -2,8 +2,8 @@ import { StaticMap } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObject } from "@src/engine/GameObjectFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
@@ -18,7 +18,7 @@ export function randomInt(min: number, max: number) {
   return floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function getEntityZIndex(entity: GameObject) {
+export function getEntityZIndex(entity: GameEntity) {
   const { position, size } = entity;
 
   const x = Math.ceil(position.grid.x + size.grid.width);

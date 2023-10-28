@@ -18,21 +18,7 @@
       "target": { "x1": 0, "y1": 20, "x2": 20, "y2": 40 }
     }
   ],
-  "hero": {
-    "position": { "x": 19, "y": 19 },
-    "direction": "top",
-    "inventory": {
-      "main": [
-        { "class": "weapon", "name": "broken_bottle" },
-        { "class": "weapon", "name": "colt_45" },
-        { "class": "weapon", "name": "colt_45" },
-        { "class": "weapon", "name": "beretta_M92FS" },
-        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
-      ],
-      "leftHand": { "class": "weapon", "name": "molotov_cocktail" },
-      "rightHand": { "class": "weapon", "name": "mp5" }
-    }
-  },
+  "hero": { "position": { "x": 19, "y": 19 }, "rotation": 0 },
   "enemies": [],
   "buildings": [],
   "vehicles": [],
@@ -40,8 +26,8 @@
   "globalLights": { "opacity": 0 },
   "lights": [
     { "position": { "x": 0, "y": 0 }, "color": "#ffffff", "radius": 20 },
-    { "position": { "x": 19, "y": 19 }, "color": "#ffffff", "radius": 20 },
-    { "position": { "x": 0, "y": 19 }, "color": "#ffffff", "radius": 20 },
-    { "position": { "x": 19, "y": 0 }, "color": "#ffffff", "radius": 20 }
+    { "position": { "x": 12, "y": 12 }, "color": "#ffffff", "radius": 20 },
+    { "position": { "x": 0, "y": 19 }, "color": "#ffffff", "radius": 40 },
+    { "position": { "x": 19, "y": 0 }, "color": "#ffffff", "radius": 40 }
   ]
 }

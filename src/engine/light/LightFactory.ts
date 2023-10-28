@@ -1,5 +1,5 @@
 import { StaticMapLight } from "@src/context/GameStateContext";
-import { GameObjectIntersectionWithLightRay, GameObjectWall } from "@src/engine/GameObjectFactory";
+import { GameEntityIntersectionWithLightRay, GameEntityWall } from "@src/engine/GameEntityFactory";
 import { getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
 
 export class Light {
@@ -8,7 +8,7 @@ export class Light {
   public position: GridCoordinates;
   private color = "#ffffff";
   public radius = 6;
-  public intersectsWithWalls: GameObjectIntersectionWithLightRay[] = [];
+  public intersectsWithWalls: GameEntityIntersectionWithLightRay[] = [];
 
   constructor(props: StaticMapLight) {
     this.position = props.position;
@@ -30,7 +30,7 @@ export class Light {
     return this.color;
   }
 
-  cast(walls: GameObjectWall[]) {
+  cast(walls: GameEntityWall[]) {
     const lightPosition = {
       x: this.position.x + 0.5,
       y: this.position.y + 0.5,
@@ -38,7 +38,7 @@ export class Light {
 
     const wallPoints = walls
       .filter((wall) => {
-        if (wall.gameObject.id === "world-walls") return true;
+        if (wall.gameEntity.id === "world-walls") return true;
 
         return (
           getDistanceBetweenGridPoints(

@@ -23,11 +23,11 @@ export function addUnit(state: GameMap, action: AddUnitReducerAction): GameMap {
   unit.setPosition(action.position, state);
 
   state.units[unit.id] = unit;
+  state.setGridMatrixOccupancy([unit]);
 
   return {
     ...state,
     ...{
-      matrix: state.setGridMatrixOccupancy([unit], state.matrix),
       selectedUnit: unit,
     },
   };

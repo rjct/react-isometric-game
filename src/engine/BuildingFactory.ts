@@ -1,7 +1,7 @@
 import { StaticMapBuilding } from "@src/context/GameStateContext";
 import buildings from "@src/dict/buildings.json";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObject } from "@src/engine/GameObjectFactory";
 
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation } from "@src/engine/weapon/helpers";
@@ -28,7 +28,7 @@ export interface DictBuilding {
   explorable?: boolean;
 }
 
-export class Building extends GameObject {
+export class Building extends GameEntity {
   public readonly dictEntity: DictBuilding;
   public readonly class;
   public readonly type;

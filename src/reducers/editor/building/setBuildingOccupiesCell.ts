@@ -9,7 +9,7 @@ export function setBuildingOccupiesCell(state: GameMap, action: SetBuildingOccup
   const building = state.getBuildingById(action.entityId);
 
   if (building) {
-    state.setGridMatrixOccupancy([building], state.matrix, action.value ? 1 : -1);
+    state.setGridMatrixOccupancy([building], action.value ? 1 : -1);
 
     building.occupiesCell = action.value;
 

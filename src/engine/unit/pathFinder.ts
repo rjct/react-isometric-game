@@ -1,10 +1,15 @@
 import { GameMap } from "@src/engine/gameMap";
 import pathfinding from "pathfinding";
 
-export function pathFinderAStar(matrix: GameMap["matrix"], fromPos: GridCoordinates, toPos: GridCoordinates) {
+export function pathFinderAStar(
+  matrix: GameMap["matrix"],
+  fromPos: GridCoordinates,
+  toPos: GridCoordinates,
+  diagonalMovement: pathfinding.DiagonalMovement = pathfinding.DiagonalMovement.Never,
+) {
   const grid = new pathfinding.Grid(matrix);
   const finder = new pathfinding.AStarFinder({
-    diagonalMovement: pathfinding.DiagonalMovement.Never,
+    diagonalMovement: diagonalMovement,
     heuristic: pathfinding.Heuristic.euclidean,
   });
 
@@ -19,4 +24,10 @@ export function pathFinderBiAStar(matrix: GameMap["matrix"], fromPos: GridCoordi
   });
 
   return finder.findPath(Math.round(fromPos.x), Math.round(fromPos.y), Math.round(toPos.x), Math.round(toPos.y), grid);
+}
+
+export function convertPathToCoordinatesArray(path: number[][]): GridCoordinates[] {
+  return path.map((iter) => {
+    return { x: iter[0], y: iter[1] };
+  });
 }

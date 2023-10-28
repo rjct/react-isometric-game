@@ -1,8 +1,8 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/BuildingFactory";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObject } from "@src/engine/GameObjectFactory";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
@@ -34,7 +34,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
 
   newState.fogOfWar = new FogOfWar({ size: action.map.size });
 
-  newState.world = new GameObject({
+  newState.world = new GameEntity({
     gameState: newState,
     id: "world-walls",
     size: {
@@ -82,7 +82,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   newState.lights = (action.map.lights || []).map((staticMapLight) => {
     const light = new Light(staticMapLight);
 
-    light.cast(newState.getAllGameObjectsWalls()); //light.castRays(newState.buildings);
+    light.cast(newState.getAllGameEntitiesWalls()); //light.castRays(newState.buildings);
 
     return light;
   });
@@ -127,6 +127,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
 
   const heroId = newState.heroId;
 
+  newState.units[heroId].getOutOfVehicle();
   newState.units[heroId].stop();
   newState.units[heroId].setPosition(action.map.hero.position, newState);
 
@@ -134,9 +135,9 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     newState.units[heroId].calcShadows(newState);
   }
 
-  newState.matrix = newState.setGridMatrixOccupancy(newState.buildings, newState.matrix);
-  newState.matrix = newState.setGridMatrixOccupancy(newState.vehicles, newState.matrix);
-  newState.matrix = newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray(), newState.matrix);
+  newState.setGridMatrixOccupancy(newState.buildings);
+  newState.setGridMatrixOccupancy(newState.vehicles);
+  newState.setGridMatrixOccupancy(newState.getAllAliveUnitsArray());
 
   return newState;
 }

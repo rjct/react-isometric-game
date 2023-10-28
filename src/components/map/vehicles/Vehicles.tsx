@@ -21,7 +21,7 @@ export const Vehicles = React.memo(function Vehicles() {
       uiState.viewport,
       gameState.highlightedEntityForInventoryTransfer,
       gameState.selectedEntityForInventoryTransfer,
-      JSON.stringify(gameState.vehicles.map((v) => v.rotation.deg)),
+      gameState.getVehiclesHash(),
     ],
   );
 

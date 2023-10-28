@@ -7,7 +7,7 @@ export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: 
   const hero = gameState.getHero();
 
   if (enemy.path.length === 0) {
-    const unitPath = pathFinderBiAStar(gameState.matrix, enemy.getRoundedPosition(), hero.getRoundedPosition()); //gameState.calcUnitPath(enemy, hero.getRoundedPosition());
+    const unitPath = pathFinderBiAStar(gameState.matrix, enemy.getRoundedPosition(), hero.getRoundedPosition()); //gameState.calcMovementPath(enemy, hero.getRoundedPosition());
 
     unitPath.pop();
 
@@ -19,5 +19,5 @@ export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: 
     }
   }
 
-  gameDispatch({ type: "animateUnitMove", units: [enemy], deltaTime, consumeActionPoints: true });
+  gameDispatch({ type: "animateEntitiesMove", entities: [enemy], deltaTime, consumeActionPoints: true });
 }

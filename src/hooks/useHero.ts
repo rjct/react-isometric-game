@@ -3,6 +3,7 @@ import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { getDistanceBetweenEntities, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { WorldMousePosition } from "@src/hooks/useMousePosition";
 
@@ -33,6 +34,14 @@ export function useHero() {
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
 
         if (entity) {
+          if (type === "doubleClick") {
+            if (entity instanceof Vehicle) {
+              gameDispatch({ type: "getIntoVehicle", unit: hero, vehicle: entity });
+            }
+
+            return;
+          }
+
           gameDispatch({ type: "highlightExplorableEntity", entity: null });
           gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity });
 

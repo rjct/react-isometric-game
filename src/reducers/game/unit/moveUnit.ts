@@ -27,7 +27,7 @@ export function moveUnit(state: GameMap, action: MoveUnitReducerAction): GameMap
     unit.pathQueue.currentPos = unit.position.grid;
   }
 
-  const unitPath = state.calcUnitPath(unit, action.position);
+  const unitPath = state.calcMovementPath(unit.position.grid, action.position);
 
   if (unitPath.length > 0) {
     unit.setPath(unitPath);

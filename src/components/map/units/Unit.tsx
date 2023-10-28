@@ -23,8 +23,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
   const isEditing = checkCurrentScene(["editor"]);
   const isUnitVisible =
-    isEditing ||
-    (gameState.isEntityVisibleByHero(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport));
+    !props.unit.isVehicleInUse() &&
+    (isEditing ||
+      (gameState.isEntityVisibleByHero(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport)));
 
   React.useEffect(() => {
     if (!isUnitVisible) return;

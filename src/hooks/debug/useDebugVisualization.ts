@@ -35,7 +35,7 @@ export function useDebugVisualization() {
 
     renderOccupiedCells(ctx);
     renderUnitFieldOfView(ctx);
-    renderUnitPath(ctx);
+    renderEntityMovementPath(ctx);
     renderTargetVector();
     renderShadowVectors(ctx);
   };
@@ -60,25 +60,38 @@ export function useDebugVisualization() {
         drawCircle(ctx, unit.getRoundedPosition(), unit.internalColor, unit.internalColor, 0);
       }
     }
+
+    //
+    for (const cell in uiState.viewport.visibleCells) {
+      if (gameState.isCellOccupied(uiState.viewport.visibleCells[cell])) {
+        drawFillRect(ctx, uiState.viewport.visibleCells[cell], "rgba(255,255,255,0.2)", 1, {
+          width: 1,
+          length: 1,
+          height: 0,
+        });
+      }
+    }
   };
 
-  const renderUnitPath = (ctx: CanvasRenderingContext2D) => {
+  const renderEntityMovementPath = (ctx: CanvasRenderingContext2D) => {
     if (!gameState.debug.featureEnabled.unitPath) return;
 
     ctx.setLineDash([15, 5]);
 
-    for (const unit of allAliveUnits) {
-      if (unit.path.length > 0) {
-        const x = unit.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y = unit.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
-        const color = unit.isHero ? "orange" : "limegreen";
+    const movableEntities = [...allAliveUnits, ...gameState.vehicles];
+
+    for (const entity of movableEntities) {
+      if (entity.path.length > 0) {
+        const x = entity.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y = entity.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const color = entity.internalColor;
 
         ctx.lineWidth = 3;
         ctx.strokeStyle = color;
         ctx.beginPath();
         ctx.moveTo(x, y);
 
-        const path = unit.pathQueue.points.slice();
+        const path = entity.pathQueue.points.slice();
         path.shift();
 
         for (const pathPoint of path) {
@@ -90,8 +103,8 @@ export function useDebugVisualization() {
 
         ctx.fillStyle = color;
         ctx.fillRect(
-          unit.pathQueue.destinationPos.x * wireframeTileWidth + wireframeTileWidth / 2 - 10,
-          unit.pathQueue.destinationPos.y * wireframeTileHeight + wireframeTileHeight / 2 - 10,
+          entity.pathQueue.destinationPos.x * wireframeTileWidth + wireframeTileWidth / 2 - 10,
+          entity.pathQueue.destinationPos.y * wireframeTileHeight + wireframeTileHeight / 2 - 10,
           20,
           20,
         );

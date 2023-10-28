@@ -14,6 +14,7 @@ export const VehicleComponent = (props: {
       style={{
         transform: getCss3dPosition(props.vehicle.position.screen, false),
         zIndex: props.vehicle.zIndex,
+        animationDuration: `${Math.round(1000 - props.vehicle.speed.current * 20)}ms`,
       }}
       data-action={props.vehicle.action}
       data-selected-for-inventory-transfer={

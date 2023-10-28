@@ -8,7 +8,7 @@ export type RecalculateUnitFieldOfViewReducerAction = {
 export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUnitFieldOfViewReducerAction): GameMap {
   const units = state.getAllAliveUnitsArray();
   const buildings = state.buildings.filter((building) => building.occupiesCell);
-  const vehicles = state.vehicles;
+  const vehicles = state.vehicles.filter((vehicle) => vehicle.id !== vehicle.driver?.getVehicleInUse()?.id);
 
   for (const unit of units) {
     if (unit.isDead || unit.fieldOfView.rays.length === 0 || unit.distanceToHero > unit.fieldOfView.range) {

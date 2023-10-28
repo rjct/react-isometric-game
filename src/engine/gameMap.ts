@@ -4,9 +4,10 @@ import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
-import { GameObject } from "@src/engine/GameObjectFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { floor, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
+import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
@@ -85,7 +86,7 @@ export const gameMap = {
     height: 0,
   } as GameMapProps["mapSize"],
 
-  world: null as unknown as GameObject,
+  world: null as unknown as GameEntity,
 
   buildings: [] as GameMapProps["buildings"],
   vehicles: [] as GameMapProps["vehicles"],
@@ -139,8 +140,8 @@ export const gameMap = {
     return this.mediaAssets.audio[assetName] as AssetFileAudio;
   },
 
-  playSfx(src: string[], volume = 1, stereoPan = 0) {
-    if (volume <= 0 || src.length === 0) return;
+  createSfx(src: string[], volume = 1, stereoPan = 0) {
+    if (volume <= 0 || src.length === 0) return null;
 
     const decodedTrack = this.getAssetAudio(src[randomInt(0, src.length - 1)]);
     const gainNode = this.audioContext.createGain();
@@ -155,9 +156,19 @@ export const gameMap = {
       bufferSource.buffer = decodedTrack.source;
       bufferSource.connect(panNode).connect(gainNode).connect(this.audioContext.destination);
 
+      return bufferSource;
+    }
+
+    return null;
+  },
+
+  playSfx(src: string[], volume = 1, stereoPan = 0) {
+    if (volume <= 0 || src.length === 0) return;
+
+    const bufferSource = this.createSfx(src, volume, stereoPan);
+
+    if (bufferSource) {
       bufferSource.start();
-    } else {
-      throw Error(`Can't find SFX "${src}"`);
     }
   },
 
@@ -171,8 +182,47 @@ export const gameMap = {
     this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] = Math.max(0, value - 1);
   },
 
+  occupyArea(coordinates: GridCoordinates, size: Size3D) {
+    const { x, y } = coordinates;
+    const { width, length } = size;
+
+    for (let xx = x; xx < x + width; xx++) {
+      for (let yy = y; yy < y + length; yy++) {
+        this.occupyCell({ x: xx, y: yy });
+      }
+    }
+  },
+
+  deOccupyArea(coordinates: GridCoordinates, size: Size3D) {
+    const { x, y } = coordinates;
+    const { width, length } = size;
+
+    for (let xx = x; xx < x + width; xx++) {
+      for (let yy = y; yy < y + length; yy++) {
+        this.deOccupyCell({ x: xx, y: yy });
+      }
+    }
+  },
+
   isCellOccupied(coordinates: GridCoordinates) {
     return this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] > 0;
+  },
+
+  checkCollision(entity: MovableGameEntity): boolean {
+    const TOLERANCE = 0.1;
+    const { position, size } = entity;
+    const { x, y } = position.grid;
+    const { width, length } = size.grid;
+
+    for (let i = x - TOLERANCE; i < x + width + TOLERANCE; i++) {
+      for (let j = y - TOLERANCE; j < y + length + TOLERANCE; j++) {
+        if (this.isCellOccupied({ x: i, y: j }) && !(i >= x + width || j >= y + length || i + 1 <= x || j + 1 <= y)) {
+          return true;
+        }
+      }
+    }
+
+    return false;
   },
 
   isEntityVisibleByHero(entity: Building | Unit) {
@@ -181,7 +231,7 @@ export const gameMap = {
     return this.getHero().fieldOfView.isEntityInView(entity.id);
   },
 
-  setGridMatrixOccupancy(entities: Array<Unit | Building | Vehicle>, matrix: Array<Array<number>>, occupancy = 1) {
+  setGridMatrixOccupancy(entities: Array<Unit | Building | Vehicle>, occupancy = 1) {
     for (const entity of entities) {
       if (!entity.occupiesCell) continue;
 
@@ -191,13 +241,11 @@ export const gameMap = {
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + length; yy++) {
           if (xx < this.mapSize.width && yy < this.mapSize.height) {
-            matrix[yy][xx] += occupancy;
+            this.matrix[yy][xx] += occupancy;
           }
         }
       }
     }
-
-    return matrix;
   },
 
   isEntityInViewport(entity: TerrainTile | Unit | Building | Vehicle, viewport: GameUI["viewport"]) {
@@ -267,19 +315,19 @@ export const gameMap = {
     );
   },
 
-  calcUnitPath(unit: Unit, destinationPosition: GridCoordinates) {
-    const unitPath = pathFinderAStar(this.matrix, unit.position.grid, {
+  calcMovementPath(startPosition: GridCoordinates, destinationPosition: GridCoordinates) {
+    const path = pathFinderAStar(this.matrix, startPosition, {
       x: Math.min(this.mapSize.width - 1, destinationPosition.x),
       y: Math.min(this.mapSize.height - 1, destinationPosition.y),
     });
 
-    if (unitPath.length > 0) {
-      if (unit.position.grid.x !== unitPath[0][0] || unit.position.grid.y !== unitPath[0][1]) {
-        unitPath.splice(0, 1, [unit.position.grid.x, unit.position.grid.y]);
+    if (path.length > 0) {
+      if (startPosition.x !== path[0][0] || startPosition.y !== path[0][1]) {
+        path.splice(0, 1, [startPosition.x, startPosition.y]);
       }
     }
 
-    return unitPath;
+    return path;
   },
 
   getBuildingById(id: string) {
@@ -302,13 +350,13 @@ export const gameMap = {
     const { x, y } = coordinates;
 
     return this.vehicles.find((vehicle) => {
-      const { x: vehicleX, y: vehicleY } = vehicle.getRoundedPosition();
+      const { x: vehicleX, y: vehicleY } = vehicle.position.grid;
 
       return (
-        x >= Math.round(vehicleX) &&
-        x < Math.round(vehicleX + vehicle.size.grid.width) &&
-        y >= Math.round(vehicleY) &&
-        y < Math.round(vehicleY + vehicle.size.grid.length)
+        x >= vehicleX &&
+        x < vehicleX + vehicle.size.grid.width &&
+        y >= vehicleY &&
+        y < vehicleY + vehicle.size.grid.length
       );
     });
   },
@@ -318,7 +366,7 @@ export const gameMap = {
 
     if (index === -1) return;
 
-    this.setGridMatrixOccupancy([this.buildings[index]], this.matrix, -1);
+    this.setGridMatrixOccupancy([this.buildings[index]], -1);
     this.buildings.splice(index, 1);
   },
 
@@ -342,7 +390,7 @@ export const gameMap = {
   deleteUnit(id: string) {
     const unit = this.getUnitById(id);
 
-    this.setGridMatrixOccupancy([unit], this.matrix, -1);
+    this.setGridMatrixOccupancy([unit], -1);
     delete this.units[id];
   },
 
@@ -433,12 +481,16 @@ export const gameMap = {
     return this.vehicles.map((vehicle) => vehicle.getHash()).join("|");
   },
 
-  getAllGameObjectsWalls() {
+  getAllGameEntitiesWalls() {
     return [
       ...this.world.walls,
       ...this.buildings
-        .filter((building) => building.occupiesCell)
-        .map((building) => building.walls)
+        .filter((entity) => entity.occupiesCell)
+        .map((entity) => entity.walls)
+        .flat(),
+      ...this.vehicles
+        .filter((entity) => entity.occupiesCell)
+        .map((entity) => entity.walls)
         .flat(),
     ];
   },

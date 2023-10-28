@@ -5,10 +5,10 @@ import units from "@src/dict/units.json";
 import { WeaponAttackMode } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { GameObject } from "@src/engine/GameObjectFactory";
 import { getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
+import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
@@ -83,7 +83,7 @@ export type UnitSfx = {
   [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
 };
 
-export class Unit extends GameObject {
+export class Unit extends MovableGameEntity {
   public readonly dictEntity: DictUnit;
   public readonly isHero: boolean;
   public readonly type;
@@ -116,9 +116,6 @@ export class Unit extends GameObject {
 
   public isDead: boolean;
 
-  public path: GridCoordinates[] = [];
-  public pathQueue: UnitPathQueue;
-
   public currentMovementMode: UnitMovementMode = "walk";
   public currentSelectedAction: "move" | "explore" | "leftHand" | "rightHand" = "move";
 
@@ -139,8 +136,10 @@ export class Unit extends GameObject {
   public readonly sfx: UnitSfx;
 
   public distanceToScreenCenter = -1;
-  public pathCompleteCallback: (() => void) | null = null;
+
   public randomActions: string[];
+
+  private vehicleInUse: Vehicle | null = null;
 
   constructor(props: {
     gameState: GameMap;
@@ -183,8 +182,6 @@ export class Unit extends GameObject {
 
     this.isDead = props.isDead === true;
 
-    this.pathQueue = new UnitPathQueue();
-
     this.fieldOfView = new UnitFieldOfViewFactory({
       position: this.position.grid,
       rotation: this.rotation,
@@ -213,31 +210,10 @@ export class Unit extends GameObject {
     }
   }
 
-  public setPath(path: number[][]) {
-    this.path = this.convertPathToCoordinatesArray(path);
-  }
-
-  public setPathCompleteCallback(callback: (() => void) | null) {
-    this.pathCompleteCallback = callback;
-  }
-
-  public convertPathToCoordinatesArray(path: number[][]): GridCoordinates[] {
-    return path.map((iter) => {
-      return { x: iter[0], y: iter[1] };
-    });
-  }
-
-  public convertCoordinatesToPathArray(coordinates: GridCoordinates[]) {
-    return coordinates.map((iter) => [iter.x, iter.y]);
-  }
-
-  public clearPath() {
-    this.pathQueue.points = [];
-    this.path = [];
-  }
-
-  public setRotation(angle: Angle) {
-    angle = normalizeRotation(angle.deg, 4);
+  public setRotation(angle: Angle, normalize = true) {
+    if (normalize) {
+      angle = normalizeRotation(angle.deg, 4);
+    }
 
     super.setRotation(angle);
 
@@ -279,9 +255,7 @@ export class Unit extends GameObject {
   public setPositionComplete() {
     this.sfx["walkStep"].currentProgressMs = 0;
 
-    if (this.pathCompleteCallback) {
-      this.pathCompleteCallback();
-    }
+    super.setPositionComplete();
   }
 
   public setAction(action: Unit["action"]) {
@@ -486,7 +460,7 @@ export class Unit extends GameObject {
           blocked: distance - 1 > distanceToRayEnd,
           opacity: 1 - distance / light.radius - 0.1,
           length: Number((0.1 + distance / 5).toFixed(1)),
-          angle: obstacleRay.getAngle().deg + 135,
+          angle: obstacleRay.getAngle().deg + 225,
         };
       });
   }
@@ -513,13 +487,38 @@ export class Unit extends GameObject {
     const allUnblockedCellsAroundEntity = entity
       .getAllUnblockedCellsAroundEntity()
       .filter((coordinates) => {
-        return this.gameState.calcUnitPath(this, coordinates).length > 0;
+        return this.gameState.calcMovementPath(this.position.grid, coordinates).length > 0;
       })
       .sort((a: GridCoordinates, b: GridCoordinates) => {
         return getDistanceBetweenGridPoints(roundedPosition, a) - getDistanceBetweenGridPoints(roundedPosition, b);
       });
 
     return allUnblockedCellsAroundEntity[0];
+  }
+
+  public isVehicleInUse() {
+    return this.vehicleInUse !== null;
+  }
+
+  public getVehicleInUse() {
+    return this.vehicleInUse;
+  }
+
+  public getIntoVehicle(vehicle: Vehicle) {
+    this.vehicleInUse = vehicle;
+  }
+
+  public getOutOfVehicle() {
+    if (!this.vehicleInUse) return;
+
+    this.setPosition(
+      {
+        x: this.vehicleInUse.position.grid.x - this.vehicleInUse.size.grid.width / 2,
+        y: this.vehicleInUse.position.grid.y - this.vehicleInUse.size.grid.length / 2,
+      },
+      this.gameState,
+    );
+    this.vehicleInUse = null;
   }
 
   public getJSON(omitUnitType = false) {
@@ -563,55 +562,5 @@ export class Unit extends GameObject {
     const hash = super.getHash();
 
     return `${hash}:${Object.keys(this.fieldOfView.entitiesInView).length}`;
-  }
-}
-
-class UnitPathQueue {
-  points: GridCoordinates[];
-  currentPos: GridCoordinates;
-  destinationPos: GridCoordinates;
-  distAlong: number;
-  totalDistMoved: number;
-  atEnd: boolean;
-
-  constructor() {
-    this.points = [];
-    this.currentPos = { x: 0, y: 0 };
-    this.destinationPos = { x: 0, y: 0 };
-    this.distAlong = 0;
-    this.totalDistMoved = 0;
-    this.atEnd = false;
-  }
-
-  moveAlong(deltaTime: number) {
-    if (deltaTime > 0) {
-      if (this.points.length > 1) {
-        const x = this.points[1].x - this.points[0].x;
-        const y = this.points[1].y - this.points[0].y;
-        const len = Math.sqrt(x * x + y * y);
-
-        if (len - this.distAlong < deltaTime) {
-          const lastPoint = this.points.shift();
-
-          deltaTime -= len - this.distAlong;
-          this.totalDistMoved += len - this.distAlong;
-          this.distAlong = 0;
-
-          return lastPoint;
-        }
-
-        const frac = (this.distAlong + deltaTime) / len;
-        this.currentPos.x = this.points[0].x + x * frac;
-        this.currentPos.y = this.points[0].y + y * frac;
-        this.distAlong += deltaTime;
-        this.totalDistMoved += deltaTime;
-      } else {
-        this.currentPos.x = this.points[0].x;
-        this.currentPos.y = this.points[0].y;
-        this.distAlong = 0;
-        this.points = [];
-        this.atEnd = true;
-      }
-    }
   }
 }

@@ -20,7 +20,7 @@ export function gameScene(this: GameContext, deltaTime: number) {
     gameDispatch({ type: "updateMapUrl", mapUrl });
   }
 
-  gameDispatch({ type: "animateUnitMove", units: allAliveUnits, deltaTime });
+  gameDispatch({ type: "animateEntitiesMove", entities: [...allAliveUnits, ...gameState.vehicles], deltaTime });
   gameDispatch({ type: "animateFiredAmmo", deltaTime });
   gameDispatch({ type: "detectFiredAmmoHitsTarget" });
 
@@ -80,7 +80,9 @@ export function gameScene(this: GameContext, deltaTime: number) {
     gameDispatch({ type: "doRandomUnitAction", unit: enemy, deltaTime });
   }
 
-  //for (const vehicle of gameState.vehicles) {
-  //gameDispatch({ type: "animateVehicleMove", vehicle, deltaTime });
-  //}
+  for (const vehicle of gameState.vehicles) {
+    gameDispatch({ type: "accelerateVehicle", vehicle, deltaTime });
+    gameDispatch({ type: "decelerateVehicle", vehicle, deltaTime });
+    //gameDispatch({ type: "animateVehicleMove", vehicle, deltaTime });
+  }
 }

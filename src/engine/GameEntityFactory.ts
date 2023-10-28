@@ -11,17 +11,28 @@ import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation, createInventoryItemByName, itemIsWeapon } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
-export type GameObjectIntersectionWithLightRay = {
-  wall: GameObjectWall;
+export type GameEntityIntersectionWithLightRay = {
+  wall: GameEntityWall;
   x: number;
   y: number;
   param: number;
   angle: number;
 };
 
-export type InventoryType = keyof GameObject["inventory"];
+export type InventoryType = keyof GameEntity["inventory"];
 
-export class GameObject {
+export interface GameEntityProps {
+  gameState: GameMap;
+  id?: string;
+  size: { grid: Size3D; screen: Size2D };
+  position: GridCoordinates;
+  rotation: AngleInDegrees;
+  internalColor: string;
+  occupiesCell?: boolean;
+  explorable?: boolean;
+}
+
+export class GameEntity {
   public readonly gameState: GameMap;
 
   public readonly id;
@@ -44,7 +55,7 @@ export class GameObject {
   };
   public occupiesCell = true;
 
-  public walls: GameObjectWall[] = [];
+  public walls: GameEntityWall[] = [];
 
   public inventory: {
     main: Array<Weapon | Ammo>;
@@ -56,16 +67,7 @@ export class GameObject {
 
   private readonly explorable: boolean = false;
 
-  constructor(props: {
-    gameState: GameMap;
-    id?: string;
-    size: { grid: Size3D; screen: Size2D };
-    position: GridCoordinates;
-    rotation: AngleInDegrees;
-    internalColor: string;
-    occupiesCell?: boolean;
-    explorable?: boolean;
-  }) {
+  constructor(props: GameEntityProps) {
     this.gameState = props.gameState;
 
     this.id = props.id || randomUUID();
@@ -97,7 +99,7 @@ export class GameObject {
   createWalls() {
     this.walls = [
       // top
-      new GameObjectWall(this, {
+      new GameEntityWall(this, {
         x1: 0,
         y1: 0,
         x2: this.size.grid.width,
@@ -105,7 +107,7 @@ export class GameObject {
       }),
 
       // right
-      new GameObjectWall(this, {
+      new GameEntityWall(this, {
         x1: this.size.grid.width,
         y1: 0,
         x2: this.size.grid.width,
@@ -113,7 +115,7 @@ export class GameObject {
       }),
 
       // bottom
-      new GameObjectWall(this, {
+      new GameEntityWall(this, {
         x1: this.size.grid.width,
         y1: this.size.grid.length,
         x2: 0,
@@ -121,7 +123,7 @@ export class GameObject {
       }),
 
       // left
-      new GameObjectWall(this, {
+      new GameEntityWall(this, {
         x1: 0,
         y1: this.size.grid.length,
         x2: 0,
@@ -155,7 +157,7 @@ export class GameObject {
     };
   }
 
-  rayDist(lightRay: LightRay, wall: GameObjectWall) {
+  rayDist(lightRay: LightRay, wall: GameEntityWall) {
     const rWCross = lightRay.n.grid.x * wall.n.grid.y - lightRay.n.grid.y * wall.n.grid.x;
 
     if (!rWCross) {
@@ -218,7 +220,7 @@ export class GameObject {
     return cells;
   }
 
-  getInventoryItems(inventoryType?: keyof GameObject["inventory"]) {
+  getInventoryItems(inventoryType?: keyof GameEntity["inventory"]) {
     if (inventoryType) {
       return [this.inventory[inventoryType] || []].flat();
     }
@@ -230,7 +232,7 @@ export class GameObject {
     return [...leftHand, ...rightHand, ...main];
   }
 
-  getInventoryItemsGrouped(inventoryType?: keyof GameObject["inventory"]) {
+  getInventoryItemsGrouped(inventoryType?: keyof GameEntity["inventory"]) {
     const items = this.getInventoryItems(inventoryType);
 
     return items.reduce(
@@ -246,13 +248,13 @@ export class GameObject {
     );
   }
 
-  getInventoryItemsWeight(inventoryType?: keyof GameObject["inventory"]) {
+  getInventoryItemsWeight(inventoryType?: keyof GameEntity["inventory"]) {
     const items = this.getInventoryItems(inventoryType);
 
     return Math.round(items.reduce((prevValue, item) => prevValue + item.dictEntity.weight, 0));
   }
 
-  public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameObject["inventory"]) {
+  public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
     if (inventoryType === "main" || !itemIsWeapon(item)) {
       this.inventory.main.push(item);
     } else {
@@ -328,8 +330,8 @@ export class GameObject {
   }
 }
 
-export class GameObjectWall {
-  public readonly gameObject: GameObject;
+export class GameEntityWall {
+  public readonly gameEntity: GameEntity;
   public area = {
     local: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
     world: { x1: 0, y1: 0, x2: 0, y2: 0 } as AreaCoordinates,
@@ -360,10 +362,10 @@ export class GameObjectWall {
     screen: { x: number; y: number };
   };
 
-  constructor(gameObject: GameObject, area: AreaCoordinates) {
-    this.gameObject = gameObject;
+  constructor(gameEntity: GameEntity, area: AreaCoordinates) {
+    this.gameEntity = gameEntity;
 
-    this.setPosition(gameObject.position.grid, area);
+    this.setPosition(gameEntity.position.grid, area);
 
     this.size = {
       grid: {
@@ -419,7 +421,7 @@ export class GameObjectWall {
   public getIntersectionWithRay = (ray: {
     from: GridCoordinates;
     to: GridCoordinates;
-  }): GameObjectIntersectionWithLightRay | null => {
+  }): GameEntityIntersectionWithLightRay | null => {
     const rDx = ray.to.x - ray.from.x;
     const rDy = ray.to.y - ray.from.y;
 

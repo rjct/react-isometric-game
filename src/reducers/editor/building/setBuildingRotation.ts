@@ -11,12 +11,12 @@ export function setBuildingRotation(state: GameMap, action: SetBuildingRotationR
   const entity = state.getBuildingById(action.entityId);
 
   if (entity) {
-    state.setGridMatrixOccupancy([entity], state.matrix, -1);
+    state.setGridMatrixOccupancy([entity], -1);
     entity.setRotation({
       deg: action.rotation,
       rad: degToRad(action.rotation),
     });
-    state.setGridMatrixOccupancy([entity], state.matrix, 1);
+    state.setGridMatrixOccupancy([entity], 1);
 
     return { ...state };
   }

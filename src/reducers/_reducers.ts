@@ -69,7 +69,7 @@ import { toggleFeature, ToggleFeatureReducerAction } from "@src/reducers/game/de
 import { endCombat, EndCombatReducerAction } from "@src/reducers/game/endCombat";
 import { endTurn, EndTurnReducerAction } from "@src/reducers/game/endTurn";
 import { startCombat, StartCombatReducerAction } from "@src/reducers/game/startCombat";
-import { animateUnitMove, AnimateUnitMoveReducerAction } from "@src/reducers/game/unit/animateUnitMove";
+import { animateEntitiesMove, AnimateEntitiesMoveReducerAction } from "@src/reducers/game/unit/animateEntitiesMove";
 import { doRandomUnitAction, DoRandomUnitActionReducerAction } from "@src/reducers/game/unit/doRandomUnitAction";
 import { moveUnit, MoveUnitReducerAction } from "@src/reducers/game/unit/moveUnit";
 import {
@@ -109,7 +109,18 @@ import {
   highlightUnitAtGunpoint,
   HighlightUnitAtGunpointReducerAction,
 } from "@src/reducers/game/unit/highlightUnitAtGunpoint";
-import { animateVehicleMove, AnimateVehicleMoveReducerAction } from "@src/reducers/game/vehicle/animateVehicleMove";
+import { accelerateVehicle, AccelerateVehicleReducerAction } from "@src/reducers/game/vehicle/accelerateVehicle";
+import { decelerateVehicle, DecelerateVehicleReducerAction } from "@src/reducers/game/vehicle/decelerateVehicle";
+import { getIntoVehicle, GetIntoVehicleReducerAction } from "@src/reducers/game/vehicle/getIntoVehicle";
+import { getOutOfVehicle, GetOutOfVehicleReducerAction } from "@src/reducers/game/vehicle/getOutOfVehicle";
+import {
+  startVehicleAcceleration,
+  StartVehicleAccelerationReducerAction,
+} from "@src/reducers/game/vehicle/startVehicleAcceleration";
+import {
+  stopVehicleAcceleration,
+  StopVehicleAccelerationReducerAction,
+} from "@src/reducers/game/vehicle/stopVehicleAcceleration";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 
@@ -121,13 +132,18 @@ export type GameReducerAction =
   | LoadMapReducerAction
   | SwitchGameMapReducerAction
   | MoveUnitReducerAction
-  | AnimateUnitMoveReducerAction
+  | AnimateEntitiesMoveReducerAction
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
   | HighlightUnitAtGunpointReducerAction
   //
-  | AnimateVehicleMoveReducerAction
+  | GetIntoVehicleReducerAction
+  | GetOutOfVehicleReducerAction
+  | AccelerateVehicleReducerAction
+  | DecelerateVehicleReducerAction
+  | StartVehicleAccelerationReducerAction
+  | StopVehicleAccelerationReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -207,8 +223,8 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "moveUnit":
       return moveUnit(state, action as MoveUnitReducerAction);
 
-    case "animateUnitMove":
-      return animateUnitMove(state, action as AnimateUnitMoveReducerAction);
+    case "animateEntitiesMove":
+      return animateEntitiesMove(state, action as AnimateEntitiesMoveReducerAction);
 
     case "useEntityInUnitHand":
       return useEntityInUnitHand(state, action as UseEntityInUnitHandReducerAction);
@@ -232,9 +248,24 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return doRandomUnitAction(state, action as DoRandomUnitActionReducerAction);
 
     //
+    case "getIntoVehicle":
+      return getIntoVehicle(state, action as GetIntoVehicleReducerAction);
 
-    case "animateVehicleMove":
-      return animateVehicleMove(state, action as AnimateVehicleMoveReducerAction);
+    case "getOutOfVehicle":
+      return getOutOfVehicle(state, action as GetOutOfVehicleReducerAction);
+
+    case "accelerateVehicle":
+      return accelerateVehicle(state, action as AccelerateVehicleReducerAction);
+
+    case "decelerateVehicle":
+      return decelerateVehicle(state, action as DecelerateVehicleReducerAction);
+
+    case "startVehicleAcceleration":
+      return startVehicleAcceleration(state, action as StartVehicleAccelerationReducerAction);
+
+    case "stopVehicleAcceleration":
+      return stopVehicleAcceleration(state, action as StopVehicleAccelerationReducerAction);
+
     //
     case "animateFiredAmmo":
       return animateFiredAmmo(state, action as AnimateFiredAmmoAction);

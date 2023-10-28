@@ -53,16 +53,7 @@
       }
     }
   ],
-  "vehicles": [
-    {
-      "type": "hummer",
-      "position": {
-        "x": 3,
-        "y": 3
-      },
-      "rotation": 180
-    }
-  ],
+  "vehicles": [],
   "globalShadows": { "color": "#000d23", "opacity": 0.35 },
   "globalLights": { "opacity": 0.25 },
   "lights": [
