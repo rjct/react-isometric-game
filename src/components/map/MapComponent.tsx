@@ -15,7 +15,8 @@ import { Vehicles } from "@src/components/map/vehicles/Vehicles";
 import { VisualEffects } from "@src/components/map/vfx/VisualEffects";
 import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
-import { Building, DictBuilding } from "@src/engine/BuildingFactory";
+import { BuildingDictEntity } from "@src/dict/building/building";
+import { Building } from "@src/engine/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
 import { DictUnit } from "@src/engine/unit/UnitFactory";
@@ -142,7 +143,7 @@ export const MapComponent = React.memo(
         case "building":
           gameDispatch({
             type: "addBuilding",
-            buildingType: (entity as DictBuilding).type,
+            buildingType: (entity as BuildingDictEntity).type,
             position,
             rotation,
             variant: Number(e.dataTransfer.getData("add/entity/variant")) as Building["variant"],

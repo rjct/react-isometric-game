@@ -1,9 +1,9 @@
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DictBuilding } from "@src/engine/BuildingFactory";
+import { BuildingDictEntity } from "@src/dict/building/building";
 import React from "react";
 
-export function BuildingLibraryItem(props: { item: DictBuilding; variant: number }) {
+export function BuildingLibraryItem(props: { item: BuildingDictEntity; variant: number }) {
   const [rotation, setRotation] = React.useState(props.item.rotationAngles[0]);
 
   const handleDragStart = (e: React.DragEvent<HTMLDivElement>) => {

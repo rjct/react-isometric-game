@@ -135,10 +135,10 @@
     { "type": "ghoul", "position": { "x": 1, "y": 0 } }
   ],
   "buildings": [
-    { "type": "vehicle-2x4", "position": { "x": 16, "y": 14 }, "rotation": 0, "variant": 6 },
-    { "type": "vehicle-2x4", "position": { "x": 11, "y": 16 }, "rotation": 90, "variant": 6 },
-    { "type": "vehicle-2x4", "position": { "x": 14, "y": 11 }, "rotation": 270, "variant": 6 },
-    { "type": "vehicle-2x4", "position": { "x": 11, "y": 11 }, "rotation": 180, "variant": 6 }
+    { "type": "vehicle_2x4", "position": { "x": 16, "y": 14 }, "rotation": 0, "variant": 6 },
+    { "type": "vehicle_2x4", "position": { "x": 11, "y": 16 }, "rotation": 90, "variant": 6 },
+    { "type": "vehicle_2x4", "position": { "x": 14, "y": 11 }, "rotation": 270, "variant": 6 },
+    { "type": "vehicle_2x4", "position": { "x": 11, "y": 11 }, "rotation": 180, "variant": 6 }
   ],
   "vehicles": [],
   "globalShadows": { "color": "#000d4d", "opacity": 0.3 },

@@ -4,7 +4,8 @@ import React from "react";
 import { AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import { VehicleType } from "@src/dict/vehicle/vehicle";
 import { WeaponName } from "@src/dict/weapon/weapon";
-import { BuildingTypes } from "@src/engine/BuildingFactory";
+
+import { BuildingType } from "@src/dict/building/building";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
@@ -26,7 +27,7 @@ export interface StaticMapInventory {
 }
 
 export interface StaticMapBuilding {
-  type: keyof BuildingTypes;
+  type: BuildingType;
   position: GridCoordinates;
   rotation: AngleInDegrees;
   variant: number;

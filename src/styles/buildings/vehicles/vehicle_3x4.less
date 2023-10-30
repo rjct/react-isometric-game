@@ -1,0 +1,17 @@
+@import "../_helpers";
+
+@vehicle_3x4-width: 195px;
+@vehicle_3x4-height: 170px;
+
+.vehicle_3x4 {
+  background-image: url("/public/assets/vehicles/vehicle_3x4.webp");
+  background-repeat: no-repeat;
+
+  width: @vehicle_3x4-width;
+  height: @vehicle_3x4-height;
+
+  margin-top: -50px;
+
+  .building-rotation(@vehicle_3x4-width, @vehicle_3x4-height, 2);
+  .building-shift(-75px, -50px);
+}

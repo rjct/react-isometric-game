@@ -1,37 +1,16 @@
 import { StaticMapBuilding } from "@src/context/GameStateContext";
-import buildings from "@src/dict/buildings.json";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
 
+import getBuildingsDictList, { BuildingDictEntity, BuildingType } from "@src/dict/building/building";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
-type BuildingSize = {
-  grid: Size3D;
-  screen: Size2D;
-};
-
-export type BuildingType = keyof typeof buildings;
-
-export type BuildingClass = "wall" | "vehicle" | "furniture";
-
-export interface DictBuilding {
-  class: BuildingClass;
-  type: keyof typeof buildings;
-  className: string;
-  size: BuildingSize;
-  rotationAngles: AngleInDegrees[];
-  variants: number;
-  internalColor: string;
-  inventory?: Weapon[];
-  explorable?: boolean;
-}
-
 export class Building extends GameEntity {
-  public readonly dictEntity: DictBuilding;
+  public readonly dictEntity: BuildingDictEntity;
   public readonly class;
-  public readonly type;
+  public readonly type: BuildingType;
 
   public readonly className;
   public readonly variants;
@@ -44,9 +23,14 @@ export class Building extends GameEntity {
     rotation: AngleInDegrees;
     variant: number;
     occupiesCell: boolean;
-    inventory?: StaticMapBuilding["inventory"]; //Array<StaticMapWeapon | StaticMapWeaponAmmo>;
+    inventory?: StaticMapBuilding["inventory"];
   }) {
-    const dictEntity = { ...buildings[props.buildingType] } as DictBuilding;
+    const dictEntity: BuildingDictEntity = { ...getBuildingsDictList()[props.buildingType] };
+
+    if (!dictEntity || Object.keys(dictEntity).length === 0) {
+      console.log(dictEntity, getBuildingsDictList(), props.buildingType);
+      debugger;
+    }
 
     super({
       gameState: props.gameState,
@@ -54,6 +38,8 @@ export class Building extends GameEntity {
       position: props.position,
       rotation: props.rotation,
       internalColor: dictEntity.internalColor,
+      occupiesCell: dictEntity.occupiesCell,
+      blocksRays: dictEntity.blocksRays,
       explorable: dictEntity.explorable,
     });
 
@@ -138,5 +124,3 @@ export class Building extends GameEntity {
     return json;
   }
 }
-
-export type BuildingTypes = typeof buildings;

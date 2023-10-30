@@ -1,7 +1,7 @@
 import { BuildingLibraryItem } from "@src/components/editor/building/BuildingLibraryItem";
 import { Tab } from "@src/components/ui/Tab";
-import buildingTypes from "@src/dict/buildings.json";
-import { DictBuilding } from "@src/engine/BuildingFactory";
+import getBuildingsDictList, { BuildingDictEntity } from "@src/dict/building/building";
+
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
@@ -10,7 +10,7 @@ export const BuildingLibrary = React.memo(() => {
 
   const groups = new Map();
 
-  Object.values(buildingTypes).forEach((building) => {
+  Object.values(getBuildingsDictList()).forEach((building) => {
     groups.has(building.class) ? groups.get(building.class).push(building) : groups.set(building.class, [building]);
   });
 
@@ -48,7 +48,7 @@ export const BuildingLibrary = React.memo(() => {
         return selectedGroup === groupName ? (
           <div className={"ui-tab-content"} data-group={groupName} key={groupName}>
             <div className={"editor-library-scroller"}>
-              {groups.get(groupName).map((building: DictBuilding) => {
+              {groups.get(groupName).map((building: BuildingDictEntity) => {
                 return new Array(building.variants).fill(0).map((value, index) => {
                   return <BuildingLibraryItem key={`${building.type}-${index}`} item={building} variant={index} />;
                 });

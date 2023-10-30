@@ -44,6 +44,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     position: { x: 0, y: 0 },
     rotation: 0,
     internalColor: "",
+    blocksRays: true,
     occupiesCell: false,
   });
 

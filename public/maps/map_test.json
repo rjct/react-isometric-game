@@ -43,10 +43,10 @@
     }
   ],
   "buildings": [
-    { "type": "vehicle-2x4", "position": { "x": 2, "y": 6 }, "rotation": 0, "variant": 2 },
+    { "type": "vehicle_2x4", "position": { "x": 2, "y": 6 }, "rotation": 0, "variant": 2 },
     { "type": "vault_table", "position": { "x": 59, "y": 45 }, "rotation": 0, "variant": 0 },
     { "type": "vault_table", "position": { "x": 59, "y": 47 }, "rotation": 0, "variant": 0 },
-    { "type": "vehicle-2x4", "position": { "x": 47, "y": 50 }, "rotation": 90, "variant": 0 },
+    { "type": "vehicle_2x4", "position": { "x": 47, "y": 50 }, "rotation": 90, "variant": 0 },
     { "type": "vault_wall", "position": { "x": 47, "y": 40 }, "rotation": 0, "variant": 4 },
     { "type": "vault_wall", "position": { "x": 48, "y": 40 }, "rotation": 0, "variant": 4 },
     { "type": "vault_table", "position": { "x": 53, "y": 50 }, "rotation": 0, "variant": 2 },

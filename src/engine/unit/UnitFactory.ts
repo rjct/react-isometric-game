@@ -161,6 +161,7 @@ export class Unit extends MovableGameEntity {
       position: props.position,
       rotation: props.rotation || 0,
       internalColor: props.isHero ? "rgba(255,255,255,0.5)" : "rgba(255,0,0,0.5)",
+      blocksRays: true,
       explorable: true,
     });
 

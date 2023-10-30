@@ -29,6 +29,7 @@ export interface GameEntityProps {
   rotation: AngleInDegrees;
   internalColor: string;
   occupiesCell?: boolean;
+  blocksRays: boolean;
   explorable?: boolean;
 }
 
@@ -38,7 +39,10 @@ export class GameEntity {
   public readonly id;
   public readonly internalColor: string;
 
-  public size = { grid: { width: 0, length: 0, height: 0 }, screen: { width: 0, height: 0 } };
+  public size: {
+    grid: Size3D;
+    screen: Size2D;
+  };
   public position: {
     grid: GridCoordinates;
     screen: ScreenCoordinates;
@@ -54,6 +58,7 @@ export class GameEntity {
     rad: 0,
   };
   public occupiesCell = true;
+  public blocksRays = true;
 
   public walls: GameEntityWall[] = [];
 
@@ -87,6 +92,10 @@ export class GameEntity {
 
     if (props.occupiesCell === false) {
       this.occupiesCell = false;
+    }
+
+    if (props.blocksRays === false) {
+      this.blocksRays = false;
     }
 
     if (props.explorable) {

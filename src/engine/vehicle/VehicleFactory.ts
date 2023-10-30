@@ -33,6 +33,7 @@ export class Vehicle extends MovableGameEntity {
       rotation: props.rotation,
       internalColor: "rgba(0, 250, 0, 0.5)",
       explorable: true,
+      blocksRays: true,
       occupiesCell: true,
     });
 

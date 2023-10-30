@@ -488,11 +488,11 @@ export const gameMap = {
     return [
       ...this.world.walls,
       ...this.buildings
-        .filter((entity) => entity.occupiesCell)
+        .filter((entity) => !entity.blocksRays)
         .map((entity) => entity.walls)
         .flat(),
       ...this.vehicles
-        .filter((entity) => entity.occupiesCell)
+        .filter((entity) => entity.blocksRays)
         .map((entity) => entity.walls)
         .flat(),
     ];

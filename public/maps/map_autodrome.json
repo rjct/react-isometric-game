@@ -81,7 +81,7 @@
   "hero": { "position": { "x": 57, "y": 52 }, "rotation": 0 },
   "enemies": [],
   "buildings": [
-    { "type": "vehicle-2x4", "position": { "x": 41, "y": 51 }, "rotation": 0, "variant": 1 },
+    { "type": "vehicle_2x4", "position": { "x": 41, "y": 51 }, "rotation": 0, "variant": 1 },
     { "type": "street_light", "position": { "x": 55, "y": 52 }, "rotation": 90, "variant": 0 },
     { "type": "street_light", "position": { "x": 46, "y": 52 }, "rotation": 270, "variant": 0 }
   ],

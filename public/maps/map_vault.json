@@ -59,10 +59,10 @@
     { "type": "vault13_male", "position": { "x": 28, "y": 2 }, "rotation": 0 }
   ],
   "buildings": [
-    { "type": "vehicle-2x4", "position": { "x": 4, "y": 6 }, "rotation": 270, "variant": 12 },
-    { "type": "vehicle-2x4", "position": { "x": 0, "y": 25 }, "rotation": 180, "variant": 3 },
-    { "type": "vehicle-2x4", "position": { "x": 3, "y": 25 }, "rotation": 0, "variant": 13 },
-    { "type": "vehicle-2x4", "position": { "x": 6, "y": 25 }, "rotation": 180, "variant": 15 },
+    { "type": "vehicle_2x4", "position": { "x": 4, "y": 6 }, "rotation": 270, "variant": 12 },
+    { "type": "vehicle_2x4", "position": { "x": 0, "y": 25 }, "rotation": 180, "variant": 3 },
+    { "type": "vehicle_2x4", "position": { "x": 3, "y": 25 }, "rotation": 0, "variant": 13 },
+    { "type": "vehicle_2x4", "position": { "x": 6, "y": 25 }, "rotation": 180, "variant": 15 },
     { "type": "vault_wall", "position": { "x": 4, "y": 16 }, "rotation": 0, "variant": 6 },
     { "type": "vault_wall", "position": { "x": 5, "y": 16 }, "rotation": 0, "variant": 4 },
     { "type": "vault_wall", "position": { "x": 7, "y": 16 }, "rotation": 0, "variant": 5 },
@@ -383,8 +383,8 @@
     { "type": "vault_wall", "position": { "x": 17, "y": 11 }, "rotation": 180, "variant": 6 },
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "rotation": 180, "variant": 5 },
     { "type": "vault_wall", "position": { "x": 8, "y": 16 }, "rotation": 0, "variant": 3 },
-    { "type": "vehicle-4x4", "position": { "x": 5, "y": 1 }, "rotation": 270, "variant": 0 },
-    { "type": "vehicle-3x4", "position": { "x": 3, "y": 20 }, "rotation": 90, "variant": 0 }
+    { "type": "vehicle_4x4", "position": { "x": 5, "y": 1 }, "rotation": 270, "variant": 0 },
+    { "type": "vehicle_3x4", "position": { "x": 3, "y": 20 }, "rotation": 90, "variant": 0 }
   ],
   "vehicles": [],
   "globalShadows": { "color": "#000d4d", "opacity": 0.1 },
