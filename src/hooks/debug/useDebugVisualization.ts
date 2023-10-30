@@ -7,7 +7,7 @@ import React from "react";
 
 export function useDebugVisualization() {
   const { gameState, uiState } = useGameState();
-  const { drawFillRect, drawCircle } = useCanvas();
+  const { drawRect, drawFillRect, drawCircle } = useCanvas();
   const { getEditorLibraryPosition } = useEditor();
 
   const allAliveUnits = React.useMemo(
@@ -64,11 +64,7 @@ export function useDebugVisualization() {
     //
     for (const cell in uiState.viewport.visibleCells) {
       if (gameState.isCellOccupied(uiState.viewport.visibleCells[cell])) {
-        drawFillRect(ctx, uiState.viewport.visibleCells[cell], "rgba(255,255,255,0.2)", 1, {
-          width: 1,
-          length: 1,
-          height: 0,
-        });
+        drawRect(ctx, uiState.viewport.visibleCells[cell], "rgba(255,255,255,2)", 2);
       }
     }
   };

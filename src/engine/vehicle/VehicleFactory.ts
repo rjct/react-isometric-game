@@ -60,6 +60,7 @@ export class Vehicle extends MovableGameEntity {
   assignDriver(owner: Unit) {
     this.driver = owner;
     this.setDriverPosition();
+    this.driver?.setRotation(this.rotation, false);
     this.setAction("idle");
   }
 
@@ -98,8 +99,6 @@ export class Vehicle extends MovableGameEntity {
       },
       this.gameState,
     );
-
-    this.driver?.setRotation(this.rotation);
   }
 
   public getCurrentSpeed() {

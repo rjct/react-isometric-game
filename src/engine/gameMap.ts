@@ -205,7 +205,10 @@ export const gameMap = {
   },
 
   isCellOccupied(coordinates: GridCoordinates) {
-    return this.matrix[Math.round(coordinates.y)][Math.round(coordinates.x)] > 0;
+    const x = Math.min(this.mapSize.width - 1, Math.max(0, Math.round(coordinates.x)));
+    const y = Math.min(this.mapSize.height - 1, Math.max(0, Math.round(coordinates.y)));
+
+    return this.matrix[y][x] > 0;
   },
 
   checkCollision(entity: MovableGameEntity): boolean {

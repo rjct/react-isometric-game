@@ -78,14 +78,14 @@
       "target": { "x1": 55, "y1": 0, "x2": 100, "y2": 40 }
     }
   ],
-  "hero": { "position": { "x": 57, "y": 52 }, "rotation": 33.75 },
+  "hero": { "position": { "x": 57, "y": 52 }, "rotation": 0 },
   "enemies": [],
   "buildings": [
     { "type": "vehicle-2x4", "position": { "x": 41, "y": 51 }, "rotation": 0, "variant": 1 },
     { "type": "street_light", "position": { "x": 55, "y": 52 }, "rotation": 90, "variant": 0 },
     { "type": "street_light", "position": { "x": 46, "y": 52 }, "rotation": 270, "variant": 0 }
   ],
-  "vehicles": [{ "type": "hummer", "position": { "x": 49, "y": 55 }, "rotation": 0 }],
+  "vehicles": [{ "type": "hummer", "position": { "x": 51, "y": 40 }, "rotation": 0 }],
   "globalShadows": { "color": "#000d23", "opacity": 0.45 },
   "globalLights": { "opacity": 0.15 },
   "lights": [

@@ -12,6 +12,7 @@ export function getOutOfVehicle(state: GameMap, action: GetOutOfVehicleReducerAc
   if (!vehicle) return state;
 
   action.unit.getOutOfVehicle();
+  action.unit.currentSelectedAction = "move";
   vehicle.unAssignDriver();
   vehicle.clearPath();
 

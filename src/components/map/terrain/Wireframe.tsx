@@ -4,7 +4,7 @@ import { WireframeMarker } from "@src/components/map/terrain/WireframeMarker";
 import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
-import { degToRad } from "@src/engine/helpers";
+import { calculateIsometricAngle, degToRad } from "@src/engine/helpers";
 import Dubins from "@src/engine/vehicle/Dubins";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
@@ -61,24 +61,21 @@ export const Wireframe = React.memo(function WireframeTiles() {
     if (!hero.isVehicleInUse()) return;
 
     const vehicle = hero.getVehicleInUse()!;
-
     const dubWorker = new Dubins();
-    const newPoints: number[][] = [];
 
-    dubWorker.shortestAndSample(
+    const path = dubWorker.getPath(
       [vehicle.position.grid.x, vehicle.position.grid.y, vehicle.rotation.rad - degToRad(90)],
-      [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y, vehicle.rotation.rad],
+      [
+        uiState.mousePosition.grid.x,
+        uiState.mousePosition.grid.y,
+        calculateIsometricAngle(vehicle.position.grid, markerPosition).rad,
+      ],
       vehicle.dictEntity.turningRadius,
-      1,
-      (q) => {
-        newPoints.push([q[0], q[1]]);
-        return 0;
-      },
+      0.5,
     );
 
-    vehicle.setPath(newPoints);
+    vehicle.setPath(path);
 
-    //vehicle.setRotation(getAngleBetweenTwoGridPoints(vehicle.getRoundedPosition(), markerPosition));
     gameDispatch({ type: "startVehicleAcceleration", vehicle: hero.getVehicleInUse()! });
   };
 

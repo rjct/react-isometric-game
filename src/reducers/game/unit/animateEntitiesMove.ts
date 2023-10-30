@@ -19,6 +19,10 @@ export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveR
   for (const entity of action.entities) {
     if (entity.path.length === 0) continue;
 
+    if (entity instanceof Unit && entity.isVehicleInUse()) {
+      continue;
+    }
+
     if (entity instanceof Vehicle) {
       if (entity.speed.current === 0) {
         continue;

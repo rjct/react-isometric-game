@@ -50,7 +50,7 @@ export class UnitFieldOfViewFactory {
   setRotation(angle: Angle) {
     const correctedAngle: Angle = {
       deg: angle.deg - 90,
-      rad: angle.rad - Math.PI / 2,
+      rad: angle.rad - degToRad(90),
     };
     this.rotation = correctedAngle;
 

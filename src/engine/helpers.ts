@@ -175,6 +175,24 @@ export function getAngleBetweenTwoGridPoints(
   };
 }
 
+export function calculateIsometricAngle(coordinates1: GridCoordinates, coordinates2: GridCoordinates): Angle {
+  const isoX1 = coordinates1.x - coordinates1.y;
+  const isoY1 = coordinates1.x + coordinates1.y;
+  const isoX2 = coordinates2.x - coordinates2.y;
+  const isoY2 = coordinates2.x + coordinates2.y;
+
+  const deltaX = isoX2 - isoX1;
+  const deltaY = isoY2 - isoY1;
+
+  const angleInRadians = Math.atan2(deltaY, deltaX) - degToRad(45);
+  const angleInDegrees = radToDeg(angleInRadians);
+
+  return {
+    deg: angleInDegrees,
+    rad: angleInRadians,
+  };
+}
+
 export function radToDeg(radians: number) {
   let degree = radians * (180 / Math.PI);
   if (degree < 0) degree = 180 + (180 - Math.abs(degree));
