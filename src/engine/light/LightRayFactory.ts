@@ -1,4 +1,4 @@
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";

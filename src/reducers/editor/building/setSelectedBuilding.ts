@@ -1,4 +1,4 @@
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 
 export interface SetSelectedBuildingReducerAction {

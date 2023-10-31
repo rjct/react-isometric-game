@@ -1,5 +1,5 @@
 import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

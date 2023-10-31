@@ -1,7 +1,7 @@
 import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
 import { AmmoName } from "@src/dict/ammo/ammo";
 import { WeaponName } from "@src/dict/weapon/weapon";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
@@ -18,8 +18,6 @@ export type GameEntityIntersectionWithLightRay = {
   param: number;
   angle: number;
 };
-
-export type InventoryType = keyof GameEntity["inventory"];
 
 export interface GameEntityProps {
   gameState: GameMap;

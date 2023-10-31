@@ -1,7 +1,7 @@
 import { Button } from "@src/components/ui/Button";
 import { Tab } from "@src/components/ui/Tab";
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";

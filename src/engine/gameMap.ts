@@ -1,7 +1,7 @@
 import { GameUI } from "@src/context/GameUIContext";
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";

@@ -1,5 +1,5 @@
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";

@@ -1,4 +1,4 @@
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { getCss3dPosition } from "@src/engine/helpers";
 import React, { CSSProperties } from "react";
 

@@ -8,7 +8,7 @@ import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelec
 import { TableRow } from "@src/components/editor/_shared/TableRow";
 import { Button } from "@src/components/ui/Button";
 import { Switch } from "@src/components/ui/Switch";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 

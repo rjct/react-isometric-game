@@ -17,7 +17,7 @@ import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
 import { BuildingType } from "@src/dict/building/building";
 import { UnitType } from "@src/dict/unit/_unit";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
 import {} from "@src/engine/unit/UnitFactory";

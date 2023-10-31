@@ -1,6 +1,6 @@
 import { BuildingComponent } from "@src/components/map/buildings/Building";
 import { VehicleComponent } from "@src/components/map/vehicles/Vehicle";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 

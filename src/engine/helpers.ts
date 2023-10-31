@@ -1,6 +1,6 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";

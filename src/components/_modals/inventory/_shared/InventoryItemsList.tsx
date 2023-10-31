@@ -1,6 +1,6 @@
 import { InventoryEmptyText } from "@src/components/_modals/inventory/_shared/inventoryEmptyText";
 import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";

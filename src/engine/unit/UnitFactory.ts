@@ -8,7 +8,7 @@ import {
   UnitSfxType,
   UnitType,
 } from "@src/dict/unit/_unit";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";

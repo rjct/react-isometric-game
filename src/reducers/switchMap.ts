@@ -1,5 +1,5 @@
 import { StaticMap } from "@src/context/GameStateContext";
-import { Building } from "@src/engine/BuildingFactory";
+import { Building } from "@src/engine/building/BuildingFactory";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
