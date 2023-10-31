@@ -1,11 +1,11 @@
-import unitTypes from "@src/dict/units.json";
 import React from "react";
 
 import { AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
-import { VehicleType } from "@src/dict/vehicle/vehicle";
+import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { WeaponName } from "@src/dict/weapon/weapon";
 
 import { BuildingType } from "@src/dict/building/building";
+import { UnitType } from "@src/dict/unit/_unit";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
@@ -48,7 +48,7 @@ export interface StaticMapLight {
 }
 
 export interface StaticMapUnit {
-  type?: keyof typeof unitTypes;
+  type?: UnitType;
   position: GridCoordinates;
   isDead?: boolean;
   rotation?: AngleInDegrees;

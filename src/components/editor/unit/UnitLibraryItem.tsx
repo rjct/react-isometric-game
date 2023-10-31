@@ -1,9 +1,9 @@
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { DictUnit } from "@src/engine/unit/UnitFactory";
+import { UnitDictEntity } from "@src/dict/unit/_unit";
 import React from "react";
 
-export function UnitLibraryItem(props: { item: DictUnit }) {
+export function UnitLibraryItem(props: { item: UnitDictEntity }) {
   const [rotation, setRotation] = React.useState<AngleInDegrees>(0);
   const rotationAngles = [0, 90, 180, 270];
 

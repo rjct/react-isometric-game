@@ -1,4 +1,4 @@
-import { VehicleDictEntity } from "@src/dict/vehicle/vehicle";
+import { VehicleDictEntity } from "@src/dict/vehicle/_vehicle";
 
 const hummer: VehicleDictEntity = {
   type: "hummer",

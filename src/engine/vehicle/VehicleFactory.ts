@@ -1,5 +1,5 @@
 import { StaticMapVehicle } from "@src/context/GameStateContext";
-import { getVehicleDictEntityByType, VehicleDictEntity, VehicleSfxType, VehicleType } from "@src/dict/vehicle/vehicle";
+import { getVehicleDictEntityByType, VehicleDictEntity, VehicleSfxType, VehicleType } from "@src/dict/vehicle/_vehicle";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad } from "@src/engine/helpers";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";

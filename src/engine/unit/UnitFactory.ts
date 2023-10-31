@@ -1,8 +1,13 @@
 import { StaticMapUnit } from "@src/context/GameStateContext";
 
-import units from "@src/dict/units.json";
-
-import { WeaponAttackMode } from "@src/dict/weapon/weapon";
+import {
+  getUnitDictEntityByType,
+  UnitActionType,
+  UnitDictEntity,
+  UnitSfxEntity,
+  UnitSfxType,
+  UnitType,
+} from "@src/dict/unit/_unit";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
@@ -16,13 +21,6 @@ import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { itemIsWeapon, normalizeRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
-export type UnitType = keyof typeof units;
-export type UnitTypes = { [unitId: string]: Unit };
-export type UnitSfxType = "walkStep" | "hit" | "dead";
-export type UnitSfxEntity = {
-  src: string[];
-  repeatEveryMs?: number;
-};
 export type UnitShadow = {
   blocked: boolean;
   light: Light;
@@ -33,58 +31,58 @@ export type UnitShadow = {
 
 export type UnitMovementMode = Extract<Unit["action"], "walk" | "run">;
 
-export interface DictUnit {
-  type: UnitType;
-  idDead?: boolean;
-  rotation?: AngleInDegrees;
-  className: string;
-  explorable: boolean;
-  speed: {
-    walk: number;
-    run: number;
-  };
-  coolDownTime: number;
-  size: {
-    grid: Size3D;
-    screen: Size2D;
-  };
-  healthPoints: {
-    current: number;
-    max: number;
-  };
-  actionPoints: {
-    current: number;
-    max: number;
-    consumption: {
-      walk: number;
-      run: number;
-      explore: number;
-    };
-  };
-  fieldOfView: {
-    sectorAngle: AngleInDegrees;
-    range: number;
-  };
-  animationDuration: {
-    hit: number;
-    notAllowed: number;
-  };
-  sfx: {
-    [type in UnitSfxType]: UnitSfxEntity;
-  };
-  distanceToScreenCenter: number;
-}
+// export interface DictUnit {
+//   type: UnitType;
+//   idDead?: boolean;
+//   rotation?: AngleInDegrees;
+//   className: string;
+//   explorable: boolean;
+//   speed: {
+//     walk: number;
+//     run: number;
+//   };
+//   coolDownTime: number;
+//   size: {
+//     grid: Size3D;
+//     screen: Size2D;
+//   };
+//   healthPoints: {
+//     current: number;
+//     max: number;
+//   };
+//   actionPoints: {
+//     current: number;
+//     max: number;
+//     consumption: {
+//       walk: number;
+//       run: number;
+//       explore: number;
+//     };
+//   };
+//   fieldOfView: {
+//     sectorAngle: AngleInDegrees;
+//     range: number;
+//   };
+//   animationDuration: {
+//     hit: number;
+//     notAllowed: number;
+//   };
+//   sfx: {
+//     [type in UnitSfxType]: UnitSfx;
+//   };
+//   distanceToScreenCenter: number;
+// }
 
-export type DictUnits = {
-  [unitType in UnitType]: DictUnit;
-};
-
-export type UnitSfx = {
-  [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
-};
+// export type DictUnits = {
+//   [unitType in UnitType]: DictUnit;
+// };
+//
+// export type UnitSfx = {
+//   [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
+// };
 
 export class Unit extends MovableGameEntity {
-  public readonly dictEntity: DictUnit;
+  public readonly dictEntity: UnitDictEntity;
   public readonly isHero: boolean;
   public readonly type;
 
@@ -95,7 +93,7 @@ export class Unit extends MovableGameEntity {
     run: number;
   };
 
-  public action: "none" | "idle" | "walk" | "run" | "hit" | "dead" | "fall" | "standup" | "die" | WeaponAttackMode;
+  public action: UnitActionType;
 
   public healthPoints: {
     current: number;
@@ -105,11 +103,7 @@ export class Unit extends MovableGameEntity {
   public actionPoints: {
     current: number;
     readonly max: number;
-    readonly consumption: {
-      walk: number;
-      run: number;
-      explore: number;
-    };
+    readonly consumption: UnitDictEntity["actionPoints"]["consumption"];
   };
 
   public damagePoints = 0;
@@ -133,7 +127,9 @@ export class Unit extends MovableGameEntity {
   public fieldOfView: UnitFieldOfViewFactory;
   public distanceToHero = Infinity;
 
-  public readonly sfx: UnitSfx;
+  public readonly sfx: {
+    [type in UnitSfxType]: UnitSfxEntity & { currentProgressMs: number };
+  };
 
   public distanceToScreenCenter = -1;
 
@@ -153,11 +149,11 @@ export class Unit extends MovableGameEntity {
     inventory?: StaticMapUnit["inventory"];
     randomActions?: StaticMapUnit["randomActions"];
   }) {
-    const ref = units[props.unitType] as DictUnit;
+    const dictEntity = getUnitDictEntityByType(props.unitType); //units[props.unitType] as DictUnit;
 
     super({
       gameState: props.gameState,
-      size: ref.size,
+      size: dictEntity.size,
       position: props.position,
       rotation: props.rotation || 0,
       internalColor: props.isHero ? "rgba(255,255,255,0.5)" : "rgba(255,0,0,0.5)",
@@ -165,20 +161,24 @@ export class Unit extends MovableGameEntity {
       explorable: true,
     });
 
-    this.dictEntity = ref;
+    this.dictEntity = dictEntity;
 
     this.isHero = props.isHero;
     this.type = props.unitType;
 
-    this.className = ["unit", ref.className].join(" ");
-    this.speed = ref.speed;
-    this.coolDownTime = ref.coolDownTime;
-    this.animationDuration = ref.animationDuration;
+    this.className = ["unit", dictEntity.className].join(" ");
+    this.speed = dictEntity.speed;
+    this.coolDownTime = dictEntity.coolDownTime;
+    this.animationDuration = dictEntity.animationDuration;
 
     this.action = props.action || "none";
 
-    this.healthPoints = props.healthPoints || { ...ref.healthPoints };
-    this.actionPoints = { ...ref.actionPoints };
+    this.healthPoints = props.healthPoints || { ...dictEntity.healthPoints };
+    this.actionPoints = {
+      current: dictEntity.actionPoints.max,
+      max: dictEntity.actionPoints.max,
+      consumption: { ...dictEntity.actionPoints.consumption },
+    };
     this.randomActions = props.randomActions || ["roam", "idle"];
 
     this.isDead = props.isDead === true;
@@ -186,18 +186,18 @@ export class Unit extends MovableGameEntity {
     this.fieldOfView = new UnitFieldOfViewFactory({
       position: this.position.grid,
       rotation: this.rotation,
-      fieldOfView: ref.fieldOfView,
+      fieldOfView: dictEntity.fieldOfView,
     });
 
-    this.sfx = Object.keys(ref.sfx).reduce(
+    this.sfx = Object.keys(dictEntity.sfx).reduce(
       (acc, key) => {
         const k = key as UnitSfxType;
 
-        acc[k] = { ...ref.sfx[k], ...{ currentProgressMs: 0 } };
+        acc[k] = { ...dictEntity.sfx[k], ...{ currentProgressMs: 0 } };
 
         return acc;
       },
-      {} as unknown as UnitSfx,
+      {} as unknown as Unit["sfx"],
     );
 
     this.inventory = {
@@ -376,20 +376,20 @@ export class Unit extends MovableGameEntity {
   public getCurrentActionPointsConsumption() {
     switch (this.currentSelectedAction) {
       case "move":
-        return this.actionPoints.consumption[this.currentMovementMode];
+        return this.actionPoints.consumption[this.currentMovementMode]!;
 
       case "leftHand":
       case "rightHand":
         const weapon = this.getCurrentWeapon();
 
         if (weapon) {
-          return weapon.getCurrentAttackModeDetails().actionPointsConsumption;
+          return weapon.getCurrentAttackModeDetails().actionPointsConsumption!;
         }
 
         return 0;
 
       case "explore":
-        return this.actionPoints.consumption.explore;
+        return this.actionPoints.consumption.explore!;
     }
   }
 

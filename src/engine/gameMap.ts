@@ -11,7 +11,7 @@ import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
-import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -26,7 +26,7 @@ interface GameMapProps {
   };
   buildings: Building[];
   vehicles: Vehicle[];
-  units: UnitTypes;
+  units: { [id: string]: Unit };
   lights: Light[];
   weapon: { [id: string]: Weapon };
   ammo: { [id: string]: Ammo };

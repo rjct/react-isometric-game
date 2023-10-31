@@ -1,6 +1,7 @@
 import { StaticMapUnit } from "@src/context/GameStateContext";
+import { UnitType } from "@src/dict/unit/_unit";
 import { GameMap } from "@src/engine/gameMap";
-import { Unit, UnitType } from "@src/engine/unit/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export interface AddUnitReducerAction {
   type: "addUnit";

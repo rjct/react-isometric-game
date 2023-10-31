@@ -1,9 +1,10 @@
+import { BuildingType } from "@src/dict/building/building";
 import { Building } from "@src/engine/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 
 export interface AddBuildingReducerAction {
   type: "addBuilding";
-  buildingType: Building["type"];
+  buildingType: BuildingType;
   position: GridCoordinates;
   rotation: AngleInDegrees;
   variant: Building["variant"];

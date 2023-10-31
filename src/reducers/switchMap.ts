@@ -5,7 +5,7 @@ import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
-import { Unit, UnitTypes } from "@src/engine/unit/UnitFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export type SwitchGameMapReducerAction = {
@@ -24,7 +24,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
       matrix: createMatrix(action.map.size),
-      units: {} as UnitTypes,
+      units: {} as { [id: string]: Unit },
       buildings: [] as Building[],
       globalShadows,
       globalLights,

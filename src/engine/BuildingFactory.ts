@@ -27,11 +27,6 @@ export class Building extends GameEntity {
   }) {
     const dictEntity: BuildingDictEntity = { ...getBuildingsDictList()[props.buildingType] };
 
-    if (!dictEntity || Object.keys(dictEntity).length === 0) {
-      console.log(dictEntity, getBuildingsDictList(), props.buildingType);
-      debugger;
-    }
-
     super({
       gameState: props.gameState,
       size: dictEntity.size,

@@ -1,6 +1,5 @@
 import { UnitLibraryItem } from "@src/components/editor/unit/UnitLibraryItem";
-import units from "@src/dict/units.json";
-import { DictUnits } from "@src/engine/unit/UnitFactory";
+import getUnitsDictList from "@src/dict/unit/_unit";
 import { useGameState } from "@src/hooks/useGameState";
 
 export function UnitLibrary() {
@@ -10,7 +9,7 @@ export function UnitLibrary() {
     <div className={"ui-tabs"} data-direction={"vertical"}>
       <div className={"ui-tab-content"}>
         <div className={"editor-library-scroller"}>
-          {Object.values(units as DictUnits).map((unit) => (
+          {Object.values(getUnitsDictList()).map((unit) => (
             <UnitLibraryItem key={unit.type} item={unit} />
           ))}
         </div>

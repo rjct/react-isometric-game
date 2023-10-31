@@ -1,7 +1,9 @@
 import { Building } from "@src/engine/BuildingFactory";
 import { degToRad, normalizeAngle } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
-import { DictUnit, Unit } from "@src/engine/unit/UnitFactory";
+
+import { UnitDictEntity } from "@src/dict/unit/_unit";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export class UnitFieldOfViewFactory {
@@ -17,7 +19,7 @@ export class UnitFieldOfViewFactory {
   public cellsInView: Array<GridCoordinates> = [];
   public entitiesInView: { [id: string]: Building | Unit | Vehicle } = {};
 
-  constructor(props: { position: GridCoordinates; rotation: Angle; fieldOfView: DictUnit["fieldOfView"] }) {
+  constructor(props: { position: GridCoordinates; rotation: Angle; fieldOfView: UnitDictEntity["fieldOfView"] }) {
     this.position = props.position;
     this.range = props.fieldOfView.range;
     this.sectorAngle = {
