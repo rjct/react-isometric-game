@@ -1,4 +1,5 @@
-.building-editor {
+.building-editor,
+.vehicle-editor {
   position: absolute;
   inset: 0;
   transform-origin: left top;
@@ -6,7 +7,8 @@
   pointer-events: auto !important;
 }
 
-[data-editing-active] .building {
+[data-editing-active] .building,
+[data-editing-active] .vehicle {
   transform: none;
   pointer-events: auto;
   transition: filter 0.1s linear;
@@ -20,7 +22,6 @@
   }
 
   &[data-dragging="true"] {
-    filter: brightness(1.2) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81)
-      drop-shadow(0 0 1px #19ff81);
+    filter: brightness(1.2) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81) drop-shadow(0 0 1px #19ff81);
   }
 }

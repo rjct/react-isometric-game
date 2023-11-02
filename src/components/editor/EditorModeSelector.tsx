@@ -8,6 +8,7 @@ import { TerrainAreaLayersEditor } from "@src/components/editor/terrain/layers/T
 import { TerrainAreaAddNewButton } from "@src/components/editor/terrain/TerrainAreaAddNewButton";
 import { TerrainAreaPropsEditor } from "@src/components/editor/terrain/TerrainAreaPropsEditor";
 import { UnitPropsEditor } from "@src/components/editor/unit/UnitPropsEditor";
+import { VehiclePropsEditor } from "@src/components/editor/vehicle/VehiclePropsEditor";
 import { Tab } from "@src/components/ui/Tab";
 import { EditorModes, GameUI } from "@src/context/GameUIContext";
 import { useGameState } from "@src/hooks/useGameState";
@@ -24,6 +25,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
   const selectedTerrainArea = React.useMemo(() => terrainState.selectedTerrainArea, [terrainState.selectedTerrainArea]);
   const selectedBuilding = React.useMemo(() => gameState.selectedBuilding, [gameState.selectedBuilding]);
+  const selectedVehicle = React.useMemo(() => gameState.selectedVehicle, [gameState.selectedVehicle]);
   const selectedUnit = React.useMemo(() => gameState.selectedUnit, [gameState.selectedUnit]);
   const selectedLight = React.useMemo(() => gameState.selectedLight, [gameState.selectedLight]);
 
@@ -34,6 +36,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
 
     terrainDispatch({ type: "clearSelectedTerrainArea" });
     gameDispatch({ type: "clearSelectedBuilding" });
+    gameDispatch({ type: "clearSelectedVehicle" });
     gameDispatch({ type: "clearSelectedUnit" });
     gameDispatch({ type: "clearSelectedLight" });
     gameDispatch({ type: "clearEntityPlaceholder" });
@@ -84,6 +87,12 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
       {uiState.editorMode === "buildings" ? (
         <div className={"ui-tab-content"}>
           <BuildingPropsEditor building={selectedBuilding} />
+        </div>
+      ) : null}
+
+      {uiState.editorMode === "vehicles" ? (
+        <div className={"ui-tab-content"}>
+          <VehiclePropsEditor vehicle={selectedVehicle} />
         </div>
       ) : null}
 

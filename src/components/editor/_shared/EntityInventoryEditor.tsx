@@ -3,10 +3,11 @@ import { Tab } from "@src/components/ui/Tab";
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
-export const EntityInventoryEditor = (props: { entity: Building | Unit }) => {
+export const EntityInventoryEditor = (props: { entity: Building | Unit | Vehicle }) => {
   const { uiDispatch } = useGameState();
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("main");
 

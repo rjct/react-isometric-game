@@ -1,5 +1,6 @@
 import React from "react";
 
+import { faCar } from "@fortawesome/free-solid-svg-icons/faCar";
 import { faLayerGroup } from "@fortawesome/free-solid-svg-icons/faLayerGroup";
 import { faLightbulb } from "@fortawesome/free-solid-svg-icons/faLightbulb";
 import { faPerson } from "@fortawesome/free-solid-svg-icons/faPerson";
@@ -19,6 +20,7 @@ export type GameScene =
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup, tab: true },
   buildings: { text: "Building", icon: faTreeCity, tab: true },
+  vehicles: { text: "Vehicles", icon: faCar, tab: true },
   units: { text: "Unit", icon: faPerson, tab: true },
   lights: { text: "Light", icon: faLightbulb, tab: true },
   manageInventory: { text: "Inventory", icon: faPerson, tab: false },

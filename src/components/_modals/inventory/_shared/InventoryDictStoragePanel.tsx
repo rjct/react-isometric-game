@@ -23,7 +23,7 @@ export const InventoryDictStoragePanel = React.memo(() => {
 
   return (
     <fieldset className={"inventory-storage-wrapper inventory-storage-wrapper-right"} data-droppable={true}>
-      <legend>ddd</legend>
+      <legend className={"outlined"}>ALL INVENTORY ITEMS</legend>
       <div className={".inventory-storage-wrapper"}>
         <div className={"inventory-storage"}>
           <ul className={"unit-inventory-items-list"}>

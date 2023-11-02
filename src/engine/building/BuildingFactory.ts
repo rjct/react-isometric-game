@@ -70,7 +70,7 @@ export class Building extends GameEntity {
   }
 
   public getAvailableRotationAngles() {
-    return [...this.dictEntity.rotationAngles, 45, 135, 22];
+    return [...this.dictEntity.rotationAngles];
   }
 
   public putItemToInventory(item: Weapon | Ammo) {

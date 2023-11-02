@@ -108,6 +108,7 @@ export const gameMap = {
   selectedInventoryItem: null as unknown as WeaponDictEntity | AmmoDictEntity | null,
 
   selectedBuilding: null as unknown as Building,
+  selectedVehicle: null as unknown as Vehicle,
   selectedUnit: null as unknown as Unit,
   selectedLight: null as unknown as Light,
   entityPlaceholder: null as unknown as {
@@ -228,7 +229,7 @@ export const gameMap = {
     return false;
   },
 
-  isEntityVisibleByHero(entity: Building | Unit) {
+  isEntityVisibleByHero(entity: Building | Unit | Vehicle) {
     if (!this.settings.featureEnabled.fogOfWar || entity.id === this.heroId) return true;
 
     return this.getHero().fieldOfView.isEntityInView(entity.id);
@@ -337,6 +338,10 @@ export const gameMap = {
     return this.buildings.find((building) => building.id === id);
   },
 
+  getVehicleById(id: string) {
+    return this.vehicles.find((vehicle) => vehicle.id === id);
+  },
+
   getBuildingByCoordinates(coordinates: GridCoordinates): Building | undefined {
     const { x, y } = coordinates;
 
@@ -382,6 +387,28 @@ export const gameMap = {
 
     this.deleteBuilding(this.selectedBuilding.id);
     this.selectedBuilding = null as unknown as Building;
+
+    return true;
+  },
+
+  deleteVehicle(id: string) {
+    const index = this.vehicles.findIndex((entity) => entity.id === id);
+
+    if (index === -1) return;
+
+    this.setGridMatrixOccupancy([this.vehicles[index]], -1);
+    this.vehicles.splice(index, 1);
+  },
+
+  deleteSelectedVehicle() {
+    if (!this.selectedVehicle) return false;
+
+    const confirmDelete = confirm(`Are you sure to delete vehicle #"${this.selectedBuilding.id}"?`);
+
+    if (!confirmDelete) return false;
+
+    this.deleteVehicle(this.selectedVehicle.id);
+    this.selectedVehicle = null as unknown as Vehicle;
 
     return true;
   },

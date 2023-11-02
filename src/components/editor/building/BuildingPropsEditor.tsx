@@ -1,7 +1,7 @@
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BuildingPositionEditor } from "@src/components/editor/building/BuildingPositionEditor";
 import { EntityInventoryEditor } from "@src/components/editor/_shared/EntityInventoryEditor";
+import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
 import { EntityRotationSelector } from "@src/components/editor/_shared/EntityRotationSelector";
 import { InputRange } from "@src/components/editor/_shared/InputRange";
 import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
@@ -42,7 +42,12 @@ export function BuildingPropsEditor(props: { building: Building }) {
               />
             </TableRow>
             <TableRow label={"Position"}>
-              <BuildingPositionEditor building={props.building} />
+              <EntityPositionEditor
+                entity={props.building}
+                onChange={(coordinates) => {
+                  gameDispatch({ type: "setBuildingPosition", entityId: props.building.id, coordinates });
+                }}
+              />
             </TableRow>
             <TableRow label={"Rotation"}>
               <EntityRotationSelector
@@ -60,6 +65,7 @@ export function BuildingPropsEditor(props: { building: Building }) {
                 valueSuffix={""}
                 min={0}
                 max={[...Array(props.building.variants).keys()].length - 1}
+                step={1}
                 onChange={(variant: number) => {
                   gameDispatch({ type: "setBuildingVariant", entityId: props.building.id, variant });
                 }}

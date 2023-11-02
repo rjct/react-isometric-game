@@ -17,6 +17,7 @@ export type VehicleDictEntity = {
   };
   turningRadius: number;
   maxSpeed: number;
+  explorable: boolean;
   sfx: VehicleSfx;
 };
 

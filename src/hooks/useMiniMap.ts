@@ -28,7 +28,7 @@ export function useMiniMap(gameState: GameMap) {
   }, [gameState.getAllAliveUnitsHash()]);
 
   const buildings = React.useMemo(() => {
-    return gameState.buildings;
+    return [...gameState.buildings, ...gameState.vehicles];
   }, [hero.getHash(), gameState.settings.featureEnabled.fogOfWar]);
 
   const renderMiniMap = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) => {

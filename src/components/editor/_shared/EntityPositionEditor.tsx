@@ -1,42 +1,49 @@
+import { EntityPositionAxisEditor } from "@src/components/editor/_shared/EntityPositionAxisEditor";
+import { Building } from "@src/engine/building/BuildingFactory";
+import { Unit } from "@src/engine/unit/UnitFactory";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export function EntityPositionEditor(props: {
-  label: string;
-  min: number;
-  max: number;
-  value: number;
-  disabled: boolean;
-  onChange: (value: number) => void;
+  entity: Unit | Building | Vehicle;
+  onChange: (coordinates: GridCoordinates) => void;
 }) {
-  const [value, setValue] = React.useState(props.value);
+  const { gameState } = useGameState();
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    e.stopPropagation();
+  const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
+
+  const handlePositionXChange = (value: number) => {
+    props.onChange({ x: value, y: props.entity.getRoundedPosition().y });
   };
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setValue(Number(e.target.value));
-    props.onChange(Number(e.target.value));
+  const handlePositionYChange = (value: number) => {
+    props.onChange({ x: props.entity.getRoundedPosition().x, y: value });
   };
 
   React.useEffect(() => {
-    setValue(props.value);
-  }, [props.value]);
+    setCoordinates(props.entity ? props.entity.position.grid : { x: 0, y: 0 });
+  }, [props.entity.getHash()]);
 
-  return (
-    <div className={"coordinates-row"}>
-      <div className={"label"}>{props.label}:</div>
-      <div className={"value"}>
-        <input
-          type="number"
-          min={props.min}
-          max={props.max}
-          value={value}
-          disabled={props.disabled}
-          onKeyDown={handleKeyDown}
-          onChange={handleChange}
-        />
-      </div>
+  return coordinates ? (
+    <div className={"terrain-area-coordinates-editor"}>
+      <EntityPositionAxisEditor
+        value={coordinates.x}
+        label={"x"}
+        min={0}
+        max={gameState.mapSize.width - props.entity.size.grid.width}
+        disabled={!props.entity}
+        onChange={handlePositionXChange}
+      />
+
+      <EntityPositionAxisEditor
+        value={coordinates.y}
+        label={"y"}
+        min={0}
+        max={gameState.mapSize.height - props.entity.size.grid.length}
+        disabled={!props.entity}
+        onChange={handlePositionYChange}
+      />
     </div>
-  );
+  ) : null;
 }

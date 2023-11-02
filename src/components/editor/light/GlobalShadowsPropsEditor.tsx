@@ -16,6 +16,7 @@ export function GlobalShadowsPropsEditor() {
               <InputRange
                 min={0}
                 max={100}
+                step={1}
                 initialValue={Math.trunc(100 - gameState.globalShadows.opacity * 100)}
                 valueSuffix={"%"}
                 onChange={(opacity) => {

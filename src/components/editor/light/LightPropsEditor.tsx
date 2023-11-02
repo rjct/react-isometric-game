@@ -35,6 +35,7 @@ export function LightPropsEditor(props: { light: Light }) {
                 valueSuffix={""}
                 min={0}
                 max={Math.max(gameState.mapSize.width, gameState.mapSize.height)}
+                step={1}
                 onChange={(radius) => {
                   gameDispatch({ type: "setLightRadius", entityId: props.light.id, radius });
                   gameDispatch({ type: "recalculateLightsAndShadows" });

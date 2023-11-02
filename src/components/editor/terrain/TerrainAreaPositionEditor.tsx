@@ -1,4 +1,4 @@
-import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
+import { EntityPositionAxisEditor } from "@src/components/editor/_shared/EntityPositionAxisEditor";
 import { TerrainArea } from "@src/engine/terrain/TerrainAreaFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
@@ -30,7 +30,7 @@ export const TerrainAreaPositionEditor = React.memo((props: { terrainArea: Terra
 
   return coordinates && size ? (
     <div className={"terrain-area-coordinates-editor"}>
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={coordinates.x}
         label={"x"}
         min={0}
@@ -45,7 +45,7 @@ export const TerrainAreaPositionEditor = React.memo((props: { terrainArea: Terra
         }}
       />
 
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={coordinates.y}
         label={"y"}
         min={0}
@@ -60,7 +60,7 @@ export const TerrainAreaPositionEditor = React.memo((props: { terrainArea: Terra
         }}
       />
 
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={size.width}
         label={"width"}
         min={1}
@@ -78,7 +78,7 @@ export const TerrainAreaPositionEditor = React.memo((props: { terrainArea: Terra
         }}
       />
 
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={size.height}
         label={"height"}
         min={1}

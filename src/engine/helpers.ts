@@ -250,3 +250,11 @@ export function getCellsInVector(
 
   return cellsInVector;
 }
+
+export function generateNumbersWithStep(max: number, step: number): number[] {
+  const result: number[] = [];
+  for (let i = 0; i <= max; i += step) {
+    result.push(i);
+  }
+  return result;
+}

@@ -16,6 +16,7 @@ const hummer: VehicleDictEntity = {
   },
   turningRadius: 2,
   maxSpeed: 10,
+  explorable: true,
   sfx: {
     turnOn: {
       src: "public/assets/vehicles/drivable/hummer/turn_on.mp3",

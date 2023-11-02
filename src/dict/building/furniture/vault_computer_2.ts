@@ -9,7 +9,7 @@ const vault_computer_2: BuildingDictEntity = {
     grid: { width: 1, length: 1, height: 1.7 },
     screen: { width: 94, height: 126 },
   },
-  rotationAngles: [90, 270],
+  rotationAngles: [90, 180],
   variants: 5,
   internalColor: BUILDING_DICT_DEFAULTS.furniture.COLOR,
   occupiesCell: true,

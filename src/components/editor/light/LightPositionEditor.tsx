@@ -1,4 +1,4 @@
-import { EntityPositionEditor } from "@src/components/editor/_shared/EntityPositionEditor";
+import { EntityPositionAxisEditor } from "@src/components/editor/_shared/EntityPositionAxisEditor";
 import { Light } from "@src/engine/light/LightFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
@@ -14,7 +14,7 @@ export function LightPositionEditor(props: { light: Light }) {
 
   return coordinates ? (
     <div className={"terrain-area-coordinates-editor"}>
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={coordinates.x}
         label={"x"}
         min={0}
@@ -29,7 +29,7 @@ export function LightPositionEditor(props: { light: Light }) {
         }}
       />
 
-      <EntityPositionEditor
+      <EntityPositionAxisEditor
         value={coordinates.y}
         label={"y"}
         min={0}

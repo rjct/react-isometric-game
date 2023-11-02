@@ -3,6 +3,7 @@ import { BuildingEditor } from "@src/components/editor/building/BuildingEditor";
 import { LightEditor } from "@src/components/editor/light/LightEditor";
 import { TerrainAreasEditor } from "@src/components/editor/terrain/TerrainAreasEditor";
 import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
+import { VehicleEditor } from "@src/components/editor/vehicle/VehicleEditor";
 import { Buildings } from "@src/components/map/buildings/Buildings";
 import { MapLayer } from "@src/components/map/MapLayer";
 import { FogOfWarComponent } from "@src/components/map/terrain/FogOfWar";
@@ -17,6 +18,7 @@ import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
 import { BuildingType } from "@src/dict/building/building";
 import { UnitType } from "@src/dict/unit/_unit";
+import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
@@ -62,7 +64,7 @@ export const MapComponent = React.memo(
       )
         return null;
 
-      const type = e.dataTransfer.getData("add/entity/type") as "building" | "unit";
+      const type = e.dataTransfer.getData("add/entity/type") as "building" | "unit" | "vehicle";
       const entity = JSON.parse(e.dataTransfer.getData("add/entity"));
 
       const position = { x: floor(grid.x), y: floor(grid.y) };
@@ -80,6 +82,7 @@ export const MapComponent = React.memo(
 
     const handleMouseDown = () => {
       gameDispatch({ type: "clearSelectedBuilding" });
+      gameDispatch({ type: "clearSelectedVehicle" });
       terrainDispatch({ type: "clearSelectedTerrainArea" });
       gameDispatch({ type: "clearSelectedLight" });
       gameDispatch({ type: "clearSelectedUnit" });
@@ -159,6 +162,14 @@ export const MapComponent = React.memo(
             rotation,
           });
           break;
+
+        case "vehicle":
+          gameDispatch({
+            type: "addVehicle",
+            vehicleType: entity.type as VehicleType,
+            position,
+            rotation,
+          });
       }
 
       gameDispatch({ type: "clearEntityPlaceholder" });
@@ -277,6 +288,7 @@ export const MapComponent = React.memo(
           <BuildingEditor />
           <TerrainAreasEditor />
           <UnitEditor />
+          <VehicleEditor />
           <LightEditor />
 
           <TerrainClusters workingScenes={["game", "combat"]} />

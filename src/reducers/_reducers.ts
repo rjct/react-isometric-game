@@ -105,6 +105,18 @@ import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
 import { deleteLight, DeleteLightReducerAction } from "@src/reducers/editor/light/deleteLight";
+import { addVehicle, AddVehicleReducerAction } from "@src/reducers/editor/vehicle/addVehicle";
+import {
+  clearSelectedVehicle,
+  ClearSelectedVehicleReducerAction,
+} from "@src/reducers/editor/vehicle/clearSelectedVehicle";
+import {
+  deleteSelectedVehicle,
+  DeleteSelectedVehicleReducerAction,
+} from "@src/reducers/editor/vehicle/deleteSelectedVehicle";
+import { setSelectedVehicle, SetSelectedVehicleReducerAction } from "@src/reducers/editor/vehicle/setSelectedVehicle";
+import { setVehiclePosition, SetVehiclePositionReducerAction } from "@src/reducers/editor/vehicle/setVehiclePosition";
+import { setVehicleRotation, SetVehicleRotationReducerAction } from "@src/reducers/editor/vehicle/setVehicleRotation";
 import {
   highlightUnitAtGunpoint,
   HighlightUnitAtGunpointReducerAction,
@@ -174,6 +186,13 @@ export type GameReducerAction =
   | SetBuildingPositionReducerAction
   | SetBuildingOccupiesCellReducerAction
   //
+  | AddVehicleReducerAction
+  | SetSelectedVehicleReducerAction
+  | ClearSelectedVehicleReducerAction
+  | SetVehicleRotationReducerAction
+  | DeleteSelectedVehicleReducerAction
+  | SetVehiclePositionReducerAction
+  //
   | AddUnitReducerAction
   | SetSelectedUnitReducerAction
   | ClearSelectedUnitReducerAction
@@ -183,6 +202,7 @@ export type GameReducerAction =
   | SetUnitRotationReducerAction
   | StopUnitsActionReducerAction
   | DoRandomUnitActionReducerAction
+
   //
   | SetGlobalShadowsOpacityReducerAction
   | SetGlobalShadowsColorReducerAction
@@ -338,6 +358,25 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setBuildingOccupiesCell":
       return setBuildingOccupiesCell(state, action as SetBuildingOccupiesCellReducerAction);
+
+    // EDITOR: VEHICLE
+    case "addVehicle":
+      return addVehicle(state, action as AddVehicleReducerAction);
+
+    case "setSelectedVehicle":
+      return setSelectedVehicle(state, action as SetSelectedVehicleReducerAction);
+
+    case "clearSelectedVehicle":
+      return clearSelectedVehicle(state, action as ClearSelectedVehicleReducerAction);
+
+    case "setVehicleRotation":
+      return setVehicleRotation(state, action as SetVehicleRotationReducerAction);
+
+    case "setVehiclePosition":
+      return setVehiclePosition(state, action as SetVehiclePositionReducerAction);
+
+    case "deleteSelectedVehicle":
+      return deleteSelectedVehicle(state, action as DeleteSelectedVehicleReducerAction);
 
     // EDITOR: UNIT
     case "addUnit":

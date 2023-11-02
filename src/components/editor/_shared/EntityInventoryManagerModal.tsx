@@ -15,8 +15,8 @@ export const EntityInventoryManagerModal = React.memo(() => {
   const { checkEditorMode } = useEditor();
 
   const selectedEntity = React.useMemo(() => {
-    return gameState.selectedUnit || gameState.selectedBuilding;
-  }, [gameState.selectedUnit, gameState.selectedBuilding]);
+    return gameState.selectedUnit || gameState.selectedBuilding || gameState.selectedVehicle;
+  }, [gameState.selectedUnit, gameState.selectedBuilding, gameState.selectedVehicle]);
 
   const [editorModesHistory, saveEditorModesHistory] = React.useState([uiState.editorMode]);
 

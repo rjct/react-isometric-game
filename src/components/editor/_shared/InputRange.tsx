@@ -1,3 +1,4 @@
+import { randomUUID } from "@src/engine/helpers";
 import React from "react";
 import { useDebounce } from "use-debounce";
 
@@ -6,10 +7,22 @@ export function InputRange(props: {
   valueSuffix: string;
   min: number;
   max: number;
+  step: number;
   onChange: (value: number) => void;
 }) {
   const [selectedValue, setSelectedValue] = React.useState<number>(-1);
   const [value] = useDebounce(selectedValue, 100);
+  const id = randomUUID();
+
+  const values = React.useMemo(() => {
+    const values = [];
+
+    for (let i = props.min; i <= props.max; i += props.step) {
+      values.push(i);
+    }
+
+    return values;
+  }, []);
 
   const handleValueChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(Number(e.target.value));
@@ -32,10 +45,17 @@ export function InputRange(props: {
           type={"range"}
           min={props.min}
           max={props.max}
-          step={1}
+          step={props.step}
           onChange={handleValueChange}
           value={selectedValue || 0}
+          list={id}
         />
+
+        <datalist id={id}>
+          {values.map((value) => (
+            <option value={value} label={`${value}`}></option>
+          ))}
+        </datalist>
       </div>
       <div className={"entity-variant-slider-value"}>
         {selectedValue}

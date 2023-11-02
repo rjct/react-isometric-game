@@ -1,7 +1,7 @@
 import { StaticMapVehicle } from "@src/context/GameStateContext";
 import { getVehicleDictEntityByType, VehicleDictEntity, VehicleSfxType, VehicleType } from "@src/dict/vehicle/_vehicle";
 import { GameMap } from "@src/engine/gameMap";
-import { degToRad } from "@src/engine/helpers";
+import { degToRad, generateNumbersWithStep } from "@src/engine/helpers";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -12,6 +12,7 @@ export class Vehicle extends MovableGameEntity {
   public readonly type: VehicleType;
   public readonly className: string;
   public readonly dictEntity: VehicleDictEntity;
+  private readonly rotationAngles: AngleInDegrees[];
   public realRotation: Angle;
   public action: "none" | "idle" | "driving" = "none";
   public driver: Unit | null = null;
@@ -47,11 +48,15 @@ export class Vehicle extends MovableGameEntity {
       max: dictEntity.maxSpeed,
     };
 
+    const ROTATION_STEPS = 32;
+
+    this.rotationAngles = generateNumbersWithStep(359, 360 / ROTATION_STEPS);
+
     this.realRotation = {
       deg: props.rotation,
       rad: degToRad(props.rotation),
     };
-    this.setRotation(normalizeRotation(props.rotation, 32));
+    this.setRotation(normalizeRotation(props.rotation, ROTATION_STEPS));
   }
 
   public setAction(action: Vehicle["action"]) {
@@ -84,6 +89,10 @@ export class Vehicle extends MovableGameEntity {
     };
 
     this.createWalls();
+  }
+
+  getAvailableRotationAngles(): AngleInDegrees[] {
+    return this.rotationAngles;
   }
 
   public setPosition(position: GridCoordinates, gameState: GameMap) {

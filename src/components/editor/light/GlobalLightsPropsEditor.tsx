@@ -15,6 +15,7 @@ export function GlobalLightsPropsEditor() {
               <InputRange
                 min={0}
                 max={100}
+                step={1}
                 initialValue={Math.trunc(100 - gameState.globalLights.opacity * 100)}
                 valueSuffix={"%"}
                 onChange={(opacity) => {
