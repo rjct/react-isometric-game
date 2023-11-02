@@ -4,49 +4,62 @@ import { WireframeMarker } from "@src/components/map/terrain/WireframeMarker";
 import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
-import { calculateIsometricAngle, degToRad } from "@src/engine/helpers";
-import Dubins from "@src/engine/vehicle/Dubins";
+import { HeroActionsMenu } from "@src/components/map/terrain/HeroActionsMenu";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
-import { useHero } from "@src/hooks/useHero";
-import { useScene } from "@src/hooks/useScene";
+import { HeroAction, useHero } from "@src/hooks/useHero";
 import React from "react";
 import { isMobile } from "react-device-detect";
 import { useDebounce } from "use-debounce";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState, gameDispatch, uiState } = useGameState();
-  const { hero, doHeroAction } = useHero();
+  const { hero, doHeroAction, getPossibleHeroActions } = useHero();
   const { getEditorLibraryPosition } = useEditor();
-  const { checkCurrentScene } = useScene();
 
   const [markerPosition, setMarkerPosition] = React.useState<GridCoordinates>({ x: 0, y: 0 });
   const debouncedMarkerPosition = useDebounce(markerPosition, 200);
+
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
-  const [markerValue, setMarkerValue] = React.useState("");
   const [clicks, setClicks] = React.useState(0);
+  const [heroAction, setHeroAction] = React.useState<HeroAction[]>([]);
+  const [heroActionMenuShow, setHeroActionMenuShow] = React.useState(false);
+
   const wireframeCellsBackground = React.useMemo(() => {
     return `repeating-linear-gradient(rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px),
             repeating-linear-gradient(90deg, rgba(255,255,255,0.5), rgba(255,255,255,0.5) 1px, transparent 1px, transparent ${constants.wireframeTileSize.width}px)`;
   }, [gameState.debug.enabled && gameState.debug.featureEnabled.wireframe]);
 
   const handleClick = () => {
+    const isAllowed = heroAction.some((action) => action.isAllowed);
+
     setMarkerClassName([
       ...markerClassName,
-      ...[markerClassName.includes("action--allowed") ? "perform-action--allowed" : "perform-action--not-allowed"],
+      ...[isAllowed ? "perform-action--allowed" : "perform-action--not-allowed"],
     ]);
 
-    if (markerClassName.includes("action--allowed")) {
-      doHeroAction(uiState.mousePosition, "click");
+    if (isAllowed) {
+      doHeroAction("click", heroAction[0]);
     }
   };
 
   const handleDoubleClick = () => {
-    doHeroAction(uiState.mousePosition, "doubleClick");
+    const isAllowed = heroAction.some((action) => action.isAllowed);
+
+    setMarkerClassName([
+      ...markerClassName,
+      ...[isAllowed ? "perform-action--allowed" : "perform-action--not-allowed"],
+    ]);
+
+    if (isAllowed) {
+      doHeroAction("doubleClick", heroAction[0]);
+    }
   };
 
   const handleRightClick = (e: React.MouseEvent) => {
     e.preventDefault();
+
+    setHeroActionMenuShow(false);
 
     const userActions: Array<Unit["currentSelectedAction"]> = ["move", "explore", "leftHand", "rightHand"];
 
@@ -58,98 +71,48 @@ export const Wireframe = React.memo(function WireframeTiles() {
   };
 
   const handleMouseDown = () => {
-    if (!hero.isVehicleInUse()) return;
-
-    const vehicle = hero.getVehicleInUse()!;
-    const dubWorker = new Dubins();
-
-    const path = dubWorker.getPath(
-      [vehicle.position.grid.x, vehicle.position.grid.y, vehicle.rotation.rad - degToRad(90)],
-      [
-        uiState.mousePosition.grid.x,
-        uiState.mousePosition.grid.y,
-        calculateIsometricAngle(vehicle.position.grid, markerPosition).rad,
-      ],
-      vehicle.dictEntity.turningRadius,
-      0.5,
-    );
-
-    vehicle.setPath(path);
-
-    gameDispatch({ type: "startVehicleAcceleration", vehicle: hero.getVehicleInUse()! });
+    doHeroAction("mouseDown", heroAction[0]);
   };
 
   const handleMouseUp = () => {
-    if (!hero.isVehicleInUse()) return;
-
-    gameDispatch({ type: "stopVehicleAcceleration", vehicle: hero.getVehicleInUse()! });
+    doHeroAction("mouseUp", heroAction[0]);
   };
 
-  const updateMarkerColor = () => {
-    if (
-      gameState.mapSize.width === 0 ||
-      !checkCurrentScene(["game", "combat"]) ||
-      (uiState.scene === "combat" && gameState.combatQueue.currentUnitId !== hero.id)
-    ) {
+  const updateMarker = (heroAction: Array<HeroAction>) => {
+    if (heroAction.length === 0) {
       setMarkerClassName(["action--not-allowed"]);
-      setMarkerValue("");
-
       return;
     }
 
-    if (hero.isVehicleInUse()) {
-      return;
+    if (heroAction.length === 1) {
+      const action = heroAction[0].action;
+      const isAllowed = heroAction[0].isAllowed;
+      const entity = heroAction[0].entity;
+
+      setMarkerClassName([isAllowed ? "action--allowed" : "action--not-allowed"]);
+
+      switch (action) {
+        case "explore":
+          gameDispatch({ type: "highlightExplorableEntity", entity });
+      }
+    } else {
+      setHeroActionMenuShow(true);
+      gameDispatch({ type: "highlightExplorableEntity", entity: heroAction[0].entity });
     }
+  };
 
-    switch (hero.currentSelectedAction) {
-      case "leftHand":
-      case "rightHand":
-        const weapon = hero.getCurrentWeapon();
+  const handleHeroActionsMenuMouseLeave = () => {
+    setHeroActionMenuShow(false);
+  };
 
-        if (weapon) {
-          weapon.aimAt(uiState.mousePosition.grid);
+  const handleHeroActionsMenuClick = (heroAction: HeroAction) => {
+    setHeroActionMenuShow(false);
 
-          if (
-            !weapon.isReadyToUse(gameState) ||
-            (uiState.scene === "combat" &&
-              weapon.getCurrentAttackModeDetails().actionPointsConsumption > hero.actionPoints.current)
-          ) {
-            setMarkerClassName(["action--not-allowed"]);
-            weapon.stopAiming();
-          } else {
-            setMarkerClassName(["action--allowed"]);
-          }
-        }
-
-        setMarkerValue("");
-        break;
-
-      case "explore":
-        const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
-
-        const isExplorable =
-          entity && entity.isExplorable() && entity.id !== hero.id && !!hero.getClosestCoordinatesToEntity(entity);
-
-        setMarkerClassName([isExplorable ? "action--allowed" : "action--not-allowed"]);
-        gameDispatch({ type: "highlightExplorableEntity", entity: isExplorable ? entity : null });
-
-        break;
-
-      case "move":
-        const unitPath = gameState.calcMovementPath(hero.position.grid, uiState.mousePosition.grid);
-        const isMoveAllowed = !(
-          unitPath.length === 0 ||
-          (uiState.scene === "combat" &&
-            hero.actionPoints.current / hero.getCurrentActionPointsConsumption() < unitPath.length - 1)
-        );
-
-        setMarkerClassName([isMoveAllowed ? "action--allowed" : "action--not-allowed"]);
-        setMarkerValue(uiState.scene === "combat" ? String(unitPath.length - 1) : "");
-    }
+    doHeroAction("click", heroAction);
   };
 
   React.useEffect(() => {
-    if (uiState.mousePosition.isOutOfGrid) {
+    if (uiState.mousePosition.isOutOfGrid || heroActionMenuShow) {
       setMarkerPosition({ x: -1, y: -1 });
 
       return;
@@ -157,17 +120,21 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
     setMarkerClassName(["action--pending"]);
     setMarkerPosition(uiState.mousePosition.grid);
-  }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y]);
+  }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y, heroActionMenuShow]);
 
   React.useEffect(() => {
+    if (heroActionMenuShow) return;
+
     if (gameState.highlightedEntityForInventoryTransfer) {
       gameDispatch({ type: "highlightExplorableEntity", entity: null });
     }
 
-    if (uiState.mousePosition.isOutOfGrid) return;
+    setHeroAction(getPossibleHeroActions(uiState.mousePosition.grid));
+  }, [debouncedMarkerPosition[0], hero.currentSelectedAction, heroActionMenuShow]);
 
-    updateMarkerColor();
-  }, [debouncedMarkerPosition[0], hero.currentSelectedAction]);
+  React.useEffect(() => {
+    updateMarker(heroAction);
+  }, [heroAction]);
 
   React.useEffect(() => {
     let singleClickTimer: number;
@@ -198,7 +165,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
       }}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
-      onClick={() => setClicks(clicks + 1)}
+      onClick={() => (heroActionMenuShow ? null : setClicks(clicks + 1))}
       onContextMenu={handleRightClick}
     >
       <MapLayer
@@ -213,13 +180,21 @@ export const Wireframe = React.memo(function WireframeTiles() {
         <WireframeMarker
           coordinates={markerPosition}
           className={markerClassName}
-          value={markerValue}
+          value={""}
           onAnimationComplete={() => {
             const classes = [...markerClassName];
             classes.pop();
 
             setMarkerClassName(classes);
           }}
+        />
+
+        <HeroActionsMenu
+          show={heroActionMenuShow}
+          coordinates={heroAction[0]?.position || markerPosition}
+          heroActions={heroAction}
+          onMouseLeave={handleHeroActionsMenuMouseLeave}
+          onClick={handleHeroActionsMenuClick}
         />
 
         <WireframeEntityPlaceholder />

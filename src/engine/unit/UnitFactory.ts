@@ -31,56 +31,6 @@ export type UnitShadow = {
 
 export type UnitMovementMode = Extract<Unit["action"], "walk" | "run">;
 
-// export interface DictUnit {
-//   type: UnitType;
-//   idDead?: boolean;
-//   rotation?: AngleInDegrees;
-//   className: string;
-//   explorable: boolean;
-//   speed: {
-//     walk: number;
-//     run: number;
-//   };
-//   coolDownTime: number;
-//   size: {
-//     grid: Size3D;
-//     screen: Size2D;
-//   };
-//   healthPoints: {
-//     current: number;
-//     max: number;
-//   };
-//   actionPoints: {
-//     current: number;
-//     max: number;
-//     consumption: {
-//       walk: number;
-//       run: number;
-//       explore: number;
-//     };
-//   };
-//   fieldOfView: {
-//     sectorAngle: AngleInDegrees;
-//     range: number;
-//   };
-//   animationDuration: {
-//     hit: number;
-//     notAllowed: number;
-//   };
-//   sfx: {
-//     [type in UnitSfxType]: UnitSfx;
-//   };
-//   distanceToScreenCenter: number;
-// }
-
-// export type DictUnits = {
-//   [unitType in UnitType]: DictUnit;
-// };
-//
-// export type UnitSfx = {
-//   [type in UnitSfxType]: DictUnit["sfx"][UnitSfxType] & { currentProgressMs: number };
-// };
-
 export class Unit extends MovableGameEntity {
   public readonly dictEntity: UnitDictEntity;
   public readonly isHero: boolean;
