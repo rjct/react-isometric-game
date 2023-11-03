@@ -37,6 +37,7 @@
 
     .inventory-storage-controls {
       display: flex;
+      gap: (@padding);
       margin-top: -(@padding - 3px);
       font-size: 0.85em;
       padding: @padding;
@@ -94,16 +95,23 @@
     grid-area: 1 / 3 / 3 / 4;
 
     .inventory-item-info {
+      flex: 1;
       display: flex;
       margin-top: -@padding;
       gap: @padding * 2;
       flex-direction: column;
+      overflow: auto;
+      position: relative;
 
       .inventory-item-title {
-        font-size: 1.5em;
+        font-size: 1.3em;
         text-align: center;
         background-color: rgba(0, 255, 0, 0.1);
-        padding: @padding * 2 0 @padding * 1.5 0;
+        padding: (@padding * 2 - 1) 0 @padding * 1.5 0;
+        position: sticky;
+        top: 3px;
+        border-radius: @border-radius;
+        backdrop-filter: blur(5px);
       }
 
       .inventory-item-description {
@@ -116,22 +124,33 @@
         aspect-ratio: 8/3;
         background-repeat: no-repeat;
         background-position: center;
+        flex-shrink: 0;
       }
 
       ul {
-        margin: 0 @padding * 2;
+        margin: 0 @padding;
         padding: 0;
 
         li {
           list-style: none;
           display: flex;
+          border-bottom: solid 1px rgba(0, 255, 0, 0.2);
+          padding: (@padding / 2) @padding;
+
+          &:last-child {
+            border-bottom: none;
+          }
 
           .prop {
             flex: 1;
           }
 
           .value {
-            //
+            text-align: right;
+
+            a {
+              display: block;
+            }
           }
         }
       }

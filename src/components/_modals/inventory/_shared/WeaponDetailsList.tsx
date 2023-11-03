@@ -1,7 +1,12 @@
+import { InventoryDetailsRow } from "@src/components/_modals/inventory/_shared/InventoryDetailsRow";
+import { AmmoDictEntity, AmmoName, getAmmoDictEntityByType } from "@src/dict/ammo/ammo";
 import { WeaponAttackMode, WeaponDictEntity } from "@src/dict/weapon/weapon";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export const WeaponDetailsList = React.memo((props: { dictEntity: WeaponDictEntity }) => {
+  const { gameDispatch } = useGameState();
+
   const range = {
     min: Infinity,
     max: -Infinity,
@@ -12,9 +17,9 @@ export const WeaponDetailsList = React.memo((props: { dictEntity: WeaponDictEnti
     max: -Infinity,
   };
 
-  const attachModes = Object.keys(props.dictEntity.attackModes) as WeaponAttackMode[];
+  const attackModes = Object.keys(props.dictEntity.attackModes) as WeaponAttackMode[];
 
-  attachModes.forEach((attackMode) => {
+  attackModes.forEach((attackMode) => {
     range.min = Math.min(range.min, props.dictEntity.attackModes[attackMode]?.range || 0);
     range.max = Math.max(range.max, props.dictEntity.attackModes[attackMode]?.range || 0);
 
@@ -22,35 +27,46 @@ export const WeaponDetailsList = React.memo((props: { dictEntity: WeaponDictEnti
     damage.max = Math.max(damage.max, props.dictEntity.attackModes[attackMode]?.damage.max || 0);
   });
 
+  const getSupportedAmmo = () => {
+    const uniqueAmmo: { [p in AmmoName]: AmmoDictEntity } = {};
+
+    attackModes.forEach((attackMode) => {
+      getAmmoDictEntityByType(props.dictEntity.attackModes[attackMode]!.ammoType).forEach((ammoDictEntity) => {
+        uniqueAmmo[ammoDictEntity.name] = ammoDictEntity;
+      });
+    });
+
+    const ammoArr = Object.values(uniqueAmmo)
+      .filter((ammo) => !ammo.fakeAmmo)
+      .map((ammo) => (
+        <a
+          key={ammo.title}
+          href={""}
+          onClick={(e) => {
+            e.preventDefault();
+            e.stopPropagation();
+            gameDispatch({ type: "setSelectedInventoryItem", item: ammo });
+          }}
+        >
+          {ammo.title}
+        </a>
+      ));
+
+    return ammoArr.length > 0 ? ammoArr : null;
+  };
+
   return (
-    <>
-      <ul>
-        <li>
-          <div className={"prop"}>Weight:</div>
-          <div className={"value"}>{props.dictEntity.weight}</div>
-        </li>
-        <li>
-          <div className={"prop"}>Ammo:</div>
-          <div className={"value"}>
-            {attachModes.map((attackMode) => props.dictEntity.attackModes[attackMode]?.ammoType).join(", ")}
-          </div>
-        </li>
-        <li>
-          <div className={"prop"}>Magazine size:</div> <div className={"value"}>{props.dictEntity.ammoCapacity}</div>
-        </li>
-        <li>
-          <div className={"prop"}>Price:</div>
-          <div className={"value"}>${props.dictEntity.price}</div>
-        </li>
-        <li>
-          <div className={"prop"}>Range:</div>
-          <div className={"value"}>{range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`}</div>
-        </li>
-        <li>
-          <div className={"prop"}>Damage:</div>
-          <div className={"value"}>{damage.min === damage.max ? `${damage.min}` : `${damage.min}-${damage.max}`}</div>
-        </li>
-      </ul>
-    </>
+    <ul>
+      <InventoryDetailsRow label={"Weight"}>{props.dictEntity.weight}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Ammo"}>{getSupportedAmmo()}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Magazine size"}>{props.dictEntity.ammoCapacity}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Price"}>${props.dictEntity.price}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Range"}>
+        {range.min === range.max ? `${range.min}` : `${range.min}-${range.max}`}
+      </InventoryDetailsRow>
+      <InventoryDetailsRow label={"Damage"}>
+        {damage.min === damage.max ? `${damage.min}` : `${damage.min}-${damage.max}`}
+      </InventoryDetailsRow>
+    </ul>
   );
 });

@@ -1,5 +1,9 @@
 import { InventoryDictEntity } from "@src/components/_modals/inventory/_shared/InventoryDictEntity";
 import { InventoryItemsFilterControl } from "@src/components/_modals/inventory/_shared/InventoryItemsFilterControl";
+import {
+  InventoryItemsSortControl,
+  InventoryItemsSortingState,
+} from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
 import getAmmoDictList, { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import getWeaponDictList, { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import { InventoryItemClass } from "@src/engine/InventoryItemFactory";
@@ -10,6 +14,10 @@ export const InventoryDictStoragePanel = React.memo(() => {
   const { gameState, gameDispatch } = useGameState();
 
   const [filter, setFilter] = React.useState<InventoryItemClass | undefined>();
+  const [sorting, setSorting] = React.useState<InventoryItemsSortingState>({
+    prop: "title",
+    direction: "desc",
+  });
 
   const handleItemClick = (e: React.MouseEvent, dictEntity: WeaponDictEntity | AmmoDictEntity) => {
     e.stopPropagation();
@@ -23,7 +31,20 @@ export const InventoryDictStoragePanel = React.memo(() => {
     e.dataTransfer.dropEffect = "move";
   };
 
-  const getDictEntities = () => {
+  const compareFunc = (a: WeaponDictEntity | AmmoDictEntity, b: WeaponDictEntity | AmmoDictEntity) => {
+    const direction = sorting.direction === "asc" ? -1 : 1;
+
+    if (a[sorting.prop] < b[sorting.prop]) {
+      return -direction;
+    }
+    if (a[sorting.prop] > b[sorting.prop]) {
+      return direction;
+    }
+
+    return 0;
+  };
+
+  const getDictEntities = (): { [p: string]: WeaponDictEntity | AmmoDictEntity } => {
     const weapon = { ...getWeaponDictList() };
     const ammo = { ...getAmmoDictList(true) };
 
@@ -39,7 +60,7 @@ export const InventoryDictStoragePanel = React.memo(() => {
     }
   };
 
-  const dictEntities = React.useMemo(() => Object.values(getDictEntities()), [filter]);
+  const dictEntities = React.useMemo(() => Object.values(getDictEntities()).sort(compareFunc), [filter, sorting]);
 
   return (
     <fieldset className={"inventory-storage-wrapper inventory-storage-wrapper-right"} data-droppable={true}>
@@ -47,6 +68,7 @@ export const InventoryDictStoragePanel = React.memo(() => {
 
       <div className={"inventory-storage-controls"}>
         <InventoryItemsFilterControl value={filter} onChange={setFilter} />
+        <InventoryItemsSortControl sortingState={sorting} onChange={setSorting} />
       </div>
 
       <div className={"inventory-storage"}>

@@ -1,3 +1,4 @@
+import { InventoryDetailsRow } from "@src/components/_modals/inventory/_shared/InventoryDetailsRow";
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import React from "react";
 
@@ -8,22 +9,12 @@ const correctValuePrefix = (value: number) => {
 export const AmmoDetailsList = React.memo((props: { dictEntity: AmmoDictEntity }) => {
   return (
     <ul>
-      <li>
-        <div className={"prop"}>Weight:</div>
-        <div className={"value"}>{props.dictEntity.weight}</div>
-      </li>
-      <li>
-        <div className={"prop"}>Price:</div>
-        <div className={"value"}>${props.dictEntity.price}</div>
-      </li>
-      <li>
-        <div className={"prop"}>Damage:</div>
-        <div className={"value"}>{correctValuePrefix(props.dictEntity.damage)}%</div>
-      </li>
-      <li>
-        <div className={"prop"}>Penetration:</div>
-        <div className={"value"}>{correctValuePrefix(props.dictEntity.penetration)}%</div>
-      </li>
+      <InventoryDetailsRow label={"Weight"}>{props.dictEntity.weight}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Price"}>${props.dictEntity.price}</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Damage"}>{correctValuePrefix(props.dictEntity.damage)}%</InventoryDetailsRow>
+      <InventoryDetailsRow label={"Penetration"}>
+        {correctValuePrefix(props.dictEntity.penetration)}%
+      </InventoryDetailsRow>
     </ul>
   );
 });

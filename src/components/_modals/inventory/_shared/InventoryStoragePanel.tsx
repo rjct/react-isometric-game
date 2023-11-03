@@ -1,5 +1,9 @@
 import { InventoryItemsFilterControl } from "@src/components/_modals/inventory/_shared/InventoryItemsFilterControl";
 import { InventoryItemsList } from "@src/components/_modals/inventory/_shared/InventoryItemsList";
+import {
+  InventoryItemsSortControl,
+  InventoryItemsSortingState,
+} from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { InventoryItemClass, inventoryItemClasses } from "@src/engine/InventoryItemFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
@@ -17,8 +21,17 @@ export function InventoryStoragePanel(props: {
 }) {
   const { handleDrop, handleDragOver } = useDragAndDropItem();
   const [filter, setFilter] = React.useState<InventoryItemClass | undefined>();
+  const [sorting, setSorting] = React.useState<InventoryItemsSortingState>({
+    prop: "title",
+    direction: "desc",
+  });
 
-  const inventoryItemsGrouped = props.owner.getInventoryItemsGrouped(props.inventoryType, filter);
+  const inventoryWeight = props.owner.getInventoryItemsWeight(props.inventoryType, filter);
+
+  const inventoryItemsGrouped = React.useMemo(
+    () => props.owner.getInventoryItemsGrouped(props.inventoryType, filter, sorting),
+    [filter, sorting, props.owner.getInventoryItems(props.inventoryType)],
+  );
 
   return (
     <fieldset className={props.className.join(" ")} data-droppable={true}>
@@ -46,6 +59,7 @@ export function InventoryStoragePanel(props: {
           )}
           onChange={setFilter}
         />
+        <InventoryItemsSortControl sortingState={sorting} onChange={setSorting} />
       </div>
 
       <div
@@ -62,9 +76,7 @@ export function InventoryStoragePanel(props: {
         />
       </div>
 
-      <div className={"inventory-storage-info"}>
-        Total weight: {props.owner.getInventoryItemsWeight(props.inventoryType)}
-      </div>
+      <div className={"inventory-storage-info"}>Total weight: {inventoryWeight}</div>
     </fieldset>
   );
 }

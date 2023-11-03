@@ -1,3 +1,4 @@
+import { InventoryItemsSortingState } from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
 import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
@@ -226,23 +227,43 @@ export class GameEntity {
     return cells;
   }
 
-  getInventoryItems(inventoryType?: keyof GameEntity["inventory"]) {
-    if (inventoryType) {
-      return [this.inventory[inventoryType] || []].flat();
-    }
+  getInventoryItems(
+    inventoryType?: keyof GameEntity["inventory"],
+    filter?: InventoryItemClassGroupName,
+    sorting?: InventoryItemsSortingState,
+  ) {
+    const compareFunc = (a: Weapon | Ammo, b: Weapon | Ammo) => {
+      if (!sorting) return 0;
+
+      const direction = sorting.direction === "asc" ? -1 : 1;
+
+      if (a.dictEntity[sorting.prop] < b.dictEntity[sorting.prop]) {
+        return -direction;
+      }
+      if (a.dictEntity[sorting.prop] > b.dictEntity[sorting.prop]) {
+        return direction;
+      }
+
+      return 0;
+    };
 
     const leftHand = this.inventory.leftHand ? [this.inventory.leftHand] : [];
     const rightHand = this.inventory.rightHand ? [this.inventory.rightHand] : [];
     const main = this.inventory.main;
 
-    return [...leftHand, ...rightHand, ...main];
+    return (inventoryType ? [this.inventory[inventoryType] || []].flat() : [...leftHand, ...rightHand, ...main])
+      .filter((iter) => {
+        return filter ? iter.itemClass === filter : true;
+      })
+      .sort(compareFunc);
   }
 
   getInventoryItemsGrouped(
     inventoryType?: keyof GameEntity["inventory"],
     filter?: InventoryItemClassGroupName,
+    sorting?: InventoryItemsSortingState,
   ): InventoryItemClassGroup {
-    const items = this.getInventoryItems(inventoryType);
+    const items = this.getInventoryItems(inventoryType, undefined, sorting);
 
     return items.reduce((group, item) => {
       const { itemClass, name } = item;
@@ -268,10 +289,14 @@ export class GameEntity {
     }, {} as InventoryItemClassGroup);
   }
 
-  getInventoryItemsWeight(inventoryType?: keyof GameEntity["inventory"]) {
-    const items = this.getInventoryItems(inventoryType);
+  getInventoryItemsWeight(
+    inventoryType?: keyof GameEntity["inventory"],
+    filter?: InventoryItemClassGroupName,
+    sorting?: InventoryItemsSortingState,
+  ) {
+    const items = this.getInventoryItems(inventoryType, filter, sorting);
 
-    return Math.round(items.reduce((prevValue, item) => prevValue + item.dictEntity.weight, 0));
+    return Math.ceil(items.reduce((prevValue, item) => prevValue + item.dictEntity.weight, 0));
   }
 
   public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {

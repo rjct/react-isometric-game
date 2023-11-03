@@ -11,7 +11,6 @@ export enum inventoryItemClasses {
   ammo = "Ammo",
 }
 export type InventoryItemClass = keyof typeof inventoryItemClasses;
-
 export type InventoryItemClassGroupName = WeaponName | AmmoName;
 export type InventoryItemGroup = {
   count: number;
@@ -20,6 +19,13 @@ export type InventoryItemGroup = {
 export interface InventoryItemClassGroup {
   [p: InventoryItemClassGroupName]: InventoryItemGroup;
 }
+
+export enum inventoryItemSortingProps {
+  title = "Title",
+  weight = "Weight",
+  price = "Price",
+}
+export type InventoryItemSortingProp = keyof typeof inventoryItemSortingProps;
 
 export class InventoryItem {
   public readonly itemClass: InventoryItemClass;

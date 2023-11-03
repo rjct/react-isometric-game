@@ -1,4 +1,4 @@
-import getAmmoDictList, { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
+import getAmmoDictList, { AmmoName, getAmmoDictEntityByName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import getWeaponDictList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, randomInt } from "@src/engine/helpers";
@@ -64,10 +64,6 @@ export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
 }
 
 //
-export function getAmmoDictEntityByName(ammoName: AmmoName): AmmoDictEntity {
-  return getAmmoDictList()[ammoName];
-}
-
 export function createAmmoByName(ammoName: AmmoName, gameState: GameMap) {
   const ammoFactoryDict: { [weaponAmmoClass in WeaponAmmoClass]: AmmoFactory } = {
     firearm_ammo: FirearmAmmo,

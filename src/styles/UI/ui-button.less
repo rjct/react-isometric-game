@@ -35,10 +35,11 @@
   &.ui-button-green {
     border-color: @button-border-color--green;
     background-color: @button-bg-color--green;
+    color: @text-color;
 
     &:hover:not(.disabled),
     &:hover:not(:disabled) {
-      color: #ffffff !important;
+      //color: #ffffff !important;
       border-color: lighten(@button-border-color--green, 10%);
       background-color: lighten(@button-bg-color--green, 10%);
     }
@@ -46,7 +47,7 @@
     &:active:not(.disabled),
     &:active:not(:disabled),
     &.active {
-      color: #ffffff !important;
+      //color: #ffffff !important;
       border-color: lighten(@button-border-color--green, 10%);
       background-color: lighten(@button-bg-color--green, 20%);
     }

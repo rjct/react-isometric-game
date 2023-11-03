@@ -27,10 +27,14 @@ body {
   overflow: hidden;
 }
 
+a {
+  color: inherit;
+}
+
 select {
   background-color: rgba(255, 255, 255, 0.1);
   color: @text-color;
-  border: solid 1px @tab-border-color;
+  border: solid 1px @button-border-color--green;
   border-radius: @border-radius;
   display: inline-flex;
   flex: 1;
@@ -61,6 +65,8 @@ fieldset {
     color: @text-color;
     font-size: 0.8em;
     text-transform: uppercase;
+    position: relative;
+    z-index: 1;
 
     &.outlined {
       border: solid 1px rgb(0 255 0 / 40%);

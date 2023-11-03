@@ -22,7 +22,6 @@ import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
-import {} from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useMousePosition } from "@src/hooks/useMousePosition";

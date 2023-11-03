@@ -85,3 +85,15 @@ export default function getAmmoDictList(skipFakeAmmo = false) {
 
   return ammoList;
 }
+
+export function getAmmoDictEntityByName(ammoName: AmmoName): AmmoDictEntity {
+  return getAmmoDictList()[ammoName];
+}
+
+export function getAmmoDictEntityByType(ammoType: WeaponAmmoType): AmmoDictEntity[] {
+  const ammoList = getAmmoDictList();
+
+  return Object.values(ammoList).filter((ammoDictEntity) => {
+    return ammoDictEntity.type === ammoType;
+  });
+}
