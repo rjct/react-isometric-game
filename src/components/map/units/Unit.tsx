@@ -39,8 +39,6 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
   if (!isUnitVisible) return null;
 
-  const isIsometric = gameState.debug.featureEnabled.buildingBoxes || isEditing;
-
   return (
     <div
       data-rotation={props.unit.rotation.deg}
