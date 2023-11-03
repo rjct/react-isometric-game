@@ -66,7 +66,7 @@ export class Weapon extends InventoryItem {
   }
 
   constructor(weaponName: WeaponName, weaponDictEntity: WeaponDictEntity) {
-    super();
+    super("weapon");
     this.name = weaponName;
     this.dictEntity = weaponDictEntity;
     this.currentAttackMode = Object.keys(weaponDictEntity.attackModes)[0] as WeaponAttackMode;

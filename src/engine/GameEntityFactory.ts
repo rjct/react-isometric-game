@@ -1,10 +1,9 @@
 import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
-import { AmmoName } from "@src/dict/ammo/ammo";
-import { WeaponName } from "@src/dict/weapon/weapon";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
+import { InventoryItemClassGroup, InventoryItemClassGroupName } from "@src/engine/InventoryItemFactory";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -239,20 +238,34 @@ export class GameEntity {
     return [...leftHand, ...rightHand, ...main];
   }
 
-  getInventoryItemsGrouped(inventoryType?: keyof GameEntity["inventory"]) {
+  getInventoryItemsGrouped(
+    inventoryType?: keyof GameEntity["inventory"],
+    filter?: InventoryItemClassGroupName,
+  ): InventoryItemClassGroup {
     const items = this.getInventoryItems(inventoryType);
 
-    return items.reduce(
-      (group, item) => {
-        const { name } = item;
+    return items.reduce((group, item) => {
+      const { itemClass, name } = item;
 
-        group[name] = group[name] ?? [];
-        group[name].push(item);
+      if (!group[itemClass]) {
+        group[itemClass] = {
+          count: 0,
+          items: {},
+        };
+      }
 
-        return group;
-      },
-      {} as { [p: WeaponName | AmmoName]: Array<Weapon | Ammo> },
-    );
+      if (!group[itemClass].items[name]) {
+        group[itemClass].items[name] = [];
+      }
+
+      group[itemClass].count++;
+
+      if (!filter || filter === itemClass) {
+        group[itemClass].items[name].push(item);
+      }
+
+      return group;
+    }, {} as InventoryItemClassGroup);
   }
 
   getInventoryItemsWeight(inventoryType?: keyof GameEntity["inventory"]) {

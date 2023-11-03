@@ -27,6 +27,27 @@ body {
   overflow: hidden;
 }
 
+select {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: @text-color;
+  border: solid 1px @tab-border-color;
+  border-radius: @border-radius;
+  display: inline-flex;
+  flex: 1;
+  font: inherit;
+  line-height: 1.5em;
+  text-align: center;
+  padding: 0.3em 1.1em;
+
+  margin: 0;
+  box-sizing: border-box;
+
+  &:focus {
+    background-color: rgba(255, 255, 255, 0.1);
+    outline: 0;
+  }
+}
+
 fieldset {
   border: none;
   border-top: solid 1px @tab-border-color;

@@ -50,8 +50,7 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit | Vehicle
           return key === selectedInventoryMode ? (
             <div key={key} className={"ui-tab-content"}>
               <InventoryItemsList
-                owner={props.entity}
-                inventoryType={selectedInventoryMode}
+                inventoryItems={props.entity.getInventoryItemsGrouped(selectedInventoryMode)}
                 selectable={false}
                 editable={true}
                 draggable={false}

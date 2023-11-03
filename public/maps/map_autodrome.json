@@ -78,7 +78,17 @@
       "target": { "x1": 55, "y1": 0, "x2": 100, "y2": 40 }
     }
   ],
-  "hero": { "position": { "x": 57, "y": 52 }, "rotation": 0 },
+  "hero": {
+    "position": { "x": 53, "y": 44 },
+    "rotation": 0,
+    "inventory": {
+      "main": [
+        { "class": "weapon", "name": "mp5" },
+        { "class": "firearm_ammo", "name": "9mm_JHP", "quantity": 3 },
+        { "class": "weapon", "name": "molotov_cocktail" }
+      ]
+    }
+  },
   "enemies": [],
   "buildings": [
     { "type": "vehicle_2x4", "position": { "x": 41, "y": 51 }, "rotation": 0, "variant": 1 },

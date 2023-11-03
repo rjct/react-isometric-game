@@ -35,6 +35,15 @@
       overflow: auto;
     }
 
+    .inventory-storage-controls {
+      display: flex;
+      margin-top: -(@padding - 3px);
+      font-size: 0.85em;
+      padding: @padding;
+      background-color: rgb(10, 65, 16);
+      border-radius: @border-radius;
+    }
+
     .inventory-storage-info {
       font-size: 0.85em;
       padding: @padding;
@@ -66,13 +75,16 @@
       display: flex;
       justify-content: center;
       align-items: center;
+      width: 100%;
       height: 100%;
       flex: 1;
 
       .building,
-      .vehicle {
+      .vehicle,
+      .unit {
+        position: relative;
         margin: 0;
-        scale: 0.5;
+        scale: 0.85;
         transform: none !important;
       }
     }

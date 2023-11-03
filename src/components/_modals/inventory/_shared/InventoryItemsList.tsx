@@ -1,34 +1,28 @@
 import { InventoryEmptyText } from "@src/components/_modals/inventory/_shared/inventoryEmptyText";
 import { InventoryItem } from "@src/components/_modals/inventory/_shared/InventoryItem";
-import { Building } from "@src/engine/building/BuildingFactory";
-import { GameEntity } from "@src/engine/GameEntityFactory";
-import { Unit } from "@src/engine/unit/UnitFactory";
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { InventoryItemClass, InventoryItemClassGroup } from "@src/engine/InventoryItemFactory";
 
 export function InventoryItemsList(props: {
-  owner: Unit | Building | Vehicle;
-  inventoryType?: keyof GameEntity["inventory"];
+  inventoryItems: InventoryItemClassGroup;
   compact?: boolean;
   selectable: boolean;
   editable: boolean;
   draggable: boolean;
 }) {
-  const inventoryEntities = props.owner.getInventoryItemsGrouped(props.inventoryType);
-  const inventoryEntitiesKeys = Object.keys(inventoryEntities);
+  const inventoryEntities = props.inventoryItems;
+  const inventoryEntitiesKeys = inventoryEntities ? (Object.keys(inventoryEntities) as InventoryItemClass[]) : [];
+
+  if (!inventoryEntities || inventoryEntitiesKeys.length === 0) return <InventoryEmptyText />;
 
   return (
-    <>
-      {inventoryEntitiesKeys.length == 0 ? (
-        <InventoryEmptyText />
-      ) : (
-        <ul className={`unit-inventory-items-list ${props.compact ? "unit-inventory-items-list--compact" : ""}`}>
-          {inventoryEntitiesKeys.map((key) => {
-            const entitiesGroup = inventoryEntities[key];
-
-            return <InventoryItem key={key} item={entitiesGroup[0]} groupLength={entitiesGroup.length} {...props} />;
-          })}
-        </ul>
-      )}
-    </>
+    <ul className={`unit-inventory-items-list ${props.compact ? "unit-inventory-items-list--compact" : ""}`}>
+      {inventoryEntitiesKeys.map((inventoryItemClass) => {
+        return Object.values(inventoryEntities[inventoryItemClass].items).map((group) => {
+          return group.length > 0 ? (
+            <InventoryItem key={group[0].id} item={group[0]} groupLength={group.length} {...props} />
+          ) : null;
+        });
+      })}
+    </ul>
   );
 }

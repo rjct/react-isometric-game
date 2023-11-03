@@ -37,7 +37,7 @@ export class Ammo extends InventoryItem {
   isTargetReached = false;
 
   constructor(ammoName: AmmoName, ammoDictEntity: AmmoDictEntity) {
-    super();
+    super("ammo");
 
     this.class = ammoDictEntity.class;
     this.name = ammoName;

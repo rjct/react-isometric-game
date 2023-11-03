@@ -53,7 +53,7 @@ export function InputRange(props: {
 
         <datalist id={id}>
           {values.map((value) => (
-            <option value={value} label={`${value}`}></option>
+            <option key={value} value={value} label={`${value}`}></option>
           ))}
         </datalist>
       </div>
