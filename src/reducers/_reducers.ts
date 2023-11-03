@@ -69,7 +69,7 @@ import { toggleFeature, ToggleFeatureReducerAction } from "@src/reducers/game/de
 import { endCombat, EndCombatReducerAction } from "@src/reducers/game/endCombat";
 import { endTurn, EndTurnReducerAction } from "@src/reducers/game/endTurn";
 import { startCombat, StartCombatReducerAction } from "@src/reducers/game/startCombat";
-import { animateEntitiesMove, AnimateEntitiesMoveReducerAction } from "@src/reducers/game/unit/animateEntitiesMove";
+import { animateUnitsMove, AnimateUnitsMoveReducerAction } from "@src/reducers/game/unit/animateUnitsMove";
 import { doRandomUnitAction, DoRandomUnitActionReducerAction } from "@src/reducers/game/unit/doRandomUnitAction";
 import { moveUnit, MoveUnitReducerAction } from "@src/reducers/game/unit/moveUnit";
 import {
@@ -122,6 +122,7 @@ import {
   HighlightUnitAtGunpointReducerAction,
 } from "@src/reducers/game/unit/highlightUnitAtGunpoint";
 import { accelerateVehicle, AccelerateVehicleReducerAction } from "@src/reducers/game/vehicle/accelerateVehicle";
+import { animateVehiclesMove, AnimateVehiclesMoveReducerAction } from "@src/reducers/game/vehicle/animateVehicleMove";
 import { decelerateVehicle, DecelerateVehicleReducerAction } from "@src/reducers/game/vehicle/decelerateVehicle";
 import { getIntoVehicle, GetIntoVehicleReducerAction } from "@src/reducers/game/vehicle/getIntoVehicle";
 import { getOutOfVehicle, GetOutOfVehicleReducerAction } from "@src/reducers/game/vehicle/getOutOfVehicle";
@@ -144,7 +145,7 @@ export type GameReducerAction =
   | LoadMapReducerAction
   | SwitchGameMapReducerAction
   | MoveUnitReducerAction
-  | AnimateEntitiesMoveReducerAction
+  | AnimateUnitsMoveReducerAction
   | UseEntityInUnitHandReducerAction
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
@@ -156,6 +157,7 @@ export type GameReducerAction =
   | DecelerateVehicleReducerAction
   | StartVehicleAccelerationReducerAction
   | StopVehicleAccelerationReducerAction
+  | AnimateVehiclesMoveReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -243,8 +245,8 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
     case "moveUnit":
       return moveUnit(state, action as MoveUnitReducerAction);
 
-    case "animateEntitiesMove":
-      return animateEntitiesMove(state, action as AnimateEntitiesMoveReducerAction);
+    case "animateUnitsMove":
+      return animateUnitsMove(state, action as AnimateUnitsMoveReducerAction);
 
     case "useEntityInUnitHand":
       return useEntityInUnitHand(state, action as UseEntityInUnitHandReducerAction);
@@ -285,6 +287,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "stopVehicleAcceleration":
       return stopVehicleAcceleration(state, action as StopVehicleAccelerationReducerAction);
+
+    case "animateVehiclesMove":
+      return animateVehiclesMove(state, action as AnimateVehiclesMoveReducerAction);
 
     //
     case "animateFiredAmmo":

@@ -2,16 +2,15 @@ import { GameMap } from "@src/engine/gameMap";
 import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
-export type AnimateEntitiesMoveReducerAction = {
-  type: "animateEntitiesMove";
-  entities: Array<Unit | Vehicle>;
+export type AnimateUnitsMoveReducerAction = {
+  type: "animateUnitsMove";
+  entities: Array<Unit>;
   deltaTime: number;
   consumeActionPoints?: boolean;
 };
 
-export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveReducerAction) {
+export function animateUnitsMove(state: GameMap, action: AnimateUnitsMoveReducerAction) {
   let isStateChanged = false;
 
   state.setGridMatrixOccupancy(action.entities, -1);
@@ -19,18 +18,8 @@ export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveR
   for (const entity of action.entities) {
     if (entity.path.length === 0) continue;
 
-    if (entity instanceof Unit && entity.isVehicleInUse()) {
+    if (entity.isVehicleInUse()) {
       continue;
-    }
-
-    if (entity instanceof Vehicle) {
-      if (entity.speed.current === 0) {
-        continue;
-      }
-
-      if (entity.isCollisionDetected()) {
-        continue;
-      }
     }
 
     isStateChanged = true;
@@ -44,13 +33,7 @@ export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveR
     const speed = entity.getCurrentSpeed();
     const prevPoint = entity.pathQueue.moveAlong(action.deltaTime * speed);
 
-    //state.deOccupyArea(entity.getRoundedPosition(), entity.size.grid);
-
     if (prevPoint) {
-      //state.deOccupyCell(prevPoint);
-
-      //state.deOccupyArea(prevPoint, entity.size.grid);
-
       // if (action.consumeActionPoints) {
       //   const currentSelectedAction = entity.currentSelectedAction;
       //
@@ -59,7 +42,7 @@ export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveR
       //   }
       // }
 
-      if (entity instanceof Unit && entity.path.length > 1 && state.isCellOccupied(entity.path[1])) {
+      if (entity.path.length > 1 && state.isCellOccupied(entity.path[1])) {
         const unitPath = pathFinderAStar(state.matrix, entity.path[0], entity.pathQueue.destinationPos);
 
         entity.setPath(unitPath);
@@ -85,9 +68,6 @@ export function animateEntitiesMove(state: GameMap, action: AnimateEntitiesMoveR
           }
         }
       }
-
-      //state.occupyArea(entity.pathQueue.currentPos, entity.size.grid);
-      //state.occupyCell(entity.position.grid);
     }
 
     if (

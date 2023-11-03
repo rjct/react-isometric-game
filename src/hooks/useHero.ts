@@ -35,7 +35,15 @@ export function useHero() {
   const hero = gameState.units[gameState.heroId];
 
   const getPossibleHeroActions = (coordinates: GridCoordinates): Array<HeroAction> => {
-    if (!hero) return [];
+    if (
+      !hero ||
+      coordinates.x < 0 ||
+      coordinates.x > gameState.mapSize.width ||
+      coordinates.y < 0 ||
+      coordinates.y > gameState.mapSize.height
+    ) {
+      return [];
+    }
 
     switch (true) {
       case !hero.isVehicleInUse() && hero.currentSelectedAction === "move":
@@ -119,7 +127,9 @@ export function useHero() {
     }
   };
 
-  const doHeroAction = (type: "mouseDown" | "click" | "mouseUp" | "doubleClick", heroAction: HeroAction) => {
+  const doHeroAction = (type: "mouseDown" | "click" | "mouseUp" | "doubleClick", heroAction?: HeroAction) => {
+    if (!heroAction) return;
+
     switch (heroAction.action) {
       case "move":
         hero.currentMovementMode = type === "doubleClick" ? "run" : "walk";

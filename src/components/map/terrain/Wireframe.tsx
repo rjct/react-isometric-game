@@ -93,7 +93,15 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
       switch (action) {
         case "explore":
-          gameDispatch({ type: "highlightExplorableEntity", entity });
+          if (isAllowed) {
+            gameDispatch({ type: "highlightExplorableEntity", entity });
+          }
+          break;
+
+        case "leftHand":
+        case "rightHand":
+          //
+          break;
       }
     } else {
       setHeroActionMenuShow(true);

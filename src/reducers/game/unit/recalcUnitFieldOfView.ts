@@ -6,7 +6,7 @@ export type RecalculateUnitFieldOfViewReducerAction = {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUnitFieldOfViewReducerAction): GameMap {
-  const units = state.getAllAliveUnitsArray();
+  const units = state.getAllUnitsArray();
   const buildings = state.buildings.filter((building) => building.blocksRays);
   const vehicles = state.vehicles.filter((vehicle) => vehicle.id !== vehicle.driver?.getVehicleInUse()?.id);
 

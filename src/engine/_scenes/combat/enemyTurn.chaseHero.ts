@@ -19,5 +19,5 @@ export function enemyTurnChaseHero(this: GameContext, deltaTime: number, enemy: 
     }
   }
 
-  gameDispatch({ type: "animateEntitiesMove", entities: [enemy], deltaTime, consumeActionPoints: true });
+  gameDispatch({ type: "animateUnitsMove", entities: [enemy], deltaTime, consumeActionPoints: true });
 }

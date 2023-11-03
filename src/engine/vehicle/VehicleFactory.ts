@@ -87,8 +87,6 @@ export class Vehicle extends MovableGameEntity {
       grid: calculateSizeAfterRotation(this.dictEntity.size.grid, this.rotation),
       screen: { ...this.size.screen },
     };
-
-    this.createWalls();
   }
 
   getAvailableRotationAngles(): AngleInDegrees[] {

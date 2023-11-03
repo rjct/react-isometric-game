@@ -33,7 +33,9 @@ export function getCss3dPosition(position: GridCoordinates, useWorldSize = true,
 
   const isometricTransform = isIsometric ? " rotateX(135deg) rotateY(135deg) rotateZ(150deg) translate(-5px, 8px)" : "";
 
-  return `translate3d(${position.x * tileWidth}px, ${position.y * tileHeight}px, 0)${isometricTransform}`;
+  return `translate3d(${Math.round(position.x * tileWidth)}px, ${Math.round(
+    position.y * tileHeight,
+  )}px, 0)${isometricTransform}`;
 }
 
 export function gridToScreenSpace(gridPos: GridCoordinates, mapSize: Size2D): ScreenCoordinates {

@@ -27,7 +27,7 @@
     },
     {
       "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 8 } },
-      "target": { "x1": 54, "y1": 27, "x2": 55, "y2": 40 }
+      "target": { "x1": 54, "y1": 0, "x2": 55, "y2": 40 }
     },
     {
       "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 8 } },
@@ -39,7 +39,7 @@
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 2, "x2": 3, "y2": 2 } },
-      "target": { "x1": 48, "y1": 47, "x2": 54, "y2": 99 }
+      "target": { "x1": 48, "y1": 47, "x2": 54, "y2": 100 }
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 2, "x2": 3, "y2": 2 } },
@@ -67,7 +67,7 @@
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 4 } },
-      "target": { "x1": 1, "y1": 48, "x2": 47, "y2": 100 }
+      "target": { "x1": 0, "y1": 48, "x2": 47, "y2": 100 }
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },

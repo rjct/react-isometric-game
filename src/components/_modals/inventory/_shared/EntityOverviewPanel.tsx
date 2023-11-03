@@ -10,7 +10,7 @@ const UnitOverview = (props: { entity: Unit }) => {
       <div
         className={["unit", props.entity.className].join(" ")}
         data-rotation={props.entity.rotation.deg}
-        data-action="none"
+        data-action={props.entity.action}
       >
         <div className="char"></div>
       </div>
