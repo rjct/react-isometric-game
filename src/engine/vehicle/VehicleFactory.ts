@@ -65,8 +65,7 @@ export class Vehicle extends MovableGameEntity {
 
   assignDriver(owner: Unit) {
     this.driver = owner;
-    this.setDriverPosition();
-    this.driver?.setRotation(this.rotation, false);
+
     this.setAction("idle");
   }
 
@@ -94,18 +93,18 @@ export class Vehicle extends MovableGameEntity {
   }
 
   public setPosition(position: GridCoordinates, gameState: GameMap) {
-    this.setDriverPosition();
+    this.setDriverPosition(position, gameState);
 
     super.setPosition(position, gameState);
   }
 
-  public setDriverPosition() {
+  public setDriverPosition(position: GridCoordinates, gameState: GameMap) {
     this.driver?.setPosition(
       {
-        x: this.position.grid.x + this.size.grid.width / 2,
-        y: this.position.grid.y + this.size.grid.length / 2,
+        x: position.x + this.size.grid.width / 2,
+        y: position.y + this.size.grid.length / 2,
       },
-      this.gameState,
+      gameState,
     );
   }
 

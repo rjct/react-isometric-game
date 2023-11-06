@@ -96,7 +96,6 @@ export class Unit extends MovableGameEntity {
     isDead?: boolean;
     healthPoints?: Unit["healthPoints"];
     rotation?: AngleInDegrees;
-    inventory?: StaticMapUnit["inventory"];
     randomActions?: StaticMapUnit["randomActions"];
   }) {
     const dictEntity = getUnitDictEntityByType(props.unitType); //units[props.unitType] as DictUnit;
@@ -155,10 +154,6 @@ export class Unit extends MovableGameEntity {
       leftHand: null,
       rightHand: null,
     };
-
-    if (props.inventory) {
-      this.createInventory(props.inventory, this);
-    }
   }
 
   public setRotation(angle: Angle, normalize = true) {
@@ -288,7 +283,7 @@ export class Unit extends MovableGameEntity {
     return this.getInventoryItems().find((item) => item?.id === itemId);
   }
 
-  public takeDamage(damage: number) {
+  public takeDamage(damage: number, gameState: GameMap) {
     this.damagePoints = -damage;
     this.healthPoints.current = Math.max(0, this.healthPoints.current - damage);
 
@@ -296,12 +291,12 @@ export class Unit extends MovableGameEntity {
     this.coolDownTimer = this.coolDownTime;
 
     if (this.healthPoints.current === 0) {
-      this.gameState.playSfx(this.sfx["dead"].src, this.distanceToScreenCenter);
+      gameState.playSfx(this.sfx["dead"].src, this.distanceToScreenCenter);
 
       this.action = "dead";
       this.isDead = true;
     } else {
-      this.gameState.playSfx(this.sfx["hit"].src, this.distanceToScreenCenter);
+      gameState.playSfx(this.sfx["hit"].src, this.distanceToScreenCenter);
       this.action = "hit";
 
       window.setTimeout(() => {
@@ -432,21 +427,6 @@ export class Unit extends MovableGameEntity {
     return super.isExplorable() && this.isDead;
   }
 
-  public getClosestCoordinatesToEntity(entity: Unit | Building | Vehicle) {
-    const roundedPosition = this.getRoundedPosition();
-
-    const allUnblockedCellsAroundEntity = entity
-      .getAllUnblockedCellsAroundEntity()
-      .filter((coordinates) => {
-        return this.gameState.calcMovementPath(this.position.grid, coordinates).length > 0;
-      })
-      .sort((a: GridCoordinates, b: GridCoordinates) => {
-        return getDistanceBetweenGridPoints(roundedPosition, a) - getDistanceBetweenGridPoints(roundedPosition, b);
-      });
-
-    return allUnblockedCellsAroundEntity[0];
-  }
-
   public isVehicleInUse() {
     return this.vehicleInUse !== null;
   }
@@ -462,13 +442,6 @@ export class Unit extends MovableGameEntity {
   public getOutOfVehicle() {
     if (!this.vehicleInUse) return;
 
-    this.setPosition(
-      {
-        x: this.vehicleInUse.position.grid.x - this.vehicleInUse.size.grid.width / 2,
-        y: this.vehicleInUse.position.grid.y - this.vehicleInUse.size.grid.length / 2,
-      },
-      this.gameState,
-    );
     this.vehicleInUse = null;
   }
 

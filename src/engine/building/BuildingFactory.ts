@@ -23,7 +23,6 @@ export class Building extends GameEntity {
     rotation: AngleInDegrees;
     variant: number;
     occupiesCell: boolean;
-    inventory?: StaticMapBuilding["inventory"];
   }) {
     const dictEntity: BuildingDictEntity = { ...getBuildingsDictList()[props.buildingType] };
 
@@ -48,10 +47,6 @@ export class Building extends GameEntity {
     this.variant = props.variant;
 
     this.occupiesCell = props.occupiesCell;
-
-    if (props.inventory) {
-      this.createInventory(props.inventory, this);
-    }
   }
 
   public setRotation(angle: Angle) {

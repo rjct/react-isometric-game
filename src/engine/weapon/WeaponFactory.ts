@@ -31,8 +31,9 @@ export class Weapon extends InventoryItem {
     if (this.isReadyToUse(gameState)) {
       gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-      const fakeAmmo = createAmmoByName(currentAttackModeDetails.ammoType as AmmoName, gameState);
+      const fakeAmmo = createAmmoByName(currentAttackModeDetails.ammoType as AmmoName);
       fakeAmmo.loadedInWeapon = this;
+      gameState.ammo[fakeAmmo.id] = fakeAmmo;
 
       if (currentAttackModeDetails.removeFromInventoryAfterUse) {
         const inventoryType = unit.findInventoryEntityPlaceType(this);

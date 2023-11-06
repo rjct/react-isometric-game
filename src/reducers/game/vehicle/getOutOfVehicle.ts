@@ -11,8 +11,18 @@ export function getOutOfVehicle(state: GameMap, action: GetOutOfVehicleReducerAc
 
   if (!vehicle) return state;
 
-  action.unit.getOutOfVehicle();
-  action.unit.currentSelectedAction = "move";
+  const { unit } = action;
+
+  unit.getOutOfVehicle();
+  unit.currentSelectedAction = "move";
+  unit.setPosition(
+    {
+      x: vehicle.position.grid.x - vehicle.size.grid.width / 2,
+      y: vehicle.position.grid.y - vehicle.size.grid.length / 2,
+    },
+    state,
+  );
+
   vehicle.unAssignDriver();
   vehicle.clearPath();
 

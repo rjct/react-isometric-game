@@ -170,7 +170,7 @@ export function useHero() {
             gameDispatch({
               type: "moveUnit",
               unit: hero,
-              position: hero.getClosestCoordinatesToEntity(heroAction.entity!),
+              position: gameState.getClosestCoordinatesToEntity(hero, heroAction.entity!),
               moveAction: hero.currentMovementMode,
               onUnitMoveFinished: () => {
                 uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
@@ -191,7 +191,7 @@ export function useHero() {
             gameDispatch({
               type: "moveUnit",
               unit: hero,
-              position: hero.getClosestCoordinatesToEntity(heroAction.entity!),
+              position: gameState.getClosestCoordinatesToEntity(hero, heroAction.entity!),
               moveAction: hero.currentMovementMode,
               onUnitMoveFinished: () => {
                 gameDispatch({ type: "getIntoVehicle", unit: hero, vehicle: heroAction.entity as Vehicle });

@@ -15,7 +15,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
       if (unitAtTargetPosition && ammo.loadedInWeapon) {
         const damage = calcDamage(ammo.loadedInWeapon, ammo);
 
-        unitAtTargetPosition.takeDamage(damage);
+        unitAtTargetPosition.takeDamage(damage, state);
 
         if (unitAtTargetPosition.isDead) {
           state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());

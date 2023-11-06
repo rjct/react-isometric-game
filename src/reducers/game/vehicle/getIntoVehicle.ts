@@ -13,6 +13,7 @@ export function getIntoVehicle(state: GameMap, action: GetIntoVehicleReducerActi
 
   state.deOccupyCell(unit.getRoundedPosition());
   unit.getIntoVehicle(vehicle);
+  unit.setRotation(vehicle.rotation, false);
   vehicle.assignDriver(unit);
 
   const turnOnSfx = state.createSfx([vehicle.dictEntity.sfx["turnOn"].src], 1);

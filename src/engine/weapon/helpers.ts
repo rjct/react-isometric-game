@@ -1,6 +1,5 @@
 import getAmmoDictList, { AmmoName, getAmmoDictEntityByName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import getWeaponDictList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
-import { GameMap } from "@src/engine/gameMap";
 import { degToRad, randomInt } from "@src/engine/helpers";
 import { Ammo, AmmoFactory } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
@@ -30,16 +29,16 @@ export function getItemDictEntityByName<T extends WeaponName | AmmoName>(name: T
   }
 }
 
-export function createInventoryItemByName(name: WeaponName | AmmoName, gameState: GameMap) {
+export function createInventoryItemByName(name: WeaponName | AmmoName) {
   const dictEntity = getItemDictEntityByName(name);
 
   switch (dictEntity.class) {
     case "weapon":
-      return createWeaponByName(dictEntity.entity.name, gameState);
+      return createWeaponByName(dictEntity.entity.name);
 
     case "ammo":
     default:
-      return createAmmoByName(dictEntity.entity.name, gameState);
+      return createAmmoByName(dictEntity.entity.name);
   }
 }
 
@@ -47,7 +46,7 @@ export function getWeaponDictEntityByName(weaponName: WeaponName): WeaponDictEnt
   return getWeaponDictList()[weaponName];
 }
 
-export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
+export function createWeaponByName(weaponName: WeaponName) {
   const weaponFactoryDict: { [weaponClass in WeaponClass]: WeaponFactory } = {
     melee: MeleeWeapon,
     firearm: Firearm,
@@ -56,15 +55,11 @@ export function createWeaponByName(weaponName: WeaponName, gameState: GameMap) {
 
   const weaponDictEntity = getWeaponDictEntityByName(weaponName);
 
-  const newWeapon = new weaponFactoryDict[weaponDictEntity.class](weaponName, weaponDictEntity);
-
-  gameState.weapon[newWeapon.id] = newWeapon;
-
-  return newWeapon;
+  return new weaponFactoryDict[weaponDictEntity.class](weaponName, weaponDictEntity);
 }
 
 //
-export function createAmmoByName(ammoName: AmmoName, gameState: GameMap) {
+export function createAmmoByName(ammoName: AmmoName) {
   const ammoFactoryDict: { [weaponAmmoClass in WeaponAmmoClass]: AmmoFactory } = {
     firearm_ammo: FirearmAmmo,
     grenade_ammo: ProjectileAmmo,
@@ -73,11 +68,7 @@ export function createAmmoByName(ammoName: AmmoName, gameState: GameMap) {
 
   const ammoDictEntity = getAmmoDictEntityByName(ammoName);
 
-  const newAmmo = new ammoFactoryDict[ammoDictEntity.class](ammoName, ammoDictEntity);
-
-  gameState.ammo[newAmmo.id] = newAmmo;
-
-  return newAmmo;
+  return new ammoFactoryDict[ammoDictEntity.class](ammoName, ammoDictEntity);
 }
 
 export function calcDamage(weapon: Weapon, ammo: Ammo) {

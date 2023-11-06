@@ -1,3 +1,4 @@
+import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
@@ -5,7 +6,7 @@ import { Building } from "@src/engine/building/BuildingFactory";
 import { constants, GameDebugFeature, GameFeatureSections, GameSettingsFeature } from "@src/engine/constants";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
-import { floor, randomInt } from "@src/engine/helpers";
+import { floor, getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
@@ -15,6 +16,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
+import { createInventoryItemByName } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 import { getUrlParamValue } from "@src/hooks/useUrl";
 
@@ -270,6 +272,34 @@ export const gameMap = {
     });
   },
 
+  getAllUnblockedCellsAroundEntity(entity: GameEntity) {
+    const cells: GridCoordinates[] = [];
+
+    for (let x = entity.position.grid.x - 1; x < entity.position.grid.x + entity.size.grid.width + 1; x++) {
+      for (let y = entity.position.grid.y - 1; y < entity.position.grid.y + entity.size.grid.length + 1; y++) {
+        if (!this.isCellOccupied({ x, y })) {
+          cells.push({ x, y });
+        }
+      }
+    }
+
+    return cells;
+  },
+
+  getClosestCoordinatesToEntity(entity: GameEntity, targetEntity: GameEntity) {
+    const roundedPosition = entity.getRoundedPosition();
+
+    const allUnblockedCellsAroundEntity = this.getAllUnblockedCellsAroundEntity(targetEntity)
+      .filter((coordinates) => {
+        return this.calcMovementPath(entity.position.grid, coordinates).length > 0;
+      })
+      .sort((a: GridCoordinates, b: GridCoordinates) => {
+        return getDistanceBetweenGridPoints(roundedPosition, a) - getDistanceBetweenGridPoints(roundedPosition, b);
+      });
+
+    return allUnblockedCellsAroundEntity[0];
+  },
+
   convertToIsometricCoordinates(gridPos: GridCoordinates, centerOnCell = false): ScreenCoordinates {
     const shiftX = centerOnCell ? constants.wireframeTileSize.width / 2 : 0;
     const shiftY = centerOnCell ? constants.wireframeTileSize.height / 2 : 0;
@@ -452,6 +482,46 @@ export const gameMap = {
     this.selectedLight = null as unknown as Light;
 
     return true;
+  },
+
+  createInventoryItem(
+    owner: Building | Unit,
+    inventoryType: keyof StaticMapInventory,
+    staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo,
+  ) {
+    const inventoryItems = Array.from({ length: staticMapItem.quantity || 1 }, () =>
+      createInventoryItemByName(staticMapItem.name),
+    );
+
+    inventoryItems.forEach((iter) => {
+      owner.putItemToInventory(iter, inventoryType);
+
+      if (iter instanceof Weapon) {
+        this.weapon[iter.id] = iter;
+      } else if (iter instanceof Ammo) {
+        this.ammo[iter.id] = iter;
+      }
+    });
+
+    return inventoryItems;
+  },
+
+  createInventoryStorage(inventory: StaticMapInventory, owner: Building | Unit) {
+    if (!inventory) return;
+
+    Object.entries(inventory).forEach(([inventoryType, staticEntity]) => {
+      if (Array.isArray(staticEntity)) {
+        staticEntity.forEach((iter) => {
+          this.createInventoryItem(owner, inventoryType as keyof StaticMapInventory, iter).forEach((item) => {
+            item.assignOwner(owner);
+          });
+        });
+      } else {
+        this.createInventoryItem(owner, inventoryType as keyof StaticMapInventory, staticEntity).forEach((item) => {
+          item.assignOwner(owner);
+        });
+      }
+    });
   },
 
   deleteInventoryItem(item: Weapon | Ammo) {

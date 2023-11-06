@@ -31,11 +31,13 @@ export const useLightsAndShadows = (gameState: GameMap) => {
         ctx.fillStyle = light.getColor();
 
         ctx.beginPath();
-        ctx.moveTo(light.intersectsWithWalls[0].x * tileWidth, light.intersectsWithWalls[0].y * tileHeight);
+
+        ctx.moveTo(light.intersectsWithWalls[0].x, light.intersectsWithWalls[0].y);
 
         for (let i = 1; i < light.intersectsWithWalls.length; i++) {
           const intersect = light.intersectsWithWalls[i];
-          ctx.lineTo(intersect.x * tileWidth, intersect.y * tileHeight);
+
+          ctx.lineTo(intersect.x, intersect.y);
         }
 
         ctx.fill();

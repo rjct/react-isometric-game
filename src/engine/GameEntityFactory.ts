@@ -1,14 +1,12 @@
 import { InventoryItemsSortingState } from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
-import { StaticMapInventory, StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
-import { Building } from "@src/engine/building/BuildingFactory";
+import { StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
 import { InventoryItemClassGroup, InventoryItemClassGroupName } from "@src/engine/InventoryItemFactory";
 import { LightRay } from "@src/engine/light/LightRayFactory";
-import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { calculateSizeAfterRotation, createInventoryItemByName, itemIsWeapon } from "@src/engine/weapon/helpers";
+import { calculateSizeAfterRotation, itemIsWeapon } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export type GameEntityIntersectionWithLightRay = {
@@ -32,8 +30,6 @@ export interface GameEntityProps {
 }
 
 export class GameEntity {
-  public readonly gameState: GameMap;
-
   public readonly id;
   public readonly internalColor: string;
 
@@ -71,8 +67,6 @@ export class GameEntity {
   private readonly explorable: boolean = false;
 
   constructor(props: GameEntityProps) {
-    this.gameState = props.gameState;
-
     this.id = props.id || randomUUID();
     this.internalColor = props.internalColor;
 
@@ -213,20 +207,6 @@ export class GameEntity {
     return [0, 90, 180, 270];
   }
 
-  getAllUnblockedCellsAroundEntity() {
-    const cells: GridCoordinates[] = [];
-
-    for (let x = this.position.grid.x - 1; x < this.position.grid.x + this.size.grid.width + 1; x++) {
-      for (let y = this.position.grid.y - 1; y < this.position.grid.y + this.size.grid.length + 1; y++) {
-        if (!this.gameState.isCellOccupied({ x, y })) {
-          cells.push({ x, y });
-        }
-      }
-    }
-
-    return cells;
-  }
-
   getInventoryItems(
     inventoryType?: keyof GameEntity["inventory"],
     filter?: InventoryItemClassGroupName,
@@ -305,36 +285,6 @@ export class GameEntity {
     } else {
       this.inventory[inventoryType] = item;
     }
-  }
-
-  createInventoryItem(inventoryType: keyof StaticMapInventory, staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo) {
-    const inventoryItem = Array.from({ length: staticMapItem.quantity || 1 }, () =>
-      createInventoryItemByName(staticMapItem.name, this.gameState),
-    );
-
-    inventoryItem.forEach((iter) => {
-      this.putItemToInventory(iter, inventoryType);
-    });
-
-    return inventoryItem;
-  }
-
-  createInventory(inventory: StaticMapInventory, owner: Building | Unit) {
-    if (!inventory) return;
-
-    Object.entries(inventory).forEach(([inventoryType, staticEntity]) => {
-      if (Array.isArray(staticEntity)) {
-        staticEntity.forEach((iter) => {
-          this.createInventoryItem(inventoryType as keyof StaticMapInventory, iter).forEach((item) => {
-            item.assignOwner(owner);
-          });
-        });
-      } else {
-        this.createInventoryItem(inventoryType as keyof StaticMapInventory, staticEntity).forEach((item) => {
-          item.assignOwner(owner);
-        });
-      }
-    });
   }
 
   getInventoryMainJSON(): (StaticMapWeapon | StaticMapWeaponAmmo)[] {

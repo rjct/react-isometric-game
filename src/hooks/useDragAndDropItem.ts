@@ -20,7 +20,7 @@ export function useDragAndDropItem() {
 
     switch (itemTransferMode) {
       case "create-new":
-        const newItem = createInventoryItemByName(inventoryItemId, gameState);
+        const newItem = createInventoryItemByName(inventoryItemId);
 
         if (newItem) {
           gameDispatch({

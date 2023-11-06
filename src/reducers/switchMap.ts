@@ -58,8 +58,11 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       rotation,
       variant,
       occupiesCell: occupiesCell !== false,
-      inventory,
     });
+
+    if (inventory) {
+      newState.createInventoryStorage(inventory, building);
+    }
 
     building.setPosition(position, newState);
 
@@ -96,11 +99,15 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       isDead: enemy.isDead,
       action: enemy.isDead ? "dead" : "none",
       rotation: enemy.rotation,
-      inventory: enemy.inventory,
+
       isHero: false,
       healthPoints: enemy.healthPoints,
       randomActions: enemy.randomActions,
     });
+
+    if (enemy.inventory) {
+      newState.createInventoryStorage(enemy.inventory, unit);
+    }
     unit.setPosition(enemy.position, newState);
 
     if (newState.settings.featureEnabled.unitShadow) {
@@ -116,12 +123,15 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       unitType: "vault13_male",
       position: action.map.hero.position,
       rotation: action.map.hero.rotation,
-      inventory: action.map.hero.inventory,
       isHero: true,
     });
 
     newState.heroId = hero.id;
     newState.units[hero.id] = hero;
+
+    if (action.map.hero.inventory) {
+      newState.createInventoryStorage(action.map.hero.inventory, hero);
+    }
   } else {
     newState.units[state.heroId] = state.units[state.heroId];
   }
