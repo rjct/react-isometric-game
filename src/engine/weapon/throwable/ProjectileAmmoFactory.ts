@@ -5,14 +5,15 @@ import { GameMap } from "@src/engine/gameMap";
 import { screenToGridSpace } from "@src/engine/helpers";
 
 export class ProjectileAmmo extends Ammo {
-  private _MAX_HEIGHT: number;
+  private readonly _MAX_HEIGHT: number;
+  private readonly _EXPONENT = 2.5;
   private velocity = { x: Infinity, y: Infinity, z: Infinity };
   private _timeElapsed = 0;
   private _timeToReachTarget = 0;
   constructor(ammoName: AmmoName, ammoDictEntity: AmmoDictEntity) {
     super(ammoName, ammoDictEntity);
 
-    this._MAX_HEIGHT = Math.pow(this.dictEntity.speed, 2.5);
+    this._MAX_HEIGHT = Math.pow(this.dictEntity.speed, this._EXPONENT);
   }
 
   updatePosition(deltaTime: number, gameState: GameMap) {
@@ -30,7 +31,7 @@ export class ProjectileAmmo extends Ammo {
       this.velocity.x * this._timeElapsed,
       this.velocity.y * this._timeElapsed,
       this.velocity.z * this._timeElapsed -
-        (constants.GRAVITY_ACCELERATION * this._MAX_HEIGHT * Math.pow(this._timeElapsed, 2)) / 2,
+        (constants.GRAVITY_ACCELERATION * this._MAX_HEIGHT * Math.pow(this._timeElapsed, this._EXPONENT)) / 2,
     );
 
     const newPosition = {
@@ -62,7 +63,7 @@ export class ProjectileAmmo extends Ammo {
       x: positionEnd.x / this._timeToReachTarget,
       y: positionEnd.y / this._timeToReachTarget,
       z:
-        (constants.GRAVITY_ACCELERATION * this._MAX_HEIGHT * Math.pow(this._timeToReachTarget, 2)) /
+        (constants.GRAVITY_ACCELERATION * this._MAX_HEIGHT * Math.pow(this._timeToReachTarget, this._EXPONENT)) /
         2 /
         this._timeToReachTarget,
     };
