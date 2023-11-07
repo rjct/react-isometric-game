@@ -22,6 +22,7 @@ export class Firearm extends Weapon {
     let consumeAmmoInterval: number;
 
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
+    const vfx = this.dictEntity.vfx[this.currentAttackMode];
 
     const doFire = () => {
       const ammo = this.ammoCurrent.shift();
@@ -31,6 +32,26 @@ export class Firearm extends Weapon {
       }
 
       ammo.shot(unit.position.grid, targetPosition, gameState);
+
+      if (vfx) {
+        const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
+
+        const emittedVfx = new Vfx({
+          coordinates: unit.getRoundedPosition(),
+          type: randomVfxType,
+          angle: this.angle.deg,
+          animationDuration: vfx.animationDuration,
+          animationDelay: `${vfx.delayBeforeEmitting}ms`,
+          light: vfx.light,
+        });
+
+        if (emittedVfx.lightEffect?.light) {
+          gameState.lights.push(emittedVfx.lightEffect.light);
+          emittedVfx.lightEffect.light.cast(gameState.getAllGameEntitiesWalls());
+        }
+
+        gameState.visualEffects.push(emittedVfx);
+      }
 
       consumedAmmoCount++;
 
@@ -51,31 +72,7 @@ export class Firearm extends Weapon {
       setTimeout(() => {
         gameState.playSfx(this.getSfx(this.currentAttackMode).src, 1, unit.distanceToScreenCenter);
 
-        [...Array(currentAttackModeDetails.ammoConsumption)].fill(1).forEach((value, index) => {
-          const vfx = this.dictEntity.vfx[this.currentAttackMode];
-
-          if (vfx) {
-            const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];
-
-            const emittedVfx = new Vfx({
-              coordinates: unit.getRoundedPosition(),
-              type: randomVfxType,
-              angle: this.angle.deg,
-              animationDuration: vfx.animationDuration,
-              animationDelay: `${index * vfx.delayBeforeEmitting}ms`,
-              light: vfx.light,
-            });
-
-            gameState.visualEffects.push(emittedVfx);
-
-            if (emittedVfx.lightEffect?.light) {
-              gameState.lights.push(emittedVfx.lightEffect.light);
-              emittedVfx.lightEffect.light.cast(gameState.getAllGameEntitiesWalls());
-            }
-          }
-        });
-
-        consumeAmmoInterval = window.setInterval(doFire, 1);
+        consumeAmmoInterval = window.setInterval(doFire, vfx?.delayBetweenEmitting || 1);
       }, currentAttackModeDetails.animationDuration.attack);
     } else {
       unit.setAction("idle");

@@ -79,8 +79,8 @@ const mp5: WeaponDictEntity = {
   vfx: {
     shot_single: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      animationDuration: 100,
-      delayBeforeEmitting: 500,
+      animationDuration: 200,
+      delayBeforeEmitting: 160,
       light: {
         animationDuration: 50,
         color: "#ffff00",
@@ -89,8 +89,14 @@ const mp5: WeaponDictEntity = {
     },
     shot_burst: {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
-      animationDuration: 100,
+      animationDuration: 200,
       delayBeforeEmitting: 160,
+      delayBetweenEmitting: 160,
+      light: {
+        animationDuration: 50,
+        color: "#ffff00",
+        radius: 3,
+      },
     },
   },
 };

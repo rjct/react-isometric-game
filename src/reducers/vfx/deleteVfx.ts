@@ -6,7 +6,9 @@ export type DeleteVfxReducerAction = {
 };
 
 export function deleteVfx(state: GameMap, action: DeleteVfxReducerAction): GameMap {
-  state.visualEffects = [...state.visualEffects.filter((vfx) => vfx.id !== action.id)];
+  const idx = state.visualEffects.findIndex((vfx) => vfx.id === action.id);
+
+  state.visualEffects.splice(idx, 1);
 
   return { ...state };
 }

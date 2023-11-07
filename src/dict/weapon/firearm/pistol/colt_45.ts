@@ -59,6 +59,11 @@ const colt_45: WeaponDictEntity = {
       type: ["muzzle-1", "muzzle-2", "muzzle-3"],
       animationDuration: 100,
       delayBeforeEmitting: 160,
+      light: {
+        animationDuration: 50,
+        color: "#ffff00",
+        radius: 3,
+      },
     },
   },
 };

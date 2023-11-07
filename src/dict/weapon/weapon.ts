@@ -43,6 +43,7 @@ export type WeaponVfx = {
     type: Array<VfxType>;
     animationDuration: number;
     delayBeforeEmitting: number;
+    delayBetweenEmitting?: number;
     light?: VfxLight;
   };
 };
