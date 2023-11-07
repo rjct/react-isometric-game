@@ -128,15 +128,15 @@ export function useDebugVisualization() {
 
       unit.fieldOfView.cellsInView.forEach((cell) => {
         ctx.fillRect(
-          cell.x * constants.wireframeTileSize.width,
-          cell.y * constants.wireframeTileSize.height,
-          constants.wireframeTileSize.width,
-          constants.wireframeTileSize.height,
+          cell.x * wireframeTileWidth,
+          cell.y * wireframeTileHeight,
+          wireframeTileWidth,
+          wireframeTileHeight,
         );
       });
 
-      const x = (unit.position.grid.x + 0.5) * constants.wireframeTileSize.width;
-      const y = (unit.position.grid.y + 0.5) * constants.wireframeTileSize.height;
+      const x = (unit.position.grid.x + 0.5) * wireframeTileWidth;
+      const y = (unit.position.grid.y + 0.5) * wireframeTileHeight;
 
       const isHeroInView = unit.fieldOfView.rays.find((ray) => ray.collidedWithEntity?.id === gameState.heroId);
 
