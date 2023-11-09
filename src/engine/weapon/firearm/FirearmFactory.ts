@@ -31,7 +31,11 @@ export class Firearm extends Weapon {
         return;
       }
 
-      ammo.shot(unit.position.grid, targetPosition, gameState);
+      ammo.shot(
+        unit.position.grid,
+        unit.calculateHitCoordinates(targetPosition, unit.characteristics.skills[currentAttackModeDetails.skill]),
+        gameState,
+      );
 
       if (vfx) {
         const randomVfxType = vfx.type[randomInt(0, vfx.type.length - 1)];

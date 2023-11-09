@@ -23,7 +23,6 @@ export function gameScene(this: GameContext, deltaTime: number) {
   gameDispatch({ type: "animateUnitsMove", entities: allAliveUnits, deltaTime });
   gameDispatch({ type: "animateVehiclesMove", entities: gameState.vehicles, deltaTime });
   gameDispatch({ type: "animateFiredAmmo", deltaTime });
-  gameDispatch({ type: "detectFiredAmmoHitsTarget" });
 
   gameState.ammoFiredIds
     .filter((ammoId) => gameState.getAmmoById(ammoId)?.isTargetReached)
@@ -46,6 +45,8 @@ export function gameScene(this: GameContext, deltaTime: number) {
         ammo.afterTargetReached(gameState);
       }
     });
+
+  gameDispatch({ type: "detectFiredAmmoHitsTarget" });
 
   for (const unit of allAliveUnits) {
     gameDispatch({

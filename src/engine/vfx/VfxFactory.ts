@@ -3,7 +3,7 @@ import { randomUUID } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import React from "react";
 
-export type VfxType = "explosion" | "fire-explosion" | "muzzle-1" | "muzzle-2" | "muzzle-3";
+export type VfxType = "explosion" | "fire-explosion" | "muzzle-1" | "muzzle-2" | "muzzle-3" | "hit-ground";
 export type VfxLight = {
   animationDuration: number;
   radius: number;

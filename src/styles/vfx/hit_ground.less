@@ -1,0 +1,26 @@
+@vfx-hit-ground-sprite-width: 192px;
+@vfx-hit-ground-sprite-height: 192px;
+@vfx-hit-ground-sprite-animation-steps: 8;
+
+.vfx-hit-ground {
+  position: absolute;
+  width: @vfx-hit-ground-sprite-width;
+  height: @vfx-hit-ground-sprite-height;
+  transform-origin: bottom center;
+  transform: translateX(-(@vfx-hit-ground-sprite-width / 2) + 10px) translateY(-@vfx-hit-ground-sprite-height + 20px) !important;
+  background-image: url("/public/assets/vfx/hit_ground.webp");
+  animation: vfx-hit-ground steps(@vfx-hit-ground-sprite-animation-steps) forwards;
+}
+
+@keyframes vfx-hit-ground {
+  0% {
+    background-position-x: 0;
+  }
+  99% {
+    opacity: 0.25;
+  }
+  100% {
+    opacity: 0;
+    background-position-x: (-@vfx-hit-ground-sprite-width * @vfx-hit-ground-sprite-animation-steps);
+  }
+}

@@ -11,15 +11,17 @@ export interface UseEntityInUnitHandReducerAction {
 }
 
 export function useEntityInUnitHand(state: GameMap, action: UseEntityInUnitHandReducerAction) {
-  action.unit.setRotation(getAngleBetweenTwoGridPoints(action.targetPosition, action.unit.position.grid));
+  const { unit, hand, targetPosition, consumeActionPoints } = action;
 
-  const weapon = action.unit.getCurrentWeapon();
+  unit.setRotation(getAngleBetweenTwoGridPoints(targetPosition, unit.position.grid));
+
+  const weapon = unit.getCurrentWeapon();
 
   if (weapon && weapon.isReadyToUse(state)) {
-    action.unit.inventory[action.hand]?.use(action.targetPosition, state);
+    unit.inventory[hand]?.use(targetPosition, state);
 
-    if (action.consumeActionPoints) {
-      action.unit.consumeActionPoints(weapon.getCurrentAttackModeDetails().actionPointsConsumption);
+    if (consumeActionPoints) {
+      unit.consumeActionPoints(weapon.getCurrentAttackModeDetails().actionPointsConsumption);
     }
   }
 

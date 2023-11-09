@@ -445,6 +445,28 @@ export class Unit extends MovableGameEntity {
     this.vehicleInUse = null;
   }
 
+  public calculateHitCoordinates(targetCoordinates: GridCoordinates, probability: number): GridCoordinates {
+    const randomPercent = randomInt(0, 100);
+
+    if (randomPercent <= probability) {
+      return targetCoordinates;
+    } else {
+      const INACCURACY_CELLS = 2;
+
+      const xModifier = randomInt(-INACCURACY_CELLS * 100, INACCURACY_CELLS * 100) / 100;
+      const yModifier = randomInt(-INACCURACY_CELLS * 100, INACCURACY_CELLS * 100) / 100;
+
+      return {
+        x: targetCoordinates.x + xModifier,
+        y: targetCoordinates.y + yModifier,
+      };
+    }
+  }
+
+  getCarryWeight() {
+    return this.characteristics.carryWeight;
+  }
+
   public getJSON(omitUnitType = false) {
     const json: StaticMapUnit = {
       type: this.type,

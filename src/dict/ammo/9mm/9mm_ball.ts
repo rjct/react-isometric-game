@@ -23,6 +23,26 @@ const ammo_9mm_ball: AmmoDictEntity = {
       src: "public/assets/ammo/9mm/9mm_ball/iso.webp",
     },
   },
+  sfx: {
+    targetReached: {
+      src: [
+        "public/assets/weapons/firearm/rico_1.mp3",
+        "public/assets/weapons/firearm/rico_2.mp3",
+        "public/assets/weapons/firearm/rico_3.mp3",
+        "public/assets/weapons/firearm/rico_4.mp3",
+        "public/assets/weapons/firearm/rico_5.mp3",
+        "public/assets/weapons/firearm/rico_6.mp3",
+        "public/assets/weapons/firearm/rico_7.mp3",
+      ],
+    },
+  },
+  vfx: {
+    targetReached: {
+      type: ["hit-ground"],
+      delayBeforeEmitting: 0,
+      animationDuration: 200,
+    },
+  },
 };
 
 export default ammo_9mm_ball;
