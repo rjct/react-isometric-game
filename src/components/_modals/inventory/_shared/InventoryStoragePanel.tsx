@@ -27,6 +27,8 @@ export function InventoryStoragePanel(props: {
   });
 
   const inventoryWeight = props.owner.getInventoryItemsWeight(props.inventoryType, filter);
+  const carryWeight = props.owner.getCarryWeight();
+  const weight = `${inventoryWeight}${carryWeight ? ` / ${carryWeight}` : ""}`;
 
   const inventoryItemsGrouped = React.useMemo(
     () => props.owner.getInventoryItemsGrouped(props.inventoryType, filter, sorting),
@@ -76,7 +78,7 @@ export function InventoryStoragePanel(props: {
         />
       </div>
 
-      <div className={"inventory-storage-info"}>Total weight: {inventoryWeight}</div>
+      <div className={"inventory-storage-info"}>Total weight: {weight}</div>
     </fieldset>
   );
 }

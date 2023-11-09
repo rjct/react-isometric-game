@@ -1,7 +1,7 @@
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export function HeroPoints(props: {
-  points: Unit["healthPoints"] | Unit["actionPoints"];
+  points: Unit["characteristics"]["healthPoints"] | Unit["characteristics"]["actionPoints"];
   title: string;
   shortTitle: string;
 }) {

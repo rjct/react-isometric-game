@@ -15,6 +15,7 @@ import { Light } from "@src/engine/light/LightFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { pathFinderAStar } from "@src/engine/unit/pathFinder";
+import { UnitCharacteristics } from "@src/engine/unit/UnitCharacteristicsFactory";
 import { UnitFieldOfViewFactory } from "@src/engine/unit/UnitFieldOfViewFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
@@ -45,10 +46,12 @@ export class Unit extends MovableGameEntity {
 
   public action: UnitActionType;
 
-  public healthPoints: {
-    current: number;
-    max: number;
-  };
+  public characteristics: UnitCharacteristics;
+
+  // public healthPoints: {
+  //   current: number;
+  //   max: number;
+  // };
 
   public actionPoints: {
     current: number;
@@ -94,7 +97,7 @@ export class Unit extends MovableGameEntity {
     isHero: boolean;
     action?: Unit["action"];
     isDead?: boolean;
-    healthPoints?: Unit["healthPoints"];
+    healthPoints?: Unit["characteristics"]["healthPoints"];
     rotation?: AngleInDegrees;
     randomActions?: StaticMapUnit["randomActions"];
   }) {
@@ -112,6 +115,8 @@ export class Unit extends MovableGameEntity {
 
     this.dictEntity = dictEntity;
 
+    this.characteristics = new UnitCharacteristics();
+
     this.isHero = props.isHero;
     this.type = props.unitType;
 
@@ -122,7 +127,6 @@ export class Unit extends MovableGameEntity {
 
     this.action = props.action || "none";
 
-    this.healthPoints = props.healthPoints || { ...dictEntity.healthPoints };
     this.actionPoints = {
       current: dictEntity.actionPoints.max,
       max: dictEntity.actionPoints.max,
@@ -285,12 +289,12 @@ export class Unit extends MovableGameEntity {
 
   public takeDamage(damage: number, gameState: GameMap) {
     this.damagePoints = -damage;
-    this.healthPoints.current = Math.max(0, this.healthPoints.current - damage);
+    this.characteristics.healthPoints.current = Math.max(0, this.characteristics.healthPoints.current - damage);
 
     this.clearPath();
     this.coolDownTimer = this.coolDownTime;
 
-    if (this.healthPoints.current === 0) {
+    if (this.characteristics.healthPoints.current === 0) {
       gameState.playSfx(this.sfx["dead"].src, this.distanceToScreenCenter);
 
       this.action = "dead";

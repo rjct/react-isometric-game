@@ -1,4 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { calcDamage } from "@src/engine/weapon/helpers";
 
 export type DetectFiredAmmoHitsTargetAction = {
@@ -11,9 +12,11 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
 
     if (ammo && ammo.isTargetReached) {
       const unitAtTargetPosition = state.getUnitByCoordinates(ammo.position.grid);
+      const weapon = ammo.loadedInWeapon;
 
-      if (unitAtTargetPosition && ammo.loadedInWeapon) {
-        const damage = calcDamage(ammo.loadedInWeapon, ammo);
+      if (unitAtTargetPosition && weapon) {
+        const unit = weapon.owner as Unit;
+        const damage = calcDamage(unit, weapon, ammo);
 
         unitAtTargetPosition.takeDamage(damage, state);
 

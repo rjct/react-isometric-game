@@ -9,8 +9,13 @@ const broken_bottle: WeaponDictEntity = {
   weight: 1,
   price: 25,
   damageType: "normal",
+  requiredStat: {
+    name: "strength",
+    value: 1,
+  },
   attackModes: {
     punch: {
+      skill: "meleeWeapons",
       ammoType: "punch",
       actionPointsConsumption: 3,
       ammoConsumption: 0,

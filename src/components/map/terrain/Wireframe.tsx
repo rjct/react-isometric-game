@@ -20,6 +20,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const [markerPosition, setMarkerPosition] = React.useState<GridCoordinates>({ x: 0, y: 0 });
   const debouncedMarkerPosition = useDebounce(markerPosition, 200);
 
+  const [markerValue, setMarkerValue] = React.useState("");
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
   const [clicks, setClicks] = React.useState(0);
   const [heroAction, setHeroAction] = React.useState<HeroAction[]>([]);
@@ -100,7 +101,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
         case "leftHand":
         case "rightHand":
-          //
+          setMarkerValue(`${String(heroAction[0]?.probability) || ""}%`);
           break;
       }
     } else {
@@ -126,6 +127,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
       return;
     }
 
+    setMarkerValue("");
     setMarkerClassName(["action--pending"]);
     setMarkerPosition(uiState.mousePosition.grid);
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y, heroActionMenuShow]);
@@ -188,7 +190,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
         <WireframeMarker
           coordinates={markerPosition}
           className={markerClassName}
-          value={""}
+          value={markerValue}
           onAnimationComplete={() => {
             const classes = [...markerClassName];
             classes.pop();

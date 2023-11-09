@@ -9,8 +9,13 @@ const throwing_knife: WeaponDictEntity = {
   weight: 1,
   price: 100,
   damageType: "normal",
+  requiredStat: {
+    name: "strength",
+    value: 1,
+  },
   attackModes: {
     punch: {
+      skill: "meleeWeapons",
       ammoType: "punch",
       actionPointsConsumption: 3,
       ammoConsumption: 1,
@@ -27,6 +32,7 @@ const throwing_knife: WeaponDictEntity = {
       },
     },
     throw: {
+      skill: "throwing",
       ammoType: "throwing_knife",
       actionPointsConsumption: 3,
       ammoConsumption: 1,

@@ -1,6 +1,7 @@
 import getAmmoDictList, { AmmoName, getAmmoDictEntityByName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import getWeaponDictList, { WeaponClass, WeaponDictEntity, WeaponName } from "@src/dict/weapon/weapon";
 import { degToRad, randomInt } from "@src/engine/helpers";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo, AmmoFactory } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
@@ -71,12 +72,16 @@ export function createAmmoByName(ammoName: AmmoName) {
   return new ammoFactoryDict[ammoDictEntity.class](ammoName, ammoDictEntity);
 }
 
-export function calcDamage(weapon: Weapon, ammo: Ammo) {
-  const weaponDamageMinMax = weapon.getCurrentAttackModeDetails().damage;
+export function calcDamage(unit: Unit, weapon: Weapon, ammo: Ammo) {
+  const currentAttackModeDetails = weapon.getCurrentAttackModeDetails();
+
+  const weaponDamageMinMax = currentAttackModeDetails.damage;
   const weaponDamage = randomInt(weaponDamageMinMax.min, weaponDamageMinMax.max);
   const ammoDamage = ammo.dictEntity.damage;
+  const skillDamage =
+    weapon instanceof MeleeWeapon && weapon.currentAttackMode === "punch" ? unit.characteristics.meleeDamage : 0;
 
-  return Math.round(weaponDamage + weaponDamage * (ammoDamage / 100));
+  return Math.round(weaponDamage + weaponDamage * (ammoDamage / 100)) + skillDamage;
 }
 
 export function itemIsWeapon(item: Weapon | Ammo): item is Weapon {

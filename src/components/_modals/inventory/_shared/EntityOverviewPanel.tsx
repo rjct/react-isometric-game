@@ -14,6 +14,19 @@ const UnitOverview = (props: { entity: Unit }) => {
       >
         <div className="char"></div>
       </div>
+
+      <div>
+        SPECIAL
+        <div>
+          {Object.entries(props.entity.characteristics.SPECIAL).map(([key, value]) => {
+            return (
+              <div key={key}>
+                {key} : {value}
+              </div>
+            );
+          })}
+        </div>
+      </div>
     </div>
   );
 };

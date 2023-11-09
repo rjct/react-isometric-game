@@ -279,6 +279,10 @@ export class GameEntity {
     return Math.ceil(items.reduce((prevValue, item) => prevValue + item.dictEntity.weight, 0));
   }
 
+  getCarryWeight() {
+    return 0;
+  }
+
   public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
     if (inventoryType === "main" || !itemIsWeapon(item)) {
       this.inventory.main.push(item);

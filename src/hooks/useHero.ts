@@ -28,6 +28,7 @@ export type HeroAction = {
   action: keyof typeof heroActionTypes;
   entity: Unit | Building | Vehicle | null;
   isAllowed: boolean;
+  probability?: number;
 };
 
 export function useHero() {
@@ -75,6 +76,7 @@ export function useHero() {
               position: coordinates,
               action: hero.currentSelectedAction,
               entity: null,
+              probability: hero.characteristics.skills[weapon.getCurrentAttackModeDetails().skill],
               isAllowed: !(
                 !weapon.isReadyToUse(gameState) ||
                 (uiState.scene === "combat" &&

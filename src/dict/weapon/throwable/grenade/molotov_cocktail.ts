@@ -9,8 +9,13 @@ const molotov_cocktail: WeaponDictEntity = {
   weight: 1,
   price: 150,
   damageType: "fire",
+  requiredStat: {
+    name: "strength",
+    value: 1,
+  },
   attackModes: {
     throw: {
+      skill: "throwing",
       ammoType: "molotov_cocktail",
       actionPointsConsumption: 1,
       ammoConsumption: 1,

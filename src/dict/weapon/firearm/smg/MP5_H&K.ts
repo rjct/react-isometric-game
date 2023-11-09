@@ -10,8 +10,13 @@ const mp5: WeaponDictEntity = {
   price: 1200,
   damageType: "normal",
   ammoCapacity: 15,
+  requiredStat: {
+    name: "strength",
+    value: 4,
+  },
   attackModes: {
     shot_single: {
+      skill: "smallGuns",
       ammoType: "9mm",
       actionPointsConsumption: 4,
       ammoConsumption: 1,
@@ -28,6 +33,7 @@ const mp5: WeaponDictEntity = {
       },
     },
     shot_burst: {
+      skill: "smallGuns",
       ammoType: "9mm",
       actionPointsConsumption: 5,
       ammoConsumption: 6,

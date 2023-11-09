@@ -11,8 +11,13 @@ const beretta_M92FS: WeaponDictEntity = {
   price: 250,
   damageType: "normal",
   ammoCapacity: 15,
+  requiredStat: {
+    name: "strength",
+    value: 3,
+  },
   attackModes: {
     shot_single: {
+      skill: "smallGuns",
       ammoType: "9mm",
       actionPointsConsumption: 4,
       ammoConsumption: 1,

@@ -18,7 +18,7 @@ export function setUnitDead(state: GameMap, action: SetUnitDeadReducerAction): G
       entity.clearShadows();
     } else {
       state.occupyCell(entity.position.grid);
-      entity.healthPoints.current = entity.healthPoints.max;
+      entity.characteristics.healthPoints.current = entity.characteristics.healthPoints.max;
       entity.calcShadows(state);
     }
 

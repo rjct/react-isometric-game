@@ -11,8 +11,13 @@ const colt_45: WeaponDictEntity = {
   price: 350,
   damageType: "normal",
   ammoCapacity: 12,
+  requiredStat: {
+    name: "strength",
+    value: 3,
+  },
   attackModes: {
     shot_single: {
+      skill: "smallGuns",
       ammoType: ".45",
       actionPointsConsumption: 4,
       ammoConsumption: 1,

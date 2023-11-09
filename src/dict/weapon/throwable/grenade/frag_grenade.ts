@@ -10,8 +10,13 @@ const frag_grenade: WeaponDictEntity = {
   weight: 1,
   price: 400,
   damageType: "normal",
+  requiredStat: {
+    name: "strength",
+    value: 4,
+  },
   attackModes: {
     throw: {
+      skill: "throwing",
       ammoType: "frag_grenade",
       actionPointsConsumption: 6,
       ammoConsumption: 1,
