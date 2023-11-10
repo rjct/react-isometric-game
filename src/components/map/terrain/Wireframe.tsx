@@ -101,7 +101,9 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
         case "leftHand":
         case "rightHand":
-          setMarkerValue(`${String(heroAction[0]?.probability) || ""}%`);
+          const probability = heroAction[0]?.probability;
+
+          setMarkerValue(probability ? `${probability}%` : "");
           break;
       }
     } else {
