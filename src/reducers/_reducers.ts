@@ -134,6 +134,8 @@ import {
   stopVehicleAcceleration,
   StopVehicleAccelerationReducerAction,
 } from "@src/reducers/game/vehicle/stopVehicleAcceleration";
+import { setSkillPoints, SetSkillPointsReducerAction } from "@src/reducers/UnitCharacteristics/setSkillPoints";
+import { setSPECIALPoints, SetSPECIALPointsReducerAction } from "@src/reducers/UnitCharacteristics/setSPECIALPoints";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 
@@ -150,6 +152,9 @@ export type GameReducerAction =
   | RecalculateUnitFieldOfViewReducerAction
   | RecalculateUnitDistanceToScreenCenterReducerAction
   | HighlightUnitAtGunpointReducerAction
+  //
+  | SetSPECIALPointsReducerAction
+  | SetSkillPointsReducerAction
   //
   | GetIntoVehicleReducerAction
   | GetOutOfVehicleReducerAction
@@ -240,6 +245,11 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
       return switchMap(state, action as SwitchGameMapReducerAction);
 
     //
+    case "setSPECIALPoints":
+      return setSPECIALPoints(state, action as SetSPECIALPointsReducerAction);
+
+    case "setSkillPoints":
+      return setSkillPoints(state, action as SetSkillPointsReducerAction);
 
     //
     case "moveUnit":

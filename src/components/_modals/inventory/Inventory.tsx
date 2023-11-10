@@ -41,21 +41,23 @@ export function Inventory() {
 
   return (
     <FullscreenPanel overlay={true} onClick={handleClickOut}>
-      <div className={"inventory"}>
-        <InventoryStoragePanel
-          owner={hero}
-          inventoryType={"main"}
-          className={["inventory-storage-wrapper"]}
-          title={"Backpack"}
-          editable={false}
-        />
-        <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
-        <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
-        <EntityOverviewPanel entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
-        <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
-        <ArmorPanel />
+      <div className={"modal"}>
+        <div className={"modal-content inventory"}>
+          <InventoryStoragePanel
+            owner={hero}
+            inventoryType={"main"}
+            className={["inventory-storage-wrapper"]}
+            title={"Backpack"}
+            editable={false}
+          />
+          <Hand title={"Left hand"} className={"left-hand-wrapper"} inventoryType={"leftHand"} />
+          <Hand title={"Right Hand"} className={"right-hand-wrapper"} inventoryType={"rightHand"} />
+          <EntityOverviewPanel entity={hero} className={["entity-overview-wrapper"]} title={"Hero"} />
+          <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
+          <ArmorPanel />
+        </div>
 
-        <div className={"controls"}>
+        <div className={"modal-controls"}>
           <Button onClick={handleCloseButtonClick}>
             <label>Close</label>
           </Button>

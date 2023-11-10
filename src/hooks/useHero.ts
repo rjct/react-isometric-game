@@ -76,7 +76,7 @@ export function useHero() {
               position: coordinates,
               action: hero.currentSelectedAction,
               entity: null,
-              probability: hero.characteristics.skills[weapon.getCurrentAttackModeDetails().skill],
+              probability: hero.characteristics.skills[weapon.getCurrentAttackModeDetails().skill].value,
               isAllowed: !(
                 !weapon.isReadyToUse(gameState) ||
                 (uiState.scene === "combat" &&

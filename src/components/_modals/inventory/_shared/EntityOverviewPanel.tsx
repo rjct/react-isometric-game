@@ -1,5 +1,6 @@
 import { BuildingComponent } from "@src/components/map/buildings/Building";
 import { VehicleComponent } from "@src/components/map/vehicles/Vehicle";
+import { LabelWithValue } from "@src/components/ui/LabelWithValue";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
@@ -15,17 +16,9 @@ const UnitOverview = (props: { entity: Unit }) => {
         <div className="char"></div>
       </div>
 
-      <div>
-        SPECIAL
-        <div>
-          {Object.entries(props.entity.characteristics.SPECIAL).map(([key, value]) => {
-            return (
-              <div key={key}>
-                {key} : {value}
-              </div>
-            );
-          })}
-        </div>
+      <div className={"stats"}>
+        <LabelWithValue title={"LVL"} value={props.entity.characteristics.level} />
+        <LabelWithValue title={"XP"} value={props.entity.characteristics.xp} />
       </div>
     </div>
   );

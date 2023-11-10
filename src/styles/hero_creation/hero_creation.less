@@ -1,0 +1,93 @@
+.hero-creation {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: auto 1fr 1fr;
+  grid-gap: 10px 20px;
+
+  .unit-SPECIAL-wrapper {
+    grid-area: 2 / 1 / 4;
+  }
+
+  .unit-skills-wrapper {
+    grid-area: 1 / 2 / 4;
+  }
+
+  .unit-derived-wrapper {
+    grid-area: 3 / 3 / 3;
+  }
+
+  .hero-overview-wrapper {
+    grid-area: 1 / 1 / 1;
+  }
+
+  .stat-info-wrapper {
+    grid-area: 1 / 3 / 3;
+
+    .stat-info-title {
+      font-size: 1.3em;
+      text-align: center;
+      background-color: rgba(0, 255, 0, 0.1);
+      padding: (@padding * 2 - 1) 0 @padding * 1.5 0;
+      position: sticky;
+      top: 3px;
+      border-radius: @border-radius;
+      backdrop-filter: blur(5px);
+    }
+
+    .stat-info-body {
+      padding: @padding * 2;
+    }
+  }
+
+  //
+  .stat-row {
+    cursor: default;
+    display: flex;
+    flex-direction: row;
+    padding: (@padding / 2) @padding;
+    gap: @padding;
+    transition: all 200ms ease;
+    border-bottom: solid 1px rgba(0, 255, 0, 0.2);
+    border-radius: (@border-radius / 2);
+    margin: 0 @padding;
+
+    &:first-child {
+      margin-top: @padding;
+    }
+
+    &:last-child {
+      border-bottom: none;
+      margin-bottom: @padding;
+    }
+
+    &[data-selected] {
+      background-color: @button-border-color--active;
+      color: @text-color;
+    }
+
+    .stat-body {
+      display: flex;
+      flex: 1;
+
+      .stat-title {
+        flex: 1;
+      }
+
+      .stat-value-wrapper {
+        display: flex;
+        gap: 0.25em;
+
+        .stat-value {
+          color: @text-color;
+        }
+        .stat-value-suffix {
+          //
+        }
+      }
+    }
+
+    .stat-controls {
+      display: flex;
+    }
+  }
+}

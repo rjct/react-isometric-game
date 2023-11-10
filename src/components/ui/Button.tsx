@@ -6,6 +6,7 @@ export function Button(props: {
   children: React.ReactNode;
   title?: string;
   className?: string[];
+  size?: "small";
   onClick?: () => void;
   disabled?: boolean;
   active?: boolean;
@@ -23,6 +24,7 @@ export function Button(props: {
   return (
     <div
       title={props.title}
+      data-size={props.size}
       className={[
         ...[
           "ui-button",

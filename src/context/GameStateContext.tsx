@@ -53,7 +53,7 @@ export interface StaticMapUnit {
   isDead?: boolean;
   rotation?: AngleInDegrees;
   inventory?: StaticMapInventory;
-  healthPoints?: Unit["characteristics"]["healthPoints"];
+  healthPoints?: Unit["characteristics"]["derived"]["healthPoints"];
   randomActions?: Array<"roam" | "idle">;
 }
 

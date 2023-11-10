@@ -79,7 +79,9 @@ export function calcDamage(unit: Unit, weapon: Weapon, ammo: Ammo) {
   const weaponDamage = randomInt(weaponDamageMinMax.min, weaponDamageMinMax.max);
   const ammoDamage = ammo.dictEntity.damage;
   const skillDamage =
-    weapon instanceof MeleeWeapon && weapon.currentAttackMode === "punch" ? unit.characteristics.meleeDamage : 0;
+    weapon instanceof MeleeWeapon && weapon.currentAttackMode === "punch"
+      ? unit.characteristics.derived.meleeDamage.value
+      : 0;
 
   return Math.round(weaponDamage + weaponDamage * (ammoDamage / 100)) + skillDamage;
 }

@@ -57,44 +57,46 @@ export function InventoryTransfer() {
 
   return (
     <FullscreenPanel overlay={true} onClick={handleClickOut}>
-      <div className={"inventory inventory-transfer"}>
-        <EntityOverviewPanel
-          entity={hero}
-          className={["entity-overview-wrapper", "entity-overview-wrapper-left"]}
-          title={"Hero"}
-        />
-        <InventoryStoragePanel
-          title={`Hero (${hero.getInventoryItems().length})`}
-          owner={hero}
-          className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
-          editable={false}
-        />
+      <div className={"modal"}>
+        <div className={"modal-content inventory inventory-transfer"}>
+          <EntityOverviewPanel
+            entity={hero}
+            className={["entity-overview-wrapper", "entity-overview-wrapper-left"]}
+            title={"Hero"}
+          />
+          <InventoryStoragePanel
+            title={`Hero (${hero.getInventoryItems().length})`}
+            owner={hero}
+            className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
+            editable={false}
+          />
 
-        <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
+          <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
 
-        <div className={"transfer-controls"}>
-          <Button onClick={handleTakeAllButtonClick} disabled={inventoryItems.length === 0}>
-            <label>Take all{inventoryItems.length > 0 ? ` (${inventoryItems.length})` : ``}</label>
-            <FontAwesomeIcon icon={faArrowLeft} />
-          </Button>
-        </div>
+          <div className={"transfer-controls"}>
+            <Button onClick={handleTakeAllButtonClick} disabled={inventoryItems.length === 0}>
+              <label>Take all{inventoryItems.length > 0 ? ` (${inventoryItems.length})` : ``}</label>
+              <FontAwesomeIcon icon={faArrowLeft} />
+            </Button>
+          </div>
 
-        <EntityOverviewPanel
-          entity={gameState.selectedEntityForInventoryTransfer!}
-          className={["entity-overview-wrapper", "entity-overview-wrapper-right"]}
-          title={gameState.selectedEntityForInventoryTransfer!.type}
-        />
-        <InventoryStoragePanel
-          title={`${inventoryItems.length}`}
-          owner={gameState.selectedEntityForInventoryTransfer!}
-          className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
-          editable={false}
-        />
+          <EntityOverviewPanel
+            entity={gameState.selectedEntityForInventoryTransfer!}
+            className={["entity-overview-wrapper", "entity-overview-wrapper-right"]}
+            title={gameState.selectedEntityForInventoryTransfer!.type}
+          />
+          <InventoryStoragePanel
+            title={`${inventoryItems.length}`}
+            owner={gameState.selectedEntityForInventoryTransfer!}
+            className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
+            editable={false}
+          />
 
-        <div className={"controls"}>
-          <Button onClick={handleCloseButtonClick}>
-            <label>Close</label>
-          </Button>
+          <div className={"modal-controls"}>
+            <Button onClick={handleCloseButtonClick}>
+              <label>Close</label>
+            </Button>
+          </div>
         </div>
       </div>
     </FullscreenPanel>

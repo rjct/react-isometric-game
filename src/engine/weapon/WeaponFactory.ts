@@ -50,7 +50,10 @@ export class Weapon extends InventoryItem {
       setTimeout(() => {
         fakeAmmo.shot(
           unit.position.grid,
-          unit.calculateHitCoordinates(targetPosition, unit.characteristics.skills[currentAttackModeDetails.skill]),
+          unit.calculateHitCoordinates(
+            targetPosition,
+            unit.characteristics.skills[currentAttackModeDetails.skill].value,
+          ),
           gameState,
         );
       }, currentAttackModeDetails.animationDuration.attack);

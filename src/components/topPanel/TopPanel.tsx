@@ -27,11 +27,11 @@ export const TopPanel = React.memo(function Top() {
       </fieldset>
 
       <fieldset>
-        <HeroPoints points={hero.characteristics.actionPoints} title={"Action points"} shortTitle={"AP"} />
+        <HeroPoints points={hero.characteristics.derived.actionPoints} title={"Action points"} shortTitle={"AP"} />
       </fieldset>
 
       <fieldset>
-        <HeroPoints points={hero.characteristics.healthPoints} title={"Health points"} shortTitle={"HP"} />
+        <HeroPoints points={hero.characteristics.derived.healthPoints} title={"Health points"} shortTitle={"HP"} />
       </fieldset>
 
       <DebugInfo />

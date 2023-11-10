@@ -28,16 +28,25 @@
 .unit-preview {
   position: relative;
   display: flex;
+  gap: (@padding * 2);
   justify-content: center;
-  height: @unit-height + @padding;
+  align-items: center;
+  padding: @padding;
 
   .unit {
+    position: relative;
     margin: 0;
     transform: none;
 
     .char {
       animation: unit-preview 3s steps(4) infinite !important;
     }
+  }
+
+  .stats {
+    display: flex;
+    flex-direction: column;
+    gap: @padding;
   }
 }
 

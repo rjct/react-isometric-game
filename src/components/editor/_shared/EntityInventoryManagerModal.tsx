@@ -44,23 +44,25 @@ export const EntityInventoryManagerModal = React.memo(() => {
 
   return (
     <FullscreenPanel overlay={true} onClick={handleClickOut}>
-      <div className={"inventory inventory-manager"}>
-        <EntityOverviewPanel
-          entity={selectedEntity}
-          className={["entity-overview-wrapper", "entity-overview-wrapper-left"]}
-          title={selectedEntity.constructor.name}
-        />
-        <InventoryStoragePanel
-          title={`${selectedEntity.getInventoryItems().length}`}
-          owner={selectedEntity}
-          editable={false}
-          className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
-        />
-        <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
+      <div className={"modal"}>
+        <div className={"modal-content inventory inventory-manager"}>
+          <EntityOverviewPanel
+            entity={selectedEntity}
+            className={["entity-overview-wrapper", "entity-overview-wrapper-left"]}
+            title={selectedEntity.constructor.name}
+          />
+          <InventoryStoragePanel
+            title={`${selectedEntity.getInventoryItems().length}`}
+            owner={selectedEntity}
+            editable={false}
+            className={["inventory-storage-wrapper", "inventory-storage-wrapper-left"]}
+          />
+          <InventoryItemInfoPanel dictEntity={gameState.selectedInventoryItem} />
 
-        <InventoryDictStoragePanel />
+          <InventoryDictStoragePanel />
+        </div>
 
-        <div className={"controls"}>
+        <div className={"modal-controls"}>
           <Button onClick={handleCloseButtonClick}>
             <label>Close</label>
           </Button>

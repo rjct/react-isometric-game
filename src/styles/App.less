@@ -1,10 +1,12 @@
 @import "variables";
 @import "UI/fullscreen_panel";
+@import "UI/modal";
 @import "UI/ui-button";
 @import "UI/ui-radio";
 @import "UI/ui-tabs";
 @import "UI/ui-switch";
 @import "UI/progress-bar";
+@import "UI/label-with-value";
 
 ::-webkit-scrollbar {
   appearance: none;
@@ -245,4 +247,20 @@ fieldset {
   &[data-scrolling-direction="bottom"] {
     cursor: s-resize;
   }
+}
+
+@keyframes blink-white {
+  0% {
+    opacity: 0;
+    color: #ffffff;
+  }
+
+  100% {
+    opacity: 1;
+    color: inherit;
+  }
+}
+
+.blink-white {
+  animation: 200ms blink-white linear;
 }

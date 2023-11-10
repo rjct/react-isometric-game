@@ -1,31 +1,8 @@
 .inventory {
-  position: relative;
-  overflow: auto;
-  max-width: 800px;
-  height: 80%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   grid-template-rows: 2fr 1fr 0.75fr;
   grid-gap: (@padding) (@padding * 2);
-  padding: (@padding) (@padding * 2) (@padding) (@padding * 2);
-  border-radius: @border-radius;
-  box-shadow: 0 0 15px 5px rgba(0, 0, 0, 0.5);
-  border: solid 1px limegreen;
-  color: @text-color;
-
-  > fieldset:not(.controls) {
-    border: solid 1px rgba(0, 255, 0, 0.4);
-    display: flex;
-    flex-direction: column;
-    margin: 0;
-    padding: 0;
-    border-radius: @border-radius;
-
-    &[data-droppable] {
-      box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.75) inset;
-      background-color: rgba(0, 0, 0, 0.25);
-    }
-  }
 
   .inventory-storage-wrapper {
     grid-area: 1 / 1 / 4 / 2;
@@ -163,9 +140,6 @@
 
   .controls {
     grid-area: 4 / 2 / 5 / 4;
-    padding: @padding 0;
-    display: flex;
-    justify-content: flex-end;
   }
 }
 

@@ -1,13 +1,13 @@
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 export function HeroPoints(props: {
-  points: Unit["characteristics"]["healthPoints"] | Unit["characteristics"]["actionPoints"];
+  points: Unit["characteristics"]["derived"]["healthPoints"] | Unit["characteristics"]["derived"]["actionPoints"];
   title: string;
   shortTitle: string;
 }) {
-  const { current, max } = props.points;
+  const { value, max } = props.points;
 
-  const currentPercent = (current / max) * 100;
+  const currentPercent = (value / max) * 100;
   const warnPercent = 50;
   const criticalPercent = 20;
   const className = currentPercent <= criticalPercent ? "critical" : currentPercent <= warnPercent ? "warn" : "";
@@ -21,7 +21,7 @@ export function HeroPoints(props: {
 
       <div className={"points-wrapper"}>
         <span className={"value"}>
-          <span className={className}>{current}</span> / <span>{max}</span>
+          <span className={className}>{value}</span> / <span>{max}</span>
         </span>
 
         <div className={"progress"}>

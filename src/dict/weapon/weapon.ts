@@ -1,9 +1,11 @@
 import { WeaponAmmoType } from "@src/dict/ammo/ammo";
+import { UnitCombatSkillName } from "@src/dict/unit/_unitSkills";
 import firearm from "@src/dict/weapon/firearm/firearm";
 import melee from "@src/dict/weapon/melee/melee";
 import throwable from "@src/dict/weapon/throwable/throwable";
 import throwable_melee from "@src/dict/weapon/throwableMelee/throwableMelee";
-import { UnitPrimaryStatName, UnitSkillName } from "@src/engine/unit/UnitCharacteristicsFactory";
+
+import { UnitPrimaryStatName } from "@src/dict/unit/_unitPrimaryStat";
 import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
 export enum weaponClassNames {
@@ -55,7 +57,7 @@ export type WeaponDictEntityAttackMode = {
   ammoConsumption: number;
   range: number;
   damage: WeaponDamage;
-  skill: UnitSkillName;
+  skill: UnitCombatSkillName;
   removeFromInventoryAfterUse: boolean;
   animationDuration: {
     attack: number;

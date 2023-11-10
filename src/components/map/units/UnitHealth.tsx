@@ -12,7 +12,8 @@ export const UnitHealth = React.memo((props: { unit: Unit }) => {
       <div
         style={{
           width: `${
-            (props.unit.characteristics.healthPoints.current * 100) / props.unit.characteristics.healthPoints.max
+            (props.unit.characteristics.derived.healthPoints.value * 100) /
+            props.unit.characteristics.derived.healthPoints.max
           }%`,
         }}
       ></div>

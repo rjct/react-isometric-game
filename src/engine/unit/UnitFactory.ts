@@ -48,11 +48,6 @@ export class Unit extends MovableGameEntity {
 
   public characteristics: UnitCharacteristics;
 
-  // public healthPoints: {
-  //   current: number;
-  //   max: number;
-  // };
-
   public actionPoints: {
     current: number;
     readonly max: number;
@@ -97,7 +92,7 @@ export class Unit extends MovableGameEntity {
     isHero: boolean;
     action?: Unit["action"];
     isDead?: boolean;
-    healthPoints?: Unit["characteristics"]["healthPoints"];
+    healthPoints?: Unit["characteristics"]["derived"]["healthPoints"];
     rotation?: AngleInDegrees;
     randomActions?: StaticMapUnit["randomActions"];
   }) {
@@ -289,12 +284,15 @@ export class Unit extends MovableGameEntity {
 
   public takeDamage(damage: number, gameState: GameMap) {
     this.damagePoints = -damage;
-    this.characteristics.healthPoints.current = Math.max(0, this.characteristics.healthPoints.current - damage);
+    this.characteristics.derived.healthPoints.value = Math.max(
+      0,
+      this.characteristics.derived.healthPoints.value - damage,
+    );
 
     this.clearPath();
     this.coolDownTimer = this.coolDownTime;
 
-    if (this.characteristics.healthPoints.current === 0) {
+    if (this.characteristics.derived.healthPoints.value === 0) {
       gameState.playSfx(this.sfx["dead"].src, this.distanceToScreenCenter);
 
       this.action = "dead";
@@ -465,10 +463,6 @@ export class Unit extends MovableGameEntity {
         y: targetCoordinates.y + yModifier,
       };
     }
-  }
-
-  getCarryWeight() {
-    return this.characteristics.carryWeight;
   }
 
   public getJSON(omitUnitType = false) {

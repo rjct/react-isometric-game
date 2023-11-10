@@ -10,6 +10,7 @@ import { MainMenu } from "@src/components/MainMenu";
 import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
 import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
+import { HeroCreation } from "@src/components/_modals/hero_creation/HeroCreation";
 import { Inventory } from "@src/components/_modals/inventory/Inventory";
 import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
@@ -18,6 +19,7 @@ import { GameTerrainContext } from "@src/context/GameTerrainContext";
 import { GameUIContext } from "@src/context/GameUIContext";
 import { GameUiDispatchContext } from "@src/context/GameUIDispatchContext";
 import { GameTerrainDispatchContext } from "@src/context/GateTerrainDispatchContext";
+import { constants } from "@src/engine/constants";
 import { loadMap } from "@src/engine/helpers";
 import { playScene } from "@src/engine/_scenes/_scenes";
 import { useAnimationFrame } from "@src/hooks/useAnimationFrame";
@@ -83,8 +85,13 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
   }, []);
 
   React.useEffect(() => {
-    if (uiState.introSceneElapsedTime > 0) {
+    if (gameState.debug.featureEnabled.skipIntro) {
+      uiState.introSceneElapsedTime = constants.INTRO_SCENE_DISPLAY_TIME;
+    }
+
+    if (uiState.introSceneElapsedTime > 0 && Object.keys(gameState.mediaAssets).length > 0) {
       loadMap(gameState.mapUrl).then((map) => {
+        terrainDispatch({ type: "switchMap", map, mediaFiles: gameState.mediaAssets });
         gameDispatch({ type: "switchMap", map, mediaFiles: gameState.mediaAssets });
         uiDispatch({ type: "setScene", scene: "game" });
       });
@@ -98,7 +105,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
       loadMap(gameState.mapUrl).then((map) => {
         terrainDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
         gameDispatch({ type: "switchMap", map, mediaFiles: mediaAssets });
-        uiDispatch({ type: "setScene", scene: gameState.debug.featureEnabled.skipIntro ? "game" : "intro" });
+        uiDispatch({ type: "setScene", scene: gameState.debug.featureEnabled.skipIntro ? "mainMenu" : "intro" });
       });
     });
   }, [gameState.mapUrl]);
@@ -134,6 +141,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
               <Intro />
               <MainMenu />
+              <HeroCreation />
               <GameOver />
               <TopPanel />
 
