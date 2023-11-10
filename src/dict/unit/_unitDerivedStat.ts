@@ -49,7 +49,7 @@ export const unitDerivedStats: { [p in UnitDerivedStatName]: UnitCharacteristicD
   damageResistance: {
     title: "Damage Resistance",
     description: "Reduces physical damage by a percentage.",
-    calculateValue: (special: UnitCharacteristics["SPECIAL"]) => {
+    calculateValue: (/*special: UnitCharacteristics["SPECIAL"]*/) => {
       return 0;
     },
     suffix: "%",
