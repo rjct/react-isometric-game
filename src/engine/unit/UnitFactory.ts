@@ -207,7 +207,7 @@ export class Unit extends MovableGameEntity {
     this.action = action;
   }
 
-  public isMoving() {
+  public isBusy() {
     return this.action !== "none" && this.action !== "idle";
   }
 
@@ -341,7 +341,7 @@ export class Unit extends MovableGameEntity {
   }
 
   public roam(gameState: GameMap) {
-    if (this.coolDownTimer > 0 || this.isMoving()) return;
+    if (this.coolDownTimer > 0 || this.isBusy()) return;
     const getRandomPosition = (): GridCoordinates => {
       return { x: randomInt(0, gameState.mapSize.width - 1), y: randomInt(0, gameState.mapSize.height - 1) };
     };
@@ -372,14 +372,14 @@ export class Unit extends MovableGameEntity {
   }
 
   idle() {
-    if (this.coolDownTimer > 0 || this.isMoving()) return;
+    if (this.coolDownTimer > 0 || this.isBusy()) return;
 
     this.setAction("idle");
     this.coolDownTimer = this.coolDownTime;
   }
 
   public cooldown(deltaTime: number) {
-    if (this.isMoving()) return;
+    if (this.isBusy()) return;
 
     this.coolDownTimer = Math.max(0, this.coolDownTimer - deltaTime);
   }

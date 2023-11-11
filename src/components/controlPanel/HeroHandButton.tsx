@@ -9,7 +9,7 @@ export const HeroHandButton = React.memo((props: { type: "leftHand" | "rightHand
   const { hero } = useHero();
 
   const handleChange = () => {
-    if (hero.isMoving()) return;
+    if (hero.isBusy()) return;
 
     gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: props.type });
   };
@@ -20,7 +20,7 @@ export const HeroHandButton = React.memo((props: { type: "leftHand" | "rightHand
     <Button
       className={[`control-${props.type}`]}
       active={hero.currentSelectedAction === props.type}
-      disabled={hero.isMoving() || hero.isVehicleInUse()}
+      disabled={hero.isBusy()}
     >
       <HeroActionControl
         action={props.type}

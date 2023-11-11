@@ -24,7 +24,7 @@ export const HeroMovementButton = React.memo(() => {
   const { hero } = useHero();
 
   const handleClick = () => {
-    if (hero.isMoving()) return;
+    if (hero.isBusy()) return;
 
     if (hero.currentSelectedAction === "move") {
       gameDispatch({
@@ -42,7 +42,7 @@ export const HeroMovementButton = React.memo(() => {
       className={[`control-movement`]}
       active={hero.currentSelectedAction === "move"}
       title={heroMovementTypes[hero.currentMovementMode].text}
-      disabled={hero.isMoving() || hero.isVehicleInUse()}
+      disabled={hero.isBusy() || hero.isVehicleInUse()}
       onClick={handleClick}
     >
       <label>

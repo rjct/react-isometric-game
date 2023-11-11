@@ -9,7 +9,7 @@ export type DoRandomUnitActionReducerAction = {
 };
 
 export function doRandomUnitAction(state: GameMap, action: DoRandomUnitActionReducerAction) {
-  if (!action.unit.isMoving()) {
+  if (!action.unit.isBusy()) {
     const randomActions = action.unit.randomActions;
     const randomAction = randomActions[randomInt(0, randomActions.length - 1)];
 

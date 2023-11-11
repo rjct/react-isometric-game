@@ -5,6 +5,7 @@ import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
 
 import { HeroActionsMenu } from "@src/components/map/terrain/HeroActionsMenu";
+import { WireframeTooltip } from "@src/components/map/terrain/WireframeTooltip";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { HeroAction, useHero } from "@src/hooks/useHero";
@@ -20,7 +21,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
   const [markerPosition, setMarkerPosition] = React.useState<GridCoordinates>({ x: 0, y: 0 });
   const debouncedMarkerPosition = useDebounce(markerPosition, 200);
 
-  const [markerValue, setMarkerValue] = React.useState("");
+  const [tooltipValue, setTooltipValue] = React.useState<React.ReactElement | null>(null);
+
   const [markerClassName, setMarkerClassName] = React.useState(["action--allowed"]);
   const [clicks, setClicks] = React.useState(0);
   const [heroAction, setHeroAction] = React.useState<HeroAction[]>([]);
@@ -102,8 +104,9 @@ export const Wireframe = React.memo(function WireframeTiles() {
         case "leftHand":
         case "rightHand":
           const probability = heroAction[0]?.probability;
+          const value = probability ? <>{`${isAllowed ? probability : 0}%`}</> : null;
 
-          setMarkerValue(probability ? `${probability}%` : "");
+          setTooltipValue(value);
           break;
       }
     } else {
@@ -129,7 +132,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
       return;
     }
 
-    setMarkerValue("");
+    setTooltipValue(null);
     setMarkerClassName(["action--pending"]);
     setMarkerPosition(uiState.mousePosition.grid);
   }, [uiState.mousePosition.grid.x, uiState.mousePosition.grid.y, heroActionMenuShow]);
@@ -168,49 +171,55 @@ export const Wireframe = React.memo(function WireframeTiles() {
   }, [clicks]);
 
   return (
-    <div
-      className={"wireframe-wrapper"}
-      data-entity-selected-for-inventory-transfer={!!gameState.selectedEntityForInventoryTransfer || null}
-      style={{
-        width: gameState.mapSize.width * constants.tileSize.width + getEditorLibraryPosition(),
-        height: gameState.mapSize.height * constants.tileSize.height,
-      }}
-      onMouseDown={handleMouseDown}
-      onMouseUp={handleMouseUp}
-      onClick={() => (heroActionMenuShow ? null : setClicks(clicks + 1))}
-      onContextMenu={handleRightClick}
-    >
-      <MapLayer
-        isometric={true}
-        size={gameState.mapSize}
-        className={"wireframe"}
+    <>
+      <WireframeTooltip coordinates={markerPosition} className={markerClassName} value={tooltipValue} />
+
+      <div
+        className={"wireframe-wrapper"}
+        data-entity-selected-for-inventory-transfer={!!gameState.selectedEntityForInventoryTransfer || null}
         style={{
-          background:
-            gameState.debug.enabled && gameState.debug.featureEnabled.wireframe ? wireframeCellsBackground : undefined,
+          width: gameState.mapSize.width * constants.tileSize.width + getEditorLibraryPosition(),
+          height: gameState.mapSize.height * constants.tileSize.height,
         }}
+        onMouseDown={handleMouseDown}
+        onMouseUp={handleMouseUp}
+        onClick={() => (heroActionMenuShow ? null : setClicks(clicks + 1))}
+        onContextMenu={handleRightClick}
       >
-        <WireframeMarker
-          coordinates={markerPosition}
-          className={markerClassName}
-          value={markerValue}
-          onAnimationComplete={() => {
-            const classes = [...markerClassName];
-            classes.pop();
-
-            setMarkerClassName(classes);
+        <MapLayer
+          isometric={true}
+          size={gameState.mapSize}
+          className={"wireframe"}
+          style={{
+            background:
+              gameState.debug.enabled && gameState.debug.featureEnabled.wireframe
+                ? wireframeCellsBackground
+                : undefined,
           }}
-        />
+        >
+          <WireframeMarker
+            coordinates={markerPosition}
+            className={markerClassName}
+            value={""}
+            onAnimationComplete={() => {
+              const classes = [...markerClassName];
+              classes.pop();
 
-        <HeroActionsMenu
-          show={heroActionMenuShow}
-          coordinates={heroAction[0]?.position || markerPosition}
-          heroActions={heroAction}
-          onMouseLeave={handleHeroActionsMenuMouseLeave}
-          onClick={handleHeroActionsMenuClick}
-        />
+              setMarkerClassName(classes);
+            }}
+          />
 
-        <WireframeEntityPlaceholder />
-      </MapLayer>
-    </div>
+          <HeroActionsMenu
+            show={heroActionMenuShow}
+            coordinates={heroAction[0]?.position || markerPosition}
+            heroActions={heroAction}
+            onMouseLeave={handleHeroActionsMenuMouseLeave}
+            onClick={handleHeroActionsMenuClick}
+          />
+
+          <WireframeEntityPlaceholder />
+        </MapLayer>
+      </div>
+    </>
   );
 });

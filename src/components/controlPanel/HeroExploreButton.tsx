@@ -12,7 +12,7 @@ export const HeroExploreButton = React.memo(() => {
   if (hero.isVehicleInUse()) return null;
 
   const handleClick = () => {
-    if (hero.isMoving()) return;
+    if (hero.isBusy()) return;
 
     gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: "explore" });
   };
@@ -21,7 +21,7 @@ export const HeroExploreButton = React.memo(() => {
     <Button
       className={["control-explore"]}
       active={hero.currentSelectedAction === "explore"}
-      disabled={hero.isMoving()}
+      disabled={hero.isBusy()}
       onClick={handleClick}
     >
       <FontAwesomeIcon icon={faEye} />
