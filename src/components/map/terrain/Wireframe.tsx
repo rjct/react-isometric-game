@@ -172,7 +172,12 @@ export const Wireframe = React.memo(function WireframeTiles() {
 
   return (
     <>
-      <WireframeTooltip coordinates={markerPosition} className={markerClassName} value={tooltipValue} />
+      <WireframeTooltip
+        key={markerClassName.join("")}
+        coordinates={markerPosition}
+        className={markerClassName}
+        value={tooltipValue}
+      />
 
       <div
         className={"wireframe-wrapper"}

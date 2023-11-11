@@ -11,7 +11,7 @@ export const WireframeTooltip = (props: {
   const { gameState } = useGameState();
   const { hero } = useHero();
 
-  const [className, setClassName] = React.useState(["wireframe-tooltip", ...props.className]);
+  const [className, setClassName] = React.useState([...["wireframe-tooltip", "tooltip-show"], ...props.className]);
 
   if (hero.isBusy() || !props.value) return null;
 
