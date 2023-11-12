@@ -247,7 +247,7 @@ export const gameMap = {
       for (let xx = x; xx < x + width; xx++) {
         for (let yy = y; yy < y + length; yy++) {
           if (xx < this.mapSize.width && yy < this.mapSize.height) {
-            this.matrix[yy][xx] += occupancy;
+            this.matrix[yy][xx] = Math.max(0, this.matrix[yy][xx] + occupancy);
           }
         }
       }
