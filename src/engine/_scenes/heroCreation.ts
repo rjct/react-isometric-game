@@ -1,5 +1,5 @@
 import { GameContext } from "@src/hooks/useGameState";
 
-export function heroCreationScene(this: GameContext) {
+export function unitCharacteristicsScene(this: GameContext) {
   //
 }

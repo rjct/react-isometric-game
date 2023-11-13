@@ -1,16 +1,15 @@
 import { Button } from "@src/components/ui/Button";
 import { LabelWithValue } from "@src/components/ui/LabelWithValue";
-import { StatRow } from "@src/components/_modals/hero_creation/StatRow";
+import { StatRow } from "@src/components/_modals/unit_characteristics/StatRow";
 import { UnitSkillName } from "@src/dict/unit/_unitSkills";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
-import { useHero } from "@src/hooks/useHero";
 
-export function Skills() {
+export function Skills(props: { unit: Unit }) {
   const { gameDispatch } = useGameState();
-  const { hero } = useHero();
 
   const handlePointsChangeClick = (key: UnitSkillName, value: number) => {
-    gameDispatch({ type: "setSkillPoints", name: key, value });
+    gameDispatch({ type: "setSkillPoints", unit: props.unit, skillName: key, skillValue: value });
   };
 
   return (
@@ -18,11 +17,11 @@ export function Skills() {
       <legend className={"outlined"}>Skills</legend>
 
       <div className={"header"}>
-        <LabelWithValue title={"skill points"} value={hero.characteristics.availableSkillPoints} />
+        <LabelWithValue title={"skill points"} value={props.unit.characteristics.availableSkillPoints} />
       </div>
 
       <div className={"body"}>
-        {Object.values(hero.characteristics.skills).map((stat) => {
+        {Object.values(props.unit.characteristics.skills).map((stat) => {
           const { value, min, name } = stat;
 
           return (
@@ -34,7 +33,7 @@ export function Skills() {
 
                 <Button
                   size={"small"}
-                  disabled={hero.characteristics.availableSkillPoints === 0}
+                  disabled={props.unit.characteristics.availableSkillPoints === 0}
                   onClick={() => handlePointsChangeClick(name, 1)}
                 >
                   <label>+</label>

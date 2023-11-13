@@ -1,16 +1,15 @@
 import { Button } from "@src/components/ui/Button";
 import { LabelWithValue } from "@src/components/ui/LabelWithValue";
-import { StatRow } from "@src/components/_modals/hero_creation/StatRow";
+import { StatRow } from "@src/components/_modals/unit_characteristics/StatRow";
 import { UnitPrimaryStatName } from "@src/dict/unit/_unitPrimaryStat";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
-import { useHero } from "@src/hooks/useHero";
 
-export const SPECIAL = () => {
+export const SPECIAL = (props: { unit: Unit }) => {
   const { gameDispatch } = useGameState();
-  const { hero } = useHero();
 
   const handlePointsChangeClick = (key: UnitPrimaryStatName, value: number) => {
-    gameDispatch({ type: "setSPECIALPoints", name: key, value });
+    gameDispatch({ type: "setSPECIALPoints", unit: props.unit, name: key, value });
   };
 
   return (
@@ -18,11 +17,11 @@ export const SPECIAL = () => {
       <legend className={"outlined"}>S.P.E.C.I.A.L.</legend>
 
       <div className={"header"}>
-        <LabelWithValue title={"char points"} value={hero.characteristics.availablePoints} />
+        <LabelWithValue title={"char points"} value={props.unit.characteristics.availablePoints} />
       </div>
 
       <div className={"body"}>
-        {Object.values(hero.characteristics.SPECIAL).map((stat) => {
+        {Object.values(props.unit.characteristics.SPECIAL).map((stat) => {
           const { value, name } = stat;
 
           return (
@@ -33,7 +32,7 @@ export const SPECIAL = () => {
                 </Button>
                 <Button
                   size={"small"}
-                  disabled={hero.characteristics.availablePoints === 0 || value === 10}
+                  disabled={props.unit.characteristics.availablePoints === 0 || value === 10}
                   onClick={() => handlePointsChangeClick(name, 1)}
                 >
                   <label>+</label>

@@ -15,7 +15,7 @@ export function MainMenu() {
   };
 
   const handleNewGameButtonClick = () => {
-    uiDispatch({ type: "setScene", scene: "heroCreation" });
+    uiDispatch({ type: "setScene", scene: "unitCharacteristics" });
   };
 
   const handleEditorButtonClick = () => {

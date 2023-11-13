@@ -8,26 +8,11 @@ import { InventoryStoragePanel } from "@src/components/_modals/inventory/_shared
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
-import React from "react";
 
 export function Inventory() {
-  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
-  const { checkCurrentScene } = useScene();
+  const { gameState, gameDispatch, uiDispatch } = useGameState();
+  const { checkCurrentScene, scenesHistory } = useScene();
   const { hero } = useHero();
-
-  const [scenesHistory, saveScenesHistory] = React.useState([uiState.scene]);
-
-  React.useEffect(() => {
-    const scenes = [...scenesHistory];
-
-    scenes.push(uiState.scene);
-
-    saveScenesHistory(scenes);
-
-    return () => {
-      saveScenesHistory([]);
-    };
-  }, [uiState.scene]);
 
   if (!checkCurrentScene(["inventory"])) return null;
 

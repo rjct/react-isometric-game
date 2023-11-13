@@ -11,23 +11,9 @@ import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export function InventoryTransfer() {
-  const { gameState, gameDispatch, uiState, uiDispatch } = useGameState();
-  const { checkCurrentScene } = useScene();
+  const { gameState, gameDispatch, uiDispatch } = useGameState();
+  const { checkCurrentScene, scenesHistory } = useScene();
   const { hero } = useHero();
-
-  const [scenesHistory, saveScenesHistory] = React.useState([uiState.scene]);
-
-  React.useEffect(() => {
-    const scenes = [...scenesHistory];
-
-    scenes.push(uiState.scene);
-
-    saveScenesHistory(scenes);
-
-    return () => {
-      saveScenesHistory([]);
-    };
-  }, [uiState.scene]);
 
   const inventoryItems = React.useMemo(() => {
     return gameState.selectedEntityForInventoryTransfer?.getInventoryItems() || [];

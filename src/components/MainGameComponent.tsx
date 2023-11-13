@@ -10,9 +10,9 @@ import { MainMenu } from "@src/components/MainMenu";
 import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
 import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
-import { HeroCreation } from "@src/components/_modals/hero_creation/HeroCreation";
 import { Inventory } from "@src/components/_modals/inventory/Inventory";
 import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
+import { UnitCharacteristics } from "@src/components/_modals/unit_characteristics/UnitCharacteristics";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
 import { GameStateContext } from "@src/context/GameStateContext";
 import { GameTerrainContext } from "@src/context/GameTerrainContext";
@@ -141,7 +141,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
 
               <Intro />
               <MainMenu />
-              <HeroCreation />
+              <UnitCharacteristics />
               <GameOver />
               <TopPanel />
 

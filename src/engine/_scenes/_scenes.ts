@@ -3,7 +3,7 @@ import { combatScene } from "@src/engine/_scenes/combat/combat";
 import { editorScene } from "@src/engine/_scenes/editor";
 import { gameScene } from "@src/engine/_scenes/game";
 import { gameOverScene } from "@src/engine/_scenes/gameOver";
-import { heroCreationScene } from "@src/engine/_scenes/heroCreation";
+import { unitCharacteristicsScene } from "@src/engine/_scenes/heroCreation";
 import { introScene } from "@src/engine/_scenes/intro";
 import { inventoryScene } from "@src/engine/_scenes/inventory";
 import { inventoryTransferScene } from "@src/engine/_scenes/inventoryTransfer";
@@ -17,7 +17,7 @@ const scenes: { [sceneName in GameScene]: SceneRunnerFunc } = {
   intro: introScene,
   loading: loadingScene,
   mainMenu: mainMenuScene,
-  heroCreation: heroCreationScene,
+  unitCharacteristics: unitCharacteristicsScene,
   game: gameScene,
   combat: combatScene,
   inventory: inventoryScene,

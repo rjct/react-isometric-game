@@ -1,39 +1,43 @@
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
-import { DerivedStats } from "@src/components/_modals/hero_creation/DerivedStats";
-import { SkillOverview } from "@src/components/_modals/hero_creation/SkillOverview";
-import { Skills } from "@src/components/_modals/hero_creation/Skills";
-import { SPECIAL } from "@src/components/_modals/hero_creation/SPECIAL";
 import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
+import { DerivedStats } from "@src/components/_modals/unit_characteristics/DerivedStats";
+import { SkillOverview } from "@src/components/_modals/unit_characteristics/SkillOverview";
+import { Skills } from "@src/components/_modals/unit_characteristics/Skills";
+import { SPECIAL } from "@src/components/_modals/unit_characteristics/SPECIAL";
 import { GameUnitCreationContext } from "@src/context/GameUnitCreationContext";
 import { UnitDerivedStatName } from "@src/dict/unit/_unitDerivedStat";
 import { UnitPrimaryStatName } from "@src/dict/unit/_unitPrimaryStat";
 import { UnitSkillName } from "@src/dict/unit/_unitSkills";
 import { useGameState } from "@src/hooks/useGameState";
-import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
-export function HeroCreation() {
-  const { uiDispatch } = useGameState();
-  const { hero } = useHero();
-  const { checkCurrentScene } = useScene();
+export function UnitCharacteristics() {
+  const { gameState, uiDispatch } = useGameState();
+  const { checkCurrentScene, scenesHistory } = useScene();
 
   const [selectedStat, setSelectedStat] = React.useState<
     UnitSkillName | UnitPrimaryStatName | UnitDerivedStatName | null
   >(null);
 
-  if (!checkCurrentScene(["heroCreation"])) return null;
+  const unit = React.useMemo(() => {
+    return gameState.selectedUnit || gameState.getHero();
+  }, [gameState.selectedUnit, gameState.getHero()]);
+
+  if (!checkCurrentScene(["unitCharacteristics"])) return null;
 
   const handleClickOut = () => {
     setSelectedStat(null);
   };
 
   const handleHeroCreationDoneButtonClick = () => {
-    uiDispatch({ type: "setScene", scene: "game" });
+    const scene = scenesHistory.at(-2) === "editor" ? "editor" : "game";
+
+    uiDispatch({ type: "setScene", scene });
   };
 
   const handleHeroCreationCancelButtonClick = () => {
-    uiDispatch({ type: "setScene", scene: "mainMenu" });
+    uiDispatch({ type: "setScene", scene: scenesHistory.at(-2)! });
   };
 
   return (
@@ -41,11 +45,11 @@ export function HeroCreation() {
       <div className={"modal"}>
         <div className={"modal-content hero-creation"}>
           <GameUnitCreationContext.Provider value={{ selectedStat, setSelectedStat }}>
-            <SPECIAL />
-            <Skills />
-            <DerivedStats />
+            <SPECIAL unit={unit} />
+            <Skills unit={unit} />
+            <DerivedStats unit={unit} />
             <SkillOverview />
-            <EntityOverviewPanel entity={hero} className={["hero-overview-wrapper"]} title={hero.type} />
+            <EntityOverviewPanel entity={unit} className={["hero-overview-wrapper"]} title={unit.type} />
           </GameUnitCreationContext.Provider>
         </div>
 

@@ -9,7 +9,7 @@ import { faTreeCity } from "@fortawesome/free-solid-svg-icons/faTreeCity";
 export type GameScene =
   | "intro"
   | "mainMenu"
-  | "heroCreation"
+  | "unitCharacteristics"
   | "editor"
   | "loading"
   | "game"

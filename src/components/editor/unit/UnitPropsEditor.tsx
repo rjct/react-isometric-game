@@ -1,3 +1,4 @@
+import { faEdit } from "@fortawesome/free-solid-svg-icons/faEdit";
 import { faTrash } from "@fortawesome/free-solid-svg-icons/faTrash";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { UnitPreview } from "@src/components/editor/unit/UnitPreview";
@@ -13,7 +14,7 @@ import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 
 export const UnitPropsEditor = (props: { unit: Unit }) => {
-  const { gameDispatch } = useGameState();
+  const { gameDispatch, uiDispatch } = useGameState();
   const { checkEditorMode } = useEditor();
 
   if (!checkEditorMode(["units"])) return null;
@@ -71,6 +72,16 @@ export const UnitPropsEditor = (props: { unit: Unit }) => {
       <EntityInventoryEditor entity={props.unit} />
 
       <div className={"editor-controls"}>
+        <Button
+          className={["ui-button-green"]}
+          onClick={() => {
+            uiDispatch({ type: "setScene", scene: "unitCharacteristics" });
+          }}
+        >
+          <FontAwesomeIcon icon={faEdit} />
+          <label>Edit chars.</label>
+        </Button>
+
         <Button
           className={["ui-button-red"]}
           disabled={props.unit.isHero}

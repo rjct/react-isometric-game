@@ -1,17 +1,19 @@
 import { UnitSkillName } from "@src/dict/unit/_unitSkills";
 import { GameMap } from "@src/engine/gameMap";
+import { Unit } from "@src/engine/unit/UnitFactory";
 
 export type SetSkillPointsReducerAction = {
   type: "setSkillPoints";
-  name: UnitSkillName;
-  value: number;
+  unit: Unit;
+  skillName: UnitSkillName;
+  skillValue: number;
 };
 
 export function setSkillPoints(state: GameMap, action: SetSkillPointsReducerAction): GameMap {
-  const hero = state.getHero();
+  const { unit, skillName, skillValue } = action;
 
-  hero.characteristics.availableSkillPoints -= action.value;
-  hero.characteristics.skills[action.name].value += action.value;
+  unit.characteristics.availableSkillPoints -= skillValue;
+  unit.characteristics.skills[skillName].value += skillValue;
 
   return { ...state };
 }
