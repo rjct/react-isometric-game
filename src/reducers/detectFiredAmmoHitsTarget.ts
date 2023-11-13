@@ -15,12 +15,13 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
       const weapon = ammo.loadedInWeapon;
 
       if (unitAtTargetPosition && weapon) {
-        const unit = weapon.owner as Unit;
-        const damage = calcDamage(unit, weapon, ammo);
+        const shooter = weapon.owner as Unit;
+        const damage = calcDamage(shooter, weapon, ammo);
 
         unitAtTargetPosition.takeDamage(damage, state);
 
         if (unitAtTargetPosition.isDead) {
+          shooter.characteristics.earnXp(unitAtTargetPosition.dictEntity.rewardXpPoints);
           state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());
         }
       }

@@ -25,6 +25,7 @@ const ghoul: UnitDictEntity = {
       explore: 1,
     },
   },
+  rewardXpPoints: 10,
   fieldOfView: {
     sectorAngle: 30,
     range: 6,

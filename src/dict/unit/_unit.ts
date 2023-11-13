@@ -48,6 +48,7 @@ export type UnitDictEntity = {
       [type in UnitActionType]?: number;
     };
   };
+  rewardXpPoints: number;
   fieldOfView: {
     sectorAngle: AngleInDegrees;
     range: number;

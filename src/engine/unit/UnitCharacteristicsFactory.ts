@@ -1,5 +1,4 @@
 import { UnitDerivedStatName, unitDerivedStats } from "@src/dict/unit/_unitDerivedStat";
-import { UnitPrimaryStatName, unitPrimaryStats } from "@src/dict/unit/_unitPrimaryStat";
 import { UnitSkillName, unitSkills } from "@src/dict/unit/_unitSkills";
 import { DerivedStat } from "@src/engine/unit/DerivedStatFactory";
 import { PrimaryStat } from "@src/engine/unit/PrimaryStatFactory";
@@ -11,6 +10,13 @@ export class UnitCharacteristics {
 
   get xp() {
     return this._experiencePoints;
+  }
+
+  get xpRemainingToNextLevel(): number {
+    const currentLevel = this.level;
+    const nextLevelXP = ((currentLevel * (currentLevel + 1)) / 2) * 1000;
+
+    return nextLevelXP - this.xp;
   }
 
   // Level
@@ -114,11 +120,7 @@ export class UnitCharacteristics {
     });
   }
 
-  static getDictEntityByName(stat: UnitPrimaryStatName | UnitSkillName | UnitDerivedStatName | null) {
-    return (
-      unitPrimaryStats[stat as UnitPrimaryStatName] ||
-      unitSkills[stat as UnitSkillName] ||
-      unitDerivedStats[stat as UnitDerivedStatName]
-    );
+  earnXp(value: number) {
+    this._experiencePoints += value;
   }
 }

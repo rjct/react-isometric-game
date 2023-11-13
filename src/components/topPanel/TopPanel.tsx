@@ -25,15 +25,39 @@ export const TopPanel = React.memo(function Top() {
           <DebugEditorSwitch />
         </div>
       </fieldset>
-
       <fieldset>
-        <HeroPoints points={hero.characteristics.derived.actionPoints} title={"Action points"} shortTitle={"AP"} />
+        <HeroPoints
+          style={"red"}
+          title={"Action points"}
+          shortTitle={"AP"}
+          progress={hero.characteristics.derived.actionPoints}
+          label={hero.characteristics.derived.actionPoints}
+          warnPercent={50}
+          criticalPercent={20}
+        />
+      </fieldset>
+      <fieldset>
+        <HeroPoints
+          style={"red"}
+          title={"Health points"}
+          shortTitle={"HP"}
+          progress={hero.characteristics.derived.healthPoints}
+          label={hero.characteristics.derived.healthPoints}
+          warnPercent={50}
+          criticalPercent={20}
+        />
       </fieldset>
 
       <fieldset>
-        <HeroPoints points={hero.characteristics.derived.healthPoints} title={"Health points"} shortTitle={"HP"} />
+        <HeroPoints
+          title={"Level"}
+          shortTitle={"LVL"}
+          label={{ value: hero.characteristics.level }}
+          progress={{ value: hero.characteristics.xp, max: hero.characteristics.xpRemainingToNextLevel }}
+          warnPercent={-1}
+          criticalPercent={-1}
+        />
       </fieldset>
-
       <DebugInfo />
     </div>
   );

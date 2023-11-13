@@ -25,6 +25,7 @@ const vault13_male: UnitDictEntity = {
       explore: 1,
     },
   },
+  rewardXpPoints: 10,
   fieldOfView: {
     sectorAngle: 120,
     range: 20,
