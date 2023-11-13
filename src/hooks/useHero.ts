@@ -119,7 +119,8 @@ export function useHero() {
         }
 
       case hero.isVehicleInUse():
-        const path = gameState.calcMovementPath(hero.position.grid, coordinates);
+        const vehicle = hero.getVehicleInUse()!;
+        const path = gameState.calcMovementPath(vehicle.position.grid, coordinates);
         const isAllowed = path.length > 0;
 
         return [{ position: coordinates, action: "driveVehicle", entity: null, isAllowed }];

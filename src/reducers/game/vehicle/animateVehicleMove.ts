@@ -17,9 +17,10 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
   for (const entity of action.entities) {
     if (entity.path.length === 0 || entity.speed.current === 0) continue;
 
-    if (entity.isCollisionDetected()) {
-      continue;
-    }
+    // FIXME:
+    // if (entity.isCollisionDetected()) {
+    //   continue;
+    // }
 
     isStateChanged = true;
 
@@ -34,15 +35,6 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
 
     if (prevPoint) {
       entity.setPosition(prevPoint, state);
-      //state.deOccupyCell(prevPoint);
-      //state.deOccupyArea(prevPoint, entity.size.grid);
-      // if (action.consumeActionPoints) {
-      //   const currentSelectedAction = entity.currentSelectedAction;
-      //
-      //   if (currentSelectedAction === "move") {
-      //     entity.consumeActionPoints(entity.actionPoints.consumption[entity.currentMovementMode]);
-      //   }
-      // }
     }
 
     if (getDistanceBetweenGridPoints(entity.pathQueue.currentPos, entityPosition) > 0) {

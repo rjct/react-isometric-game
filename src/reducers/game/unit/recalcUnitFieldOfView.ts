@@ -16,12 +16,13 @@ export function recalculateUnitFieldOfView(state: GameMap, action: RecalculateUn
       continue;
     }
 
+    const vehicle = unit.getVehicleInUse();
     const entitiesInView: { [id: string]: Building | Unit | Vehicle } = {};
 
     for (const coordinates of unit.fieldOfView.cellsInView) {
       const entity = state.getEntityByCoordinates(coordinates);
 
-      if (entity && entity.id !== unit.id) {
+      if (entity && entity.id !== unit.id && entity.id !== vehicle?.id) {
         entitiesInView[entity.id] = entity;
       }
     }
