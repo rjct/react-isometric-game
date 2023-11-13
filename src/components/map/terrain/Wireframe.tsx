@@ -182,6 +182,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
       <div
         className={"wireframe-wrapper"}
         data-entity-selected-for-inventory-transfer={!!gameState.selectedEntityForInventoryTransfer || null}
+        data-action={heroAction[0]?.action}
+        data-action-allowed={heroAction[0]?.isAllowed ? undefined : false}
         style={{
           width: gameState.mapSize.width * constants.tileSize.width + getEditorLibraryPosition(),
           height: gameState.mapSize.height * constants.tileSize.height,

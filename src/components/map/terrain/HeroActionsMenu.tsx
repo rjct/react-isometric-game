@@ -33,6 +33,7 @@ export function HeroActionsMenu(props: {
         return (
           <li
             key={heroAction.action}
+            data-action={heroAction.action}
             style={{
               transform: [`rotate(${90 - (32 / 2) * props.heroActions.length + index * 32}deg)`, `skew(60deg)`].join(
                 " ",

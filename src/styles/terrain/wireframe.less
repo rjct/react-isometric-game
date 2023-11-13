@@ -11,14 +11,11 @@
 }
 
 .wireframe-wrapper {
+  .cursor-default();
+
   isolation: isolate;
   position: absolute;
-  cursor: crosshair;
   z-index: 1;
-
-  //&[data-entity-selected-for-inventory-transfer="true"] {
-  //  cursor: zoom-in;
-  //}
 
   .wireframe {
     z-index: 1;
@@ -29,17 +26,18 @@
 
       .wireframe-marker-inner {
         flex: 1;
-        border: solid 3px;
+        border: solid 2px;
         border-radius: 50%;
         box-sizing: border-box;
         display: flex;
         justify-content: center;
         filter: drop-shadow(4px 4px 4px rgba(0, 0, 0, 0.5));
-        transition: all 150ms linear;
+        transition: all 100ms linear;
       }
 
       &.action--pending {
         .wireframe-marker-inner {
+          scale: 0;
           margin: (@padding / 2);
           color: rgba(255, 255, 255, 0.5);
         }
@@ -87,6 +85,37 @@
       background-color: rgba(0, 255, 0, 0.1);
     }
   }
+}
+
+//
+&[data-action="move"],
+&[data-action="driveVehicle"] {
+  .cursor-move();
+
+  &[data-action-allowed="false"] {
+    .cursor-move--not-allowed();
+  }
+}
+
+&[data-action="explore"] {
+  .cursor-explore();
+
+  &[data-action-allowed="false"] {
+    .cursor-explore--not-allowed();
+  }
+}
+
+&[data-action="leftHand"],
+&[data-action="rightHand"] {
+  .cursor-use();
+
+  &[data-action-allowed="false"] {
+    .cursor-use--not-allowed();
+  }
+}
+
+&[data-action="getIntoVehicle"] {
+  .cursor-get-into-vehicle();
 }
 
 @keyframes allowed {

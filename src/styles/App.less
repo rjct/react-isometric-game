@@ -1,4 +1,5 @@
 @import "variables";
+@import "UI/cursors";
 @import "UI/fullscreen_panel";
 @import "UI/modal";
 @import "UI/ui-button";
@@ -28,13 +29,20 @@ body {
   background-color: black;
   color: @text-color;
   overflow: hidden;
+
+  cursor: url("/public/assets/UI/cursors/default.png"), auto;
 }
 
 a {
   color: inherit;
 }
 
+label {
+  .cursor-default();
+}
+
 select {
+  .cursor-pointer();
   background-color: rgba(255, 255, 255, 0.1);
   color: @text-color;
   border: solid 1px @button-border-color--green;

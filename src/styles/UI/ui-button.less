@@ -1,4 +1,6 @@
 .ui-button {
+  .cursor-pointer();
+
   display: flex;
   align-content: center;
   justify-content: center;
@@ -12,7 +14,6 @@
   border: solid 1px @button-border-color;
   border-radius: 5px;
   color: #ffffff;
-  cursor: pointer;
   transition: all linear 0.3s;
 
   label {
@@ -35,7 +36,7 @@
   }
 
   > *:not(svg) {
-    cursor: pointer;
+    .cursor-pointer();
   }
 
   &.ui-button-green {
@@ -95,10 +96,10 @@
   &.disabled,
   &:disabled {
     opacity: 0.5;
-    cursor: not-allowed;
+    .cursor-default();
 
     > * {
-      cursor: not-allowed;
+      .cursor-default();
     }
   }
 }
