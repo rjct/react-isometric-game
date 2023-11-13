@@ -3,6 +3,7 @@ import { degToRad, normalizeAngle } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 
 import { UnitDictEntity } from "@src/dict/unit/_unit";
+import { GameMap } from "@src/engine/gameMap";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
@@ -39,14 +40,14 @@ export class UnitFieldOfViewFactory {
     }
   }
 
-  setPosition(position: GridCoordinates) {
+  setPosition(position: GridCoordinates, gameState: GameMap) {
     this.position = position;
 
     for (const ray of this.rays) {
       ray.setPosition(position);
     }
 
-    //this.cellsInView = this.getCellsInSector();
+    this.cellsInView = this.getCellsInSector(gameState);
   }
 
   setRotation(angle: Angle) {
@@ -78,7 +79,7 @@ export class UnitFieldOfViewFactory {
     return !!this.entitiesInView[id];
   }
 
-  private getCellsInSector() {
+  private getCellsInSector(gameState: GameMap) {
     const cellsInSector: GridCoordinates[] = [];
     const { x, y } = this.position;
 
@@ -89,6 +90,9 @@ export class UnitFieldOfViewFactory {
         if (distance <= this.range) {
           const cellX = x + i;
           const cellY = y + j;
+
+          if (cellX < 0 || cellY < 0 || cellX > gameState.mapSize.width || cellY > gameState.mapSize.height) continue;
+
           const cellAngle: Angle = {
             deg: Math.atan2(cellY - y, cellX - x) * (180 / Math.PI),
             rad: Math.atan2(cellY - y, cellX - x),

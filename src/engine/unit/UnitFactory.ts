@@ -171,7 +171,7 @@ export class Unit extends MovableGameEntity {
 
   public setPosition(position: GridCoordinates, gameState: GameMap, deltaTime = -1) {
     super.setPosition(position, gameState);
-    this.fieldOfView.setPosition(position);
+    this.fieldOfView.setPosition(position, gameState);
 
     const hero = gameState.getHero();
 

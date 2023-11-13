@@ -149,20 +149,8 @@ export function useDebugVisualization() {
 
       for (const ray of unit.fieldOfView.rays) {
         ctx.lineTo(
-          Math.max(
-            0,
-            Math.min(
-              Math.round(ray.n.screen.x * ray.len.screen) + ray.position.screen.x,
-              gameState.mapSize.width * wireframeTileWidth,
-            ),
-          ),
-          Math.max(
-            0,
-            Math.min(
-              Math.round(ray.n.screen.y * ray.len.screen) + ray.position.screen.y,
-              gameState.mapSize.height * wireframeTileHeight,
-            ),
-          ),
+          Math.round(ray.n.screen.x * ray.len.screen) + ray.position.screen.x,
+          Math.round(ray.n.screen.y * ray.len.screen) + ray.position.screen.y,
         );
       }
 
@@ -172,10 +160,6 @@ export function useDebugVisualization() {
       ctx.fill();
 
       ctx.moveTo(0, 0);
-
-      // for (const ray of unit.fieldOfView.rays) {
-      //   LightRay.draw(ctx, ray.getRayData(), false);
-      // }
     }
   };
 
