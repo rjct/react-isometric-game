@@ -77,12 +77,12 @@ export function InventoryTransfer() {
             className={["inventory-storage-wrapper", "inventory-storage-wrapper-right"]}
             editable={false}
           />
+        </div>
 
-          <div className={"modal-controls"}>
-            <Button onClick={handleCloseButtonClick}>
-              <label>Close</label>
-            </Button>
-          </div>
+        <div className={"modal-controls"}>
+          <Button onClick={handleCloseButtonClick}>
+            <label>Close</label>
+          </Button>
         </div>
       </div>
     </FullscreenPanel>
