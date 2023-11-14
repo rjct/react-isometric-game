@@ -32,22 +32,74 @@
       }
 
       .header {
-        font-size: 1.3em;
-        text-align: center;
-        background-color: rgba(0, 255, 0, 0.1);
-        padding: (@padding * 2 - 1) @padding @padding * 1.5 @padding;
-        position: sticky;
-        top: 0;
-        margin-top: -6px;
-        border-radius: 5px;
-        backdrop-filter: blur(5px);
         display: flex;
-        justify-content: center;
+        gap: 10px;
+        margin-top: -7px;
+        font-size: 0.85em;
+        padding: 10px;
+        background-color: #0a4110;
+        border-radius: 5px;
       }
 
       .body {
         flex: 1;
         overflow: auto;
+
+        .list-row {
+          display: flex;
+          flex-direction: row;
+          padding: (@padding / 2) @padding;
+          gap: @padding;
+          transition: all 200ms ease;
+          border-bottom: solid 1px rgba(0, 255, 0, 0.2);
+          border-radius: (@border-radius / 2);
+          margin: 0 @padding;
+
+          &:first-child {
+            margin-top: @padding;
+          }
+
+          &:last-child {
+            border-bottom: none;
+            margin-bottom: @padding;
+          }
+
+          &[data-selected] {
+            background-color: @button-border-color--active;
+            color: @text-color;
+          }
+
+          .list-row-body {
+            display: flex;
+            flex: 1;
+
+            .stat-title {
+              flex: 1;
+            }
+
+            .stat-value-wrapper {
+              display: flex;
+              gap: 0.25em;
+
+              .stat-value {
+                color: @text-color;
+              }
+              .stat-value-suffix {
+                //
+              }
+            }
+          }
+
+          .list-row-controls {
+            display: flex;
+          }
+        }
+      }
+
+      .footer {
+        background-color: rgba(0, 255, 0, 0.1);
+        padding: @padding;
+        display: flex;
       }
     }
   }
@@ -57,5 +109,9 @@
     display: flex;
     justify-content: flex-end;
     gap: @padding;
+
+    .divider {
+      flex: 1;
+    }
   }
 }

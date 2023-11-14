@@ -9,5 +9,5 @@ export const DebugSwitch = React.memo(() => {
     gameDispatch({ type: "toggleDebug", debugEnabled: e.target.checked });
   };
 
-  return <Switch title={"Debug"} checked={gameState.debug.enabled} onChange={handleChange} />;
+  return <Switch title={"Debug mode"} checked={gameState.debug.enabled} onChange={handleChange} />;
 });

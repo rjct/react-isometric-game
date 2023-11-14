@@ -269,6 +269,7 @@ export const MapComponent = React.memo(
         <div
           ref={mapRef}
           className="map-wrapper"
+          //style={{ marginTop: constants.topPanel.height }}
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseOut={handleMouseOut}

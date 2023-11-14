@@ -1,9 +1,11 @@
 .top-wrapper {
   position: relative;
   z-index: 2;
-  background: #000000;
+  background: rgba(0, 0, 0, 0.36);
+  backdrop-filter: blur(5px);
   display: flex;
-  gap: 10px;
+  gap: @padding;
+  box-sizing: border-box;
   padding: @padding @padding (@padding / 2) (@padding / 2);
 
   .block,
@@ -65,7 +67,7 @@
       }
     }
 
-    &.top {
+    &.x3 {
       flex: 3;
     }
   }

@@ -29,11 +29,11 @@ export const StatRow = (props: { stat: PrimaryStat | Skill | DerivedStat; childr
 
   return (
     <div
-      className={"stat-row"}
+      className={"list-row"}
       data-selected={selectedStat === props.stat.name || undefined}
       onClick={(e) => handleItemClick(e, props.stat.name)}
     >
-      <div className={"stat-body"}>
+      <div className={"list-row-body"}>
         <div className={"stat-title"}>{dictEntity.title}</div>
         <div className={"stat-value-wrapper"}>
           <Value value={value} />
@@ -42,7 +42,7 @@ export const StatRow = (props: { stat: PrimaryStat | Skill | DerivedStat; childr
         </div>
       </div>
 
-      {props.children ? <div className={"stat-controls"}>{props.children}</div> : null}
+      {props.children ? <div className={"list-row-controls"}>{props.children}</div> : null}
     </div>
   );
 };

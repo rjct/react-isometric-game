@@ -14,6 +14,13 @@ export enum weaponClassNames {
   "throwable" = "Throwable",
 }
 
+export enum weaponAttackModes {
+  "punch" = "Punch",
+  "shot_single" = "Single",
+  "shot_burst" = "Burst",
+  "throw" = "Throw",
+}
+
 export type WeaponClass = keyof typeof weaponClassNames;
 export type WeaponType = "pistol" | "smg" | "grenade" | "knife";
 export type WeaponDamage = {
@@ -21,7 +28,7 @@ export type WeaponDamage = {
   max: number;
 };
 export type WeaponDamageType = "normal" | "explosion" | "fire";
-export type WeaponAttackMode = "punch" | "shot_single" | "shot_burst" | "throw";
+export type WeaponAttackMode = keyof typeof weaponAttackModes;
 
 export type WeaponSfxType = WeaponAttackMode | "outOfAmmo" | "reload";
 export type WeaponSfx = {

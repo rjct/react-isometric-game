@@ -1,30 +1,26 @@
 import React from "react";
 
-import { DebugEditorSwitch } from "@src/components/debug/DebugEditorSwitch";
 import { DebugInfo } from "@src/components/debug/DebugInfo";
-import { DebugMapPath } from "@src/components/debug/DebugMapPath";
-import { DebugMapSelector } from "@src/components/debug/DebugMapSelector";
-import { DebugSwitch } from "@src/components/debug/DebugSwitch";
+import { MiniMap } from "@src/components/map/MiniMap";
 import { HeroPoints } from "@src/components/topPanel/HeroPoints";
+import { PauseButton } from "@src/components/topPanel/PauseButton";
+import { ExitFromEditingModeButton } from "@src/components/_modals/debug/ExitFromEditingModeButton";
 import { useHero } from "@src/hooks/useHero";
+import { useScene } from "@src/hooks/useScene";
 
 export const TopPanel = React.memo(function Top() {
   const { hero } = useHero();
+  const { checkCurrentScene } = useScene();
+
+  if (!checkCurrentScene(["game", "combat", "editor"])) return null;
 
   return (
     <div className={"top-wrapper"}>
-      <fieldset className={"block top"}>
-        <DebugMapPath />
+      <PauseButton />
+      <ExitFromEditingModeButton />
 
-        <div className={"title"}>
-          <DebugSwitch />
-          <DebugMapSelector />
-        </div>
+      <fieldset className={"block x3"}></fieldset>
 
-        <div className={"value"}>
-          <DebugEditorSwitch />
-        </div>
-      </fieldset>
       <fieldset>
         <HeroPoints
           style={"red"}
@@ -36,6 +32,7 @@ export const TopPanel = React.memo(function Top() {
           criticalPercent={20}
         />
       </fieldset>
+
       <fieldset>
         <HeroPoints
           style={"red"}
@@ -58,7 +55,9 @@ export const TopPanel = React.memo(function Top() {
           criticalPercent={-1}
         />
       </fieldset>
+
       <DebugInfo />
+      <MiniMap />
     </div>
   );
 });

@@ -21,6 +21,16 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
         };
       }
 
+      if (state.keys["Backquote"]) {
+        return {
+          ...state,
+          ...{
+            scene: "debugSetting",
+            keys: { ...state.keys, ...{ Backquote: false } },
+          },
+        };
+      }
+
       if (state.keys["KeyC"]) {
         return state;
       }
@@ -67,7 +77,28 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
           },
         };
       }
+
+      if (state.keys["Backquote"]) {
+        return {
+          ...state,
+          ...{
+            scene: "debugSetting",
+            keys: { ...state.keys, ...{ Backquote: false } },
+          },
+        };
+      }
       break;
+
+    case "debugSetting":
+      if (state.keys["Backquote"]) {
+        return {
+          ...state,
+          ...{
+            scene: "game",
+            keys: { ...state.keys, ...{ Backquote: false } },
+          },
+        };
+      }
   }
 
   return state;

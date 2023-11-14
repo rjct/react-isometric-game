@@ -1,17 +1,17 @@
 import { ControlPanel } from "@src/components/controlPanel/ControlPanel";
-import { DebugFeaturesSwitches } from "@src/components/debug/DebugFeaturesSwitches";
 import { EditorSidebar } from "@src/components/editor/EditorSidebar";
 import { EntitiesLibrary } from "@src/components/editor/EntitiesLibrary";
 import { EntityInventoryManagerModal } from "@src/components/editor/_shared/EntityInventoryManagerModal";
-import { GameOver } from "@src/components/GameOver";
-import { Intro } from "@src/components/Intro";
-import { Loading } from "@src/components/Loading";
-import { MainMenu } from "@src/components/MainMenu";
 import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
-import { MiniMap } from "@src/components/map/MiniMap";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
+import { DebugSettings } from "@src/components/_modals/debug/DebugSettings";
+import { GameOver } from "@src/components/_modals/game_over/GameOver";
+import { Intro } from "@src/components/_modals/intro/Intro";
 import { Inventory } from "@src/components/_modals/inventory/Inventory";
 import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
+import { Loading } from "@src/components/_modals/loading/Loading";
+import { MainMenu } from "@src/components/_modals/main_menu/MainMenu";
+import { Pause } from "@src/components/_modals/pause/Pause";
 import { UnitCharacteristics } from "@src/components/_modals/unit_characteristics/UnitCharacteristics";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
 import { GameStateContext } from "@src/context/GameStateContext";
@@ -142,21 +142,22 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <Intro />
               <MainMenu />
               <UnitCharacteristics />
+              <Pause />
               <GameOver />
               <TopPanel />
 
               <GameTerrainDispatchContext.Provider value={terrainDispatch}>
                 <GameTerrainContext.Provider value={terrainState}>
+                  <DebugSettings />
+
                   <div className={"center"}>
                     <EntitiesLibrary />
-                    <MiniMap />
                     <MapComponent ref={setScrollRef} />
                     <EditorSidebar />
                   </div>
                 </GameTerrainContext.Provider>
               </GameTerrainDispatchContext.Provider>
 
-              <DebugFeaturesSwitches />
               <ControlPanel />
               <Inventory />
               <InventoryTransfer />

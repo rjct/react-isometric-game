@@ -1,5 +1,6 @@
 import { faRefresh } from "@fortawesome/free-solid-svg-icons/faRefresh";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { weaponAttackModes } from "@src/dict/weapon/weapon";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
 import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
@@ -29,7 +30,15 @@ export const HeroActionControl = (props: {
     if (!props.weapon) return "";
 
     if (props.weapon instanceof Firearm) {
-      return `(${props.weapon.ammoCurrent.length}/${props.weapon.dictEntity.ammoCapacity})`;
+      return (
+        <div className={"weapon-ammo"}>
+          {[...Array(props.weapon.dictEntity.ammoCapacity)]
+            .fill(1, props.weapon.ammoCurrent.length)
+            .map((value, index) => {
+              return <div key={index} data-empty={value}></div>;
+            })}
+        </div>
+      );
     }
 
     return "";
@@ -80,19 +89,18 @@ export const HeroActionControl = (props: {
         <div className={"label"}>
           {props.weapon ? (
             <>
-              <div className={"weapon-title"}>
-                {weaponTitle()} {WeaponAmmoInfo()}
-              </div>
               <div className={`inventory-item-pic ${props.weapon.name}`} data-name={props.weapon.name}></div>
               <div className={"weapon-ap-consumption"}>
-                Mode: {props.weapon.currentAttackMode} / AP:{" "}
-                {props.weapon.getCurrentAttackModeDetails().actionPointsConsumption}
+                AP: {props.weapon.getCurrentAttackModeDetails().actionPointsConsumption}
               </div>
+              <div className={"weapon-attack-mode"}>{weaponAttackModes[props.weapon.currentAttackMode]}</div>
             </>
           ) : null}
 
           {props.text ? <span>{props.text}</span> : null}
         </div>
+
+        {WeaponAmmoInfo()}
 
         {props.weapon instanceof Firearm && props.weapon.ammoCurrent.length === 0 ? (
           <div className={"weapon-reload-button"} title={"Reload weapon"} onClick={handleReloadWeaponButtonClick}>

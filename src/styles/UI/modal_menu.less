@@ -1,0 +1,37 @@
+.modal-menu {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  .game-logo-wrapper {
+    display: flex;
+    flex: 1;
+    align-items: flex-end;
+
+    .game-logo {
+      height: 10em;
+      aspect-ratio: 16/9;
+      background: url("/public/assets/bg.webp") center no-repeat;
+      background-size: contain;
+      filter: hue-rotate(90deg);
+    }
+  }
+
+  .game-title {
+    display: flex;
+    align-items: center;
+    font-size: 5em;
+    margin: (@padding * 2) 0 (@padding * 4) 0;
+    text-align: center;
+  }
+
+  .modal-menu-nav {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    width: 30vw;
+    gap: @padding;
+  }
+}

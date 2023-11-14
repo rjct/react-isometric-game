@@ -13,10 +13,13 @@ export type GameScene =
   | "editor"
   | "loading"
   | "game"
+  | "pause"
+  | "settings"
   | "combat"
   | "inventory"
   | "inventoryTransfer"
-  | "gameOver";
+  | "gameOver"
+  | "debugSetting";
 
 export const EditorModes = {
   terrain: { text: "Terrain", icon: faLayerGroup, tab: true },

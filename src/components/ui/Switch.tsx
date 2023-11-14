@@ -5,7 +5,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export function Switch(props: {
-  title: string;
+  title?: string;
   icon?: IconDefinition;
   checked: boolean;
   disabled?: boolean;
@@ -29,7 +29,10 @@ export function Switch(props: {
         onChange={handleChange}
       />
       <div className="toggle-switch"></div>
-      <span className="toggle-label">{props.icon ? <FontAwesomeIcon icon={props.icon} /> : props.title}</span>
+
+      {props.title || props.icon ? (
+        <span className="toggle-label">{props.icon ? <FontAwesomeIcon icon={props.icon} /> : props.title}</span>
+      ) : null}
     </label>
   );
 }

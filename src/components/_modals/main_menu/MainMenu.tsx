@@ -1,5 +1,7 @@
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
+import { GameLogo } from "@src/components/_modals/_shared/GameLogo";
+import { GameTitle } from "@src/components/_modals/_shared/GameTitle";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
 
@@ -23,21 +25,24 @@ export function MainMenu() {
   };
 
   return (
-    <FullscreenPanel classNames={["main-menu"]} overlay={true}>
-      <div className={"game-title"}>Game title</div>
+    <FullscreenPanel overlay={true}>
+      <div className={"modal-menu"}>
+        <GameLogo />
+        <GameTitle />
 
-      <div className={"main-menu-nav"}>
-        <Button className={["ui-button-green"]} onClick={handleIntroButtonClick}>
-          <label>Intro</label>
-        </Button>
+        <div className={"modal-menu-nav"}>
+          <Button className={["ui-button-green"]} onClick={handleIntroButtonClick}>
+            <label>Intro</label>
+          </Button>
 
-        <Button className={["ui-button-green"]} onClick={handleNewGameButtonClick}>
-          <label>New game</label>
-        </Button>
+          <Button className={["ui-button-green"]} onClick={handleNewGameButtonClick}>
+            <label>New game</label>
+          </Button>
 
-        <Button className={["ui-button-green"]} onClick={handleEditorButtonClick}>
-          <label>Map editor</label>
-        </Button>
+          <Button className={["ui-button-green"]} onClick={handleEditorButtonClick}>
+            <label>Map editor</label>
+          </Button>
+        </div>
       </div>
     </FullscreenPanel>
   );
