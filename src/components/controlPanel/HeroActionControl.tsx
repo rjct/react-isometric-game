@@ -20,12 +20,6 @@ export const HeroActionControl = (props: {
   const { gameState } = useGameState();
   const { hero } = useHero();
 
-  const weaponTitle = () => {
-    if (!props.weapon) return "";
-
-    return props.weapon.dictEntity.title;
-  };
-
   const WeaponAmmoInfo = () => {
     if (!props.weapon) return "";
 
