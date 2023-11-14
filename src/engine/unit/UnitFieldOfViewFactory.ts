@@ -75,8 +75,8 @@ export class UnitFieldOfViewFactory {
     }
   }
 
-  isEntityInView(id: string) {
-    return !!this.entitiesInView[id];
+  isEntityInView(entity: Building | Unit | Vehicle) {
+    return !!this.entitiesInView[entity.id] || !entity.blocksRays;
   }
 
   private getCellsInSector(gameState: GameMap) {

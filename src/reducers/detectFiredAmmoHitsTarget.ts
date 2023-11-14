@@ -14,7 +14,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
       const unitAtTargetPosition = state.getUnitByCoordinates(ammo.position.grid);
       const weapon = ammo.loadedInWeapon;
 
-      if (unitAtTargetPosition && weapon) {
+      if (unitAtTargetPosition && !unitAtTargetPosition.isDead && weapon) {
         const shooter = weapon.owner as Unit;
         const damage = calcDamage(shooter, weapon, ammo);
 
@@ -23,6 +23,7 @@ export function detectFiredAmmoHitsTarget(state: GameMap) {
         if (unitAtTargetPosition.isDead) {
           shooter.characteristics.earnXp(unitAtTargetPosition.dictEntity.rewardXpPoints);
           state.deOccupyCell(unitAtTargetPosition.getRoundedPosition());
+          unitAtTargetPosition.blocksRays = false;
         }
       }
     }

@@ -22,7 +22,7 @@ export const Buildings = React.memo(function Buildings() {
               maskImage={getHeroMaskImage(building)}
               highlightedForInventoryTransfer={gameState.highlightedEntityForInventoryTransfer?.id === building.id}
               selectedForInventoryTransfer={gameState.selectedEntityForInventoryTransfer?.id === building.id}
-              isInHeroView={hero.fieldOfView.isEntityInView(building.id)}
+              isInHeroView={hero.fieldOfView.isEntityInView(building)}
             />
           ),
         ),

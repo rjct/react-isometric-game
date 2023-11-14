@@ -7,22 +7,19 @@
     }
   ],
   "hero": {
-    "position": { "x": 10, "y": 3 },
+    "position": { "x": 10, "y": 7 },
     "rotation": 180,
     "inventory": {
-      "main": [
-        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
-      ],
+      "main": [{ "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }],
       "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
       "rightHand": { "class": "weapon", "name": "broken_bottle" }
     }
   },
   "enemies": [
-    { "type": "vault13_male", "position": { "x": 0, "y": 9 }, "direction": "right" },
-    { "type": "vault13_male", "position": { "x": 20, "y": 9 }, "rotation": 270 },
-    { "type": "vault13_male", "position": { "x": 10, "y": 9 }, "direction": "right" ,
-      "isDead": true
-    }
+    { "type": "vault13_male", "position": { "x": 0, "y": 9 }, "direction": "right", "randomActions": ["idle"] },
+    { "type": "ghoul", "position": { "x": 20, "y": 9 }, "rotation": 270, "randomActions": ["idle"] },
+    { "type": "vault13_male", "position": { "x": 10, "y": 9 }, "direction": "right", "isDead": true },
+    { "type": "vault13_male", "position": { "x": 9, "y": 9 }, "direction": "right", "randomActions": ["idle"] }
   ],
   "buildings": [
     { "type": "vault_wall", "position": { "x": 0, "y": 8 }, "rotation": 0, "variant": 0 },

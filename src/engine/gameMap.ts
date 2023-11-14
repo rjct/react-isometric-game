@@ -234,7 +234,7 @@ export const gameMap = {
   isEntityVisibleByHero(entity: Building | Unit | Vehicle) {
     if (!this.settings.featureEnabled.fogOfWar || entity.id === this.heroId) return true;
 
-    return this.getHero().fieldOfView.isEntityInView(entity.id);
+    return this.getHero().fieldOfView.isEntityInView(entity);
   },
 
   setGridMatrixOccupancy(entities: Array<Unit | Building | Vehicle>, occupancy = 1) {

@@ -11,6 +11,7 @@ export function setUnitDead(state: GameMap, action: SetUnitDeadReducerAction): G
 
   if (entity) {
     entity.isDead = action.isDead;
+    entity.blocksRays = !action.isDead;
     entity.setAction(action.isDead ? "dead" : "none");
 
     if (action.isDead) {

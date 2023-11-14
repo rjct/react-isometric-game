@@ -11,7 +11,7 @@ export const UnitEnemyInViewMark = React.memo((props: { unit: Unit }) => {
 
   return (
     <div className={"enemy-in-view"}>
-      {props.unit.fieldOfView.isEntityInView(gameState.heroId) ? <FontAwesomeIcon icon={faEye} /> : null}
+      {props.unit.fieldOfView.isEntityInView(gameState.getHero()) ? <FontAwesomeIcon icon={faEye} /> : null}
     </div>
   );
 });

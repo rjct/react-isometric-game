@@ -121,6 +121,8 @@ import {
   highlightUnitAtGunpoint,
   HighlightUnitAtGunpointReducerAction,
 } from "@src/reducers/game/unit/highlightUnitAtGunpoint";
+import { setSkillPoints, SetSkillPointsReducerAction } from "@src/reducers/game/unit/setSkillPoints";
+import { setSPECIALPoints, SetSPECIALPointsReducerAction } from "@src/reducers/game/unit/setSPECIALPoints";
 import { accelerateVehicle, AccelerateVehicleReducerAction } from "@src/reducers/game/vehicle/accelerateVehicle";
 import { animateVehiclesMove, AnimateVehiclesMoveReducerAction } from "@src/reducers/game/vehicle/animateVehicleMove";
 import { decelerateVehicle, DecelerateVehicleReducerAction } from "@src/reducers/game/vehicle/decelerateVehicle";
@@ -134,8 +136,6 @@ import {
   stopVehicleAcceleration,
   StopVehicleAccelerationReducerAction,
 } from "@src/reducers/game/vehicle/stopVehicleAcceleration";
-import { setSkillPoints, SetSkillPointsReducerAction } from "@src/reducers/UnitCharacteristics/setSkillPoints";
-import { setSPECIALPoints, SetSPECIALPointsReducerAction } from "@src/reducers/UnitCharacteristics/setSPECIALPoints";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 

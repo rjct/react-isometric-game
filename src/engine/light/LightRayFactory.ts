@@ -73,6 +73,8 @@ export class LightRay {
     this.collidedWithEntity = null;
 
     for (const entity of entities) {
+      if (!entity.blocksRays) continue;
+
       const d = entity.rayDist2Polygon(this);
 
       if (d.distance < minDist) {
