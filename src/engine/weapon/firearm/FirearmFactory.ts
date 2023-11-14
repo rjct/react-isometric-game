@@ -122,4 +122,10 @@ export class Firearm extends Weapon {
   onAfterAmmoReachedTarget(ammo: Ammo, gameState: GameMap) {
     delete gameState.ammo[ammo.id];
   }
+
+  isReadyToUse(gameState: GameMap) {
+    return (
+      super.isReadyToUse(gameState) && this.ammoCurrent.length >= this.getCurrentAttackModeDetails().ammoConsumption
+    );
+  }
 }
