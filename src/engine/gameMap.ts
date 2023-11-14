@@ -334,11 +334,15 @@ export const gameMap = {
   },
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
-    return this.getAllUnitsArray().find((unit) => {
+    const units = this.getAllUnitsArray();
+
+    for (const unit of units) {
       const unitPosition = unit.getRoundedPosition();
 
-      return unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y);
-    });
+      if (unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y)) {
+        return unit;
+      }
+    }
   },
 
   getEntityByCoordinates(coordinates: GridCoordinates): Unit | Building | Vehicle | undefined {
@@ -375,28 +379,31 @@ export const gameMap = {
   getBuildingByCoordinates(coordinates: GridCoordinates): Building | undefined {
     const { x, y } = coordinates;
 
-    return this.buildings.find(
-      (building) =>
+    for (const building of this.buildings) {
+      if (
         x >= Math.round(building.position.grid.x) &&
         x < Math.round(building.position.grid.x + building.size.grid.width) &&
         y >= Math.round(building.position.grid.y) &&
-        y < Math.round(building.position.grid.y + building.size.grid.length),
-    );
+        y < Math.round(building.position.grid.y + building.size.grid.length)
+      ) {
+        return building;
+      }
+    }
   },
 
   getVehicleByCoordinates(coordinates: GridCoordinates) {
     const { x, y } = coordinates;
 
-    return this.vehicles.find((vehicle) => {
-      const { x: vehicleX, y: vehicleY } = vehicle.position.grid;
-
-      return (
-        x >= vehicleX &&
-        x < vehicleX + vehicle.size.grid.width &&
-        y >= vehicleY &&
-        y < vehicleY + vehicle.size.grid.length
-      );
-    });
+    for (const vehicle of this.vehicles) {
+      if (
+        x >= Math.round(vehicle.position.grid.x) &&
+        x < Math.round(vehicle.position.grid.x + vehicle.size.grid.width) &&
+        y >= Math.round(vehicle.position.grid.y) &&
+        y < Math.round(vehicle.position.grid.y + vehicle.size.grid.length)
+      ) {
+        return vehicle;
+      }
+    }
   },
 
   deleteBuilding(id: string) {
