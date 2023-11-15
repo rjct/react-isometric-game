@@ -95,7 +95,19 @@
     { "type": "street_light", "position": { "x": 55, "y": 52 }, "rotation": 90, "variant": 0 },
     { "type": "street_light", "position": { "x": 46, "y": 52 }, "rotation": 270, "variant": 0 }
   ],
-  "vehicles": [{ "type": "hummer", "position": { "x": 51, "y": 40 }, "rotation": 0 }],
+  "vehicles": [
+    {
+      "type": "hummer",
+      "position": { "x": 51, "y": 40 },
+      "rotation": 0,
+      "inventory": {
+        "main": [
+          { "class": "firearm_ammo", "name": "9mm_JHP", "quantity": 3 },
+          { "class": "weapon", "name": "molotov_cocktail" }
+        ]
+      }
+    }
+  ],
   "globalShadows": { "color": "#000d23", "opacity": 0.45 },
   "globalLights": { "opacity": 0.15 },
   "lights": [

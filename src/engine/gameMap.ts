@@ -492,7 +492,7 @@ export const gameMap = {
   },
 
   createInventoryItem(
-    owner: Building | Unit,
+    owner: Building | Unit | Vehicle,
     inventoryType: keyof StaticMapInventory,
     staticMapItem: StaticMapWeapon | StaticMapWeaponAmmo,
   ) {
@@ -513,7 +513,7 @@ export const gameMap = {
     return inventoryItems;
   },
 
-  createInventoryStorage(inventory: StaticMapInventory, owner: Building | Unit) {
+  createInventoryStorage(inventory: StaticMapInventory, owner: Building | Unit | Vehicle) {
     if (!inventory) return;
 
     Object.entries(inventory).forEach(([inventoryType, staticEntity]) => {

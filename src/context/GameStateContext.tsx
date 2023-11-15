@@ -39,6 +39,7 @@ export interface StaticMapVehicle {
   type: VehicleType;
   position: GridCoordinates;
   rotation: AngleInDegrees;
+  inventory?: StaticMapInventory;
 }
 
 export interface StaticMapLight {

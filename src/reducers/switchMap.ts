@@ -78,6 +78,10 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       rotation,
     });
 
+    if (staticMapVehicle.inventory) {
+      newState.createInventoryStorage(staticMapVehicle.inventory, vehicle);
+    }
+
     vehicle.setPosition(position, newState);
 
     return vehicle;
