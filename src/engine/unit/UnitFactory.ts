@@ -96,7 +96,7 @@ export class Unit extends MovableGameEntity {
     rotation?: AngleInDegrees;
     randomActions?: StaticMapUnit["randomActions"];
   }) {
-    const dictEntity = getUnitDictEntityByType(props.unitType); //units[props.unitType] as DictUnit;
+    const dictEntity = getUnitDictEntityByType(props.unitType);
 
     super({
       gameState: props.gameState,
@@ -439,11 +439,13 @@ export class Unit extends MovableGameEntity {
 
   public getIntoVehicle(vehicle: Vehicle) {
     this.vehicleInUse = vehicle;
+    this.occupiesCell = false;
   }
 
   public getOutOfVehicle() {
     if (!this.vehicleInUse) return;
 
+    this.occupiesCell = true;
     this.vehicleInUse = null;
   }
 
