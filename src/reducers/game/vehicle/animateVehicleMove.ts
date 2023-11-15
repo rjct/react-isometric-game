@@ -1,5 +1,5 @@
 import { GameMap } from "@src/engine/gameMap";
-import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
+import { degToRad, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
 export type AnimateVehiclesMoveReducerAction = {
@@ -9,45 +9,59 @@ export type AnimateVehiclesMoveReducerAction = {
   consumeActionPoints?: boolean;
 };
 
+function calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
+  const rollbackDistance = 2;
+  const rollbackAngle = vehicle.rotation.rad + degToRad(90);
+
+  return {
+    x: vehicle.position.grid.x + rollbackDistance * Math.cos(rollbackAngle),
+    y: vehicle.position.grid.y + rollbackDistance * Math.sin(rollbackAngle),
+  };
+}
+
 export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveReducerAction) {
   let isStateChanged = false;
 
   state.setGridMatrixOccupancy(action.entities, -1);
 
-  for (const entity of action.entities) {
-    if (entity.path.length === 0 || entity.speed.current === 0) continue;
-
-    // FIXME:
-    // if (entity.isCollisionDetected()) {
-    //   continue;
-    // }
+  for (const vehicle of action.entities) {
+    if (vehicle.path.length === 0 || vehicle.speed.current === 0) continue;
 
     isStateChanged = true;
 
-    const entityPosition = { ...entity.position.grid };
+    const entityPosition = { ...vehicle.position.grid };
 
-    entity.pathQueue.points = entity.path;
-    entity.pathQueue.currentPos = entity.position.grid;
-    entity.pathQueue.destinationPos = entity.path[entity.path.length - 1];
+    if (vehicle.isCollisionDetected()) {
+      vehicle.clearPath();
+      vehicle.speed.current = 0;
 
-    const speed = entity.getCurrentSpeed();
-    const prevPoint = entity.pathQueue.moveAlong(action.deltaTime * speed);
+      vehicle.setPosition(calculateRollbackPosition(vehicle), state);
+
+      continue;
+    }
+
+    vehicle.pathQueue.points = vehicle.path;
+    vehicle.pathQueue.currentPos = vehicle.position.grid;
+    vehicle.pathQueue.destinationPos = vehicle.path[vehicle.path.length - 1];
+
+    const speed = vehicle.getCurrentSpeed();
+    const prevPoint = vehicle.pathQueue.moveAlong(action.deltaTime * speed);
 
     if (prevPoint) {
-      entity.setPosition(prevPoint, state);
+      vehicle.setPosition(prevPoint, state);
     }
 
-    if (getDistanceBetweenGridPoints(entity.pathQueue.currentPos, entityPosition) > 0) {
-      entity.setRotation(getAngleBetweenTwoGridPoints(entity.pathQueue.currentPos, entityPosition));
+    if (getDistanceBetweenGridPoints(vehicle.pathQueue.currentPos, entityPosition) > 0) {
+      vehicle.setRotation(getAngleBetweenTwoGridPoints(vehicle.pathQueue.currentPos, entityPosition));
     }
 
-    entity.setPosition(entity.pathQueue.currentPos, state);
+    vehicle.setPosition(vehicle.pathQueue.currentPos, state);
 
-    if (entity.pathQueue.atEnd) {
-      entity.clearPath();
-      entity.setAction("none");
-      entity.pathQueue.atEnd = false;
-      entity.setPositionComplete();
+    if (vehicle.pathQueue.atEnd) {
+      vehicle.clearPath();
+      vehicle.setAction("none");
+      vehicle.pathQueue.atEnd = false;
+      vehicle.setPositionComplete();
     }
   }
 
