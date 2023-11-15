@@ -24,11 +24,18 @@ export class Vehicle extends MovableGameEntity {
   };
   public accelerationEnabled = false;
 
-  constructor(props: { gameState: GameMap; type: VehicleType; position: GridCoordinates; rotation: AngleInDegrees }) {
+  constructor(props: {
+    gameState: GameMap;
+    id?: string;
+    type: VehicleType;
+    position: GridCoordinates;
+    rotation: AngleInDegrees;
+  }) {
     const dictEntity = getVehicleDictEntityByType(props.type);
 
     super({
       gameState: props.gameState,
+      id: props.id,
       size: dictEntity.size,
       position: props.position,
       rotation: props.rotation,

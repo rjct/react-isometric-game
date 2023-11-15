@@ -70,9 +70,10 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   });
 
   newState.vehicles = action.map.vehicles.map((staticMapVehicle) => {
-    const { type, position, rotation } = staticMapVehicle;
+    const { id, type, position, rotation } = staticMapVehicle;
     const vehicle = new Vehicle({
       gameState: newState,
+      id,
       type,
       position,
       rotation,
@@ -136,13 +137,23 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     if (action.map.hero.inventory) {
       newState.createInventoryStorage(action.map.hero.inventory, hero);
     }
+
+    if (action.map.hero.vehicleIdInUse) {
+      const vehicle = newState.getVehicleById(action.map.hero.vehicleIdInUse);
+
+      if (vehicle) {
+        hero.getIntoVehicle(vehicle);
+        hero.setRotation(vehicle.rotation, false);
+        vehicle.assignDriver(hero);
+      }
+    }
   } else {
     newState.units[state.heroId] = state.units[state.heroId];
   }
 
   const heroId = newState.heroId;
 
-  newState.units[heroId].getOutOfVehicle();
+  //newState.units[heroId].getOutOfVehicle();
   newState.units[heroId].stop();
   newState.units[heroId].setPosition(action.map.hero.position, newState);
 

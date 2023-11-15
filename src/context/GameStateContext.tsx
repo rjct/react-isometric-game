@@ -36,6 +36,7 @@ export interface StaticMapBuilding {
 }
 
 export interface StaticMapVehicle {
+  id?: string;
   type: VehicleType;
   position: GridCoordinates;
   rotation: AngleInDegrees;
@@ -56,6 +57,7 @@ export interface StaticMapUnit {
   inventory?: StaticMapInventory;
   healthPoints?: Unit["characteristics"]["derived"]["healthPoints"];
   randomActions?: Array<"roam" | "idle">;
+  vehicleIdInUse?: StaticMapVehicle["id"];
 }
 
 export interface StaticMapWeapon {
