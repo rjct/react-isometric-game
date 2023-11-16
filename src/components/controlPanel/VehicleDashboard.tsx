@@ -1,8 +1,14 @@
 import { degToRad, randomInt } from "@src/engine/helpers";
 
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
+
+type SpeedometerConfig = {
+  valueMax: number;
+  valueStep: number;
+  angleMin: number;
+  angleMax: number;
+};
 
 function Tick(props: { angle: AngleInDegrees; className?: string; value?: number }) {
   const margin = props.value ? 20 : 0;
@@ -25,51 +31,30 @@ function Tick(props: { angle: AngleInDegrees; className?: string; value?: number
   );
 }
 
-function VehicleSpeedometerTicks(props: { vehicle: Vehicle }) {
-  const { vehicle } = props;
-
+function VehicleSpeedometerTicks(props: { config: SpeedometerConfig }) {
   const result: React.ReactElement[] = [];
 
-  const config = {
-    valueMin: 0,
-    valueMax: vehicle.speed.max + (vehicle.speed.max / 10) * 2,
-    valueStep: (vehicle.speed.max / 10) * 3,
-    angleMin: 70,
-    angleMax: 290,
-  };
-
-  const steps = (config.valueMax - config.valueMin) / config.valueStep;
-  const angleStep = (config.angleMax - config.angleMin) / steps;
+  const steps = props.config.valueMax / props.config.valueStep;
+  const angleStep = (props.config.angleMax - props.config.angleMin) / steps;
 
   for (let i = 0; i <= steps; i++) {
-    const value = config.valueMin + i * config.valueStep;
-    const angle = config.angleMin + i * angleStep;
+    const value = i * props.config.valueStep;
+    const angle = props.config.angleMin + i * angleStep;
 
     if (value > 0) {
-      result.push(<Tick angle={angle} value={value} className={"value"} />);
+      result.push(<Tick key={`value-${i}`} angle={angle} value={value} className={"value"} />);
     }
 
-    result.push(<Tick angle={angle} />);
+    result.push(<Tick key={i} angle={angle} />);
 
-    if (angle < config.angleMax) {
-      result.push(<Tick angle={angle + angleStep / 2} className={"half"} />);
-      result.push(<Tick angle={angle + angleStep / 4} className={"quarter"} />);
-      result.push(<Tick angle={angle + angleStep / 2 + angleStep / 4} className={"quarter"} />);
+    if (angle < props.config.angleMax) {
+      result.push(<Tick key={`tick-half-${i}`} angle={angle + angleStep / 2} className={"half"} />);
+      result.push(<Tick key={`tick-quarter-${i}`} angle={angle + angleStep / 4} className={"quarter"} />);
+      result.push(
+        <Tick key={`tick-quarter-2-value-${i}`} angle={angle + angleStep / 2 + angleStep / 4} className={"quarter"} />,
+      );
     }
   }
-
-  result.push(
-    <div
-      className={"needle"}
-      style={{
-        transform: `translate3d(-50%, 0px, 0px) rotate(${
-          (vehicle.speed.current / (config.valueMax - config.valueMin)) * (config.angleMax - config.angleMin) +
-          config.angleMin +
-          randomInt(-3, 3)
-        }deg)`,
-      }}
-    ></div>,
-  );
 
   return <>{result}</>;
 }
@@ -93,13 +78,42 @@ export const VehicleDashboard = () => {
 
   const vehicle = hero.getVehicleInUse()!;
 
+  const config = {
+    valueMax: vehicle.speed.max + (vehicle.speed.max / 10) * 2,
+    valueStep: (vehicle.speed.max / 10) * 3,
+    angleMin: 70,
+    angleMax: 290,
+  };
+
+  const [needleShakeDeg, setNeedleShakeDeg] = React.useState(0);
+
+  React.useEffect(() => {
+    const interval = setInterval(() => setNeedleShakeDeg(randomInt(-3, 3)), 50);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
   return (
     <div className={"control-vehicle"}>
       <div className={"vehicle-speedometer-wrapper"}>
         <div className={"vehicle-speedometer"}>
-          <VehicleSpeedometerTicks vehicle={vehicle} />
+          <VehicleSpeedometerTicks config={config} />
           <div className={"needle-axle"}></div>
           <div className={"tachometer"}>{addLeadingZeros(Math.round(vehicle.pathQueue.totalDistMoved / 10), 7)}</div>
+
+          <div
+            className={"needle"}
+            key={needleShakeDeg}
+            style={{
+              transform: `translate3d(-50%, 0px, 0px) rotate(${
+                (vehicle.speed.current / config.valueMax) * (config.angleMax - config.angleMin) +
+                config.angleMin +
+                needleShakeDeg
+              }deg)`,
+            }}
+          ></div>
         </div>
       </div>
     </div>
