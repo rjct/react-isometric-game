@@ -25,6 +25,7 @@ export function getOutOfVehicle(state: GameMap, action: GetOutOfVehicleReducerAc
 
   vehicle.unAssignDriver();
   vehicle.clearPath();
+  state.setGridMatrixOccupancy([unit], 1);
 
   const idleSfx = vehicle.currentPlayingSfx["idle"];
 

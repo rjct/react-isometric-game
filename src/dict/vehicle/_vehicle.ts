@@ -1,6 +1,7 @@
 import hummer from "@src/dict/vehicle/hummer";
 
-export type VehicleSfxType = "turnOn" | "turnOff" | "idle" | "driving" | "shiftIn" | "shiftOut";
+export type VehicleActionType = "none" | "idle" | "driving" | "collision";
+export type VehicleSfxType = "turnOn" | "turnOff" | "shiftIn" | "shiftOut" | VehicleActionType;
 export type VehicleSfx = {
   [type in VehicleSfxType]: {
     src: string;
@@ -15,9 +16,13 @@ export type VehicleDictEntity = {
     grid: Size3D;
     screen: Size2D;
   };
+  healthPoints: number;
   turningRadius: number;
   maxSpeed: number;
   explorable: boolean;
+  animationDuration: {
+    [action in VehicleActionType]?: number;
+  };
   sfx: VehicleSfx;
 };
 

@@ -8,7 +8,7 @@ export type AccelerateVehicleReducerAction = {
 };
 
 export function accelerateVehicle(state: GameMap, action: AccelerateVehicleReducerAction) {
-  if (!action.vehicle.accelerationEnabled) {
+  if (!action.vehicle.accelerationEnabled || action.vehicle.action === "collision") {
     return state;
   }
 

@@ -94,7 +94,9 @@
   "buildings": [
     { "type": "vehicle_2x4", "position": { "x": 41, "y": 51 }, "rotation": 0, "variant": 1 },
     { "type": "street_light", "position": { "x": 55, "y": 52 }, "rotation": 90, "variant": 0 },
-    { "type": "street_light", "position": { "x": 46, "y": 52 }, "rotation": 270, "variant": 0 }
+    { "type": "street_light", "position": { "x": 55, "y": 36 }, "rotation": 90, "variant": 0 },
+    { "type": "street_light", "position": { "x": 46, "y": 52 }, "rotation": 270, "variant": 0 },
+    { "type": "street_light", "position": { "x": 46, "y": 36 }, "rotation": 270, "variant": 0 }
   ],
   "vehicles": [
     {
@@ -108,6 +110,11 @@
           { "class": "weapon", "name": "molotov_cocktail" }
         ]
       }
+    },
+    {
+      "type": "hummer",
+      "position": { "x": 56, "y": 40 },
+      "rotation": 90
     }
   ],
   "globalShadows": { "color": "#000d23", "opacity": 0.45 },

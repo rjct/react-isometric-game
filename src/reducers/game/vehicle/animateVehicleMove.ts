@@ -1,15 +1,9 @@
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { normalizeRotation } from "@src/engine/weapon/helpers";
 
-export type AnimateVehiclesMoveReducerAction = {
-  type: "animateVehiclesMove";
-  entities: Array<Vehicle>;
-  deltaTime: number;
-  consumeActionPoints?: boolean;
-};
-
-function calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
+function _calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
   const rollbackDistance = 2;
   const rollbackAngle = vehicle.rotation.rad + degToRad(90);
 
@@ -19,23 +13,32 @@ function calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
   };
 }
 
+export type AnimateVehiclesMoveReducerAction = {
+  type: "animateVehiclesMove";
+  entities: Array<Vehicle>;
+  deltaTime: number;
+  consumeActionPoints?: boolean;
+};
+
 export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveReducerAction) {
   let isStateChanged = false;
-
-  state.setGridMatrixOccupancy(action.entities, -1);
 
   for (const vehicle of action.entities) {
     if (vehicle.path.length === 0 || vehicle.speed.current === 0) continue;
 
     isStateChanged = true;
+    state.setGridMatrixOccupancy([vehicle], -1);
 
     const entityPosition = { ...vehicle.position.grid };
 
     if (vehicle.isCollisionDetected()) {
       vehicle.clearPath();
       vehicle.speed.current = 0;
+      vehicle.setRotation(normalizeRotation(vehicle.realRotation.deg, 4));
+      vehicle.setPosition(_calculateRollbackPosition(vehicle), state);
+      vehicle.setAction("collision");
 
-      vehicle.setPosition(calculateRollbackPosition(vehicle), state);
+      state.setGridMatrixOccupancy([vehicle], 1);
 
       continue;
     }
@@ -59,13 +62,13 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
 
     if (vehicle.pathQueue.atEnd) {
       vehicle.clearPath();
-      vehicle.setAction("none");
+      vehicle.setAction("idle");
       vehicle.pathQueue.atEnd = false;
       vehicle.setPositionComplete();
     }
-  }
 
-  state.setGridMatrixOccupancy(action.entities, 1);
+    state.setGridMatrixOccupancy([vehicle], 1);
+  }
 
   return isStateChanged ? { ...state } : state;
 }

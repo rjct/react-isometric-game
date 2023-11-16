@@ -1,8 +1,10 @@
-.shared-vehicle-action-idle(@width) {
-  @duration: 1000ms;
+.shared-vehicle-action-idle(@width, @height) {
+  @duration: 300ms;
   @steps: 2;
 
   &[data-action="idle"] {
+    .vehicle-rotation(@width, @height, 32);
+
     animation: vehicle-action-idle @duration steps(@steps);
     animation-iteration-count: infinite;
   }

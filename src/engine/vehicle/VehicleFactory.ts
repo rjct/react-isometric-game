@@ -14,7 +14,7 @@ export class Vehicle extends MovableGameEntity {
   public readonly dictEntity: VehicleDictEntity;
   private readonly rotationAngles: AngleInDegrees[];
   public realRotation: Angle;
-  public action: "none" | "idle" | "driving" = "none";
+  public action: "none" | "idle" | "driving" | "collision" = "none";
   public driver: Unit | null = null;
 
   public currentPlayingSfx: { [type in VehicleSfxType]?: AudioBufferSourceNode } = {};

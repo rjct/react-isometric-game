@@ -13,8 +13,6 @@ export type AnimateUnitsMoveReducerAction = {
 export function animateUnitsMove(state: GameMap, action: AnimateUnitsMoveReducerAction) {
   let isStateChanged = false;
 
-  state.setGridMatrixOccupancy(action.entities, -1);
-
   for (const entity of action.entities) {
     if (entity.path.length === 0) continue;
 
@@ -23,6 +21,7 @@ export function animateUnitsMove(state: GameMap, action: AnimateUnitsMoveReducer
     }
 
     isStateChanged = true;
+    state.setGridMatrixOccupancy([entity], -1);
 
     const entityPosition = { ...entity.position.grid };
 
@@ -85,9 +84,9 @@ export function animateUnitsMove(state: GameMap, action: AnimateUnitsMoveReducer
       entity.pathQueue.atEnd = false;
       entity.setPositionComplete();
     }
-  }
 
-  state.setGridMatrixOccupancy(action.entities, 1);
+    state.setGridMatrixOccupancy([entity], 1);
+  }
 
   return isStateChanged ? { ...state } : state;
 }

@@ -129,6 +129,10 @@ import { decelerateVehicle, DecelerateVehicleReducerAction } from "@src/reducers
 import { getIntoVehicle, GetIntoVehicleReducerAction } from "@src/reducers/game/vehicle/getIntoVehicle";
 import { getOutOfVehicle, GetOutOfVehicleReducerAction } from "@src/reducers/game/vehicle/getOutOfVehicle";
 import {
+  handleVehicleCollision,
+  HandleVehicleCollisionReducerAction,
+} from "@src/reducers/game/vehicle/handleVehicleCollision";
+import {
   startVehicleAcceleration,
   StartVehicleAccelerationReducerAction,
 } from "@src/reducers/game/vehicle/startVehicleAcceleration";
@@ -163,6 +167,7 @@ export type GameReducerAction =
   | StartVehicleAccelerationReducerAction
   | StopVehicleAccelerationReducerAction
   | AnimateVehiclesMoveReducerAction
+  | HandleVehicleCollisionReducerAction
   //
   | RecalculateLightsAndShadowsReducerAction
   //
@@ -300,6 +305,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "animateVehiclesMove":
       return animateVehiclesMove(state, action as AnimateVehiclesMoveReducerAction);
+
+    case "handleVehicleCollision":
+      return handleVehicleCollision(state, action as HandleVehicleCollisionReducerAction);
 
     //
     case "animateFiredAmmo":

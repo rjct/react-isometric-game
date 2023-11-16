@@ -1,8 +1,10 @@
-.shared-vehicle-action-driving(@width) {
+.shared-vehicle-action-driving(@width, @height) {
   @duration: 1000ms;
   @steps: 8;
 
   &[data-action="driving"] {
+    .vehicle-rotation(@width, @height, 32);
+
     animation: vehicle-action-driving @duration steps(@steps);
     animation-iteration-count: infinite;
   }

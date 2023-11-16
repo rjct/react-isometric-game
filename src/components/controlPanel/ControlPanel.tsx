@@ -6,7 +6,7 @@ import { HeroExploreButton } from "@src/components/controlPanel/HeroExploreButto
 import { HeroHandButton } from "@src/components/controlPanel/HeroHandButton";
 import { HeroMovementButton } from "@src/components/controlPanel/HeroMovementButton";
 import { OpenInventoryButton } from "@src/components/controlPanel/OpenInventoryButton";
-import { VehicleSpeedometer } from "@src/components/controlPanel/VehicleSpeedometer";
+import { VehicleDashboard } from "@src/components/controlPanel/VehicleDashboard";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
@@ -21,7 +21,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
         <CenterMapButton />
         <OpenInventoryButton />
 
-        <VehicleSpeedometer />
+        <VehicleDashboard />
         <HeroHandButton type={"leftHand"} />
         <HeroHandButton type={"rightHand"} />
 

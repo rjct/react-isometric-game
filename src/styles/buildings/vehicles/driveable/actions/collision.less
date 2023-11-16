@@ -1,0 +1,20 @@
+.shared-vehicle-action-collision(@width, @height) {
+  @vehicle-action-collision-steps: 18;
+  @vehicle-action-collision-duration: 1000ms;
+
+  &[data-action="collision"] {
+    .vehicle-rotation(@width, @height, 4);
+
+    animation: vehicle-action-collision @vehicle-action-collision-duration steps(@vehicle-action-collision-steps)
+      forwards;
+  }
+
+  @keyframes vehicle-action-collision {
+    0% {
+      background-position-x: 0;
+    }
+    100% {
+      background-position-x: (-@width * @vehicle-action-collision-steps);
+    }
+  }
+}

@@ -1,5 +1,6 @@
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 
 export const VehicleComponent = (props: {
@@ -11,6 +12,7 @@ export const VehicleComponent = (props: {
   onMouseDown?: (e: React.MouseEvent, entity: Vehicle) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
 }) => {
+  const { gameDispatch } = useGameState();
   const handleMouseDown = (e: React.MouseEvent) => {
     if (props.onMouseDown) {
       props.onMouseDown(e, props.vehicle);
@@ -28,6 +30,25 @@ export const VehicleComponent = (props: {
     e.stopPropagation();
   };
 
+  React.useEffect(() => {
+    if (props.vehicle.action === "collision") {
+      gameDispatch({ type: "handleVehicleCollision", vehicle: props.vehicle });
+
+      window.setTimeout(
+        () => {
+          props.vehicle.setAction("idle");
+
+          gameDispatch({
+            type: "setVehicleRotation",
+            entityId: props.vehicle.id,
+            rotation: props.vehicle.rotation.deg + 11.25,
+          });
+        },
+        props.vehicle.dictEntity?.animationDuration.collision,
+      );
+    }
+  }, [props.vehicle.action]);
+
   return (
     <div
       draggable={false}
@@ -36,7 +57,8 @@ export const VehicleComponent = (props: {
       style={{
         transform: getCss3dPosition(props.vehicle.position.screen, false),
         zIndex: props.vehicle.zIndex,
-        animationDuration: `${Math.round(1000 - props.vehicle.speed.current * 20)}ms`,
+        animationDuration:
+          props.vehicle.action === "driving" ? `${Math.round(1000 - props.vehicle.speed.current * 20)}ms` : undefined,
       }}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}

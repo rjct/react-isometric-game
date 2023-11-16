@@ -10,14 +10,21 @@ const hummer: VehicleDictEntity = {
       length: 4,
     },
     screen: {
-      width: 180,
-      height: 144,
+      width: 236,
+      height: 236,
     },
   },
+  healthPoints: 3000,
   turningRadius: 2,
   maxSpeed: 10,
   explorable: true,
+  animationDuration: {
+    collision: 1000,
+  },
   sfx: {
+    none: {
+      src: "",
+    },
     turnOn: {
       src: "public/assets/vehicles/drivable/hummer/turn_on.mp3",
     },
@@ -35,6 +42,9 @@ const hummer: VehicleDictEntity = {
     },
     shiftOut: {
       src: "public/assets/vehicles/drivable/hummer/shift_out.mp3",
+    },
+    collision: {
+      src: "",
     },
   },
 };

@@ -8,7 +8,13 @@ export type DecelerateVehicleReducerAction = {
 };
 
 export function decelerateVehicle(state: GameMap, action: DecelerateVehicleReducerAction) {
-  if (action.vehicle.accelerationEnabled || !action.vehicle.driver || action.vehicle.speed.current === 0) return state;
+  if (
+    action.vehicle.accelerationEnabled ||
+    !action.vehicle.driver ||
+    action.vehicle.speed.current === 0 ||
+    action.vehicle.action === "collision"
+  )
+    return state;
 
   const speed = action.vehicle.speed.current - action.deltaTime * 50;
 
@@ -16,10 +22,6 @@ export function decelerateVehicle(state: GameMap, action: DecelerateVehicleReduc
 
   if (action.vehicle.speed.current === 0) {
     action.vehicle.setAction("idle");
-
-    // action.vehicle.clearPath();
-    // action.vehicle.pathQueue.points = [];
-    // action.vehicle.pathQueue.atEnd = true;
   }
 
   return { ...state };

@@ -74,7 +74,11 @@ export const Wireframe = React.memo(function WireframeTiles() {
   };
 
   const handleMouseDown = () => {
-    doHeroAction("mouseDown", heroAction[0]);
+    const isAllowed = heroAction.some((action) => action.isAllowed);
+
+    if (isAllowed) {
+      doHeroAction("mouseDown", heroAction[0]);
+    }
   };
 
   const handleMouseUp = () => {

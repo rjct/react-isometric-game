@@ -1,5 +1,6 @@
 @import "actions/idle";
 @import "actions/driving";
+@import "actions/collision";
 
 .vehicle-rotation(@width, @height, @angle-steps) {
   @angle-increment: (360 / @angle-steps);
@@ -14,7 +15,7 @@
 }
 
 .createVehicle(@vehicle-type, @width, @height) {
-  @vehicle-actions: none, idle, driving;
+  @vehicle-actions: none, idle, driving, collision;
 
   &.@{vehicle-type} {
     width: @width;
@@ -26,9 +27,9 @@
 			background-image: url(@action-bg);
 		}
 
-		.shared-vehicle-action-idle(@width);
-		.shared-vehicle-action-driving(@width);
-		.vehicle-rotation(@width, @height, 32);
+		.shared-vehicle-action-idle(@width, @height);
+		.shared-vehicle-action-driving(@width, @height);
+		.shared-vehicle-action-collision(@width, @height);
 	});
 
     &[data-action="none"] {
