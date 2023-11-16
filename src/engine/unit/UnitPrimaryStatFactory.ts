@@ -1,7 +1,7 @@
 import { UnitCharacteristicDictEntity } from "@src/dict/unit/_unit";
 import { UnitPrimaryStatName, unitPrimaryStats } from "@src/dict/unit/_unitPrimaryStat";
 
-export class PrimaryStat {
+export class UnitPrimaryStat {
   public readonly dictEntity: UnitCharacteristicDictEntity;
 
   private _currentValue: number;

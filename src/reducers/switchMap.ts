@@ -104,9 +104,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       isDead: enemy.isDead,
       action: enemy.isDead ? "dead" : "none",
       rotation: enemy.rotation,
-
       isHero: false,
-      healthPoints: enemy.healthPoints,
       randomActions: enemy.randomActions,
     });
 

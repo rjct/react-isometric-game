@@ -8,7 +8,6 @@ import { BuildingType } from "@src/dict/building/building";
 import { UnitType } from "@src/dict/unit/_unit";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";
-import { Unit } from "@src/engine/unit/UnitFactory";
 
 export interface StaticMapTerrainArea {
   source: {
@@ -55,7 +54,6 @@ export interface StaticMapUnit {
   isDead?: boolean;
   rotation?: AngleInDegrees;
   inventory?: StaticMapInventory;
-  healthPoints?: Unit["characteristics"]["derived"]["healthPoints"];
   randomActions?: Array<"roam" | "idle">;
   vehicleIdInUse?: StaticMapVehicle["id"];
 }

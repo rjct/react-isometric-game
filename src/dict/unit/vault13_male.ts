@@ -13,10 +13,6 @@ const vault13_male: UnitDictEntity = {
     grid: { width: 1, length: 1, height: 1 },
     screen: { width: 200, height: 200 },
   },
-  healthPoints: {
-    current: 100,
-    max: 100,
-  },
   actionPoints: {
     max: 10,
     consumption: {

@@ -2,9 +2,9 @@ import { GameUnitCreationContext } from "@src/context/GameUnitCreationContext";
 import { UnitDerivedStatName } from "@src/dict/unit/_unitDerivedStat";
 import { UnitPrimaryStatName } from "@src/dict/unit/_unitPrimaryStat";
 import { UnitSkillName } from "@src/dict/unit/_unitSkills";
-import { DerivedStat } from "@src/engine/unit/DerivedStatFactory";
-import { PrimaryStat } from "@src/engine/unit/PrimaryStatFactory";
-import { Skill } from "@src/engine/unit/SkillFactory";
+import { UnitDerivedStat } from "@src/engine/unit/UnitDerivedStatFactory";
+import { UnitPrimaryStat } from "@src/engine/unit/UnitPrimaryStatFactory";
+import { UnitSkill } from "@src/engine/unit/UnitSkillFactory";
 import React from "react";
 
 function Value(props: { value: string | number }) {
@@ -15,7 +15,10 @@ function Value(props: { value: string | number }) {
   );
 }
 
-export const StatRow = (props: { stat: PrimaryStat | Skill | DerivedStat; children?: React.ReactElement }) => {
+export const StatRow = (props: {
+  stat: UnitPrimaryStat | UnitSkill | UnitDerivedStat;
+  children?: React.ReactElement;
+}) => {
   const { selectedStat, setSelectedStat } = React.useContext(GameUnitCreationContext);
 
   const { value, dictEntity } = props.stat;

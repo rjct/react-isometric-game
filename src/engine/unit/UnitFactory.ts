@@ -92,7 +92,6 @@ export class Unit extends MovableGameEntity {
     isHero: boolean;
     action?: Unit["action"];
     isDead?: boolean;
-    healthPoints?: Unit["characteristics"]["derived"]["healthPoints"];
     rotation?: AngleInDegrees;
     randomActions?: StaticMapUnit["randomActions"];
   }) {

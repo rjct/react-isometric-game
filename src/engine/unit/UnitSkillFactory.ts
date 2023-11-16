@@ -2,7 +2,7 @@ import { UnitCharacteristicDictEntity } from "@src/dict/unit/_unit";
 import { UnitSkillName, unitSkills } from "@src/dict/unit/_unitSkills";
 import { UnitCharacteristics } from "@src/engine/unit/UnitCharacteristicsFactory";
 
-export class Skill {
+export class UnitSkill {
   public readonly dictEntity: UnitCharacteristicDictEntity;
   private _minValue: number;
   private _currentValue: number;

@@ -1,8 +1,8 @@
 import { UnitDerivedStatName, unitDerivedStats } from "@src/dict/unit/_unitDerivedStat";
 import { UnitSkillName, unitSkills } from "@src/dict/unit/_unitSkills";
-import { DerivedStat } from "@src/engine/unit/DerivedStatFactory";
-import { PrimaryStat } from "@src/engine/unit/PrimaryStatFactory";
-import { Skill } from "@src/engine/unit/SkillFactory";
+import { UnitDerivedStat } from "@src/engine/unit/UnitDerivedStatFactory";
+import { UnitPrimaryStat } from "@src/engine/unit/UnitPrimaryStatFactory";
+import { UnitSkill } from "@src/engine/unit/UnitSkillFactory";
 
 export class UnitCharacteristics {
   // XP
@@ -28,13 +28,13 @@ export class UnitCharacteristics {
   private _availablePoints = 5;
 
   SPECIAL = {
-    strength: new PrimaryStat("strength", 5, this._recalc.bind(this)),
-    perception: new PrimaryStat("perception", 5, this._recalc.bind(this)),
-    endurance: new PrimaryStat("endurance", 5, this._recalc.bind(this)),
-    charisma: new PrimaryStat("charisma", 5, this._recalc.bind(this)),
-    intelligence: new PrimaryStat("intelligence", 5, this._recalc.bind(this)),
-    agility: new PrimaryStat("agility", 5, this._recalc.bind(this)),
-    luck: new PrimaryStat("luck", 5, this._recalc.bind(this)),
+    strength: new UnitPrimaryStat("strength", 5, this._recalc.bind(this)),
+    perception: new UnitPrimaryStat("perception", 5, this._recalc.bind(this)),
+    endurance: new UnitPrimaryStat("endurance", 5, this._recalc.bind(this)),
+    charisma: new UnitPrimaryStat("charisma", 5, this._recalc.bind(this)),
+    intelligence: new UnitPrimaryStat("intelligence", 5, this._recalc.bind(this)),
+    agility: new UnitPrimaryStat("agility", 5, this._recalc.bind(this)),
+    luck: new UnitPrimaryStat("luck", 5, this._recalc.bind(this)),
   };
 
   get availablePoints() {
@@ -57,41 +57,41 @@ export class UnitCharacteristics {
 
   skills = {
     // Combat skills
-    smallGuns: new Skill("smallGuns", this.SPECIAL),
-    bigGuns: new Skill("bigGuns", this.SPECIAL),
-    energyWeapons: new Skill("energyWeapons", this.SPECIAL),
-    unarmed: new Skill("unarmed", this.SPECIAL),
-    meleeWeapons: new Skill("meleeWeapons", this.SPECIAL),
-    throwing: new Skill("throwing", this.SPECIAL),
+    smallGuns: new UnitSkill("smallGuns", this.SPECIAL),
+    bigGuns: new UnitSkill("bigGuns", this.SPECIAL),
+    energyWeapons: new UnitSkill("energyWeapons", this.SPECIAL),
+    unarmed: new UnitSkill("unarmed", this.SPECIAL),
+    meleeWeapons: new UnitSkill("meleeWeapons", this.SPECIAL),
+    throwing: new UnitSkill("throwing", this.SPECIAL),
     // Active skills
-    firstAid: new Skill("firstAid", this.SPECIAL),
-    doctor: new Skill("doctor", this.SPECIAL),
-    sneak: new Skill("sneak", this.SPECIAL),
-    lockpick: new Skill("lockpick", this.SPECIAL),
-    steal: new Skill("steal", this.SPECIAL),
-    traps: new Skill("traps", this.SPECIAL),
-    science: new Skill("science", this.SPECIAL),
-    repair: new Skill("repair", this.SPECIAL),
+    firstAid: new UnitSkill("firstAid", this.SPECIAL),
+    doctor: new UnitSkill("doctor", this.SPECIAL),
+    sneak: new UnitSkill("sneak", this.SPECIAL),
+    lockpick: new UnitSkill("lockpick", this.SPECIAL),
+    steal: new UnitSkill("steal", this.SPECIAL),
+    traps: new UnitSkill("traps", this.SPECIAL),
+    science: new UnitSkill("science", this.SPECIAL),
+    repair: new UnitSkill("repair", this.SPECIAL),
     // Passive skills
-    pilot: new Skill("pilot", this.SPECIAL),
-    barter: new Skill("barter", this.SPECIAL),
-    gambling: new Skill("gambling", this.SPECIAL),
-    outdoorsman: new Skill("outdoorsman", this.SPECIAL),
+    pilot: new UnitSkill("pilot", this.SPECIAL),
+    barter: new UnitSkill("barter", this.SPECIAL),
+    gambling: new UnitSkill("gambling", this.SPECIAL),
+    outdoorsman: new UnitSkill("outdoorsman", this.SPECIAL),
   };
 
   /*
    * Derived statistics
    */
   derived = {
-    actionPoints: new DerivedStat("actionPoints", this.SPECIAL),
-    armorClass: new DerivedStat("armorClass", this.SPECIAL),
-    carryWeight: new DerivedStat("carryWeight", this.SPECIAL),
-    criticalChance: new DerivedStat("criticalChance", this.SPECIAL),
-    damageResistance: new DerivedStat("damageResistance", this.SPECIAL),
-    healingRate: new DerivedStat("healingRate", this.SPECIAL),
-    healthPoints: new DerivedStat("healthPoints", this.SPECIAL),
-    meleeDamage: new DerivedStat("meleeDamage", this.SPECIAL),
-    skillRate: new DerivedStat("skillRate", this.SPECIAL),
+    actionPoints: new UnitDerivedStat("actionPoints", this.SPECIAL),
+    armorClass: new UnitDerivedStat("armorClass", this.SPECIAL),
+    carryWeight: new UnitDerivedStat("carryWeight", this.SPECIAL),
+    criticalChance: new UnitDerivedStat("criticalChance", this.SPECIAL),
+    damageResistance: new UnitDerivedStat("damageResistance", this.SPECIAL),
+    healingRate: new UnitDerivedStat("healingRate", this.SPECIAL),
+    healthPoints: new UnitDerivedStat("healthPoints", this.SPECIAL),
+    meleeDamage: new UnitDerivedStat("meleeDamage", this.SPECIAL),
+    skillRate: new UnitDerivedStat("skillRate", this.SPECIAL),
   };
 
   constructor() {

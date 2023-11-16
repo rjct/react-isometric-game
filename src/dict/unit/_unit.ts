@@ -38,10 +38,6 @@ export type UnitDictEntity = {
     grid: Size3D;
     screen: Size2D;
   };
-  healthPoints: {
-    current: number;
-    max: number;
-  };
   actionPoints: {
     max: number;
     consumption: {

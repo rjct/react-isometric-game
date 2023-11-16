@@ -2,7 +2,7 @@ import { UnitCharacteristicDictEntity } from "@src/dict/unit/_unit";
 import { UnitDerivedStatName, unitDerivedStats } from "@src/dict/unit/_unitDerivedStat";
 import { UnitCharacteristics } from "@src/engine/unit/UnitCharacteristicsFactory";
 
-export class DerivedStat {
+export class UnitDerivedStat {
   public readonly dictEntity: UnitCharacteristicDictEntity;
 
   private _currentValue: number;
