@@ -14,7 +14,11 @@ const hummer: VehicleDictEntity = {
       height: 236,
     },
   },
-  healthPoints: 3000,
+  characteristics: {
+    healthPoints: 3000,
+    carryWeight: 500,
+    armorClass: 30,
+  },
   turningRadius: 2,
   maxSpeed: 10,
   explorable: true,
@@ -44,6 +48,12 @@ const hummer: VehicleDictEntity = {
       src: "public/assets/vehicles/drivable/hummer/shift_out.mp3",
     },
     collision: {
+      src: "",
+    },
+    hit: {
+      src: "",
+    },
+    broken: {
       src: "",
     },
   },

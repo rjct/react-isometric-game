@@ -1,6 +1,7 @@
 import hummer from "@src/dict/vehicle/hummer";
+import { VehicleDerivedStatName } from "@src/dict/vehicle/_vehicleDerivedStst";
 
-export type VehicleActionType = "none" | "idle" | "driving" | "collision";
+export type VehicleActionType = "none" | "idle" | "driving" | "collision" | "hit" | "broken";
 export type VehicleSfxType = "turnOn" | "turnOff" | "shiftIn" | "shiftOut" | VehicleActionType;
 export type VehicleSfx = {
   [type in VehicleSfxType]: {
@@ -16,7 +17,9 @@ export type VehicleDictEntity = {
     grid: Size3D;
     screen: Size2D;
   };
-  healthPoints: number;
+  characteristics: {
+    [characteristic in VehicleDerivedStatName]: number;
+  };
   turningRadius: number;
   maxSpeed: number;
   explorable: boolean;
@@ -29,6 +32,12 @@ export type VehicleDictEntity = {
 const vehiclesList = { ...hummer } as const;
 
 export type VehicleType = keyof typeof vehiclesList;
+
+export type VehicleCharacteristicDictEntity = {
+  title: string;
+  description: string;
+  suffix?: string;
+};
 
 export default function getVehiclesDictList() {
   return vehiclesList;

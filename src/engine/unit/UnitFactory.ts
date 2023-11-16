@@ -466,6 +466,10 @@ export class Unit extends MovableGameEntity {
     }
   }
 
+  getCarryWeight(): number {
+    return this.characteristics.derived.carryWeight.value;
+  }
+
   public getJSON(omitUnitType = false) {
     const json: StaticMapUnit = {
       type: this.type,

@@ -1,9 +1,17 @@
 import { StaticMapVehicle } from "@src/context/GameStateContext";
-import { getVehicleDictEntityByType, VehicleDictEntity, VehicleSfxType, VehicleType } from "@src/dict/vehicle/_vehicle";
+import {
+  getVehicleDictEntityByType,
+  VehicleActionType,
+  VehicleDictEntity,
+  VehicleSfxType,
+  VehicleType,
+} from "@src/dict/vehicle/_vehicle";
+import { VehicleDerivedStatName } from "@src/dict/vehicle/_vehicleDerivedStst";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, generateNumbersWithStep } from "@src/engine/helpers";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { VehicleDerivedStat } from "@src/engine/vehicle/VehicleDerivedStatFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation, normalizeRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
@@ -14,7 +22,7 @@ export class Vehicle extends MovableGameEntity {
   public readonly dictEntity: VehicleDictEntity;
   private readonly rotationAngles: AngleInDegrees[];
   public realRotation: Angle;
-  public action: "none" | "idle" | "driving" | "collision" = "none";
+  public action: VehicleActionType = "none";
   public driver: Unit | null = null;
 
   public currentPlayingSfx: { [type in VehicleSfxType]?: AudioBufferSourceNode } = {};
@@ -23,6 +31,9 @@ export class Vehicle extends MovableGameEntity {
     max: number;
   };
   public accelerationEnabled = false;
+  public readonly characteristics: { [characteristic in VehicleDerivedStatName]: VehicleDerivedStat };
+  public damagePoints = 0;
+  public isBroken = false;
 
   constructor(props: {
     gameState: GameMap;
@@ -64,6 +75,12 @@ export class Vehicle extends MovableGameEntity {
       rad: degToRad(props.rotation),
     };
     this.setRotation(normalizeRotation(props.rotation, ROTATION_STEPS));
+
+    this.characteristics = {
+      healthPoints: new VehicleDerivedStat("healthPoints", this.dictEntity.characteristics.healthPoints),
+      carryWeight: new VehicleDerivedStat("carryWeight", this.dictEntity.characteristics.carryWeight),
+      armorClass: new VehicleDerivedStat("armorClass", this.dictEntity.characteristics.armorClass),
+    };
   }
 
   public setAction(action: Vehicle["action"]) {
@@ -134,6 +151,25 @@ export class Vehicle extends MovableGameEntity {
       const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
       this.inventory.main.splice(index, 1);
     }
+  }
+
+  public takeDamage(damage: number) {
+    this.damagePoints = -damage;
+    this.characteristics.healthPoints.value = Math.max(0, this.characteristics.healthPoints.value - damage);
+    //this.setAction("hit");
+
+    if (this.characteristics.healthPoints.value === 0) {
+      this.action = "broken";
+      this.isBroken = true;
+    } else {
+      window.setTimeout(() => {
+        this.damagePoints = 0;
+      }, this.dictEntity.animationDuration.hit);
+    }
+  }
+
+  public getCarryWeight() {
+    return this.characteristics.carryWeight.value;
   }
 
   public getHash(): string {

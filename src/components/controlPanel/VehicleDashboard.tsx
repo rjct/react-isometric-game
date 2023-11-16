@@ -1,4 +1,4 @@
-import { degToRad } from "@src/engine/helpers";
+import { degToRad, randomInt } from "@src/engine/helpers";
 
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useHero } from "@src/hooks/useHero";
@@ -64,7 +64,8 @@ function VehicleSpeedometerTicks(props: { vehicle: Vehicle }) {
       style={{
         transform: `translate3d(-50%, 0px, 0px) rotate(${
           (vehicle.speed.current / (config.valueMax - config.valueMin)) * (config.angleMax - config.angleMin) +
-          config.angleMin
+          config.angleMin +
+          randomInt(-3, 3)
         }deg)`,
       }}
     ></div>,

@@ -21,6 +21,20 @@ export const TopPanel = React.memo(function Top() {
 
       <fieldset className={"block x3"}></fieldset>
 
+      {hero.isVehicleInUse() ? (
+        <fieldset>
+          <HeroPoints
+            style={"red"}
+            title={"Vehicle HP"}
+            shortTitle={"AP"}
+            progress={hero.getVehicleInUse()!.characteristics.healthPoints}
+            label={hero.getVehicleInUse()!.characteristics.healthPoints}
+            warnPercent={50}
+            criticalPercent={20}
+          />
+        </fieldset>
+      ) : null}
+
       <fieldset>
         <HeroPoints
           style={"red"}

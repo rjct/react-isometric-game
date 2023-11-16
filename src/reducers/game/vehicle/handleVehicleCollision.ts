@@ -21,5 +21,7 @@ export function handleVehicleCollision(state: GameMap, action: HandleVehicleColl
     delete vehicle.currentPlayingSfx[key as VehicleSfxType];
   });
 
+  vehicle.takeDamage(1);
+
   return { ...state };
 }
