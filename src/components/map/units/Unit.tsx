@@ -1,9 +1,9 @@
 import { UnitActionPoints } from "@src/components/map/units/UnitActionPoints";
 import { UnitCooldownTimer } from "@src/components/map/units/UnitCooldownTimer";
-import { UnitDamagePoints } from "@src/components/map/units/UnitDamagePoints";
 import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
 import { UnitHealth } from "@src/components/map/units/UnitHealth";
 import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
+import { EntityDamagePoints } from "@src/components/map/_shared/EntityDamagePoints";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -77,7 +77,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     >
       <div className="char"></div>
       <UnitEnemyInViewMark unit={props.unit} />
-      <UnitDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
+      <EntityDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
       <UnitCooldownTimer unit={props.unit} />
       <UnitHealth unit={props.unit} />
       <UnitActionPoints unit={props.unit} />

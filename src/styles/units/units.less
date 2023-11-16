@@ -103,22 +103,6 @@
     filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
   }
 
-  .damage-points {
-    position: absolute;
-    width: 50px;
-    left: calc(50% - 25px);
-    top: 0;
-    color: #ffffff;
-    filter: drop-shadow(0 4px 6px black);
-    background: rgba(255, 0, 0, 0.5);
-    border-radius: 10px;
-    z-index: 2;
-    font-weight: bolder;
-    text-align: center;
-    transition: all 1s ease;
-    opacity: 1;
-  }
-
   .enemy-in-view {
     position: absolute;
     left: 27%;
@@ -149,13 +133,6 @@
   &[data-selected-for-inventory-transfer="true"] {
     .char {
       .explorable-entity-highlight();
-    }
-  }
-
-  &[data-action="hit"] {
-    .damage-points {
-      top: -50%;
-      opacity: 0;
     }
   }
 

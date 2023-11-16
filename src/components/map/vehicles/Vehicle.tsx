@@ -1,3 +1,4 @@
+import { EntityDamagePoints } from "@src/components/map/_shared/EntityDamagePoints";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -70,6 +71,8 @@ export const VehicleComponent = (props: {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}
-    ></div>
+    >
+      <EntityDamagePoints action={props.vehicle.action} damagePoints={props.vehicle.damagePoints} />
+    </div>
   );
 };

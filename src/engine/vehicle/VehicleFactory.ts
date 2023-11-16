@@ -164,7 +164,7 @@ export class Vehicle extends MovableGameEntity {
     } else {
       window.setTimeout(() => {
         this.damagePoints = 0;
-      }, this.dictEntity.animationDuration.hit);
+      }, this.dictEntity.animationDuration.collision);
     }
   }
 
