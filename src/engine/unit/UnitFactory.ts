@@ -481,6 +481,10 @@ export class Unit extends MovableGameEntity {
       json.isDead = true;
     }
 
+    if (this.isVehicleInUse()) {
+      json.vehicleIdInUse = this.getVehicleInUse()!.id;
+    }
+
     if (this.getInventoryItems().length > 0) {
       json.inventory = {} as StaticMapUnit["inventory"];
 

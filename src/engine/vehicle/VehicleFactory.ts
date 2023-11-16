@@ -179,10 +179,16 @@ export class Vehicle extends MovableGameEntity {
   }
 
   getJSON(): StaticMapVehicle {
-    return {
+    const json: StaticMapVehicle = {
       type: this.type,
       position: this.getRoundedPosition(),
       rotation: this.rotation.deg,
     };
+
+    if (this.isCustomId) {
+      json.id = this.id;
+    }
+
+    return json;
   }
 }

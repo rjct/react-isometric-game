@@ -65,9 +65,13 @@ export class GameEntity {
   };
 
   private readonly explorable: boolean = false;
+  public readonly isCustomId: boolean = false;
 
   constructor(props: GameEntityProps) {
     this.id = props.id || randomUUID();
+    if (props.id) {
+      this.isCustomId = true;
+    }
     this.internalColor = props.internalColor;
 
     this.rotation = {
