@@ -72,6 +72,7 @@ export interface StaticMapWeaponAmmo {
 
 export interface StaticMap {
   size: Size2D;
+  isAllowedToEnterTheMapInsideVehicle: boolean;
   terrain: Array<StaticMapTerrainArea>;
   hero: Omit<StaticMapUnit, "type">;
   buildings: Array<StaticMapBuilding>;

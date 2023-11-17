@@ -132,6 +132,16 @@ export class Vehicle extends MovableGameEntity {
     );
   }
 
+  public stop() {
+    this.clearPath();
+    this.accelerationEnabled = false;
+    this.speed.current = 0;
+
+    if (this.driver) {
+      this.setAction("idle");
+    }
+  }
+
   public getCurrentSpeed() {
     return this.speed.current;
   }

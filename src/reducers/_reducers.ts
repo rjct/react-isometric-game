@@ -104,6 +104,7 @@ import {
 import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
+import { beforeUpdateMapUrl, BeforeUpdateMapUrlReducerAction } from "@src/reducers/beforeUpdateMapUrl";
 import { deleteLight, DeleteLightReducerAction } from "@src/reducers/editor/light/deleteLight";
 import { addVehicle, AddVehicleReducerAction } from "@src/reducers/editor/vehicle/addVehicle";
 import {
@@ -174,6 +175,7 @@ export type GameReducerAction =
   | AnimateFiredAmmoAction
   | SetCurrentUnitActionReducerAction
   | SetUnitMovementModeReducerAction
+  | BeforeUpdateMapUrlReducerAction
   | UpdateMapUrlReducerAction
   | TransferInventoryItemReducerAction
   | SetSelectedEntityForInventoryTransferReducerAction
@@ -318,6 +320,9 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "setUnitMovementMode":
       return setUnitMovementMode(state, action as SetUnitMovementModeReducerAction);
+
+    case "beforeUpdateMapUrl":
+      return beforeUpdateMapUrl(state, action as BeforeUpdateMapUrlReducerAction);
 
     case "updateMapUrl":
       return updateMapUrl(state, action as UpdateMapUrlReducerAction);

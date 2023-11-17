@@ -3,7 +3,7 @@ import { Building } from "@src/engine/building/BuildingFactory";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
-import { createMatrix, gridToScreesSize } from "@src/engine/helpers";
+import { createMatrix, degToRad, gridToScreesSize } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
@@ -23,6 +23,7 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     ...{
       mediaAssets: action.mediaFiles,
       mapSize: action.map.size,
+      isAllowedToEnterTheMapInsideVehicle: action.map.isAllowedToEnterTheMapInsideVehicle,
       matrix: createMatrix(action.map.size),
       units: {} as { [id: string]: Unit },
       buildings: [] as Building[],
@@ -135,28 +136,51 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
     if (action.map.hero.inventory) {
       newState.createInventoryStorage(action.map.hero.inventory, hero);
     }
+  } else {
+    newState.units[state.heroId] = state.units[state.heroId];
+  }
 
-    if (action.map.hero.vehicleIdInUse) {
-      const vehicle = newState.getVehicleById(action.map.hero.vehicleIdInUse);
+  const heroId = newState.heroId;
+  const heroRotationAngle: Angle = {
+    rad: degToRad(action.map.hero.rotation || 0),
+    deg: action.map.hero.rotation || 0,
+  };
+
+  newState.units[heroId].stop();
+  newState.units[heroId].setPosition(action.map.hero.position, newState);
+  newState.units[heroId].setRotation(heroRotationAngle);
+
+  const hero = newState.units[heroId];
+
+  switch (true) {
+    case action.map.isAllowedToEnterTheMapInsideVehicle && hero.isVehicleInUse():
+      const vehicleInUse = hero.getVehicleInUse()!;
+
+      if (!newState.getVehicleById(vehicleInUse.id)) {
+        newState.vehicles.push(vehicleInUse);
+      }
+
+      vehicleInUse.setPosition(action.map.hero.position, newState);
+      vehicleInUse.setRotation(heroRotationAngle);
+
+      break;
+
+    case action.map.isAllowedToEnterTheMapInsideVehicle && !!action.map.hero.vehicleIdInUse:
+      const vehicle = newState.getVehicleById(action.map.hero.vehicleIdInUse!);
 
       if (vehicle) {
         hero.getIntoVehicle(vehicle);
         hero.setRotation(vehicle.rotation, false);
         vehicle.assignDriver(hero);
       }
-    }
-  } else {
-    newState.units[state.heroId] = state.units[state.heroId];
-  }
+      break;
 
-  const heroId = newState.heroId;
+    default:
+      newState.units[heroId].getOutOfVehicle();
 
-  //newState.units[heroId].getOutOfVehicle();
-  newState.units[heroId].stop();
-  newState.units[heroId].setPosition(action.map.hero.position, newState);
-
-  if (newState.settings.featureEnabled.unitShadow) {
-    newState.units[heroId].calcShadows(newState);
+      if (newState.settings.featureEnabled.unitShadow) {
+        newState.units[heroId].calcShadows(newState);
+      }
   }
 
   newState.setGridMatrixOccupancy(newState.buildings);

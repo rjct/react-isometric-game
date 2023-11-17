@@ -12,7 +12,7 @@ export function accelerateVehicle(state: GameMap, action: AccelerateVehicleReduc
     return state;
   }
 
-  const speed = action.vehicle.speed.current + action.deltaTime * 25;
+  const speed = action.vehicle.speed.current + action.deltaTime * 2.5;
 
   action.vehicle.speed.current = Math.min(action.vehicle.speed.max, speed);
 

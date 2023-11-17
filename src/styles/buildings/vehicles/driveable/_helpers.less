@@ -1,3 +1,4 @@
+@import "actions/none";
 @import "actions/idle";
 @import "actions/driving";
 @import "actions/collision";
@@ -27,14 +28,10 @@
 			background-image: url(@action-bg);
 		}
 
+		.shared-vehicle-action-none(@width, @height);
 		.shared-vehicle-action-idle(@width, @height);
 		.shared-vehicle-action-driving(@width, @height);
 		.shared-vehicle-action-collision(@width, @height);
 	});
-
-    &[data-action="none"] {
-      @action-bg: %("/public/assets/vehicles/drivable/%a/idle.webp", @vehicle-type);
-      background-image: url(@action-bg);
-    }
   }
 }

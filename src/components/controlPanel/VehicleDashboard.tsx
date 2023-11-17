@@ -74,9 +74,21 @@ function addLeadingZeros(num: number, length: number): string {
 export const VehicleDashboard = () => {
   const { hero } = useHero();
 
-  if (!hero.isVehicleInUse()) return null;
-
   const vehicle = hero.getVehicleInUse()!;
+
+  const [needleShakeDeg, setNeedleShakeDeg] = React.useState(0);
+
+  React.useEffect(() => {
+    if (!vehicle) return;
+
+    const interval = setInterval(() => setNeedleShakeDeg(randomInt(-3, 3)), 50);
+
+    return () => {
+      clearInterval(interval);
+    };
+  }, []);
+
+  if (!hero.isVehicleInUse()) return null;
 
   const config = {
     valueMax: vehicle.speed.max + (vehicle.speed.max / 10) * 2,
@@ -84,16 +96,6 @@ export const VehicleDashboard = () => {
     angleMin: 70,
     angleMax: 290,
   };
-
-  const [needleShakeDeg, setNeedleShakeDeg] = React.useState(0);
-
-  React.useEffect(() => {
-    const interval = setInterval(() => setNeedleShakeDeg(randomInt(-3, 3)), 50);
-
-    return () => {
-      clearInterval(interval);
-    };
-  }, []);
 
   return (
     <div className={"control-vehicle"}>

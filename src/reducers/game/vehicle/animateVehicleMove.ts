@@ -7,9 +7,11 @@ function _calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
   const rollbackDistance = 2;
   const rollbackAngle = vehicle.rotation.rad + degToRad(90);
 
+  const position = vehicle.getRoundedPosition();
+
   return {
-    x: vehicle.position.grid.x + rollbackDistance * Math.cos(rollbackAngle),
-    y: vehicle.position.grid.y + rollbackDistance * Math.sin(rollbackAngle),
+    x: position.x + rollbackDistance * Math.cos(rollbackAngle),
+    y: position.y + rollbackDistance * Math.sin(rollbackAngle),
   };
 }
 
@@ -32,8 +34,8 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
     const entityPosition = { ...vehicle.position.grid };
 
     if (vehicle.isCollisionDetected()) {
-      vehicle.clearPath();
-      vehicle.speed.current = 0;
+      vehicle.stop();
+
       vehicle.setRotation(normalizeRotation(vehicle.realRotation.deg, 4));
       vehicle.setPosition(_calculateRollbackPosition(vehicle), state);
       vehicle.setAction("collision");

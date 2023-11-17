@@ -23,6 +23,7 @@ export const ExportButton = React.memo(function ExportButton() {
   const handleClick = () => {
     const result: StaticMap = {
       size: { ...gameState.mapSize },
+      isAllowedToEnterTheMapInsideVehicle: gameState.isAllowedToEnterTheMapInsideVehicle,
       terrain: terrainState.areas.map((terrainArea) => {
         return terrainArea.getJSON();
       }),

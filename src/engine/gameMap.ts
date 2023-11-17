@@ -88,6 +88,8 @@ export const gameMap = {
     height: 0,
   } as GameMapProps["mapSize"],
 
+  isAllowedToEnterTheMapInsideVehicle: false,
+
   world: null as unknown as GameEntity,
 
   buildings: [] as GameMapProps["buildings"],
