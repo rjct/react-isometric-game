@@ -141,3 +141,37 @@
     }
   }
 }
+
+.vehicle-gear-shift-wrapper {
+  display: flex;
+  padding: @padding;
+
+  .vehicle-gear-shift {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    gap: (@padding / 2);
+
+    .vehicle-gear-shift-mode {
+      width: 1em;
+      aspect-ratio: 1/1;
+      border: solid 1px #000000;
+      border-radius: 50%;
+      text-align: center;
+      padding: 2px;
+      opacity: 0.75;
+      background-color: #6b846a;
+      box-shadow:
+        0 2px 3px rgba(0, 0, 0, 0.5) inset,
+        0 -2px 4px rgb(183, 183, 183);
+      transition: all 300ms linear;
+
+      &[data-active="true"] {
+        opacity: 1;
+        background-color: @text-color;
+        color: #000000;
+      }
+    }
+  }
+}

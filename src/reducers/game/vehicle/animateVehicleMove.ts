@@ -1,19 +1,8 @@
 import { GameMap } from "@src/engine/gameMap";
-import { degToRad, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
+import { getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { calcCollisionRollbackPosition } from "@src/engine/vehicle/_helpers";
 import { normalizeRotation } from "@src/engine/weapon/helpers";
-
-function _calculateRollbackPosition(vehicle: Vehicle): GridCoordinates {
-  const rollbackDistance = 2;
-  const rollbackAngle = vehicle.rotation.rad + degToRad(90);
-
-  const position = vehicle.getRoundedPosition();
-
-  return {
-    x: position.x + rollbackDistance * Math.cos(rollbackAngle),
-    y: position.y + rollbackDistance * Math.sin(rollbackAngle),
-  };
-}
 
 export type AnimateVehiclesMoveReducerAction = {
   type: "animateVehiclesMove";
@@ -34,10 +23,10 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
     const entityPosition = { ...vehicle.position.grid };
 
     if (vehicle.isCollisionDetected()) {
-      vehicle.stop();
-
+      vehicle.setPosition(calcCollisionRollbackPosition(vehicle), state);
       vehicle.setRotation(normalizeRotation(vehicle.realRotation.deg, 4));
-      vehicle.setPosition(_calculateRollbackPosition(vehicle), state);
+
+      vehicle.stop();
       vehicle.setAction("collision");
 
       state.setGridMatrixOccupancy([vehicle], 1);
@@ -57,15 +46,17 @@ export function animateVehiclesMove(state: GameMap, action: AnimateVehiclesMoveR
     }
 
     if (getDistanceBetweenGridPoints(vehicle.pathQueue.currentPos, entityPosition) > 0) {
-      vehicle.setRotation(getAngleBetweenTwoGridPoints(vehicle.pathQueue.currentPos, entityPosition));
+      const reverseAngle = vehicle.gearShiftMode === "reverse" ? 180 : 0;
+      const angle = getAngleBetweenTwoGridPoints(vehicle.pathQueue.currentPos, entityPosition, undefined, reverseAngle);
+
+      vehicle.setRotation(angle);
     }
 
     vehicle.setPosition(vehicle.pathQueue.currentPos, state);
 
     if (vehicle.pathQueue.atEnd) {
-      vehicle.clearPath();
-      vehicle.setAction("idle");
-      vehicle.pathQueue.atEnd = false;
+      vehicle.stop();
+
       vehicle.setPositionComplete();
     }
 

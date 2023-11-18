@@ -64,6 +64,7 @@ export const VehicleComponent = (props: {
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}
       data-action={props.vehicle.action}
+      data-gear-shift-mode={props.vehicle.gearShiftMode}
       data-selected-for-inventory-transfer={
         props.highlightedForInventoryTransfer || props.selectedForInventoryTransfer || null
       }

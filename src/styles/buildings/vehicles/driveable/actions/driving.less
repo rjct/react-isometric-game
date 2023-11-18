@@ -7,6 +7,10 @@
 
     animation: vehicle-action-driving @duration steps(@steps);
     animation-iteration-count: infinite;
+
+    &[data-gear-shift-mode="reverse"] {
+      animation-direction: reverse;
+    }
   }
 
   @keyframes vehicle-action-driving {

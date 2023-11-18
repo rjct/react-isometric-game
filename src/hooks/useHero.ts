@@ -3,14 +3,8 @@ import { faQuestion } from "@fortawesome/free-solid-svg-icons/faQuestion";
 import { faTruckFast } from "@fortawesome/free-solid-svg-icons/faTruckFast";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
-import {
-  calculateIsometricAngle,
-  degToRad,
-  getDistanceBetweenEntities,
-  getDistanceBetweenGridPoints,
-} from "@src/engine/helpers";
+import { getDistanceBetweenEntities, getDistanceBetweenGridPoints } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import Dubins from "@src/engine/vehicle/Dubins";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 
@@ -211,22 +205,7 @@ export function useHero() {
         const vehicle = hero.getVehicleInUse()!;
 
         if (type === "mouseDown") {
-          const dubWorker = new Dubins();
-
-          const path = dubWorker.getPath(
-            [vehicle.position.grid.x, vehicle.position.grid.y, vehicle.rotation.rad - degToRad(90)],
-            [
-              uiState.mousePosition.grid.x,
-              uiState.mousePosition.grid.y,
-              calculateIsometricAngle(vehicle.position.grid, heroAction.position).rad,
-            ],
-            vehicle.dictEntity.turningRadius,
-            0.5,
-          );
-
-          vehicle.setPath(path);
-
-          gameDispatch({ type: "startVehicleAcceleration", vehicle });
+          gameDispatch({ type: "startVehicleAcceleration", vehicle, targetPosition: uiState.mousePosition.grid });
         } else if (type === "mouseUp") {
           gameDispatch({ type: "stopVehicleAcceleration", vehicle });
         }

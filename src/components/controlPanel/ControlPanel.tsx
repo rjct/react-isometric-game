@@ -6,7 +6,7 @@ import { HeroExploreButton } from "@src/components/controlPanel/HeroExploreButto
 import { HeroHandButton } from "@src/components/controlPanel/HeroHandButton";
 import { HeroMovementButton } from "@src/components/controlPanel/HeroMovementButton";
 import { OpenInventoryButton } from "@src/components/controlPanel/OpenInventoryButton";
-import { VehicleDashboard } from "@src/components/controlPanel/VehicleDashboard";
+import { VehicleDashboard } from "@src/components/controlPanel/vehicle/VehicleDashboard";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 

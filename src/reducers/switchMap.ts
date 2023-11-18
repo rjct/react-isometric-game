@@ -147,8 +147,6 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   };
 
   newState.units[heroId].stop();
-  newState.units[heroId].setPosition(action.map.hero.position, newState);
-  newState.units[heroId].setRotation(heroRotationAngle);
 
   const hero = newState.units[heroId];
 
@@ -170,16 +168,20 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
 
       if (vehicle) {
         hero.getIntoVehicle(vehicle);
-        hero.setRotation(vehicle.rotation, false);
+
         vehicle.assignDriver(hero);
+        vehicle.setPosition(action.map.hero.position, newState);
+        vehicle.setRotation(heroRotationAngle);
       }
       break;
 
     default:
-      newState.units[heroId].getOutOfVehicle();
+      hero.getOutOfVehicle();
+      hero.setPosition(action.map.hero.position, newState);
+      hero.setRotation(heroRotationAngle);
 
       if (newState.settings.featureEnabled.unitShadow) {
-        newState.units[heroId].calcShadows(newState);
+        hero.calcShadows(newState);
       }
   }
 

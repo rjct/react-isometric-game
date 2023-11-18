@@ -160,6 +160,7 @@ export function getAngleBetweenTwoGridPoints(
   startPosition: GridCoordinates,
   targetPosition: GridCoordinates,
   compensateRotation = true,
+  additionalRotationInDegree = 0,
 ) {
   const distance = {
     x: targetPosition.x - startPosition.x,
@@ -168,7 +169,7 @@ export function getAngleBetweenTwoGridPoints(
 
   const compensationAngle = compensateRotation ? degToRad(90) : 0;
 
-  const rad: number = Math.atan2(distance.y, distance.x) - compensationAngle;
+  const rad: number = Math.atan2(distance.y, distance.x) - compensationAngle + degToRad(additionalRotationInDegree);
   const deg = radToDeg(rad);
 
   return {

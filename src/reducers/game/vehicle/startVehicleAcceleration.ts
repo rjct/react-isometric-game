@@ -1,13 +1,15 @@
 import { GameMap } from "@src/engine/gameMap";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { calcMovementPath } from "@src/engine/vehicle/_helpers";
 
 export type StartVehicleAccelerationReducerAction = {
   type: "startVehicleAcceleration";
   vehicle: Vehicle;
+  targetPosition: GridCoordinates;
 };
 
 export function startVehicleAcceleration(state: GameMap, action: StartVehicleAccelerationReducerAction) {
-  const { vehicle } = action;
+  const { vehicle, targetPosition } = action;
 
   if (vehicle.accelerationEnabled) {
     return state;
@@ -16,6 +18,12 @@ export function startVehicleAcceleration(state: GameMap, action: StartVehicleAcc
   vehicle.accelerationEnabled = true;
   vehicle.setAction("driving");
 
+  const movement = calcMovementPath(vehicle, targetPosition);
+
+  vehicle.setPath(movement.path);
+  vehicle.setGearShiftMode(movement.gearShiftMode);
+
+  //
   const shiftInSfx = state.createSfx([vehicle.dictEntity.sfx["shiftIn"].src], 1);
   const drivingInSfx = state.createSfx([vehicle.dictEntity.sfx["driving"].src], 1);
 

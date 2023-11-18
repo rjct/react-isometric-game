@@ -16,12 +16,12 @@ export function decelerateVehicle(state: GameMap, action: DecelerateVehicleReduc
   )
     return state;
 
-  const speed = action.vehicle.speed.current - action.deltaTime * 50;
+  const speed = action.vehicle.speed.current - action.deltaTime * 5;
 
   action.vehicle.speed.current = Math.max(0, speed);
 
   if (action.vehicle.speed.current === 0) {
-    action.vehicle.setAction("idle");
+    action.vehicle.stop();
   }
 
   return { ...state };

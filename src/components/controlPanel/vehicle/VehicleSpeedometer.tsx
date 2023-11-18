@@ -1,6 +1,5 @@
 import { degToRad, randomInt } from "@src/engine/helpers";
-
-import { useHero } from "@src/hooks/useHero";
+import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import React from "react";
 
 type SpeedometerConfig = {
@@ -71,10 +70,8 @@ function addLeadingZeros(num: number, length: number): string {
   return zeros + numString;
 }
 
-export const VehicleDashboard = () => {
-  const { hero } = useHero();
-
-  const vehicle = hero.getVehicleInUse()!;
+export const VehicleSpeedometer = (props: { vehicle: Vehicle }) => {
+  const { vehicle } = props;
 
   const [needleShakeDeg, setNeedleShakeDeg] = React.useState(0);
 
@@ -88,8 +85,6 @@ export const VehicleDashboard = () => {
     };
   }, []);
 
-  if (!hero.isVehicleInUse()) return null;
-
   const config = {
     valueMax: vehicle.speed.max + (vehicle.speed.max / 10) * 2,
     valueStep: (vehicle.speed.max / 10) * 3,
@@ -98,25 +93,23 @@ export const VehicleDashboard = () => {
   };
 
   return (
-    <div className={"control-vehicle"}>
-      <div className={"vehicle-speedometer-wrapper"}>
-        <div className={"vehicle-speedometer"}>
-          <VehicleSpeedometerTicks config={config} />
-          <div className={"needle-axle"}></div>
-          <div className={"tachometer"}>{addLeadingZeros(Math.round(vehicle.pathQueue.totalDistMoved / 10), 7)}</div>
+    <div className={"vehicle-speedometer-wrapper"}>
+      <div className={"vehicle-speedometer"}>
+        <VehicleSpeedometerTicks config={config} />
+        <div className={"needle-axle"}></div>
+        <div className={"tachometer"}>{addLeadingZeros(Math.round(vehicle.pathQueue.totalDistMoved / 10), 7)}</div>
 
-          <div
-            className={"needle"}
-            key={needleShakeDeg}
-            style={{
-              transform: `translate3d(-50%, 0px, 0px) rotate(${
-                (vehicle.speed.current / config.valueMax) * (config.angleMax - config.angleMin) +
-                config.angleMin +
-                needleShakeDeg
-              }deg)`,
-            }}
-          ></div>
-        </div>
+        <div
+          className={"needle"}
+          key={needleShakeDeg}
+          style={{
+            transform: `translate3d(-50%, 0px, 0px) rotate(${
+              (vehicle.speed.current / config.valueMax) * (config.angleMax - config.angleMin) +
+              config.angleMin +
+              needleShakeDeg
+            }deg)`,
+          }}
+        ></div>
       </div>
     </div>
   );

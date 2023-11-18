@@ -22,6 +22,7 @@ export function getOutOfVehicle(state: GameMap, action: GetOutOfVehicleReducerAc
     },
     state,
   );
+  unit.setRotation(vehicle.rotation);
 
   vehicle.unAssignDriver();
   vehicle.clearPath();

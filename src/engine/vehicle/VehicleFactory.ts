@@ -30,6 +30,7 @@ export class Vehicle extends MovableGameEntity {
     current: number;
     max: number;
   };
+  public gearShiftMode: "reverse" | "neutral" | "drive";
   public accelerationEnabled = false;
   public readonly characteristics: { [characteristic in VehicleDerivedStatName]: VehicleDerivedStat };
   public damagePoints = 0;
@@ -66,6 +67,8 @@ export class Vehicle extends MovableGameEntity {
       max: dictEntity.maxSpeed,
     };
 
+    this.gearShiftMode = "neutral";
+
     const ROTATION_STEPS = 32;
 
     this.rotationAngles = generateNumbersWithStep(359, 360 / ROTATION_STEPS);
@@ -85,6 +88,10 @@ export class Vehicle extends MovableGameEntity {
 
   public setAction(action: Vehicle["action"]) {
     this.action = action;
+  }
+
+  public setGearShiftMode(mode: Vehicle["gearShiftMode"]) {
+    this.gearShiftMode = mode;
   }
 
   assignDriver(owner: Unit) {
@@ -134,6 +141,9 @@ export class Vehicle extends MovableGameEntity {
 
   public stop() {
     this.clearPath();
+    this.setGearShiftMode("neutral");
+    this.pathQueue.atEnd = false;
+
     this.accelerationEnabled = false;
     this.speed.current = 0;
 

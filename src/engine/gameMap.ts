@@ -59,7 +59,7 @@ export const gameMap = {
   },
 
   debug: {
-    enabled: false,
+    enabled: constants.debug,
     featureEnabled: {
       skipIntro: isFeatureEnabled("debug", "skipIntro"),
       wireframe: isFeatureEnabled("debug", "wireframe"),
@@ -217,7 +217,7 @@ export const gameMap = {
   },
 
   checkCollision(entity: MovableGameEntity): boolean {
-    const TOLERANCE = 0.1;
+    const TOLERANCE = 0.5;
     const { position, size } = entity;
     const { x, y } = position.grid;
     const { width, length } = size.grid;
