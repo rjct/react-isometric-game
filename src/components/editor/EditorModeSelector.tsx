@@ -74,7 +74,7 @@ export const EditorModeSelector = React.memo(function EditorModeSelector() {
       </div>
 
       {uiState.editorMode === "terrain" ? (
-        <div className={"ui-tab-content"}>
+        <div className={"ui-tab-content terrain-area-layers-editor"}>
           <TerrainAreaLayersEditor />
           <TerrainAreaPropsEditor terrainArea={selectedTerrainArea} />
 

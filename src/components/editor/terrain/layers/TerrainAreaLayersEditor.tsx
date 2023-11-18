@@ -24,23 +24,21 @@ export function TerrainAreaLayersEditor() {
   }, [terrainState.selectedTerrainArea]);
 
   return (
-    <div className={"terrain-area-layers-editor"}>
-      <fieldset>
-        <legend>Terrain layers</legend>
+    <fieldset className={"terrain-area-layers"}>
+      <legend>Terrain layers</legend>
 
-        <ul className={"terrain-area-layers"}>
-          {terrainState.areas.map((terrainArea, index) => (
-            <TerrainAreaLayer
-              ref={terrainArea.id === terrainState.selectedTerrainArea?.id ? activeElementRef : null}
-              key={index}
-              terrainArea={terrainArea}
-              selected={terrainArea.id === terrainState.selectedTerrainArea?.id}
-              onClick={handleClick}
-              onVisibilityChange={handleVisibilityChange}
-            />
-          ))}
-        </ul>
-      </fieldset>
-    </div>
+      <ul>
+        {terrainState.areas.map((terrainArea, index) => (
+          <TerrainAreaLayer
+            ref={terrainArea.id === terrainState.selectedTerrainArea?.id ? activeElementRef : null}
+            key={index}
+            terrainArea={terrainArea}
+            selected={terrainArea.id === terrainState.selectedTerrainArea?.id}
+            onClick={handleClick}
+            onVisibilityChange={handleVisibilityChange}
+          />
+        ))}
+      </ul>
+    </fieldset>
   );
 }

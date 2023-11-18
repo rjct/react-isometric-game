@@ -15,6 +15,10 @@
   box-sizing: border-box;
   color: @text-color;
 
+  .ui-tab-content {
+    max-height: 60vw;
+  }
+
   .entity-props-editor,
   .editor-toolbar {
     display: flex;
@@ -106,6 +110,7 @@
     }
 
     .image {
+      position: relative;
       margin: 0;
       justify-self: center;
       align-self: center;
