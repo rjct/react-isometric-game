@@ -24,5 +24,29 @@
 
   margin-top: -96px;
 
-  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 6);
+  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 2);
+}
+
+.corrugated_wire_fence_half_top {
+  background-image: url("/public/assets/walls/corrugated_wire_fence_half_top.webp");
+  background-repeat: no-repeat;
+
+  width: @corrugated_wire_fence-width;
+  height: @corrugated_wire_fence-height;
+
+  margin-top: -96px;
+
+  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 1);
+}
+
+.corrugated_wire_fence_half_bottom {
+  background-image: url("/public/assets/walls/corrugated_wire_fence_half_bottom.webp");
+  background-repeat: no-repeat;
+
+  width: @corrugated_wire_fence-width;
+  height: @corrugated_wire_fence-height;
+
+  margin-top: -96px;
+
+  .building-rotation(@corrugated_wire_fence-width, @corrugated_wire_fence-height, 3);
 }

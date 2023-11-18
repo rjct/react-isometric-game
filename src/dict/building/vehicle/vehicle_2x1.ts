@@ -4,7 +4,7 @@ import { BUILDING_DICT_DEFAULTS } from "@src/dict/building/constants";
 const vehicle_2x1: BuildingDictEntity = {
   class: BUILDING_DICT_DEFAULTS.vehicle.CLASS,
   type: "vehicle_2x1",
-  className: "vehicle_2x4",
+  className: "vehicle_2x1",
   size: {
     grid: { width: 2, length: 1, height: 1 },
     screen: { width: 95, height: 120 },
