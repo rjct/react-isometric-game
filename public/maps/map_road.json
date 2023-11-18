@@ -1,13 +1,14 @@
 {
   "size": { "width": 100, "height": 100 },
+  "isAllowedToEnterTheMapInsideVehicle": true,
   "terrain": [
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 54, "x2": 45, "y2": 100 }
+      "target": { "x1": 0, "y1": 54, "x2": 46, "y2": 100 }
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 0, "x2": 45, "y2": 47 }
+      "target": { "x1": 0, "y1": 0, "x2": 46, "y2": 47 }
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
@@ -767,12 +768,10 @@
     }
   ],
   "hero": {
-    "position": { "x": 3, "y": 50 },
-    "rotation": 90,
+    "position": { "x": 53, "y": 95 },
+    "rotation": 0,
     "inventory": {
-      "main": [
-        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }
-      ],
+      "main": [{ "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }],
       "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
       "rightHand": { "class": "weapon", "name": "broken_bottle" }
     }
@@ -1094,15 +1093,14 @@
     { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 64 }, "rotation": 90, "variant": 3 },
     { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 62 }, "rotation": 90, "variant": 3 },
     { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 63 }, "rotation": 90, "variant": 3 },
-    { "type": "vehicle_2x4", "position": { "x": 21, "y": 62 }, "rotation": 0, "variant": 5 },
-    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 65 }, "rotation": 270, "variant": 3 },
-    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 64 }, "rotation": 270, "variant": 3 },
-    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 63 }, "rotation": 270, "variant": 3 },
-    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 62 }, "rotation": 270, "variant": 3 },
-    { "type": "corrugated_wire_fence_half", "position": { "x": 20, "y": 66 }, "rotation": 270, "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 16, "y": 65 }, "rotation": 270, "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 16, "y": 64 }, "rotation": 270, "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 16, "y": 63 }, "rotation": 270, "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 16, "y": 62 }, "rotation": 270, "variant": 3 },
+    { "type": "corrugated_wire_fence_half", "position": { "x": 16, "y": 66 }, "rotation": 270, "variant": 3 },
     { "type": "corrugated_wire_fence_half", "position": { "x": 23, "y": 66 }, "rotation": 90, "variant": 3 }
   ],
-  "vehicles": [],
+  "vehicles": [{ "type": "hummer", "position": { "x": 18, "y": 63 }, "rotation": 0 }],
   "globalShadows": { "color": "#000d4d", "opacity": 0.2 },
   "globalLights": { "opacity": 0.4 },
   "lights": [
