@@ -6,6 +6,7 @@ import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
 import { VehicleEditor } from "@src/components/editor/vehicle/VehicleEditor";
 import { Buildings } from "@src/components/map/buildings/Buildings";
 import { MapLayer } from "@src/components/map/MapLayer";
+import { MessagesTooltip } from "@src/components/map/messages/MessagesTooltip";
 import { FogOfWarComponent } from "@src/components/map/terrain/FogOfWar";
 import { LightsAndShadows } from "@src/components/map/terrain/LightsAndShadows";
 import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
@@ -283,6 +284,8 @@ export const MapComponent = React.memo(
           <FogOfWarComponent />
           <LightsAndShadows />
           <DebugVisualization />
+
+          <MessagesTooltip />
           <Wireframe />
 
           <BuildingEditor />

@@ -1,7 +1,7 @@
-import { EntityDamagePoints } from "@src/components/map/_shared/EntityDamagePoints";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
+import { useMessages } from "@src/hooks/useMessages";
 import React from "react";
 
 export const VehicleComponent = (props: {
@@ -14,6 +14,8 @@ export const VehicleComponent = (props: {
   onMouseUp?: (e: React.MouseEvent) => void;
 }) => {
   const { gameDispatch } = useGameState();
+  const { notify_EntityTakesDamage } = useMessages();
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (props.onMouseDown) {
       props.onMouseDown(e, props.vehicle);
@@ -33,6 +35,8 @@ export const VehicleComponent = (props: {
 
   React.useEffect(() => {
     if (props.vehicle.action === "collision") {
+      props.vehicle.takeDamage(1);
+
       gameDispatch({ type: "handleVehicleCollision", vehicle: props.vehicle });
 
       window.setTimeout(
@@ -49,6 +53,10 @@ export const VehicleComponent = (props: {
       );
     }
   }, [props.vehicle.action]);
+
+  React.useEffect(() => {
+    notify_EntityTakesDamage(props.vehicle);
+  }, [props.vehicle.damagePoints]);
 
   return (
     <div
@@ -72,8 +80,6 @@ export const VehicleComponent = (props: {
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}
-    >
-      <EntityDamagePoints action={props.vehicle.action} damagePoints={props.vehicle.damagePoints} />
-    </div>
+    ></div>
   );
 };

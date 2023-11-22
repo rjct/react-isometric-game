@@ -3,6 +3,7 @@ import { EditorSidebar } from "@src/components/editor/EditorSidebar";
 import { EntitiesLibrary } from "@src/components/editor/EntitiesLibrary";
 import { EntityInventoryManagerModal } from "@src/components/editor/_shared/EntityInventoryManagerModal";
 import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
+import { MessagesSticky } from "@src/components/map/messages/MessagesSticky";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
 import { DebugSettings } from "@src/components/_modals/debug/DebugSettings";
 import { GameOver } from "@src/components/_modals/game_over/GameOver";
@@ -151,6 +152,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                   <DebugSettings />
 
                   <div className={"center"}>
+                    <MessagesSticky />
                     <EntitiesLibrary />
                     <MapComponent ref={setScrollRef} />
                     <EditorSidebar />

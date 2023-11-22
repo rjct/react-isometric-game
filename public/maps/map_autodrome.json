@@ -86,7 +86,7 @@
   ],
   "hero": {
     "position": { "x": 51, "y": 40 },
-    "rotation": 135,
+    "rotation": 292.5,
     "vehicleIdInUse": "my_very_own_hummer",
     "inventory": {
       "leftHand": { "class": "weapon", "name": "mp5" },
@@ -106,7 +106,7 @@
     { "type": "street_light", "position": { "x": 46, "y": 36 }, "rotation": 270, "variant": 0 }
   ],
   "vehicles": [
-    { "type": "hummer", "position": { "x": 51, "y": 40 }, "rotation": 0, "id": "my_very_own_hummer" },
+    { "type": "hummer", "position": { "x": 51, "y": 40 }, "rotation": 292.5, "id": "my_very_own_hummer" },
     { "type": "hummer", "position": { "x": 56, "y": 40 }, "rotation": 90 , "id": "my_very_own_hummer_2"}
   ],
   "globalShadows": { "color": "#000d23", "opacity": 0.45 },

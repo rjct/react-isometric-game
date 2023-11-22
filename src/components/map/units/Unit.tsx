@@ -3,10 +3,11 @@ import { UnitCooldownTimer } from "@src/components/map/units/UnitCooldownTimer";
 import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
 import { UnitHealth } from "@src/components/map/units/UnitHealth";
 import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
-import { EntityDamagePoints } from "@src/components/map/_shared/EntityDamagePoints";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
+import { useMessages } from "@src/hooks/useMessages";
+import { usePreviousValue } from "@src/hooks/usePreviousValue";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
@@ -20,6 +21,10 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 }) {
   const { gameState, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
+  const { notify_EntityTakesDamage, notify_UnitEarnedXP, notify_UnitEarnedLevel } = useMessages();
+
+  const previousXP = usePreviousValue(props.unit.characteristics.xp);
+  const previousLVL = usePreviousValue(props.unit.characteristics.level);
 
   const isEditing = checkCurrentScene(["editor"]);
   const isUnitVisible =
@@ -36,6 +41,26 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     gameState.settings.featureEnabled.unitShadow ? props.unit.getHash() : false,
     gameState.settings.featureEnabled.unitShadow,
   ]);
+
+  React.useEffect(() => {
+    if (props.unit.isDead) return;
+
+    notify_EntityTakesDamage(props.unit);
+  }, [props.unit.damagePoints]);
+
+  React.useEffect(() => {
+    const earnedXp = props.unit.characteristics.xp - (previousXP || 0);
+
+    if (earnedXp <= 0) return;
+
+    notify_UnitEarnedXP(props.unit, earnedXp);
+  }, [props.unit.characteristics.xp]);
+
+  React.useEffect(() => {
+    if (props.unit.characteristics.level <= 1 || !previousLVL) return;
+
+    notify_UnitEarnedLevel(props.unit);
+  }, [props.unit.characteristics.level]);
 
   if (!isUnitVisible) return null;
 
@@ -77,7 +102,6 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     >
       <div className="char"></div>
       <UnitEnemyInViewMark unit={props.unit} />
-      <EntityDamagePoints action={props.unit.action} damagePoints={props.unit.damagePoints} />
       <UnitCooldownTimer unit={props.unit} />
       <UnitHealth unit={props.unit} />
       <UnitActionPoints unit={props.unit} />

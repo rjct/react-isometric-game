@@ -12,11 +12,14 @@ export class UnitCharacteristics {
     return this._experiencePoints;
   }
 
-  get xpRemainingToNextLevel(): number {
+  get levelProgressInPercent() {
     const currentLevel = this.level;
-    const nextLevelXP = ((currentLevel * (currentLevel + 1)) / 2) * 1000;
+    const currentLevelXp = currentLevel * (currentLevel - 1) * 500;
+    const nextLevelXp = (currentLevel + 1) * currentLevel * 500;
+    const xpForNextLevel = nextLevelXp - currentLevelXp;
+    const xpProgress = this.xp - currentLevelXp;
 
-    return nextLevelXP - this.xp;
+    return (xpProgress / xpForNextLevel) * 100;
   }
 
   // Level

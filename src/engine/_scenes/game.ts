@@ -78,6 +78,14 @@ export function gameScene(this: GameContext, deltaTime: number) {
     vfx.update(gameState, deltaTime);
   }
 
+  for (const message of this.gameState.messages) {
+    if (message.isLifecycleFinished()) {
+      gameDispatch({ type: "deleteMessage", id: message.id });
+    }
+
+    message.update(deltaTime);
+  }
+
   for (const enemy of allAliveEnemies) {
     gameDispatch({ type: "highlightUnitAtGunpoint", unit: enemy });
     gameDispatch({ type: "doRandomUnitAction", unit: enemy, deltaTime });

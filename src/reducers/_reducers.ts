@@ -141,6 +141,8 @@ import {
   stopVehicleAcceleration,
   StopVehicleAccelerationReducerAction,
 } from "@src/reducers/game/vehicle/stopVehicleAcceleration";
+import { deleteMessage, DeleteMessageReducerAction } from "@src/reducers/messages/deleteMessage";
+import { emitMessage, EmitMessageReducerAction } from "@src/reducers/messages/emitMessage";
 import { deleteVfx, DeleteVfxReducerAction } from "@src/reducers/vfx/deleteVfx";
 import { emitVfx, EmitVfxReducerAction } from "@src/reducers/vfx/emitVfx";
 
@@ -231,7 +233,10 @@ export type GameReducerAction =
   | DeleteSelectedLightReducerAction
   //
   | EmitVfxReducerAction
-  | DeleteVfxReducerAction;
+  | DeleteVfxReducerAction
+  //
+  | EmitMessageReducerAction
+  | DeleteMessageReducerAction;
 
 export function reducer(state: GameMap, action: GameReducerAction): GameMap {
   switch (action.type) {
@@ -468,6 +473,14 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "deleteVfx":
       return deleteVfx(state, action as DeleteVfxReducerAction);
+
+    //
+    case "emitMessage":
+      return emitMessage(state, action as EmitMessageReducerAction);
+
+    case "deleteMessage":
+      return deleteMessage(state, action as DeleteMessageReducerAction);
+
     //
     default:
       throw new Error();

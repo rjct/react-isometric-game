@@ -8,6 +8,7 @@ import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { floor, getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
+import { Message } from "@src/engine/MessageFactory";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { TerrainArea, TerrainTile } from "@src/engine/terrain/TerrainAreaFactory";
 import { TerrainCluster } from "@src/engine/terrain/TerrainClusterFactory";
@@ -128,6 +129,7 @@ export const gameMap = {
 
   audioContext: new AudioContext(),
   visualEffects: [] as Array<Vfx>,
+  messages: [] as Array<Message>,
 
   getHero() {
     return this.units[this.heroId];

@@ -40,6 +40,16 @@
         "max": 1e10
       },
       "randomActions": ["idle"]
+    },
+    {
+      "type": "ghoul",
+      "position": { "x": 12, "y": 7 },
+      "rotation": 180,
+      "healthPoints": {
+        "current": 1e10,
+        "max": 1e10
+      },
+      "randomActions": ["idle"]
     }
   ],
   "buildings": [
