@@ -64,6 +64,7 @@ export type WeaponDictEntityAttackMode = {
   ammoConsumption: number;
   range: number;
   damage: WeaponDamage;
+  blastRadius?: number;
   skill: UnitCombatSkillName;
   removeFromInventoryAfterUse: boolean;
   animationDuration: {

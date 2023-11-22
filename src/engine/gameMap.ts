@@ -349,6 +349,20 @@ export const gameMap = {
     }
   },
 
+  getUnitsByCoordinatesInRadius(coordinates: GridCoordinates, radius = 0): Unit[] {
+    const units = this.getAllUnitsArray();
+
+    return units.filter((unit) => {
+      const unitPosition = unit.getRoundedPosition();
+
+      const distanceSquared =
+        Math.pow(unitPosition.x - floor(coordinates.x), 2) + Math.pow(unitPosition.y - floor(coordinates.y), 2);
+      const radiusSquared = Math.pow(radius, 2);
+
+      return distanceSquared <= radiusSquared;
+    });
+  },
+
   getEntityByCoordinates(coordinates: GridCoordinates): Unit | Building | Vehicle | undefined {
     return (
       this.getUnitByCoordinates(coordinates) ||

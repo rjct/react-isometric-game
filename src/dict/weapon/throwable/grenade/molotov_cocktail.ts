@@ -20,6 +20,7 @@ const molotov_cocktail: WeaponDictEntity = {
       actionPointsConsumption: 1,
       ammoConsumption: 1,
       range: 18,
+      blastRadius: 5,
       damage: {
         min: 8,
         max: 20,

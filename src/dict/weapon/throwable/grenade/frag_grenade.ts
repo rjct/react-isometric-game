@@ -21,6 +21,7 @@ const frag_grenade: WeaponDictEntity = {
       actionPointsConsumption: 6,
       ammoConsumption: 1,
       range: 15,
+      blastRadius: 5,
       damage: {
         min: 30,
         max: 50,

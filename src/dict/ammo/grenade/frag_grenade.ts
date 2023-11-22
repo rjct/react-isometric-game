@@ -29,7 +29,7 @@ const frag_grenade: AmmoDictEntity = {
       light: {
         animationDuration: 100,
         color: "#ffc400",
-        radius: 15,
+        radius: 5,
       },
     },
   },

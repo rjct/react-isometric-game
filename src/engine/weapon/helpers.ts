@@ -86,6 +86,36 @@ export function calcDamage(unit: Unit, weapon: Weapon, ammo: Ammo) {
   return Math.round(weaponDamage + weaponDamage * (ammoDamage / 100)) + skillDamage;
 }
 
+export function calcBlastDamage(epicenter: GridCoordinates, blastRadius: number, damageInEpicenter: number) {
+  const affectedCells: { [p: string]: number } = {};
+
+  for (let i = epicenter.x - blastRadius; i <= epicenter.x + blastRadius; i++) {
+    for (let j = epicenter.y - blastRadius; j <= epicenter.y + blastRadius; j++) {
+      const distance = Math.sqrt(Math.pow(epicenter.x - i, 2) + Math.pow(epicenter.y - j, 2));
+
+      if (distance <= blastRadius) {
+        let damage: number;
+
+        if (distance === 0) {
+          damage = damageInEpicenter;
+        } else {
+          const distanceRatio = distance / blastRadius;
+          damage = Math.floor(damageInEpicenter * (1 - distanceRatio));
+          damage = damage > 0 ? damage : 0;
+        }
+
+        const x = Math.floor(i);
+        const y = Math.floor(j);
+        const coordinates = `${x}:${y}`;
+
+        affectedCells[coordinates] = damage;
+      }
+    }
+  }
+
+  return affectedCells;
+}
+
 export function itemIsWeapon(item: Weapon | Ammo): item is Weapon {
   return item instanceof Weapon;
 }
