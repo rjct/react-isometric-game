@@ -12,15 +12,11 @@
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 16, "x2": 10, "y2": 29 }
-    },
-    {
-      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
       "target": { "x1": 0, "y1": 12, "x2": 3, "y2": 16 }
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
-      "target": { "x1": 0, "y1": 29, "x2": 29, "y2": 30 }
+      "target": { "x1": 10, "y1": 29, "x2": 29, "y2": 30 }
     },
     {
       "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
@@ -37,6 +33,54 @@
     {
       "source": { "type": "vault", "position": { "x1": 0, "y1": 8, "x2": 3, "y2": 11 } },
       "target": { "x1": 3, "y1": 12, "x2": 10, "y2": 16 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 16, "x2": 9, "y2": 17 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 9, "y1": 16, "x2": 10, "y2": 30 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 2, "y1": 18, "x2": 8, "y2": 27 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 8 } },
+      "target": { "x1": 8, "y1": 18, "x2": 9, "y2": 27 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 2, "x2": 3, "y2": 8 } },
+      "target": { "x1": 2, "y1": 17, "x2": 8, "y2": 18 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 3, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 8, "y1": 17, "x2": 9, "y2": 18 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 0, "x2": 2, "y2": 0 } },
+      "target": { "x1": 1, "y1": 17, "x2": 2, "y2": 18 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 8 } },
+      "target": { "x1": 1, "y1": 18, "x2": 2, "y2": 27 }
+    },
+    {
+      "source": { "type": "earth", "position": { "x1": 0, "y1": 0, "x2": 7, "y2": 5 } },
+      "target": { "x1": 0, "y1": 17, "x2": 1, "y2": 30 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
+      "target": { "x1": 2, "y1": 27, "x2": 8, "y2": 30 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 1, "y1": 2, "x2": 1, "y2": 8 } },
+      "target": { "x1": 8, "y1": 27, "x2": 9, "y2": 30 }
+    },
+    {
+      "source": { "type": "road_curbs", "position": { "x1": 2, "y1": 2, "x2": 2, "y2": 8 } },
+      "target": { "x1": 1, "y1": 27, "x2": 2, "y2": 30 }
     }
   ],
   "hero": {
@@ -60,9 +104,7 @@
   ],
   "buildings": [
     { "type": "vehicle_2x4", "position": { "x": 4, "y": 6 }, "rotation": 270, "variant": 12 },
-    { "type": "vehicle_2x4", "position": { "x": 0, "y": 25 }, "rotation": 180, "variant": 3 },
-    { "type": "vehicle_2x4", "position": { "x": 3, "y": 25 }, "rotation": 0, "variant": 13 },
-    { "type": "vehicle_2x4", "position": { "x": 6, "y": 25 }, "rotation": 180, "variant": 15 },
+    { "type": "vehicle_2x4", "position": { "x": 5, "y": 18 }, "rotation": 0, "variant": 13 },
     { "type": "vault_wall", "position": { "x": 4, "y": 16 }, "rotation": 0, "variant": 6 },
     { "type": "vault_wall", "position": { "x": 5, "y": 16 }, "rotation": 0, "variant": 4 },
     { "type": "vault_wall", "position": { "x": 7, "y": 16 }, "rotation": 0, "variant": 5 },
@@ -354,13 +396,7 @@
     { "type": "vault_chair", "position": { "x": 22, "y": 5 }, "rotation": 270, "variant": 1 },
     { "type": "vault_chair", "position": { "x": 23, "y": 7 }, "rotation": 0, "variant": 1 },
     { "type": "vault_computer_1", "position": { "x": 18, "y": 1 }, "rotation": 180, "variant": 0 },
-    {
-      "type": "vault_table",
-      "position": { "x": 19, "y": 23 },
-      "rotation": 270,
-      "variant": 2,
-      "occupiesCell": false
-    },
+    { "type": "vault_table", "position": { "x": 19, "y": 23 }, "rotation": 270, "variant": 2, "occupiesCell": false },
     { "type": "vault_wall", "position": { "x": 21, "y": 11 }, "rotation": 180, "variant": 6 },
     { "type": "vault_wall", "position": { "x": 22, "y": 11 }, "rotation": 180, "variant": 5 },
     { "type": "vault_wall", "position": { "x": 23, "y": 11 }, "rotation": 180, "variant": 6 },
@@ -384,9 +420,84 @@
     { "type": "vault_wall", "position": { "x": 18, "y": 11 }, "rotation": 180, "variant": 5 },
     { "type": "vault_wall", "position": { "x": 8, "y": 16 }, "rotation": 0, "variant": 3 },
     { "type": "vehicle_4x4", "position": { "x": 5, "y": 1 }, "rotation": 270, "variant": 0 },
-    { "type": "vehicle_3x4", "position": { "x": 3, "y": 20 }, "rotation": 90, "variant": 0 }
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 14, "y": 11 },
+      "rotation": 180,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 15, "y": 11 },
+      "rotation": 180,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 19, "y": 11 },
+      "rotation": 180,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 20, "y": 11 },
+      "rotation": 180,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 2, "y": 13 },
+      "rotation": 90,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 2, "y": 14 },
+      "rotation": 90,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 24, "y": 17 },
+      "rotation": 0,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 25, "y": 17 },
+      "rotation": 0,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 19, "y": 17 },
+      "rotation": 0,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    {
+      "type": "vault_wall_half_top",
+      "position": { "x": 20, "y": 17 },
+      "rotation": 0,
+      "variant": 0,
+      "occupiesCell": false
+    },
+    { "type": "highway_fence_end", "position": { "x": 0, "y": 17 }, "rotation": 180, "variant": 0 },
+    { "type": "highway_fence_broken", "position": { "x": 0, "y": 18 }, "rotation": 0, "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 0, "y": 22 }, "rotation": 0, "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 0, "y": 24 }, "rotation": 180, "variant": 0 },
+    { "type": "highway_fence", "position": { "x": 0, "y": 26 }, "rotation": 0, "variant": 1 },
+    { "type": "highway_fence", "position": { "x": 0, "y": 28 }, "rotation": 180, "variant": 1 }
   ],
-  "vehicles": [],
+  "vehicles": [{ "type": "hummer", "position": { "x": 2, "y": 21 }, "rotation": 146.25 }],
   "globalShadows": { "color": "#000d4d", "opacity": 0.1 },
   "globalLights": { "opacity": 0.3 },
   "lights": [

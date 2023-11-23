@@ -42,7 +42,7 @@
       "randomActions": ["idle"]
     },
     {
-      "type": "ghoul",
+      "type": "vault13_male",
       "position": { "x": 12, "y": 7 },
       "rotation": 180,
       "healthPoints": {
