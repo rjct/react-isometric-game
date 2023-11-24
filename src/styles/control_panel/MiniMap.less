@@ -17,7 +17,7 @@
 
   &::before {
     .glass-glare();
-    z-index: 3;
+    z-index: 2;
   }
 
   .noise {
@@ -37,7 +37,7 @@
     background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
     background-size: auto 4px;
     z-index: 2;
-    box-shadow: 0 0 15px 10px rgb(0, 0, 0) inset;
+    box-shadow: 0 0 15px 10px rgba(0, 0, 0, 0.7) inset;
 
     &::before {
       content: "";
