@@ -59,7 +59,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   React.useEffect(() => {
     if (props.unit.characteristics.level <= 1 || !previousLVL) return;
 
-    notify_UnitEarnedLevel(props.unit);
+    notify_UnitEarnedLevel();
   }, [props.unit.characteristics.level]);
 
   if (!isUnitVisible) return null;

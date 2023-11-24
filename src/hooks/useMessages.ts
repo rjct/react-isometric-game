@@ -29,7 +29,7 @@ export function useMessages() {
     });
   };
 
-  const notify_UnitEarnedLevel = (unit: Unit) => {
+  const notify_UnitEarnedLevel = () => {
     gameDispatch({
       type: "emitMessage",
       messageType: "sticky",
