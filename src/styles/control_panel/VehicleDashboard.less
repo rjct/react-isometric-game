@@ -23,6 +23,12 @@
     background-color: #5d5b66;
     border-radius: 50%;
     position: relative;
+    overflow: hidden;
+    .glass-effect();
+
+    &::before {
+      .glass-glare();
+    }
 
     &::after {
       content: "";

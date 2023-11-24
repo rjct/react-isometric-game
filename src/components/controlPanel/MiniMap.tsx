@@ -1,5 +1,4 @@
 import { constants } from "@src/engine/constants";
-import { degToRad } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMiniMap } from "@src/hooks/useMiniMap";
 import { useScene } from "@src/hooks/useScene";
@@ -16,8 +15,6 @@ export const MiniMap = React.memo(function MiniMap() {
   const canvasWidth = constants.miniMap.size.width * constants.wireframeTileSize.width * constants.miniMap.ZOOM;
   const canvasHeight = constants.miniMap.size.height * constants.wireframeTileSize.height * constants.miniMap.ZOOM;
 
-  const canvasMargin = (Math.sin(degToRad(45)) - 1 / 2) * canvasWidth;
-
   React.useEffect(() => {
     const ctx = miniMapCanvasRef.current?.getContext("2d");
 
@@ -30,17 +27,9 @@ export const MiniMap = React.memo(function MiniMap() {
 
   return (
     <div ref={miniMapContainerRef} className={`mini-map`}>
-      <canvas
-        ref={miniMapCanvasRef}
-        width={canvasWidth}
-        height={canvasHeight}
-        style={{
-          marginLeft: canvasMargin,
-          marginRight: canvasMargin,
-          marginTop: -canvasMargin / 2,
-          marginBottom: -canvasMargin / 2,
-        }}
-      ></canvas>
+      <div className={"overlay"}></div>
+      <div className={"noise"}></div>
+      <canvas ref={miniMapCanvasRef} width={canvasWidth} height={canvasHeight}></canvas>
     </div>
   );
 });

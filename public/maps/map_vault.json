@@ -84,8 +84,8 @@
     }
   ],
   "hero": {
-    "position": { "x": 19, "y": 5 },
-    "rotation": 180,
+    "position": { "x": 22, "y": 13 },
+    "rotation": 270,
     "inventory": {
       "main": [
         { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 },

@@ -33,7 +33,10 @@ export function useMiniMap(gameState: GameMap) {
 
   const renderMiniMap = (ctx: CanvasRenderingContext2D | OffscreenCanvasRenderingContext2D) => {
     // clear
+    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+
     ctx.clearRect(0, 0, canvasWidth, canvasHeight);
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight);
 
     const mapCenter = {
       x: miniMapWidth / 2 - hero.position.grid.x,
@@ -52,8 +55,15 @@ export function useMiniMap(gameState: GameMap) {
     });
 
     ctx.lineWidth = 1;
-    ctx.strokeStyle = "#ffffff";
+    ctx.strokeStyle = "lime";
+    ctx.fillStyle = "rgba(0, 255, 0, 0.1)";
     ctx.strokeRect(
+      mapRect.x + 0.5,
+      mapRect.y + 0.5,
+      gameState.mapSize.width * wireframeTileWidth * miniMapZoom,
+      gameState.mapSize.height * wireframeTileHeight * miniMapZoom,
+    );
+    ctx.fillRect(
       mapRect.x + 0.5,
       mapRect.y + 0.5,
       gameState.mapSize.width * wireframeTileWidth * miniMapZoom,
@@ -62,7 +72,7 @@ export function useMiniMap(gameState: GameMap) {
 
     //
     ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
-    ctx.strokeStyle = "rgba(0, 255, 0, 0.7)";
+    ctx.strokeStyle = "rgba(0, 255, 0, 0.5)";
 
     ctx.beginPath();
     ctx.moveTo(
@@ -98,7 +108,7 @@ export function useMiniMap(gameState: GameMap) {
         y: enemy.position.grid.y + mapCenter.y,
       });
 
-      ctx.fillStyle = "red";
+      ctx.fillStyle = "#ff3333";
       ctx.fillRect(
         enemyCoordinates.x,
         enemyCoordinates.y,
@@ -108,7 +118,9 @@ export function useMiniMap(gameState: GameMap) {
     });
 
     // buildings
-    buildings.forEach((building) => {
+    for (const building of buildings) {
+      if (!building.blocksRays) continue;
+
       const buildingCoordinates = getCoordinates({
         x: building.position.grid.x + mapCenter.x,
         y: building.position.grid.y + mapCenter.y,
@@ -122,7 +134,7 @@ export function useMiniMap(gameState: GameMap) {
         building.size.grid.width * wireframeTileWidth * miniMapZoom,
         building.size.grid.length * wireframeTileHeight * miniMapZoom,
       );
-    });
+    }
 
     // hero pin
     ctx.fillStyle = "white";

@@ -24,3 +24,21 @@
 .explorable-entity-highlight() {
   filter: drop-shadow(0 0 1px yellow) drop-shadow(0 0 1px yellow) drop-shadow(0 0 1px yellow) !important;
 }
+
+.glass-effect() {
+  opacity: 0.6;
+  background: radial-gradient(ellipse at top, rgba(255, 255, 255, 0.3), transparent),
+    radial-gradient(ellipse at bottom, rgba(113, 255, 0, 0.5), transparent);
+}
+
+.glass-glare() {
+  position: absolute;
+  right: 0;
+  top: 0;
+  content: "";
+  width: 0;
+  height: 0;
+  border-top: 100px solid rgba(255, 255, 255, 0.4);
+  border-left: 100px solid transparent;
+  filter: blur(20px);
+}

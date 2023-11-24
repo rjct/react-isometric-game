@@ -44,10 +44,10 @@ export const constants = {
   },
   miniMap: {
     size: {
-      width: 30,
-      height: 30,
+      width: 40,
+      height: 40,
     },
-    ZOOM: 0.1,
+    ZOOM: 0.125,
   },
   tileSize,
   wireframeTileSize,

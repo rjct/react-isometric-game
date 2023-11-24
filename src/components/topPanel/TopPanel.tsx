@@ -1,18 +1,15 @@
 import React from "react";
 
 import { DebugInfo } from "@src/components/debug/DebugInfo";
-import { MiniMap } from "@src/components/map/MiniMap";
 import { HeroPoints } from "@src/components/topPanel/HeroPoints";
 import { PauseButton } from "@src/components/topPanel/PauseButton";
 import { ExitFromEditingModeButton } from "@src/components/_modals/debug/ExitFromEditingModeButton";
-import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
 
 export const TopPanel = React.memo(function Top() {
   const { hero } = useHero();
   const { checkCurrentScene } = useScene();
-  const { gameState, gameDispatch, uiDispatch } = useGameState();
 
   if (!checkCurrentScene(["game", "combat", "editor"])) return null;
 
@@ -76,7 +73,6 @@ export const TopPanel = React.memo(function Top() {
       </fieldset>
 
       <DebugInfo />
-      <MiniMap />
     </div>
   );
 });

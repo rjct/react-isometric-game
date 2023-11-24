@@ -5,6 +5,7 @@ import { GetOufOfVehicleButton } from "@src/components/controlPanel/GetOufOfVehi
 import { HeroExploreButton } from "@src/components/controlPanel/HeroExploreButton";
 import { HeroHandButton } from "@src/components/controlPanel/HeroHandButton";
 import { HeroMovementButton } from "@src/components/controlPanel/HeroMovementButton";
+import { MiniMap } from "@src/components/controlPanel/MiniMap";
 import { OpenInventoryButton } from "@src/components/controlPanel/OpenInventoryButton";
 import { VehicleDashboard } from "@src/components/controlPanel/vehicle/VehicleDashboard";
 import { useScene } from "@src/hooks/useScene";
@@ -17,6 +18,8 @@ export const ControlPanel = React.memo(function ControlPanel() {
 
   return (
     <div className={"control-panel"}>
+      <MiniMap />
+
       <div className={"hero-controls"}>
         <CenterMapButton />
         <OpenInventoryButton />
