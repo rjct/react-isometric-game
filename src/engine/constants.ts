@@ -57,7 +57,7 @@ export const constants = {
     entitiesLibrary: { left: 10, width: 400, height: "20vh" },
   },
 
-  debug: true,
+  debug: false,
 
   featureEnabled: {
     settings: {
