@@ -24,6 +24,7 @@
     border-radius: 50%;
     position: relative;
     overflow: hidden;
+    filter: drop-shadow(0 3px 1px rgb(0, 0, 0));
     .glass-effect();
 
     &::before {
@@ -107,13 +108,11 @@
       &.half {
         width: 2px;
         height: @tick-width;
-        background-color: @button-border-color--green;
       }
 
       &.quarter {
         width: 2px;
         height: (@tick-width / 2);
-        background-color: @button-border-color--green;
       }
 
       &.value {
