@@ -34,8 +34,8 @@ export class FogOfWar {
 
     for (const ray of hero.fieldOfView.rays) {
       ctx.lineTo(
-        Math.max(0, Math.min(Math.round(ray.n.grid.x * ray.len.grid) + ray.position.grid.x, width)),
-        Math.max(0, Math.min(Math.round(ray.n.grid.y * ray.len.grid) + ray.position.grid.y, height)),
+        Math.round(ray.n.grid.x * ray.len.grid) + ray.position.grid.x,
+        Math.round(ray.n.grid.y * ray.len.grid) + ray.position.grid.y,
       );
     }
 

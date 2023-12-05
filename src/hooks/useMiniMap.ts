@@ -71,8 +71,8 @@ export function useMiniMap(gameState: GameMap) {
     );
 
     //
-    ctx.fillStyle = "rgba(0, 255, 0, 0.3)";
-    ctx.strokeStyle = "rgba(0, 255, 0, 0.5)";
+    ctx.fillStyle = "rgba(255, 255, 0, 0.2)";
+    ctx.strokeStyle = "rgba(255, 255, 0, 0.5)";
 
     ctx.beginPath();
     ctx.moveTo(
@@ -82,16 +82,8 @@ export function useMiniMap(gameState: GameMap) {
 
     for (const ray of hero.fieldOfView.rays) {
       const rayCoordinates = getCoordinates({
-        x:
-          Math.max(
-            Math.min(Math.round(ray.n.grid.x * ray.len.grid) + ray.position.grid.x, gameState.mapSize.width),
-            0,
-          ) + mapCenter.x,
-        y:
-          Math.max(
-            Math.min(Math.round(ray.n.grid.y * ray.len.grid) + ray.position.grid.y, gameState.mapSize.height),
-            0,
-          ) + mapCenter.y,
+        x: Math.round(ray.n.grid.x * ray.len.grid) + ray.position.grid.x + mapCenter.x,
+        y: Math.round(ray.n.grid.y * ray.len.grid) + ray.position.grid.y + mapCenter.y,
       });
 
       ctx.lineTo(rayCoordinates.x, rayCoordinates.y);
