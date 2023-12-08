@@ -1,5 +1,5 @@
-import { VehicleComponent } from "@src/components/map/layers/userInteraction/vehicles/Vehicle";
-import { MapLayer } from "@src/components/map/_shared/MapLayer";
+import { VehicleComponent } from "@src/components/viewport/layers/userInteraction/vehicles/Vehicle";
+import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";
@@ -63,7 +63,7 @@ export const VehicleEditor = React.memo(function VehicleEditor() {
   };
 
   return uiState.scene == "editor" && uiState.editorMode == "vehicles" ? (
-    <MapLayer
+    <GameLayer
       isometric={false}
       size={gameState.mapSize}
       className={"vehicle-editor"}
@@ -82,6 +82,6 @@ export const VehicleEditor = React.memo(function VehicleEditor() {
           />
         );
       })}
-    </MapLayer>
+    </GameLayer>
   ) : null;
 });

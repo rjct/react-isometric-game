@@ -1,4 +1,4 @@
-import { MapLayer } from "@src/components/map/_shared/MapLayer";
+import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { constants } from "@src/engine/constants";
 import { Light } from "@src/engine/light/LightFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -72,7 +72,7 @@ export const LightEditor = React.memo(function LightEditor() {
   };
 
   return uiState.scene == "editor" && uiState.editorMode == "lights" ? (
-    <MapLayer
+    <GameLayer
       size={gameState.mapSize}
       className={"lights light-editor"}
       onMouseMove={handleMouseMove}
@@ -109,6 +109,6 @@ export const LightEditor = React.memo(function LightEditor() {
           ></div>
         );
       })}
-    </MapLayer>
+    </GameLayer>
   ) : null;
 });

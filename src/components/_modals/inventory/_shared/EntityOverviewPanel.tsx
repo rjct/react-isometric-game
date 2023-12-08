@@ -1,6 +1,6 @@
-import { BuildingComponent } from "@src/components/map/layers/userInteraction/buildings/Building";
-import { VehicleComponent } from "@src/components/map/layers/userInteraction/vehicles/Vehicle";
 import { LabelWithValue } from "@src/components/ui/LabelWithValue";
+import { BuildingComponent } from "@src/components/viewport/layers/userInteraction/buildings/Building";
+import { VehicleComponent } from "@src/components/viewport/layers/userInteraction/vehicles/Vehicle";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";

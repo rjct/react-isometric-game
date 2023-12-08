@@ -1,5 +1,5 @@
-import { BuildingComponent } from "@src/components/map/layers/userInteraction/buildings/Building";
-import { MapLayer } from "@src/components/map/_shared/MapLayer";
+import { BuildingComponent } from "@src/components/viewport/layers/userInteraction/buildings/Building";
+import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";
@@ -63,7 +63,7 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
   };
 
   return uiState.scene == "editor" && uiState.editorMode == "buildings" ? (
-    <MapLayer
+    <GameLayer
       isometric={false}
       size={gameState.mapSize}
       className={"building-editor"}
@@ -83,6 +83,6 @@ export const BuildingEditor = React.memo(function BuildingEditor() {
           />
         );
       })}
-    </MapLayer>
+    </GameLayer>
   ) : null;
 });

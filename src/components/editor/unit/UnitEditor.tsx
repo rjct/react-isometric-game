@@ -1,5 +1,5 @@
-import { UnitComponent } from "@src/components/map/layers/userInteraction/units/Unit";
-import { MapLayer } from "@src/components/map/_shared/MapLayer";
+import { UnitComponent } from "@src/components/viewport/layers/userInteraction/units/Unit";
+import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
@@ -63,7 +63,7 @@ export const UnitEditor = React.memo(function UnitEditor() {
   };
 
   return (
-    <MapLayer
+    <GameLayer
       isometric={false}
       size={gameState.mapSize}
       className={"unit-editor"}
@@ -82,6 +82,6 @@ export const UnitEditor = React.memo(function UnitEditor() {
           />
         );
       })}
-    </MapLayer>
+    </GameLayer>
   );
 });

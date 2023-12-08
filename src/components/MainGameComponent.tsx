@@ -2,9 +2,9 @@ import { ControlPanel } from "@src/components/controlPanel/ControlPanel";
 import { EditorSidebar } from "@src/components/editor/EditorSidebar";
 import { EntitiesLibrary } from "@src/components/editor/EntitiesLibrary";
 import { EntityInventoryManagerModal } from "@src/components/editor/_shared/EntityInventoryManagerModal";
-import { MessagesSticky } from "@src/components/map/layers/messages/MessagesSticky";
-import { MapComponent, MapForwardedRefs } from "@src/components/map/MapComponent";
 import { TopPanel } from "@src/components/topPanel/TopPanel";
+import { MessagesSticky } from "@src/components/viewport/layers/messages/MessagesSticky";
+import { MapForwardedRefs, Viewport } from "@src/components/viewport/Viewport";
 import { DebugSettings } from "@src/components/_modals/debug/DebugSettings";
 import { GameOver } from "@src/components/_modals/game_over/GameOver";
 import { Intro } from "@src/components/_modals/intro/Intro";
@@ -12,6 +12,7 @@ import { Inventory } from "@src/components/_modals/inventory/Inventory";
 import { InventoryTransfer } from "@src/components/_modals/inventory/InventoryTransfer";
 import { Loading } from "@src/components/_modals/loading/Loading";
 import { MainMenu } from "@src/components/_modals/main_menu/MainMenu";
+import { Map } from "@src/components/_modals/map/Map";
 import { Pause } from "@src/components/_modals/pause/Pause";
 import { UnitCharacteristics } from "@src/components/_modals/unit_characteristics/UnitCharacteristics";
 import { GameDispatchContext } from "@src/context/GameDispachContext";
@@ -154,7 +155,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
                   <div className={"center"}>
                     <MessagesSticky />
                     <EntitiesLibrary />
-                    <MapComponent ref={setScrollRef} />
+                    <Viewport ref={setScrollRef} />
                     <EditorSidebar />
                   </div>
                 </GameTerrainContext.Provider>

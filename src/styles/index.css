@@ -27,7 +27,7 @@ body {
 .top-wrapper .top {
   margin: 10px;
 }
-.map-wrapper {
+.viewport-wrapper {
   position: relative;
   display: block;
   flex-grow: 1;

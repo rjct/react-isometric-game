@@ -1,4 +1,4 @@
-import { IsometricCanvasMapLayer } from "@src/components/map/_shared/IsometricCanvasMapLayer";
+import { IsometricCanvasGameLayer } from "@src/components/viewport/_shared/IsometricCanvasGameLayer";
 import { constants } from "@src/engine/constants";
 import { useDebugVisualization } from "@src/hooks/debug/useDebugVisualization";
 import { useGameState } from "@src/hooks/useGameState";
@@ -49,5 +49,5 @@ export function DebugVisualization() {
     return null;
   }
 
-  return <IsometricCanvasMapLayer ref={canvasRef} className={"debug-visualization"} />;
+  return <IsometricCanvasGameLayer ref={canvasRef} className={"debug-visualization"} />;
 }
