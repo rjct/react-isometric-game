@@ -12,11 +12,11 @@
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
-      "target": { "x1": 47, "y1": 0, "x2": 57, "y2": 100 }
+      "target": { "x1": 47, "y1": 2, "x2": 57, "y2": 100 }
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
-      "target": { "x1": 60, "y1": 0, "x2": 70, "y2": 100 }
+      "target": { "x1": 60, "y1": 2, "x2": 70, "y2": 100 }
     },
     {
       "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 3, "y2": 0 } },
@@ -765,18 +765,44 @@
     {
       "source": { "type": "road_3", "position": { "x1": 0, "y1": 4, "x2": 0, "y2": 4 } },
       "target": { "x1": 8, "y1": 54, "x2": 9, "y2": 55 }
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 } },
+      "target": { "x1": 60, "y1": 0, "x2": 70, "y2": 2 },
+      "exitUrl": "/maps/map_vault.json"
+    },
+    {
+      "source": { "type": "road_1", "position": { "x1": 0, "y1": 0, "x2": 0, "y2": 0 } },
+      "target": { "x1": 47, "y1": 0, "x2": 57, "y2": 2 },
+      "exitUrl": "/maps/map_vault.json"
     }
   ],
   "hero": {
-    "position": { "x": 53, "y": 95 },
+    "position": { "x": 53, "y": 94 },
     "rotation": 0,
     "inventory": {
-      "main": [{ "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 }],
+      "main": [
+        { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 25 },
+        { "class": "weapon", "name": "molotov_cocktail" }
+      ],
       "leftHand": { "class": "weapon", "name": "beretta_M92FS" },
       "rightHand": { "class": "weapon", "name": "broken_bottle" }
     }
   },
-  "enemies": [],
+  "enemies": [
+    { "type": "ghoul", "position": { "x": 81, "y": 53 }, "rotation": 0 },
+    { "type": "ghoul", "position": { "x": 17, "y": 86 }, "rotation": 0 },
+    { "type": "ghoul", "position": { "x": 4, "y": 72 }, "rotation": 90 },
+    { "type": "ghoul", "position": { "x": 13, "y": 72 }, "rotation": 0 },
+    { "type": "vault13_male", "position": { "x": 47, "y": 26 }, "rotation": 180 },
+    { "type": "vault13_male", "position": { "x": 47, "y": 12 }, "rotation": 180 },
+    { "type": "ghoul", "position": { "x": 62, "y": 7 }, "rotation": 180 },
+    { "type": "vault13_male", "position": { "x": 62, "y": 9 }, "rotation": 180 },
+    { "type": "ghoul", "position": { "x": 94, "y": 66 }, "rotation": 0 },
+    { "type": "ghoul", "position": { "x": 79, "y": 71 }, "rotation": 0 },
+    { "type": "ghoul", "position": { "x": 44, "y": 47 }, "rotation": 90 },
+    { "type": "ghoul", "position": { "x": 75, "y": 45 }, "rotation": 0 }
+  ],
   "buildings": [
     { "type": "vehicle_2x4", "position": { "x": 49, "y": 60 }, "rotation": 180, "variant": 16 },
     { "type": "vehicle_2x4", "position": { "x": 54, "y": 86 }, "rotation": 180, "variant": 8 },
@@ -1126,7 +1152,21 @@
     { "type": "plant_1", "position": { "x": 32, "y": 62 }, "rotation": 90, "variant": 1 },
     { "type": "fire_barrel", "position": { "x": 12, "y": 77 }, "rotation": 0, "variant": 0 }
   ],
-  "vehicles": [{ "type": "hummer", "position": { "x": 18, "y": 63 }, "rotation": 0 }],
+  "vehicles": [
+    { "type": "hummer", "position": { "x": 18, "y": 63 }, "rotation": 0 },
+    {
+      "type": "hummer",
+      "position": { "x": 52, "y": 77 },
+      "rotation": 0,
+      "inventory": {
+        "main": [
+          { "class": "weapon", "name": "mp5" },
+          { "class": "weapon", "name": "frag_grenade", "quantity": 3 },
+          { "class": "firearm_ammo", "name": "9mm_JHP", "quantity": 30 }
+        ]
+      }
+    }
+  ],
   "globalShadows": { "color": "#000d4d", "opacity": 0.2 },
   "globalLights": { "opacity": 0.4 },
   "lights": [

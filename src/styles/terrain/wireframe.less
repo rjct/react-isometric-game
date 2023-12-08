@@ -11,14 +11,28 @@
 }
 
 .wireframe-wrapper {
-  .cursor-default();
-
-  isolation: isolate;
+  pointer-events: none;
   position: absolute;
   z-index: 1;
 
   .wireframe {
     z-index: 1;
+
+    &[data-wireframe-active="true"] {
+      background: repeating-linear-gradient(
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5) 1px,
+          transparent 1px,
+          transparent @wireframe-tile-width
+        ),
+        repeating-linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0.5),
+          rgba(255, 255, 255, 0.5) 1px,
+          transparent 1px,
+          transparent @wireframe-tile-height
+        );
+    }
 
     .wireframe-marker {
       position: absolute;
@@ -85,37 +99,6 @@
       background-color: rgba(0, 255, 0, 0.1);
     }
   }
-}
-
-//
-&[data-action="move"],
-&[data-action="driveVehicle"] {
-  .cursor-move();
-
-  &[data-action-allowed="false"] {
-    .cursor-move--not-allowed();
-  }
-}
-
-&[data-action="explore"] {
-  .cursor-explore();
-
-  &[data-action-allowed="false"] {
-    .cursor-explore--not-allowed();
-  }
-}
-
-&[data-action="leftHand"],
-&[data-action="rightHand"] {
-  .cursor-use();
-
-  &[data-action-allowed="false"] {
-    .cursor-use--not-allowed();
-  }
-}
-
-&[data-action="getIntoVehicle"] {
-  .cursor-get-into-vehicle();
 }
 
 @keyframes allowed {

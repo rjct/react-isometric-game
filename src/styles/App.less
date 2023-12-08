@@ -29,6 +29,7 @@ body {
   background-color: black;
   color: @text-color;
   overflow: hidden;
+  user-select: none;
 
   cursor: url("/public/assets/UI/cursors/default.png"), auto;
 }
@@ -193,37 +194,6 @@ fieldset {
         box-shadow: 0 0 50px -20px red inset;
       }
     }
-  }
-}
-
-.map-wrapper {
-  position: relative;
-  display: block;
-  flex: 1 1 auto;
-  align-self: auto;
-  order: 0;
-  overflow: auto;
-  overscroll-behavior: none;
-  z-index: 1;
-
-  &[data-scrolling-active] {
-    cursor: none;
-  }
-
-  &[data-scrolling-direction="left"] {
-    cursor: w-resize;
-  }
-
-  &[data-scrolling-direction="top"] {
-    cursor: n-resize;
-  }
-
-  &[data-scrolling-direction="right"] {
-    cursor: e-resize;
-  }
-
-  &[data-scrolling-direction="bottom"] {
-    cursor: s-resize;
   }
 }
 

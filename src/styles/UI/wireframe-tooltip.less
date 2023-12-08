@@ -4,18 +4,29 @@
   padding: (@padding / 2) @padding;
   border-radius: @border-radius;
   margin-top: -80px;
-  margin-left: 7px;
-  width: 36px;
+  margin-left: (@tile-width / 2);
+
   z-index: 999999999;
   pointer-events: none;
   color: @text-color;
-  text-align: center;
   background-color: rgba(0, 0, 0, 0.25);
   text-shadow: 1px 1px 0 #000000;
   backdrop-filter: blur(5px);
   filter: drop-shadow(0 10px 15px rgba(0, 0, 0, 0.4));
-  animation: tooltip-show linear 200ms;
+  transform-style: preserve-3d;
+  transform: translate3d(-50%, 0, 0);
+  animation: tooltip-show linear 100ms;
   white-space: nowrap;
+
+  .wireframe-tooltip-hint {
+    font-size: 0.8em;
+    font-family: monospace;
+
+    .wireframe-tooltip-hint-action {
+      font-weight: bolder;
+      color: lighten(@text-color, 20%);
+    }
+  }
 
   &.wireframe-tooltip-bounce {
     animation: tooltip-bounce ease-in-out 2000ms infinite;
@@ -64,25 +75,25 @@
 @keyframes tooltip-show {
   0% {
     opacity: 0;
-    top: -50px;
+    transform: translate3d(-50%, 50px, 0);
   }
 
   100% {
     opacity: 1;
-    top: 0;
+    transform: translate3d(-50%, 0, 0);
   }
 }
 
 @keyframes tooltip-bounce {
   0% {
-    top: 0;
+    transform: translate3d(-50%, -10px, 0);
   }
 
   50% {
-    top: -10px;
+    transform: translate3d(-50%, 0, 0);
   }
 
   100% {
-    top: 0;
+    transform: translate3d(-50%, -10px, 0);
   }
 }

@@ -1,14 +1,9 @@
 .building {
   position: absolute;
-  pointer-events: none;
-  transition: filter 0.2s linear;
+  .entity-filter-transition();
 
   &[data-selected-for-inventory-transfer="true"] {
-    .explorable-entity-highlight();
-  }
-
-  &[data-in-hero-view="false"] {
-    filter: grayscale(100%);
+    .lootable-entity-highlight();
   }
 }
 

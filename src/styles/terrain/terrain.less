@@ -75,13 +75,13 @@
   box-shadow:
     0 0 50px 25px #000000 inset,
     0 0 0 150px #000000;
-  filter: blur(30px);
+  filter: blur(50px);
   mix-blend-mode: soft-light;
 }
 
 .lights-and-shadows {
   z-index: 9999998;
-  //filter: blur(25px);
+  filter: blur(25px);
 
   img {
     position: absolute;
@@ -103,6 +103,7 @@
 .map {
   z-index: 1;
   transform-style: preserve-3d;
+  pointer-events: none;
 }
 
 &[data-isometric] {

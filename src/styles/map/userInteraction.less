@@ -1,0 +1,40 @@
+.user-interactions {
+  z-index: 1;
+  transform-style: preserve-3d;
+  pointer-events: auto !important;
+
+  &[data-hero-action-menu-visible="true"] {
+    pointer-events: none !important;
+  }
+
+  //
+  &[data-action="move"],
+  &[data-action="driveVehicle"] {
+    .cursor-move();
+
+    &[data-action-allowed="false"] {
+      .cursor-move--not-allowed();
+    }
+  }
+
+  &[data-action="loot"] {
+    .cursor-loot();
+
+    &[data-action-allowed="false"] {
+      .cursor-loot--not-allowed();
+    }
+  }
+
+  &[data-action="leftHand"],
+  &[data-action="rightHand"] {
+    .cursor-use();
+
+    &[data-action-allowed="false"] {
+      .cursor-use--not-allowed();
+    }
+  }
+
+  &[data-action="getIntoVehicle"] {
+    .cursor-get-into-vehicle();
+  }
+}

@@ -15,7 +15,22 @@
       aspect-ratio: 16/9;
       background: url("/public/assets/bg.webp") center no-repeat;
       background-size: contain;
-      filter: hue-rotate(90deg);
+      filter: hue-rotate(90deg) drop-shadow(0 0 20px);
+      animation: logo-glow-animation 10s linear infinite;
+
+      @keyframes logo-glow-animation {
+        0% {
+          filter: hue-rotate(90deg) drop-shadow(0 0 20px);
+        }
+
+        50% {
+          filter: hue-rotate(0deg) drop-shadow(0 0 10px);
+        }
+
+        100% {
+          filter: hue-rotate(90deg) drop-shadow(0 0 20px);
+        }
+      }
     }
   }
 
@@ -25,6 +40,10 @@
     font-size: 5em;
     margin: (@padding * 2) 0 (@padding * 4) 0;
     text-align: center;
+    text-shadow: 2px 2px 2px rgba(0, 255, 0, 0.5);
+    background-clip: text;
+    background-color: #000000;
+    color: transparent;
   }
 
   .modal-menu-nav {

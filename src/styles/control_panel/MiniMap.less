@@ -86,6 +86,21 @@
   }
 
   canvas {
-    transform: rotateX(60deg) rotateZ(45deg);
+    @canvas-transform: rotateX(60deg) rotateZ(45deg);
+
+    transform: @canvas-transform;
+    animation: skew-animation 5s linear infinite;
+
+    @keyframes skew-animation {
+      0% {
+        transform: @canvas-transform skewX(0deg);
+      }
+      1% {
+        transform: @canvas-transform skewX(90deg);
+      }
+      2% {
+        transform: @canvas-transform skewX(0deg);
+      }
+    }
   }
 }

@@ -1,23 +1,33 @@
 @import "App.less";
+
+// Modals
+@import "UI/modal_menu";
 @import "_modals/loading";
 @import "_modals/intro";
 @import "_modals/hero_creation/hero_creation";
-@import "UI/modal_menu";
 @import "_modals/debug_settings";
-@import "_modals/game_over";
-@import "editor/editor";
-@import "control_panel/ControlPanel";
-@import "control_panel/VehicleDashboard";
-@import "units/units.less";
-@import "top/top.less";
 @import "_modals/inventory/inventory.less";
+@import "_modals/game_over";
+
+// Top
+@import "top/top.less";
+
+// Map
+@import "map/map-wrapper.less";
+@import "map/userInteraction.less";
+@import "map/units/units.less";
 @import "terrain/terrain.less";
 @import "terrain/wireframe.less";
-@import "terrain/hero_actions_menu";
-@import "buildings/buildings.less";
+@import "map/buildings/buildings.less";
 @import "light/light.less";
-@import "vfx/_vfx.less";
-@import "messages/messages.less";
+@import "map/vfx/_vfx.less";
+@import "map/messages/messages.less";
 @import "weapons/weapons.less";
 @import "weapons/ammo.less";
 @import "map/_shared/entity_damage_points.less";
+
+// Control Panel
+@import "control_panel/ControlPanel";
+
+// Editor
+@import "editor/editor";

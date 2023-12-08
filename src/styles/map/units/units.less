@@ -8,11 +8,10 @@
   width: @unit-width;
   height: @unit-height;
 
-  margin-left: 15px;
-  margin-top: -60px;
+  margin-left: -(@unit-sprite-width / 2) + (@tile-width / 2);
+  margin-top: -(@unit-sprite-height / 2) - (@tile-height / 4);
 
   transform-style: preserve-3d;
-  pointer-events: none;
 
   .unit-shadow-fade {
     pointer-events: none;
@@ -55,7 +54,6 @@
   }
 
   .char {
-    pointer-events: none;
     position: absolute;
     left: calc(50% - @unit-sprite-width / 2);
     top: calc(50% - @unit-sprite-height / 2);
@@ -64,7 +62,7 @@
     background-repeat: no-repeat;
     z-index: 2;
 
-    transition: filter 0.2s linear;
+    .entity-filter-transition();
   }
 
   .health,
@@ -132,7 +130,7 @@
 
   &[data-selected-for-inventory-transfer="true"] {
     .char {
-      .explorable-entity-highlight();
+      .lootable-entity-highlight();
     }
   }
 
