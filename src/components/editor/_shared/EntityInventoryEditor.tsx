@@ -11,7 +11,7 @@ export const EntityInventoryEditor = (props: { entity: Building | Unit | Vehicle
   const { uiDispatch } = useGameState();
   const [selectedInventoryMode, setSelectedInventoryMode] = React.useState<keyof Unit["inventory"]>("main");
 
-  if (!props.entity.dictEntity.explorable) return null;
+  if (!props.entity.dictEntity.lootable) return null;
 
   const handleUnitInventoryModeChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedInventoryMode(e.target.value as keyof Unit["inventory"]);

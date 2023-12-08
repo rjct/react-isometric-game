@@ -1,8 +1,16 @@
 import { VehicleDictEntity } from "@src/dict/vehicle/_vehicle";
+import { generateInitialClipPathObj } from "@src/dict/_dictEntity";
+
+const vehicleType = "hummer";
+const rotationAngles = [...Array.from({ length: 32 }).fill(0)].map((_iter, index) => {
+  return index * 11.25;
+});
 
 const hummer: VehicleDictEntity = {
-  type: "hummer",
-  className: "hummer",
+  interfaceType: "vehicle",
+  type: vehicleType,
+  className: vehicleType,
+  rotationAngles,
   size: {
     grid: {
       width: 4,
@@ -21,7 +29,7 @@ const hummer: VehicleDictEntity = {
   },
   turningRadius: 2,
   maxSpeed: 10,
-  explorable: true,
+  lootable: true,
   animationDuration: {
     collision: 1000,
   },
@@ -57,6 +65,11 @@ const hummer: VehicleDictEntity = {
       src: "",
     },
   },
+  clipPath: generateInitialClipPathObj(
+    rotationAngles,
+    ["none"],
+    (variant) => `vehicles/drivable/${vehicleType}/${variant}.webp`,
+  ),
 };
 
 export default {

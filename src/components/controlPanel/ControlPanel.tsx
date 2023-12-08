@@ -2,8 +2,8 @@ import { CenterMapButton } from "@src/components/controlPanel/CenterMapButton";
 import { EndCombatButton } from "@src/components/controlPanel/EndCombatButton";
 import { EndTurnButton } from "@src/components/controlPanel/EndTurnButton";
 import { GetOufOfVehicleButton } from "@src/components/controlPanel/GetOufOfVehicleButton";
-import { HeroExploreButton } from "@src/components/controlPanel/HeroExploreButton";
 import { HeroHandButton } from "@src/components/controlPanel/HeroHandButton";
+import { HeroLootButton } from "@src/components/controlPanel/HeroLootButton";
 import { HeroMovementButton } from "@src/components/controlPanel/HeroMovementButton";
 import { MiniMap } from "@src/components/controlPanel/MiniMap";
 import { OpenInventoryButton } from "@src/components/controlPanel/OpenInventoryButton";
@@ -29,7 +29,7 @@ export const ControlPanel = React.memo(function ControlPanel() {
         <HeroHandButton type={"rightHand"} />
 
         <HeroMovementButton />
-        <HeroExploreButton />
+        <HeroLootButton />
         <GetOufOfVehicleButton />
 
         <EndTurnButton />

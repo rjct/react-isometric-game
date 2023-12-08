@@ -5,7 +5,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
-export const HeroExploreButton = React.memo(() => {
+export const HeroLootButton = React.memo(() => {
   const { gameDispatch } = useGameState();
   const { hero } = useHero();
 
@@ -14,13 +14,13 @@ export const HeroExploreButton = React.memo(() => {
   const handleClick = () => {
     if (hero.isBusy()) return;
 
-    gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: "explore" });
+    gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: "loot" });
   };
 
   return (
     <Button
-      className={["control-explore"]}
-      active={hero.currentSelectedAction === "explore"}
+      className={["control-loot"]}
+      active={hero.currentSelectedAction === "loot"}
       disabled={hero.isBusy()}
       onClick={handleClick}
     >

@@ -4,24 +4,19 @@ import plant from "@src/dict/building/plant/_plant";
 import road from "@src/dict/building/road/_road";
 import vehicle from "@src/dict/building/vehicle/_vehicle";
 import wall from "@src/dict/building/wall/_wall";
+import { DictEntity } from "@src/dict/_dictEntity";
 
 export type BuildingClass = keyof typeof BUILDING_DICT_DEFAULTS;
 
-export type BuildingDictEntity = {
+export interface BuildingDictEntity extends DictEntity {
   class: BuildingClass;
   type: string;
   className: string;
-  size: {
-    grid: Size3D;
-    screen: Size2D;
-  };
-  rotationAngles: Array<AngleInDegrees>;
   variants: number;
   internalColor: string;
   occupiesCell: boolean;
   blocksRays: boolean;
-  explorable: boolean;
-};
+}
 
 const buildingsList = { ...vehicle, ...wall, ...furniture, ...road, ...plant } as const;
 

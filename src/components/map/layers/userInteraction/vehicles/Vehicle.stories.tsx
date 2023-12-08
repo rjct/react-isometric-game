@@ -1,4 +1,4 @@
-import { VehicleComponent } from "@src/components/map/vehicles/Vehicle";
+import { VehicleComponent } from "@src/components/map/layers/userInteraction/vehicles/Vehicle";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import type { Meta, StoryObj } from "@storybook/react";
 

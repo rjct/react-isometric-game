@@ -1,5 +1,5 @@
-import { MapLayer } from "@src/components/map/MapLayer";
-import { SingleUnitAmmo } from "@src/components/map/weapons/SingleUnitAmmo";
+import { SingleUnitAmmo } from "@src/components/map/layers/ammo/SingleUnitAmmo";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { useGameState } from "@src/hooks/useGameState";
 
 export const Ammo = () => {

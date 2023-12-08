@@ -1,8 +1,8 @@
-import { UnitActionPoints } from "@src/components/map/units/UnitActionPoints";
-import { UnitCooldownTimer } from "@src/components/map/units/UnitCooldownTimer";
-import { UnitEnemyInViewMark } from "@src/components/map/units/UnitEnemyInViewMark";
-import { UnitHealth } from "@src/components/map/units/UnitHealth";
-import { UnitShadowComponent } from "@src/components/map/units/UnitShadow";
+import { UnitActionPoints } from "@src/components/map/layers/userInteraction/units/UnitActionPoints";
+import { UnitCooldownTimer } from "@src/components/map/layers/userInteraction/units/UnitCooldownTimer";
+import { UnitEnemyInViewMark } from "@src/components/map/layers/userInteraction/units/UnitEnemyInViewMark";
+import { UnitHealth } from "@src/components/map/layers/userInteraction/units/UnitHealth";
+import { UnitShadowComponent } from "@src/components/map/layers/userInteraction/units/UnitShadow";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
@@ -18,6 +18,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   isInHeroView?: boolean;
   onMouseDown?: (e: React.MouseEvent, entity: Unit) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
+  onMouseMove?: (e: React.MouseEvent, entity: Unit) => void;
 }) {
   const { gameState, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
@@ -84,6 +85,11 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
       data-in-hero-view={props.isInHeroView}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}
+      onMouseMove={(e: React.MouseEvent) => {
+        if (props.onMouseMove) {
+          props.onMouseMove(e, props.unit);
+        }
+      }}
       onMouseDown={(e: React.MouseEvent) => {
         if (props.onMouseDown) {
           props.onMouseDown(e, props.unit);
@@ -98,6 +104,9 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
       style={{
         transform: getCss3dPosition(props.unit.position.screen, false),
         zIndex: props.unit.zIndex,
+        width: props.unit.dictEntity.size.screen.width,
+        height: props.unit.dictEntity.size.screen.height,
+        clipPath: props.unit.getClipPath(),
       }}
     >
       <div className="char"></div>

@@ -1,4 +1,4 @@
-import { IsometricCanvasMapLayer } from "@src/components/map/IsometricCanvasMapLayer";
+import { IsometricCanvasMapLayer } from "@src/components/map/_shared/IsometricCanvasMapLayer";
 import { GameScene } from "@src/context/GameUIContext";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

@@ -21,10 +21,18 @@ export const Loading = React.memo(
 
           <div className={"modal-menu-nav"}>
             <fieldset className={"loading-info"}>
-              <legend>Loading</legend>
+              <legend>Wait</legend>
 
               <div className={"entity-progress-wrapper"}>
-                <div className={"label"}>GFX</div>
+                <div className={"label"}>Loading SFX</div>
+
+                <div className={"value"}>
+                  {filesize(props.assets.loaded.audio.size)} of {filesize(props.assets.total.audio.size)}
+                </div>
+              </div>
+
+              <div className={"entity-progress-wrapper"}>
+                <div className={"label"}>Loading GFX</div>
 
                 <div className={"value"}>
                   {filesize(props.assets.loaded.image.size)} of {filesize(props.assets.total.image.size)}
@@ -32,10 +40,10 @@ export const Loading = React.memo(
               </div>
 
               <div className={"entity-progress-wrapper"}>
-                <div className={"label"}>SFX</div>
+                <div className={"label"}>Processing GFX</div>
 
                 <div className={"value"}>
-                  {filesize(props.assets.loaded.audio.size)} of {filesize(props.assets.total.audio.size)}
+                  {Math.round((props.assets.loaded.clipPath * 100) / props.assets.total.clipPath)}%
                 </div>
               </div>
 

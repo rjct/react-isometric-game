@@ -40,7 +40,7 @@ export const HeroMovementButton = React.memo(() => {
   return (
     <Button
       className={[`control-movement`]}
-      active={hero.currentSelectedAction === "move"}
+      active={!hero.isVehicleInUse() && hero.currentSelectedAction === "move"}
       title={heroMovementTypes[hero.currentMovementMode].text}
       disabled={hero.isBusy() || hero.isVehicleInUse()}
       onClick={handleClick}

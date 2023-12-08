@@ -1,5 +1,8 @@
 import { InventoryItemsSortingState } from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
 import { StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateContext";
+import { BuildingDictEntity } from "@src/dict/building/_building";
+import { UnitDictEntity } from "@src/dict/unit/_unit";
+import { VehicleDictEntity } from "@src/dict/vehicle/_vehicle";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
@@ -20,18 +23,20 @@ export type GameEntityIntersectionWithLightRay = {
 export interface GameEntityProps {
   gameState: GameMap;
   id?: string;
-  size: { grid: Size3D; screen: Size2D };
+  dictEntity: UnitDictEntity | BuildingDictEntity | VehicleDictEntity;
   position: GridCoordinates;
   rotation: AngleInDegrees;
   internalColor: string;
   occupiesCell?: boolean;
   blocksRays: boolean;
-  explorable?: boolean;
+  lootable?: boolean;
 }
 
 export class GameEntity {
   public readonly id;
   public readonly internalColor: string;
+
+  public readonly dictEntity;
 
   public size: {
     grid: Size3D;
@@ -64,14 +69,18 @@ export class GameEntity {
     main: [],
   };
 
-  private readonly explorable: boolean = false;
+  private readonly lootable: boolean = false;
   public readonly isCustomId: boolean = false;
+  public clipPath: string | undefined = undefined;
 
   constructor(props: GameEntityProps) {
     this.id = props.id || randomUUID();
     if (props.id) {
       this.isCustomId = true;
     }
+
+    this.dictEntity = props.dictEntity;
+
     this.internalColor = props.internalColor;
 
     this.rotation = {
@@ -80,8 +89,8 @@ export class GameEntity {
     };
 
     this.size = {
-      grid: calculateSizeAfterRotation(props.size.grid, this.rotation),
-      screen: props.size.screen,
+      grid: calculateSizeAfterRotation(this.dictEntity.size.grid, this.rotation),
+      screen: this.dictEntity.size.screen,
     };
 
     this.zIndex = getEntityZIndex(this);
@@ -94,8 +103,8 @@ export class GameEntity {
       this.blocksRays = false;
     }
 
-    if (props.explorable) {
-      this.explorable = true;
+    if (props.lootable) {
+      this.lootable = true;
     }
 
     this.createWalls();
@@ -162,6 +171,15 @@ export class GameEntity {
     };
   }
 
+  getRoundedCenterPosition(): GridCoordinates {
+    const { x, y } = this.getRoundedPosition();
+
+    return {
+      x: x + this.size.grid.width / 2,
+      y: y + this.size.grid.length / 2,
+    };
+  }
+
   rayDist(lightRay: LightRay, wall: GameEntityWall) {
     const rWCross = lightRay.n.grid.x * wall.n.grid.y - lightRay.n.grid.y * wall.n.grid.x;
 
@@ -203,8 +221,8 @@ export class GameEntity {
     return !u || u < 0 ? { distance: Infinity, entity: null } : { distance: u, entity: this }; // if behind ray return Infinity else the dist
   }
 
-  isExplorable() {
-    return this.explorable;
+  isLootable() {
+    return this.lootable;
   }
 
   getAvailableRotationAngles(): AngleInDegrees[] {

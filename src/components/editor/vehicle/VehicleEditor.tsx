@@ -1,5 +1,5 @@
-import { MapLayer } from "@src/components/map/MapLayer";
-import { VehicleComponent } from "@src/components/map/vehicles/Vehicle";
+import { VehicleComponent } from "@src/components/map/layers/userInteraction/vehicles/Vehicle";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";

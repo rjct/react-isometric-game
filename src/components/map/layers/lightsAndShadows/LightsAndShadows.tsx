@@ -1,4 +1,4 @@
-import { MapLayer } from "@src/components/map/MapLayer";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { constants } from "@src/engine/constants";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";

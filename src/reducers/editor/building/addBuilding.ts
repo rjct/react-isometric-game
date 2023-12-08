@@ -1,4 +1,4 @@
-import { BuildingType } from "@src/dict/building/building";
+import { BuildingType } from "@src/dict/building/_building";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { GameMap } from "@src/engine/gameMap";
 

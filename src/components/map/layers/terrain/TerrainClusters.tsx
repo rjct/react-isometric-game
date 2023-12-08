@@ -1,5 +1,5 @@
-import { MapLayer } from "@src/components/map/MapLayer";
-import { TerrainClusterComponent } from "@src/components/map/terrain/TerrainCluster";
+import { TerrainClusterComponent } from "@src/components/map/layers/terrain/TerrainCluster";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { GameScene } from "@src/context/GameUIContext";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

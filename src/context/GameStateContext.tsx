@@ -4,7 +4,7 @@ import { AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
 import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { WeaponName } from "@src/dict/weapon/weapon";
 
-import { BuildingType } from "@src/dict/building/building";
+import { BuildingType } from "@src/dict/building/_building";
 import { UnitType } from "@src/dict/unit/_unit";
 import { gameMap, GameMap } from "@src/engine/gameMap";
 import { TerrainAreaType } from "@src/engine/terrain/TerrainAreaFactory";

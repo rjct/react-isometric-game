@@ -1,6 +1,6 @@
 import React from "react";
 
-import { MapLayer } from "@src/components/map/MapLayer";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { constants } from "@src/engine/constants";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";

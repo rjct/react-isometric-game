@@ -1,5 +1,6 @@
 import hummer from "@src/dict/vehicle/hummer";
 import { VehicleDerivedStatName } from "@src/dict/vehicle/_vehicleDerivedStst";
+import { DictEntity } from "@src/dict/_dictEntity";
 
 export type VehicleActionType = "none" | "idle" | "driving" | "collision" | "hit" | "broken";
 export type VehicleSfxType = "turnOn" | "turnOff" | "shiftIn" | "shiftOut" | VehicleActionType;
@@ -10,24 +11,19 @@ export type VehicleSfx = {
   };
 };
 
-export type VehicleDictEntity = {
+export interface VehicleDictEntity extends DictEntity {
   type: string;
   className: string;
-  size: {
-    grid: Size3D;
-    screen: Size2D;
-  };
   characteristics: {
     [characteristic in VehicleDerivedStatName]: number;
   };
   turningRadius: number;
   maxSpeed: number;
-  explorable: boolean;
   animationDuration: {
     [action in VehicleActionType]?: number;
   };
   sfx: VehicleSfx;
-};
+}
 
 const vehiclesList = { ...hummer } as const;
 

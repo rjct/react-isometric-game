@@ -12,16 +12,20 @@ export const heroActionTypes = {
   move: { icon: faQuestion },
   leftHand: { icon: faQuestion },
   rightHand: { icon: faQuestion },
-  explore: { icon: faHand },
+  loot: { icon: faHand },
   getIntoVehicle: { icon: faTruckFast },
   driveVehicle: { icon: faQuestion },
 };
 
+export type HeroActionType = keyof typeof heroActionTypes;
+export type UserEventType = "mouseDown" | "click" | "mouseUp" | "doubleClick";
+
 export type HeroAction = {
   position: GridCoordinates;
-  action: keyof typeof heroActionTypes;
+  action: HeroActionType;
   entity: Unit | Building | Vehicle | null;
   isAllowed: boolean;
+  possibleUserEventTypes: UserEventType[];
   probability?: number;
 };
 
@@ -54,6 +58,7 @@ export function useHero() {
               (uiState.scene === "combat" &&
                 hero.actionPoints.current / hero.getCurrentActionPointsConsumption() < unitPath.length - 1)
             ),
+            possibleUserEventTypes: ["click", "doubleClick"],
           },
         ];
 
@@ -76,6 +81,7 @@ export function useHero() {
                 (uiState.scene === "combat" &&
                   weapon.getCurrentAttackModeDetails().actionPointsConsumption > hero.actionPoints.current)
               ),
+              possibleUserEventTypes: ["click"],
             },
           ];
         }
@@ -86,30 +92,50 @@ export function useHero() {
             action: hero.currentSelectedAction,
             entity: null,
             isAllowed: false,
+            possibleUserEventTypes: ["click"],
           },
         ];
 
-      case !hero.isVehicleInUse() && hero.currentSelectedAction === "explore":
+      case !hero.isVehicleInUse() && hero.currentSelectedAction === "loot":
         const entity = gameState.getEntityByCoordinates(uiState.mousePosition.grid);
 
         if (!entity) {
-          return [{ position: coordinates, action: "explore", entity: null, isAllowed: false }];
+          return [
+            {
+              position: coordinates,
+              action: "loot",
+              entity: null,
+              isAllowed: false,
+              possibleUserEventTypes: ["click"],
+            },
+          ];
         }
 
         const isDrivable = entity && entity instanceof Vehicle;
-        const isExplorable = entity && entity.isExplorable() && entity.id !== hero.id;
-        const entityCenter = {
-          x: Math.floor(entity.position.grid.x + entity.size.grid.width / 2 - 1),
-          y: Math.floor(entity.position.grid.y + entity.size.grid.length / 2 - 1),
-        };
+        const isLootable = entity && entity.isLootable() && entity.id !== hero.id;
+        const entityCenter = entity.getRoundedCenterPosition();
 
         if (isDrivable) {
           return [
-            { position: entityCenter, action: "explore", entity, isAllowed: true },
-            { position: entityCenter, action: "getIntoVehicle", entity, isAllowed: true },
+            { position: entityCenter, action: "loot", entity, isAllowed: true, possibleUserEventTypes: ["click"] },
+            {
+              position: entityCenter,
+              action: "getIntoVehicle",
+              entity,
+              isAllowed: true,
+              possibleUserEventTypes: ["doubleClick"],
+            },
           ];
         } else {
-          return [{ position: entityCenter, action: "explore", entity, isAllowed: isExplorable }];
+          return [
+            {
+              position: entityCenter,
+              action: "loot",
+              entity,
+              isAllowed: isLootable,
+              possibleUserEventTypes: ["click"],
+            },
+          ];
         }
 
       case hero.isVehicleInUse():
@@ -117,49 +143,59 @@ export function useHero() {
         const path = gameState.calcMovementPath(vehicle.position.grid, coordinates);
         const isAllowed = path.length > 0;
 
-        return [{ position: coordinates, action: "driveVehicle", entity: null, isAllowed }];
+        return [
+          {
+            position: coordinates,
+            action: "driveVehicle",
+            entity: null,
+            isAllowed,
+            possibleUserEventTypes: ["mouseDown", "mouseUp"],
+          },
+        ];
 
       default:
         return [];
     }
   };
 
-  const doHeroAction = (type: "mouseDown" | "click" | "mouseUp" | "doubleClick", heroAction?: HeroAction) => {
-    if (!heroAction) return;
+  const doHeroAction = (type: UserEventType, heroAction?: HeroAction): Promise<HeroActionType> => {
+    return new Promise((resolve, reject) => {
+      if (!heroAction || !heroAction.isAllowed) return reject();
 
-    switch (heroAction.action) {
-      case "move":
-        hero.currentMovementMode = type === "doubleClick" ? "run" : "walk";
+      switch (heroAction.action) {
+        case "move":
+          hero.currentMovementMode = type === "doubleClick" ? "run" : "walk";
 
-        gameDispatch({
-          type: "moveUnit",
-          unit: hero,
-          position: heroAction.position,
-          moveAction: hero.currentMovementMode,
-        });
-        break;
+          gameDispatch({
+            type: "moveUnit",
+            unit: hero,
+            position: heroAction.position,
+            moveAction: hero.currentMovementMode,
+          });
 
-      case "leftHand":
-      case "rightHand":
-        const weapon = hero.getCurrentWeapon();
+          return resolve(heroAction.action);
 
-        gameDispatch({
-          type: "useEntityInUnitHand",
-          unit: hero,
-          hand: heroAction.action,
-          targetPosition: heroAction.position,
-          consumeActionPoints: uiState.scene === "combat",
-        });
+        case "leftHand":
+        case "rightHand":
+          const weapon = hero.getCurrentWeapon();
 
-        if (weapon) {
-          window.setTimeout(() => {
-            gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
-          }, weapon.getCurrentAttackModeDetails().animationDuration.attackCompleted);
-        }
-        break;
+          gameDispatch({
+            type: "useEntityInUnitHand",
+            unit: hero,
+            hand: heroAction.action,
+            targetPosition: heroAction.position,
+            consumeActionPoints: uiState.scene === "combat",
+          });
 
-      case "explore":
-        if (type === "click") {
+          if (weapon) {
+            window.setTimeout(() => {
+              gameDispatch({ type: "setCurrentUnitAction", unit: hero, selectedAction: hero.currentSelectedAction });
+            }, weapon.getCurrentAttackModeDetails().animationDuration.attackCompleted);
+          }
+
+          return resolve(heroAction.action);
+
+        case "loot":
           gameDispatch({ type: "highlightExplorableEntity", entity: null });
           gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: heroAction.entity });
 
@@ -176,13 +212,12 @@ export function useHero() {
           } else {
             uiDispatch({ type: "setScene", scene: "inventoryTransfer" });
           }
-        }
 
-        break;
+          return resolve(heroAction.action);
 
-      case "getIntoVehicle":
-        if (type === "click") {
+        case "getIntoVehicle":
           gameDispatch({ type: "highlightExplorableEntity", entity: null });
+          gameDispatch({ type: "setSelectedEntityForInventoryTransfer", entity: null });
 
           if (getDistanceBetweenEntities(hero, heroAction.entity!) > 0) {
             gameDispatch({
@@ -197,20 +232,21 @@ export function useHero() {
           } else {
             gameDispatch({ type: "getIntoVehicle", unit: hero, vehicle: heroAction.entity as Vehicle });
           }
-        }
 
-        break;
+          return resolve("getIntoVehicle");
 
-      case "driveVehicle":
-        const vehicle = hero.getVehicleInUse()!;
+        case "driveVehicle":
+          const vehicle = hero.getVehicleInUse()!;
 
-        if (type === "mouseDown") {
-          gameDispatch({ type: "startVehicleAcceleration", vehicle, targetPosition: uiState.mousePosition.grid });
-        } else if (type === "mouseUp") {
-          gameDispatch({ type: "stopVehicleAcceleration", vehicle });
-        }
-        break;
-    }
+          if (type === "mouseDown") {
+            gameDispatch({ type: "startVehicleAcceleration", vehicle, targetPosition: uiState.mousePosition.grid });
+          } else if (type === "mouseUp") {
+            gameDispatch({ type: "stopVehicleAcceleration", vehicle });
+          }
+
+          return resolve("driveVehicle");
+      }
+    });
   };
 
   const getHeroScreenPosition = (): ScreenCoordinates => {

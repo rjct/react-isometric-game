@@ -19,18 +19,18 @@ const terrainClusterGridSize = {
   height: 16,
 };
 
+const ASSETS_URL = "public/assets";
+
 export const constants = {
-  STARTING_MAP: mapsList.vault,
+  STARTING_MAP: mapsList.road,
   BASE_URL: "/react-isometric-game",
-  SPRITE_URL: "public/assets/terrain/%SPRITE_FILE_NAME%.webp",
+  ASSETS_URL,
+  SPRITE_URL: `${ASSETS_URL}/terrain/%SPRITE_FILE_NAME%.webp`,
   FPS: 24,
   SCROLL_SPEED: 300,
   SCROLL_EDGE_WIDTH: 50,
   OFFSCREEN_TILE_CACHE: 4,
-  FOG_OF_WAR_RADIUS: 10,
   FOG_OF_WAR_OPACITY: 1,
-  UNIT_FIELD_OF_VIEW_RAYS: 20,
-  LIGHT_RENDER_PASSES: 2,
   INTRO_SCENE_DISPLAY_TIME: 6000,
   TERRAIN_CLUSTER_SIZE: {
     grid: {
@@ -64,7 +64,7 @@ export const constants = {
       fogOfWar: true,
       light: true,
       shadow: true,
-      unitShadow: true,
+      unitShadow: false,
     },
 
     debug: {

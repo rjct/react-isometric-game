@@ -1,6 +1,7 @@
 import ghoul from "@src/dict/unit/ghoul";
 import vault13_male from "@src/dict/unit/vault13_male";
 import { WeaponAttackMode } from "@src/dict/weapon/weapon";
+import { DictEntity } from "@src/dict/_dictEntity";
 import { UnitCharacteristics } from "@src/engine/unit/UnitCharacteristicsFactory";
 
 export type UnitSfxType = "walkStep" | "hit" | "dead";
@@ -15,7 +16,7 @@ export type UnitSfx = {
 export type UnitActionType =
   | "none"
   | "idle"
-  | "explore"
+  | "loot"
   | "walk"
   | "run"
   | "hit"
@@ -25,23 +26,18 @@ export type UnitActionType =
   | "die"
   | WeaponAttackMode;
 
-export type UnitDictEntity = {
+export interface UnitDictEntity extends DictEntity {
   type: string;
   className: string;
-  explorable: boolean;
   speed: {
     walk: number;
     run: number;
   };
   coolDownTime: number;
-  size: {
-    grid: Size3D;
-    screen: Size2D;
-  };
   actionPoints: {
     max: number;
     consumption: {
-      [type in UnitActionType]?: number;
+      [action in UnitActionType]?: number;
     };
   };
   rewardXpPoints: number;
@@ -54,7 +50,7 @@ export type UnitDictEntity = {
     notAllowed: 1000;
   };
   sfx: UnitSfx;
-};
+}
 
 const unitsList = { ...vault13_male, ...ghoul } as const;
 

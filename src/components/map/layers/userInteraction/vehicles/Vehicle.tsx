@@ -10,11 +10,18 @@ export const VehicleComponent = (props: {
   dragging?: boolean;
   highlightedForInventoryTransfer?: boolean;
   selectedForInventoryTransfer?: boolean;
+  onMouseMove?: (e: React.MouseEvent, entity: Vehicle) => void;
   onMouseDown?: (e: React.MouseEvent, entity: Vehicle) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
 }) => {
   const { gameDispatch } = useGameState();
   const { notify_EntityTakesDamage } = useMessages();
+
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (props.onMouseMove) {
+      props.onMouseMove(e, props.vehicle);
+    }
+  };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (props.onMouseDown) {
@@ -68,6 +75,7 @@ export const VehicleComponent = (props: {
         zIndex: props.vehicle.zIndex,
         animationDuration:
           props.vehicle.action === "driving" ? `${Math.round(1000 - props.vehicle.speed.current * 20)}ms` : undefined,
+        clipPath: props.vehicle.getClipPath(),
       }}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}
@@ -77,6 +85,7 @@ export const VehicleComponent = (props: {
         props.highlightedForInventoryTransfer || props.selectedForInventoryTransfer || null
       }
       data-rotation={props.vehicle.rotation.deg}
+      onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}

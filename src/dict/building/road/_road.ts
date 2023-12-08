@@ -1,4 +1,3 @@
-import { BuildingDictEntity } from "@src/dict/building/building";
 import fire_barrel from "@src/dict/building/road/fire_barrel";
 import highway_fence from "@src/dict/building/road/highway_fence";
 import highway_fence_broken from "@src/dict/building/road/highway_fence_broken";
@@ -8,6 +7,7 @@ import phonebox from "@src/dict/building/road/phonebox";
 import street_light from "@src/dict/building/road/street_light";
 import traffic_light from "@src/dict/building/road/traffic_light";
 import trash_bin from "@src/dict/building/road/trash_bin";
+import { BuildingDictEntity } from "@src/dict/building/_building";
 
 export const road: { [id: string]: BuildingDictEntity } = {
   highway_fence,

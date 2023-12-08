@@ -2,7 +2,7 @@ import { StaticMapBuilding } from "@src/context/GameStateContext";
 import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
 
-import getBuildingsDictList, { BuildingDictEntity, BuildingType } from "@src/dict/building/building";
+import getBuildingsDictList, { BuildingDictEntity, BuildingType } from "@src/dict/building/_building";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
@@ -28,13 +28,13 @@ export class Building extends GameEntity {
 
     super({
       gameState: props.gameState,
-      size: dictEntity.size,
+      dictEntity,
       position: props.position,
       rotation: props.rotation,
       internalColor: dictEntity.internalColor,
       occupiesCell: dictEntity.occupiesCell,
       blocksRays: dictEntity.blocksRays,
-      explorable: dictEntity.explorable,
+      lootable: dictEntity.lootable,
     });
 
     this.dictEntity = dictEntity;
@@ -91,6 +91,10 @@ export class Building extends GameEntity {
 
   public getInventoryItemById(itemId: string) {
     return this.getInventoryItems().find((item) => item?.id === itemId);
+  }
+
+  public getClipPath() {
+    return this.dictEntity.clipPath?.[this.variant]?.[`${this.rotation.deg}deg`]?.cssClipPath;
   }
 
   public getJSON() {

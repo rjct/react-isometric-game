@@ -1,6 +1,6 @@
 import { BuildingLibraryItem } from "@src/components/editor/building/BuildingLibraryItem";
 import { Tab } from "@src/components/ui/Tab";
-import getBuildingsDictList, { BuildingDictEntity } from "@src/dict/building/building";
+import getBuildingsDictList, { BuildingDictEntity } from "@src/dict/building/_building";
 
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";

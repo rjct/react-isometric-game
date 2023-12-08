@@ -1,6 +1,6 @@
 import { faRotateLeft, faRotateRight } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { BuildingDictEntity } from "@src/dict/building/building";
+import { BuildingDictEntity } from "@src/dict/building/_building";
 import React from "react";
 
 export function BuildingLibraryItem(props: { item: BuildingDictEntity; variant: number }) {

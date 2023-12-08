@@ -1,4 +1,4 @@
-import { MessageComponent } from "@src/components/map/messages/Message";
+import { MessageComponent } from "@src/components/map/layers/messages/Message";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
 

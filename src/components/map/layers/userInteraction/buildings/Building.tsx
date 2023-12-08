@@ -8,11 +8,18 @@ export const BuildingComponent = React.memo(function Building(props: {
   dragging?: boolean;
   highlightedForInventoryTransfer?: boolean;
   selectedForInventoryTransfer?: boolean;
+  onMouseMove?: (e: React.MouseEvent, entity: Building) => void;
   onMouseDown?: (e: React.MouseEvent, entity: Building) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
   maskImage?: CSSProperties["WebkitMaskImage"];
   isInHeroView?: boolean;
 }) {
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (props.onMouseMove) {
+      props.onMouseMove(e, props.building);
+    }
+  };
+
   const handleMouseDown = (e: React.MouseEvent) => {
     if (props.onMouseDown) {
       props.onMouseDown(e, props.building);
@@ -39,6 +46,7 @@ export const BuildingComponent = React.memo(function Building(props: {
         transform: getCss3dPosition(props.building.position.screen, false),
         zIndex: props.building.zIndex,
         WebkitMaskImage: props.maskImage,
+        clipPath: props.building.getClipPath(),
       }}
       data-rotation={props.building.rotation.deg}
       data-variant={props.building.variant}
@@ -47,7 +55,7 @@ export const BuildingComponent = React.memo(function Building(props: {
       data-selected-for-inventory-transfer={
         props.highlightedForInventoryTransfer || props.selectedForInventoryTransfer || null
       }
-      data-in-hero-view={props.isInHeroView}
+      onMouseMove={handleMouseMove}
       onMouseDown={handleMouseDown}
       onMouseUp={handleMouseUp}
       onDragStart={handleDragStart}

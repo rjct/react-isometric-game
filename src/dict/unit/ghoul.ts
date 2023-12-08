@@ -1,9 +1,16 @@
 import { UnitDictEntity } from "@src/dict/unit/_unit";
+import { generateInitialClipPathObj } from "@src/dict/_dictEntity";
+
+const unitType = "ghoul";
+
+const rotationAngles = [0, 90, 180, 270];
 
 const ghoul: UnitDictEntity = {
-  type: "ghoul",
-  className: "ghoul",
-  explorable: true,
+  interfaceType: "unit",
+  type: unitType,
+  className: unitType,
+  lootable: true,
+  rotationAngles,
   speed: {
     walk: 0.4,
     run: 0.8,
@@ -18,7 +25,7 @@ const ghoul: UnitDictEntity = {
     consumption: {
       walk: 1,
       run: 2,
-      explore: 1,
+      loot: 1,
     },
   },
   rewardXpPoints: 10,
@@ -57,6 +64,11 @@ const ghoul: UnitDictEntity = {
       ],
     },
   },
+  clipPath: generateInitialClipPathObj(
+    rotationAngles,
+    ["none", "idle", "dead"],
+    (variant) => `units/${unitType}/${variant}/${unitType}__${variant}__empty.webp`,
+  ),
 };
 
 export default {

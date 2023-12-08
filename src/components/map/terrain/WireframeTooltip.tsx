@@ -3,30 +3,28 @@ import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
 
-export const WireframeTooltip = (props: {
-  coordinates: GridCoordinates;
-  className: string[];
-  value?: React.ReactElement | null;
-}) => {
-  const { gameState } = useGameState();
-  const { hero } = useHero();
+export const WireframeTooltip = React.memo(
+  (props: { coordinates: GridCoordinates; className: string[]; value?: string | React.ReactElement | null }) => {
+    const { gameState } = useGameState();
+    const { hero } = useHero();
 
-  const [className, setClassName] = React.useState([...["wireframe-tooltip", "tooltip-show"], ...props.className]);
+    const [className, setClassName] = React.useState([...["wireframe-tooltip", "tooltip-show"], ...props.className]);
 
-  if (hero.isBusy() || !props.value) return null;
+    if (hero.isBusy() || !props.value) return null;
 
-  const position = gridToScreenSpace(props.coordinates, gameState.mapSize);
-  const transform = `translate3d(${position.x}px, ${position.y}px, 0)`;
+    const position = gridToScreenSpace(props.coordinates, gameState.mapSize);
 
-  return (
-    <div
-      className={className.join(" ")}
-      style={{
-        transform,
-      }}
-      onAnimationEnd={() => setClassName([...className, ...["wireframe-tooltip-bounce"]])}
-    >
-      {props.value}
-    </div>
-  );
-};
+    return (
+      <div
+        className={className.join(" ")}
+        style={{
+          left: position.x,
+          top: position.y,
+        }}
+        onAnimationEnd={() => setClassName([...className, ...["wireframe-tooltip-bounce"]])}
+      >
+        {props.value}
+      </div>
+    );
+  },
+);

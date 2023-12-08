@@ -1,9 +1,15 @@
 import { UnitDictEntity } from "@src/dict/unit/_unit";
+import { generateInitialClipPathObj } from "@src/dict/_dictEntity";
+
+const unitType = "vault13_male";
+const rotationAngles = [0, 90, 180, 270];
 
 const vault13_male: UnitDictEntity = {
-  type: "vault13_male",
-  className: "vault13_male",
-  explorable: true,
+  interfaceType: "unit",
+  type: unitType,
+  className: unitType,
+  lootable: true,
+  rotationAngles,
   speed: {
     walk: 1,
     run: 2.5,
@@ -18,7 +24,7 @@ const vault13_male: UnitDictEntity = {
     consumption: {
       walk: 1,
       run: 2,
-      explore: 1,
+      loot: 1,
     },
   },
   rewardXpPoints: 10,
@@ -53,6 +59,11 @@ const vault13_male: UnitDictEntity = {
       src: ["public/assets/units/vault13_male/dead/dead.m4a"],
     },
   },
+  clipPath: generateInitialClipPathObj(
+    rotationAngles,
+    ["none", "idle", "dead"],
+    (variant) => `units/${unitType}/${variant}/${unitType}__${variant}__empty.webp`,
+  ),
 };
 
 export default {

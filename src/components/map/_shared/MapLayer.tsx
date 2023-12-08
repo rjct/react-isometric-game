@@ -7,14 +7,15 @@ import React from "react";
 
 export type MapLayerProps = {
   isometric?: boolean;
-  //
   size: Size2D;
   className: string;
   style?: React.CSSProperties;
+  dataProps?: { [p: string]: string | boolean | undefined };
   children: React.ReactNode;
   onMouseMove?: (e: React.MouseEvent) => void;
   onClick?: (e: React.MouseEvent) => void;
-  onMouseUp?: (e: React.MouseEvent) => void;
+  onMouseDown?: (e: React.MouseEvent | React.TouchEvent) => void;
+  onMouseUp?: (e: React.MouseEvent | React.TouchEvent) => void;
   onContextMenu?: (e: React.MouseEvent) => void;
 };
 
@@ -46,8 +47,10 @@ export function MapLayer({ isometric = true, ...props }: MapLayerProps) {
       style={style}
       onMouseMove={props.onMouseMove}
       onClick={props.onClick}
+      onMouseDown={props.onMouseDown}
       onMouseUp={props.onMouseUp}
       onContextMenu={props.onContextMenu}
+      {...props.dataProps}
     >
       {props.children}
     </div>

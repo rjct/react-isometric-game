@@ -4,20 +4,16 @@ import { LightEditor } from "@src/components/editor/light/LightEditor";
 import { TerrainAreasEditor } from "@src/components/editor/terrain/TerrainAreasEditor";
 import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
 import { VehicleEditor } from "@src/components/editor/vehicle/VehicleEditor";
-import { Buildings } from "@src/components/map/buildings/Buildings";
-import { MapLayer } from "@src/components/map/MapLayer";
-import { MessagesTooltip } from "@src/components/map/messages/MessagesTooltip";
-import { FogOfWarComponent } from "@src/components/map/terrain/FogOfWar";
-import { LightsAndShadows } from "@src/components/map/terrain/LightsAndShadows";
-import { TerrainCanvas } from "@src/components/map/terrain/TerrainCanvas";
-import { TerrainClusters } from "@src/components/map/terrain/TerrainClusters";
+import { Ammo } from "@src/components/map/layers/ammo/Ammo";
+import { FogOfWarComponent } from "@src/components/map/layers/fogOfWar/FogOfWar";
+import { LightsAndShadows } from "@src/components/map/layers/lightsAndShadows/LightsAndShadows";
+import { MessagesTooltip } from "@src/components/map/layers/messages/MessagesTooltip";
+import { TerrainCanvas } from "@src/components/map/layers/terrain/TerrainCanvas";
+import { TerrainClusters } from "@src/components/map/layers/terrain/TerrainClusters";
+import { UserInteraction } from "@src/components/map/layers/userInteraction/UserInteraction";
 import { Wireframe } from "@src/components/map/terrain/Wireframe";
-import { Units } from "@src/components/map/units/Units";
-import { Vehicles } from "@src/components/map/vehicles/Vehicles";
-import { VisualEffects } from "@src/components/map/vfx/VisualEffects";
-import { Ammo } from "@src/components/map/weapons/Ammo";
 import { GameUI } from "@src/context/GameUIContext";
-import { BuildingType } from "@src/dict/building/building";
+import { BuildingType } from "@src/dict/building/_building";
 import { UnitType } from "@src/dict/unit/_unit";
 import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { Building } from "@src/engine/building/BuildingFactory";
@@ -26,6 +22,7 @@ import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpa
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useMousePosition } from "@src/hooks/useMousePosition";
+import { useScene } from "@src/hooks/useScene";
 import React from "react";
 
 export type MapForwardedRefs = {
@@ -39,6 +36,7 @@ export const MapComponent = React.memo(
     const { terrainState, terrainDispatch, gameState, gameDispatch, uiState, uiDispatch } = useGameState();
     const { getWorldMousePosition } = useMousePosition();
     const { hero } = useHero();
+    const { checkCurrentScene } = useScene();
 
     const mapRef = React.useRef<HTMLDivElement>(null);
 
@@ -288,23 +286,21 @@ export const MapComponent = React.memo(
           <MessagesTooltip />
           <Wireframe />
 
-          <BuildingEditor />
-          <TerrainAreasEditor />
-          <UnitEditor />
-          <VehicleEditor />
-          <LightEditor />
+          {checkCurrentScene(["editor"]) ? (
+            <>
+              <BuildingEditor />
+              <TerrainAreasEditor />
+              <UnitEditor />
+              <VehicleEditor />
+              <LightEditor />
+            </>
+          ) : null}
 
           <TerrainClusters workingScenes={["game", "combat"]} />
           <TerrainCanvas workingScenes={["editor"]} />
 
           <Ammo />
-
-          <MapLayer size={gameState.mapSize} className={"map"} isometric={gameState.debug.featureEnabled.buildingBoxes}>
-            <VisualEffects />
-            <Buildings />
-            <Vehicles />
-            <Units />
-          </MapLayer>
+          <UserInteraction />
         </div>
       </>
     );

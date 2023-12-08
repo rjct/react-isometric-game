@@ -1,4 +1,4 @@
-import { Fade } from "@src/components/Fade";
+import { Fade } from "@src/components/map/_shared/Fade";
 import { UnitShadow } from "@src/engine/unit/UnitFactory";
 import React from "react";
 

@@ -1,5 +1,5 @@
-import { BuildingComponent } from "@src/components/map/buildings/Building";
-import { MapLayer } from "@src/components/map/MapLayer";
+import { BuildingComponent } from "@src/components/map/layers/userInteraction/buildings/Building";
+import { MapLayer } from "@src/components/map/_shared/MapLayer";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMousePosition } from "@src/hooks/useMousePosition";

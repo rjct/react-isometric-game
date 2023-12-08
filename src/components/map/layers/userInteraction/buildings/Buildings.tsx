@@ -1,5 +1,6 @@
-import { BuildingComponent } from "@src/components/map/buildings/Building";
-import { BuildingBox } from "@src/components/map/buildings/BuildingBox";
+import { BuildingComponent } from "@src/components/map/layers/userInteraction/buildings/Building";
+import { BuildingBox } from "@src/components/map/layers/userInteraction/buildings/BuildingBox";
+import { useGameEntityInteraction } from "@src/hooks/useGameEntityInteraction";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import React from "react";
@@ -7,6 +8,7 @@ import React from "react";
 export const Buildings = React.memo(function Buildings() {
   const { gameState, uiState } = useGameState();
   const { hero, getHeroMaskImage } = useHero();
+  const { handleEntityMouseMove } = useGameEntityInteraction();
 
   const buildings = React.useMemo(
     () =>
@@ -23,6 +25,7 @@ export const Buildings = React.memo(function Buildings() {
               highlightedForInventoryTransfer={gameState.highlightedEntityForInventoryTransfer?.id === building.id}
               selectedForInventoryTransfer={gameState.selectedEntityForInventoryTransfer?.id === building.id}
               isInHeroView={hero.fieldOfView.isEntityInView(building)}
+              onMouseMove={handleEntityMouseMove}
             />
           ),
         ),

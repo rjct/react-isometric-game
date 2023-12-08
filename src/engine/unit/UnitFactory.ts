@@ -59,7 +59,7 @@ export class Unit extends MovableGameEntity {
   public isDead: boolean;
 
   public currentMovementMode: UnitMovementMode = "walk";
-  public currentSelectedAction: "move" | "explore" | "leftHand" | "rightHand" = "move";
+  public currentSelectedAction: "move" | "loot" | "leftHand" | "rightHand" = "move";
 
   public readonly coolDownTime: number;
   public coolDownTimer = 0;
@@ -99,12 +99,12 @@ export class Unit extends MovableGameEntity {
 
     super({
       gameState: props.gameState,
-      size: dictEntity.size,
+      dictEntity,
       position: props.position,
       rotation: props.rotation || 0,
       internalColor: props.isHero ? "rgba(255,255,255,0.5)" : "rgba(255,0,0,0.5)",
       blocksRays: !props.isDead,
-      explorable: true,
+      lootable: true,
     });
 
     this.dictEntity = dictEntity;
@@ -334,8 +334,8 @@ export class Unit extends MovableGameEntity {
 
         return 0;
 
-      case "explore":
-        return this.actionPoints.consumption.explore!;
+      case "loot":
+        return this.actionPoints.consumption.loot!;
     }
   }
 
@@ -424,8 +424,8 @@ export class Unit extends MovableGameEntity {
     return getDistanceBetweenGridPoints(this.getRoundedPosition(), entity.getRoundedPosition());
   }
 
-  public isExplorable() {
-    return super.isExplorable() && this.isDead;
+  public isLootable() {
+    return super.isLootable() && this.isDead;
   }
 
   public isVehicleInUse() {
@@ -468,6 +468,10 @@ export class Unit extends MovableGameEntity {
 
   getCarryWeight(): number {
     return this.characteristics.derived.carryWeight.value;
+  }
+
+  public getClipPath() {
+    return this.dictEntity.clipPath?.[this.action]?.[`${this.rotation.deg}deg`]?.cssClipPath;
   }
 
   public getJSON(omitUnitType = false) {

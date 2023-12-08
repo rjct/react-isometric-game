@@ -48,11 +48,11 @@ export class Vehicle extends MovableGameEntity {
     super({
       gameState: props.gameState,
       id: props.id,
-      size: dictEntity.size,
+      dictEntity,
       position: props.position,
       rotation: props.rotation,
       internalColor: "rgba(0, 250, 0, 0.5)",
-      explorable: true,
+      lootable: true,
       blocksRays: true,
       occupiesCell: true,
     });
@@ -192,6 +192,10 @@ export class Vehicle extends MovableGameEntity {
     return this.characteristics.carryWeight.value;
   }
 
+  public getClipPath() {
+    return this.dictEntity.clipPath?.[this.action]?.[`${this.rotation.deg}deg`]?.cssClipPath;
+  }
+
   public getHash(): string {
     const hash = super.getHash();
 
@@ -207,6 +211,12 @@ export class Vehicle extends MovableGameEntity {
 
     if (this.isCustomId) {
       json.id = this.id;
+    }
+
+    if (this.inventory?.main.length > 0) {
+      json.inventory = {
+        main: super.getInventoryMainJSON(),
+      };
     }
 
     return json;

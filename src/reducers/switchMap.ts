@@ -1,4 +1,5 @@
 import { StaticMap } from "@src/context/GameStateContext";
+import { BuildingDictEntity } from "@src/dict/building/_building";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { FogOfWar } from "@src/engine/FogOfWarFactory";
 import { GameEntity } from "@src/engine/GameEntityFactory";
@@ -38,10 +39,12 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
   newState.world = new GameEntity({
     gameState: newState,
     id: "world-walls",
-    size: {
-      grid: { width: action.map.size.width, length: action.map.size.height, height: 1 },
-      screen: gridToScreesSize(action.map.size),
-    },
+    dictEntity: {
+      size: {
+        grid: { width: action.map.size.width, length: action.map.size.height, height: 1 },
+        screen: gridToScreesSize(action.map.size),
+      },
+    } as BuildingDictEntity,
     position: { x: 0, y: 0 },
     rotation: 0,
     internalColor: "",
