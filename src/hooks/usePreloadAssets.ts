@@ -58,8 +58,8 @@ export function usePreloadAssets() {
 
         mediaFiles = { ...json };
 
-        const gfxUrls = Object.keys(mediaFiles.image);
-        const sfxUrls = Object.keys(mediaFiles.audio);
+        const gfxUrls = Object.keys(mediaFiles.image.files);
+        const sfxUrls = Object.keys(mediaFiles.audio.files);
         const clipPaths = Object.values({
           ...getUnitsDictList(),
           ...getBuildingsDictList(),
@@ -67,18 +67,8 @@ export function usePreloadAssets() {
         });
 
         setTotalMediaFiles({
-          image: {
-            count: gfxUrls.length,
-            size: Object.values(mediaFiles.image).reduce((count, value) => {
-              return count + value.size;
-            }, 0),
-          },
-          audio: {
-            count: sfxUrls.length,
-            size: Object.values(mediaFiles.audio).reduce((count, value) => {
-              return count + value.size;
-            }, 0),
-          },
+          image: mediaFiles.image.total,
+          audio: mediaFiles.audio.total,
           clipPath: clipPaths.reduce((count, dictEntity) => {
             const rotationAnglesCount = Object.values(dictEntity.clipPath).reduce((previousValue, currentValue) => {
               return previousValue + Object.keys(currentValue).length;
@@ -89,7 +79,7 @@ export function usePreloadAssets() {
         });
 
         const gfxPromises = gfxUrls.map(async (url) => {
-          const assetFile = mediaFiles.image[url];
+          const assetFile = mediaFiles.image.files[url];
           const imageElement = await loadImage(assetFile);
 
           setTotalMediaFilesLoaded((prev) => {
@@ -98,10 +88,11 @@ export function usePreloadAssets() {
 
             return { ...prev };
           });
-          mediaFiles.image[url].source = imageElement;
+          mediaFiles.image.files[url].source = imageElement;
         });
+
         const sfxPromises = sfxUrls.map(async (url) => {
-          const assetFile = mediaFiles.audio[url];
+          const assetFile = mediaFiles.audio.files[url];
           const audioElement = await loadAudio(assetFile);
 
           setTotalMediaFilesLoaded((prev) => {
@@ -110,7 +101,7 @@ export function usePreloadAssets() {
 
             return { ...prev };
           });
-          mediaFiles.audio[url].source = audioElement;
+          mediaFiles.audio.files[url].source = audioElement;
         });
 
         const clipPathPromises: (() => Promise<void>)[] = [];
@@ -120,7 +111,7 @@ export function usePreloadAssets() {
             clipPaths.forEach((dictEntity) => {
               Object.entries(dictEntity.clipPath).forEach(([entityVariant, variantRotationAngles]) => {
                 Object.entries(variantRotationAngles).forEach(([rotationAngle, rotationAngleObj], index) => {
-                  const asset = mediaFiles.image[rotationAngleObj.spriteUrl];
+                  const asset = mediaFiles.image.files[rotationAngleObj.spriteUrl];
 
                   clipPathPromises.push(
                     () =>

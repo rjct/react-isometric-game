@@ -136,15 +136,15 @@ export const gameMap = {
   },
 
   getAssetImage(assetName: string): AssetFileImage | null {
-    if (!this.mediaAssets.image[assetName]) return null;
+    if (!this.mediaAssets.image.files[assetName]) return null;
 
-    return this.mediaAssets.image[assetName] as AssetFileImage;
+    return this.mediaAssets.image.files[assetName] as AssetFileImage;
   },
 
   getAssetAudio(assetName: string): AssetFileAudio | null {
-    if (!this.mediaAssets.audio[assetName]) return null;
+    if (!this.mediaAssets.audio.files[assetName]) return null;
 
-    return this.mediaAssets.audio[assetName] as AssetFileAudio;
+    return this.mediaAssets.audio.files[assetName] as AssetFileAudio;
   },
 
   createSfx(src: string[], volume = 1, stereoPan = 0) {

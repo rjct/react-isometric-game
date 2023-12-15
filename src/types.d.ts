@@ -34,8 +34,20 @@ interface AreaCoordinates {
 }
 
 interface MediaAssets {
-  image: { [url: string]: AssetFileImage };
-  audio: { [url: string]: AssetFileAudio };
+  image: {
+    total: {
+      count: number;
+      size: number;
+    };
+    files: { [url: string]: AssetFileImage };
+  };
+  audio: {
+    total: {
+      count: number;
+      size: number;
+    };
+    files: { [url: string]: AssetFileAudio };
+  };
 }
 
 interface AssetFile {

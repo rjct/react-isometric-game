@@ -1,15 +1,22 @@
 /* eslint-disable no-console, no-restricted-imports */
 
+import { filesize } from "filesize";
 import fs from "fs";
 import path from "path";
 import { Plugin } from "vite";
 
 interface AssetInfo {
-  [relativePath: string]: {
-    path: string;
-    name: string;
+  total: {
+    count: number;
     size: number;
-    type: "image" | "audio";
+  };
+  files: {
+    [relativePath: string]: {
+      path: string;
+      name: string;
+      size: number;
+      type: "image" | "audio";
+    };
   };
 }
 
@@ -52,22 +59,18 @@ function readDirectoryRecursively(
       const fullRelativePath = path.relative(rootPath, fullPath).replace("public", baseUrl);
 
       if (assetType === "image" && isImage(file)) {
-        if (!manifest.image) {
-          manifest.image = {};
-        }
-
-        manifest.image[relativePath] = {
+        manifest.image.total.count++;
+        manifest.image.total.size += stats.size;
+        manifest.image.files[relativePath] = {
           path: fullRelativePath,
           name: file,
           size: stats.size,
           type: "image",
         };
       } else if (assetType === "audio" && isAudio(file)) {
-        if (!manifest.audio) {
-          manifest.audio = {};
-        }
-
-        manifest.audio[relativePath] = {
+        manifest.audio.total.count++;
+        manifest.audio.total.size += stats.size;
+        manifest.audio.files[relativePath] = {
           path: fullRelativePath,
           name: file,
           size: stats.size,
@@ -83,8 +86,20 @@ export default function customManifestPlugin(folderPath: string, baseUrl: string
     name: "custom-manifest-plugin",
     buildStart() {
       const manifest: Manifest = {
-        image: {},
-        audio: {},
+        image: {
+          total: {
+            count: 0,
+            size: 0,
+          },
+          files: {},
+        },
+        audio: {
+          total: {
+            count: 0,
+            size: 0,
+          },
+          files: {},
+        },
       };
 
       const directoryPath = path.resolve(__dirname, folderPath);
@@ -99,8 +114,8 @@ export default function customManifestPlugin(folderPath: string, baseUrl: string
       fs.writeFileSync(manifestFilePath, manifestContent);
 
       console.log("Media assets manifest file generated at:", manifestFilePath);
-      console.log("    Images:", Object.keys(manifest.image).length);
-      console.log("    Audio: ", Object.keys(manifest.audio).length);
+      console.log("    Images:", manifest.image.total.count, filesize(manifest.image.total.size));
+      console.log("    Audio: ", manifest.audio.total.count, filesize(manifest.audio.total.size));
     },
   };
 }
