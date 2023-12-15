@@ -6,8 +6,11 @@ import stylelint from "vite-plugin-stylelint";
 // eslint-disable-next-line no-restricted-imports
 import customManifestPlugin from "./customManifestPlugin";
 
+const BASE_URL = "/react-isometric-game";
+
 // https://vitejs.dev/config/
 export default defineConfig({
+  base: BASE_URL,
   build: {
     manifest: false,
     chunkSizeWarningLimit: 1000,
@@ -27,7 +30,7 @@ export default defineConfig({
     },
   },
   plugins: [
-    customManifestPlugin("./public"),
+    customManifestPlugin("./public", BASE_URL),
     eslint({
       include: ["**/*.ts", "**/*.tsx"],
       lintOnStart: true,

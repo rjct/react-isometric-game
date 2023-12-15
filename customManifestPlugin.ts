@@ -1,4 +1,4 @@
-/* eslint-disable no-console */
+/* eslint-disable no-console, no-restricted-imports */
 
 import fs from "fs";
 import path from "path";
@@ -32,7 +32,13 @@ function isAudio(file: string): boolean {
   return audioExtensions.includes(ext);
 }
 
-function readDirectoryRecursively(directoryPath: string, rootPath: string, assetType: string, manifest: Manifest) {
+function readDirectoryRecursively(
+  directoryPath: string,
+  rootPath: string,
+  assetType: string,
+  manifest: Manifest,
+  baseUrl: string,
+) {
   const files = fs.readdirSync(directoryPath);
 
   files.forEach((file) => {
@@ -40,9 +46,10 @@ function readDirectoryRecursively(directoryPath: string, rootPath: string, asset
     const stats = fs.statSync(fullPath);
 
     if (stats.isDirectory()) {
-      readDirectoryRecursively(fullPath, rootPath, assetType, manifest);
+      readDirectoryRecursively(fullPath, rootPath, assetType, manifest, baseUrl);
     } else {
       const relativePath = path.relative(rootPath, fullPath).replace("public", "");
+      const fullRelativePath = path.relative(rootPath, fullPath).replace("public", baseUrl);
 
       if (assetType === "image" && isImage(file)) {
         if (!manifest.image) {
@@ -50,7 +57,7 @@ function readDirectoryRecursively(directoryPath: string, rootPath: string, asset
         }
 
         manifest.image[relativePath] = {
-          path: relativePath,
+          path: fullRelativePath,
           name: file,
           size: stats.size,
           type: "image",
@@ -61,7 +68,7 @@ function readDirectoryRecursively(directoryPath: string, rootPath: string, asset
         }
 
         manifest.audio[relativePath] = {
-          path: relativePath,
+          path: fullRelativePath,
           name: file,
           size: stats.size,
           type: "audio",
@@ -71,7 +78,7 @@ function readDirectoryRecursively(directoryPath: string, rootPath: string, asset
   });
 }
 
-export default function customManifestPlugin(folderPath: string): Plugin {
+export default function customManifestPlugin(folderPath: string, baseUrl: string): Plugin {
   return {
     name: "custom-manifest-plugin",
     buildStart() {
@@ -83,8 +90,8 @@ export default function customManifestPlugin(folderPath: string): Plugin {
       const directoryPath = path.resolve(__dirname, folderPath);
       const rootPath = path.resolve(__dirname);
 
-      readDirectoryRecursively(directoryPath, rootPath, "image", manifest);
-      readDirectoryRecursively(directoryPath, rootPath, "audio", manifest);
+      readDirectoryRecursively(directoryPath, rootPath, "image", manifest, baseUrl);
+      readDirectoryRecursively(directoryPath, rootPath, "audio", manifest, baseUrl);
 
       const manifestContent = JSON.stringify(manifest, null, 2);
       const manifestFilePath = path.resolve(directoryPath, "media-assets-manifest.json");

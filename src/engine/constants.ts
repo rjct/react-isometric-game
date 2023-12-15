@@ -23,7 +23,7 @@ const ASSETS_URL = "/assets";
 
 export const constants = {
   STARTING_MAP: mapsList.road,
-  BASE_URL: "",
+  BASE_URL: "/react-isometric-game",
   ASSETS_URL,
   SPRITE_URL: `${ASSETS_URL}/terrain/%SPRITE_FILE_NAME%.webp`,
   FPS: 24,
