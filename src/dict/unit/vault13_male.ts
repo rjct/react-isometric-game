@@ -39,24 +39,24 @@ const vault13_male: UnitDictEntity = {
   sfx: {
     walkStep: {
       src: [
-        "public/assets/units/vault13_male/walk/step_1.m4a",
-        "public/assets/units/vault13_male/walk/step_2.m4a",
-        "public/assets/units/vault13_male/walk/step_3.m4a",
-        "public/assets/units/vault13_male/walk/step_4.m4a",
+        "/assets/units/vault13_male/walk/step_1.m4a",
+        "/assets/units/vault13_male/walk/step_2.m4a",
+        "/assets/units/vault13_male/walk/step_3.m4a",
+        "/assets/units/vault13_male/walk/step_4.m4a",
       ],
       repeatEveryMs: 1160,
     },
     hit: {
       src: [
-        "public/assets/units/vault13_male/hit/hit_1.m4a",
-        "public/assets/units/vault13_male/hit/hit_2.m4a",
-        "public/assets/units/vault13_male/hit/hit_3.m4a",
-        "public/assets/units/vault13_male/hit/hit_4.m4a",
-        "public/assets/units/vault13_male/hit/hit_5.m4a",
+        "/assets/units/vault13_male/hit/hit_1.m4a",
+        "/assets/units/vault13_male/hit/hit_2.m4a",
+        "/assets/units/vault13_male/hit/hit_3.m4a",
+        "/assets/units/vault13_male/hit/hit_4.m4a",
+        "/assets/units/vault13_male/hit/hit_5.m4a",
       ],
     },
     dead: {
-      src: ["public/assets/units/vault13_male/dead/dead.m4a"],
+      src: ["/assets/units/vault13_male/dead/dead.m4a"],
     },
   },
   clipPath: generateInitialClipPathObj(

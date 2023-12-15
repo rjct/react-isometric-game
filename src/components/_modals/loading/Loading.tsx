@@ -1,5 +1,6 @@
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { ProgressBar } from "@src/components/ui/ProgressBar";
+import { AppVersion } from "@src/components/_modals/_shared/AppVersion";
 import { GameLogo } from "@src/components/_modals/_shared/GameLogo";
 import { GameTitle } from "@src/components/_modals/_shared/GameTitle";
 import { AssetsLoadingState } from "@src/hooks/usePreloadAssets";
@@ -15,6 +16,8 @@ export const Loading = React.memo(
 
     return (
       <FullscreenPanel overlay={true} classNames={["loading"]}>
+        <AppVersion />
+
         <div className={"modal-menu"}>
           <GameLogo />
           <GameTitle />
@@ -50,8 +53,11 @@ export const Loading = React.memo(
               <div className={"progress"}>
                 <ProgressBar
                   value={
-                    ((props.assets.loaded.image.count + props.assets.loaded.audio.count) * 100) /
-                    (props.assets.total.image.count + props.assets.total.audio.count)
+                    ((props.assets.loaded.image.count +
+                      props.assets.loaded.audio.count +
+                      props.assets.loaded.clipPath) *
+                      100) /
+                    (props.assets.total.image.count + props.assets.total.audio.count + props.assets.total.clipPath)
                   }
                 />
               </div>

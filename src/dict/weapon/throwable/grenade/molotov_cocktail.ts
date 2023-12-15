@@ -37,7 +37,7 @@ const molotov_cocktail: WeaponDictEntity = {
   gfx: {
     icon: {
       size: { width: 80, height: 48 },
-      src: "public/assets/weapons/throwable/grenade/molotov_cocktail/icon.webp",
+      src: "/assets/weapons/throwable/grenade/molotov_cocktail/icon.webp",
     },
     isometric: {
       size: { width: 0, height: 0 },

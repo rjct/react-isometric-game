@@ -13,6 +13,6 @@ Make sure you have `node.js` installed.
 
 Use `npm install` to install the dependencies.
 
-Then run `npm start` to start development server or `npm run build` to create production build.
+Then run `npm run dev` to start development server or `npm run build` to create production build.
 
 

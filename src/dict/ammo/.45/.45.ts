@@ -17,7 +17,7 @@ const ammo_45: { [id: string]: AmmoDictEntity } = {
     gfx: {
       icon: {
         size: { width: 116, height: 53 },
-        src: "public/assets/ammo/45_caliber/icon.webp",
+        src: "/assets/ammo/45_caliber/icon.webp",
       },
       isometric: {
         size: { width: 0, height: 0 },

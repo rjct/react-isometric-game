@@ -40,27 +40,27 @@ const ghoul: UnitDictEntity = {
   sfx: {
     walkStep: {
       src: [
-        "public/assets/units/vault13_male/walk/step_1.m4a",
-        "public/assets/units/vault13_male/walk/step_2.m4a",
-        "public/assets/units/vault13_male/walk/step_3.m4a",
-        "public/assets/units/vault13_male/walk/step_4.m4a",
+        "/assets/vehicles/drivable/public/assets/units/vault13_male/walk/step_1.m4a",
+        "/assets/units/vault13_male/walk/step_2.m4a",
+        "/assets/units/vault13_male/walk/step_3.m4a",
+        "/assets/units/vault13_male/walk/step_4.m4a",
       ],
       repeatEveryMs: 950,
     },
     hit: {
       src: [
-        "public/assets/units/ghoul/hit/hit_1.m4a",
-        "public/assets/units/ghoul/hit/hit_2.m4a",
-        "public/assets/units/ghoul/hit/hit_3.m4a",
-        "public/assets/units/ghoul/hit/hit_4.m4a",
-        "public/assets/units/ghoul/hit/hit_5.m4a",
+        "/assets/units/ghoul/hit/hit_1.m4a",
+        "/assets/units/ghoul/hit/hit_2.m4a",
+        "/assets/units/ghoul/hit/hit_3.m4a",
+        "/assets/units/ghoul/hit/hit_4.m4a",
+        "/assets/units/ghoul/hit/hit_5.m4a",
       ],
     },
     dead: {
       src: [
-        "public/assets/units/ghoul/dead/dead_1.m4a",
-        "public/assets/units/ghoul/dead/dead_2.m4a",
-        "public/assets/units/ghoul/dead/dead_3.m4a",
+        "/assets/units/ghoul/dead/dead_1.m4a",
+        "/assets/units/ghoul/dead/dead_2.m4a",
+        "/assets/units/ghoul/dead/dead_3.m4a",
       ],
     },
   },

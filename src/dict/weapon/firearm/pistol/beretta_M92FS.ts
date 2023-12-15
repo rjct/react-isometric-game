@@ -37,26 +37,26 @@ const beretta_M92FS: WeaponDictEntity = {
   sfx: {
     shot_single: {
       src: [
-        "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a",
-        "public/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a",
+        "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a",
+        "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a",
       ],
       timeIntervalMs: 400,
     },
     outOfAmmo: {
-      src: ["public/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a"],
+      src: ["/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a"],
     },
     reload: {
-      src: ["public/assets/weapons/firearm/pistol/beretta_M92FS/reload.m4a"],
+      src: ["/assets/weapons/firearm/pistol/beretta_M92FS/reload.m4a"],
     },
   },
   gfx: {
     icon: {
       size: { width: 57, height: 52 },
-      src: "public/assets/weapons/firearm/pistol/beretta_M92FS/icon.webp",
+      src: "/assets/weapons/firearm/pistol/beretta_M92FS/icon.webp",
     },
     isometric: {
       size: { width: 72, height: 10 },
-      src: "public/assets/weapons/firearm/pistol/beretta_M92FS/iso.webp",
+      src: "/assets/weapons/firearm/pistol/beretta_M92FS/iso.webp",
     },
   },
   vfx: {

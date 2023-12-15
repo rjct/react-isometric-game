@@ -52,34 +52,28 @@ const mp5: WeaponDictEntity = {
   },
   sfx: {
     shot_single: {
-      src: [
-        "public/assets/weapons/firearm/smg/mp5/shot_single_1.m4a",
-        "public/assets/weapons/firearm/smg/mp5/shot_single_2.m4a",
-      ],
+      src: ["/assets/weapons/firearm/smg/mp5/shot_single_1.m4a", "/assets/weapons/firearm/smg/mp5/shot_single_2.m4a"],
       timeIntervalMs: 160,
     },
     shot_burst: {
-      src: [
-        "public/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a",
-        "public/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a",
-      ],
+      src: ["/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a", "/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a"],
       timeIntervalMs: 160,
     },
     outOfAmmo: {
-      src: ["public/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a"],
+      src: ["/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a"],
     },
     reload: {
-      src: ["public/assets/weapons/firearm/smg/mp5/reload.m4a"],
+      src: ["/assets/weapons/firearm/smg/mp5/reload.m4a"],
     },
   },
   gfx: {
     icon: {
       size: { width: 57, height: 52 },
-      src: "public/assets/weapons/firearm/smg/mp5/icon.webp",
+      src: "/assets/weapons/firearm/smg/mp5/icon.webp",
     },
     isometric: {
       size: { width: 72, height: 10 },
-      src: "public/assets/weapons/firearm/smg/mp5/iso.webp",
+      src: "/assets/weapons/firearm/smg/mp5/iso.webp",
     },
   },
   vfx: {

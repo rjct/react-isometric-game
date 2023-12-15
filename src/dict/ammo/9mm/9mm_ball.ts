@@ -16,23 +16,23 @@ const ammo_9mm_ball: AmmoDictEntity = {
   gfx: {
     icon: {
       size: { width: 116, height: 54 },
-      src: "public/assets/ammo/9mm/9mm_ball/icon.webp",
+      src: "/assets/ammo/9mm/9mm_ball/icon.webp",
     },
     isometric: {
       size: { width: 60, height: 9 },
-      src: "public/assets/ammo/9mm/9mm_ball/iso.webp",
+      src: "/assets/ammo/9mm/9mm_ball/iso.webp",
     },
   },
   sfx: {
     targetReached: {
       src: [
-        "public/assets/weapons/firearm/rico_1.mp3",
-        "public/assets/weapons/firearm/rico_2.mp3",
-        "public/assets/weapons/firearm/rico_3.mp3",
-        "public/assets/weapons/firearm/rico_4.mp3",
-        "public/assets/weapons/firearm/rico_5.mp3",
-        "public/assets/weapons/firearm/rico_6.mp3",
-        "public/assets/weapons/firearm/rico_7.mp3",
+        "/assets/weapons/firearm/rico_1.mp3",
+        "/assets/weapons/firearm/rico_2.mp3",
+        "/assets/weapons/firearm/rico_3.mp3",
+        "/assets/weapons/firearm/rico_4.mp3",
+        "/assets/weapons/firearm/rico_5.mp3",
+        "/assets/weapons/firearm/rico_6.mp3",
+        "/assets/weapons/firearm/rico_7.mp3",
       ],
     },
   },

@@ -15,11 +15,11 @@ const ammo_9mm_JHP: AmmoDictEntity = {
   gfx: {
     icon: {
       size: { width: 108, height: 49 },
-      src: "public/assets/ammo/9mm/9mm_JHP/icon.webp",
+      src: "/assets/ammo/9mm/9mm_JHP/icon.webp",
     },
     isometric: {
       size: { width: 60, height: 9 },
-      src: "public/assets/ammo/9mm/9mm_JHP/iso.webp",
+      src: "/assets/ammo/9mm/9mm_JHP/iso.webp",
     },
   },
 };

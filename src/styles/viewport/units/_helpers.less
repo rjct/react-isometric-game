@@ -23,20 +23,20 @@
     each(@unit-actions, {
       &[data-action="@{value}"] {
         .char {
-          @action-bg: %('/public/assets/units/%a/%d/%a__%d__empty.webp' , @unit-type, @value, @unit-type, @value);
+          @action-bg: %('/assets/units/%a/%d/%a__%d__empty.webp' , @unit-type, @value, @unit-type, @value);
           background-image: url(@action-bg);
         }
 
        &[data-weapon="pistol"] {
           .char {
-            @action-bg-with-pistol: %('/public/assets/units/%a/%d/%a__%d__pistol.webp', @unit-type, @value, @unit-type, @value);
+            @action-bg-with-pistol: %('/assets/units/%a/%d/%a__%d__pistol.webp', @unit-type, @value, @unit-type, @value);
             background-image: url(@action-bg-with-pistol) !important;
           }
         }
 
         &[data-weapon="smg"] {
           .char {
-            @action-bg-with-smg: %('/public/assets/units/%a/%d/%a__%d__smg.webp', @unit-type, @value, @unit-type, @value);
+            @action-bg-with-smg: %('/assets/units/%a/%d/%a__%d__smg.webp', @unit-type, @value, @unit-type, @value);
             background-image: url(@action-bg-with-smg) !important;
           }
         }

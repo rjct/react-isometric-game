@@ -52,23 +52,23 @@ const throwing_knife: WeaponDictEntity = {
   sfx: {
     punch: {
       src: [
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/punch_1.m4a",
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/punch_2.m4a",
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/punch_3.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/punch_1.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/punch_2.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/punch_3.m4a",
       ],
     },
     throw: {
       src: [
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/throw_1.m4a",
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/throw_2.m4a",
-        "public/assets/weapons/throwable_melee/knife/throwing_knife/throw_3.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/throw_1.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/throw_2.m4a",
+        "/assets/weapons/throwable_melee/knife/throwing_knife/throw_3.m4a",
       ],
     },
   },
   gfx: {
     icon: {
       size: { width: 122, height: 30 },
-      src: "public/assets/weapons/throwable_melee/knife/throwing_knife/icon.webp",
+      src: "/assets/weapons/throwable_melee/knife/throwing_knife/icon.webp",
     },
     isometric: {
       size: { width: 0, height: 0 },

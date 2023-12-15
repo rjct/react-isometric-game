@@ -38,7 +38,7 @@ const frag_grenade: WeaponDictEntity = {
   gfx: {
     icon: {
       size: { width: 58, height: 49 },
-      src: "public/assets/weapons/throwable/grenade/frag_grenade/icon.webp",
+      src: "/assets/weapons/throwable/grenade/frag_grenade/icon.webp",
     },
     isometric: {
       size: { width: 0, height: 0 },

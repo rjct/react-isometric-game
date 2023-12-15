@@ -42,6 +42,12 @@
   .hand {
     display: flex;
     flex: 1;
+
+    .unit-inventory-items-list {
+      li {
+        flex: 1;
+      }
+    }
   }
 
   .entity-overview-wrapper {
@@ -164,8 +170,7 @@
     grid-area: 3 / 2 / 3 / 2;
     display: flex;
     flex-direction: column;
-    align-content: center;
-    justify-content: center;
+    place-content: center center;
   }
 
   .entity-overview-wrapper-right {

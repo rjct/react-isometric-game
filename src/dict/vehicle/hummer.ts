@@ -10,6 +10,7 @@ const hummer: VehicleDictEntity = {
   interfaceType: "vehicle",
   type: vehicleType,
   className: vehicleType,
+  internalColor: "#00ff55",
   rotationAngles,
   size: {
     grid: {
@@ -38,22 +39,22 @@ const hummer: VehicleDictEntity = {
       src: "",
     },
     turnOn: {
-      src: "public/assets/vehicles/drivable/hummer/turn_on.mp3",
+      src: "/assets/vehicles/drivable/hummer/turn_on.mp3",
     },
     turnOff: {
-      src: "public/assets/vehicles/drivable/hummer/turn_off.mp3",
+      src: "/assets/vehicles/drivable/hummer/turn_off.mp3",
     },
     idle: {
-      src: "public/assets/vehicles/drivable/hummer/idle.mp3",
+      src: "/assets/vehicles/drivable/hummer/idle.mp3",
     },
     driving: {
-      src: "public/assets/vehicles/drivable/hummer/driving.mp3",
+      src: "/assets/vehicles/drivable/hummer/driving.mp3",
     },
     shiftIn: {
-      src: "public/assets/vehicles/drivable/hummer/shift_in.mp3",
+      src: "/assets/vehicles/drivable/hummer/shift_in.mp3",
     },
     shiftOut: {
-      src: "public/assets/vehicles/drivable/hummer/shift_out.mp3",
+      src: "/assets/vehicles/drivable/hummer/shift_out.mp3",
     },
     collision: {
       src: "",

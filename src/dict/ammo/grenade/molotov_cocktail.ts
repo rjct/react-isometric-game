@@ -16,8 +16,8 @@ const molotov_cocktail: AmmoDictEntity = {
   sfx: {
     targetReached: {
       src: [
-        "public/assets/weapons/throwable/grenade/molotov_cocktail/explode_1.m4a",
-        "public/assets/weapons/throwable/grenade/molotov_cocktail/explode_2.m4a",
+        "/assets/weapons/throwable/grenade/molotov_cocktail/explode_1.m4a",
+        "/assets/weapons/throwable/grenade/molotov_cocktail/explode_2.m4a",
       ],
     },
   },

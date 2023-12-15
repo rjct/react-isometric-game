@@ -10,13 +10,15 @@
 
   li {
     position: relative;
-    flex: 1 40px 0;
+    flex: 1;
     align-items: center;
+    flex-basis: calc(50% - @padding);
+    flex-grow: 0;
+    box-sizing: border-box;
     padding: @padding;
     border: solid 1px transparent;
     display: flex;
     gap: (@padding * 2);
-    box-sizing: content-box;
     border-radius: @border-radius;
     transition: all 150ms linear;
 

@@ -4,6 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { DebugSwitch } from "@src/components/_modals/debug/DebugSwitch";
+import { AppVersion } from "@src/components/_modals/_shared/AppVersion";
 import { GameLogo } from "@src/components/_modals/_shared/GameLogo";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
@@ -24,6 +25,7 @@ export function Pause() {
 
   return (
     <FullscreenPanel overlay={true}>
+      <AppVersion />
       <div
         style={{
           position: "absolute",

@@ -31,7 +31,7 @@ body {
   overflow: hidden;
   user-select: none;
 
-  cursor: url("/public/assets/UI/cursors/default.png"), auto;
+  cursor: url("/assets/UI/cursors/default.png"), auto;
 }
 
 a {
@@ -103,7 +103,7 @@ fieldset {
 
 .with-overlay::after {
   content: "";
-  background: repeating-linear-gradient(180deg, rgb(0 0 0 / 0%) 0, rgb(0 0 0 / 30%) 50%, rgb(0 0 0 / 0%) 100%);
+  background: repeating-linear-gradient(180deg, rgba(0, 0, 0, 0) 0, rgba(0, 0, 0, 0.3) 50%, rgba(0, 0, 0, 0) 100%);
   background-size: auto 4px;
   position: absolute;
   width: 100%;
@@ -119,9 +119,8 @@ fieldset {
   display: flex;
   flex: 1;
   flex-flow: column nowrap;
-  justify-content: flex-start;
+  place-content: stretch flex-start;
   align-items: stretch;
-  align-content: stretch;
 }
 
 .debug {
@@ -211,4 +210,14 @@ fieldset {
 
 .blink-white {
   animation: 200ms blink-white linear;
+}
+
+.app-build-details {
+  position: absolute;
+  right: (@padding * 2);
+  bottom: @padding;
+  text-align: right;
+  font-size: 11px;
+  opacity: 0.75;
+  font-family: monospace;
 }

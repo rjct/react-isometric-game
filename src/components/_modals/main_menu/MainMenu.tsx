@@ -1,5 +1,6 @@
 import { Button } from "@src/components/ui/Button";
 import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
+import { AppVersion } from "@src/components/_modals/_shared/AppVersion";
 import { GameLogo } from "@src/components/_modals/_shared/GameLogo";
 import { GameTitle } from "@src/components/_modals/_shared/GameTitle";
 import { useGameState } from "@src/hooks/useGameState";
@@ -26,6 +27,8 @@ export function MainMenu() {
 
   return (
     <FullscreenPanel overlay={true}>
+      <AppVersion />
+
       <div className={"modal-menu"}>
         <GameLogo />
         <GameTitle />

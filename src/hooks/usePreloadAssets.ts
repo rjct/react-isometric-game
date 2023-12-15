@@ -3,7 +3,7 @@ import getUnitsDictList from "@src/dict/unit/_unit";
 import getVehiclesDictList from "@src/dict/vehicle/_vehicle";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
-import { generateClipPath } from "@src/engine/generateClipPath";
+import autoClipPath from "auto-clippath";
 import React from "react";
 
 export type AssetsLoadingState = {
@@ -35,7 +35,7 @@ export function usePreloadAssets() {
     const loadImage = (assetFile: AssetFileImage): Promise<HTMLImageElement> => {
       return new Promise((resolve, reject) => {
         const loadImg = new Image();
-        loadImg.src = assetFile.value;
+        loadImg.src = assetFile.path;
 
         loadImg.onload = () => resolve(loadImg);
 
@@ -44,7 +44,7 @@ export function usePreloadAssets() {
     };
 
     const loadAudio = async (assetFile: AssetFileAudio): Promise<AudioBuffer> => {
-      const response = await fetch(assetFile.value);
+      const response = await fetch(assetFile.path);
       const arrayBuffer = await response.arrayBuffer();
 
       return await gameState.audioContext.decodeAudioData(arrayBuffer);
@@ -56,19 +56,7 @@ export function usePreloadAssets() {
       fetch(`${constants.BASE_URL}/media-assets-manifest.json`).then(async (data) => {
         const json = await data.json();
 
-        mediaFiles = Object.keys(json).reduce(
-          (obj, key) => {
-            const assetFile = json[key] as AssetFileImage | AssetFileAudio;
-
-            obj[assetFile.type][key] = assetFile;
-
-            return obj;
-          },
-          {
-            image: {},
-            audio: {},
-          } as MediaAssets,
-        );
+        mediaFiles = { ...json };
 
         const gfxUrls = Object.keys(mediaFiles.image);
         const sfxUrls = Object.keys(mediaFiles.audio);
@@ -125,64 +113,82 @@ export function usePreloadAssets() {
           mediaFiles.audio[url].source = audioElement;
         });
 
-        Promise.all([gfxPromises, sfxPromises].flat()).then(() => {
-          const clipPathPromises: Promise<void>[] = [];
+        const clipPathPromises: (() => Promise<void>)[] = [];
 
-          clipPaths.forEach(async (dictEntity) => {
-            Object.entries(dictEntity.clipPath).forEach(([entityVariant, variantRotationAngles]) => {
-              Object.entries(variantRotationAngles).forEach(([rotationAngle, rotationAngleObj], index) => {
-                const asset = mediaFiles.image[rotationAngleObj.spriteUrl];
+        Promise.all([gfxPromises, sfxPromises].flat())
+          .then(() => {
+            clipPaths.forEach((dictEntity) => {
+              Object.entries(dictEntity.clipPath).forEach(([entityVariant, variantRotationAngles]) => {
+                Object.entries(variantRotationAngles).forEach(([rotationAngle, rotationAngleObj], index) => {
+                  const asset = mediaFiles.image[rotationAngleObj.spriteUrl];
 
-                clipPathPromises.push(
-                  (async () => {
-                    if (asset) {
-                      let shiftX: number;
-                      let shiftY: number;
+                  clipPathPromises.push(
+                    () =>
+                      new Promise((resolve1) => {
+                        if (!asset) {
+                          resolve1();
+                        }
 
-                      switch (dictEntity.interfaceType) {
-                        case "building":
-                          // FIXME: Refactor assets
-                          const rotationVariantByDeg = {
-                            "0deg": 0,
-                            "270deg": 1,
-                            "90deg": 2,
-                            "180deg": 3,
-                          };
+                        let shiftX: number;
+                        let shiftY: number;
 
-                          shiftX = rotationVariantByDeg[rotationAngle as keyof typeof rotationVariantByDeg];
-                          shiftY = Number(entityVariant);
-                          break;
+                        switch (dictEntity.interfaceType) {
+                          case "building":
+                            // FIXME: Refactor assets
+                            const rotationVariantByDeg = {
+                              "0deg": 0,
+                              "270deg": 1,
+                              "90deg": 2,
+                              "180deg": 3,
+                            };
 
-                        default:
-                          shiftX = 0;
-                          shiftY = index;
-                      }
+                            shiftX = rotationVariantByDeg[rotationAngle as keyof typeof rotationVariantByDeg];
+                            shiftY = Number(entityVariant);
+                            break;
 
-                      dictEntity.clipPath[entityVariant][rotationAngle].cssClipPath = await generateClipPath(
-                        asset.source,
-                        dictEntity.size.screen,
-                        shiftX,
-                        shiftY,
-                      );
+                          default:
+                            shiftX = 0;
+                            shiftY = index;
+                        }
 
-                      setTotalMediaFilesLoaded((prev) => {
-                        prev.clipPath++;
+                        autoClipPath(asset.source, dictEntity.size.screen, {
+                          shift: {
+                            x: -shiftX * dictEntity.size.screen.width,
+                            y: -shiftY * dictEntity.size.screen.height,
+                          },
+                          gap: 5,
+                          distance: 5,
+                        }).then(({ clipPath }) => {
+                          setTimeout(() => {
+                            const cssClipPath = clipPath.map((point) => `${point.x}px ${point.y}px`).join(", ");
 
-                        return { ...prev };
-                      });
-                    }
-                  })(),
-                );
+                            dictEntity.clipPath[entityVariant][rotationAngle].cssClipPath = `polygon(${cssClipPath})`;
+
+                            setTotalMediaFilesLoaded((prev) => {
+                              prev.clipPath++;
+
+                              return { ...prev };
+                            });
+
+                            return resolve1();
+                          }, 0);
+                        });
+                      }),
+                  );
+                });
               });
             });
-          });
-
-          Promise.all(clipPathPromises).then(() => {
-            setLoading(false);
+          })
+          .then(async () => {
+            for (const promiseFn of clipPathPromises) {
+              await promiseFn();
+            }
 
             return resolve(mediaFiles);
+          })
+          .then(() => {
+            setLoading(false);
           });
-        });
       });
     });
   };

@@ -1,8 +1,0 @@
-{
-  "watchFolder": "src/styles",
-  "mainFile": "index.less",
-  "outputFolder": "src",
-  "sourceMap": true,
-  "runOnce": false,
-  "enableJs": false
-}

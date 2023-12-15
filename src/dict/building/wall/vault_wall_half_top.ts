@@ -20,7 +20,7 @@ const vault_wall_half_top: BuildingDictEntity = {
   occupiesCell: false,
   blocksRays: false,
   lootable: false,
-  clipPath: generateInitialClipPathObj(rotationAngles, variants, () => `walls/vault_wall_half_top.webp`),
+  clipPath: generateInitialClipPathObj(rotationAngles, variants, () => `walls/vault_half_top.webp`),
 };
 
 export default vault_wall_half_top;

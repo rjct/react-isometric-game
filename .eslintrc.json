@@ -6,10 +6,11 @@
     },
     "extends": [
         "eslint:recommended",
+        "plugin:react/recommended",
+        "plugin:react/jsx-runtime",
         "plugin:@typescript-eslint/recommended",
         "plugin:import/errors",
-        "plugin:import/warnings",
-        "plugin:storybook/recommended"
+        "plugin:import/warnings"
     ],
     "parser": "@typescript-eslint/parser",
     "parserOptions": {
@@ -18,6 +19,7 @@
     },
     "plugins": [
         "import",
+        "react",
         "@typescript-eslint"
     ],
     "rules": {
@@ -28,6 +30,7 @@
         "no-case-declarations": "off",
         "@typescript-eslint/no-non-null-assertion": "off",
         "@typescript-eslint/no-unused-vars": "warn",
+        "react/display-name": "off",
         "no-restricted-imports": [
             "error",
             {
@@ -41,15 +44,20 @@
         ]
     },
     "settings": {
+        "react": {
+            "version": "detect"
+        },
         "import/resolver": {
             "node": {
                 "moduleDirectory": [
-                    "@src/"
+                    "@src/",
+                    "@assets/"
                 ]
             },
             "typescript": {
                 "moduleDirectory": [
-                    "@src/"
+                    "@src/",
+                    "@assets/"
                 ]
             }
         }

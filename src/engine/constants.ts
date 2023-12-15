@@ -19,7 +19,7 @@ const terrainClusterGridSize = {
   height: 16,
 };
 
-const ASSETS_URL = "public/assets";
+const ASSETS_URL = "/assets";
 
 export const constants = {
   STARTING_MAP: mapsList.road,
@@ -81,9 +81,9 @@ export const constants = {
 
   sfx: {
     ui: {
-      button: "public/assets/UI/button.m4a",
-      switch: "public/assets/UI/switch.m4a",
-      tab: "public/assets/UI/tab.m4a",
+      button: "/assets/UI/button.m4a",
+      switch: "/assets/UI/switch.m4a",
+      tab: "/assets/UI/tab.m4a",
     },
   },
 

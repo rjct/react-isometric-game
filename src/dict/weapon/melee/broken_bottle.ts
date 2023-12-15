@@ -40,11 +40,11 @@ const broken_bottle: WeaponDictEntity = {
   gfx: {
     icon: {
       size: { width: 123, height: 42 },
-      src: "public/assets/weapons/melee/broken_bottle/icon.webp",
+      src: "/assets/weapons/melee/broken_bottle/icon.webp",
     },
     isometric: {
       size: { width: 47, height: 8 },
-      src: "public/assets/weapons/melee/broken_bottle/iso.webp",
+      src: "/assets/weapons/melee/broken_bottle/iso.webp",
     },
   },
   vfx: {},

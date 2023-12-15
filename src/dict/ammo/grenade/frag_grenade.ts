@@ -16,8 +16,8 @@ const frag_grenade: AmmoDictEntity = {
   sfx: {
     targetReached: {
       src: [
-        "public/assets/weapons/throwable/grenade/grenade_explode_1.m4a",
-        "public/assets/weapons/throwable/grenade/grenade_explode_2.m4a",
+        "/assets/weapons/throwable/grenade/grenade_explode_1.m4a",
+        "/assets/weapons/throwable/grenade/grenade_explode_2.m4a",
       ],
     },
   },

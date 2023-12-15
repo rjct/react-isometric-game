@@ -24,7 +24,7 @@
 
     each(@vehicle-actions, {
 		&[data-action="@{value}"] {
-			@action-bg: %('/public/assets/vehicles/drivable/%a/%s.webp', @vehicle-type, @value);
+			@action-bg: %('/assets/vehicles/drivable/%a/%s.webp', @vehicle-type, @value);
 			background-image: url(@action-bg);
 		}
 

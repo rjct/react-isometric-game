@@ -13,7 +13,7 @@
     .game-logo {
       height: 10em;
       aspect-ratio: 16/9;
-      background: url("/public/assets/bg.webp") center no-repeat;
+      background: url("/assets/bg.webp") center no-repeat;
       background-size: contain;
       filter: hue-rotate(90deg) drop-shadow(0 0 20px);
       animation: logo-glow-animation 10s linear infinite;
@@ -36,7 +36,7 @@
 
   .game-title {
     display: flex;
-    align-items: center;
+    align-items: end;
     font-size: 5em;
     margin: (@padding * 2) 0 (@padding * 4) 0;
     text-align: center;
@@ -44,6 +44,10 @@
     background-clip: text;
     background-color: #000000;
     color: transparent;
+
+    svg {
+      color: @text-color;
+    }
   }
 
   .modal-menu-nav {

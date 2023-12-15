@@ -38,16 +38,18 @@ interface MediaAssets {
   audio: { [url: string]: AssetFileAudio };
 }
 
-interface AssetFileImage {
-  value: string;
+interface AssetFile {
+  path: string;
+  name: string;
   size: number;
+}
+
+interface AssetFileImage extends AssetFile {
   type: "image";
   source: HTMLImageElement;
 }
 
-interface AssetFileAudio {
-  value: string;
-  size: number;
+interface AssetFileAudio extends AssetFile {
   type: "audio";
   source: AudioBuffer;
 }

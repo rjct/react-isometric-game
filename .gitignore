@@ -3,3 +3,5 @@
 /src/index.css
 /src/index.css.map
 *.psd
+/.stylelintcache
+/dist
