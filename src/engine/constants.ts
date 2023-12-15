@@ -23,7 +23,7 @@ const ASSETS_URL = "/assets";
 
 export const constants = {
   STARTING_MAP: mapsList.road,
-  BASE_URL: "/react-isometric-game",
+  BASE_URL: "",
   ASSETS_URL,
   SPRITE_URL: `${ASSETS_URL}/terrain/%SPRITE_FILE_NAME%.webp`,
   FPS: 24,
@@ -44,8 +44,8 @@ export const constants = {
   },
   miniMap: {
     size: {
-      width: 40,
-      height: 40,
+      width: 250,
+      height: 250,
     },
     ZOOM: 0.125,
   },

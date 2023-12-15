@@ -1,11 +1,11 @@
 export const BUILDING_DICT_DEFAULTS = {
   vehicle: {
     CLASS: "vehicle",
-    COLOR: "green",
+    COLOR: "#00ff00",
   },
   wall: {
     CLASS: "wall",
-    COLOR: "mediumseagreen",
+    COLOR: "#3cb371",
   },
   furniture: {
     CLASS: "furniture",

@@ -14,6 +14,7 @@ export type VehicleSfx = {
 export interface VehicleDictEntity extends DictEntity {
   type: string;
   className: string;
+  internalColor: string;
   characteristics: {
     [characteristic in VehicleDerivedStatName]: number;
   };

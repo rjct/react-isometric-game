@@ -51,7 +51,7 @@ export class Vehicle extends MovableGameEntity {
       dictEntity,
       position: props.position,
       rotation: props.rotation,
-      internalColor: "rgba(0, 250, 0, 0.5)",
+      internalColor: dictEntity.internalColor,
       lootable: true,
       blocksRays: true,
       occupiesCell: true,

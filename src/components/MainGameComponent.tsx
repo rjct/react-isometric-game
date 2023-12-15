@@ -144,6 +144,7 @@ export const MainGameComponent = React.memo(function MainGameComponent() {
               <Intro />
               <MainMenu />
               <UnitCharacteristics />
+              <Map />
               <Pause />
               <GameOver />
               <TopPanel />

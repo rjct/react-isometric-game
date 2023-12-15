@@ -13,6 +13,7 @@ export type GameScene =
   | "editor"
   | "loading"
   | "game"
+  | "map"
   | "pause"
   | "settings"
   | "combat"

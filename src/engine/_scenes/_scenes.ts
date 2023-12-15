@@ -10,6 +10,7 @@ import { inventoryScene } from "@src/engine/_scenes/inventory";
 import { inventoryTransferScene } from "@src/engine/_scenes/inventoryTransfer";
 import { loadingScene } from "@src/engine/_scenes/loading";
 import { mainMenuScene } from "@src/engine/_scenes/mainMenu";
+import { mapScene } from "@src/engine/_scenes/mapScene";
 import { pauseScene } from "@src/engine/_scenes/pause";
 import { settingsScene } from "@src/engine/_scenes/settings";
 import { GameContext } from "@src/hooks/useGameState";
@@ -22,6 +23,7 @@ const scenes: { [sceneName in GameScene]: SceneRunnerFunc } = {
   mainMenu: mainMenuScene,
   unitCharacteristics: unitCharacteristicsScene,
   game: gameScene,
+  map: mapScene,
   pause: pauseScene,
   settings: settingsScene,
   combat: combatScene,
