@@ -1,0 +1,1194 @@
+{
+  "image": {
+    "/assets/UI/cursors/default.png": {
+      "path": "/assets/UI/cursors/default.png",
+      "name": "default.png",
+      "size": 1652,
+      "type": "image"
+    },
+    "/assets/UI/cursors/get_into_vehicle.png": {
+      "path": "/assets/UI/cursors/get_into_vehicle.png",
+      "name": "get_into_vehicle.png",
+      "size": 2132,
+      "type": "image"
+    },
+    "/assets/UI/cursors/get_out_from_vehicle.png": {
+      "path": "/assets/UI/cursors/get_out_from_vehicle.png",
+      "name": "get_out_from_vehicle.png",
+      "size": 2149,
+      "type": "image"
+    },
+    "/assets/UI/cursors/loot--not-allowed.png": {
+      "path": "/assets/UI/cursors/loot--not-allowed.png",
+      "name": "loot--not-allowed.png",
+      "size": 1643,
+      "type": "image"
+    },
+    "/assets/UI/cursors/loot.png": {
+      "path": "/assets/UI/cursors/loot.png",
+      "name": "loot.png",
+      "size": 1994,
+      "type": "image"
+    },
+    "/assets/UI/cursors/movement--not-allowed.png": {
+      "path": "/assets/UI/cursors/movement--not-allowed.png",
+      "name": "movement--not-allowed.png",
+      "size": 1008,
+      "type": "image"
+    },
+    "/assets/UI/cursors/movement.png": {
+      "path": "/assets/UI/cursors/movement.png",
+      "name": "movement.png",
+      "size": 1392,
+      "type": "image"
+    },
+    "/assets/UI/cursors/pointer.png": {
+      "path": "/assets/UI/cursors/pointer.png",
+      "name": "pointer.png",
+      "size": 1360,
+      "type": "image"
+    },
+    "/assets/UI/cursors/use--not-allowed.png": {
+      "path": "/assets/UI/cursors/use--not-allowed.png",
+      "name": "use--not-allowed.png",
+      "size": 1643,
+      "type": "image"
+    },
+    "/assets/UI/cursors/use.png": {
+      "path": "/assets/UI/cursors/use.png",
+      "name": "use.png",
+      "size": 2020,
+      "type": "image"
+    },
+    "/assets/ammo/45_caliber/icon.webp": {
+      "path": "/assets/ammo/45_caliber/icon.webp",
+      "name": "icon.webp",
+      "size": 1724,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_AP/icon.webp": {
+      "path": "/assets/ammo/9mm/9mm_AP/icon.webp",
+      "name": "icon.webp",
+      "size": 1830,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_AP/iso.webp": {
+      "path": "/assets/ammo/9mm/9mm_AP/iso.webp",
+      "name": "iso.webp",
+      "size": 550,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_JHP/icon.webp": {
+      "path": "/assets/ammo/9mm/9mm_JHP/icon.webp",
+      "name": "icon.webp",
+      "size": 1738,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_JHP/iso.webp": {
+      "path": "/assets/ammo/9mm/9mm_JHP/iso.webp",
+      "name": "iso.webp",
+      "size": 546,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_ball/icon.webp": {
+      "path": "/assets/ammo/9mm/9mm_ball/icon.webp",
+      "name": "icon.webp",
+      "size": 1930,
+      "type": "image"
+    },
+    "/assets/ammo/9mm/9mm_ball/iso.webp": {
+      "path": "/assets/ammo/9mm/9mm_ball/iso.webp",
+      "name": "iso.webp",
+      "size": 566,
+      "type": "image"
+    },
+    "/assets/bg.webp": {
+      "path": "/assets/bg.webp",
+      "name": "bg.webp",
+      "size": 53412,
+      "type": "image"
+    },
+    "/assets/furniture/vault/bed.webp": {
+      "path": "/assets/furniture/vault/bed.webp",
+      "name": "bed.webp",
+      "size": 42478,
+      "type": "image"
+    },
+    "/assets/furniture/vault/chair.webp": {
+      "path": "/assets/furniture/vault/chair.webp",
+      "name": "chair.webp",
+      "size": 17116,
+      "type": "image"
+    },
+    "/assets/furniture/vault/computer-1.webp": {
+      "path": "/assets/furniture/vault/computer-1.webp",
+      "name": "computer-1.webp",
+      "size": 17870,
+      "type": "image"
+    },
+    "/assets/furniture/vault/computer-2.webp": {
+      "path": "/assets/furniture/vault/computer-2.webp",
+      "name": "computer-2.webp",
+      "size": 25358,
+      "type": "image"
+    },
+    "/assets/furniture/vault/table.webp": {
+      "path": "/assets/furniture/vault/table.webp",
+      "name": "table.webp",
+      "size": 14070,
+      "type": "image"
+    },
+    "/assets/plants/plant_1.webp": {
+      "path": "/assets/plants/plant_1.webp",
+      "name": "plant_1.webp",
+      "size": 24630,
+      "type": "image"
+    },
+    "/assets/plants/plant_2.webp": {
+      "path": "/assets/plants/plant_2.webp",
+      "name": "plant_2.webp",
+      "size": 15246,
+      "type": "image"
+    },
+    "/assets/plants/plant_3.webp": {
+      "path": "/assets/plants/plant_3.webp",
+      "name": "plant_3.webp",
+      "size": 10354,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/fire_barrel.webp": {
+      "path": "/assets/road_and_sidewalk/fire_barrel.webp",
+      "name": "fire_barrel.webp",
+      "size": 10358,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/highway_fence.webp": {
+      "path": "/assets/road_and_sidewalk/highway_fence.webp",
+      "name": "highway_fence.webp",
+      "size": 54002,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/highway_fence_broken.webp": {
+      "path": "/assets/road_and_sidewalk/highway_fence_broken.webp",
+      "name": "highway_fence_broken.webp",
+      "size": 9800,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/highway_fence_end.webp": {
+      "path": "/assets/road_and_sidewalk/highway_fence_end.webp",
+      "name": "highway_fence_end.webp",
+      "size": 12012,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/newspaper_kiosk.webp": {
+      "path": "/assets/road_and_sidewalk/newspaper_kiosk.webp",
+      "name": "newspaper_kiosk.webp",
+      "size": 97524,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/phonebox.webp": {
+      "path": "/assets/road_and_sidewalk/phonebox.webp",
+      "name": "phonebox.webp",
+      "size": 22330,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/street_light.webp": {
+      "path": "/assets/road_and_sidewalk/street_light.webp",
+      "name": "street_light.webp",
+      "size": 5370,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/traffic_light.webp": {
+      "path": "/assets/road_and_sidewalk/traffic_light.webp",
+      "name": "traffic_light.webp",
+      "size": 2498,
+      "type": "image"
+    },
+    "/assets/road_and_sidewalk/trash_bin.webp": {
+      "path": "/assets/road_and_sidewalk/trash_bin.webp",
+      "name": "trash_bin.webp",
+      "size": 8270,
+      "type": "image"
+    },
+    "/assets/terrain/earth.webp": {
+      "path": "/assets/terrain/earth.webp",
+      "name": "earth.webp",
+      "size": 15816,
+      "type": "image"
+    },
+    "/assets/terrain/grass.webp": {
+      "path": "/assets/terrain/grass.webp",
+      "name": "grass.webp",
+      "size": 62450,
+      "type": "image"
+    },
+    "/assets/terrain/road_1.webp": {
+      "path": "/assets/terrain/road_1.webp",
+      "name": "road_1.webp",
+      "size": 49704,
+      "type": "image"
+    },
+    "/assets/terrain/road_2.webp": {
+      "path": "/assets/terrain/road_2.webp",
+      "name": "road_2.webp",
+      "size": 38112,
+      "type": "image"
+    },
+    "/assets/terrain/road_3.webp": {
+      "path": "/assets/terrain/road_3.webp",
+      "name": "road_3.webp",
+      "size": 54176,
+      "type": "image"
+    },
+    "/assets/terrain/road_4.webp": {
+      "path": "/assets/terrain/road_4.webp",
+      "name": "road_4.webp",
+      "size": 40558,
+      "type": "image"
+    },
+    "/assets/terrain/road_5.webp": {
+      "path": "/assets/terrain/road_5.webp",
+      "name": "road_5.webp",
+      "size": 45050,
+      "type": "image"
+    },
+    "/assets/terrain/road_6.webp": {
+      "path": "/assets/terrain/road_6.webp",
+      "name": "road_6.webp",
+      "size": 60356,
+      "type": "image"
+    },
+    "/assets/terrain/road_curbs.webp": {
+      "path": "/assets/terrain/road_curbs.webp",
+      "name": "road_curbs.webp",
+      "size": 75090,
+      "type": "image"
+    },
+    "/assets/terrain/vault.webp": {
+      "path": "/assets/terrain/vault.webp",
+      "name": "vault.webp",
+      "size": 40398,
+      "type": "image"
+    },
+    "/assets/tv_snow.webp": {
+      "path": "/assets/tv_snow.webp",
+      "name": "tv_snow.webp",
+      "size": 144122,
+      "type": "image"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead__empty.webp": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead__empty.webp",
+      "name": "ghoul__dead__empty.webp",
+      "size": 2424,
+      "type": "image"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead__pistol.webp": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead__pistol.webp",
+      "name": "ghoul__dead__pistol.webp",
+      "size": 2424,
+      "type": "image"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead__smg.webp": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead__smg.webp",
+      "name": "ghoul__dead__smg.webp",
+      "size": 2424,
+      "type": "image"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit__empty.webp": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit__empty.webp",
+      "name": "ghoul__hit__empty.webp",
+      "size": 17952,
+      "type": "image"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit__pistol.webp": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit__pistol.webp",
+      "name": "ghoul__hit__pistol.webp",
+      "size": 17952,
+      "type": "image"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit__smg.webp": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit__smg.webp",
+      "name": "ghoul__hit__smg.webp",
+      "size": 17952,
+      "type": "image"
+    },
+    "/assets/units/ghoul/idle/ghoul__idle__empty.webp": {
+      "path": "/assets/units/ghoul/idle/ghoul__idle__empty.webp",
+      "name": "ghoul__idle__empty.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/idle/ghoul__idle__pistol.webp": {
+      "path": "/assets/units/ghoul/idle/ghoul__idle__pistol.webp",
+      "name": "ghoul__idle__pistol.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/idle/ghoul__idle__smg.webp": {
+      "path": "/assets/units/ghoul/idle/ghoul__idle__smg.webp",
+      "name": "ghoul__idle__smg.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/none/ghoul__none__empty.webp": {
+      "path": "/assets/units/ghoul/none/ghoul__none__empty.webp",
+      "name": "ghoul__none__empty.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/none/ghoul__none__pistol.webp": {
+      "path": "/assets/units/ghoul/none/ghoul__none__pistol.webp",
+      "name": "ghoul__none__pistol.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/none/ghoul__none__smg.webp": {
+      "path": "/assets/units/ghoul/none/ghoul__none__smg.webp",
+      "name": "ghoul__none__smg.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/punch/ghoul__punch__empty.webp": {
+      "path": "/assets/units/ghoul/punch/ghoul__punch__empty.webp",
+      "name": "ghoul__punch__empty.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/punch/ghoul__punch__pistol.webp": {
+      "path": "/assets/units/ghoul/punch/ghoul__punch__pistol.webp",
+      "name": "ghoul__punch__pistol.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/punch/ghoul__punch__smg.webp": {
+      "path": "/assets/units/ghoul/punch/ghoul__punch__smg.webp",
+      "name": "ghoul__punch__smg.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/run/ghoul__run__empty.webp": {
+      "path": "/assets/units/ghoul/run/ghoul__run__empty.webp",
+      "name": "ghoul__run__empty.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/ghoul/run/ghoul__run__pistol.webp": {
+      "path": "/assets/units/ghoul/run/ghoul__run__pistol.webp",
+      "name": "ghoul__run__pistol.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/ghoul/run/ghoul__run__smg.webp": {
+      "path": "/assets/units/ghoul/run/ghoul__run__smg.webp",
+      "name": "ghoul__run__smg.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_burst/ghoul__shot_burst__empty.webp": {
+      "path": "/assets/units/ghoul/shot_burst/ghoul__shot_burst__empty.webp",
+      "name": "ghoul__shot_burst__empty.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_burst/ghoul__shot_burst__pistol.webp": {
+      "path": "/assets/units/ghoul/shot_burst/ghoul__shot_burst__pistol.webp",
+      "name": "ghoul__shot_burst__pistol.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_burst/ghoul__shot_burst__smg.webp": {
+      "path": "/assets/units/ghoul/shot_burst/ghoul__shot_burst__smg.webp",
+      "name": "ghoul__shot_burst__smg.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_single/ghoul__shot_single__empty.webp": {
+      "path": "/assets/units/ghoul/shot_single/ghoul__shot_single__empty.webp",
+      "name": "ghoul__shot_single__empty.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_single/ghoul__shot_single__pistol.webp": {
+      "path": "/assets/units/ghoul/shot_single/ghoul__shot_single__pistol.webp",
+      "name": "ghoul__shot_single__pistol.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/shot_single/ghoul__shot_single__smg.webp": {
+      "path": "/assets/units/ghoul/shot_single/ghoul__shot_single__smg.webp",
+      "name": "ghoul__shot_single__smg.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/throw/ghoul__throw__empty.webp": {
+      "path": "/assets/units/ghoul/throw/ghoul__throw__empty.webp",
+      "name": "ghoul__throw__empty.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/throw/ghoul__throw__pistol.webp": {
+      "path": "/assets/units/ghoul/throw/ghoul__throw__pistol.webp",
+      "name": "ghoul__throw__pistol.webp",
+      "size": 31382,
+      "type": "image"
+    },
+    "/assets/units/ghoul/throw/ghoul__throw__smg.webp": {
+      "path": "/assets/units/ghoul/throw/ghoul__throw__smg.webp",
+      "name": "ghoul__throw__smg.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/ghoul/walk/ghoul__walk__empty.webp": {
+      "path": "/assets/units/ghoul/walk/ghoul__walk__empty.webp",
+      "name": "ghoul__walk__empty.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/ghoul/walk/ghoul__walk__pistol.webp": {
+      "path": "/assets/units/ghoul/walk/ghoul__walk__pistol.webp",
+      "name": "ghoul__walk__pistol.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/ghoul/walk/ghoul__walk__smg.webp": {
+      "path": "/assets/units/ghoul/walk/ghoul__walk__smg.webp",
+      "name": "ghoul__walk__smg.webp",
+      "size": 24798,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/dead/vault13_male__dead__empty.webp": {
+      "path": "/assets/units/vault13_male/dead/vault13_male__dead__empty.webp",
+      "name": "vault13_male__dead__empty.webp",
+      "size": 9254,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/dead/vault13_male__dead__pistol.webp": {
+      "path": "/assets/units/vault13_male/dead/vault13_male__dead__pistol.webp",
+      "name": "vault13_male__dead__pistol.webp",
+      "size": 9254,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/dead/vault13_male__dead__smg.webp": {
+      "path": "/assets/units/vault13_male/dead/vault13_male__dead__smg.webp",
+      "name": "vault13_male__dead__smg.webp",
+      "size": 9254,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit__empty.webp": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit__empty.webp",
+      "name": "vault13_male__hit__empty.webp",
+      "size": 24324,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit__pistol.webp": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit__pistol.webp",
+      "name": "vault13_male__hit__pistol.webp",
+      "size": 24324,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit__smg.webp": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit__smg.webp",
+      "name": "vault13_male__hit__smg.webp",
+      "size": 24324,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/idle/vault13_male__idle__empty.webp": {
+      "path": "/assets/units/vault13_male/idle/vault13_male__idle__empty.webp",
+      "name": "vault13_male__idle__empty.webp",
+      "size": 41646,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/idle/vault13_male__idle__pistol.webp": {
+      "path": "/assets/units/vault13_male/idle/vault13_male__idle__pistol.webp",
+      "name": "vault13_male__idle__pistol.webp",
+      "size": 31714,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/idle/vault13_male__idle__smg.webp": {
+      "path": "/assets/units/vault13_male/idle/vault13_male__idle__smg.webp",
+      "name": "vault13_male__idle__smg.webp",
+      "size": 56784,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/none/vault13_male__none__empty.webp": {
+      "path": "/assets/units/vault13_male/none/vault13_male__none__empty.webp",
+      "name": "vault13_male__none__empty.webp",
+      "size": 41646,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/none/vault13_male__none__pistol.webp": {
+      "path": "/assets/units/vault13_male/none/vault13_male__none__pistol.webp",
+      "name": "vault13_male__none__pistol.webp",
+      "size": 31714,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/none/vault13_male__none__smg.webp": {
+      "path": "/assets/units/vault13_male/none/vault13_male__none__smg.webp",
+      "name": "vault13_male__none__smg.webp",
+      "size": 56784,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/punch/vault13_male__punch__empty.webp": {
+      "path": "/assets/units/vault13_male/punch/vault13_male__punch__empty.webp",
+      "name": "vault13_male__punch__empty.webp",
+      "size": 42624,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/punch/vault13_male__punch__pistol.webp": {
+      "path": "/assets/units/vault13_male/punch/vault13_male__punch__pistol.webp",
+      "name": "vault13_male__punch__pistol.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/punch/vault13_male__punch__smg.webp": {
+      "path": "/assets/units/vault13_male/punch/vault13_male__punch__smg.webp",
+      "name": "vault13_male__punch__smg.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/run/vault13_male__run__empty.webp": {
+      "path": "/assets/units/vault13_male/run/vault13_male__run__empty.webp",
+      "name": "vault13_male__run__empty.webp",
+      "size": 32118,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/run/vault13_male__run__pistol.webp": {
+      "path": "/assets/units/vault13_male/run/vault13_male__run__pistol.webp",
+      "name": "vault13_male__run__pistol.webp",
+      "size": 32118,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/run/vault13_male__run__smg.webp": {
+      "path": "/assets/units/vault13_male/run/vault13_male__run__smg.webp",
+      "name": "vault13_male__run__smg.webp",
+      "size": 32118,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__empty.webp": {
+      "path": "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__empty.webp",
+      "name": "vault13_male__shot_burst__empty.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__pistol.webp": {
+      "path": "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__pistol.webp",
+      "name": "vault13_male__shot_burst__pistol.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__smg.webp": {
+      "path": "/assets/units/vault13_male/shot_burst/vault13_male__shot_burst__smg.webp",
+      "name": "vault13_male__shot_burst__smg.webp",
+      "size": 50212,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_single/vault13_male__shot_single__empty.webp": {
+      "path": "/assets/units/vault13_male/shot_single/vault13_male__shot_single__empty.webp",
+      "name": "vault13_male__shot_single__empty.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_single/vault13_male__shot_single__pistol.webp": {
+      "path": "/assets/units/vault13_male/shot_single/vault13_male__shot_single__pistol.webp",
+      "name": "vault13_male__shot_single__pistol.webp",
+      "size": 32360,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/shot_single/vault13_male__shot_single__smg.webp": {
+      "path": "/assets/units/vault13_male/shot_single/vault13_male__shot_single__smg.webp",
+      "name": "vault13_male__shot_single__smg.webp",
+      "size": 33506,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/throw/vault13_male__throw__empty.webp": {
+      "path": "/assets/units/vault13_male/throw/vault13_male__throw__empty.webp",
+      "name": "vault13_male__throw__empty.webp",
+      "size": 41886,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/throw/vault13_male__throw__pistol.webp": {
+      "path": "/assets/units/vault13_male/throw/vault13_male__throw__pistol.webp",
+      "name": "vault13_male__throw__pistol.webp",
+      "size": 41400,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/throw/vault13_male__throw__smg.webp": {
+      "path": "/assets/units/vault13_male/throw/vault13_male__throw__smg.webp",
+      "name": "vault13_male__throw__smg.webp",
+      "size": 158,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__empty.webp": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__empty.webp",
+      "name": "vault13_male__walk__empty.webp",
+      "size": 35252,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__pistol.webp": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__pistol.webp",
+      "name": "vault13_male__walk__pistol.webp",
+      "size": 23430,
+      "type": "image"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__smg.webp": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__smg.webp",
+      "name": "vault13_male__walk__smg.webp",
+      "size": 31406,
+      "type": "image"
+    },
+    "/assets/vehicles/drivable/hummer/collision.webp": {
+      "path": "/assets/vehicles/drivable/hummer/collision.webp",
+      "name": "collision.webp",
+      "size": 337512,
+      "type": "image"
+    },
+    "/assets/vehicles/drivable/hummer/driving.webp": {
+      "path": "/assets/vehicles/drivable/hummer/driving.webp",
+      "name": "driving.webp",
+      "size": 986508,
+      "type": "image"
+    },
+    "/assets/vehicles/drivable/hummer/idle.webp": {
+      "path": "/assets/vehicles/drivable/hummer/idle.webp",
+      "name": "idle.webp",
+      "size": 253208,
+      "type": "image"
+    },
+    "/assets/vehicles/drivable/hummer/none.webp": {
+      "path": "/assets/vehicles/drivable/hummer/none.webp",
+      "name": "none.webp",
+      "size": 129302,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_2x1.webp": {
+      "path": "/assets/vehicles/vehicle_2x1.webp",
+      "name": "vehicle_2x1.webp",
+      "size": 39742,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_2x4.webp": {
+      "path": "/assets/vehicles/vehicle_2x4.webp",
+      "name": "vehicle_2x4.webp",
+      "size": 1226930,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_2x6.webp": {
+      "path": "/assets/vehicles/vehicle_2x6.webp",
+      "name": "vehicle_2x6.webp",
+      "size": 144546,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_3x2.webp": {
+      "path": "/assets/vehicles/vehicle_3x2.webp",
+      "name": "vehicle_3x2.webp",
+      "size": 58016,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_3x4.webp": {
+      "path": "/assets/vehicles/vehicle_3x4.webp",
+      "name": "vehicle_3x4.webp",
+      "size": 133230,
+      "type": "image"
+    },
+    "/assets/vehicles/vehicle_4x4.webp": {
+      "path": "/assets/vehicles/vehicle_4x4.webp",
+      "name": "vehicle_4x4.webp",
+      "size": 136410,
+      "type": "image"
+    },
+    "/assets/vfx/explosion.webp": {
+      "path": "/assets/vfx/explosion.webp",
+      "name": "explosion.webp",
+      "size": 119626,
+      "type": "image"
+    },
+    "/assets/vfx/fire-explosion.webp": {
+      "path": "/assets/vfx/fire-explosion.webp",
+      "name": "fire-explosion.webp",
+      "size": 49788,
+      "type": "image"
+    },
+    "/assets/vfx/hit_ground.webp": {
+      "path": "/assets/vfx/hit_ground.webp",
+      "name": "hit_ground.webp",
+      "size": 30116,
+      "type": "image"
+    },
+    "/assets/vfx/muzzle.webp": {
+      "path": "/assets/vfx/muzzle.webp",
+      "name": "muzzle.webp",
+      "size": 15436,
+      "type": "image"
+    },
+    "/assets/walls/corrugated_wire_fence.webp": {
+      "path": "/assets/walls/corrugated_wire_fence.webp",
+      "name": "corrugated_wire_fence.webp",
+      "size": 195518,
+      "type": "image"
+    },
+    "/assets/walls/corrugated_wire_fence_half.webp": {
+      "path": "/assets/walls/corrugated_wire_fence_half.webp",
+      "name": "corrugated_wire_fence_half.webp",
+      "size": 8236,
+      "type": "image"
+    },
+    "/assets/walls/corrugated_wire_fence_half_bottom.webp": {
+      "path": "/assets/walls/corrugated_wire_fence_half_bottom.webp",
+      "name": "corrugated_wire_fence_half_bottom.webp",
+      "size": 3252,
+      "type": "image"
+    },
+    "/assets/walls/corrugated_wire_fence_half_top.webp": {
+      "path": "/assets/walls/corrugated_wire_fence_half_top.webp",
+      "name": "corrugated_wire_fence_half_top.webp",
+      "size": 1814,
+      "type": "image"
+    },
+    "/assets/walls/vault.webp": {
+      "path": "/assets/walls/vault.webp",
+      "name": "vault.webp",
+      "size": 190602,
+      "type": "image"
+    },
+    "/assets/walls/vault_half_top.webp": {
+      "path": "/assets/walls/vault_half_top.webp",
+      "name": "vault_half_top.webp",
+      "size": 9444,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/icon.webp": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/icon.webp",
+      "name": "icon.webp",
+      "size": 1018,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/iso.webp": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/iso.webp",
+      "name": "iso.webp",
+      "size": 630,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/icon.webp": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/icon.webp",
+      "name": "icon.webp",
+      "size": 1548,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/iso.webp": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/iso.webp",
+      "name": "iso.webp",
+      "size": 718,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/smg/mp5/icon.webp": {
+      "path": "/assets/weapons/firearm/smg/mp5/icon.webp",
+      "name": "icon.webp",
+      "size": 1260,
+      "type": "image"
+    },
+    "/assets/weapons/firearm/smg/mp5/iso.webp": {
+      "path": "/assets/weapons/firearm/smg/mp5/iso.webp",
+      "name": "iso.webp",
+      "size": 1004,
+      "type": "image"
+    },
+    "/assets/weapons/melee/broken_bottle/icon.webp": {
+      "path": "/assets/weapons/melee/broken_bottle/icon.webp",
+      "name": "icon.webp",
+      "size": 1858,
+      "type": "image"
+    },
+    "/assets/weapons/melee/broken_bottle/iso.webp": {
+      "path": "/assets/weapons/melee/broken_bottle/iso.webp",
+      "name": "iso.webp",
+      "size": 580,
+      "type": "image"
+    },
+    "/assets/weapons/throwable/grenade/frag_grenade/icon.webp": {
+      "path": "/assets/weapons/throwable/grenade/frag_grenade/icon.webp",
+      "name": "icon.webp",
+      "size": 1402,
+      "type": "image"
+    },
+    "/assets/weapons/throwable/grenade/molotov_cocktail/icon.webp": {
+      "path": "/assets/weapons/throwable/grenade/molotov_cocktail/icon.webp",
+      "name": "icon.webp",
+      "size": 4414,
+      "type": "image"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/icon.webp": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/icon.webp",
+      "name": "icon.webp",
+      "size": 1160,
+      "type": "image"
+    }
+  },
+  "audio": {
+    "/assets/UI/button.m4a": {
+      "path": "/assets/UI/button.m4a",
+      "name": "button.m4a",
+      "size": 5429,
+      "type": "audio"
+    },
+    "/assets/UI/switch.m4a": {
+      "path": "/assets/UI/switch.m4a",
+      "name": "switch.m4a",
+      "size": 8237,
+      "type": "audio"
+    },
+    "/assets/UI/tab.m4a": {
+      "path": "/assets/UI/tab.m4a",
+      "name": "tab.m4a",
+      "size": 7731,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead_1.m4a": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead_1.m4a",
+      "name": "ghoul__dead_1.m4a",
+      "size": 8212,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead_2.m4a": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead_2.m4a",
+      "name": "ghoul__dead_2.m4a",
+      "size": 7844,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/dead/ghoul__dead_3.m4a": {
+      "path": "/assets/units/ghoul/dead/ghoul__dead_3.m4a",
+      "name": "ghoul__dead_3.m4a",
+      "size": 8364,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit_1.m4a": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit_1.m4a",
+      "name": "ghoul__hit_1.m4a",
+      "size": 7379,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit_2.m4a": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit_2.m4a",
+      "name": "ghoul__hit_2.m4a",
+      "size": 7130,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit_3.m4a": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit_3.m4a",
+      "name": "ghoul__hit_3.m4a",
+      "size": 6559,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit_4.m4a": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit_4.m4a",
+      "name": "ghoul__hit_4.m4a",
+      "size": 6316,
+      "type": "audio"
+    },
+    "/assets/units/ghoul/hit/ghoul__hit_5.m4a": {
+      "path": "/assets/units/ghoul/hit/ghoul__hit_5.m4a",
+      "name": "ghoul__hit_5.m4a",
+      "size": 7194,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/dead/vault13_male__dead.m4a": {
+      "path": "/assets/units/vault13_male/dead/vault13_male__dead.m4a",
+      "name": "vault13_male__dead.m4a",
+      "size": 8413,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit_1.m4a": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit_1.m4a",
+      "name": "vault13_male__hit_1.m4a",
+      "size": 6282,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit_2.m4a": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit_2.m4a",
+      "name": "vault13_male__hit_2.m4a",
+      "size": 6019,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit_3.m4a": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit_3.m4a",
+      "name": "vault13_male__hit_3.m4a",
+      "size": 7110,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit_4.m4a": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit_4.m4a",
+      "name": "vault13_male__hit_4.m4a",
+      "size": 6464,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/hit/vault13_male__hit_5.m4a": {
+      "path": "/assets/units/vault13_male/hit/vault13_male__hit_5.m4a",
+      "name": "vault13_male__hit_5.m4a",
+      "size": 9212,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__step_1.m4a": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__step_1.m4a",
+      "name": "vault13_male__walk__step_1.m4a",
+      "size": 12416,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__step_2.m4a": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__step_2.m4a",
+      "name": "vault13_male__walk__step_2.m4a",
+      "size": 12481,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__step_3.m4a": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__step_3.m4a",
+      "name": "vault13_male__walk__step_3.m4a",
+      "size": 12659,
+      "type": "audio"
+    },
+    "/assets/units/vault13_male/walk/vault13_male__walk__step_4.m4a": {
+      "path": "/assets/units/vault13_male/walk/vault13_male__walk__step_4.m4a",
+      "name": "vault13_male__walk__step_4.m4a",
+      "size": 12573,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/driving.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/driving.mp3",
+      "name": "driving.mp3",
+      "size": 57935,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/idle.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/idle.mp3",
+      "name": "idle.mp3",
+      "size": 52811,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/shift_in.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/shift_in.mp3",
+      "name": "shift_in.mp3",
+      "size": 14831,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/shift_out.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/shift_out.mp3",
+      "name": "shift_out.mp3",
+      "size": 10482,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/turn_off.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/turn_off.mp3",
+      "name": "turn_off.mp3",
+      "size": 30091,
+      "type": "audio"
+    },
+    "/assets/vehicles/drivable/hummer/turn_on.mp3": {
+      "path": "/assets/vehicles/drivable/hummer/turn_on.mp3",
+      "name": "turn_on.mp3",
+      "size": 8952,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/out_of_ammo.m4a",
+      "name": "out_of_ammo.m4a",
+      "size": 5572,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/reload.m4a": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/reload.m4a",
+      "name": "reload.m4a",
+      "size": 6205,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_1.m4a",
+      "name": "shot_single_1.m4a",
+      "size": 9419,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a": {
+      "path": "/assets/weapons/firearm/pistol/beretta_M92FS/shot_single_2.m4a",
+      "name": "shot_single_2.m4a",
+      "size": 9412,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/out_of_ammo.m4a": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/out_of_ammo.m4a",
+      "name": "out_of_ammo.m4a",
+      "size": 5572,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/reload.m4a": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/reload.m4a",
+      "name": "reload.m4a",
+      "size": 6205,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/shot_single_1.m4a": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/shot_single_1.m4a",
+      "name": "shot_single_1.m4a",
+      "size": 9419,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/pistol/colt_45/shot_single_2.m4a": {
+      "path": "/assets/weapons/firearm/pistol/colt_45/shot_single_2.m4a",
+      "name": "shot_single_2.m4a",
+      "size": 9412,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_1.mp3": {
+      "path": "/assets/weapons/firearm/rico_1.mp3",
+      "name": "rico_1.mp3",
+      "size": 6972,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_2.mp3": {
+      "path": "/assets/weapons/firearm/rico_2.mp3",
+      "name": "rico_2.mp3",
+      "size": 6036,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_3.mp3": {
+      "path": "/assets/weapons/firearm/rico_3.mp3",
+      "name": "rico_3.mp3",
+      "size": 7832,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_4.mp3": {
+      "path": "/assets/weapons/firearm/rico_4.mp3",
+      "name": "rico_4.mp3",
+      "size": 12691,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_5.mp3": {
+      "path": "/assets/weapons/firearm/rico_5.mp3",
+      "name": "rico_5.mp3",
+      "size": 7491,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_6.mp3": {
+      "path": "/assets/weapons/firearm/rico_6.mp3",
+      "name": "rico_6.mp3",
+      "size": 10097,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/rico_7.mp3": {
+      "path": "/assets/weapons/firearm/rico_7.mp3",
+      "name": "rico_7.mp3",
+      "size": 6061,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a",
+      "name": "out_of_ammo.m4a",
+      "size": 6330,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/reload.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/reload.m4a",
+      "name": "reload.m4a",
+      "size": 10344,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/shot_burst_1.m4a",
+      "name": "shot_burst_1.m4a",
+      "size": 17338,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/shot_burst_2.m4a",
+      "name": "shot_burst_2.m4a",
+      "size": 17644,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/shot_single_1.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/shot_single_1.m4a",
+      "name": "shot_single_1.m4a",
+      "size": 10240,
+      "type": "audio"
+    },
+    "/assets/weapons/firearm/smg/mp5/shot_single_2.m4a": {
+      "path": "/assets/weapons/firearm/smg/mp5/shot_single_2.m4a",
+      "name": "shot_single_2.m4a",
+      "size": 10517,
+      "type": "audio"
+    },
+    "/assets/weapons/punch/punch_1.m4a": {
+      "path": "/assets/weapons/punch/punch_1.m4a",
+      "name": "punch_1.m4a",
+      "size": 6954,
+      "type": "audio"
+    },
+    "/assets/weapons/punch/punch_2.m4a": {
+      "path": "/assets/weapons/punch/punch_2.m4a",
+      "name": "punch_2.m4a",
+      "size": 6799,
+      "type": "audio"
+    },
+    "/assets/weapons/punch/punch_3.m4a": {
+      "path": "/assets/weapons/punch/punch_3.m4a",
+      "name": "punch_3.m4a",
+      "size": 6528,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable/grenade/grenade_explode_1.m4a": {
+      "path": "/assets/weapons/throwable/grenade/grenade_explode_1.m4a",
+      "name": "grenade_explode_1.m4a",
+      "size": 29019,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable/grenade/grenade_explode_2.m4a": {
+      "path": "/assets/weapons/throwable/grenade/grenade_explode_2.m4a",
+      "name": "grenade_explode_2.m4a",
+      "size": 33960,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable/grenade/molotov_cocktail/explode_1.m4a": {
+      "path": "/assets/weapons/throwable/grenade/molotov_cocktail/explode_1.m4a",
+      "name": "explode_1.m4a",
+      "size": 19222,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable/grenade/molotov_cocktail/explode_2.m4a": {
+      "path": "/assets/weapons/throwable/grenade/molotov_cocktail/explode_2.m4a",
+      "name": "explode_2.m4a",
+      "size": 19817,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/punch_1.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/punch_1.m4a",
+      "name": "punch_1.m4a",
+      "size": 6348,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/punch_2.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/punch_2.m4a",
+      "name": "punch_2.m4a",
+      "size": 6289,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/punch_3.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/punch_3.m4a",
+      "name": "punch_3.m4a",
+      "size": 6364,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/throw_1.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/throw_1.m4a",
+      "name": "throw_1.m4a",
+      "size": 5753,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/throw_2.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/throw_2.m4a",
+      "name": "throw_2.m4a",
+      "size": 6535,
+      "type": "audio"
+    },
+    "/assets/weapons/throwable_melee/knife/throwing_knife/throw_3.m4a": {
+      "path": "/assets/weapons/throwable_melee/knife/throwing_knife/throw_3.m4a",
+      "name": "throw_3.m4a",
+      "size": 6186,
+      "type": "audio"
+    }
+  }
+}
