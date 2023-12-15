@@ -200,10 +200,12 @@ export function useMap(gameState: GameMap) {
       const backBottomLeft = isoTransform(x, y + length, z + height);
       const backBottomRight = isoTransform(x + width, y + length, z + height);
 
+      const baseColor = gameState.isEntityVisibleByHero(entity) ? entity.internalColor : "#ffffff";
+
       const colors = {
-        right: darkenLightenColor(entity.internalColor, -25),
-        top: entity.internalColor,
-        bottom: darkenLightenColor(entity.internalColor, 25),
+        right: darkenLightenColor(baseColor, -25),
+        top: baseColor,
+        bottom: darkenLightenColor(baseColor, 25),
       };
 
       // Draw top face
@@ -275,8 +277,32 @@ export function useMap(gameState: GameMap) {
     ctx.save();
     ctx.translate(canvasWidth / 2 + offset.x, canvasHeight / 2 + offset.y);
 
+    // map
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "lime";
+    ctx.fillStyle = "rgba(0, 255, 0, 0.1)";
+
+    const mapTopLeft = isoTransform(0, 0, 0);
+    const mapTopRight = isoTransform(gameState.mapSize.width * wireframeTileWidth * miniMapZoom, 0, 0);
+    const mapBottomRight = isoTransform(
+      gameState.mapSize.width * wireframeTileWidth * miniMapZoom,
+      gameState.mapSize.height * wireframeTileHeight * miniMapZoom,
+      0,
+    );
+    const mapBottomLeft = isoTransform(0, gameState.mapSize.height * wireframeTileHeight * miniMapZoom, 0);
+
+    ctx.beginPath();
+    ctx.moveTo(mapTopLeft.x, mapTopLeft.y);
+    ctx.lineTo(mapTopRight.x, mapTopRight.y);
+    ctx.lineTo(mapBottomRight.x, mapBottomRight.y);
+    ctx.lineTo(mapBottomLeft.x, mapBottomLeft.y);
+    ctx.lineTo(mapTopLeft.x, mapTopLeft.y);
+    ctx.stroke();
+    ctx.fill();
+
+    //
     for (const entity of entities) {
-      if (!entity.blocksRays) continue;
+      //if (!entity.blocksRays) continue;
 
       switch (true) {
         case entity instanceof Unit:

@@ -44,6 +44,21 @@ export function Map() {
     }
   }, [uiState.scene, mapZoom]);
 
+  React.useEffect(() => {
+    if (!mapCanvasRef.current) return;
+
+    const ctx = mapCanvasRef.current.getContext("2d");
+
+    if (ctx) {
+      const mapSize = {
+        width: mapContainerRef.current!.clientWidth,
+        height: mapContainerRef.current!.clientHeight,
+      };
+
+      renderMap(ctx, mapZoom, mapSize, offset);
+    }
+  }, [offset]);
+
   if (!checkCurrentScene(["map"])) return null;
 
   const handleMouseDown = (event: React.MouseEvent<HTMLCanvasElement>) => {
@@ -52,6 +67,7 @@ export function Map() {
 
       const offsetX = event.clientX;
       const offsetY = event.clientY;
+
       setStartPosition({ x: offsetX, y: offsetY });
     }
   };
@@ -69,17 +85,6 @@ export function Map() {
       const y = (currentY - startPosition.y) / 10 + offset.y;
 
       setOffset({ x, y });
-
-      const ctx = mapCanvasRef.current.getContext("2d");
-
-      if (ctx) {
-        const mapSize = {
-          width: mapContainerRef.current!.clientWidth,
-          height: mapContainerRef.current!.clientHeight,
-        };
-
-        renderMap(ctx, mapZoom, mapSize, { x, y });
-      }
     }
   };
 
