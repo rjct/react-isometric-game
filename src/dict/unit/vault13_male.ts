@@ -38,25 +38,18 @@ const vault13_male: UnitDictEntity = {
   },
   sfx: {
     walkStep: {
-      src: [
-        "/assets/units/vault13_male/walk/step_1.m4a",
-        "/assets/units/vault13_male/walk/step_2.m4a",
-        "/assets/units/vault13_male/walk/step_3.m4a",
-        "/assets/units/vault13_male/walk/step_4.m4a",
-      ],
+      src: Array.from({ length: 4 }).map(
+        (_, index) => `/assets/units/${unitType}/walk/${unitType}__walk__step_${index + 1}.m4a`,
+      ),
       repeatEveryMs: 1160,
     },
     hit: {
-      src: [
-        "/assets/units/vault13_male/hit/hit_1.m4a",
-        "/assets/units/vault13_male/hit/hit_2.m4a",
-        "/assets/units/vault13_male/hit/hit_3.m4a",
-        "/assets/units/vault13_male/hit/hit_4.m4a",
-        "/assets/units/vault13_male/hit/hit_5.m4a",
-      ],
+      src: Array.from({ length: 5 }).map(
+        (_, index) => `/assets/units/${unitType}/hit/${unitType}__hit_${index + 1}.m4a`,
+      ),
     },
     dead: {
-      src: ["/assets/units/vault13_male/dead/dead.m4a"],
+      src: ["/assets/units/vault13_male/dead/vault13_male__dead.m4a"],
     },
   },
   clipPath: generateInitialClipPathObj(

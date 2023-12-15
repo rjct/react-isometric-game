@@ -39,29 +39,20 @@ const ghoul: UnitDictEntity = {
   },
   sfx: {
     walkStep: {
-      src: [
-        "/assets/vehicles/drivable/public/assets/units/vault13_male/walk/step_1.m4a",
-        "/assets/units/vault13_male/walk/step_2.m4a",
-        "/assets/units/vault13_male/walk/step_3.m4a",
-        "/assets/units/vault13_male/walk/step_4.m4a",
-      ],
+      src: Array.from({ length: 4 }).map(
+        (_, index) => `/assets/units/${unitType}/walk/${unitType}__walk__step_${index + 1}.m4a`,
+      ),
       repeatEveryMs: 950,
     },
     hit: {
-      src: [
-        "/assets/units/ghoul/hit/hit_1.m4a",
-        "/assets/units/ghoul/hit/hit_2.m4a",
-        "/assets/units/ghoul/hit/hit_3.m4a",
-        "/assets/units/ghoul/hit/hit_4.m4a",
-        "/assets/units/ghoul/hit/hit_5.m4a",
-      ],
+      src: Array.from({ length: 5 }).map(
+        (_, index) => `/assets/units/${unitType}/hit/${unitType}__hit_${index + 1}.m4a`,
+      ),
     },
     dead: {
-      src: [
-        "/assets/units/ghoul/dead/dead_1.m4a",
-        "/assets/units/ghoul/dead/dead_2.m4a",
-        "/assets/units/ghoul/dead/dead_3.m4a",
-      ],
+      src: Array.from({ length: 3 }).map(
+        (_, index) => `/assets/units/${unitType}/dead/${unitType}__dead_${index + 1}.m4a`,
+      ),
     },
   },
   clipPath: generateInitialClipPathObj(
