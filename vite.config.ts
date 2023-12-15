@@ -44,7 +44,7 @@ export default defineConfig({
     react(),
   ],
   define: {
-    __APP_VERSION__: JSON.stringify(process.env.npm_package_version),
-    __APP_BUILD_DATE__: JSON.stringify(new Date().valueOf()),
+    "import.meta.env.__APP_VERSION__": JSON.stringify(process.env.npm_package_version),
+    "import.meta.env.__APP_BUILD_DATE__": JSON.stringify(new Date().valueOf()),
   },
 });
