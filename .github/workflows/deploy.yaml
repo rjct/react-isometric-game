@@ -10,13 +10,28 @@ permissions:
 
 jobs:
   deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.build-publish.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
-      - id: build-publish
-        uses: bitovi/github-actions-react-to-ghp@v1.2.0
+      - name: Checkout if required
+        uses: actions/checkout@v3
+
+      - name: 'Build'
+        shell: bash
+        env:
+          BUILD_PATH: "dist"
+        run: |
+          echo "::group::Build" 
+          npm ci
+          npm run build
+          echo "::endgroup::"
+
+      - name: 'upload'
+        uses: actions/upload-pages-artifact@v2
         with:
-          path: dist
-          build_command: npm run build
+          path: "dist"
+
+      - id: deploy
+        name: Deploy to GitHub Pages
+        uses: actions/deploy-pages@3
+        with:
+          token: ${{ github.token }}
