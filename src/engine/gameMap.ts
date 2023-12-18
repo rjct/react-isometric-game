@@ -588,10 +588,18 @@ export const gameMap = {
     return this.matrix.map((column) => column.join("")).join("");
   },
 
-  getAllAliveUnitsHash() {
-    return this.getAllAliveUnitsArray()
-      .map((unit) => unit.getHash())
-      .join("|");
+  getAllAliveUnitsHash(onlyInHeroView = false) {
+    let allAliveUnitsArray = this.getAllAliveUnitsArray();
+
+    if (onlyInHeroView) {
+      const hero = this.getHero();
+
+      allAliveUnitsArray = allAliveUnitsArray.filter(
+        (unit) => unit.id === hero.id || hero.fieldOfView.isEntityInView(unit),
+      );
+    }
+
+    return allAliveUnitsArray.map((unit) => unit.getHash()).join("|");
   },
 
   getLightsHash() {

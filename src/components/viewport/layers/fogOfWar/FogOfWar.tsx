@@ -11,19 +11,22 @@ export const FogOfWarComponent = React.memo(() => {
 
   const [fowImageSrc, setFowImageSrc] = React.useState("");
 
+  const isRenderAllowed =
+    gameState.fogOfWar && checkCurrentScene(["game", "combat"]) && gameState.settings.featureEnabled.fogOfWar;
+
   React.useEffect(() => {
-    if (!gameState.fogOfWar || !gameState.settings.featureEnabled.fogOfWar) return;
+    if (!isRenderAllowed) return;
 
     gameState.fogOfWar.render(gameState.getHero()).then((bg) => {
       setFowImageSrc(bg);
     });
   }, [
     uiState.scene,
-    gameState.settings.featureEnabled.fogOfWar ? gameState.getAllAliveUnitsHash() : false,
+    gameState.settings.featureEnabled.fogOfWar ? gameState.getAllAliveUnitsHash(true) : false,
     gameState.settings.featureEnabled.fogOfWar,
   ]);
 
-  if (!checkCurrentScene(["game", "combat"]) || !gameState.settings.featureEnabled.fogOfWar) return null;
+  if (!isRenderAllowed) return null;
 
   return (
     <GameLayer size={gameState.mapSize} className={"fow"}>
