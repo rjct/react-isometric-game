@@ -6,8 +6,8 @@ import { VfxLight, VfxType } from "@src/engine/vfx/VfxFactory";
 
 export enum weaponAmmoClassNames {
   "firearm_ammo" = "Firearm ammo",
-  "grenade_ammo" = "",
-  "melee_ammo" = "",
+  "grenade_ammo" = "Grenade ammo",
+  "melee_ammo" = "Melee ammo",
 }
 export type WeaponAmmoClass = keyof typeof weaponAmmoClassNames;
 
