@@ -10,13 +10,16 @@ export function highlightUnitAtGunpoint(state: GameMap, action: HighlightUnitAtG
   const hero = state.getHero();
   const weapon = hero?.getCurrentWeapon();
 
+  if (!weapon) return state;
+
   const unitAtGunpoint =
     !!weapon &&
     weapon.isReadyToUse(state) &&
     weapon.getAimCoordinates()?.x === action.unit.getRoundedPosition().x &&
     weapon.getAimCoordinates()?.y === action.unit.getRoundedPosition().y;
 
+  const isChanged = action.unit.atGunpoint !== unitAtGunpoint;
   action.unit.setAtGunpoint(unitAtGunpoint);
 
-  return { ...state };
+  return isChanged ? { ...state } : state;
 }
