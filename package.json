@@ -6,8 +6,8 @@
   "homepage": "https://rjct.github.io/react-isometric-game/",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "build": "vite build",
+    "dev": "vite --config vite.config.ts",
+    "build": "vite build --config vite.config.ts",
     "preview": "vite preview",
     "prettier-check": "prettier --config .prettierrc.json --check \"./src/**/*\"",
     "prettier-fix": "prettier --config .prettierrc.json --write \"./src/**/*\""
