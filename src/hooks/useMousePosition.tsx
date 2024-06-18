@@ -44,7 +44,7 @@ export function useMousePosition() {
   const [heroAction, setHeroAction] = React.useState<HeroAction[]>([]);
   const [heroActionMenuShow, setHeroActionMenuShow] = React.useState(false);
 
-  const debouncedMarkerPosition = useDebounce(markerPosition, 200);
+  const debouncedMarkerPosition = useDebounce(markerPosition, 100);
 
   const getWorldMousePosition = (e: React.MouseEvent): WorldMousePosition => {
     const { rect, scroll } = uiState;

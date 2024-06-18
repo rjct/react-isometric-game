@@ -18,7 +18,7 @@ import { UnitType } from "@src/dict/unit/_unit";
 import { VehicleType } from "@src/dict/vehicle/_vehicle";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
-import { floor, getVisibleIsometricGridCells, gridToScreenSpace, screenToGridSpace } from "@src/engine/helpers";
+import { floor, getVisibleIsometricGridCells, screenToGridSpace } from "@src/engine/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useMousePosition } from "@src/hooks/useMousePosition";
@@ -28,8 +28,6 @@ import React from "react";
 export type MapForwardedRefs = {
   setScroll: (position: ScreenCoordinates) => null;
 };
-
-let scrollTimeout: number | null = null;
 
 export const Viewport = React.memo(
   React.forwardRef((_props, forwardedRefs) => {
@@ -87,8 +85,6 @@ export const Viewport = React.memo(
     };
 
     const handleMouseMove = (e: React.MouseEvent) => {
-      if (uiState.isScrolling) return;
-
       uiDispatch({ type: "setMousePosition", mousePosition: getWorldMousePosition(e) });
     };
 
@@ -96,18 +92,10 @@ export const Viewport = React.memo(
       uiDispatch({ type: "resetMousePosition" });
     };
 
-    const onScrollComplete = () => {
-      uiDispatch({ type: "scrollMapComplete" });
-    };
-
     const handleScroll = () => {
       if (mapRef.current) {
         uiDispatch({ type: "scrollMap", scroll: getCurrentScroll() });
         uiDispatch({ type: "setViewport", viewport: getCurrentViewport() });
-
-        if (scrollTimeout) window.clearTimeout(scrollTimeout);
-
-        scrollTimeout = window.setTimeout(onScrollComplete, 200);
       }
     };
 
@@ -217,9 +205,8 @@ export const Viewport = React.memo(
         uiDispatch({ type: "resetMousePosition" });
         uiDispatch({
           type: "centerMapOnHero",
-          unitCoordinates: gridToScreenSpace(hero.position.grid, gameState.mapSize),
+          unitCoordinates: hero.position.screen,
         });
-        uiDispatch({ type: "scrollMapComplete" });
       }
     }, [gameState.mapSize]);
 
@@ -248,14 +235,26 @@ export const Viewport = React.memo(
       terrainDispatch({ type: "setTerrainClustersInView", clustersInView });
     }, [uiState.viewport.grid]);
 
+    React.useEffect(() => {
+      if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0) return;
+
+      uiDispatch({
+        type: "centerMapOnHero",
+        unitCoordinates: hero.position.screen,
+      });
+    }, [hero.position.screen]);
+
     React.useImperativeHandle(
       forwardedRefs,
       () => {
         return {
           setScroll: (position: ScreenCoordinates) => {
             if (mapRef.current) {
-              mapRef.current.scrollLeft = position.x;
-              mapRef.current.scrollTop = position.y;
+              mapRef.current.scrollTo({
+                top: position.y,
+                left: position.x,
+                behavior: "smooth",
+              });
             }
           },
         };
@@ -276,8 +275,6 @@ export const Viewport = React.memo(
           onDragOver={handleDragOver}
           onDragLeave={handleDragLeave}
           onDrop={handleDrop}
-          data-scrolling-active={uiState.isScrolling || null}
-          data-scrolling-direction={uiState.isScrolling ? uiState.scrollDirection : null}
         >
           <FogOfWarComponent />
           <LightsAndShadows />

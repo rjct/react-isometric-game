@@ -1,4 +1,3 @@
-import { CenterMapButton } from "@src/components/controlPanel/CenterMapButton";
 import { EndCombatButton } from "@src/components/controlPanel/EndCombatButton";
 import { EndTurnButton } from "@src/components/controlPanel/EndTurnButton";
 import { GetOufOfVehicleButton } from "@src/components/controlPanel/GetOufOfVehicleButton";
@@ -21,7 +20,6 @@ export const ControlPanel = React.memo(function ControlPanel() {
       <MiniMap />
 
       <div className={"hero-controls"}>
-        <CenterMapButton />
         <OpenInventoryButton />
 
         <VehicleDashboard />

@@ -2,8 +2,7 @@ import { UIReducerAction } from "@src/reducers/ui/_reducers";
 import React, { Dispatch } from "react";
 
 const initialValue: UIReducerAction = {
-  type: "scrollMapOnScreenEdges",
-  deltaTime: 0,
+  type: "resetMousePosition",
 };
 
 const initialDispatchFunc: Dispatch<UIReducerAction> = () => initialValue;

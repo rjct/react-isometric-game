@@ -3,13 +3,7 @@ import { centerMapOnHero, CenterMapOnHeroUIReducerAction } from "@src/reducers/u
 import { detectKeyPress, DetectKeyPressUIReducerAction } from "@src/reducers/ui/detectKeyPress";
 import { processKeyPress, ProcessKeyPressUIReducerAction } from "@src/reducers/ui/processKeyPress";
 import { resetMousePosition, ResetMousePositionUIReducerAction } from "@src/reducers/ui/resetMousePosition";
-import {
-  scrollMap,
-  scrollMapComplete,
-  ScrollMapCompleteUIReducerAction,
-  ScrollMapUIReducerAction,
-} from "@src/reducers/ui/scrollMap";
-import { scrollMapOnScreenEdges, ScrollMapOnScreenEdgesUIReducerAction } from "@src/reducers/ui/scrollMapOnScreenEdges";
+import { scrollMap, ScrollMapUIReducerAction } from "@src/reducers/ui/scrollMap";
 import { setEditorMode, SetEditorModeUIReducerAction } from "@src/reducers/ui/setEditorMode";
 import {
   setIntroSceneElapsedTime,
@@ -24,8 +18,6 @@ export type UIReducerAction =
   | SetIntroSceneElapsedTimeUIReducerAction
   | CenterMapOnHeroUIReducerAction
   | ScrollMapUIReducerAction
-  | ScrollMapCompleteUIReducerAction
-  | ScrollMapOnScreenEdgesUIReducerAction
   | DetectKeyPressUIReducerAction
   | ProcessKeyPressUIReducerAction
   | SetMapRectUIReducerAction
@@ -45,12 +37,6 @@ export function UIReducer(state: GameUI, action: UIReducerAction): GameUI {
 
     case "scrollMap":
       return scrollMap(state, action as ScrollMapUIReducerAction);
-
-    case "scrollMapComplete":
-      return scrollMapComplete(state, action as ScrollMapCompleteUIReducerAction);
-
-    case "scrollMapOnScreenEdges":
-      return scrollMapOnScreenEdges(state, action as ScrollMapOnScreenEdgesUIReducerAction);
 
     case "detectKeyPress":
       return detectKeyPress(state, action as DetectKeyPressUIReducerAction);

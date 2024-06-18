@@ -30,10 +30,6 @@ export function processKeyPress(state: GameUI, action: ProcessKeyPressUIReducerA
           },
         };
       }
-
-      if (state.keys["KeyC"]) {
-        return state;
-      }
       break;
 
     case "inventory":

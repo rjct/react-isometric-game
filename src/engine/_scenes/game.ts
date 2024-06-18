@@ -8,11 +8,6 @@ export function gameScene(this: GameContext, deltaTime: number) {
   const allAliveEnemies = gameState.getAliveEnemiesArray();
   const hero = gameState.units[gameState.heroId];
 
-  // User Input
-  // if (isBrowser) {
-  //   uiDispatch({ type: "scrollMapOnScreenEdges", deltaTime });
-  // }
-
   // Update
   if (hero && terrainState.isUnitIsInExitPoint(hero)) {
     const mapUrl = terrainState.getTerrainAreaByCoordinates(hero.position.grid).exitUrl! as mapsList;
