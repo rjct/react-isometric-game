@@ -26,6 +26,11 @@ export function switchMap(state: GameMap, action: SwitchGameMapReducerAction) {
       mapSize: action.map.size,
       isAllowedToEnterTheMapInsideVehicle: action.map.isAllowedToEnterTheMapInsideVehicle,
       matrix: createMatrix(action.map.size),
+      occupancyMatrix: [...Array(action.map.size.width)].map(() =>
+        Array(action.map.size.height)
+          .fill(null)
+          .map(() => new Map()),
+      ) as GameMap["occupancyMatrix"],
       units: {} as { [id: string]: Unit },
       buildings: [] as Building[],
       globalShadows,

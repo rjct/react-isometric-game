@@ -103,6 +103,7 @@ export const gameMap = {
   ammoFiredIds: [] as Array<Ammo["id"]>,
 
   matrix: [] as Array<Array<number>>,
+  occupancyMatrix: [] as Array<Array<Map<string, Unit | Building | Vehicle>>>,
   mediaAssets: {} as MediaAssets,
 
   fogOfWar: null as unknown as FogOfWar,
@@ -252,6 +253,13 @@ export const gameMap = {
         for (let yy = y; yy < y + length; yy++) {
           if (xx < this.mapSize.width && yy < this.mapSize.height) {
             this.matrix[yy][xx] = Math.max(0, this.matrix[yy][xx] + occupancy);
+            if (occupancy > 0) {
+              if (!this.occupancyMatrix[yy][xx].has(entity.id)) {
+                this.occupancyMatrix[yy][xx].set(entity.id, entity);
+              }
+            } else {
+              this.occupancyMatrix[yy][xx].delete(entity.id);
+            }
           }
         }
       }
@@ -397,31 +405,13 @@ export const gameMap = {
   getBuildingByCoordinates(coordinates: GridCoordinates): Building | undefined {
     const { x, y } = coordinates;
 
-    for (const building of this.buildings) {
-      if (
-        x >= Math.round(building.position.grid.x) &&
-        x < Math.round(building.position.grid.x + building.size.grid.width) &&
-        y >= Math.round(building.position.grid.y) &&
-        y < Math.round(building.position.grid.y + building.size.grid.length)
-      ) {
-        return building;
-      }
-    }
+    return [...this.occupancyMatrix[y][x].values()].filter((n) => n instanceof Building)[0] as Building;
   },
 
   getVehicleByCoordinates(coordinates: GridCoordinates) {
     const { x, y } = coordinates;
 
-    for (const vehicle of this.vehicles) {
-      if (
-        x >= Math.round(vehicle.position.grid.x) &&
-        x < Math.round(vehicle.position.grid.x + vehicle.size.grid.width) &&
-        y >= Math.round(vehicle.position.grid.y) &&
-        y < Math.round(vehicle.position.grid.y + vehicle.size.grid.length)
-      ) {
-        return vehicle;
-      }
-    }
+    return [...this.occupancyMatrix[y][x].values()].filter((n) => n instanceof Vehicle)[0] as Vehicle;
   },
 
   deleteBuilding(id: string) {

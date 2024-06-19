@@ -1,5 +1,5 @@
 import { Building } from "@src/engine/building/BuildingFactory";
-import { degToRad, normalizeAngle } from "@src/engine/helpers";
+import { degToRad, floor, normalizeAngle } from "@src/engine/helpers";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 
 import { UnitDictEntity } from "@src/dict/unit/_unit";
@@ -81,7 +81,8 @@ export class UnitFieldOfViewFactory {
 
   private getCellsInSector(gameState: GameMap) {
     const cellsInSector: GridCoordinates[] = [];
-    const { x, y } = this.position;
+    const x = floor(this.position.x);
+    const y = floor(this.position.y);
 
     for (let i = -this.range; i <= this.range; i++) {
       for (let j = -this.range; j <= this.range; j++) {
@@ -91,7 +92,7 @@ export class UnitFieldOfViewFactory {
           const cellX = x + i;
           const cellY = y + j;
 
-          if (cellX < 0 || cellY < 0 || cellX > gameState.mapSize.width || cellY > gameState.mapSize.height) continue;
+          if (cellX < 0 || cellY < 0 || cellX >= gameState.mapSize.width || cellY >= gameState.mapSize.height) continue;
 
           const cellAngle: Angle = {
             deg: Math.atan2(cellY - y, cellX - x) * (180 / Math.PI),
