@@ -33,7 +33,10 @@ export class Firearm extends Weapon {
 
       ammo.shot(
         unit.position.grid,
-        unit.calculateHitCoordinates(targetPosition, unit.characteristics.skills[currentAttackModeDetails.skill].value),
+        unit.calculateHitCoordinates(
+          targetPosition,
+          gameState.calculateHitProbability(unit, targetPosition), //unit.characteristics.skills[currentAttackModeDetails.skill].value
+        ),
         gameState,
       );
 

@@ -353,6 +353,22 @@ export const gameMap = {
     };
   },
 
+  calculateHitProbability(shooter: Unit, targetCoordinates: GridCoordinates): number {
+    const weapon = shooter.getCurrentWeapon();
+
+    if (!weapon) return 0;
+
+    const weaponRange = weapon.getCurrentAttackModeDetails().range;
+    const perception = shooter.characteristics.SPECIAL.perception.value;
+    const skill = shooter.characteristics.skills[weapon.getCurrentAttackModeDetails().skill].value;
+    const distanceToTarget = getDistanceBetweenGridPoints(shooter.getRoundedPosition(), targetCoordinates);
+
+    const baseChanceToHit = skill + perception * 4;
+    const rangeModifier = ((weaponRange - distanceToTarget) / weaponRange) * 10;
+
+    return Math.max(5, Math.min(95, Math.round(baseChanceToHit + rangeModifier)));
+  },
+
   getAllUnitsArray() {
     return Object.values(this.units);
   },

@@ -70,12 +70,14 @@ export function useHero() {
           weapon.stopAiming();
           weapon.aimAt(uiState.mousePosition.grid);
 
+          const probability = gameState.calculateHitProbability(hero, uiState.mousePosition.grid); //hero.characteristics.skills[weapon.getCurrentAttackModeDetails().skill].value;
+
           return [
             {
               position: coordinates,
               action: hero.currentSelectedAction,
               entity: null,
-              probability: hero.characteristics.skills[weapon.getCurrentAttackModeDetails().skill].value,
+              probability,
               isAllowed: !(
                 !weapon.isReadyToUse(gameState) ||
                 (uiState.scene === "combat" &&
