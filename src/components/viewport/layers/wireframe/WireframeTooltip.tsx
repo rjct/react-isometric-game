@@ -10,9 +10,17 @@ export const WireframeTooltip = React.memo(
 
     const [className, setClassName] = React.useState([...["wireframe-tooltip", "tooltip-show"], ...props.className]);
 
-    if (hero.isBusy() || !props.value) return null;
+    const position = React.useMemo(() => {
+      if (props.coordinates.x < 0 || props.coordinates.y < 0) return props.coordinates;
 
-    const position = gridToScreenSpace(props.coordinates, gameState.mapSize);
+      const entity = gameState.getEntityByCoordinates(props.coordinates);
+
+      if (!entity) return gridToScreenSpace(props.coordinates, gameState.mapSize);
+
+      return gridToScreenSpace(entity.getRoundedCenterPosition(), gameState.mapSize);
+    }, [props.coordinates]);
+
+    if (hero.isBusy() || !props.value) return null;
 
     return (
       <div

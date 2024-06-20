@@ -312,6 +312,30 @@ export const gameMap = {
     return allUnblockedCellsAroundEntity[0];
   },
 
+  getClosestCoordinatesOfEntity(entity: GameEntity, targetEntity: GameEntity) {
+    const entityCoordinates = entity.getRoundedPosition();
+    const targetCoordinates = targetEntity.getRoundedPosition();
+    let closestPoint: GridCoordinates = targetCoordinates;
+    let minDistance = Number.MAX_VALUE;
+    const targetSize = targetEntity.size.grid;
+
+    for (let i = 0; i < targetSize.width; i++) {
+      for (let j = 0; j < targetSize.length; j++) {
+        const targetPoint = { x: targetCoordinates.x + i, y: targetCoordinates.y + j };
+        const distance = Math.sqrt(
+          Math.pow(targetPoint.x - entityCoordinates.x, 2) + Math.pow(targetPoint.y - entityCoordinates.y, 2),
+        );
+
+        if (distance < minDistance) {
+          minDistance = distance;
+          closestPoint = targetPoint;
+        }
+      }
+    }
+
+    return closestPoint;
+  },
+
   convertToIsometricCoordinates(gridPos: GridCoordinates, centerOnCell = false): ScreenCoordinates {
     const shiftX = centerOnCell ? constants.wireframeTileSize.width / 2 : 0;
     const shiftY = centerOnCell ? constants.wireframeTileSize.height / 2 : 0;

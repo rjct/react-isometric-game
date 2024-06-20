@@ -12,7 +12,7 @@ export function useGameEntityInteraction() {
     e.stopPropagation();
     e.preventDefault();
 
-    const entityGridPosition = entity.getRoundedPosition();
+    const entityGridPosition = gameState.getClosestCoordinatesOfEntity(gameState.getHero(), entity); //entity.getRoundedPosition();
 
     if (
       uiState.mousePosition.grid.x === entityGridPosition.x &&
