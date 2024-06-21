@@ -121,6 +121,28 @@
           z-index: 1;
           text-transform: uppercase;
         }
+
+        .weapon-attack-mode-indicator {
+          position: absolute;
+          left: 0;
+          top: 0;
+          display: flex;
+          align-items: center;
+          flex-direction: column;
+          gap: (@padding / 2);
+
+          > div {
+            width: 4px;
+            height: 4px;
+            border-radius: 50%;
+            background-color: @text-color;
+            opacity: 0.5;
+
+            &[data-selected="true"] {
+              opacity: 1;
+            }
+          }
+        }
       }
 
       &:checked ~ .label {
@@ -132,20 +154,35 @@
       }
     }
 
-    .weapon-ammo {
+    .weapon-ammo-wrapper {
+      position: absolute;
+      right: @padding;
+      bottom: (@padding / 2);
       display: flex;
       flex-direction: column;
       gap: 1px;
       align-self: flex-end;
+      justify-content: center;
+      align-items: flex-end;
 
-      > div {
-        padding: 1px 2px;
-        background: green;
+      .weapon-ammo {
+        display: flex;
+        flex-direction: column;
+        gap: 1px;
 
-        &[data-empty] {
-          flex: 1;
-          background: darkgray;
+        > div {
+          padding: 1px 2px;
+          background: green;
+
+          &[data-empty] {
+            flex: 1;
+            background: darkgray;
+          }
         }
+      }
+
+      .weapon-ammo-count {
+        font-size: 0.7em;
       }
     }
   }

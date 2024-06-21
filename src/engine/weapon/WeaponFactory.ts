@@ -1,9 +1,9 @@
 import { StaticMapWeapon } from "@src/context/GameStateContext";
 import { AmmoName } from "@src/dict/ammo/ammo";
 import { WeaponAttackMode, WeaponDictEntity, WeaponName, WeaponSfxType } from "@src/dict/weapon/weapon";
+import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { floor, getAngleBetweenTwoGridPoints, getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
-import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { ObstacleRay } from "@src/engine/light/ObstacleRayFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";

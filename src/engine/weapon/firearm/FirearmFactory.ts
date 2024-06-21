@@ -98,7 +98,7 @@ export class Firearm extends Weapon {
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
     const ammoItems = this.owner.inventory.main
       .filter((item) => item instanceof FirearmAmmo && item.dictEntity.type === currentAttackModeDetails.ammoType)
-      .slice(0, this.dictEntity.ammoCapacity) as Ammo[];
+      .slice(0, this.dictEntity.ammoCapacity! - this.ammoCurrent.length) as Ammo[];
 
     if (ammoItems.length === 0) {
       gameState.playSfx(this.getSfx("outOfAmmo").src, 1);
