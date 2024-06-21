@@ -9,7 +9,7 @@ import { useGameState } from "@src/hooks/useGameState";
 import { useMessages } from "@src/hooks/useMessages";
 import { usePreviousValue } from "@src/hooks/usePreviousValue";
 import { useScene } from "@src/hooks/useScene";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 export const UnitComponent = React.memo(function UnitComponent(props: {
   unit: Unit;
@@ -19,6 +19,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   onMouseDown?: (e: React.MouseEvent, entity: Unit) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
   onMouseMove?: (e: React.MouseEvent, entity: Unit) => void;
+  style?: CSSProperties;
 }) {
   const { gameState, uiState } = useGameState();
   const { checkCurrentScene } = useScene();
@@ -107,6 +108,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         width: props.unit.dictEntity.size.screen.width,
         height: props.unit.dictEntity.size.screen.height,
         clipPath: props.unit.getClipPath(),
+        ...props.style,
       }}
     >
       <div className="char"></div>

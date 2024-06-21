@@ -17,21 +17,21 @@ export const BuildingBox = React.memo(function Building(props: {
   const getDistance = (position: GridCoordinates, side: "right" | "front") => {
     return Math.max(
       ...gameState.lights.map((light) => {
-        const d = getDistanceBetweenGridPoints(position, light.position);
+        const d = getDistanceBetweenGridPoints(position, light.position.grid);
 
         switch (side) {
           case "front":
-            if (light.position.y < position.y) return 0;
+            if (light.position.grid.y < position.y) return 0;
             break;
 
           case "right":
-            if (light.position.x <= position.x - 1) return 0;
+            if (light.position.grid.x <= position.x - 1) return 0;
             break;
         }
 
         if (d > light.radius) return 0;
 
-        return 50 + 100 - (getDistanceBetweenGridPoints(position, light.position) / light.radius) * 100;
+        return 50 + 100 - (getDistanceBetweenGridPoints(position, light.position.grid) / light.radius) * 100;
       }),
     );
   };

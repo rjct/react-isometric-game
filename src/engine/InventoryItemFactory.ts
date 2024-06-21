@@ -1,8 +1,6 @@
 import { AmmoName } from "@src/dict/ammo/ammo";
 import { WeaponName } from "@src/dict/weapon/weapon";
-import { Building } from "@src/engine/building/BuildingFactory";
-import { Unit } from "@src/engine/unit/UnitFactory";
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
@@ -29,12 +27,12 @@ export type InventoryItemSortingProp = keyof typeof inventoryItemSortingProps;
 
 export class InventoryItem {
   public readonly itemClass: InventoryItemClass;
-  public owner: Unit | Building | Vehicle | null = null;
+  public owner: GameEntity | null = null;
   constructor(itemClass: InventoryItemClass) {
     this.itemClass = itemClass;
   }
 
-  assignOwner(owner: Unit | Building | Vehicle) {
+  assignOwner(owner: GameEntity) {
     this.owner = owner;
   }
 

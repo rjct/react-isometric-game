@@ -1,14 +1,15 @@
-import { Button } from "@src/components/ui/Button";
-import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
 import { DerivedStats } from "@src/components/_modals/unit_characteristics/DerivedStats";
+import { SPECIAL } from "@src/components/_modals/unit_characteristics/SPECIAL";
 import { SkillOverview } from "@src/components/_modals/unit_characteristics/SkillOverview";
 import { Skills } from "@src/components/_modals/unit_characteristics/Skills";
-import { SPECIAL } from "@src/components/_modals/unit_characteristics/SPECIAL";
+import { Button } from "@src/components/ui/Button";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { GameUnitCreationContext } from "@src/context/GameUnitCreationContext";
 import { UnitDerivedStatName } from "@src/dict/unit/_unitDerivedStat";
 import { UnitPrimaryStatName } from "@src/dict/unit/_unitPrimaryStat";
 import { UnitSkillName } from "@src/dict/unit/_unitSkills";
+import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
 import React from "react";
@@ -21,8 +22,8 @@ export function UnitCharacteristics() {
   >(null);
 
   const unit = React.useMemo(() => {
-    return gameState.selectedUnit || gameState.getHero();
-  }, [gameState.selectedUnit, gameState.getHero()]);
+    return gameState.selectedEntity instanceof Unit ? gameState.selectedEntity : gameState.getHero();
+  }, [gameState.selectedEntity, gameState.getHero()]);
 
   if (!checkCurrentScene(["unitCharacteristics"])) return null;
 

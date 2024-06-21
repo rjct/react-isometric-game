@@ -1,10 +1,10 @@
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons/faArrowLeft";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Button } from "@src/components/ui/Button";
-import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
 import { InventoryItemInfoPanel } from "@src/components/_modals/inventory/_shared/InventoryItemInfoPanel";
 import { InventoryStoragePanel } from "@src/components/_modals/inventory/_shared/InventoryStoragePanel";
+import { Button } from "@src/components/ui/Button";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { useGameState } from "@src/hooks/useGameState";
 import { useHero } from "@src/hooks/useHero";
 import { useScene } from "@src/hooks/useScene";
@@ -69,7 +69,7 @@ export function InventoryTransfer() {
           <EntityOverviewPanel
             entity={gameState.selectedEntityForInventoryTransfer!}
             className={["entity-overview-wrapper", "entity-overview-wrapper-right"]}
-            title={gameState.selectedEntityForInventoryTransfer!.type}
+            title={gameState.selectedEntityForInventoryTransfer!.dictEntity.type}
           />
           <InventoryStoragePanel
             title={`${inventoryItems.length}`}

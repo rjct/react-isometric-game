@@ -61,11 +61,11 @@ export const useLightsAndShadows = (gameState: GameMap) => {
         const color = light.getColor();
 
         const colorGradient = ctx.createRadialGradient(
-          light.position.x,
-          light.position.y,
+          light.position.grid.x,
+          light.position.grid.y,
           light.radius / 2,
-          light.position.x,
-          light.position.y,
+          light.position.grid.x,
+          light.position.grid.y,
           light.radius,
         );
         colorGradient.addColorStop(0, `${color}FF`);

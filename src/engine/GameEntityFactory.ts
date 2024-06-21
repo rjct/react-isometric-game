@@ -3,14 +3,14 @@ import { StaticMapWeapon, StaticMapWeaponAmmo } from "@src/context/GameStateCont
 import { BuildingDictEntity } from "@src/dict/building/_building";
 import { UnitDictEntity } from "@src/dict/unit/_unit";
 import { VehicleDictEntity } from "@src/dict/vehicle/_vehicle";
+import { InventoryItemClassGroup, InventoryItemClassGroupName } from "@src/engine/InventoryItemFactory";
 import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import { degToRad, getEntityZIndex, gridToScreenSpace, randomUUID } from "@src/engine/helpers";
-import { InventoryItemClassGroup, InventoryItemClassGroupName } from "@src/engine/InventoryItemFactory";
 import { LightRay } from "@src/engine/light/LightRayFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { calculateSizeAfterRotation, itemIsWeapon } from "@src/engine/weapon/helpers";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { calculateSizeAfterRotation, itemIsWeapon } from "@src/engine/weapon/helpers";
 
 export type GameEntityIntersectionWithLightRay = {
   wall: GameEntityWall;
@@ -305,11 +305,28 @@ export class GameEntity {
     return 0;
   }
 
+  public findInventoryEntityPlaceType(_entity: Weapon | Ammo): keyof GameEntity["inventory"] | null {
+    return "main";
+  }
+
+  public isAllowedToPutItemInInventory(_inventoryItem: Weapon | Ammo, _inventoryType: keyof GameEntity["inventory"]) {
+    return true;
+  }
+
   public putItemToInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
     if (inventoryType === "main" || !itemIsWeapon(item)) {
       this.inventory.main.push(item);
     } else {
       this.inventory[inventoryType] = item;
+    }
+  }
+
+  public removeItemFromInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
+    const itemOnInventory = this.inventory.main.find((backpackItem) => backpackItem.id === item.id);
+
+    if (itemOnInventory) {
+      const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
+      this.inventory.main.splice(index, 1);
     }
   }
 

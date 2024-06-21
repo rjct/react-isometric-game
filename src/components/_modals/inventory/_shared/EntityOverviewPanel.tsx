@@ -1,6 +1,7 @@
 import { LabelWithValue } from "@src/components/ui/LabelWithValue";
 import { BuildingComponent } from "@src/components/viewport/layers/userInteraction/buildings/Building";
 import { VehicleComponent } from "@src/components/viewport/layers/userInteraction/vehicles/Vehicle";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
@@ -40,17 +41,17 @@ const VehicleOverview = (props: { entity: Vehicle }) => {
   );
 };
 
-const getOverviewComponentForEntity = (entity: Unit | Building | Vehicle) => {
+const getOverviewComponentForEntity = (entity: GameEntity) => {
   if (entity instanceof Unit) {
     return <UnitOverview entity={entity} />;
   } else if (entity instanceof Building) {
     return <BuildingOverview entity={entity} />;
   } else {
-    return <VehicleOverview entity={entity} />;
+    return <VehicleOverview entity={entity as Vehicle} />;
   }
 };
 
-export function EntityOverviewPanel(props: { entity: Unit | Building | Vehicle; className: string[]; title: string }) {
+export function EntityOverviewPanel(props: { entity: GameEntity; className: string[]; title: string }) {
   return (
     <fieldset className={props.className.join(" ")}>
       <legend className={"outlined"}>{props.title}</legend>

@@ -35,7 +35,7 @@ export const ExportButton = React.memo(function ExportButton() {
       globalLights: gameState.globalLights,
       lights: gameState.lights.map((light) => {
         return {
-          position: light.position,
+          position: light.position.grid,
           color: light.getColor(),
           radius: light.radius,
         };

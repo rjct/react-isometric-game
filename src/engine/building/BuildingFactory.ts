@@ -72,23 +72,6 @@ export class Building extends GameEntity {
     this.inventory.main.push(item);
   }
 
-  public findInventoryEntityPlaceType(): keyof Building["inventory"] {
-    return "main";
-  }
-
-  public removeItemFromInventory(item: Weapon | Ammo) {
-    const itemOnInventory = this.inventory.main.find((backpackItem) => backpackItem.id === item.id);
-
-    if (itemOnInventory) {
-      const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
-      this.inventory.main.splice(index, 1);
-    }
-  }
-
-  public isAllowedToPutItemInInventory() {
-    return true;
-  }
-
   public getInventoryItemById(itemId: string) {
     return this.getInventoryItems().find((item) => item?.id === itemId);
   }

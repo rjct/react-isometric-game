@@ -1,18 +1,35 @@
 import { StaticMapLight } from "@src/context/GameStateContext";
 import { GameEntityIntersectionWithLightRay, GameEntityWall } from "@src/engine/GameEntityFactory";
-import { getDistanceBetweenGridPoints, randomUUID } from "@src/engine/helpers";
+import { constants } from "@src/engine/constants";
+import { getDistanceBetweenGridPoints, getEntityZIndex, randomUUID } from "@src/engine/helpers";
 
 export class Light {
   public readonly id = randomUUID();
   public readonly className = "light";
-  public position: GridCoordinates;
+  public position: {
+    grid: GridCoordinates;
+    screen: ScreenCoordinates;
+  } = {
+    grid: { x: 0, y: 0 },
+    screen: { x: 0, y: 0 },
+  };
+  public size: {
+    grid: Size3D;
+    screen: Size2D;
+  } = {
+    grid: { width: 1, length: 1, height: 1 },
+    screen: { width: 1, height: 1 },
+  };
+  public rotation = {
+    deg: 0,
+    rad: 0,
+  };
+  public zIndex: number = 0;
   private color = "#ffffff";
   public radius = 6;
   public intersectsWithWalls: GameEntityIntersectionWithLightRay[] = [];
 
   constructor(props: StaticMapLight) {
-    this.position = props.position;
-
     if (props.color) {
       this.color = props.color;
     }
@@ -20,6 +37,8 @@ export class Light {
     if (props.radius) {
       this.radius = props.radius;
     }
+
+    this.setPosition(props.position);
   }
 
   setColor(color: string) {
@@ -32,8 +51,8 @@ export class Light {
 
   cast(walls: GameEntityWall[]) {
     const lightPosition = {
-      x: this.position.x + 0.5,
-      y: this.position.y + 0.5,
+      x: this.position.grid.x + 0.5,
+      y: this.position.grid.y + 0.5,
     };
 
     const wallPoints = walls
@@ -102,14 +121,26 @@ export class Light {
   }
 
   setPosition(position: GridCoordinates) {
-    this.position = position;
+    this.position = {
+      grid: { ...position },
+      screen: {
+        x: position.x * constants.wireframeTileSize.width,
+        y: position.y * constants.wireframeTileSize.height,
+      },
+    };
+
+    this.zIndex = getEntityZIndex(this);
   }
 
   setRadius(radius: number) {
     this.radius = radius;
   }
 
+  getRoundedPosition() {
+    return this.position.grid;
+  }
+
   getHash() {
-    return `${this.position.x}:${this.position.y}:${this.radius}:${this.getColor()}`;
+    return `${this.position.grid.x}:${this.position.grid.y}:${this.radius}:${this.getColor()}`;
   }
 }

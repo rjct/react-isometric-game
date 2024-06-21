@@ -12,9 +12,7 @@ import { degToRad, generateNumbersWithStep } from "@src/engine/helpers";
 import { MovableGameEntity } from "@src/engine/MovableGameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { VehicleDerivedStat } from "@src/engine/vehicle/VehicleDerivedStatFactory";
-import { Ammo } from "@src/engine/weapon/AmmoFactory";
 import { calculateSizeAfterRotation, normalizeRotation } from "@src/engine/weapon/helpers";
-import { Weapon } from "@src/engine/weapon/WeaponFactory";
 
 export class Vehicle extends MovableGameEntity {
   public readonly type: VehicleType;
@@ -154,23 +152,6 @@ export class Vehicle extends MovableGameEntity {
 
   public getCurrentSpeed() {
     return this.speed.current;
-  }
-
-  public isAllowedToPutItemInInventory() {
-    return true;
-  }
-
-  public findInventoryEntityPlaceType(): keyof Vehicle["inventory"] {
-    return "main";
-  }
-
-  public removeItemFromInventory(item: Weapon | Ammo) {
-    const itemOnInventory = this.inventory.main.find((backpackItem) => backpackItem.id === item.id);
-
-    if (itemOnInventory) {
-      const index = this.inventory.main.findIndex((item) => item.id === itemOnInventory.id);
-      this.inventory.main.splice(index, 1);
-    }
   }
 
   public takeDamage(damage: number) {

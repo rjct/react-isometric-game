@@ -9,6 +9,7 @@ import {
   UnitType,
 } from "@src/dict/unit/_unit";
 import { Building } from "@src/engine/building/BuildingFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
 import { getDistanceBetweenGridPoints, randomInt } from "@src/engine/helpers";
 import { Light } from "@src/engine/light/LightFactory";
@@ -239,7 +240,7 @@ export class Unit extends MovableGameEntity {
     return this.inventory.main;
   }
 
-  public isAllowedToPutItemInInventory(inventoryItem: Weapon | Ammo, inventoryType: keyof Unit["inventory"]) {
+  public isAllowedToPutItemInInventory(inventoryItem: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
     if (inventoryType === "main") return true;
 
     return this.inventory[inventoryType] === null && itemIsWeapon(inventoryItem);
@@ -261,7 +262,7 @@ export class Unit extends MovableGameEntity {
     return null;
   }
 
-  public removeItemFromInventory(item: Weapon | Ammo, inventoryType: keyof Unit["inventory"]) {
+  public removeItemFromInventory(item: Weapon | Ammo, inventoryType: keyof GameEntity["inventory"]) {
     const itemOnInventory =
       this.inventory.main.find((backpackItem) => backpackItem.id === item.id) ||
       this.inventory.leftHand ||
@@ -396,10 +397,10 @@ export class Unit extends MovableGameEntity {
     }
 
     this.shadows = gameState.lights
-      .filter((light) => light.radius >= getDistanceBetweenGridPoints(this.position.grid, light.position))
+      .filter((light) => light.radius >= getDistanceBetweenGridPoints(this.position.grid, light.position.grid))
       .map((light) => {
-        const distance = getDistanceBetweenGridPoints(this.position.grid, light.position);
-        const obstacleRay = new ObstacleRay(light.position, this.position.grid, true);
+        const distance = getDistanceBetweenGridPoints(this.position.grid, light.position.grid);
+        const obstacleRay = new ObstacleRay(light.position.grid, this.position.grid, true);
         const distanceToRayEnd = obstacleRay.getDistanceToRayEndPosition(gameState, true);
 
         return {

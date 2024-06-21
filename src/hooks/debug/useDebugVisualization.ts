@@ -209,8 +209,8 @@ export function useDebugVisualization() {
         const x1 = unit.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
         const y1 = unit.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
 
-        const x2 = shadow.light.position.x * wireframeTileWidth + wireframeTileWidth / 2;
-        const y2 = shadow.light.position.y * wireframeTileHeight + wireframeTileHeight / 2;
+        const x2 = shadow.light.position.grid.x * wireframeTileWidth + wireframeTileWidth / 2;
+        const y2 = shadow.light.position.grid.y * wireframeTileHeight + wireframeTileHeight / 2;
 
         ctx.beginPath();
         ctx.moveTo(x1, y1);

@@ -9,7 +9,7 @@ export const WireframeEntityPlaceholder = React.memo(() => {
   React.useEffect(() => {
     if (uiState.scene !== "editor") return;
 
-    const selectedEntity = gameState.selectedBuilding || gameState.selectedUnit;
+    const selectedEntity = gameState.selectedEntity;
 
     if (selectedEntity) {
       gameDispatch({
@@ -21,7 +21,7 @@ export const WireframeEntityPlaceholder = React.memo(() => {
     } else {
       gameDispatch({ type: "clearEntityPlaceholder" });
     }
-  }, [gameState.selectedBuilding?.getHash(), gameState.selectedUnit?.getHash()]);
+  }, [gameState.selectedEntity?.getHash()]);
 
   return gameState.entityPlaceholder ? (
     <div

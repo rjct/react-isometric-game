@@ -13,6 +13,7 @@ export const BuildingComponent = React.memo(function Building(props: {
   onMouseUp?: (e: React.MouseEvent) => void;
   maskImage?: CSSProperties["WebkitMaskImage"];
   isInHeroView?: boolean;
+  style?: CSSProperties;
 }) {
   const handleMouseMove = (e: React.MouseEvent) => {
     if (props.onMouseMove) {
@@ -47,6 +48,7 @@ export const BuildingComponent = React.memo(function Building(props: {
         zIndex: props.building.zIndex,
         WebkitMaskImage: props.maskImage,
         clipPath: props.building.getClipPath(),
+        ...props.style,
       }}
       data-rotation={props.building.rotation.deg}
       data-variant={props.building.variant}

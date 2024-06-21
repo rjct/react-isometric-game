@@ -1,9 +1,10 @@
-import { Button } from "@src/components/ui/Button";
-import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
 import { EntityOverviewPanel } from "@src/components/_modals/inventory/_shared/EntityOverviewPanel";
 import { InventoryDictStoragePanel } from "@src/components/_modals/inventory/_shared/InventoryDictStoragePanel";
 import { InventoryItemInfoPanel } from "@src/components/_modals/inventory/_shared/InventoryItemInfoPanel";
 import { InventoryStoragePanel } from "@src/components/_modals/inventory/_shared/InventoryStoragePanel";
+import { Button } from "@src/components/ui/Button";
+import { FullscreenPanel } from "@src/components/ui/FullscreenPanel";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { useEditor } from "@src/hooks/useEditor";
 import { useGameState } from "@src/hooks/useGameState";
 import { useScene } from "@src/hooks/useScene";
@@ -15,8 +16,8 @@ export const EntityInventoryManagerModal = React.memo(() => {
   const { checkEditorMode } = useEditor();
 
   const selectedEntity = React.useMemo(() => {
-    return gameState.selectedUnit || gameState.selectedBuilding || gameState.selectedVehicle;
-  }, [gameState.selectedUnit, gameState.selectedBuilding, gameState.selectedVehicle]);
+    return gameState.selectedEntity as GameEntity;
+  }, [gameState.selectedEntity]);
 
   const [editorModesHistory, saveEditorModesHistory] = React.useState([uiState.editorMode]);
 

@@ -49,7 +49,7 @@ export const LightsAndShadows = React.memo(() => {
     if (!isAllowed) return;
 
     gameDispatch({ type: "recalculateLightsAndShadows" });
-  }, [gameState.getVehiclesHash()]);
+  }, [gameState.getLightsHash()]);
 
   if (!isAllowed) return null;
 

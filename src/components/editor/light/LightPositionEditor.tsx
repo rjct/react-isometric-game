@@ -9,7 +9,7 @@ export function LightPositionEditor(props: { light: Light }) {
   const [coordinates, setCoordinates] = React.useState<GridCoordinates | null>(null);
 
   React.useEffect(() => {
-    setCoordinates(props.light ? props.light.position : { x: 0, y: 0 });
+    setCoordinates(props.light ? props.light.position.grid : { x: 0, y: 0 });
   }, [props.light.getHash()]);
 
   return coordinates ? (
@@ -24,7 +24,7 @@ export function LightPositionEditor(props: { light: Light }) {
           gameDispatch({
             type: "setLightPosition",
             entityId: props.light.id,
-            coordinates: { x: value, y: props.light.position.y },
+            coordinates: { x: value, y: props.light.position.grid.y },
           });
         }}
       />
@@ -39,9 +39,8 @@ export function LightPositionEditor(props: { light: Light }) {
           gameDispatch({
             type: "setLightPosition",
             entityId: props.light.id,
-            coordinates: { x: props.light.position.x, y: value },
+            coordinates: { x: props.light.position.grid.x, y: value },
           });
-          gameDispatch({ type: "recalculateLightsAndShadows" });
         }}
       />
     </div>

@@ -1,6 +1,5 @@
-import { Building } from "@src/engine/building/BuildingFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { createInventoryItemByName } from "@src/engine/weapon/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import React from "react";
@@ -13,7 +12,7 @@ export function useDragAndDropItem() {
     e.dataTransfer.dropEffect = "move";
   };
 
-  const handleDrop = (e: React.DragEvent, to: Unit | Building | Vehicle, toInventoryType: keyof Unit["inventory"]) => {
+  const handleDrop = (e: React.DragEvent, to: GameEntity, toInventoryType: keyof Unit["inventory"]) => {
     e.preventDefault();
     const itemTransferMode = e.dataTransfer.getData("item-transfer-mode");
     const inventoryItemId = e.dataTransfer.getData("inventory/item-id");

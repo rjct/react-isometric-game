@@ -4,15 +4,14 @@ import {
   InventoryItemsSortControl,
   InventoryItemsSortingState,
 } from "@src/components/_modals/inventory/_shared/InventoryItemsSortControl";
-import { Building } from "@src/engine/building/BuildingFactory";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { InventoryItemClass, inventoryItemClasses } from "@src/engine/InventoryItemFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
-import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useDragAndDropItem } from "@src/hooks/useDragAndDropItem";
 import React from "react";
 
 export function InventoryStoragePanel(props: {
-  owner: Unit | Building | Vehicle;
+  owner: GameEntity;
   className: string[];
   title: string;
   inventoryType?: keyof Unit["inventory"];

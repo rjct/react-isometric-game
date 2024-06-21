@@ -2,7 +2,7 @@ import { getCss3dPosition } from "@src/engine/helpers";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMessages } from "@src/hooks/useMessages";
-import React from "react";
+import React, { CSSProperties } from "react";
 
 export const VehicleComponent = (props: {
   vehicle: Vehicle;
@@ -13,6 +13,7 @@ export const VehicleComponent = (props: {
   onMouseMove?: (e: React.MouseEvent, entity: Vehicle) => void;
   onMouseDown?: (e: React.MouseEvent, entity: Vehicle) => void;
   onMouseUp?: (e: React.MouseEvent) => void;
+  style?: CSSProperties;
 }) => {
   const { gameDispatch } = useGameState();
   const { notify_EntityTakesDamage } = useMessages();
@@ -46,18 +47,15 @@ export const VehicleComponent = (props: {
 
       gameDispatch({ type: "handleVehicleCollision", vehicle: props.vehicle });
 
-      window.setTimeout(
-        () => {
-          props.vehicle.setAction("idle");
+      window.setTimeout(() => {
+        props.vehicle.setAction("idle");
 
-          gameDispatch({
-            type: "setVehicleRotation",
-            entityId: props.vehicle.id,
-            rotation: props.vehicle.rotation.deg + 11.25,
-          });
-        },
-        props.vehicle.dictEntity?.animationDuration.collision,
-      );
+        gameDispatch({
+          type: "setVehicleRotation",
+          entityId: props.vehicle.id,
+          rotation: props.vehicle.rotation.deg + 11.25,
+        });
+      }, props.vehicle.dictEntity?.animationDuration.collision);
     }
   }, [props.vehicle.action]);
 
@@ -76,6 +74,7 @@ export const VehicleComponent = (props: {
         animationDuration:
           props.vehicle.action === "driving" ? `${Math.round(1000 - props.vehicle.speed.current * 20)}ms` : undefined,
         clipPath: props.vehicle.getClipPath(),
+        ...props.style,
       }}
       data-selected={props.selected || null}
       data-dragging={props.dragging || null}

@@ -103,20 +103,17 @@ export const gameMap = {
   ammoFiredIds: [] as Array<Ammo["id"]>,
 
   matrix: [] as Array<Array<number>>,
-  occupancyMatrix: [] as Array<Array<Map<string, Unit | Building | Vehicle>>>,
+  occupancyMatrix: [] as Array<Array<Map<string, GameEntity>>>,
   mediaAssets: {} as MediaAssets,
 
   fogOfWar: null as unknown as FogOfWar,
 
-  selectedEntityForInventoryTransfer: null as unknown as Unit | Building | Vehicle | null,
-  highlightedEntityForInventoryTransfer: null as unknown as Unit | Building | Vehicle | null,
+  selectedEntityForInventoryTransfer: null as unknown as GameEntity | null,
+  highlightedEntityForInventoryTransfer: null as unknown as GameEntity | null,
 
   selectedInventoryItem: null as unknown as WeaponDictEntity | AmmoDictEntity | null,
 
-  selectedBuilding: null as unknown as Building,
-  selectedVehicle: null as unknown as Vehicle,
-  selectedUnit: null as unknown as Unit,
-  selectedLight: null as unknown as Light,
+  selectedEntity: null as unknown as GameEntity | Light,
   entityPlaceholder: null as unknown as {
     position: GridCoordinates;
     size: Size3D;
@@ -242,7 +239,7 @@ export const gameMap = {
     return this.getHero().fieldOfView.isEntityInView(entity);
   },
 
-  setGridMatrixOccupancy(entities: Array<Unit | Building | Vehicle>, occupancy = 1) {
+  setGridMatrixOccupancy(entities: Array<GameEntity>, occupancy = 1) {
     for (const entity of entities) {
       if (!entity.occupiesCell) continue;
 
@@ -464,14 +461,14 @@ export const gameMap = {
   },
 
   deleteSelectedBuilding() {
-    if (!this.selectedBuilding) return false;
+    if (!this.selectedEntity || !(this.selectedEntity instanceof Building)) return false;
 
-    const confirmDelete = confirm(`Are you sure to delete building #"${this.selectedBuilding.id}"?`);
+    const confirmDelete = confirm(`Are you sure to delete building #"${this.selectedEntity.id}"?`);
 
     if (!confirmDelete) return false;
 
-    this.deleteBuilding(this.selectedBuilding.id);
-    this.selectedBuilding = null as unknown as Building;
+    this.deleteBuilding(this.selectedEntity.id);
+    this.selectedEntity = null as unknown as Building;
 
     return true;
   },
@@ -486,14 +483,14 @@ export const gameMap = {
   },
 
   deleteSelectedVehicle() {
-    if (!this.selectedVehicle) return false;
+    if (!this.selectedEntity || !(this.selectedEntity instanceof Vehicle)) return false;
 
-    const confirmDelete = confirm(`Are you sure to delete vehicle #"${this.selectedBuilding.id}"?`);
+    const confirmDelete = confirm(`Are you sure to delete vehicle #"${this.selectedEntity.id}"?`);
 
     if (!confirmDelete) return false;
 
-    this.deleteVehicle(this.selectedVehicle.id);
-    this.selectedVehicle = null as unknown as Vehicle;
+    this.deleteVehicle(this.selectedEntity.id);
+    this.selectedEntity = null as unknown as Vehicle;
 
     return true;
   },
@@ -510,14 +507,14 @@ export const gameMap = {
   },
 
   deleteSelectedUnit() {
-    if (!this.selectedUnit) return false;
+    if (!this.selectedEntity || !(this.selectedEntity instanceof Unit)) return false;
 
-    const confirmDelete = confirm(`Are you sure to delete unit #"${this.selectedUnit.id}"?`);
+    const confirmDelete = confirm(`Are you sure to delete unit #"${this.selectedEntity.id}"?`);
 
     if (!confirmDelete) return false;
 
-    this.deleteUnit(this.selectedUnit.id);
-    this.selectedUnit = null as unknown as Unit;
+    this.deleteUnit(this.selectedEntity.id);
+    this.selectedEntity = null as unknown as Unit;
 
     return true;
   },
@@ -527,14 +524,14 @@ export const gameMap = {
   },
 
   deleteSelectedLight() {
-    if (!this.selectedLight) return false;
+    if (!this.selectedEntity || !(this.selectedEntity instanceof Light)) return false;
 
-    const confirmDelete = confirm(`Are you sure to delete light #"${this.selectedLight.id}"?`);
+    const confirmDelete = confirm(`Are you sure to delete light #"${this.selectedEntity.id}"?`);
 
     if (!confirmDelete) return false;
 
-    this.deleteLight(this.selectedLight.id);
-    this.selectedLight = null as unknown as Light;
+    this.deleteLight(this.selectedEntity.id);
+    this.selectedEntity = null as unknown as Light;
 
     return true;
   },

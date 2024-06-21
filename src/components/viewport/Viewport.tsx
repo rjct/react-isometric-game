@@ -1,9 +1,6 @@
 import { DebugVisualization } from "@src/components/debug/DebugVisualization";
-import { BuildingEditor } from "@src/components/editor/building/BuildingEditor";
-import { LightEditor } from "@src/components/editor/light/LightEditor";
+import { Editor } from "@src/components/editor/Editor";
 import { TerrainAreasEditor } from "@src/components/editor/terrain/TerrainAreasEditor";
-import { UnitEditor } from "@src/components/editor/unit/UnitEditor";
-import { VehicleEditor } from "@src/components/editor/vehicle/VehicleEditor";
 import { Ammo } from "@src/components/viewport/layers/ammo/Ammo";
 import { FogOfWarComponent } from "@src/components/viewport/layers/fogOfWar/FogOfWar";
 import { LightsAndShadows } from "@src/components/viewport/layers/lightsAndShadows/LightsAndShadows";
@@ -77,7 +74,7 @@ export const Viewport = React.memo(
     };
 
     const handleMouseDown = () => {
-      gameDispatch({ type: "clearSelectedBuilding" });
+      gameDispatch({ type: "clearSelectedEntity" });
       gameDispatch({ type: "clearSelectedVehicle" });
       terrainDispatch({ type: "clearSelectedTerrainArea" });
       gameDispatch({ type: "clearSelectedLight" });
@@ -244,23 +241,19 @@ export const Viewport = React.memo(
       });
     }, [hero.position.screen]);
 
-    React.useImperativeHandle(
-      forwardedRefs,
-      () => {
-        return {
-          setScroll: (position: ScreenCoordinates) => {
-            if (mapRef.current) {
-              mapRef.current.scrollTo({
-                top: position.y,
-                left: position.x,
-                behavior: "smooth",
-              });
-            }
-          },
-        };
-      },
-      [],
-    );
+    React.useImperativeHandle(forwardedRefs, () => {
+      return {
+        setScroll: (position: ScreenCoordinates) => {
+          if (mapRef.current) {
+            mapRef.current.scrollTo({
+              top: position.y,
+              left: position.x,
+              behavior: "smooth",
+            });
+          }
+        },
+      };
+    }, []);
 
     return (
       <>
@@ -285,11 +278,13 @@ export const Viewport = React.memo(
 
           {checkCurrentScene(["editor"]) ? (
             <>
-              <BuildingEditor />
+              <Editor />
+
+              {/*<BuildingEditor />*/}
               <TerrainAreasEditor />
-              <UnitEditor />
-              <VehicleEditor />
-              <LightEditor />
+              {/*<UnitEditor />*/}
+              {/*<VehicleEditor />*/}
+              {/*<LightEditor />*/}
             </>
           ) : null}
 

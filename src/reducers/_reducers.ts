@@ -105,7 +105,10 @@ import { SwitchGameMapReducerAction, switchMap } from "@src/reducers/switchMap";
 import { transferInventoryItem, TransferInventoryItemReducerAction } from "@src/reducers/transferInventoryItem";
 
 import { beforeUpdateMapUrl, BeforeUpdateMapUrlReducerAction } from "@src/reducers/beforeUpdateMapUrl";
+import { clearSelectedEntity, ClearSelectedEntityReducerAction } from "@src/reducers/editor/clearSelectedEntity";
 import { deleteLight, DeleteLightReducerAction } from "@src/reducers/editor/light/deleteLight";
+import { setEntityPosition, SetEntityPositionReducerAction } from "@src/reducers/editor/setEntityPosition";
+import { setSelectedEntity, SetSelectedEntityReducerAction } from "@src/reducers/editor/setSelectedEntity";
 import { addVehicle, AddVehicleReducerAction } from "@src/reducers/editor/vehicle/addVehicle";
 import {
   clearSelectedVehicle,
@@ -192,6 +195,10 @@ export type GameReducerAction =
   //
   | HighlightEntityPlaceholderReducerAction
   | ClearEntityPlaceholderReducerAction
+  //
+  | SetSelectedEntityReducerAction
+  | ClearSelectedEntityReducerAction
+  | SetEntityPositionReducerAction
   //
   | AddBuildingReducerAction
   | SetSelectedBuildingReducerAction
@@ -366,6 +373,15 @@ export function reducer(state: GameMap, action: GameReducerAction): GameMap {
 
     case "clearEntityPlaceholder":
       return clearEntityPlaceholder(state, action as ClearEntityPlaceholderReducerAction);
+
+    case "setSelectedEntity":
+      return setSelectedEntity(state, action as SetSelectedEntityReducerAction);
+
+    case "clearSelectedEntity":
+      return clearSelectedEntity(state, action as ClearSelectedEntityReducerAction);
+
+    case "setEntityPosition":
+      return setEntityPosition(state, action as SetEntityPositionReducerAction);
 
     // EDITOR: BUILDING
     case "addBuilding":

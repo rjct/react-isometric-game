@@ -1,6 +1,6 @@
+import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { WireframeEntityPlaceholder } from "@src/components/viewport/layers/wireframe/WireframeEntityPlaceholder";
 import { WireframeMarker } from "@src/components/viewport/layers/wireframe/WireframeMarker";
-import { GameLayer } from "@src/components/viewport/_shared/GameLayer";
 import { constants } from "@src/engine/constants";
 
 import { WireframeTooltip } from "@src/components/viewport/layers/wireframe/WireframeTooltip";
@@ -11,7 +11,7 @@ import React from "react";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState } = useGameState();
-  const { getEditorLibraryPosition } = useEditor();
+  const { getEditorLibraryPosition, checkEditorMode } = useEditor();
   const { markerPosition, markerClassName, tooltipValue } = useMousePosition();
 
   return (
@@ -36,7 +36,8 @@ export const Wireframe = React.memo(function WireframeTiles() {
           size={gameState.mapSize}
           className={"wireframe"}
           dataProps={{
-            "data-wireframe-active": gameState.debug.enabled && gameState.debug.featureEnabled.wireframe,
+            "data-wireframe-active":
+              checkEditorMode(["terrain"]) || (gameState.debug.enabled && gameState.debug.featureEnabled.wireframe),
           }}
         >
           <WireframeMarker

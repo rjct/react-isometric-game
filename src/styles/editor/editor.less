@@ -1,3 +1,17 @@
+.editor-viewport {
+  position: absolute;
+  inset: 0;
+  transform-origin: left top;
+  z-index: 2;
+  pointer-events: auto;
+}
+
+[data-editor-mode="terrain"] {
+  .editor-viewport {
+    pointer-events: none;
+  }
+}
+
 .editor {
   position: absolute;
   right: @padding;

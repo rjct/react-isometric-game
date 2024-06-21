@@ -1,9 +1,10 @@
 import { StaticMap } from "@src/context/GameStateContext";
 import { GameUI } from "@src/context/GameUIContext";
+import { GameEntity } from "@src/engine/GameEntityFactory";
 import { Building } from "@src/engine/building/BuildingFactory";
 import { constants } from "@src/engine/constants";
-import { GameEntity } from "@src/engine/GameEntityFactory";
 import { GameMap } from "@src/engine/gameMap";
+import { Light } from "@src/engine/light/LightFactory";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vehicle } from "@src/engine/vehicle/VehicleFactory";
 
@@ -18,7 +19,7 @@ export function randomInt(min: number, max: number) {
   return floor(Math.random() * (max - min + 1)) + min;
 }
 
-export function getEntityZIndex(entity: GameEntity) {
+export function getEntityZIndex(entity: GameEntity | Light) {
   const { position, size } = entity;
 
   const x = Math.ceil(position.grid.x + size.grid.width);
