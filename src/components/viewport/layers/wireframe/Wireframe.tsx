@@ -11,7 +11,7 @@ import React from "react";
 
 export const Wireframe = React.memo(function WireframeTiles() {
   const { gameState } = useGameState();
-  const { getEditorLibraryPosition, checkEditorMode } = useEditor();
+  const { getEditorLibraryPosition } = useEditor();
   const { markerPosition, markerClassName, tooltipValue } = useMousePosition();
 
   return (
@@ -36,8 +36,7 @@ export const Wireframe = React.memo(function WireframeTiles() {
           size={gameState.mapSize}
           className={"wireframe"}
           dataProps={{
-            "data-wireframe-active":
-              checkEditorMode(["terrain"]) || (gameState.debug.enabled && gameState.debug.featureEnabled.wireframe),
+            "data-wireframe-active": gameState.debug.enabled && gameState.debug.featureEnabled.wireframe,
           }}
         >
           <WireframeMarker
