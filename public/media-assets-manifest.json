@@ -1,8 +1,8 @@
 {
   "image": {
     "total": {
-      "count": 137,
-      "size": 6525859
+      "count": 144,
+      "size": 6679519
     },
     "files": {
       "/assets/UI/cursors/default.png": {
@@ -69,6 +69,18 @@
         "path": "/react-isometric-game/assets/ammo/45_caliber/icon.webp",
         "name": "icon.webp",
         "size": 1724,
+        "type": "image"
+      },
+      "/assets/ammo/7_62mm/icon.webp": {
+        "path": "/react-isometric-game/assets/ammo/7_62mm/icon.webp",
+        "name": "icon.webp",
+        "size": 1240,
+        "type": "image"
+      },
+      "/assets/ammo/7_62mm/iso.webp": {
+        "path": "/react-isometric-game/assets/ammo/7_62mm/iso.webp",
+        "name": "iso.webp",
+        "size": 700,
         "type": "image"
       },
       "/assets/ammo/9mm/9mm_AP/icon.webp": {
@@ -509,6 +521,12 @@
         "size": 31714,
         "type": "image"
       },
+      "/assets/units/vault13_male/idle/vault13_male__idle__rifle.webp": {
+        "path": "/react-isometric-game/assets/units/vault13_male/idle/vault13_male__idle__rifle.webp",
+        "name": "vault13_male__idle__rifle.webp",
+        "size": 52530,
+        "type": "image"
+      },
       "/assets/units/vault13_male/idle/vault13_male__idle__smg.webp": {
         "path": "/react-isometric-game/assets/units/vault13_male/idle/vault13_male__idle__smg.webp",
         "name": "vault13_male__idle__smg.webp",
@@ -525,6 +543,12 @@
         "path": "/react-isometric-game/assets/units/vault13_male/none/vault13_male__none__pistol.webp",
         "name": "vault13_male__none__pistol.webp",
         "size": 31714,
+        "type": "image"
+      },
+      "/assets/units/vault13_male/none/vault13_male__none__rifle.webp": {
+        "path": "/react-isometric-game/assets/units/vault13_male/none/vault13_male__none__rifle.webp",
+        "name": "vault13_male__none__rifle.webp",
+        "size": 52530,
         "type": "image"
       },
       "/assets/units/vault13_male/none/vault13_male__none__smg.webp": {
@@ -597,6 +621,12 @@
         "path": "/react-isometric-game/assets/units/vault13_male/shot_single/vault13_male__shot_single__pistol.webp",
         "name": "vault13_male__shot_single__pistol.webp",
         "size": 32360,
+        "type": "image"
+      },
+      "/assets/units/vault13_male/shot_single/vault13_male__shot_single__rifle.webp": {
+        "path": "/react-isometric-game/assets/units/vault13_male/shot_single/vault13_male__shot_single__rifle.webp",
+        "name": "vault13_male__shot_single__rifle.webp",
+        "size": 44664,
         "type": "image"
       },
       "/assets/units/vault13_male/shot_single/vault13_male__shot_single__smg.webp": {
@@ -785,6 +815,18 @@
         "size": 718,
         "type": "image"
       },
+      "/assets/weapons/firearm/rifle/sniper_rifle/icon.webp": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/icon.webp",
+        "name": "icon.webp",
+        "size": 1334,
+        "type": "image"
+      },
+      "/assets/weapons/firearm/rifle/sniper_rifle/iso.webp": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/iso.webp",
+        "name": "iso.webp",
+        "size": 662,
+        "type": "image"
+      },
       "/assets/weapons/firearm/smg/mp5/icon.webp": {
         "path": "/react-isometric-game/assets/weapons/firearm/smg/mp5/icon.webp",
         "name": "icon.webp",
@@ -831,8 +873,8 @@
   },
   "audio": {
     "total": {
-      "count": 61,
-      "size": 699709
+      "count": 65,
+      "size": 754594
     },
     "files": {
       "/assets/UI/button.m4a": {
@@ -1085,6 +1127,30 @@
         "path": "/react-isometric-game/assets/weapons/firearm/rico_7.mp3",
         "name": "rico_7.mp3",
         "size": 6061,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/sniper_rifle/out_of_ammo.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/out_of_ammo.m4a",
+        "name": "out_of_ammo.m4a",
+        "size": 7243,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/sniper_rifle/reload.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/reload.m4a",
+        "name": "reload.m4a",
+        "size": 14763,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/sniper_rifle/shot_single_1.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/shot_single_1.m4a",
+        "name": "shot_single_1.m4a",
+        "size": 15741,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/sniper_rifle/shot_single_2.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/shot_single_2.m4a",
+        "name": "shot_single_2.m4a",
+        "size": 17138,
         "type": "audio"
       },
       "/assets/weapons/firearm/smg/mp5/out_of_ammo.m4a": {

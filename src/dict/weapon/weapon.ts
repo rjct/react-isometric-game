@@ -22,7 +22,7 @@ export enum weaponAttackModes {
 }
 
 export type WeaponClass = keyof typeof weaponClassNames;
-export type WeaponType = "pistol" | "smg" | "grenade" | "knife";
+export type WeaponType = "pistol" | "smg" | "rifle" | "grenade" | "knife";
 export type WeaponDamage = {
   min: number;
   max: number;

@@ -1,4 +1,5 @@
 import ammo_45 from "@src/dict/ammo/.45/.45";
+import ammo_7_62mm from "@src/dict/ammo/7.62mm/7.62mm";
 import ammo_9mm from "@src/dict/ammo/9mm/_9mm";
 import grenade from "@src/dict/ammo/grenade/_grenade";
 import melee from "@src/dict/ammo/melee/_melee";
@@ -75,7 +76,7 @@ export type AmmoDictEntity = {
   vfx?: WeaponAmmoVfx;
 };
 
-const ammoList = { ...ammo_45, ...ammo_9mm, ...grenade, ...melee };
+const ammoList = { ...ammo_45, ...ammo_9mm, ...ammo_7_62mm, ...grenade, ...melee };
 
 export type AmmoName = Exclude<keyof typeof ammoList, number>;
 export default function getAmmoDictList(skipFakeAmmo = false) {

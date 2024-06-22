@@ -40,6 +40,13 @@
             background-image: url(@action-bg-with-smg) !important;
           }
         }
+
+        &[data-weapon="rifle"] {
+          .char {
+            @action-bg-with-rifle: %('/assets/units/%a/%d/%a__%d__rifle.webp', @unit-type, @value, @unit-type, @value);
+            background-image: url(@action-bg-with-rifle) !important;
+          }
+        }
       }
     });
   }
