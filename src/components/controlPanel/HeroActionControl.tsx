@@ -1,5 +1,6 @@
 import { faRefresh } from "@fortawesome/free-solid-svg-icons/faRefresh";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { ItemImage } from "@src/components/_modals/inventory/_shared/ItemImage";
 import { weaponAttackModes } from "@src/dict/weapon/weapon";
 import { constants } from "@src/engine/constants";
 import { Unit } from "@src/engine/unit/UnitFactory";
@@ -109,7 +110,8 @@ export const HeroActionControl = (props: {
         <div className={"label"}>
           {props.weapon && attackMode.mode ? (
             <>
-              <div className={`inventory-item-pic ${props.weapon.name}`} data-name={props.weapon.name}></div>
+              <ItemImage dictEntity={props.weapon.dictEntity} />
+
               <div className={"weapon-ap-consumption"}>
                 AP: {props.weapon.getCurrentAttackModeDetails().actionPointsConsumption}
               </div>

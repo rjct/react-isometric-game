@@ -1,3 +1,4 @@
+import { ItemImage } from "@src/components/_modals/inventory/_shared/ItemImage";
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import React from "react";
@@ -25,7 +26,8 @@ export const InventoryDictEntity = (props: {
       onClick={props.onClick}
     >
       {isGroup ? <div className={"entities-group-count"}>x{props.groupLength}</div> : null}
-      <div className={`inventory-item-pic`} data-name={[props.dictEntity.name]}></div>
+      <ItemImage dictEntity={props.dictEntity} />
+
       {props.compact ? (
         <div className={"inventory-item-title-wrapper"}>
           <div className={"inventory-item-title-title"}>{props.dictEntity.title}</div>
