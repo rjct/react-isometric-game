@@ -1,8 +1,8 @@
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 
 const ammo_7_62mm: { [id: string]: AmmoDictEntity } = {
-  "7.62mm": {
-    name: "7.62mm",
+  "7_62mm": {
+    name: "7_62mm",
     class: "firearm_ammo",
     type: "7.62mm",
     title: "7.62mm",

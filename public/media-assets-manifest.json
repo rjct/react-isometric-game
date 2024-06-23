@@ -2,7 +2,7 @@
   "image": {
     "total": {
       "count": 144,
-      "size": 6679519
+      "size": 6676361
     },
     "files": {
       "/assets/UI/cursors/default.png": {
@@ -626,7 +626,7 @@
       "/assets/units/vault13_male/shot_single/vault13_male__shot_single__rifle.webp": {
         "path": "/react-isometric-game/assets/units/vault13_male/shot_single/vault13_male__shot_single__rifle.webp",
         "name": "vault13_male__shot_single__rifle.webp",
-        "size": 44664,
+        "size": 41506,
         "type": "image"
       },
       "/assets/units/vault13_male/shot_single/vault13_male__shot_single__smg.webp": {

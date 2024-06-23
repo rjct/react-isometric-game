@@ -19,7 +19,7 @@
         { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 999 },
         { "class": "firearm_ammo", "name": "9mm_AP", "quantity": 999 },
         { "class": "firearm_ammo", "name": "9mm_JHP", "quantity": 999 },
-        { "class": "firearm_ammo", "name": "7.62mm", "quantity": 999 },
+        { "class": "firearm_ammo", "name": "7_62mm", "quantity": 999 },
         { "class": "weapon", "name": "colt_45" },
         { "class": "weapon", "name": "beretta_M92FS" },
         { "class": "weapon", "name": "molotov_cocktail", "quantity": 10 },
