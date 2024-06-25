@@ -4,8 +4,9 @@ import { randomInt } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { Vfx } from "@src/engine/vfx/VfxFactory";
 import { Ammo } from "@src/engine/weapon/AmmoFactory";
-import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
+import { LaserAmmo } from "@src/engine/weapon/laser/LaserAmmoFactory";
 
 export class Firearm extends Weapon {
   ammoCurrent: Ammo[] = [];
@@ -97,7 +98,11 @@ export class Firearm extends Weapon {
 
     const currentAttackModeDetails = this.getCurrentAttackModeDetails();
     const ammoItems = this.owner.inventory.main
-      .filter((item) => item instanceof FirearmAmmo && item.dictEntity.type === currentAttackModeDetails.ammoType)
+      .filter(
+        (item) =>
+          (item instanceof FirearmAmmo || item instanceof LaserAmmo) &&
+          item.dictEntity.type === currentAttackModeDetails.ammoType,
+      )
       .slice(0, this.dictEntity.ammoCapacity! - this.ammoCurrent.length) as Ammo[];
 
     if (ammoItems.length === 0) {

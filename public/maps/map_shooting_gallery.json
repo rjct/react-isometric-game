@@ -15,6 +15,7 @@
     "rotation": 0,
     "inventory": {
       "main": [
+        { "class": "laser_ammo", "name": "microfusion_cell", "quantity": 999 },
         { "class": "firearm_ammo", "name": ".45", "quantity": 2 },
         { "class": "firearm_ammo", "name": "9mm_ball", "quantity": 999 },
         { "class": "firearm_ammo", "name": "9mm_AP", "quantity": 999 },
@@ -28,7 +29,7 @@
         { "class": "weapon", "name": "throwing_knife" },
         { "class": "weapon", "name": "sniper_rifle" }
       ],
-      "leftHand": { "class": "weapon", "name": "frag_grenade" },
+      "leftHand": { "class": "weapon", "name": "laser_rifle" },
       "rightHand": { "class": "weapon", "name": "mp5" }
     }
   },

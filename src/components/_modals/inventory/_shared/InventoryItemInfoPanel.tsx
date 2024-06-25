@@ -1,7 +1,7 @@
-import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { AmmoDetailsList } from "@src/components/_modals/inventory/_shared/AmmoDetailsList";
 import { ItemImage } from "@src/components/_modals/inventory/_shared/ItemImage";
 import { WeaponDetailsList } from "@src/components/_modals/inventory/_shared/WeaponDetailsList";
+import { NothingSelectedText } from "@src/components/editor/_shared/NothingSelectedText";
 import { AmmoDictEntity } from "@src/dict/ammo/ammo";
 import { WeaponDictEntity } from "@src/dict/weapon/weapon";
 import React from "react";
@@ -16,6 +16,7 @@ const ItemInfoComponent = (dictEntity: InventoryItemInfoProps["dictEntity"]) => 
       return <WeaponDetailsList dictEntity={dictEntity} />;
 
     case "firearm_ammo":
+    case "laser_ammo":
     case "melee_ammo":
     case "grenade_ammo":
       return <AmmoDetailsList dictEntity={dictEntity} />;

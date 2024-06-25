@@ -1,8 +1,8 @@
 {
   "image": {
     "total": {
-      "count": 144,
-      "size": 6676361
+      "count": 146,
+      "size": 6678635
     },
     "files": {
       "/assets/UI/cursors/default.png": {
@@ -117,6 +117,12 @@
         "path": "/react-isometric-game/assets/ammo/9mm/9mm_ball/iso.webp",
         "name": "iso.webp",
         "size": 566,
+        "type": "image"
+      },
+      "/assets/ammo/energy/microfusion_cell/icon.webp": {
+        "path": "/react-isometric-game/assets/ammo/energy/microfusion_cell/icon.webp",
+        "name": "icon.webp",
+        "size": 784,
         "type": "image"
       },
       "/assets/bg.webp": {
@@ -815,6 +821,12 @@
         "size": 718,
         "type": "image"
       },
+      "/assets/weapons/firearm/rifle/laser_rifle/icon.webp": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/laser_rifle/icon.webp",
+        "name": "icon.webp",
+        "size": 1490,
+        "type": "image"
+      },
       "/assets/weapons/firearm/rifle/sniper_rifle/icon.webp": {
         "path": "/react-isometric-game/assets/weapons/firearm/rifle/sniper_rifle/icon.webp",
         "name": "icon.webp",
@@ -873,8 +885,8 @@
   },
   "audio": {
     "total": {
-      "count": 65,
-      "size": 754594
+      "count": 69,
+      "size": 811103
     },
     "files": {
       "/assets/UI/button.m4a": {
@@ -1127,6 +1139,30 @@
         "path": "/react-isometric-game/assets/weapons/firearm/rico_7.mp3",
         "name": "rico_7.mp3",
         "size": 6061,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/laser_rifle/out_of_ammo.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/laser_rifle/out_of_ammo.m4a",
+        "name": "out_of_ammo.m4a",
+        "size": 16142,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/laser_rifle/reload.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/laser_rifle/reload.m4a",
+        "name": "reload.m4a",
+        "size": 15624,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/laser_rifle/shot_single_1.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/laser_rifle/shot_single_1.m4a",
+        "name": "shot_single_1.m4a",
+        "size": 12251,
+        "type": "audio"
+      },
+      "/assets/weapons/firearm/rifle/laser_rifle/shot_single_2.m4a": {
+        "path": "/react-isometric-game/assets/weapons/firearm/rifle/laser_rifle/shot_single_2.m4a",
+        "name": "shot_single_2.m4a",
+        "size": 12492,
         "type": "audio"
       },
       "/assets/weapons/firearm/rifle/sniper_rifle/out_of_ammo.m4a": {

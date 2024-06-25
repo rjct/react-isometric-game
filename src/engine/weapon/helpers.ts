@@ -5,6 +5,7 @@ import { Unit } from "@src/engine/unit/UnitFactory";
 import { Ammo, AmmoFactory } from "@src/engine/weapon/AmmoFactory";
 import { FirearmAmmo } from "@src/engine/weapon/firearm/FirearmAmmoFactory";
 import { Firearm } from "@src/engine/weapon/firearm/FirearmFactory";
+import { LaserAmmo } from "@src/engine/weapon/laser/LaserAmmoFactory";
 import { MeleePunch } from "@src/engine/weapon/melee/meleePunchFactory";
 import { MeleeWeapon } from "@src/engine/weapon/melee/MeleeWeaponFactory";
 import { ProjectileAmmo } from "@src/engine/weapon/throwable/ProjectileAmmoFactory";
@@ -65,6 +66,7 @@ export function createAmmoByName(ammoName: AmmoName) {
     firearm_ammo: FirearmAmmo,
     grenade_ammo: ProjectileAmmo,
     melee_ammo: MeleePunch,
+    laser_ammo: LaserAmmo,
   };
 
   const ammoDictEntity = getAmmoDictEntityByName(ammoName);

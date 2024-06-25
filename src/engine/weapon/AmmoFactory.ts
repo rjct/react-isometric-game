@@ -1,5 +1,7 @@
 import { StaticMapWeaponAmmo } from "@src/context/GameStateContext";
 import { AmmoDictEntity, AmmoName, WeaponAmmoClass } from "@src/dict/ammo/ammo";
+import { InventoryItem } from "@src/engine/InventoryItemFactory";
+import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 import {
   getAngleBetweenTwoGridPoints,
@@ -7,8 +9,8 @@ import {
   gridToScreenSpace,
   randomUUID,
 } from "@src/engine/helpers";
-import { InventoryItem } from "@src/engine/InventoryItemFactory";
 import { Weapon } from "@src/engine/weapon/WeaponFactory";
+import { CSSProperties } from "react";
 
 export class Ammo extends InventoryItem {
   readonly class: WeaponAmmoClass;
@@ -108,6 +110,14 @@ export class Ammo extends InventoryItem {
 
     gameState.ammoFiredIds = [...gameState.ammoFiredIds.filter((id) => id !== this.id)];
     delete gameState.ammo[this.id];
+  }
+
+  getDerivedCssProps(): CSSProperties {
+    return {
+      left: this.position.screen.x + constants.tileSize.width / 2,
+      top: this.position.screen.y + constants.tileSize.height / 2,
+      transform: `rotateX(60deg) rotateZ(${this.angle.deg - 45}deg) translateZ(40px)`,
+    };
   }
 
   getJSON(): StaticMapWeaponAmmo {

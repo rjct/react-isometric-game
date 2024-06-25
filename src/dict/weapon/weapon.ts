@@ -27,7 +27,7 @@ export type WeaponDamage = {
   min: number;
   max: number;
 };
-export type WeaponDamageType = "normal" | "explosion" | "fire";
+export type WeaponDamageType = "normal" | "explosion" | "fire" | "energy";
 export type WeaponAttackMode = keyof typeof weaponAttackModes;
 
 export type WeaponSfxType = WeaponAttackMode | "outOfAmmo" | "reload";
