@@ -1,13 +1,14 @@
+import { constants } from "@src/engine/constants";
 import { GameMap } from "@src/engine/gameMap";
 
 export const useLightsAndShadows = (gameState: GameMap) => {
   const mapWidth = gameState.mapSize.width;
   const mapHeight = gameState.mapSize.height;
 
-  const tileWidth = 1; //constants.wireframeTileSize.width;
-  const tileHeight = 1; //constants.wireframeTileSize.height;
+  const LRRM = constants.LIGHT_RENDER_RESOLUTION_MULTIPLIER;
+
   const renderShadows = (ctx: CanvasRenderingContext2D) => {
-    ctx.clearRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
+    ctx.clearRect(0, 0, mapWidth * LRRM, mapHeight * LRRM);
 
     if (!gameState.settings.featureEnabled.shadow) {
       return;
@@ -17,7 +18,7 @@ export const useLightsAndShadows = (gameState: GameMap) => {
 
     ctx.globalAlpha = gameState.globalShadows.opacity;
     ctx.fillStyle = gameState.globalShadows.color;
-    ctx.fillRect(0, 0, mapWidth * tileWidth, mapHeight * tileHeight);
+    ctx.fillRect(0, 0, mapWidth * LRRM, mapHeight * LRRM);
 
     //
     ctx.globalAlpha = 1 - gameState.globalShadows.opacity;
@@ -32,12 +33,12 @@ export const useLightsAndShadows = (gameState: GameMap) => {
 
         ctx.beginPath();
 
-        ctx.moveTo(light.intersectsWithWalls[0].x, light.intersectsWithWalls[0].y);
+        ctx.moveTo(light.intersectsWithWalls[0].x * LRRM, light.intersectsWithWalls[0].y * LRRM);
 
         for (let i = 1; i < light.intersectsWithWalls.length; i++) {
           const intersect = light.intersectsWithWalls[i];
 
-          ctx.lineTo(intersect.x, intersect.y);
+          ctx.lineTo(intersect.x * LRRM, intersect.y * LRRM);
         }
 
         ctx.fill();
@@ -45,7 +46,7 @@ export const useLightsAndShadows = (gameState: GameMap) => {
   };
 
   const renderLights = (ctx: CanvasRenderingContext2D) => {
-    ctx.clearRect(0, 0, mapWidth, mapHeight);
+    ctx.clearRect(0, 0, mapWidth * LRRM, mapHeight * LRRM);
 
     if (!gameState.settings.featureEnabled.light) {
       return;
@@ -61,26 +62,26 @@ export const useLightsAndShadows = (gameState: GameMap) => {
         const color = light.getColor();
 
         const colorGradient = ctx.createRadialGradient(
-          light.position.grid.x,
-          light.position.grid.y,
-          light.radius / 2,
-          light.position.grid.x,
-          light.position.grid.y,
+          light.position.grid.x * LRRM,
+          light.position.grid.y * LRRM,
+          light.radius * LRRM,
+          light.position.grid.x * LRRM,
+          light.position.grid.y * LRRM,
           light.radius,
         );
-        colorGradient.addColorStop(0, `${color}FF`);
+        colorGradient.addColorStop(1, `${color}FF`);
         colorGradient.addColorStop(0.5, `${color}80`);
-        colorGradient.addColorStop(1, `${color}00`);
+        colorGradient.addColorStop(0, `${color}00`);
 
         ctx.globalCompositeOperation = "screen";
 
         ctx.fillStyle = colorGradient;
         ctx.beginPath();
-        ctx.moveTo(light.intersectsWithWalls[0].x, light.intersectsWithWalls[0].y);
+        ctx.moveTo(light.intersectsWithWalls[0].x * LRRM, light.intersectsWithWalls[0].y * LRRM);
 
         for (let i = 1; i < light.intersectsWithWalls.length; i++) {
           const intersect = light.intersectsWithWalls[i];
-          ctx.lineTo(intersect.x, intersect.y);
+          ctx.lineTo(intersect.x * LRRM, intersect.y * LRRM);
         }
         ctx.fill();
       });

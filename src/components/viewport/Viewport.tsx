@@ -233,7 +233,7 @@ export const Viewport = React.memo(
     }, [uiState.viewport.grid]);
 
     React.useEffect(() => {
-      if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0) return;
+      if (gameState.mapSize.width === 0 || gameState.mapSize.height === 0 || checkCurrentScene(["editor"])) return;
 
       uiDispatch({
         type: "centerMapOnHero",

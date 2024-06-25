@@ -72,8 +72,8 @@ export const LightsAndShadows = React.memo(() => {
         }}
       ></img>
       <canvas
-        width={gameState.mapSize.width}
-        height={gameState.mapSize.height}
+        width={gameState.mapSize.width * constants.LIGHT_RENDER_RESOLUTION_MULTIPLIER}
+        height={gameState.mapSize.height * constants.LIGHT_RENDER_RESOLUTION_MULTIPLIER}
         ref={canvasRef}
         style={{ display: "none" }}
       />
