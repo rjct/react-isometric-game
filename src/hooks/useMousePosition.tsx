@@ -1,7 +1,8 @@
 import { constants } from "@src/engine/constants";
-import { screenToGridSpace } from "@src/engine/helpers";
+import { getAngleBetweenTwoGridPoints, screenToGridSpace } from "@src/engine/helpers";
+import { normalizeRotation } from "@src/engine/weapon/helpers";
 import { useGameState } from "@src/hooks/useGameState";
-import { HeroAction, HeroActionType, useHero, UserEventType } from "@src/hooks/useHero";
+import { HeroAction, HeroActionType, UserEventType, useHero } from "@src/hooks/useHero";
 import React from "react";
 import { useDebounce } from "use-debounce";
 
@@ -143,6 +144,25 @@ export function useMousePosition() {
     updateMarker(heroAction);
     setHeroActionMenuShow(heroAction.length > 1);
   }, [heroAction]);
+
+  React.useEffect(() => {
+    const heroPosition = hero.getRoundedPosition();
+
+    if (
+      hero.isBusy() ||
+      uiState.mousePosition.isOutOfGrid ||
+      (uiState.mousePosition.grid.x === heroPosition.x && uiState.mousePosition.grid.y === heroPosition.y) ||
+      gameState.mapSize.width <= 0
+    )
+      return;
+
+    const angle = getAngleBetweenTwoGridPoints(uiState.mousePosition.grid, heroPosition);
+
+    if (normalizeRotation(angle.deg, 128).deg !== normalizeRotation(hero.rotation.deg, 128).deg) {
+      hero.setRotation(angle, false);
+      hero.setPosition(heroPosition, gameState);
+    }
+  }, [uiState.mousePosition.grid]);
 
   return {
     getWorldMousePosition,

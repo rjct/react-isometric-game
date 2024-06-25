@@ -472,7 +472,9 @@ export class Unit extends MovableGameEntity {
   }
 
   public getClipPath() {
-    return this.dictEntity.clipPath?.[this.action]?.[`${this.rotation.deg}deg`]?.cssClipPath;
+    const rotation = normalizeRotation(this.rotation.deg, 4);
+
+    return this.dictEntity.clipPath?.[this.action]?.[`${rotation.deg}deg`]?.cssClipPath;
   }
 
   public getJSON(omitUnitType = false) {

@@ -5,6 +5,7 @@ import { UnitHealth } from "@src/components/viewport/layers/userInteraction/unit
 import { UnitShadowComponent } from "@src/components/viewport/layers/userInteraction/units/UnitShadow";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
+import { normalizeRotation } from "@src/engine/weapon/helpers";
 import { useGameState } from "@src/hooks/useGameState";
 import { useMessages } from "@src/hooks/useMessages";
 import { usePreviousValue } from "@src/hooks/usePreviousValue";
@@ -68,7 +69,7 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
 
   return (
     <div
-      data-rotation={props.unit.rotation.deg}
+      data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}
       data-action={props.unit.action}
       data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
       data-selected-for-inventory-transfer={

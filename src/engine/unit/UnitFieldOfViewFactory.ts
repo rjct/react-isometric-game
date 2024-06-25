@@ -118,6 +118,6 @@ export class UnitFieldOfViewFactory {
   }
 
   private calculateRaysForSector(): number {
-    return Math.ceil(this.range * Math.sin(this.sectorAngle.rad / 2) * 2);
+    return Math.ceil(this.range * Math.sin(this.sectorAngle.rad / 2) * 5);
   }
 }
