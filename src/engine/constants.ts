@@ -30,6 +30,7 @@ export const constants = {
   OFFSCREEN_TILE_CACHE: 4,
   FOG_OF_WAR_OPACITY: 1,
   INTRO_SCENE_DISPLAY_TIME: 6000,
+  LIGHT_RENDER_RESOLUTION_MULTIPLIER: 2,
   TERRAIN_CLUSTER_SIZE: {
     grid: {
       width: terrainClusterGridSize.width,
@@ -62,7 +63,7 @@ export const constants = {
       fogOfWar: true,
       light: true,
       shadow: true,
-      unitShadow: false,
+      unitShadow: true,
     },
 
     debug: {

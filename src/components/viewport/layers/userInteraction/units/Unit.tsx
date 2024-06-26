@@ -34,6 +34,18 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     !props.unit.isVehicleInUse() &&
     (isEditing ||
       (gameState.isEntityVisibleByHero(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport)));
+  const isUnitShadowsEnabled = React.useMemo(() => {
+    return gameState.settings.featureEnabled.unitShadow;
+  }, [gameState.settings.featureEnabled.unitShadow]);
+
+  const unitCssProps = React.useMemo((): CSSProperties => {
+    return {
+      transform: getCss3dPosition(props.unit.position.screen, false),
+      zIndex: props.unit.zIndex,
+      width: props.unit.dictEntity.size.screen.width,
+      height: props.unit.dictEntity.size.screen.height,
+    };
+  }, [props.unit.zIndex, props.unit.position.screen]);
 
   React.useEffect(() => {
     if (!isUnitVisible) return;
@@ -68,59 +80,68 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
   if (!isUnitVisible) return null;
 
   return (
-    <div
-      data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}
-      data-action={props.unit.action}
-      data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
-      data-selected-for-inventory-transfer={
-        gameState.highlightedEntityForInventoryTransfer?.id === props.unit.id ||
-        gameState.selectedEntityForInventoryTransfer?.id === props.unit.id ||
-        null
-      }
-      data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
-      data-highlighed={
-        (!props.unit.isDead &&
-          uiState.scene === "combat" &&
-          !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
-        null
-      }
-      data-in-hero-view={props.isInHeroView}
-      data-selected={props.selected || null}
-      data-dragging={props.dragging || null}
-      onMouseMove={(e: React.MouseEvent) => {
-        if (props.onMouseMove) {
-          props.onMouseMove(e, props.unit);
+    <>
+      <div
+        data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}
+        data-action={props.unit.action}
+        data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
+        data-selected-for-inventory-transfer={
+          gameState.highlightedEntityForInventoryTransfer?.id === props.unit.id ||
+          gameState.selectedEntityForInventoryTransfer?.id === props.unit.id ||
+          null
         }
-      }}
-      onMouseDown={(e: React.MouseEvent) => {
-        if (props.onMouseDown) {
-          props.onMouseDown(e, props.unit);
+        data-at-gunpoint={(!props.unit.isDead && props.unit.atGunpoint) || null}
+        data-highlighed={
+          (!props.unit.isDead &&
+            uiState.scene === "combat" &&
+            !!gameState.combatQueue.units.find((unit) => unit.id === props.unit.id)) ||
+          null
         }
-      }}
-      onMouseUp={props.onMouseUp}
-      onDragStart={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-      }}
-      className={props.unit.className}
-      style={{
-        transform: getCss3dPosition(props.unit.position.screen, false),
-        zIndex: props.unit.zIndex,
-        width: props.unit.dictEntity.size.screen.width,
-        height: props.unit.dictEntity.size.screen.height,
-        clipPath: props.unit.getClipPath(),
-        ...props.style,
-      }}
-    >
-      <div className="char"></div>
-      <UnitEnemyInViewMark unit={props.unit} />
-      <UnitCooldownTimer unit={props.unit} />
-      <UnitHealth unit={props.unit} />
-      <UnitActionPoints unit={props.unit} />
+        data-in-hero-view={props.isInHeroView}
+        data-selected={props.selected || null}
+        data-dragging={props.dragging || null}
+        onMouseMove={(e: React.MouseEvent) => {
+          if (props.onMouseMove) {
+            props.onMouseMove(e, props.unit);
+          }
+        }}
+        onMouseDown={(e: React.MouseEvent) => {
+          if (props.onMouseDown) {
+            props.onMouseDown(e, props.unit);
+          }
+        }}
+        onMouseUp={props.onMouseUp}
+        onDragStart={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+        }}
+        className={props.unit.className}
+        style={{
+          ...unitCssProps,
+          clipPath: props.unit.getClipPath(),
+          ...props.style,
+        }}
+      >
+        <div className="char"></div>
+        <UnitEnemyInViewMark unit={props.unit} />
+        <UnitCooldownTimer unit={props.unit} />
+        <UnitHealth unit={props.unit} />
+        <UnitActionPoints unit={props.unit} />
+      </div>
 
-      {props.unit.shadows.map((shadow, index) => (
-        <UnitShadowComponent key={index} shadow={shadow} />
-      ))}
-    </div>
+      {isUnitShadowsEnabled ? (
+        <div
+          className={`${props.unit.className} unit-shadows-container`}
+          data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}
+          data-action={props.unit.action}
+          data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
+          style={unitCssProps}
+        >
+          {props.unit.shadows.map((shadow, index) => (
+            <UnitShadowComponent key={index} shadow={shadow} />
+          ))}
+        </div>
+      ) : null}
+    </>
   );
 });

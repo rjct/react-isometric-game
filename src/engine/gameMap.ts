@@ -383,15 +383,9 @@ export const gameMap = {
   },
 
   getUnitByCoordinates(coordinates: GridCoordinates): Unit | undefined {
-    const units = this.getAllUnitsArray();
+    const { x, y } = coordinates;
 
-    for (const unit of units) {
-      const unitPosition = unit.getRoundedPosition();
-
-      if (unitPosition.x === floor(coordinates.x) && unitPosition.y === floor(coordinates.y)) {
-        return unit;
-      }
-    }
+    return [...this.occupancyMatrix[y][x].values()].filter((n) => n instanceof Unit)[0] as Unit;
   },
 
   getUnitsByCoordinatesInRadius(coordinates: GridCoordinates, radius = 0): Unit[] {

@@ -30,5 +30,10 @@
   "vehicles": [],
   "globalShadows": { "color": "#000d23", "opacity": 0.35 },
   "globalLights": { "opacity": 0.25 },
-  "lights": [{ "position": { "x": 10, "y": 2 }, "color": "#ffffff", "radius": 20 }]
+  "lights": [
+    { "position": { "x": 0, "y": 0 }, "color": "#ff0000", "radius": 20 },
+    { "position": { "x": 20, "y": 20 }, "color": "#00ff00", "radius": 20 },
+    { "position": { "x": 0, "y": 20 }, "color": "#0000ff", "radius": 20 },
+    { "position": { "x": 20, "y": 0 }, "color": "#ffff00", "radius": 20 }
+  ]
 }
