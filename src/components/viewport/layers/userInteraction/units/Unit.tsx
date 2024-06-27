@@ -1,8 +1,4 @@
-import { UnitActionPoints } from "@src/components/viewport/layers/userInteraction/units/UnitActionPoints";
-import { UnitCooldownTimer } from "@src/components/viewport/layers/userInteraction/units/UnitCooldownTimer";
-import { UnitEnemyInViewMark } from "@src/components/viewport/layers/userInteraction/units/UnitEnemyInViewMark";
-import { UnitHealth } from "@src/components/viewport/layers/userInteraction/units/UnitHealth";
-import { UnitShadowComponent } from "@src/components/viewport/layers/userInteraction/units/UnitShadow";
+import { UnitAdditionalInfo } from "@src/components/viewport/layers/userInteraction/units/additionalInfo/UnitAdditionalInfo";
 import { getCss3dPosition } from "@src/engine/helpers";
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { normalizeRotation } from "@src/engine/weapon/helpers";
@@ -34,9 +30,6 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
     !props.unit.isVehicleInUse() &&
     (isEditing ||
       (gameState.isEntityVisibleByHero(props.unit) && gameState.isEntityInViewport(props.unit, uiState.viewport)));
-  const isUnitShadowsEnabled = React.useMemo(() => {
-    return gameState.settings.featureEnabled.unitShadow;
-  }, [gameState.settings.featureEnabled.unitShadow]);
 
   const unitCssProps = React.useMemo((): CSSProperties => {
     return {
@@ -123,25 +116,23 @@ export const UnitComponent = React.memo(function UnitComponent(props: {
         }}
       >
         <div className="char"></div>
-        <UnitEnemyInViewMark unit={props.unit} />
-        <UnitCooldownTimer unit={props.unit} />
-        <UnitHealth unit={props.unit} />
-        <UnitActionPoints unit={props.unit} />
       </div>
 
-      {isUnitShadowsEnabled ? (
-        <div
-          className={`${props.unit.className} unit-shadows-container`}
-          data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}
-          data-action={props.unit.action}
-          data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}
-          style={unitCssProps}
-        >
-          {props.unit.shadows.map((shadow, index) => (
-            <UnitShadowComponent key={index} shadow={shadow} />
-          ))}
-        </div>
-      ) : null}
+      <UnitAdditionalInfo unit={props.unit} unitCssProps={unitCssProps} />
+
+      {/*{isUnitShadowsEnabled ? (*/}
+      {/*  <div*/}
+      {/*    className={`${props.unit.className} unit-shadows-container`}*/}
+      {/*    data-rotation={normalizeRotation(props.unit.rotation.deg, 4).deg}*/}
+      {/*    data-action={props.unit.action}*/}
+      {/*    data-weapon={props.unit.getCurrentWeapon()?.dictEntity.type}*/}
+      {/*    style={unitCssProps}*/}
+      {/*  >*/}
+      {/*    {props.unit.shadows.map((shadow, index) => (*/}
+      {/*      <UnitShadowComponent key={index} shadow={shadow} />*/}
+      {/*    ))}*/}
+      {/*  </div>*/}
+      {/*) : null}*/}
     </>
   );
 });

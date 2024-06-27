@@ -13,22 +13,71 @@
 
   transform-style: preserve-3d;
 
-  &.unit-shadows-container {
-    z-index: 1 !important;
+  &.unit-additional {
+    //z-index: 1 !important;
     pointer-events: none;
 
-    .unit-shadow-fade {
-      pointer-events: none;
-      position: absolute;
-      left: 40%;
-      top: 20%;
+    .unit-info {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      justify-content: flex-start;
+      margin: 20%;
 
-      &.fadeIn {
-        opacity: 1;
+      .health,
+      .action-points {
+        background-color: rgba(255, 0, 0, 0.5);
+        width: 100%;
+        height: 3px;
+        border-radius: 3px;
+        overflow: hidden;
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+
+        > div {
+          height: 5px;
+          position: absolute;
+          background-color: @text-color;
+        }
       }
 
-      &.fade-out {
-        opacity: 0;
+      .action-points {
+        background-color: rgb(65, 140, 255);
+        top: -10px;
+      }
+
+      .cooldown {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        border: solid 1px @text-color;
+        filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
+      }
+
+      .enemy-in-view {
+        position: absolute;
+        width: 30px;
+        height: 30px;
+        left: calc(50% - 10px);
+        top: 5%;
+        color: coral;
+        filter: drop-shadow(0 4px 6px black);
+      }
+    }
+
+    .unit-shadows-container {
+      .unit-shadow-fade {
+        pointer-events: none;
+        position: absolute;
+        left: 40%;
+        top: 20%;
+
+        &.fadeIn {
+          opacity: 1;
+        }
+
+        &.fade-out {
+          opacity: 0;
+        }
       }
     }
   }
@@ -68,50 +117,6 @@
     z-index: 2;
 
     .entity-filter-transition();
-  }
-
-  .health,
-  .action-points {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background-color: rgba(255, 0, 0, 0.5);
-    width: 100%;
-    height: 3px;
-    border-radius: 3px;
-    overflow: hidden;
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-
-    > div {
-      height: 5px;
-      position: absolute;
-      background-color: @text-color;
-    }
-  }
-
-  .action-points {
-    background-color: rgb(65, 140, 255);
-    top: -10px;
-  }
-
-  .cooldown {
-    position: absolute;
-    top: -10px;
-    left: -20px;
-
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    border: solid 1px @text-color;
-    filter: drop-shadow(1px 1px 1px rgba(0, 0, 0, 0.5));
-  }
-
-  .enemy-in-view {
-    position: absolute;
-    left: 27%;
-    top: -25px;
-    color: coral;
-    filter: drop-shadow(0 4px 6px black);
   }
 
   .unit-rotation(@unit-sprite-height);

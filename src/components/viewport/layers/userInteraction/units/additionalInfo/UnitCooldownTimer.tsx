@@ -1,8 +1,7 @@
 import { Unit } from "@src/engine/unit/UnitFactory";
 import { useGameState } from "@src/hooks/useGameState";
-import React from "react";
 
-export const UnitCooldownTimer = React.memo((props: { unit: Unit }) => {
+export const UnitCooldownTimer = (props: { unit: Unit }) => {
   const { gameState } = useGameState();
 
   if (!gameState.debug.enabled || !gameState.debug.featureEnabled.unitInfo || props.unit.isHero || props.unit.isDead)
@@ -18,4 +17,4 @@ export const UnitCooldownTimer = React.memo((props: { unit: Unit }) => {
       }}
     ></div>
   );
-});
+};
