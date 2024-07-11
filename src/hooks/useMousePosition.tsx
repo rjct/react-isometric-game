@@ -150,6 +150,7 @@ export function useMousePosition() {
 
     if (
       hero.isBusy() ||
+      hero.isVehicleInUse() ||
       uiState.mousePosition.isOutOfGrid ||
       (uiState.mousePosition.grid.x === heroPosition.x && uiState.mousePosition.grid.y === heroPosition.y) ||
       gameState.mapSize.width <= 0
